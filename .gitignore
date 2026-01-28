@@ -1,0 +1,42 @@
+# Secrets and sensitive data
+*.key
+*.pem
+*.p12
+credentials.txt
+.env
+.env.local
+secrets.txt
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+.DS_Store
+Thumbs.db
+
+# Build and dependency directories
+node_modules/
+target/
+dist/
+build/
+
+# Editor and IDE files
+.vscode/settings.json
+.idea/
+*.swp
+*.swo
+*~
+
+# System files
+.cache/
+.local/
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# Training environment specific
+*.session
+*.history
+retries.log
