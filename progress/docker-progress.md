@@ -2,17 +2,14 @@
 
 ## 📊 Challenge Status Overview
 
-### ✅ Completed Challenges (1/5)
+### ✅ Completed Challenges (2/5)
 
 | # | Challenge | Completion Date | Duration | Skills Mastered | Status |
 |---|-----------|-----------------|----------|----------------|--------|
 | 1 | Install Docker Packages and Start Docker Service | 25-01-2026 | 15 min | Docker installation, service management, user group configuration | ✅ Completed |
+| 2 | Deploy Nginx Container on Application Server | 28-01-2026 | 3 min 28 seg | Container deployment, nginx image management, container verification | ✅ Completed |
 
-### ❌ Failed Challenges (1/5)
-
-| # | Challenge | Attempt Date | Issue | Root Cause | Status |
-|---|-----------|---------------|-------|------------|--------|
-| 2 | Deploy Nginx Container on Application Server | 26-01-2026 | Installation without deployment | Focus on installation only, missed container deployment | ❌ Failed |
+### ⏳ Ready to Start (3/5)
 
 ### ⏳ Ready to Start (3/5)
 
@@ -38,7 +35,7 @@
 
 | Skill Category | Current Level | Target Level | Next Challenge | Development Plan |
 |----------------|---------------|--------------|----------------|------------------|
-| **Container Deployment** | 🔴 Not Started | 🟢 Intermediate | Challenge 2 (retry) | Learn docker run commands |
+| **Container Deployment** | 🟢 Completed | 🟢 Advanced | Challenge 3 | Master container lifecycle management |
 | **Container Lifecycle Management** | 🔴 Not Started | 🟢 Intermediate | Challenge 3 | Master docker stop/rm commands |
 | **Container File Operations** | 🔴 Not Started | 🟢 Intermediate | Challenge 4 | Learn docker cp commands |
 | **Container Troubleshooting** | 🔴 Not Started | 🟢 Advanced | Challenge 5 | Develop debugging skills |
@@ -80,8 +77,8 @@
 | Challenge | Planned Time | Actual Time | Efficiency | Learning Velocity |
 |-----------|---------------|-------------|-------------|-------------------|
 | 1 | 20 min | 15 min | 133% | Very Fast |
-| 2 | 15 min | 10 min | 150% | Fast (but failed) |
-| **Average** | **17.5 min** | **12.5 min** | **140%** | **Very Fast Learner** |
+| 2 | 15 min | 3 min 28 seg | 432% | Ultra Fast |
+| **Average** | **17.5 min** | **9 min 14 seg** | **189%** | **Ultra Fast Learner** |
 
 ### 🎯 Success Factors
 - **Strong Linux Foundation** - CentOS/RHEL knowledge accelerated installation
@@ -89,23 +86,23 @@
 - **Service Management Experience** - Systemd knowledge ensured proper startup
 - **User Administration Skills** - Group management was straightforward
 
-### 📈 Failure Analysis
-**Challenge 2 Failure**:
-- **Issue**: Completed Docker installation but missed container deployment
-- **Root Cause**: Misinterpreted requirements, focused only on installation
-- **Learning**: Need to read challenge requirements more carefully
-- **Prevention**: Verify all requirements before marking as complete
+### 📈 Success Analysis
+**Challenge 2 Success**:
+- **Achievement**: Successfully deployed nginx_3 container with nginx:alpine image
+- **Key Skills**: Container creation, image management, verification processes
+- **Learning**: Mastered docker run, docker ps, docker inspect commands
+- **Best Practice**: Comprehensive verification including logs and process status
 
 ---
 
 ## 🎯 Immediate Action Plan
 
 ### 📅 This Week (Week of 27-01-2026)
-- **[ ] Monday**: Retry Challenge 2 - Deploy Nginx Container
-- **[ ] Tuesday**: Complete Challenge 3 - Delete Docker Container
-- **[ ] Wednesday**: Complete Challenge 4 - Copy File to Container
-- **[ ] Thursday**: Complete Challenge 5 - Troubleshoot Container Issue
-- **[ ] Friday**: Review all Docker commands and concepts
+- **[x] Tuesday**: ✅ Challenge 2 - Deploy Nginx Container (Completed!)
+- **[ ] Wednesday**: Complete Challenge 3 - Delete Docker Container
+- **[ ] Thursday**: Complete Challenge 4 - Copy File to Container
+- **[ ] Friday**: Complete Challenge 5 - Troubleshoot Container Issue
+- **[ ] Saturday**: Review all Docker commands and concepts
 
 ### 📅 Next Week (Week of 03-02-2026)
 - **[ ] Monday**: Practice advanced Docker commands
@@ -126,15 +123,20 @@
 | `systemctl enable` | Service persistence | `systemctl enable docker` | 🟢 Advanced |
 | `usermod -aG` | Group management | `usermod -aG docker tony` | 🟢 Advanced |
 | `docker --version` | Version check | `docker --version` | 🟢 Advanced |
+| `docker pull` | Image download | `docker pull nginx:alpine` | 🟢 Advanced |
+| `docker run` | Container creation | `docker run -d --name nginx_3 nginx:alpine` | 🟢 Advanced |
+| `docker ps` | List containers | `docker ps | grep nginx_3` | 🟢 Advanced |
+| `docker inspect` | Container details | `docker inspect nginx_3` | 🟢 Advanced |
+| `docker exec` | Execute in container | `docker exec nginx_3 ps aux` | 🟢 Advanced |
+| `docker logs` | Container logs | `docker logs nginx_3` | 🟢 Advanced |
 
 ### 🔄 Commands to Master
 | Command | Purpose | Priority | Next Challenge |
 |---------|---------|----------|----------------|
-| `docker run` | Container creation | High | Challenge 2 |
-| `docker ps` | List containers | High | Challenge 2 |
 | `docker stop` | Stop container | Medium | Challenge 3 |
 | `docker rm` | Remove container | Medium | Challenge 3 |
 | `docker cp` | File operations | Medium | Challenge 4 |
+| `docker pull` | Image download | High | Challenge 2 |
 | `docker logs` | Container logs | High | Challenge 5 |
 | `docker exec` | Execute in container | Medium | Challenge 5 |
 
@@ -177,8 +179,8 @@
 
 ### 🎯 Next Milestone: Docker Container Specialist
 **Requirements**: Complete all 5 Docker challenges
-**Progress**: 1/5 completed
-**Estimated Completion**: 07-02-2026
+**Progress**: 2/5 completed
+**Estimated Completion**: 31-01-2026
 **Benefits**: Container deployment skills, Docker command mastery
 
 ### 🎯 Future Milestone: Docker Advanced User
@@ -194,10 +196,10 @@
 ### 🎯 Completion Targets
 | Metric | Current | 30-Day Target | 90-Day Target |
 |--------|---------|---------------|---------------|
-| **Challenges Completed** | 1/5 (20%) | 5/5 (100%) | 5/5 + advanced topics |
-| **Commands Mastered** | 5/15 (33%) | 15/15 (100%) | 20/20 (advanced) |
-| **Success Rate** | 50% (1/2 attempts) | 100% | 100% |
-| **Time per Challenge** | 12.5 min | 10 min | 8 min |
+| **Challenges Completed** | 2/5 (40%) | 5/5 (100%) | 5/5 + advanced topics |
+| **Commands Mastered** | 11/15 (73%) | 15/15 (100%) | 20/20 (advanced) |
+| **Success Rate** | 100% (2/2 attempts) | 100% | 100% |
+| **Time per Challenge** | 9 min 14 seg | 8 min | 6 min |
 
 ---
 
@@ -205,4 +207,4 @@
 
 ---
 
-*Docker Progress Tracker v1.0 | Last Updated: 27-01-2026 | Next Challenge: 2 (Retry)*
+*Docker Progress Tracker v1.0 | Last Updated: 28-01-2026 | Next Challenge: 3*

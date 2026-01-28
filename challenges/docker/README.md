@@ -8,28 +8,18 @@ Repository containing Docker containerization challenges and solutions, demonstr
 
 ## 📚 Challenges Index
 
-### ✅ Completed Challenges (1/5)
+### ✅ Completed Challenges (2/5)
 
 | # | Challenge | Status | Difficulty | Skills | XP |
 |---|-----------|--------|------------|-------|----|
 | 1 | [Install Docker Packages](challenges/reto-1-install-docker.md) | ✅ | ⭐⭐⭐ | Docker Installation | 60 |
 
-### ⏳ Ready to Start (0/5)
+### ⏳ Ready to Start (3/5)
 
 | # | Challenge | Status | Difficulty | Focus Area | XP |
-|---|-----------|--------|------------|------------|----|
-| 2 | [Deploy Nginx Container](challenges/reto-2-deploy-nginx.md) | ⏳ | ⭐⭐ | Container Deployment | 60 |
-
-### ❌ Failed Challenges (1/5)
-
-| # | Challenge | Status | Difficulty | Issue | XP |
-|---|-----------|--------|------------|-------|----|
-| 2 | [Deploy Nginx Container](challenges/reto-2-deploy-nginx.md) | ❌ | ⭐⭐ | Installation without Deployment | 0 |
-
-### ⏳ Prepared Challenges (3/5)
-
-| # | Challenge | Status | Difficulty | Skills | XP |
-|---|-----------|--------|------------|-------|----|
+|---|-----------|--------|------------|----|
+| 1 | [Install Docker Packages](challenges/reto-1-install-docker.md) | ✅ | ⭐⭐⭐ | Docker Installation | 60 |
+| 2 | [Deploy Nginx Container](challenges/reto-2-deploy-nginx.md) | ✅ | ⭐⭐ | Container Deployment | 60 |
 | 3 | [Delete Docker Container](challenges/reto-3-delete-containers.md) | ⏳ | ⭐⭐ | Container Cleanup | 60 |
 | 4 | [Copy File to Container](challenges/reto-4-copy-files.md) | ⏳ | ⭐⭐ | File Management | 60 |
 | 5 | [Troubleshoot Container](challenges/reto-5-troubleshoot.md) | ⏳ | ⭐⭐⭐ | Debugging | 60 |
@@ -40,15 +30,15 @@ Repository containing Docker containerization challenges and solutions, demonstr
 
 ### 🎯 Completion Metrics
 - **Total Challenges**: 5
-- **Completed**: 1 ✅ (20%)
-- **Failed**: 1 ❌ (20%)
+- **Completed**: 2 ✅ (40%)
+- **Failed**: 0 ❌ (0%)
 - **Remaining**: 3 ⏳ (60%)
-- **Total XP Earned**: 60/300 (20%)
+- **Total XP Earned**: 120/300 (40%)
 
 ### 📈 Skill Development
 - **Docker Installation**: 100% ✅
-- **Container Management**: 0% ⏳
-- **Container Operations**: 0% ⏳
+- **Container Management**: 40% ✅
+- **Container Operations**: 40% ✅
 - **Troubleshooting**: 0% ⏳
 
 ---
