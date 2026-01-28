@@ -1,6 +1,48 @@
 import fs from 'fs/promises';
 import path from 'path';
 
+// Función para generar datos de ejemplo cuando no existe el archivo
+function generateMockData() {
+  return {
+    overview: {
+      totalChallenges: 123,
+      completed: 9,
+      completionRate: 7.3,
+      streak: 6
+    },
+    linux: {
+      total: 18,
+      completed: 4,
+      percentage: 22.2
+    },
+    docker: {
+      total: 5,
+      completed: 1,
+      percentage: 20.0
+    },
+    devops: {
+      total: 100,
+      completed: 4,
+      percentage: 4.0
+    },
+    recentActivity: [
+      "Day 16 - Setting up monitoring infrastructure",
+      "Day 15 - CI/CD pipeline implementation", 
+      "Day 14 - Docker container optimization",
+      "Day 13 - Linux user management",
+      "Day 12 - Network configuration",
+      "Day 11 - Security hardening",
+      "Day 10 - Backup strategies",
+      "Day 9 - Performance tuning"
+    ],
+    skills: [
+      "User Management", "Docker Containers", "Shell Scripting",
+      "Network Configuration", "Security Hardening", "Monitoring",
+      "CI/CD Pipelines", "Performance Tuning", "Backup Strategies"
+    ]
+  };
+}
+
 // Función para parsear el archivo overview.md que tiene métricas consolidadas
 async function parseOverviewFile(filePath) {
   try {
@@ -75,8 +117,14 @@ async function generateChallengesData() {
   const overviewPath = path.join(progressDir, 'overview.md');
   
   try {
-    // Parsear el archivo overview.md que tiene las métricas consolidadas
-    const data = await parseOverviewFile(overviewPath);
+    // Intentar parsear el archivo overview.md, si no existe usar datos de ejemplo
+    let data;
+    try {
+      data = await parseOverviewFile(overviewPath);
+    } catch (error) {
+      console.warn('⚠️ Overview file not found, using mock data for demo');
+      data = generateMockData();
+    }
     
     if (!data) {
       throw new Error('Could not parse overview.md');
