@@ -1,4 +1,4 @@
-name: Deploy Challenges Dashboard with Enhanced Features
+name: Deploy Challenges Dashboard
 
 on:
   push:
