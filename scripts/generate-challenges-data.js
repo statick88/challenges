@@ -119,7 +119,10 @@ async function generateChallengesData() {
   try {
     // Intentar parsear el archivo overview.md, si no existe usar datos de ejemplo
     let data;
+    
+    // Verificar si el archivo existe antes de intentar leerlo
     try {
+      await fs.access(overviewPath);
       data = await parseOverviewFile(overviewPath);
     } catch (error) {
       console.warn('⚠️ Overview file not found, using mock data for demo');
@@ -127,7 +130,8 @@ async function generateChallengesData() {
     }
     
     if (!data) {
-      throw new Error('Could not parse overview.md');
+      console.warn('⚠️ No data available, using mock data');
+      data = generateMockData();
     }
     
     const challengesData = {
