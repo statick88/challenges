@@ -20,8 +20,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          path: challenges-repo
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -31,23 +29,20 @@ jobs:
 
       - name: Install dependencies
         run: |
-          cd challenges-repo/challenges-dashboard
           npm ci
 
       - name: Parse progress data
         run: |
-          cd challenges-repo/challenges-dashboard
           npm run parse-data
 
       - name: Build with Astro
         run: |
-          cd challenges-repo/challenges-dashboard
           npm run build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: challenges-repo/challenges-dashboard/dist
+          path: ./dist
 
   deploy:
     environment:
