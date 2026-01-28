@@ -7,7 +7,7 @@ interface Props {
   height?: string;
 }
 
-const { percentage, total, completed, showLabel = true, height = "h-3" } = Astro.props<Props>();
+const { percentage, total, completed, showLabel = true, height = "h-3" } = Astro.props;
 
 <div class={`relative w-full bg-secondary rounded-full ${height} overflow-hidden`}>
   <div 

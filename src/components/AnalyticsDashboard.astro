@@ -4,7 +4,7 @@ interface Props {
   showAnalytics?: boolean;
 }
 
-const { showAnalytics = false } = Astro.props<Props>();
+const { showAnalytics = false } = Astro.props;
 
 <div class="analytics-dashboard bg-secondary rounded-xl p-6 mb-8" style={showAnalytics ? 'display: block;' : 'display: none;'}>
   <h3 class="text-text text-xl font-semibold mb-6 flex items-center">
