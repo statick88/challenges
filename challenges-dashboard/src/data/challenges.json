@@ -1,0 +1,103 @@
+{
+  "lastUpdated": "2026-01-28T17:47:35.534Z",
+  "overview": {
+    "totalChallenges": 123,
+    "completed": 9,
+    "completionRate": 7.3,
+    "streak": 6
+  },
+  "programs": {
+    "linux": {
+      "total": 18,
+      "completed": 4,
+      "percentage": 22.2,
+      "recentActivity": [],
+      "skills": [
+        "User Management"
+      ],
+      "name": "Linux",
+      "icon": "🐧",
+      "color": "blue"
+    },
+    "docker": {
+      "total": 5,
+      "completed": 1,
+      "percentage": 20,
+      "recentActivity": [
+        "Docker"
+      ],
+      "skills": [
+        "Container Management"
+      ],
+      "name": "Docker",
+      "icon": "🐳",
+      "color": "cyan"
+    },
+    "devops": {
+      "total": 100,
+      "completed": 4,
+      "percentage": 4,
+      "recentActivity": [
+        "DevOps"
+      ],
+      "skills": [
+        "Scripting & Automation"
+      ],
+      "name": "DevOps",
+      "icon": "⚙️",
+      "color": "purple"
+    }
+  },
+  "recentActivity": [
+    {
+      "program": "devops",
+      "activity": "Challenge 04 Completed",
+      "icon": "⚙️"
+    },
+    {
+      "program": "devops",
+      "activity": "Day 04 Completed",
+      "icon": "⚙️"
+    },
+    {
+      "program": "devops",
+      "activity": "Challenge 01 Completed",
+      "icon": "⚙️"
+    },
+    {
+      "program": "devops",
+      "activity": "Day 03 Completed",
+      "icon": "⚙️"
+    },
+    {
+      "program": "devops",
+      "activity": "Day 02 Completed",
+      "icon": "⚙️"
+    },
+    {
+      "program": "devops",
+      "activity": "Day 01 Completed",
+      "icon": "⚙️"
+    },
+    {
+      "program": "docker",
+      "activity": "Docker",
+      "icon": "🐳"
+    },
+    {
+      "program": "devops",
+      "activity": "DevOps",
+      "icon": "⚙️"
+    }
+  ],
+  "skills": [
+    "User Management",
+    "Security Configuration",
+    "Container Management",
+    "Scripting & Automation",
+    "System Administration",
+    "Network Configuration",
+    "CI/CD Pipelines",
+    "Infrastructure as Code"
+  ]
+}

@@ -1,0 +1,112 @@
+---
+import type { ChallengesData } from '../types/challenges.d.ts';
+
+interface Props {
+  data: ChallengesData['programs'];
+}
+
+const { data } = Astro.props<Props>();
+
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+  <!-- Linux Card -->
+  <div class="bg-secondary rounded-xl p-6 slide-up">
+    <div class="flex items-center mb-6">
+      <span class="text-3xl mr-3">🐧</span>
+      <h3 class="text-text text-xl font-semibold">{data.linux.name} Challenges</h3>
+    </div>
+    
+    <div class="mb-4">
+      <div class="relative w-full bg-secondary rounded-full h-3 overflow-hidden">
+        <div class="absolute top-0 left-0 h-full bg-gradient-to-r from-accent to-emerald-400 rounded-full transition-all duration-700 ease-out" style="width: 22.2%"></div>
+      </div>
+      <div class="flex justify-between mt-2 text-sm">
+        <span class="text-text">{data.linux.completed} completed</span>
+        <span class="text-muted">22.2%</span>
+        <span class="text-muted">of {data.linux.total} total</span>
+      </div>
+    </div>
+    
+    <div class="grid grid-cols-3 gap-4 text-center mb-4">
+      <div>
+        <div class="text-2xl font-bold text-text">{data.linux.completed}</div>
+        <div class="text-xs text-muted">Completed</div>
+      </div>
+      <div>
+        <div class="text-2xl font-bold text-accent">22.2%</div>
+        <div class="text-xs text-muted">Progress</div>
+      </div>
+      <div>
+        <div class="text-2xl font-bold text-muted">{data.linux.total - data.linux.completed}</div>
+        <div class="text-xs text-muted">Remaining</div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Docker Card -->
+  <div class="bg-secondary rounded-xl p-6 slide-up" style="animation-delay: 0.1s">
+    <div class="flex items-center mb-6">
+      <span class="text-3xl mr-3">🐳</span>
+      <h3 class="text-text text-xl font-semibold">{data.docker.name} Challenges</h3>
+    </div>
+    
+    <div class="mb-4">
+      <div class="relative w-full bg-secondary rounded-full h-3 overflow-hidden">
+        <div class="absolute top-0 left-0 h-full bg-gradient-to-r from-accent to-emerald-400 rounded-full transition-all duration-700 ease-out" style="width: 20%"></div>
+      </div>
+      <div class="flex justify-between mt-2 text-sm">
+        <span class="text-text">{data.docker.completed} completed</span>
+        <span class="text-muted">20%</span>
+        <span class="text-muted">of {data.docker.total} total</span>
+      </div>
+    </div>
+    
+    <div class="grid grid-cols-3 gap-4 text-center mb-4">
+      <div>
+        <div class="text-2xl font-bold text-text">{data.docker.completed}</div>
+        <div class="text-xs text-muted">Completed</div>
+      </div>
+      <div>
+        <div class="text-2xl font-bold text-accent">20%</div>
+        <div class="text-xs text-muted">Progress</div>
+      </div>
+      <div>
+        <div class="text-2xl font-bold text-muted">{data.docker.total - data.docker.completed}</div>
+        <div class="text-xs text-muted">Remaining</div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- DevOps Card -->
+  <div class="bg-secondary rounded-xl p-6 slide-up" style="animation-delay: 0.2s">
+    <div class="flex items-center mb-6">
+      <span class="text-3xl mr-3">⚙️</span>
+      <h3 class="text-text text-xl font-semibold">{data.devops.name} Challenges</h3>
+    </div>
+    
+    <div class="mb-4">
+      <div class="relative w-full bg-secondary rounded-full h-3 overflow-hidden">
+        <div class="absolute top-0 left-0 h-full bg-gradient-to-r from-accent to-emerald-400 rounded-full transition-all duration-700 ease-out" style="width: 4%"></div>
+      </div>
+      <div class="flex justify-between mt-2 text-sm">
+        <span class="text-text">{data.devops.completed} completed</span>
+        <span class="text-muted">4%</span>
+        <span class="text-muted">of {data.devops.total} total</span>
+      </div>
+    </div>
+    
+    <div class="grid grid-cols-3 gap-4 text-center mb-4">
+      <div>
+        <div class="text-2xl font-bold text-text">{data.devops.completed}</div>
+        <div class="text-xs text-muted">Completed</div>
+      </div>
+      <div>
+        <div class="text-2xl font-bold text-accent">4%</div>
+        <div class="text-xs text-muted">Progress</div>
+      </div>
+      <div>
+        <div class="text-2xl font-bold text-muted">{data.devops.total - data.devops.completed}</div>
+        <div class="text-xs text-muted">Remaining</div>
+      </div>
+    </div>
+  </div>
+</div>
