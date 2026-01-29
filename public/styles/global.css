@@ -1,48 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
-/* CSS Reset to prevent browser overrides */
-* {
-  box-sizing: border-box;
-}
-
-html, body {
-  margin: 0;
-  padding: 0;
-  background-color: rgb(15 23 42) !important;
-  color: rgb(248 250 252) !important;
-}
-
 /* Custom CSS variables and global styles */
 :root {
   --progress: 0%;
-  /* Define CSS variables for theme consistency */
-  --color-primary: 15 23 42;
-  --color-secondary: 30 41 59;
-  --color-accent: 16 185 129;
-  --color-success: 34 197 94;
-  --color-warning: 245 158 11;
-  --color-text: 248 250 252;
-  --color-muted: 148 163 184;
-}
-
-html, body {
-  font-family: 'Inter', system-ui, sans-serif;
-  /* Force dark theme by default */
-  background-color: rgb(var(--color-primary));
-  color: rgb(var(--color-text));
-  /* Prevent browser default overrides */
-  background-image: none;
-}
-
-/* Ensure theme consistency */
-* {
-  border-color: rgb(var(--color-secondary));
 }
 
 body {
-  margin: 0;
-  padding: 0;
-  line-height: inherit;
+  font-family: 'Inter', system-ui, sans-serif;
 }
 
 /* Custom scrollbar */
