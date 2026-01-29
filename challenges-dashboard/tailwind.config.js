@@ -4,13 +4,28 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: "#0f172a",      // slate-900 - fondo principal
-        secondary: "#1e293b",    // slate-800 - cards y panels
-        accent: "#10b981",       // emerald-500 - elementos interactivos
-        success: "#22c55e",      // green-500 - métricas positivas
-        warning: "#f59e0b",      // amber-500 - alertas y warnings
-        text: "#f8fafc",         // slate-50 - texto principal
-        muted: "#94a3b8"         // slate-400 - texto secundario
+        primary: {
+          DEFAULT: "rgb(var(--color-primary))",
+          50: "rgb(248 250 252)",
+          100: "rgb(241 245 249)",
+          // ... existing slate colors
+          900: "rgb(var(--color-primary))",
+        },
+        secondary: {
+          DEFAULT: "rgb(var(--color-secondary))",
+          50: "rgb(248 250 252)",
+          // ... existing slate colors  
+          800: "rgb(var(--color-secondary))",
+        },
+        accent: {
+          DEFAULT: "rgb(var(--color-accent))",
+          400: "rgb(52 211 153)",
+          500: "rgb(var(--color-accent))",
+        },
+        success: "rgb(var(--color-success))",
+        warning: "rgb(var(--color-warning))",
+        text: "rgb(var(--color-text))",
+        muted: "rgb(var(--color-muted))"
       },
       fontFamily: {
         sans: ["Inter", "system-ui", "sans-serif"]

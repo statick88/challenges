@@ -1,8 +1,6 @@
 ---
-import '../styles/global.css';
 import MainLayout from '../layouts/MainLayout.astro';
 import HeroMetrics from '../components/HeroMetrics.astro';
-import ChallengeTimeline from '../components/ChallengeTimeline.astro';
 
 // Load challenges data
 const challengesData = await import('../data/challenges.json');
@@ -25,70 +23,112 @@ const challengesData = await import('../data/challenges.json');
         <!-- Hero Metrics -->
         <HeroMetrics data={challengesData.default.overview} />
 
-        <!-- Simple Progress Cards -->
+        <!-- Progress Cards -->
         <section class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-            <!-- Linux Card -->
-            <div class="bg-secondary rounded-xl p-6">
-                <div class="flex items-center mb-6">
-                    <span class="text-3xl mr-3">🐧</span>
-                    <h3 class="text-text text-xl font-semibold">{challengesData.default.programs.linux.name} Challenges</h3>
-                </div>
-                
-                <div class="mb-4">
-                    <div class="relative w-full bg-secondary rounded-full h-3 overflow-hidden">
-                        <div class="absolute top-0 left-0 h-full bg-gradient-to-r from-accent to-emerald-400 rounded-full" style="width: 22.2%"></div>
-                    </div>
-                </div>
-                
-                <div class="text-center text-sm text-muted">
-                    <span class="font-bold text-lg">{challengesData.default.programs.linux.completed}</span> completed
-                    <span>of {challengesData.default.programs.linux.total} total</span>
-                    <span class="block font-bold text-accent mt-1">22.2% progress</span>
-                </div>
+          <!-- Linux Card -->
+          <div class="bg-secondary rounded-xl p-6">
+            <div class="flex items-center mb-6">
+              <span class="text-3xl mr-3">🐧</span>
+              <h3 class="text-text text-xl font-semibold">Linux Challenges</h3>
             </div>
             
-            <!-- Docker Card -->
-            <div class="bg-secondary rounded-xl p-6">
-                <div class="flex items-center mb-6">
-                    <span class="text-3xl mr-3">🐳</span>
-                    <h3 class="text-text text-xl font-semibold">{challengesData.default.programs.docker.name} Challenges</h3>
-                </div>
-                
-                <div class="mb-4">
-                    <div class="relative w-full bg-secondary rounded-full h-3 overflow-hidden">
-                        <div class="absolute top-0 left-0 h-full bg-gradient-to-r from-accent to-emerald-400 rounded-full" style="width: 20%"></div>
-                    </div>
-                </div>
-                
-                <div class="text-center text-sm text-muted">
-                    <span class="font-bold text-lg">{challengesData.default.programs.docker.completed}</span> completed
-                    <span>of {challengesData.default.programs.docker.total} total</span>
-                    <span class="block font-bold text-accent mt-1">20% progress</span>
-                </div>
+            <div class="mb-4">
+              <div class="relative w-full bg-secondary rounded-full h-3 overflow-hidden">
+                <div class="absolute top-0 left-0 h-full bg-gradient-to-r from-accent to-emerald-400 rounded-full transition-all duration-700 ease-out" style="width: 22.2%"></div>
+              </div>
+              <div class="flex justify-between mt-2 text-sm">
+                <span class="text-text">4 completed</span>
+                <span class="text-muted">22.2%</span>
+                <span class="text-muted">of 18 total</span>
+              </div>
             </div>
             
-            <!-- DevOps Card -->
-            <div class="bg-secondary rounded-xl p-6">
-                <div class="flex items-center mb-6">
-                    <span class="text-3xl mr-3">⚙️</span>
-                    <h3 class="text-text text-xl font-semibold">{challengesData.default.programs.devops.name} Challenges</h3>
-                </div>
-                
-                <div class="mb-4">
-                    <div class="relative w-full bg-secondary rounded-full h-3 overflow-hidden">
-                        <div class="absolute top-0 left-0 h-full bg-gradient-to-r from-accent to-emerald-400 rounded-full" style="width: 4%"></div>
-                    </div>
-                </div>
-                
-                <div class="text-center text-sm text-muted">
-                    <span class="font-bold text-lg">{challengesData.default.programs.devops.completed}</span> completed
-                    <span>of {challengesData.default.programs.devops.total} total</span>
-                    <span class="block font-bold text-accent mt-1">4% progress</span>
-                </div>
+            <div class="grid grid-cols-3 gap-4 text-center">
+              <div>
+                <div class="text-2xl font-bold text-text">4</div>
+                <div class="text-xs text-muted">Completed</div>
+              </div>
+              <div>
+                <div class="text-2xl font-bold text-accent">22.2<span class="text-lg">%</span></div>
+                <div class="text-xs text-muted">Progress</div>
+              </div>
+              <div>
+                <div class="text-2xl font-bold text-muted">14</div>
+                <div class="text-xs text-muted">Remaining</div>
+              </div>
             </div>
+          </div>
+          
+          <!-- Docker Card -->
+          <div class="bg-secondary rounded-xl p-6">
+            <div class="flex items-center mb-6">
+              <span class="text-3xl mr-3">🐳</span>
+              <h3 class="text-text text-xl font-semibold">Docker Challenges</h3>
+            </div>
+            
+            <div class="mb-4">
+              <div class="relative w-full bg-secondary rounded-full h-3 overflow-hidden">
+                <div class="absolute top-0 left-0 h-full bg-gradient-to-r from-accent to-emerald-400 rounded-full transition-all duration-700 ease-out" style="width: 20%"></div>
+              </div>
+              <div class="flex justify-between mt-2 text-sm">
+                <span class="text-text">1 completed</span>
+                <span class="text-muted">20%</span>
+                <span class="text-muted">of 5 total</span>
+              </div>
+            </div>
+            
+            <div class="grid grid-cols-3 gap-4 text-center">
+              <div>
+                <div class="text-2xl font-bold text-text">1</div>
+                <div class="text-xs text-muted">Completed</div>
+              </div>
+              <div>
+                <div class="text-2xl font-bold text-accent">20<span class="text-lg">%</span></div>
+                <div class="text-xs text-muted">Progress</div>
+              </div>
+              <div>
+                <div class="text-2xl font-bold text-muted">4</div>
+                <div class="text-xs text-muted">Remaining</div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- DevOps Card -->
+          <div class="bg-secondary rounded-xl p-6">
+            <div class="flex items-center mb-6">
+              <span class="text-3xl mr-3">⚙️</span>
+              <h3 class="text-text text-xl font-semibold">DevOps Challenges</h3>
+            </div>
+            
+            <div class="mb-4">
+              <div class="relative w-full bg-secondary rounded-full h-3 overflow-hidden">
+                <div class="absolute top-0 left-0 h-full bg-gradient-to-r from-accent to-emerald-400 rounded-full transition-all duration-700 ease-out" style="width: 4%"></div>
+              </div>
+              <div class="flex justify-between mt-2 text-sm">
+                <span class="text-text">4 completed</span>
+                <span class="text-muted">4%</span>
+                <span class="text-muted">of 100 total</span>
+              </div>
+            </div>
+            
+            <div class="grid grid-cols-3 gap-4 text-center">
+              <div>
+                <div class="text-2xl font-bold text-text">4</div>
+                <div class="text-xs text-muted">Completed</div>
+              </div>
+              <div>
+                <div class="text-2xl font-bold text-accent">4<span class="text-lg">%</span></div>
+                <div class="text-xs text-muted">Progress</div>
+              </div>
+              <div>
+                <div class="text-2xl font-bold text-muted">96</div>
+                <div class="text-xs text-muted">Remaining</div>
+              </div>
+            </div>
+          </div>
         </section>
 
-        <!-- Recent Activity -->
+        <!-- Recent Activity Timeline -->
         <section class="bg-secondary rounded-xl p-6 mb-8">
             <h3 class="text-text text-xl font-semibold mb-6 flex items-center">
                 <span class="text-2xl mr-3">📊</span>
@@ -131,6 +171,20 @@ const challengesData = await import('../data/challenges.json');
             </div>
         </section>
 
+        <!-- Export Section -->
+        <section class="bg-secondary rounded-xl p-6 mb-8">
+            <h3 class="text-text text-xl font-semibold mb-6 flex items-center">
+                <span class="text-2xl mr-3">📤</span>
+                Export Progress Data
+            </h3>
+            
+            <div class="text-center">
+                <button onclick="window.location.reload()" class="bg-accent hover:bg-emerald-400 text-primary px-8 py-3 rounded-lg transition-colors duration-200 transform hover:scale-105">
+                    🔄 Refresh Dashboard
+                </button>
+            </div>
+        </section>
+
         <!-- Footer -->
         <footer class="mt-16 text-center text-muted text-sm">
             <div class="mb-4">
@@ -143,7 +197,9 @@ const challengesData = await import('../data/challenges.json');
                     <span class="text-accent">Tailwind CSS</span>
                 </div>
                 <div class="flex items-center justify-center space-x-4 text-xs">
-                    Auto-updated on every push • Real-time progress tracking
+                    <span>Auto-updated on every push</span>
+                    <span>•</span>
+                    <span>Real-time progress tracking</span>
                 </div>
             </div>
             <div class="text-xs text-muted border-t border-secondary pt-4">
@@ -162,23 +218,11 @@ const challengesData = await import('../data/challenges.json');
         </footer>
     </main>
 
-    <!-- Refresh Button -->
-    <div class="fixed bottom-6 right-6 z-50">
-        <button 
-            onclick="window.location.reload()" 
-            class="bg-accent hover:bg-emerald-400 text-primary font-semibold py-3 px-6 rounded-full shadow-lg transition-all duration-200 transform hover:scale-105 flex items-center space-x-2"
-            title="Refresh Progress Data (Ctrl+R)"
-        >
-            <span>🔄</span>
-            <span>Refresh</span>
-        </button>
-    </div>
-
     <!-- Scripts -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            console.log('🚀 Challenges Dashboard loaded successfully');
-            console.log('📊 Data:', JSON.parse('{JSON.stringify(challengesData.default)}'));
+            console.log('🚀 Challenges Dashboard loaded successfully!');
+            console.log('📊 Current Data:', JSON.parse('{JSON.stringify(challengesData.default)}'));
             
             // Simple refresh function
             window.refreshDashboard = function() {
@@ -186,19 +230,24 @@ const challengesData = await import('../data/challenges.json');
                 window.location.reload();
             };
             
-            // Keyboard shortcut
+            // Keyboard shortcuts
             document.addEventListener('keydown', (e) => {
                 // Ctrl/Cmd + R for refresh
                 if ((e.ctrlKey || e.metaKey) && e.key === 'r') {
                     e.preventDefault();
                     window.refreshDashboard();
                 }
+                // Ctrl/Cmd + Shift + D for theme toggle
+                if ((e.ctrlKey || e.metaKey) && e.shiftKey === 'D') {
+                    e.preventDefault();
+                    // Theme toggle functionality would go here
+                }
             });
             
             // Animate counters on load
             const counters = document.querySelectorAll('.animated-counter');
             counters.forEach(counter => {
-                const target = parseFloat(counter.textContent);
+                const target = parseFloat(counter.getAttribute('data-target'));
                 const isFloat = target % 1 !== 0;
                 const duration = 2000; // 2 seconds
                 const increment = target / (duration / 16); // 60fps

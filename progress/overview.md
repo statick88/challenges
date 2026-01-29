@@ -5,22 +5,22 @@
 ### 📈 Cross-Program Progress
 | Program | Total Challenges | Completed | In Progress | Remaining | Completion Rate |
 |---------|-----------------|-----------|-------------|-----------|-----------------|
-| 🐧 **Linux Challenges** | 18 | 4 ✅ | 2 🔓 | 12 🔒 | **22.2%** |
+| 🐧 **Linux Challenges** | 18 | 5 ✅ | 2 🔓 | 11 🔒 | **27.8%** |
 | 🐳 **Docker Challenges** | 5 | 1 ✅ | 0 ⏳ | 4 ⏳ | **20%** |
 | ⚙️ **100 Days DevOps** | 100 | 5 ✅ | 0 🔄 | 95 ⏳ | **5%** |
-| **TOTAL** | **123** | **10** ✅ | **2** 🔓 | **111** ⏳ | **8.1%** |
+| **TOTAL** | **123** | **11** ✅ | **2** 🔓 | **110** ⏳ | **8.9%** |
 
 ---
 
 ## 🏆 Overall Achievements
 
 ### ✅ Completed Milestones
-- **🎯 Linux User Management Specialist** - Linux Challenges 01-04
+- **🎯 Linux User Management Specialist** - Linux Challenges 01-04, 06
 - **🐳 Docker Installation Expert** - Docker Challenge 01
 - **⚙️ DevOps Foundation Starter** - 100 Days DevOps Days 01-05
 
 ### 🚀 Current Streaks
-- **🔥 Linux Learning Streak**: 4 challenges completed
+- **🔥 Linux Learning Streak**: 5 challenges completed
 - **🔥 DevOps Daily Streak**: 4 consecutive days
 - **⏳ Docker Progress**: 1 challenge completed
 

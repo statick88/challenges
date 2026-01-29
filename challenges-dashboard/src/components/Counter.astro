@@ -7,7 +7,7 @@ interface Props {
   icon?: string;
 }
 
-const { value, label, suffix = "", showAnimation = true, icon } = Astro.props<Props>();
+const { value, label, suffix = "", showAnimation = true, icon } = Astro.props;
 
 const counterClass = showAnimation ? 'animated-counter' : '';
 

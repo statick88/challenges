@@ -1,16 +1,16 @@
 {
-  "lastUpdated": "2026-01-29T10:00:00.000Z",
+  "lastUpdated": "2026-01-29T05:12:50.283Z",
   "overview": {
     "totalChallenges": 123,
-    "completed": 10,
-    "completionRate": 8.1,
+    "completed": 11,
+    "completionRate": 8.9,
     "streak": 6
   },
   "programs": {
     "linux": {
       "total": 18,
-      "completed": 4,
-      "percentage": 22.2,
+      "completed": 5,
+      "percentage": 27.8,
       "recentActivity": [],
       "skills": [
         "User Management"
@@ -38,11 +38,9 @@
       "completed": 5,
       "percentage": 5,
       "recentActivity": [
-        "SELinux Configuration"
+        "DevOps"
       ],
       "skills": [
-        "Security Frameworks",
-        "Package Management",
         "Scripting & Automation"
       ],
       "name": "DevOps",
@@ -51,11 +49,6 @@
     }
   },
   "recentActivity": [
-    {
-      "program": "devops",
-      "activity": "Day 05 Completed - SELinux",
-      "icon": "⚙️"
-    },
     {
       "program": "devops",
       "activity": "Challenge 04 Completed",
