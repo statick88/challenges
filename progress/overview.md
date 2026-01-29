@@ -7,8 +7,8 @@
 |---------|-----------------|-----------|-------------|-----------|-----------------|
 | 🐧 **Linux Challenges** | 18 | 4 ✅ | 2 🔓 | 12 🔒 | **22.2%** |
 | 🐳 **Docker Challenges** | 5 | 1 ✅ | 0 ⏳ | 4 ⏳ | **20%** |
-| ⚙️ **100 Days DevOps** | 100 | 4 ✅ | 0 🔄 | 96 ⏳ | **4%** |
-| **TOTAL** | **123** | **9** ✅ | **2** 🔓 | **112** ⏳ | **7.3%** |
+| ⚙️ **100 Days DevOps** | 100 | 5 ✅ | 0 🔄 | 95 ⏳ | **5%** |
+| **TOTAL** | **123** | **10** ✅ | **2** 🔓 | **111** ⏳ | **8.1%** |
 
 ---
 
@@ -17,7 +17,7 @@
 ### ✅ Completed Milestones
 - **🎯 Linux User Management Specialist** - Linux Challenges 01-04
 - **🐳 Docker Installation Expert** - Docker Challenge 01
-- **⚙️ DevOps Foundation Starter** - 100 Days DevOps Days 01-04
+- **⚙️ DevOps Foundation Starter** - 100 Days DevOps Days 01-05
 
 ### 🚀 Current Streaks
 - **🔥 Linux Learning Streak**: 4 challenges completed

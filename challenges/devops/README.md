@@ -8,7 +8,7 @@ Comprehensive 100-day DevOps learning journey covering Linux administration, Doc
 
 ## 📅 Daily Progress
 
-### ✅ Completed Days (4/100)
+### ✅ Completed Days (5/100)
 
 | Day | Challenge | Status | Category | Skills | Date |
 |-----|-----------|--------|----------|-------|------|
@@ -16,12 +16,12 @@ Comprehensive 100-day DevOps learning journey covering Linux administration, Doc
 | 2 | [Temporary User](days/day-02-temporary-user.md) | ✅ | #linux #usuarios #seguridad | User Expiry | 25-01-2026 |
 | 3 | [Disable Root SSH](days/day-03-disable-root-ssh.md) | ✅ | #linux #ssh #seguridad | SSH Security | 25-01-2026 |
 | 4 | [Script Permissions](days/day-04-script-permissions.md) | ✅ | #linux #scripts #permisos | Script Management | 25-01-2026 |
+| 5 | [SELinux Installation](days/day-05-selinux-installation.md) | ✅ | #linux #seguridad #selinux | Security Framework | 29-01-2026 |
 
-### 📅 Upcoming Challenges (5-100)
+### 📅 Upcoming Challenges (6-100)
 
 | Day | Planned Challenge | Category | Focus Area |
 |-----|-------------------|----------|------------|
-| 5 | SELinux Installation | #linux #seguridad | Security Framework |
 | 6 | Create a Cron Job | #linux #automatizacion | Task Scheduling |
 | 7 | Linux SSH Authentication | #linux #ssh #seguridad | SSH Keys |
 | 8 | File System Management | #linux #filesystem | Disk Management |
@@ -35,15 +35,15 @@ Comprehensive 100-day DevOps learning journey covering Linux administration, Doc
 
 ### 🎯 Completion Metrics
 - **Total Days**: 100
-- **Completed**: 4 ✅ (4%)
+- **Completed**: 5 ✅ (5%)
 - **In Progress**: 0 🔄 (0%)
-- **Remaining**: 96 ⏳ (96%)
-- **Success Rate**: 100% (4/4 completed)
-- **Streak**: 4 days 🔥
+- **Remaining**: 95 ⏳ (95%)
+- **Success Rate**: 100% (5/5 completed)
+- **Streak**: 5 days 🔥
 
 ### 📈 Skill Coverage
-- **Linux Administration**: 40% (4/10 planned days)
-- **SSH & Security**: 30% (3/10 planned days)
+- **Linux Administration**: 50% (5/10 planned days)
+- **SSH & Security**: 40% (4/10 planned days)
 - **Scripting & Automation**: 10% (1/10 planned days)
 - **Docker & Containers**: 0% ⏳ (0/15 planned days)
 - **CI/CD & Jenkins**: 0% ⏳ (0/20 planned days)
@@ -58,7 +58,7 @@ Comprehensive 100-day DevOps learning journey covering Linux administration, Doc
 **Focus**: System administration, user management, security, networking
 
 #### 📅 Weeks 1-2: Core Linux Skills (Days 1-14)
-- ✅ **Week 1**: User management, shells, SSH security
+- ✅ **Week 1**: User management, shells, SSH security, SELinux
 - 🔄 **Week 2**: File systems, permissions, process management
 
 #### 📅 Weeks 3-4: Advanced Linux (Days 15-25)
@@ -150,7 +150,8 @@ echo "username ALL=(ALL) NOPASSWD: /path/to/script" | sudo tee /etc/sudoers.d/us
 
 ### 🏅 Linux Administration Badge (Days 1-25)
 - ✅ **User Management Specialist** (Days 1-4)
-- 🔄 **Security Configuration Expert** (Days 5-10)
+- ✅ **Security Framework Foundation** (Day 5)
+- 🔄 **Security Configuration Expert** (Days 6-10)
 - ⏳ **Network Services Administrator** (Days 11-15)
 - ⏳ **System Monitoring Specialist** (Days 16-20)
 - ⏳ **Backup & Recovery Expert** (Days 21-25)
@@ -224,13 +225,13 @@ echo "username ALL=(ALL) NOPASSWD: /path/to/script" | sudo tee /etc/sudoers.d/us
 ## 🎯 Next 7 Days Plan
 
 ### 📅 Immediate Focus
-1. **Day 5**: SELinux installation and configuration
-2. **Day 6**: Cron job creation and management  
-3. **Day 7**: SSH key-based authentication
-4. **Day 8**: File system management and partitioning
-5. **Day 9**: Process monitoring and management
-6. **Day 10**: Network configuration basics
-7. **Day 11**: Firewall setup and security rules
+1. **Day 6**: Cron job creation and management  
+2. **Day 7**: SSH key-based authentication
+3. **Day 8**: File system management and partitioning
+4. **Day 9**: Process monitoring and management
+5. **Day 10**: Network configuration basics
+6. **Day 11**: Firewall setup and security rules
+7. **Day 12**: System monitoring and performance analysis
 
 ### 🎯 Weekly Goals
 - Complete Linux security foundations
@@ -244,4 +245,4 @@ echo "username ALL=(ALL) NOPASSWD: /path/to/script" | sudo tee /etc/sudoers.d/us
 
 ---
 
-*100 Days of DevOps v1.0 | Started: 25-01-2026 | Current Day: 4 | Estimated Completion: 04-05-2026*
+*100 Days of DevOps v1.0 | Started: 25-01-2026 | Current Day: 5 | Estimated Completion: 04-05-2026*

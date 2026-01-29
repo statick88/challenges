@@ -61,8 +61,8 @@ technical-challenges/
 |----------|-------------|-------------|-------------|---------------|----------|
 | 🐧 Linux | 18 | 4 ✅ | 2 🔓 | 12 🔒 | 22.2% |
 | 🐳 Docker | 5 | 1 ✅ | 0 ⏳ | 4 ⏳ | 20% |
-| ⚙️ DevOps | 100 | 4 ✅ | 0 ⏳ | 96 ⏳ | 4% |
-| **TOTAL** | **123** | **9** ✅ | **2** 🔓 | **112** ⏳ | **7.3%** |
+| ⚙️ DevOps | 100 | 5 ✅ | 0 ⏳ | 95 ⏳ | 5% |
+| **TOTAL** | **123** | **10** ✅ | **2** 🔓 | **111** ⏳ | **8.1%** |
 
 ### 📈 Habilidades Desarrolladas
 
@@ -96,6 +96,7 @@ technical-challenges/
 - ✅ **Día 2**: Usuario temporal con expiración
 - ✅ **Día 3**: Deshabilitar acceso SSH root
 - ✅ **Día 4**: Permisos de ejecución scripts
+- ✅ **Día 5**: Instalación y configuración SELinux
 
 ---
 

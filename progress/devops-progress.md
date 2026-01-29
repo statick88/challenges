@@ -2,7 +2,7 @@
 
 ## 📊 Daily Progress Overview
 
-### ✅ Completed Days (4/100)
+### ✅ Completed Days (5/100)
 
 | Day | Challenge | Completion Date | Duration | Skills Mastered | Status |
 |-----|-----------|-----------------|----------|----------------|--------|
@@ -10,12 +10,12 @@
 | 02 | Temporary User Setup with Expiry | 25-01-2026 | 12 min | User expiry, time-based access control | ✅ Completed |
 | 03 | Disable Root SSH Access | 25-01-2026 | 18 min | SSH security, sudoers configuration | ✅ Completed |
 | 04 | Script Execution Permissions | 25-01-2026 | 20 min | Script permissions, SUID, sudo configuration | ✅ Completed |
+| 05 | SELinux Installation and Configuration | 29-01-2026 | 15 min | SELinux installation, DNF package management, system security | ✅ Completed |
 
-### 📅 Upcoming Days (5-100)
+### 📅 Upcoming Days (6-100)
 
 | Day | Planned Challenge | Category | Priority | Est. Duration |
 |-----|-------------------|----------|----------|---------------|
-| 05 | SELinux Installation and Configuration | #linux #seguridad | High | 25 min |
 | 06 | Create a Cron Job | #linux #automatizacion | High | 20 min |
 | 07 | Linux SSH Authentication | #linux #ssh #seguridad | High | 25 min |
 | 08 | File System Management | #linux #filesystem | Medium | 30 min |
@@ -31,9 +31,9 @@
 
 #### 📊 Phase Statistics
 - **Total Days**: 25
-- **Completed**: 4/25 (16%)
-- **Current Focus**: User management & SSH security
-- **Phase Progress**: Early stage
+- **Completed**: 5/25 (20%)
+- **Current Focus**: User management & security foundations
+- **Phase Progress**: Early intermediate stage
 
 #### 📅 Weekly Breakdown
 
@@ -42,7 +42,7 @@
 - ✅ Day 2: Temporary User - User expiry, time management  
 - ✅ Day 3: SSH Security - Root login disable, sudo access
 - ✅ Day 4: Script Permissions - Execute permissions, SUID
-- ⏳ Day 5: SELinux - Security framework installation
+- ✅ Day 5: SELinux - Security framework installation and configuration
 - ⏳ Day 6: Cron Jobs - Task scheduling
 - ⏳ Day 7: SSH Authentication - Key-based security
 
@@ -59,25 +59,27 @@
 
 ## 🎯 Skills Development Tracker
 
-### ✅ Mastered Skills (Days 1-4)
+### ✅ Mastered Skills (Days 1-5)
 
 | Skill Category | Specific Skills | Days Demonstrated | Proficiency Level |
 |----------------|----------------|-------------------|-------------------|
 | **User Management** | User creation, shell assignment, user expiry | 1, 2 | 🟢 Advanced |
 | **SSH Security** | Disable root login, key authentication preparation | 3 | 🟢 Advanced |
 | **Script Management** | Execute permissions, SUID configuration | 4 | 🟢 Advanced |
-| **Security Hardening** | Non-interactive shells, access control | 1, 3 | 🟢 Advanced |
-| **Privilege Management** | Sudoers configuration, privilege escalation | 3, 4 | 🟡 Intermediate |
+| **Security Hardening** | Non-interactive shells, access control | 1, 3, 5 | 🟢 Advanced |
+| **Privilege Management** | Sudoers configuration, privilege escalation | 3, 4 | 🟢 Advanced |
+| **Security Frameworks** | SELinux installation, configuration, management | 5 | 🟢 Intermediate |
+| **Package Management** | DNF package installation, system identification | 5 | 🟢 Intermediate |
 
-### 🔄 Skills in Development (Days 5-10)
+### 🔄 Skills in Development (Days 6-10)
 
 | Skill Category | Target Level | Next Day | Development Focus |
 |----------------|--------------|----------|-------------------|
-| **Security Frameworks** | 🟢 Intermediate | Day 5 | SELinux installation and basic configuration |
 | **Task Automation** | 🟢 Intermediate | Day 6 | Cron job creation and management |
 | **Advanced SSH** | 🟢 Advanced | Day 7 | SSH key authentication, agent forwarding |
 | **File System** | 🟡 Intermediate | Day 8 | Partitioning, mounting, file systems |
 | **Process Control** | 🟡 Intermediate | Day 9 | Process monitoring, signal handling |
+| **Network Management** | 🟡 Intermediate | Day 10 | Network configuration, routing |
 
 ### ⏳ Future Skills Roadmap (Days 11-100)
 
@@ -101,11 +103,12 @@
 | 2 | 15 min | 12 min | 125% | ⭐⭐ |
 | 3 | 25 min | 18 min | 139% | ⭐⭐⭐ |
 | 4 | 25 min | 20 min | 125% | ⭐⭐⭐ |
-| **Average** | **21.25 min** | **16.25 min** | **131%** | **⭐⭐⭐** |
+| 5 | 25 min | 15 min | 167% | ⭐⭐⭐ |
+| **Average** | **22 min** | **16 min** | **138%** | **⭐⭐⭐** |
 
 #### 📊 Learning Velocity
-- **Average Time per Day**: 16.25 minutes
-- **Learning Efficiency**: 131% (faster than planned)
+- **Average Time per Day**: 16 minutes
+- **Learning Efficiency**: 138% (faster than planned)
 - **Complexity Handling**: Successfully managing ⭐⭐⭐ level challenges
 - **Retention**: High - building on previous day's knowledge
 
@@ -128,9 +131,6 @@
 ### 📅 This Week (Week of 27-01-2026)
 
 #### Day-by-Day Plan
-- **[ ] Day 5 (Tuesday)**: SELinux Installation and Configuration
-  - Focus: Install SELinux, configure basic policies
-  - Skills: Security frameworks, policy management
 - **[ ] Day 6 (Wednesday)**: Create a Cron Job
   - Focus: Schedule automated tasks, cron syntax
   - Skills: Task automation, scheduling
@@ -140,9 +140,12 @@
 - **[ ] Day 8 (Friday)**: File System Management
   - Focus: Disk partitioning, file system types
   - Skills: Storage management, system administration
+- **[ ] Day 9 (Saturday)**: Process Management
+  - Focus: Process monitoring, signal handling
+  - Skills: System monitoring, process control
 
 #### 🎯 Weekly Goals
-- Complete 5 days (reach Day 9)
+- Complete 6 days (reach Day 10)
 - Master Linux security foundations
 - Develop system administration skills
 - Maintain 100% daily completion rate
@@ -158,17 +161,17 @@
 ## 📈 Streak Analytics
 
 ### 🔥 Current Streaks
-- **Daily Completion Streak**: 4 days 🔥
-- **Linux Focus Streak**: 4 consecutive Linux days
-- **Security Focus Streak**: 3 security-focused days
-- **Longest Streak**: 4 days (current)
+- **Daily Completion Streak**: 5 days 🔥
+- **Linux Focus Streak**: 5 consecutive Linux days
+- **Security Focus Streak**: 4 security-focused days
+- **Longest Streak**: 5 days (current)
 
 ### 📊 Streak History
 | Start Date | End Date | Duration | Type | Status |
 |------------|----------|---------|------|--------|
-| 25-01-2026 | Present | 4 days | Daily | 🔥 Active |
-| 25-01-2026 | Present | 4 days | Linux | 🔥 Active |
-| 25-01-2026 | 27-01-2026 | 3 days | Security | 🔥 Active |
+| 25-01-2026 | Present | 5 days | Daily | 🔥 Active |
+| 25-01-2026 | Present | 5 days | Linux | 🔥 Active |
+| 25-01-2026 | Present | 4 days | Security | 🔥 Active |
 
 ---
 
@@ -178,10 +181,12 @@
 - **User Management**: Complete lifecycle management
 - **SSH Security**: Basic hardening, access control
 - **Script Permissions**: Execute rights, SUID configuration
+- **Security Hardening**: Non-interactive shells, access control
+- **Privilege Management**: Sudoers configuration, privilege escalation
 
 ### 🟡 Intermediate Skills (Developing)
-- **Security Hardening**: Basic security practices
-- **Privilege Management**: Sudoers, escalation
+- **Security Frameworks**: SELinux installation, configuration, management
+- **Package Management**: DNF package installation, system identification
 - **System Administration**: Growing capabilities
 
 ### 🔴 Beginner Skills (Not Started)
@@ -210,19 +215,19 @@
 
 ### 🎯 Next Milestone: Week Warrior (7 Days)
 **Requirements**: Complete 7 consecutive days
-**Progress**: 4/7 days completed
-**Estimated Completion**: 29-01-2026
+**Progress**: 5/7 days completed
+**Estimated Completion**: 30-01-2026
 **Benefits**: Consistency badge, learning momentum
 
 ### 🎯 Future Milestone: Linux Foundation (25 Days)
 **Requirements**: Complete Days 1-25
-**Progress**: 4/25 days completed
+**Progress**: 5/25 days completed
 **Estimated Completion**: 20-02-2026
 **Benefits**: Complete Linux administration foundation
 
 ### 🎯 Long-term Milestone: DevOps Practitioner (100 Days)
 **Requirements**: Complete all 100 days
-**Progress**: 4/100 days completed
+**Progress**: 5/100 days completed
 **Estimated Completion**: 04-05-2026
 **Benefits**: Comprehensive DevOps skillset
 
@@ -233,10 +238,10 @@
 ### 🎯 Completion Targets
 | Metric | Current | 7-Day Target | 30-Day Target |
 |--------|---------|---------------|----------------|
-| **Days Completed** | 4/100 (4%) | 11/100 (11%) | 34/100 (34%) |
-| **Daily Streak** | 4 days | 11 days | 30 days |
-| **Skills Mastered** | 5 | 15 | 30 |
-| **Learning Efficiency** | 131% | 125% | 120% |
+| **Days Completed** | 5/100 (5%) | 12/100 (12%) | 35/100 (35%) |
+| **Daily Streak** | 5 days | 12 days | 30 days |
+| **Skills Mastered** | 7 | 17 | 32 |
+| **Learning Efficiency** | 138% | 125% | 120% |
 
 ---
 
@@ -244,4 +249,4 @@
 
 ---
 
-*100 Days DevOps Progress Tracker v1.0 | Current Day: 4 | Next Day: 5 | Streak: 4 days*
+*100 Days DevOps Progress Tracker v1.0 | Current Day: 5 | Next Day: 6 | Streak: 5 days*
