@@ -1,0 +1,9 @@
+# Cache busting
+dist/* manifest.json
+dist/* sw.js
+
+# Images
+assets/images/*.*
+
+# Source maps
+*.map
