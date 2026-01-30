@@ -8,19 +8,18 @@ Repository containing Docker containerization challenges and solutions, demonstr
 
 ## 📚 Challenges Index
 
-### ✅ Completed Challenges (2/5)
+### ✅ Completed Challenges (3/5)
 
 | # | Challenge | Status | Difficulty | Skills | XP |
 |---|-----------|--------|------------|-------|----|
 | 1 | [Install Docker Packages](challenges/reto-1-install-docker.md) | ✅ | ⭐⭐⭐ | Docker Installation | 60 |
+| 2 | [Deploy Nginx Container](challenges/reto-2-deploy-nginx.md) | ✅ | ⭐⭐ | Container Deployment | 60 |
+| 3 | [Delete Docker Container](challenges/reto-3-delete-containers.md) | ✅ | ⭐⭐ | Container Cleanup | 60 |
 
-### ⏳ Ready to Start (3/5)
+### ⏳ Ready to Start (2/5)
 
 | # | Challenge | Status | Difficulty | Focus Area | XP |
-|---|-----------|--------|------------|----|
-| 1 | [Install Docker Packages](challenges/reto-1-install-docker.md) | ✅ | ⭐⭐⭐ | Docker Installation | 60 |
-| 2 | [Deploy Nginx Container](challenges/reto-2-deploy-nginx.md) | ✅ | ⭐⭐ | Container Deployment | 60 |
-| 3 | [Delete Docker Container](challenges/reto-3-delete-containers.md) | ⏳ | ⭐⭐ | Container Cleanup | 60 |
+|---|-----------|--------|------------|------------|-----|
 | 4 | [Copy File to Container](challenges/reto-4-copy-files.md) | ⏳ | ⭐⭐ | File Management | 60 |
 | 5 | [Troubleshoot Container](challenges/reto-5-troubleshoot.md) | ⏳ | ⭐⭐⭐ | Debugging | 60 |
 
@@ -30,15 +29,15 @@ Repository containing Docker containerization challenges and solutions, demonstr
 
 ### 🎯 Completion Metrics
 - **Total Challenges**: 5
-- **Completed**: 2 ✅ (40%)
+- **Completed**: 3 ✅ (60%)
 - **Failed**: 0 ❌ (0%)
-- **Remaining**: 3 ⏳ (60%)
-- **Total XP Earned**: 120/300 (40%)
+- **Remaining**: 2 ⏳ (40%)
+- **Total XP Earned**: 180/300 (60%)
 
 ### 📈 Skill Development
 - **Docker Installation**: 100% ✅
-- **Container Management**: 40% ✅
-- **Container Operations**: 40% ✅
+- **Container Management**: 100% ✅
+- **Container Operations**: 60% 🔄
 - **Troubleshooting**: 0% ⏳
 
 ---
@@ -155,8 +154,8 @@ docker top container-name
 
 ### 🎯 Docker Fundamentals Badge
 - [x] Install Docker Engine
-- [ ] Create first container
-- [ ] Manage container lifecycle
+- [x] Create and deploy containers
+- [x] Manage container lifecycle
 - [ ] Understand Docker networking
 - [ ] Use Docker volumes
 
@@ -208,13 +207,12 @@ docker top container-name
 ## 🎯 Next Steps
 
 ### 🚀 Immediate Goal
-Complete **Challenge 2 - Deploy Nginx Container** to progress from installation to actual container deployment.
+Complete **Challenge 4 - Copy File to Container** to master file operations in Docker containers.
 
 ### 📋 Recommended Sequence
-1. **Challenge 2**: Deploy basic web server container
-2. **Challenge 3**: Learn container cleanup and management
-3. **Challenge 4**: Master file operations with containers
-4. **Challenge 5**: Develop troubleshooting skills
+1. **Challenge 4**: Learn container file operations
+2. **Challenge 5**: Develop troubleshooting skills
+3. **Reto 6+**: Advanced Docker topics (Dockerfile, Docker Compose)
 
 ---
 
@@ -222,4 +220,4 @@ Complete **Challenge 2 - Deploy Nginx Container** to progress from installation 
 
 ---
 
-*Docker Challenge Memories v1.0 | Last Updated: 27-01-2026*
+*Docker Challenge Memories v1.0 | Last Updated: 30-01-2026 | Challenges Completed: 3/5
