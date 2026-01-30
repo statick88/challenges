@@ -1,0 +1,221 @@
+import fs from 'fs/promises';
+import path from 'path';
+
+// Función para generar datos de ejemplo cuando no existe el archivo
+function generateMockData() {
+  return {
+    overview: {
+      totalChallenges: 123,
+      completed: 9,
+      completionRate: 7.3,
+      streak: 6
+    },
+    linux: {
+      total: 18,
+      completed: 4,
+      percentage: 22.2
+    },
+    docker: {
+      total: 5,
+      completed: 1,
+      percentage: 20.0
+    },
+    devops: {
+      total: 100,
+      completed: 4,
+      percentage: 4.0
+    },
+    recentActivity: [
+      "Day 16 - Setting up monitoring infrastructure",
+      "Day 15 - CI/CD pipeline implementation", 
+      "Day 14 - Docker container optimization",
+      "Day 13 - Linux user management",
+      "Day 12 - Network configuration",
+      "Day 11 - Security hardening",
+      "Day 10 - Backup strategies",
+      "Day 9 - Performance tuning"
+    ],
+    skills: [
+      "User Management", "Docker Containers", "Shell Scripting",
+      "Network Configuration", "Security Hardening", "Monitoring",
+      "CI/CD Pipelines", "Performance Tuning", "Backup Strategies"
+    ]
+  };
+}
+
+// Función para parsear el archivo overview.md que tiene métricas consolidadas
+async function parseOverviewFile(filePath) {
+  try {
+    const content = await fs.readFile(filePath, 'utf-8');
+    
+    // Extraer tabla de progreso general - FIXED REGEX PATTERNS
+    // Patrón: | 🐧 **Linux Challenges** | 18 | 5 ✅ | 2 🔓 | 11 🔒 | **27.8%** |
+    const linuxTableMatch = content.match(/\| 🐧 \*\*Linux Challenges\*\* \| (\d+) \| (\d+) ✅ \| (\d+) 🔓 \| (\d+) 🔒 \| \*\*([\d.]+)%\*\*/);
+    
+    // Patrón: | 🐳 **Docker Challenges** | 5 | 3 ✅ | 0 ⏳ | 2 ⏳ | **60%** |
+    const dockerTableMatch = content.match(/\| 🐳 \*\*Docker Challenges\*\* \| (\d+) \| (\d+) ✅ \| (\d+) ⏳ \| (\d+) ⏳ \| \*\*([\d.]+)%\*\*/);
+    
+    // Patrón: | ⚙️ **100 Days DevOps** | 100 | 6 ✅ | 0 🔄 | 94 ⏳ | **6%** |
+    const devopsTableMatch = content.match(/\| ⚙️ \*\*100 Days DevOps\*\* \| (\d+) \| (\d+) ✅ \| (\d+) 🔄 \| (\d+) ⏳ \| \*\*([\d.]+)%\*\*/);
+    
+    // Extraer métricas totales
+    // Patrón: | **TOTAL** | **123** | **14** ✅ | **2** 🔓 | **107** ⏳ | **11.4%** |
+    const totalMatch = content.match(/\|\s*\*\*TOTAL\*\*\s*\|\s*\*\*(\d+)\*\*\s*\|\s*\*\*(\d+)\*\*\s*✅\s*\|\s*\*\*(\d+)\*\*\s*🔓\s*\|\s*\*\*(\d+)\*\*\s*⏳\s*\|\s*\*\*([\d.]+)%\*\*\s*\|/);
+    
+    // Extraer actividad reciente
+    const activityMatches = [...content.matchAll(/\|\s*\d+-\d+-\d+\s*\|\s*[^|]+\|\s*([^|]+)/g)];
+    const recentActivity = activityMatches.map(match => match[1].trim()).slice(0, 8);
+    
+    // Extraer skills del skills matrix
+    const skillsSection = content.match(/## 🛠️ Technical Skills Coverage[\s\S]*?##/);
+    let skills = [];
+    if (skillsSection) {
+      const skillMatches = [...skillsSection[0].matchAll(/\|\s*\*\*([^*]+)\*\*\s*\|/g)];
+      skills = skillMatches.map(match => match[1].trim());
+    }
+    
+    // Calcular streak basado en actividad reciente
+    const uniqueDates = [...new Set(activityMatches.map(match => {
+      const dateMatch = match[0].match(/\d+-\d+-\d+/);
+      return dateMatch ? dateMatch[0] : '';
+    }))].filter(date => date);
+    const streak = uniqueDates.length;
+    
+    return {
+      linux: {
+        total: linuxTableMatch ? parseInt(linuxTableMatch[1]) : 0,
+        completed: linuxTableMatch ? parseInt(linuxTableMatch[2]) : 0,
+        inProgress: linuxTableMatch ? parseInt(linuxTableMatch[3]) : 0,
+        percentage: linuxTableMatch ? parseFloat(linuxTableMatch[5]) : 0
+      },
+      docker: {
+        total: dockerTableMatch ? parseInt(dockerTableMatch[1]) : 0,
+        completed: dockerTableMatch ? parseInt(dockerTableMatch[2]) : 0,
+        inProgress: dockerTableMatch ? parseInt(dockerTableMatch[3]) : 0,
+        percentage: dockerTableMatch ? parseFloat(dockerTableMatch[5]) : 0
+      },
+      devops: {
+        total: devopsTableMatch ? parseInt(devopsTableMatch[1]) : 0,
+        completed: devopsTableMatch ? parseInt(devopsTableMatch[2]) : 0,
+        inProgress: devopsTableMatch ? parseInt(devopsTableMatch[3]) : 0,
+        percentage: devopsTableMatch ? parseFloat(devopsTableMatch[5]) : 0
+      },
+      overview: {
+        totalChallenges: totalMatch ? parseInt(totalMatch[1]) : 0,
+        completed: totalMatch ? parseInt(totalMatch[2]) : 0,
+        inProgress: totalMatch ? parseInt(totalMatch[3]) : 0,
+        remaining: totalMatch ? parseInt(totalMatch[4]) : 0,
+        completionRate: totalMatch ? parseFloat(totalMatch[5]) : 0,
+        streak
+      },
+      recentActivity,
+      skills
+    };
+  } catch (error) {
+    console.error(`Error parsing overview file:`, error);
+    return null;
+  }
+}
+
+// Función principal para generar datos de todos los programas
+async function generateChallengesData() {
+  const progressDir = '../progress';
+  const overviewPath = path.join(progressDir, 'overview.md');
+  
+  try {
+    // Intentar parsear el archivo overview.md, si no existe usar datos de ejemplo
+    let data;
+    
+    // Verificar si el archivo existe antes de intentar leerlo
+    try {
+      await fs.access(overviewPath);
+      data = await parseOverviewFile(overviewPath);
+    } catch (error) {
+      console.warn('⚠️ Overview file not found, using mock data for demo');
+      data = generateMockData();
+    }
+    
+    if (!data) {
+      console.warn('⚠️ No data available, using mock data');
+      data = generateMockData();
+    }
+    
+    const challengesData = {
+      lastUpdated: new Date().toISOString(),
+      overview: {
+        totalChallenges: data.overview.totalChallenges,
+        completed: data.overview.completed,
+        completionRate: data.overview.completionRate,
+        streak: data.overview.streak
+      },
+      programs: {
+        linux: {
+          total: data.linux.total,
+          completed: data.linux.completed,
+          percentage: data.linux.percentage,
+          recentActivity: data.recentActivity.filter(activity => activity.toLowerCase().includes('linux')),
+          skills: data.skills.filter(skill => skill.toLowerCase().includes('user') || skill.toLowerCase().includes('linux')),
+          name: 'Linux',
+          icon: '🐧',
+          color: 'blue'
+        },
+        docker: {
+          total: data.docker.total,
+          completed: data.docker.completed,
+          percentage: data.docker.percentage,
+          recentActivity: data.recentActivity.filter(activity => activity.toLowerCase().includes('docker')),
+          skills: data.skills.filter(skill => skill.toLowerCase().includes('docker') || skill.toLowerCase().includes('container')),
+          name: 'Docker',
+          icon: '🐳',
+          color: 'cyan'
+        },
+        devops: {
+          total: data.devops.total,
+          completed: data.devops.completed,
+          percentage: data.devops.percentage,
+          recentActivity: data.recentActivity.filter(activity => activity.toLowerCase().includes('devops')),
+          skills: data.skills.filter(skill => skill.toLowerCase().includes('devops') || skill.toLowerCase().includes('script')),
+          name: 'DevOps',
+          icon: '⚙️',
+          color: 'purple'
+        }
+      },
+      recentActivity: data.recentActivity.map((activity, index) => {
+        // Determinar el programa basado en el contenido
+        if (activity.toLowerCase().includes('docker')) return { program: 'docker', activity, icon: '🐳' };
+        if (activity.toLowerCase().includes('linux')) return { program: 'linux', activity, icon: '🐧' };
+        return { program: 'devops', activity, icon: '⚙️' };
+      }),
+      skills: data.skills
+    };
+    
+    // Asegurar que el directorio de datos exista
+    await fs.mkdir('src/data', { recursive: true });
+    
+    // Escribir archivo JSON
+    await fs.writeFile(
+      'src/data/challenges.json',
+      JSON.stringify(challengesData, null, 2)
+    );
+    
+    console.log('✅ Challenges data generated successfully!');
+    console.log(`📊 Total: ${data.overview.completed}/${data.overview.totalChallenges} (${data.overview.completionRate}%)`);
+    console.log(`🔥 Current streak: ${data.overview.streak} days`);
+    console.log(`🐧 Linux: ${data.linux.completed}/${data.linux.total} (${data.linux.percentage}%)`);
+    console.log(`🐳 Docker: ${data.docker.completed}/${data.docker.total} (${data.docker.percentage}%)`);
+    console.log(`⚙️ DevOps: ${data.devops.completed}/${data.devops.total} (${data.devops.percentage}%)`);
+    
+    return challengesData;
+    
+  } catch (error) {
+    console.error('❌ Error generating challenges data:', error);
+    throw error;
+  }
+}
+
+// Ejecutar si se llama directamente
+if (import.meta.url === `file://${process.argv[1]}`) {
+  generateChallengesData();
+}
+
+export { generateChallengesData };
