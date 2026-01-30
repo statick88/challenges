@@ -1,10 +1,17 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 import HeroMetrics from '../components/HeroMetrics.astro';
+import ProgramCard from '../components/ProgramCard.astro';
+import { validateChallengesData } from '../utils/validation';
 
 // Load challenges data
-const challengesData = await import('../data/challenges.json');
+const challengesDataModule = await import('../data/challenges.json');
+const challengesData = challengesDataModule.default;
 
+// Validate data structure
+if (!validateChallengesData(challengesData)) {
+  throw new Error('Invalid challenges data structure');
+}
 ---
 
 <MainLayout title="DevOps Challenges Dashboard">
@@ -21,43 +28,12 @@ const challengesData = await import('../data/challenges.json');
         </header>
 
         <!-- Hero Metrics -->
-        <HeroMetrics data={challengesData.default.overview} />
+        <HeroMetrics data={challengesData.overview} />
 
         <!-- Progress Cards -->
         <section class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-          {Object.entries(challengesData.default.programs).map(([key, program]) => (
-            <div class="bg-secondary rounded-xl p-6">
-              <div class="flex items-center mb-6">
-                <span class="text-3xl mr-3">{program.icon}</span>
-                <h3 class="text-text text-xl font-semibold">{program.name} Challenges</h3>
-              </div>
-              
-              <div class="mb-4">
-                <div class="relative w-full bg-secondary rounded-full h-3 overflow-hidden">
-                  <div class="absolute top-0 left-0 h-full bg-gradient-to-r from-accent to-emerald-400 rounded-full transition-all duration-700 ease-out" style={`width: ${program.percentage}%`}></div>
-                </div>
-                <div class="flex justify-between mt-2 text-sm">
-                  <span class="text-text">{program.completed} completed</span>
-                  <span class="text-muted">{program.percentage}%</span>
-                  <span class="text-muted">of {program.total} total</span>
-                </div>
-              </div>
-              
-              <div class="grid grid-cols-3 gap-4 text-center">
-                <div>
-                  <div class="text-2xl font-bold text-text">{program.completed}</div>
-                  <div class="text-xs text-muted">Completed</div>
-                </div>
-                <div>
-                  <div class="text-2xl font-bold text-accent">{program.percentage}<span class="text-lg">%</span></div>
-                  <div class="text-xs text-muted">Progress</div>
-                </div>
-                <div>
-                  <div class="text-2xl font-bold text-muted">{program.total - program.completed}</div>
-                  <div class="text-xs text-muted">Remaining</div>
-                </div>
-              </div>
-            </div>
+          {Object.entries(challengesData.programs).map(([key, program]) => (
+            <ProgramCard program={program} />
           ))}
         </section>
 
@@ -69,7 +45,7 @@ const challengesData = await import('../data/challenges.json');
             </h3>
             
             <div class="space-y-3">
-                {challengesData.default.recentActivity.slice(0, 5).map((activity, index) => (
+                {challengesData.recentActivity.slice(0, 5).map((activity, index) => (
                     <div class="flex items-center bg-primary rounded-lg p-3">
                         <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center mr-4">
                             <span class="text-lg">{activity.icon}</span>
@@ -83,7 +59,7 @@ const challengesData = await import('../data/challenges.json');
                 ))}
             </div>
             
-            {challengesData.default.recentActivity.length === 0 && (
+            {challengesData.recentActivity.length === 0 && (
                 <div class="text-center text-muted py-8">
                     <span class="text-2xl mb-2">🎯</span>
                     No recent activity yet. Start completing challenges!
@@ -139,7 +115,7 @@ const challengesData = await import('../data/challenges.json');
                 © 2026 Diego Saavedra • Technical Challenges Dashboard
                 <br>
                 <span class="inline-block mt-2">
-                    Last updated: {new Date(challengesData.default.lastUpdated).toLocaleDateString('en-US', { 
+                    Last updated: {new Date(challengesData.lastUpdated).toLocaleDateString('en-US', { 
                         year: 'numeric', 
                         month: 'long', 
                         day: 'numeric',
@@ -153,9 +129,10 @@ const challengesData = await import('../data/challenges.json');
 
     <!-- Scripts -->
     <script>
+        import { animateAllCounters } from '../utils/animations';
+
         document.addEventListener('DOMContentLoaded', () => {
             console.log('🚀 Challenges Dashboard loaded successfully!');
-            console.log('📊 Current Data:', JSON.parse('{JSON.stringify(challengesData.default)}'));
             
             // Simple refresh function
             window.refreshDashboard = function() {
@@ -177,27 +154,8 @@ const challengesData = await import('../data/challenges.json');
                 }
             });
             
-            // Animate counters on load
-            const counters = document.querySelectorAll('.animated-counter');
-            counters.forEach(counter => {
-                const target = parseFloat(counter.getAttribute('data-target'));
-                const isFloat = target % 1 !== 0;
-                const duration = 2000; // 2 seconds
-                const increment = target / (duration / 16); // 60fps
-                let current = 0;
-                
-                const updateCounter = () => {
-                    current += increment;
-                    if (current < target) {
-                        counter.textContent = isFloat ? current.toFixed(1) : Math.floor(current).toLocaleString();
-                        requestAnimationFrame(updateCounter);
-                    } else {
-                        counter.textContent = isFloat ? target.toFixed(1) : target.toLocaleString();
-                    }
-                };
-                
-                updateCounter();
-            });
+            // Animate counters on load using shared utility
+            animateAllCounters('main', '.animated-counter');
         });
     </script>
 </MainLayout>
