@@ -317,8 +317,32 @@ async function loadChallengesData(filePath) {
  * @returns {object} Generated challenges data
  */
 async function generateChallengesData() {
-  const progressDir = '../progress';
-  const overviewPath = path.join(progressDir, 'overview.md');
+  // Support both local development and CI/CD environments
+  // Local: /path/to/challenges-dashboard/challenges-dashboard (nested repo)
+  // CI/CD: /path/to/challenges-dashboard/challenges-dashboard (same structure)
+  let progressDir = '../progress';
+  
+  // If running from nested repo and progress dir doesn't exist, try parent paths
+  let overviewPath = path.join(progressDir, 'overview.md');
+  
+  // Check multiple possible locations
+  const possiblePaths = [
+    '../progress/overview.md',           // Local development (nested)
+    '../../progress/overview.md',        // GitHub Actions CI/CD
+    './progress/overview.md'             // From parent directory
+  ];
+  
+  for (const possiblePath of possiblePaths) {
+    try {
+      await fs.access(possiblePath);
+      overviewPath = possiblePath;
+      console.log(`✓ Found progress data at: ${possiblePath}`);
+      break;
+    } catch {
+      // Path doesn't exist, try next one
+    }
+  }
+  
   const outputPath = 'src/data/challenges.json';
   
   try {
