@@ -62,6 +62,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: gh-pages
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Download artifact
         uses: actions/download-artifact@v4
@@ -70,12 +71,15 @@ jobs:
           path: ./artifact
 
       - name: Extract and deploy
+        env:
+          GIT_AUTHOR_NAME: GitHub Actions
+          GIT_AUTHOR_EMAIL: actions@github.com
+          GIT_COMMITTER_NAME: GitHub Actions
+          GIT_COMMITTER_EMAIL: actions@github.com
         run: |
           cd ./artifact
           tar -xf artifact.tar
           cd ..
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
           git add -A
-          git commit -m "Deploy challenges dashboard from ${{ github.sha }}" || echo "No changes to commit"
-          git push origin gh-pages
+          git commit -m "Deploy challenges dashboard [skip ci]" || echo "No changes to commit"
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git gh-pages
