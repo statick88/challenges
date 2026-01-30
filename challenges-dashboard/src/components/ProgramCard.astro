@@ -7,9 +7,20 @@ interface Props {
 }
 
 const { program }: Props = Astro.props;
+
+// Map program names to testid keys
+const testIdMap: { [key: string]: string } = {
+  'Linux': 'program-linux',
+  'Docker': 'program-docker',
+  'DevOps': 'program-devops',
+};
+
+const programTestId = testIdMap[program.name] || `program-${program.name.toLowerCase()}`;
+const completedTestId = `${program.name.toLowerCase()}-completed`;
+const totalTestId = `${program.name.toLowerCase()}-total`;
 ---
 
-<div class={components.card.interactive}>
+<div class={components.card.interactive} data-testid={programTestId}>
   <!-- Header -->
   <div class={`flex items-center ${spacing.m.lg}`}>
     <span class={`${typography.size['3xl']} ${spacing.m.sm}`}>{program.icon}</span>
@@ -20,16 +31,16 @@ const { program }: Props = Astro.props;
 
   <!-- Progress Bar Section -->
   <div class={spacing.m.md}>
-    <div class={components.progressBar.container}>
+    <div class={components.progressBar.container} data-testid={`progress-${program.name.toLowerCase()}`}>
       <div
         class={components.progressBar.fill}
         style={`width: ${program.percentage}%`}
       />
     </div>
     <div class={`flex justify-between mt-2 text-sm`}>
-      <span class={colors.text.primary}>{program.completed} completed</span>
+      <span class={colors.text.primary} data-testid={completedTestId}>{program.completed} completed</span>
       <span class={colors.text.muted}>{program.percentage}%</span>
-      <span class={colors.text.muted}>of {program.total} total</span>
+      <span class={colors.text.muted}>of <span data-testid={totalTestId}>{program.total}</span> total</span>
     </div>
   </div>
 

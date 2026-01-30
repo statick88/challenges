@@ -16,7 +16,7 @@ const formatNumber = (num: number) => new Intl.NumberFormat('en-US').format(num)
   <div class={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 ${spacing.gap.lg}`}>
     <!-- Total Challenges -->
     <div class="text-center">
-      <div class={`animated-counter ${typography.size['6xl']} ${typography.weight.bold} ${colors.text.primary}`} data-target={data.totalChallenges}>
+      <div class={`animated-counter ${typography.size['6xl']} ${typography.weight.bold} ${colors.text.primary}`} data-target={data.totalChallenges} data-testid="total-challenges">
         {formatNumber(data.totalChallenges)}
       </div>
       <div class={`${colors.text.muted} ${typography.size.sm} ${spacing.m.xs}`}>Total Challenges</div>
@@ -24,7 +24,7 @@ const formatNumber = (num: number) => new Intl.NumberFormat('en-US').format(num)
     
     <!-- Completed -->
     <div class="text-center">
-      <div class={`animated-counter ${typography.size['6xl']} ${typography.weight.bold} ${colors.success.text}`} data-target={data.completed}>
+      <div class={`animated-counter ${typography.size['6xl']} ${typography.weight.bold} ${colors.success.text}`} data-target={data.completed} data-testid="completed-challenges">
         {formatNumber(data.completed)}
       </div>
       <div class={`${colors.text.muted} ${typography.size.sm} ${spacing.m.xs}`}>Completed</div>
@@ -32,7 +32,7 @@ const formatNumber = (num: number) => new Intl.NumberFormat('en-US').format(num)
     
     <!-- Completion Rate -->
     <div class="text-center">
-      <div class={`animated-counter ${typography.size['6xl']} ${typography.weight.bold} ${colors.accent.text}`} data-target={data.completionRate}>
+      <div class={`animated-counter ${typography.size['6xl']} ${typography.weight.bold} ${colors.accent.text}`} data-target={data.completionRate} data-testid="completion-rate">
         {data.completionRate}%
       </div>
       <div class={`${colors.text.muted} ${typography.size.sm} ${spacing.m.xs}`}>Completion Rate</div>
@@ -42,7 +42,7 @@ const formatNumber = (num: number) => new Intl.NumberFormat('en-US').format(num)
     <div class="text-center">
       <div class={`flex items-center justify-center space-x-2`}>
         <span class={typography.size['2xl']}>🔥</span>
-        <div class={`animated-counter ${typography.size['6xl']} ${typography.weight.bold} ${colors.warning.text}`} data-target={data.streak}>
+        <div class={`animated-counter ${typography.size['6xl']} ${typography.weight.bold} ${colors.warning.text}`} data-target={data.streak} data-testid="streak-counter">
           {data.streak}
         </div>
       </div>

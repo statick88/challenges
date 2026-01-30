@@ -1,9 +1,9 @@
 {
-  "lastUpdated": "2026-01-30T10:08:14.720Z",
+  "lastUpdated": "2026-01-30T16:45:23.788Z",
   "overview": {
     "totalChallenges": 123,
-    "completed": 14,
-    "completionRate": 11.4,
+    "completed": 15,
+    "completionRate": 12.2,
     "streak": 9
   },
   "programs": {
@@ -12,8 +12,8 @@
       "icon": "🐧",
       "color": "blue",
       "total": 18,
-      "completed": 5,
-      "percentage": 27.8,
+      "completed": 6,
+      "percentage": 33.3,
       "recentActivity": [],
       "skills": [
         "User Management",
@@ -27,9 +27,7 @@
       "total": 5,
       "completed": 3,
       "percentage": 60,
-      "recentActivity": [
-        "Docker"
-      ],
+      "recentActivity": [],
       "skills": [
         "Container Management"
       ]
@@ -42,6 +40,7 @@
       "completed": 6,
       "percentage": 6,
       "recentActivity": [
+        "Challenge 05 Completed",
         "Day 06 Completed",
         "Reto 3 Completed",
         "Day 05 Completed",
@@ -57,6 +56,11 @@
     }
   },
   "recentActivity": [
+    {
+      "program": "devops",
+      "activity": "Challenge 05 Completed",
+      "icon": "⚙️"
+    },
     {
       "program": "devops",
       "activity": "Day 06 Completed",
@@ -91,11 +95,6 @@
       "program": "devops",
       "activity": "Challenge 01 Completed",
       "icon": "⚙️"
-    },
-    {
-      "program": "docker",
-      "activity": "Docker",
-      "icon": "🐳"
     }
   ],
   "skills": [
