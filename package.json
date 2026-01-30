@@ -4,9 +4,9 @@
   "version": "1.0.0",
   "description": "Interactive dashboard for technical challenges progress",
   "scripts": {
-    "dev": "astro dev",
+    "dev": "node scripts/generate-challenges-data.js && astro dev",
     "start": "astro dev",
-    "build": "astro build",
+    "build": "node scripts/generate-challenges-data.js && astro build",
     "preview": "astro preview",
     "parse-data": "node scripts/generate-challenges-data.js",
     "astro": "astro"

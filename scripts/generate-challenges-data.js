@@ -113,7 +113,9 @@ async function parseOverviewFile(filePath) {
 
 // Función principal para generar datos de todos los programas
 async function generateChallengesData() {
-  const progressDir = '../progress';
+  // Encuentra el directorio raíz del proyecto (donde está challenges-dashboard y challenges)
+  const currentDir = process.cwd();
+  const progressDir = path.join(currentDir, '..', 'progress');
   const overviewPath = path.join(progressDir, 'overview.md');
   
   try {

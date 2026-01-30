@@ -1,10 +1,10 @@
 {
-  "lastUpdated": "2026-01-30T09:06:00.000Z",
+  "lastUpdated": "2026-01-30T09:09:37.362Z",
   "overview": {
     "totalChallenges": 123,
     "completed": 14,
     "completionRate": 11.4,
-    "streak": 6
+    "streak": 9
   },
   "programs": {
     "linux": {
@@ -37,9 +37,7 @@
       "total": 100,
       "completed": 6,
       "percentage": 6,
-      "recentActivity": [
-        "DevOps"
-      ],
+      "recentActivity": [],
       "skills": [
         "Scripting & Automation"
       ],
@@ -49,6 +47,26 @@
     }
   },
   "recentActivity": [
+    {
+      "program": "devops",
+      "activity": "Day 06 Completed",
+      "icon": "⚙️"
+    },
+    {
+      "program": "devops",
+      "activity": "Reto 3 Completed",
+      "icon": "⚙️"
+    },
+    {
+      "program": "devops",
+      "activity": "Day 05 Completed",
+      "icon": "⚙️"
+    },
+    {
+      "program": "devops",
+      "activity": "Reto 2 Completed",
+      "icon": "⚙️"
+    },
     {
       "program": "devops",
       "activity": "Challenge 04 Completed",
@@ -65,29 +83,9 @@
       "icon": "⚙️"
     },
     {
-      "program": "devops",
-      "activity": "Day 03 Completed",
-      "icon": "⚙️"
-    },
-    {
-      "program": "devops",
-      "activity": "Day 02 Completed",
-      "icon": "⚙️"
-    },
-    {
-      "program": "devops",
-      "activity": "Day 01 Completed",
-      "icon": "⚙️"
-    },
-    {
       "program": "docker",
       "activity": "Docker",
       "icon": "🐳"
-    },
-    {
-      "program": "devops",
-      "activity": "DevOps",
-      "icon": "⚙️"
     }
   ],
   "skills": [
