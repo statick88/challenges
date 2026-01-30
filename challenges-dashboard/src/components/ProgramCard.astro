@@ -69,8 +69,8 @@ const totalTestId = `${program.name.toLowerCase()}-total`;
     <div class={`mt-4 pt-4 border-t border-accent border-opacity-10`}>
       <p class={`text-xs text-muted ${spacing.m.xs}`}>Skills:</p>
       <div class={`flex flex-wrap ${spacing.gap.xs}`}>
-        {program.skills.map((skill) => (
-          <span class={components.skillTag}>
+{program.skills.map((skill) => (
+          <span class={components.skillTag} data-testid="program-skill-tag">
             {skill}
           </span>
         ))}
