@@ -8,7 +8,7 @@ Comprehensive 100-day DevOps learning journey covering Linux administration, Doc
 
 ## 📅 Daily Progress
 
-### ✅ Completed Days (5/100)
+### ✅ Completed Days (6/100)
 
 | Day | Challenge | Status | Category | Skills | Date |
 |-----|-----------|--------|----------|-------|------|
@@ -17,12 +17,12 @@ Comprehensive 100-day DevOps learning journey covering Linux administration, Doc
 | 3 | [Disable Root SSH](days/day-03-disable-root-ssh.md) | ✅ | #linux #ssh #seguridad | SSH Security | 25-01-2026 |
 | 4 | [Script Permissions](days/day-04-script-permissions.md) | ✅ | #linux #scripts #permisos | Script Management | 25-01-2026 |
 | 5 | [SELinux Installation](days/day-05-selinux-installation.md) | ✅ | #linux #seguridad #selinux | Security Framework | 29-01-2026 |
+| 6 | [Cron Job Deployment](days/day-06-cron-job-deployment.md) | ✅ | #linux #automatizacion #cron | Task Scheduling | 30-01-2026 |
 
-### 📅 Upcoming Challenges (6-100)
+### 📅 Upcoming Challenges (7-100)
 
 | Day | Planned Challenge | Category | Focus Area |
 |-----|-------------------|----------|------------|
-| 6 | Create a Cron Job | #linux #automatizacion | Task Scheduling |
 | 7 | Linux SSH Authentication | #linux #ssh #seguridad | SSH Keys |
 | 8 | File System Management | #linux #filesystem | Disk Management |
 | 9 | Process Management | #linux #procesos | System Monitoring |
@@ -35,16 +35,16 @@ Comprehensive 100-day DevOps learning journey covering Linux administration, Doc
 
 ### 🎯 Completion Metrics
 - **Total Days**: 100
-- **Completed**: 5 ✅ (5%)
+- **Completed**: 6 ✅ (6%)
 - **In Progress**: 0 🔄 (0%)
-- **Remaining**: 95 ⏳ (95%)
-- **Success Rate**: 100% (5/5 completed)
-- **Streak**: 5 days 🔥
+- **Remaining**: 94 ⏳ (94%)
+- **Success Rate**: 100% (6/6 completed)
+- **Streak**: 6 days 🔥
 
 ### 📈 Skill Coverage
-- **Linux Administration**: 50% (5/10 planned days)
+- **Linux Administration**: 60% (6/10 planned days)
 - **SSH & Security**: 40% (4/10 planned days)
-- **Scripting & Automation**: 10% (1/10 planned days)
+- **Scripting & Automation**: 20% (2/10 planned days)
 - **Docker & Containers**: 0% ⏳ (0/15 planned days)
 - **CI/CD & Jenkins**: 0% ⏳ (0/20 planned days)
 - **Infrastructure as Code**: 0% ⏳ (0/25 planned days)
@@ -58,8 +58,8 @@ Comprehensive 100-day DevOps learning journey covering Linux administration, Doc
 **Focus**: System administration, user management, security, networking
 
 #### 📅 Weeks 1-2: Core Linux Skills (Days 1-14)
-- ✅ **Week 1**: User management, shells, SSH security, SELinux
-- 🔄 **Week 2**: File systems, permissions, process management
+- ✅ **Week 1**: User management, shells, SSH security, SELinux (Days 1-5)
+- 🔄 **Week 2**: Cron automation, file systems, permissions, process management (Days 6-14)
 
 #### 📅 Weeks 3-4: Advanced Linux (Days 15-25)
 - System services, cron jobs, backup strategies
@@ -144,6 +144,32 @@ chmod u+s script.sh
 echo "username ALL=(ALL) NOPASSWD: /path/to/script" | sudo tee /etc/sudoers.d/username
 ```
 
+### ⏰ Cron Job Management
+```bash
+# Install cronie package
+sudo yum install -y cronie
+
+# Start and enable cron daemon
+sudo systemctl start crond
+sudo systemctl enable crond
+
+# Edit cron jobs
+crontab -e
+
+# List cron jobs
+crontab -l
+
+# Cron syntax
+# */5 * * * * [command] = Every 5 minutes
+# 0 * * * * [command] = Every hour
+# 0 0 * * * [command] = Every day
+# 0 0 * * 0 [command] = Every Sunday
+
+# View cron logs
+tail -f /var/log/cron
+journalctl -u crond -f
+```
+
 ---
 
 ## 🎯 Achievement Milestones
@@ -151,7 +177,7 @@ echo "username ALL=(ALL) NOPASSWD: /path/to/script" | sudo tee /etc/sudoers.d/us
 ### 🏅 Linux Administration Badge (Days 1-25)
 - ✅ **User Management Specialist** (Days 1-4)
 - ✅ **Security Framework Foundation** (Day 5)
-- 🔄 **Security Configuration Expert** (Days 6-10)
+- 🔄 **Task Scheduling & Automation Expert** (Days 6-10)
 - ⏳ **Network Services Administrator** (Days 11-15)
 - ⏳ **System Monitoring Specialist** (Days 16-20)
 - ⏳ **Backup & Recovery Expert** (Days 21-25)
@@ -210,8 +236,8 @@ echo "username ALL=(ALL) NOPASSWD: /path/to/script" | sudo tee /etc/sudoers.d/us
 ## 🔗 Quick Navigation
 
 ### 📅 Daily Challenges
-- [✅ Days 1-4: Completed](#-completed-days-4100)
-- [📅 Days 5-25: Linux Foundation](#-phase-1-linux-foundation-days-1-25)
+- [✅ Days 1-6: Completed](#-completed-days-6100)
+- [📅 Days 7-25: Linux Foundation](#-phase-1-linux-foundation-days-1-25)
 - [🐳 Days 26-40: Container Technologies](#-phase-2-container-technologies-days-26-40)
 - [⚙️ Days 41-60: CI/CD & Automation](#-phase-3-cicd-automation-days-41-60)
 
@@ -225,7 +251,7 @@ echo "username ALL=(ALL) NOPASSWD: /path/to/script" | sudo tee /etc/sudoers.d/us
 ## 🎯 Next 7 Days Plan
 
 ### 📅 Immediate Focus
-1. **Day 6**: Cron job creation and management  
+1. **Day 6**: ✅ Cron job creation and management  
 2. **Day 7**: SSH key-based authentication
 3. **Day 8**: File system management and partitioning
 4. **Day 9**: Process monitoring and management
@@ -234,10 +260,10 @@ echo "username ALL=(ALL) NOPASSWD: /path/to/script" | sudo tee /etc/sudoers.d/us
 7. **Day 12**: System monitoring and performance analysis
 
 ### 🎯 Weekly Goals
-- Complete Linux security foundations
-- Master system monitoring basics
-- Understand network configuration
-- Build automation scripts foundation
+- ✅ Complete Linux security foundations
+- 🔄 Master system automation and cron jobs
+- ⏳ Understand network configuration
+- ⏳ Build monitoring and observability foundation
 
 ---
 
@@ -245,4 +271,4 @@ echo "username ALL=(ALL) NOPASSWD: /path/to/script" | sudo tee /etc/sudoers.d/us
 
 ---
 
-*100 Days of DevOps v1.0 | Started: 25-01-2026 | Current Day: 5 | Estimated Completion: 04-05-2026*
+*100 Days of DevOps v1.0 | Started: 25-01-2026 | Current Day: 6 | Estimated Completion: 05-05-2026*
