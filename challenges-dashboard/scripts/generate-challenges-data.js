@@ -48,13 +48,19 @@ async function parseOverviewFile(filePath) {
   try {
     const content = await fs.readFile(filePath, 'utf-8');
     
-    // Extraer tabla de progreso general
+    // Extraer tabla de progreso general - FIXED REGEX PATTERNS
+    // Patrón: | 🐧 **Linux Challenges** | 18 | 5 ✅ | 2 🔓 | 11 🔒 | **27.8%** |
     const linuxTableMatch = content.match(/\| 🐧 \*\*Linux Challenges\*\* \| (\d+) \| (\d+) ✅ \| (\d+) 🔓 \| (\d+) 🔒 \| \*\*([\d.]+)%\*\*/);
+    
+    // Patrón: | 🐳 **Docker Challenges** | 5 | 3 ✅ | 0 ⏳ | 2 ⏳ | **60%** |
     const dockerTableMatch = content.match(/\| 🐳 \*\*Docker Challenges\*\* \| (\d+) \| (\d+) ✅ \| (\d+) ⏳ \| (\d+) ⏳ \| \*\*([\d.]+)%\*\*/);
+    
+    // Patrón: | ⚙️ **100 Days DevOps** | 100 | 6 ✅ | 0 🔄 | 94 ⏳ | **6%** |
     const devopsTableMatch = content.match(/\| ⚙️ \*\*100 Days DevOps\*\* \| (\d+) \| (\d+) ✅ \| (\d+) 🔄 \| (\d+) ⏳ \| \*\*([\d.]+)%\*\*/);
     
     // Extraer métricas totales
-    const totalMatch = content.match(/\| \*\*TOTAL\*\* \| \*\*(\d+)\*\* \| \*\*(\d+)\*\* ✅ \| \*\*(\d+)\*\* 🔓 \| \*\*(\d+)\*\* ⏳ \| \*\*([\d.]+)%\*\*/);
+    // Patrón: | **TOTAL** | **123** | **14** ✅ | **2** 🔓 | **107** ⏳ | **11.4%** |
+    const totalMatch = content.match(/\|\s*\*\*TOTAL\*\*\s*\|\s*\*\*(\d+)\*\*\s*\|\s*\*\*(\d+)\*\*\s*✅\s*\|\s*\*\*(\d+)\*\*\s*🔓\s*\|\s*\*\*(\d+)\*\*\s*⏳\s*\|\s*\*\*([\d.]+)%\*\*\s*\|/);
     
     // Extraer actividad reciente
     const activityMatches = [...content.matchAll(/\|\s*\d+-\d+-\d+\s*\|\s*[^|]+\|\s*([^|]+)/g)];

@@ -2,20 +2,20 @@
 
 ## 📊 Challenge Status Overview
 
-### ✅ Completed Challenges (2/5)
+### ✅ Completed Challenges (3/5)
 
 | # | Challenge | Completion Date | Duration | Skills Mastered | Status |
 |---|-----------|-----------------|----------|----------------|--------|
 | 1 | Install Docker Packages and Start Docker Service | 25-01-2026 | 15 min | Docker installation, service management, user group configuration | ✅ Completed |
 | 2 | Deploy Nginx Container on Application Server | 28-01-2026 | 3 min 28 seg | Container deployment, nginx image management, container verification | ✅ Completed |
+| 3 | Delete Docker Container | 30-01-2026 | 5 min | Container lifecycle management, docker stop/rm commands, container cleanup | ✅ Completed |
 
 ### ⏳ Ready to Start (3/5)
 
-### ⏳ Ready to Start (3/5)
+### ⏳ Ready to Start (2/5)
 
 | # | Challenge | Difficulty | Priority | Estimated Duration | Preparation Status |
 |---|-----------|------------|----------|-------------------|-------------------|
-| 3 | Delete Docker Container | ⭐⭐ | Medium | 10 min | Ready |
 | 4 | Copy File to Docker Container | ⭐⭐ | Medium | 15 min | Ready |
 | 5 | Troubleshoot Docker Container Issue | ⭐⭐⭐ | High | 20 min | Ready |
 
@@ -30,13 +30,13 @@
 | **Docker Installation** | Package installation, service startup, user group management | Challenge 1 | 🟢 Advanced |
 | **System Service Management** | systemctl operations, service enablement | Challenge 1 | 🟢 Advanced |
 | **User Permission Management** | Docker group assignment, session management | Challenge 1 | 🟢 Advanced |
+| **Container Deployment** | Image management, container creation, verification | Challenge 2 | 🟢 Advanced |
+| **Container Lifecycle Management** | docker stop, docker rm, container cleanup | Challenge 3 | 🟢 Advanced |
 
 ### 🔄 Skills in Progress
 
 | Skill Category | Current Level | Target Level | Next Challenge | Development Plan |
 |----------------|---------------|--------------|----------------|------------------|
-| **Container Deployment** | 🟢 Completed | 🟢 Advanced | Challenge 3 | Master container lifecycle management |
-| **Container Lifecycle Management** | 🔴 Not Started | 🟢 Intermediate | Challenge 3 | Master docker stop/rm commands |
 | **Container File Operations** | 🔴 Not Started | 🟢 Intermediate | Challenge 4 | Learn docker cp commands |
 | **Container Troubleshooting** | 🔴 Not Started | 🟢 Advanced | Challenge 5 | Develop debugging skills |
 
@@ -99,10 +99,10 @@
 
 ### 📅 This Week (Week of 27-01-2026)
 - **[x] Tuesday**: ✅ Challenge 2 - Deploy Nginx Container (Completed!)
-- **[ ] Wednesday**: Complete Challenge 3 - Delete Docker Container
-- **[ ] Thursday**: Complete Challenge 4 - Copy File to Container
-- **[ ] Friday**: Complete Challenge 5 - Troubleshoot Container Issue
-- **[ ] Saturday**: Review all Docker commands and concepts
+- **[x] Thursday**: ✅ Challenge 3 - Delete Docker Container (Completed!)
+- **[ ] Friday**: Complete Challenge 4 - Copy File to Container
+- **[ ] Saturday**: Complete Challenge 5 - Troubleshoot Container Issue
+- **[ ] Sunday**: Review all Docker commands and concepts
 
 ### 📅 Next Week (Week of 03-02-2026)
 - **[ ] Monday**: Practice advanced Docker commands
@@ -179,8 +179,8 @@
 
 ### 🎯 Next Milestone: Docker Container Specialist
 **Requirements**: Complete all 5 Docker challenges
-**Progress**: 2/5 completed
-**Estimated Completion**: 31-01-2026
+**Progress**: 3/5 completed
+**Estimated Completion**: 02-02-2026
 **Benefits**: Container deployment skills, Docker command mastery
 
 ### 🎯 Future Milestone: Docker Advanced User
@@ -196,10 +196,10 @@
 ### 🎯 Completion Targets
 | Metric | Current | 30-Day Target | 90-Day Target |
 |--------|---------|---------------|---------------|
-| **Challenges Completed** | 2/5 (40%) | 5/5 (100%) | 5/5 + advanced topics |
-| **Commands Mastered** | 11/15 (73%) | 15/15 (100%) | 20/20 (advanced) |
-| **Success Rate** | 100% (2/2 attempts) | 100% | 100% |
-| **Time per Challenge** | 9 min 14 seg | 8 min | 6 min |
+| **Challenges Completed** | 3/5 (60%) | 5/5 (100%) | 5/5 + advanced topics |
+| **Commands Mastered** | 13/15 (87%) | 15/15 (100%) | 20/20 (advanced) |
+| **Success Rate** | 100% (3/3 attempts) | 100% | 100% |
+| **Time per Challenge** | 7 min 29 seg | 7 min | 6 min |
 
 ---
 
@@ -207,4 +207,4 @@
 
 ---
 
-*Docker Progress Tracker v1.0 | Last Updated: 28-01-2026 | Next Challenge: 3*
+*Docker Progress Tracker v1.0 | Last Updated: 30-01-2026 | Next Challenge: 4*
