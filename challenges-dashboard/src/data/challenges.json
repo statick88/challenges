@@ -1,10 +1,10 @@
 {
-  "lastUpdated": "2026-01-30T19:29:40.941Z",
+  "lastUpdated": "2026-01-31T07:28:44.266Z",
   "overview": {
     "totalChallenges": 123,
-    "completed": 15,
-    "completionRate": 12.2,
-    "streak": 9
+    "completed": 16,
+    "completionRate": 13,
+    "streak": 10
   },
   "programs": {
     "linux": {
@@ -25,8 +25,8 @@
       "icon": "🐳",
       "color": "cyan",
       "total": 5,
-      "completed": 3,
-      "percentage": 60,
+      "completed": 4,
+      "percentage": 80,
       "recentActivity": [],
       "skills": [
         "Container Management"
@@ -40,14 +40,14 @@
       "completed": 6,
       "percentage": 6,
       "recentActivity": [
+        "Reto 4 Completed",
         "Challenge 05 Completed",
         "Day 06 Completed",
         "Reto 3 Completed",
         "Day 05 Completed",
         "Reto 2 Completed",
         "Challenge 04 Completed",
-        "Day 04 Completed",
-        "Challenge 01 Completed"
+        "Day 04 Completed"
       ],
       "skills": [
         "Scripting & Automation",
@@ -56,6 +56,11 @@
     }
   },
   "recentActivity": [
+    {
+      "program": "devops",
+      "activity": "Reto 4 Completed",
+      "icon": "⚙️"
+    },
     {
       "program": "devops",
       "activity": "Challenge 05 Completed",
@@ -89,11 +94,6 @@
     {
       "program": "devops",
       "activity": "Day 04 Completed",
-      "icon": "⚙️"
-    },
-    {
-      "program": "devops",
-      "activity": "Challenge 01 Completed",
       "icon": "⚙️"
     }
   ],

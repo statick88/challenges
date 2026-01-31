@@ -211,11 +211,13 @@ export const components = {
   progressBar: {
     container:
       "relative w-full bg-secondary rounded-full h-3 overflow-hidden border border-accent border-opacity-20",
-    fill: "absolute top-0 left-0 h-full bg-gradient-to-r from-accent to-emerald-400 rounded-full transition-all duration-700 ease-out",
+    fill: "absolute top-0 left-0 h-full bg-gradient-to-r from-accent to-accent-400 rounded-full transition-all duration-700 ease-out",
   },
 
   // Skill tag (slightly stronger contrast for visibility)
-  skillTag: `inline-block bg-accent bg-opacity-20 text-accent text-xs px-2 py-1 ${radius.sm} ${shadows.sm}`,
+  // Use bg + text pair with good contrast across themes.
+  // ("text-primary" here maps to a readable foreground via theme tokens.)
+  skillTag: `inline-block bg-accent text-primary text-xs px-2 py-1 ${radius.sm} ${shadows.sm}`,
 
   // Stats box
   statsBox: {

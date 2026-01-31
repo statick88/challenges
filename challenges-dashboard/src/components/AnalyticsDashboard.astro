@@ -46,33 +46,33 @@ const { showAnalytics = false } = Astro.props;
       <div class="text-center">
         <button 
           onclick="window.exportProgress('pdf')" 
-          class="bg-accent hover:bg-emerald-400 text-primary px-6 py-2 rounded-lg transition-colors">
-          <div class="text-2xl mb-2">📄</div>
-          <div class="font-medium text-text">Export PDF Report</div>
-          <div class="text-sm text-muted">Complete progress analytics</div>
-        </button>
+           class="bg-accent hover:bg-accent-400 text-primary px-6 py-2 rounded-lg transition-colors">
+           <div class="text-2xl mb-2">📄</div>
+           <div class="font-medium text-primary">Export PDF Report</div>
+           <div class="text-sm text-primary/80">Complete progress analytics</div>
+         </button>
       </div>
       
       <!-- Export CSV -->
       <div class="text-center">
         <button 
           onclick="window.exportProgress('csv')" 
-          class="bg-warning hover:bg-amber-400 text-primary px-6 py-2 rounded-lg transition-colors">
-          <div class="text-2xl mb-2">📊</div>
-          <div class="font-medium text-text">Export CSV Data</div>
-          <div class="text-sm text-muted">Raw progress data</div>
-        </button>
+           class="bg-warning hover:opacity-90 text-primary px-6 py-2 rounded-lg transition-all">
+           <div class="text-2xl mb-2">📊</div>
+           <div class="font-medium text-primary">Export CSV Data</div>
+           <div class="text-sm text-primary/80">Raw progress data</div>
+         </button>
       </div>
       
       <!-- Export JSON -->
       <div class="text-center">
         <button 
           onclick="window.exportProgress('json')" 
-          class="bg-secondary hover:bg-accent text-primary px-6 py-2 rounded-lg transition-colors">
-          <div class="text-2xl mb-2">📄</div>
-          <div class="font-medium text-text">Export JSON Data</div>
-          <div class="text-sm text-muted">Machine-readable format</div>
-        </button>
+           class="bg-secondary hover:bg-accent text-text px-6 py-2 rounded-lg transition-colors">
+           <div class="text-2xl mb-2">📄</div>
+           <div class="font-medium text-text">Export JSON Data</div>
+           <div class="text-sm text-muted">Machine-readable format</div>
+         </button>
       </div>
     </div>
   </div>

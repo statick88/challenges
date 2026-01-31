@@ -1,5 +1,5 @@
-import fs from 'fs/promises';
-import path from 'path';
+import fs from "fs/promises";
+import path from "path";
 
 // ====== CONSTANTS ======
 const MOCK_DATA = {
@@ -7,70 +7,82 @@ const MOCK_DATA = {
     totalChallenges: 123,
     completed: 9,
     completionRate: 7.3,
-    streak: 6
+    streak: 6,
   },
   linux: {
     total: 18,
     completed: 4,
-    percentage: 22.2
+    percentage: 22.2,
   },
   docker: {
     total: 5,
     completed: 1,
-    percentage: 20.0
+    percentage: 20.0,
   },
   devops: {
     total: 100,
     completed: 4,
-    percentage: 4.0
+    percentage: 4.0,
   },
   recentActivity: [
     "Day 16 - Setting up monitoring infrastructure",
-    "Day 15 - CI/CD pipeline implementation", 
+    "Day 15 - CI/CD pipeline implementation",
     "Day 14 - Docker container optimization",
     "Day 13 - Linux user management",
     "Day 12 - Network configuration",
     "Day 11 - Security hardening",
     "Day 10 - Backup strategies",
-    "Day 9 - Performance tuning"
+    "Day 9 - Performance tuning",
   ],
   skills: [
-    "User Management", "Docker Containers", "Shell Scripting",
-    "Network Configuration", "Security Hardening", "Monitoring",
-    "CI/CD Pipelines", "Performance Tuning", "Backup Strategies"
-  ]
+    "User Management",
+    "Docker Containers",
+    "Shell Scripting",
+    "Network Configuration",
+    "Security Hardening",
+    "Monitoring",
+    "CI/CD Pipelines",
+    "Performance Tuning",
+    "Backup Strategies",
+  ],
 };
 
 const PROGRAM_CONFIG = {
   linux: {
-    name: 'Linux',
-    icon: '🐧',
-    color: 'blue',
-    keywords: ['linux', 'user', 'system']
+    name: "Linux",
+    icon: "🐧",
+    color: "blue",
+    keywords: ["linux", "user", "system"],
   },
   docker: {
-    name: 'Docker',
-    icon: '🐳',
-    color: 'cyan',
-    keywords: ['docker', 'container']
+    name: "Docker",
+    icon: "🐳",
+    color: "cyan",
+    keywords: ["docker", "container"],
   },
   devops: {
-    name: 'DevOps',
-    icon: '⚙️',
-    color: 'purple',
-    keywords: ['devops', 'script', 'pipeline']
-  }
+    name: "DevOps",
+    icon: "⚙️",
+    color: "purple",
+    keywords: ["devops", "script", "pipeline"],
+  },
 };
 
 const REGEX_PATTERNS = {
-  linux: /\| 🐧 \*\*Linux Challenges\*\* \| (\d+) \| (\d+) ✅ \| (\d+) 🔓 \| (\d+) 🔒 \| \*\*([\d.]+)%\*\*/,
-  docker: /\| 🐳 \*\*Docker Challenges\*\* \| (\d+) \| (\d+) ✅ \| (\d+) ⏳ \| (\d+) ⏳ \| \*\*([\d.]+)%\*\*/,
-  devops: /\| ⚙️ \*\*100 Days DevOps\*\* \| (\d+) \| (\d+) ✅ \| (\d+) 🔄 \| (\d+) ⏳ \| \*\*([\d.]+)%\*\*/,
-  total: /\|\s*\*\*TOTAL\*\*\s*\|\s*\*\*(\d+)\*\*\s*\|\s*\*\*(\d+)\*\*\s*✅\s*\|\s*\*\*(\d+)\*\*\s*🔓\s*\|\s*\*\*(\d+)\*\*\s*⏳\s*\|\s*\*\*([\d.]+)%\*\*\s*\|/,
+  // Be permissive about spacing/alignment and the emoji used in non-essential columns.
+  // Captures: total, completed, inProgress, remaining, percentage
+  linux:
+    /\|\s*🐧\s*\*\*Linux Challenges\*\*\s*\|\s*(\d+)\s*\|\s*(\d+)\s*✅\s*\|\s*(\d+)\s*🔓\s*\|\s*(\d+)\s*🔒\s*\|\s*\*\*([\d.]+)%\*\*\s*\|/,
+  docker:
+    /\|\s*🐳\s*\*\*Docker Challenges\*\*\s*\|\s*(\d+)\s*\|\s*(\d+)\s*✅\s*\|\s*(\d+)\s*[^|]+\|\s*(\d+)\s*[^|]+\|\s*\*\*([\d.]+)%\*\*\s*\|/,
+  devops:
+    /\|\s*⚙️\s*\*\*100 Days DevOps\*\*\s*\|\s*(\d+)\s*\|\s*(\d+)\s*✅\s*\|\s*(\d+)\s*🔄\s*\|\s*(\d+)\s*[^|]+\|\s*\*\*([\d.]+)%\*\*\s*\|/,
+  total:
+    /\|\s*\*\*TOTAL\*\*\s*\|\s*\*\*(\d+)\*\*\s*\|\s*\*\*(\d+)\*\*\s*✅\s*\|\s*\*\*(\d+)\*\*\s*🔓\s*\|\s*\*\*(\d+)\*\*\s*[^|]+\|\s*\*\*([\d.]+)%\*\*\s*\|/,
   activity: /\|\s*\d+-\d+-\d+\s*\|\s*[^|]+\|\s*([^|]+)/g,
   skillsSection: /## 🛠️ Technical Skills Coverage[\s\S]*?##/,
   skillCell: /\|\s*\*\*([^*]+)\*\*\s*\|/g,
-  date: /\d+-\d+-\d+/
+  date: /\d+-\d+-\d+/,
 };
 
 // Función para generar datos de ejemplo cuando no existe el archivo
@@ -89,12 +101,12 @@ function generateMockData() {
 function extractProgramMetrics(content, pattern) {
   const match = content.match(pattern);
   if (!match) return { total: 0, completed: 0, inProgress: 0, percentage: 0 };
-  
+
   return {
     total: parseInt(match[1]) || 0,
     completed: parseInt(match[2]) || 0,
     inProgress: parseInt(match[3]) || 0,
-    percentage: parseFloat(match[5]) || 0
+    percentage: parseFloat(match[5]) || 0,
   };
 }
 
@@ -105,14 +117,21 @@ function extractProgramMetrics(content, pattern) {
  */
 function extractOverallMetrics(content) {
   const match = content.match(REGEX_PATTERNS.total);
-  if (!match) return { totalChallenges: 0, completed: 0, inProgress: 0, remaining: 0, completionRate: 0 };
-  
+  if (!match)
+    return {
+      totalChallenges: 0,
+      completed: 0,
+      inProgress: 0,
+      remaining: 0,
+      completionRate: 0,
+    };
+
   return {
     totalChallenges: parseInt(match[1]) || 0,
     completed: parseInt(match[2]) || 0,
     inProgress: parseInt(match[3]) || 0,
     remaining: parseInt(match[4]) || 0,
-    completionRate: parseFloat(match[5]) || 0
+    completionRate: parseFloat(match[5]) || 0,
   };
 }
 
@@ -123,7 +142,7 @@ function extractOverallMetrics(content) {
  */
 function extractRecentActivity(content) {
   const activityMatches = [...content.matchAll(REGEX_PATTERNS.activity)];
-  return activityMatches.map(match => match[1].trim()).slice(0, 8);
+  return activityMatches.map((match) => match[1].trim()).slice(0, 8);
 }
 
 /**
@@ -132,13 +151,15 @@ function extractRecentActivity(content) {
  * @returns {number} Number of unique dates (streak)
  */
 function calculateStreak(activityMatches) {
-  const uniqueDates = [...new Set(
-    activityMatches.map(match => {
-      const dateMatch = match[0].match(REGEX_PATTERNS.date);
-      return dateMatch ? dateMatch[0] : '';
-    })
-  )].filter(date => date);
-  
+  const uniqueDates = [
+    ...new Set(
+      activityMatches.map((match) => {
+        const dateMatch = match[0].match(REGEX_PATTERNS.date);
+        return dateMatch ? dateMatch[0] : "";
+      }),
+    ),
+  ].filter((date) => date);
+
   return uniqueDates.length;
 }
 
@@ -150,9 +171,9 @@ function calculateStreak(activityMatches) {
 function extractSkills(content) {
   const skillsSection = content.match(REGEX_PATTERNS.skillsSection);
   if (!skillsSection) return [];
-  
+
   const skillMatches = [...skillsSection[0].matchAll(REGEX_PATTERNS.skillCell)];
-  return skillMatches.map(match => match[1].trim());
+  return skillMatches.map((match) => match[1].trim());
 }
 
 /**
@@ -162,19 +183,19 @@ function extractSkills(content) {
  */
 async function parseOverviewFile(filePath) {
   try {
-    const content = await fs.readFile(filePath, 'utf-8');
+    const content = await fs.readFile(filePath, "utf-8");
     const activityMatches = [...content.matchAll(REGEX_PATTERNS.activity)];
-    
+
     return {
       linux: extractProgramMetrics(content, REGEX_PATTERNS.linux),
       docker: extractProgramMetrics(content, REGEX_PATTERNS.docker),
       devops: extractProgramMetrics(content, REGEX_PATTERNS.devops),
       overview: {
         ...extractOverallMetrics(content),
-        streak: calculateStreak(activityMatches)
+        streak: calculateStreak(activityMatches),
       },
       recentActivity: extractRecentActivity(content),
-      skills: extractSkills(content)
+      skills: extractSkills(content),
     };
   } catch (error) {
     console.error(`Error parsing overview file:`, error);
@@ -191,14 +212,14 @@ async function parseOverviewFile(filePath) {
  */
 function detectActivityProgram(activity) {
   const lowerActivity = activity.toLowerCase();
-  
+
   for (const [program, config] of Object.entries(PROGRAM_CONFIG)) {
-    if (config.keywords.some(keyword => lowerActivity.includes(keyword))) {
+    if (config.keywords.some((keyword) => lowerActivity.includes(keyword))) {
       return program;
     }
   }
-  
-  return 'devops'; // Default fallback
+
+  return "devops"; // Default fallback
 }
 
 /**
@@ -209,8 +230,8 @@ function detectActivityProgram(activity) {
  */
 function filterSkillsForProgram(skills, program) {
   const config = PROGRAM_CONFIG[program];
-  return skills.filter(skill => 
-    config.keywords.some(keyword => skill.toLowerCase().includes(keyword))
+  return skills.filter((skill) =>
+    config.keywords.some((keyword) => skill.toLowerCase().includes(keyword)),
   );
 }
 
@@ -223,7 +244,7 @@ function filterSkillsForProgram(skills, program) {
 function createProgramData(program, data) {
   const config = PROGRAM_CONFIG[program];
   const programData = data[program];
-  
+
   return {
     name: config.name,
     icon: config.icon,
@@ -231,10 +252,10 @@ function createProgramData(program, data) {
     total: programData.total,
     completed: programData.completed,
     percentage: programData.percentage,
-    recentActivity: data.recentActivity.filter(activity => 
-      detectActivityProgram(activity) === program
+    recentActivity: data.recentActivity.filter(
+      (activity) => detectActivityProgram(activity) === program,
     ),
-    skills: filterSkillsForProgram(data.skills, program)
+    skills: filterSkillsForProgram(data.skills, program),
   };
 }
 
@@ -250,19 +271,19 @@ function transformChallengesData(data) {
       totalChallenges: data.overview.totalChallenges,
       completed: data.overview.completed,
       completionRate: data.overview.completionRate,
-      streak: data.overview.streak
+      streak: data.overview.streak,
     },
     programs: {
-      linux: createProgramData('linux', data),
-      docker: createProgramData('docker', data),
-      devops: createProgramData('devops', data)
+      linux: createProgramData("linux", data),
+      docker: createProgramData("docker", data),
+      devops: createProgramData("devops", data),
     },
-    recentActivity: data.recentActivity.map(activity => ({
+    recentActivity: data.recentActivity.map((activity) => ({
       program: detectActivityProgram(activity),
       activity,
-      icon: PROGRAM_CONFIG[detectActivityProgram(activity)].icon
+      icon: PROGRAM_CONFIG[detectActivityProgram(activity)].icon,
     })),
-    skills: data.skills
+    skills: data.skills,
   };
 }
 
@@ -273,12 +294,20 @@ function transformChallengesData(data) {
  * @param {object} data - Raw parsed data object
  */
 function logMetricsSummary(data) {
-  console.log('✅ Challenges data generated successfully!');
-  console.log(`📊 Total: ${data.overview.completed}/${data.overview.totalChallenges} (${data.overview.completionRate}%)`);
+  console.log("✅ Challenges data generated successfully!");
+  console.log(
+    `📊 Total: ${data.overview.completed}/${data.overview.totalChallenges} (${data.overview.completionRate}%)`,
+  );
   console.log(`🔥 Current streak: ${data.overview.streak} days`);
-  console.log(`🐧 Linux: ${data.linux.completed}/${data.linux.total} (${data.linux.percentage}%)`);
-  console.log(`🐳 Docker: ${data.docker.completed}/${data.docker.total} (${data.docker.percentage}%)`);
-  console.log(`⚙️ DevOps: ${data.devops.completed}/${data.devops.total} (${data.devops.percentage}%)`);
+  console.log(
+    `🐧 Linux: ${data.linux.completed}/${data.linux.total} (${data.linux.percentage}%)`,
+  );
+  console.log(
+    `🐳 Docker: ${data.docker.completed}/${data.docker.total} (${data.docker.percentage}%)`,
+  );
+  console.log(
+    `⚙️ DevOps: ${data.devops.completed}/${data.devops.total} (${data.devops.percentage}%)`,
+  );
 }
 
 /**
@@ -300,15 +329,15 @@ async function loadChallengesData(filePath) {
   try {
     await fs.access(filePath);
     const parsedData = await parseOverviewFile(filePath);
-    
+
     if (parsedData) {
       return parsedData;
     }
   } catch (error) {
-    console.warn('⚠️ Overview file not found, using mock data for demo');
+    console.warn("⚠️ Overview file not found, using mock data for demo");
   }
-  
-  console.warn('⚠️ Using fallback mock data');
+
+  console.warn("⚠️ Using fallback mock data");
   return generateMockData();
 }
 
@@ -320,18 +349,18 @@ async function generateChallengesData() {
   // Support both local development and CI/CD environments
   // Local: /path/to/challenges-dashboard/challenges-dashboard (nested repo)
   // CI/CD: /path/to/challenges-dashboard/challenges-dashboard (same structure)
-  let progressDir = '../progress';
-  
+  let progressDir = "../progress";
+
   // If running from nested repo and progress dir doesn't exist, try parent paths
-  let overviewPath = path.join(progressDir, 'overview.md');
-  
+  let overviewPath = path.join(progressDir, "overview.md");
+
   // Check multiple possible locations
   const possiblePaths = [
-    '../progress/overview.md',           // Local development (nested)
-    '../../progress/overview.md',        // GitHub Actions CI/CD
-    './progress/overview.md'             // From parent directory
+    "../progress/overview.md", // Local development (nested)
+    "../../progress/overview.md", // GitHub Actions CI/CD
+    "./progress/overview.md", // From parent directory
   ];
-  
+
   for (const possiblePath of possiblePaths) {
     try {
       await fs.access(possiblePath);
@@ -342,25 +371,25 @@ async function generateChallengesData() {
       // Path doesn't exist, try next one
     }
   }
-  
-  const outputPath = 'src/data/challenges.json';
-  
+
+  const outputPath = "src/data/challenges.json";
+
   try {
     // Load data from file or use mock data
     const data = await loadChallengesData(overviewPath);
-    
+
     // Transform data into final format
     const challengesData = transformChallengesData(data);
-    
+
     // Write to file
     await writeChallengesData(challengesData, outputPath);
-    
+
     // Log summary
     logMetricsSummary(data);
-    
+
     return challengesData;
   } catch (error) {
-    console.error('❌ Error generating challenges data:', error);
+    console.error("❌ Error generating challenges data:", error);
     throw error;
   }
 }
