@@ -26,11 +26,12 @@ export const colors = {
   // Text Colors
   text: {
     primary: "text-text",
+    muted: "text-muted",
     DEFAULT: "rgb(248 250 252)", // slate-50
     muted_value: "rgb(148 163 184)", // slate-400
   },
 
-  // Muted text helper
+  // Muted text helper (kept for backwards compatibility)
   textMuted: "text-muted",
 
   // Semantic Colors
