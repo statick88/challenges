@@ -9,7 +9,8 @@
 | 🐧 **Linux Challenges**  | 18               | 6 ✅      | 1 🔓        | 11 🔒      | **33.3%**       |
 | 🐳 **Docker Challenges** | 5                | 4 ✅      | 0 ⏳        | 1 ⏳       | **80%**         |
 | ⚙️ **100 Days DevOps**   | 100              | 6 ✅      | 0 🔄        | 94 ⏳      | **6%**          |
-| **TOTAL**                | **123**          | **16** ✅ | **1** 🔓    | **106** ⏳ | **13.0%**       |
+| 🚩 **CTF Writeups**      | 1                | 1 ✅      | 0 ⏳        | 0 ⏳       | **100%**        |
+| **TOTAL**                | **124**          | **17** ✅ | **1** 🔓    | **106** ⏳ | **13.7%**       |
 
 ---
 
@@ -20,12 +21,14 @@
 - **🎯 Linux User Management Specialist** - Linux Challenges 01-04, 06
 - **🐳 Docker Container Operations Expert** - Docker Challenges 01-04
 - **⚙️ DevOps Foundation Starter** - 100 Days DevOps Days 01-06
+- **🚩 CTF Forensics Beginner** - Hidden Metadata PDF Challenge
 
 ### 🚀 Current Streaks
 
 - **🔥 Linux Learning Streak**: 5 challenges completed
 - **🔥 DevOps Daily Streak**: 6 consecutive days 🔥
 - **🔥 Docker Progress**: 4 challenges completed
+- **🔥 CTF Progress**: 1 challenge completed
 
 ---
 
@@ -62,6 +65,7 @@
 
 | Date       | Program   | Challenge              | Status | Skills Gained                  |
 | ---------- | --------- | ---------------------- | ------ | ------------------------------ |
+| 03-02-2026 | 🚩 CTF    | Hidden Metadata PDF    | ✅     | PDF Forensics, Base64 decoding |
 | 31-01-2026 | 🐳 Docker | Reto 4 Completed       | ✅     | Container file operations      |
 | 30-01-2026 | 🐧 Linux  | Challenge 05 Completed | ✅     | Temporary User Configuration   |
 | 30-01-2026 | ⚙️ DevOps | Day 06 Completed       | ✅     | Cron Job Automation            |
@@ -202,6 +206,7 @@
 - [🐧 Linux Progress Details](./linux-progress.md)
 - [🐳 Docker Progress Details](./docker-progress.md)
 - [⚙️ DevOps Progress Details](./devops-progress.md)
+- [🚩 CTF Progress Details](./ctf-progress.md)
 
 ### 📊 Analytics & Reports
 

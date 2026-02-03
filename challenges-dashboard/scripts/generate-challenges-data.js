@@ -66,6 +66,12 @@ const PROGRAM_CONFIG = {
     color: "purple",
     keywords: ["devops", "script", "pipeline"],
   },
+  ctf: {
+    name: "CTF",
+    icon: "🚩",
+    color: "red",
+    keywords: ["ctf", "forensics", "crypto", "web", "pwn", "reversing", "hacking"],
+  },
 };
 
 const REGEX_PATTERNS = {
@@ -77,6 +83,8 @@ const REGEX_PATTERNS = {
     /\|\s*🐳\s*\*\*Docker Challenges\*\*\s*\|\s*(\d+)\s*\|\s*(\d+)\s*✅\s*\|\s*(\d+)\s*[^|]+\|\s*(\d+)\s*[^|]+\|\s*\*\*([\d.]+)%\*\*\s*\|/,
   devops:
     /\|\s*⚙️\s*\*\*100 Days DevOps\*\*\s*\|\s*(\d+)\s*\|\s*(\d+)\s*✅\s*\|\s*(\d+)\s*🔄\s*\|\s*(\d+)\s*[^|]+\|\s*\*\*([\d.]+)%\*\*\s*\|/,
+  ctf:
+    /\|\s*🚩\s*\*\*CTF Writeups\*\*\s*\|\s*(\d+)\s*\|\s*(\d+)\s*✅\s*\|\s*(\d+)\s*[^|]+\|\s*(\d+)\s*[^|]+\|\s*\*\*([\d.]+)%\*\*\s*\|/,
   total:
     /\|\s*\*\*TOTAL\*\*\s*\|\s*\*\*(\d+)\*\*\s*\|\s*\*\*(\d+)\*\*\s*✅\s*\|\s*\*\*(\d+)\*\*\s*🔓\s*\|\s*\*\*(\d+)\*\*\s*[^|]+\|\s*\*\*([\d.]+)%\*\*\s*\|/,
   activity: /\|\s*\d+-\d+-\d+\s*\|\s*[^|]+\|\s*([^|]+)/g,
@@ -190,6 +198,7 @@ async function parseOverviewFile(filePath) {
       linux: extractProgramMetrics(content, REGEX_PATTERNS.linux),
       docker: extractProgramMetrics(content, REGEX_PATTERNS.docker),
       devops: extractProgramMetrics(content, REGEX_PATTERNS.devops),
+      ctf: extractProgramMetrics(content, REGEX_PATTERNS.ctf),
       overview: {
         ...extractOverallMetrics(content),
         streak: calculateStreak(activityMatches),
@@ -277,6 +286,7 @@ function transformChallengesData(data) {
       linux: createProgramData("linux", data),
       docker: createProgramData("docker", data),
       devops: createProgramData("devops", data),
+      ctf: createProgramData("ctf", data),
     },
     recentActivity: data.recentActivity.map((activity) => ({
       program: detectActivityProgram(activity),

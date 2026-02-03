@@ -14,6 +14,7 @@ Este repositorio unificado contiene la documentación y soluciones de desafíos 
 - **🐧 Linux Challenges** - Retos de administración Linux para xFusionCorp Industries
 - **🐳 Docker Challenge Memories** - Desafíos de contenerización Docker
 - **⚙️ 100 Días de DevOps** - Reto DevOps de 100 días de duración
+- **🚩 CTF Writeups** - Retos de seguridad informática y hacking ético (Capture The Flag)
 
 ---
 
@@ -34,9 +35,17 @@ technical-challenges/
 │   ├── docker/                        # Retos de Docker
 │   │   ├── README.md                  # Índice y descripción general
 │   │   └── challenges/                # Desafíos individuales
-│   └── devops/                        # Retos de 100 Días DevOps
+│   ├── devops/                        # Retos de 100 Días DevOps
+│   │   ├── README.md                  # Índice y descripción general
+│   │   └── days/                      # Desafíos por día
+│   └── ctf/                           # Retos CTF - Hacking Ético
 │       ├── README.md                  # Índice y descripción general
-│       └── days/                      # Desafíos por día
+│       ├── forensics/                 # Análisis forense y metadata
+│       ├── crypto/                    # Criptografía
+│       ├── web/                       # Vulnerabilidades web
+│       ├── pwn/                       # Explotación binaria
+│       ├── reversing/                 # Ingeniería inversa
+│       └── misc/                      # Misceláneos y OSINT
 ├── templates/                          # Plantillas reutilizables
 │   ├── challenge-template.md          # Plantilla unificada de desafíos
 │   ├── linux-challenge.md             # Plantilla específica Linux
@@ -62,7 +71,8 @@ technical-challenges/
 | 🐧 Linux | 18 | 4 ✅ | 2 🔓 | 12 🔒 | 22.2% |
 | 🐳 Docker | 5 | 1 ✅ | 0 ⏳ | 4 ⏳ | 20% |
 | ⚙️ DevOps | 100 | 5 ✅ | 0 ⏳ | 95 ⏳ | 5% |
-| **TOTAL** | **123** | **10** ✅ | **2** 🔓 | **111** ⏳ | **8.1%** |
+| 🚩 CTF | 1 | 1 ✅ | 0 ⏳ | 0 ⏳ | 100% |
+| **TOTAL** | **124** | **11** ✅ | **2** 🔓 | **111** ⏳ | **8.9%** |
 
 ### 📈 Habilidades Desarrolladas
 
@@ -97,6 +107,9 @@ technical-challenges/
 - ✅ **Día 3**: Deshabilitar acceso SSH root
 - ✅ **Día 4**: Permisos de ejecución scripts
 - ✅ **Día 5**: Instalación y configuración SELinux
+
+### 🚩 CTF Writeups
+- ✅ **Forensics**: Hidden Confidential Document - Metadata PDF + Base64
 
 ---
 
@@ -144,11 +157,17 @@ technical-challenges/
 - `#linux` - Administración de sistemas Linux
 - `#docker` - Contenerización Docker
 - `#devops` - Prácticas DevOps generales
+- `#ctf` - Capture The Flag / Hacking ético
 - `#usuarios` - Gestión de usuarios y permisos
 - `#seguridad` - Configuraciones de seguridad
 - `#ssh` - SSH y autenticación remota
 - `#scripts` - Automatización y scripting
 - `#contenedores` - Gestión de contenedores
+- `#forensics` - Análisis forense digital
+- `#crypto` - Criptografía y criptoanálisis
+- `#web` - Vulnerabilidades web
+- `#pwn` - Explotación binaria
+- `#reversing` - Ingeniería inversa
 
 ### 🎯 Niveles de Dificultad
 - ⭐ - Principiante
@@ -172,6 +191,7 @@ technical-challenges/
 - [🐧 Linux Challenges Index](./challenges/linux/README.md)
 - [🐳 Docker Challenges Index](./challenges/docker/README.md)
 - [⚙️ DevOps 100 Days Index](./challenges/devops/README.md)
+- [🚩 CTF Writeups Index](./challenges/ctf/README.md)
 
 ### 📊 Seguimiento
 - [📈 Progress Overview](./progress/overview.md)

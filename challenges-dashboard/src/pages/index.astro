@@ -22,7 +22,7 @@ if (!validateChallengesData(challengesData)) {
                 🚀 Technical Challenges Progress
             </h1>
             <p class="text-lg text-muted max-w-2xl mx-auto">
-                Track your journey through Linux, Docker, and DevOps challenges. 
+                Track your journey through Linux, Docker, DevOps, and CTF challenges. 
                 Build skills, maintain streaks, and achieve mastery.
             </p>
         </header>
@@ -31,7 +31,7 @@ if (!validateChallengesData(challengesData)) {
         <HeroMetrics data={challengesData.overview} lastUpdated={challengesData.lastUpdated} />
 
         <!-- Progress Cards -->
-        <section class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8" data-testid="programs-section">
+        <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8" data-testid="programs-section">
           {Object.entries(challengesData.programs).map(([key, program]) => (
             <ProgramCard program={program} />
           ))}
