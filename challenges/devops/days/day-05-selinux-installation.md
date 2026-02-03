@@ -1,10 +1,16 @@
-# 📅 Día 5: SELinux Installation and Configuration
-
-**Fecha**: 29-01-2026
-**Categoría**: #linux #seguridad #selinux #dnf
-**Dificultad**: ⭐⭐⭐
-**Estado**: ✅ Completado
-
+---
+title: "SELinux Installation and Configuration"
+category: devops
+day: 5
+difficulty: 3
+tags:
+  - devops
+  - linux
+  - seguridad
+  - selinux
+  - dnf
+date: 2026-01-29
+status: completed
 ---
 
 ## 🎯 Objetivo

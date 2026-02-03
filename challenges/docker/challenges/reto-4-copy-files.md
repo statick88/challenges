@@ -1,8 +1,17 @@
+---
+title: "Docker Challenge Reto 4: Copy File to Docker Container"
+category: docker
+difficulty: 3
+tags:
+  - docker
+  - contenedores
+  - archivos
+  - gestión
+date: DD-MM-YYYY
+status: preparado
+---
+
 # 🐳 Docker Challenge Reto 4: Copy File to Docker Container
-**Fecha**: DD-MM-YYYY  
-**Categoría**: #docker #contenedores #archivos #gestión  
-**Dificultad**: ⭐⭐⭐  
-**Estado**: ⏳ Preparado
 
 ---
 

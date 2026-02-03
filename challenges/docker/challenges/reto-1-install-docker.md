@@ -1,8 +1,16 @@
+---
+title: "Docker Challenge Reto 1: Install Docker Packages and Start Docker Service"
+category: docker
+difficulty: 3
+tags:
+  - docker
+  - linux
+  - instalación
+date: 25-01-2026
+status: completado
+---
+
 # 🐳 Docker Challenge Reto 1: Install Docker Packages and Start Docker Service
-**Fecha**: 25-01-2026  
-**Categoría**: #docker #linux #instalación  
-**Dificultad**: ⭐⭐⭐  
-**Estado**: ✅ Completado
 
 ---
 

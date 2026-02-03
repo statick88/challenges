@@ -1,3 +1,17 @@
+---
+title: "Reto 08: Data Backup for Developer - xFusionCorp Industries"
+category: linux
+difficulty: easy
+tags:
+  - linux
+  - ssh
+  - user-management
+  - permissions
+  - backup
+date: 2025-01-25
+status: completed
+---
+
 # Reto 08: Data Backup for Developer - xFusionCorp Industries
 
 ## Objetivo del Reto

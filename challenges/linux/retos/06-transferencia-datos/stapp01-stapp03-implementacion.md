@@ -1,3 +1,17 @@
+---
+title: "Implementación Reto 06: Linux User Data Transfer"
+category: linux
+difficulty: medium
+tags:
+  - linux
+  - ssh
+  - user-management
+  - permissions
+  - backup
+date: 2025-01-25
+status: completed
+---
+
 # Implementación Reto 06: Linux User Data Transfer
 
 ## Servidor Origen: stapp01 → Servidor Destino: stapp03

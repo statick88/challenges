@@ -1,3 +1,17 @@
+---
+title: "Reto 12: Secure Data Transfer - xFusionCorp Industries"
+category: linux
+difficulty: easy
+tags:
+  - linux
+  - ssh
+  - user-management
+  - group-management
+  - permissions
+date: 2025-01-25
+status: blocked
+---
+
 # Reto 12: Secure Data Transfer - xFusionCorp Industries
 
 ## Objetivo del Reto

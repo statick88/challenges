@@ -1,9 +1,15 @@
-# 📅 Día 1: Configuración de Usuario Linux con Shell No Interactiva
-**Fecha**: 25-01-2026  
-**Categoría**: #linux #usuarios #shell  
-**Dificultad**: ⭐⭐  
-**Estado**: ✅ Completado
-
+---
+title: "Configuración de Usuario Linux con Shell No Interactiva"
+category: devops
+day: 1
+difficulty: 2
+tags:
+  - devops
+  - linux
+  - usuarios
+  - shell
+date: 2026-01-25
+status: completed
 ---
 
 ## 🎯 Objetivo

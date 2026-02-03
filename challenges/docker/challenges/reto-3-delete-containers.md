@@ -1,9 +1,16 @@
-# 🐳 Docker Challenge Reto 3: Delete Docker Container
+---
+title: "Docker Challenge Reto 3: Delete Docker Container"
+category: docker
+difficulty: 2
+tags:
+  - docker
+  - contenedores
+  - limpieza
+date: 30-01-2026
+status: completado
+---
 
-**Fecha**: 30-01-2026  
-**Categoría**: #docker #contenedores #limpieza  
-**Dificultad**: ⭐⭐
-**Estado**: ✅ Completado
+# 🐳 Docker Challenge Reto 3: Delete Docker Container
 
 ---
 

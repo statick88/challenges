@@ -1,3 +1,17 @@
+---
+title: "Reto 03: Usuario john con Shell No-Interactivo - xFusionCorp Industries"
+category: linux
+difficulty: easy
+tags:
+  - linux
+  - user-management
+  - backup
+  - text-processing
+  - security
+date: 2025-01-25
+status: completed
+---
+
 # Reto 03: Usuario john con Shell No-Interactivo - xFusionCorp Industries
 
 ## Objetivo del Reto

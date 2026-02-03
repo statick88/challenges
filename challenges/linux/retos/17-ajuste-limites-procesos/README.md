@@ -1,3 +1,17 @@
+---
+title: "Reto 17: Process Limit Adjustment - xFusionCorp Industries"
+category: linux
+difficulty: hard
+tags:
+  - linux
+  - ssh
+  - user-management
+  - security
+  - backup
+date: 2025-01-25
+status: blocked
+---
+
 # Reto 17: Process Limit Adjustment - xFusionCorp Industries
 
 ## Objetivo del Reto

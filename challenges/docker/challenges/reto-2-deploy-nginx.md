@@ -1,8 +1,16 @@
+---
+title: "Docker Challenge Reto 2: Deploy Nginx Container"
+category: docker
+difficulty: 2
+tags:
+  - docker
+  - contenedores
+  - despliegue
+date: 28-01-2026
+status: completado
+---
+
 # 🐳 Docker Challenge Reto 2: Deploy Nginx Container
-**Fecha**: 28-01-2026  
-**Categoría**: #docker #contenedores #despliegue  
-**Dificultad**: ⭐⭐  
-**Estado**: ✅ Completado
 
 ---
 

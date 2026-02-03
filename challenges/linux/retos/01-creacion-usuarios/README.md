@@ -1,3 +1,17 @@
+---
+title: "Reto 01: Creación de Usuario javed - xFusionCorp Industries"
+category: linux
+difficulty: easy
+tags:
+  - linux
+  - ssh
+  - user-management
+  - security
+  - permissions
+date: 2025-01-25
+status: completed
+---
+
 # Reto 01: Creación de Usuario javed - xFusionCorp Industries
 
 ## Objetivo del Reto

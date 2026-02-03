@@ -1,3 +1,17 @@
+---
+title: "Reto 11: String Replacement - xFusionCorp Industries"
+category: linux
+difficulty: easy
+tags:
+  - linux
+  - ssh
+  - user-management
+  - backup
+  - text-processing
+date: 2025-01-25
+status: blocked
+---
+
 # Reto 11: String Replacement - xFusionCorp Industries
 
 ## Objetivo del Reto

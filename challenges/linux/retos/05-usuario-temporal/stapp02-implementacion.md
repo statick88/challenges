@@ -1,3 +1,16 @@
+---
+title: "Implementación Reto 05: Temporary User Setup with Expiry"
+category: linux
+difficulty: easy
+tags:
+  - linux
+  - ssh
+  - user-management
+  - security
+date: 2025-01-25
+status: completed
+---
+
 # Implementación Reto 05: Temporary User Setup with Expiry
 
 ## Servidor: stapp02

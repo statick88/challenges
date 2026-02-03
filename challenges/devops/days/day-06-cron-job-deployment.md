@@ -1,10 +1,16 @@
-# 📅 Día 6: Cron Job Deployment Across Multiple Servers
-
-**Fecha**: 30-01-2026
-**Categoría**: #linux #automatizacion #cron #scheduling
-**Dificultad**: ⭐⭐⭐
-**Estado**: ✅ Completado
-
+---
+title: "Cron Job Deployment Across Multiple Servers"
+category: devops
+day: 6
+difficulty: 3
+tags:
+  - devops
+  - linux
+  - automatizacion
+  - cron
+  - scheduling
+date: 2026-01-30
+status: completed
 ---
 
 ## 🎯 Objetivo
@@ -359,4 +365,3 @@ Este reto se construye sobre conocimientos de días anteriores:
 ## 📝 Conclusión
 
 Completar este reto establece una base sólida para la automatización en Linux, una habilidad esencial para cualquier profesional DevOps. La capacidad de desplegar y verificar configuración de cron jobs en múltiples servidores es crítica para mantener infraestructura escalable y automatizada.
-

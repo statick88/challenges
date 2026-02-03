@@ -1,3 +1,17 @@
+---
+title: "Reto 05: Temporary User Setup with Expiry - xFusionCorp Industries"
+category: linux
+difficulty: easy
+tags:
+  - linux
+  - ssh
+  - user-management
+  - system-config
+  - security
+date: 2025-01-25
+status: in-progress
+---
+
 # Reto 05: Temporary User Setup with Expiry - xFusionCorp Industries
 
 ## Objetivo del Reto

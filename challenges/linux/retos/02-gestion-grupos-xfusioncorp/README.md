@@ -1,3 +1,17 @@
+---
+title: "Reto 02: Gestión de Grupos nautilus_noc - xFusionCorp Industries"
+category: linux
+difficulty: medium
+tags:
+  - linux
+  - user-management
+  - group-management
+  - security
+  - xfusioncorp
+date: 2025-01-25
+status: completed
+---
+
 # Reto 02: Gestión de Grupos nautilus_noc - xFusionCorp Industries
 
 ## Objetivo del Reto
@@ -59,7 +73,7 @@ getent group nautilus_noc
 
 ## Archivos de Documentación Relacionados
 
-- [stapp01-implementacion.md](./stapp01-implementacion.md) - Detalles de implementación en stapp01
-- [stapp02-implementacion.md](./stapp02-implementacion.md) - Detalles de implementación en stapp02 (pendiente)
-- [stapp03-implementacion.md](./stapp03-implementacion.md) - Detalles de implementación en stapp03 (pendiente)
-- [resumen-ejecucion.md](./resumen-ejecucion.md) - Resumen comparativo de los 3 servidores (pendiente)
+- [[stapp01-implementacion]] - Detalles de implementación en stapp01
+- [[stapp02-implementacion]] - Detalles de implementación en stapp02 (pendiente)
+- [[stapp03-implementacion]] - Detalles de implementación en stapp03 (pendiente)
+- [[resumen-ejecucion]] - Resumen comparativo de los 3 servidores (pendiente)

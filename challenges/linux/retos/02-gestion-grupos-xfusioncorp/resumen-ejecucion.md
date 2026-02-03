@@ -1,3 +1,17 @@
+---
+title: "Resumen de Ejecución - Reto 02: Gestión de Grupos nautilus_noc"
+category: linux
+difficulty: medium
+tags:
+  - linux
+  - user-management
+  - group-management
+  - security
+  - scripting
+date: 2025-01-25
+status: completed
+---
+
 # Resumen de Ejecución - Reto 02: Gestión de Grupos nautilus_noc
 
 ## Estado General del Reto

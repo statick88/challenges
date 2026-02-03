@@ -1,9 +1,16 @@
-# 📅 Día 4: Permisos de Ejecución de Scripts
-**Fecha**: 27-01-2026  
-**Categoría**: #linux #scripts #permisos #bash  
-**Dificultad**: ⭐⭐  
-**Estado**: ✅ Completado
-
+---
+title: "Permisos de Ejecución de Scripts"
+category: devops
+day: 4
+difficulty: 2
+tags:
+  - devops
+  - linux
+  - scripts
+  - permisos
+  - bash
+date: 2026-01-27
+status: completed
 ---
 
 ## 🎯 Objetivo

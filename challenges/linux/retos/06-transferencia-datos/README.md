@@ -1,3 +1,17 @@
+---
+title: "Reto 06: Linux User Data Transfer - xFusionCorp Industries"
+category: linux
+difficulty: easy
+tags:
+  - linux
+  - ssh
+  - user-management
+  - permissions
+  - backup
+date: 2025-01-25
+status: in-progress
+---
+
 # Reto 06: Linux User Data Transfer - xFusionCorp Industries
 
 ## Objetivo del Reto

@@ -1,3 +1,17 @@
+---
+title: "Implementación Reto 06: Temporary User Setup with Expiry - Usuario anita"
+category: linux
+difficulty: easy
+tags:
+  - linux
+  - ssh
+  - user-management
+  - group-management
+  - security
+date: 2025-01-25
+status: completed
+---
+
 # Implementación Reto 06: Temporary User Setup with Expiry - Usuario anita
 
 ## Servidor: stapp02

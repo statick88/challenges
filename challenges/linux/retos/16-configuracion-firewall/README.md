@@ -1,3 +1,17 @@
+---
+title: "Reto 16: Firewall Configuration - xFusionCorp Industries"
+category: linux
+difficulty: hard
+tags:
+  - linux
+  - ssh
+  - user-management
+  - firewall
+  - security
+date: 2025-01-25
+status: blocked
+---
+
 # Reto 16: Firewall Configuration - xFusionCorp Industries
 
 ## Objetivo del Reto

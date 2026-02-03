@@ -1,3 +1,17 @@
+---
+title: "Reto 10: File Permission Correction - xFusionCorp Industries"
+category: linux
+difficulty: easy
+tags:
+  - linux
+  - ssh
+  - user-management
+  - group-management
+  - security
+date: 2025-01-25
+status: blocked
+---
+
 # Reto 10: File Permission Correction - xFusionCorp Industries
 
 ## Objetivo del Reto

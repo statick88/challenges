@@ -185,6 +185,42 @@ technical-challenges/
 
 ---
 
+## 📓 Uso con Obsidian
+
+Este repositorio es **100% compatible con Obsidian** para lectura local.
+
+### Configuración Rápida
+
+1. Clonar el repositorio:
+   ```bash
+   git clone https://github.com/statick88/challenges.git
+   ```
+
+2. Abrir Obsidian → "Open folder as vault" → Seleccionar carpeta `challenges`
+
+3. Activar plugins recomendados:
+   - **Dataview** - Para queries de retos por tags/estado
+   - **Graph View** - Visualizar conexiones entre retos
+   - **Tags Pane** - Navegar por categorías
+
+### Características Obsidian
+
+- ✅ **Frontmatter YAML** en todos los archivos para metadata
+- ✅ **Tags** organizados por categoría, dificultad y estado
+- ✅ **Wiki Links** `[[archivo]]` para navegación interna
+- ✅ **Estructura de carpetas** optimizada para Graph View
+
+### Queries Dataview Útiles
+
+```dataview
+TABLE difficulty, status, date
+FROM "challenges"
+WHERE status = "completado"
+SORT date DESC
+```
+
+---
+
 ## 🔗 Enlaces Rápidos
 
 ### 📋 Indices Específicos

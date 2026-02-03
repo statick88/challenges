@@ -1,3 +1,16 @@
+---
+title: "Resumen de Ejecución - Reto 03: Usuario john con Shell No-Interactivo"
+category: linux
+difficulty: medium
+tags:
+  - linux
+  - user-management
+  - security
+  - scripting
+date: 2025-01-25
+status: completed
+---
+
 # Resumen de Ejecución - Reto 03: Usuario john con Shell No-Interactivo
 
 ## Estado General del Reto

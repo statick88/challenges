@@ -1,9 +1,16 @@
-# 📅 Día 2: Configuración de Usuario Temporal con Expiración
-**Fecha**: 25-01-2026  
-**Categoría**: #linux #ssh #usuarios #seguridad  
-**Dificultad**: ⭐⭐  
-**Estado**: ✅ Completado
-
+---
+title: "Configuración de Usuario Temporal con Expiración"
+category: devops
+day: 2
+difficulty: 2
+tags:
+  - devops
+  - linux
+  - ssh
+  - usuarios
+  - seguridad
+date: 2026-01-25
+status: completed
 ---
 
 ## 🎯 Objetivo

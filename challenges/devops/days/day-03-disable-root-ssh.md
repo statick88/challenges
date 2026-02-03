@@ -1,9 +1,16 @@
-# 📅 Día 3: Deshabilitar Acceso SSH Root Directo
-**Fecha**: 26-01-2026  
-**Categoría**: #linux #ssh #seguridad #auditoria  
-**Dificultad**: ⭐⭐  
-**Estado**: ✅ Completado
-
+---
+title: "Deshabilitar Acceso SSH Root Directo"
+category: devops
+day: 3
+difficulty: 2
+tags:
+  - devops
+  - linux
+  - ssh
+  - seguridad
+  - auditoria
+date: 2026-01-26
+status: completed
 ---
 
 ## 🎯 Objetivo

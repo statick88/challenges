@@ -1,3 +1,17 @@
+---
+title: "Reto 14: Default GUI Boot Configuration - xFusionCorp Industries"
+category: linux
+difficulty: easy
+tags:
+  - linux
+  - ssh
+  - user-management
+  - group-management
+  - text-processing
+date: 2025-01-25
+status: blocked
+---
+
 # Reto 14: Default GUI Boot Configuration - xFusionCorp Industries
 
 ## Objetivo del Reto

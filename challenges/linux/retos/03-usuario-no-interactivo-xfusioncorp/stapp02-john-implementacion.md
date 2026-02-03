@@ -1,3 +1,17 @@
+---
+title: "Implementación en stapp02 - Usuario john con Shell No-Interactivo"
+category: linux
+difficulty: medium
+tags:
+  - linux
+  - ssh
+  - user-management
+  - security
+  - text-processing
+date: 2025-01-25
+status: completed
+---
+
 # Implementación en stapp02 - Usuario john con Shell No-Interactivo
 
 ## Información del Servidor

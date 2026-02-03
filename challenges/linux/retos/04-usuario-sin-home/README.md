@@ -1,3 +1,17 @@
+---
+title: "🏆 Reto 04: Service User Creation without Home Directory - xFusionCorp Industries ✅"
+category: linux
+difficulty: medium
+tags:
+  - linux
+  - ssh
+  - user-management
+  - security
+  - text-processing
+date: 2025-01-25
+status: completed
+---
+
 # 🏆 Reto 04: Service User Creation without Home Directory - xFusionCorp Industries ✅
 
 ## 🎯 Objetivo del Reto
@@ -76,4 +90,4 @@ grep james /etc/passwd
 
 ---
 
-**🔗 Implementación completa:** [Ver ejecución detallada](./stapp02-james-implementacion.md)
+**🔗 Implementación completa:** [[stapp02-james-implementacion|Ver ejecución detallada]]

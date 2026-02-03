@@ -1,3 +1,17 @@
+---
+title: "Implementación Reto 04: Service User Creation without Home Directory"
+category: linux
+difficulty: easy
+tags:
+  - linux
+  - ssh
+  - user-management
+  - text-processing
+  - security
+date: 2025-01-25
+status: completed
+---
+
 # Implementación Reto 04: Service User Creation without Home Directory
 
 ## Servidor: stapp01

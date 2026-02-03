@@ -1,3 +1,17 @@
+---
+title: "Reto 15: Timezone Alignment - xFusionCorp Industries"
+category: linux
+difficulty: easy
+tags:
+  - linux
+  - ssh
+  - user-management
+  - cron
+  - text-processing
+date: 2025-01-25
+status: blocked
+---
+
 # Reto 15: Timezone Alignment - xFusionCorp Industries
 
 ## Objetivo del Reto

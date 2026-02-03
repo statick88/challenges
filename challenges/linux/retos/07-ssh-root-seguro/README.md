@@ -1,3 +1,17 @@
+---
+title: "Reto 07: Secure Root SSH Access - xFusionCorp Industries"
+category: linux
+difficulty: easy
+tags:
+  - linux
+  - ssh
+  - user-management
+  - security
+  - permissions
+date: 2025-01-25
+status: blocked
+---
+
 # Reto 07: Secure Root SSH Access - xFusionCorp Industries
 
 ## Objetivo del Reto

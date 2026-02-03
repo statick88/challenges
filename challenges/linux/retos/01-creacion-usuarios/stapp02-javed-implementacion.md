@@ -1,3 +1,17 @@
+---
+title: "Implementación en stapp02 - Usuario javed con UID 1467"
+category: linux
+difficulty: medium
+tags:
+  - linux
+  - ssh
+  - user-management
+  - group-management
+  - security
+date: 2025-01-25
+status: completed
+---
+
 # Implementación en stapp02 - Usuario javed con UID 1467
 
 ## Información del Servidor

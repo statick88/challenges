@@ -1,8 +1,17 @@
+---
+title: "Docker Challenge Reto 5: Troubleshoot Docker Container Issue"
+category: docker
+difficulty: 4
+tags:
+  - docker
+  - contenedores
+  - troubleshooting
+  - debugging
+date: DD-MM-YYYY
+status: preparado
+---
+
 # 🐳 Docker Challenge Reto 5: Troubleshoot Docker Container Issue
-**Fecha**: DD-MM-YYYY  
-**Categoría**: #docker #contenedores #troubleshooting #debugging  
-**Dificultad**: ⭐⭐⭐⭐  
-**Estado**: ⏳ Preparado
 
 ---
 

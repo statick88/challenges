@@ -1,3 +1,17 @@
+---
+title: "Reto 13: Restrict Cron Access - xFusionCorp Industries"
+category: linux
+difficulty: hard
+tags:
+  - linux
+  - ssh
+  - user-management
+  - security
+  - permissions
+date: 2025-01-25
+status: blocked
+---
+
 # Reto 13: Restrict Cron Access - xFusionCorp Industries
 
 ## Objetivo del Reto

@@ -1,3 +1,17 @@
+---
+title: "Implementación en stapp01 - Grupo nautilus_noc"
+category: linux
+difficulty: medium
+tags:
+  - linux
+  - ssh
+  - user-management
+  - group-management
+  - security
+date: 2025-01-25
+status: completed
+---
+
 # Implementación en stapp01 - Grupo nautilus_noc
 
 ## Información del Servidor

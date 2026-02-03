@@ -1,3 +1,17 @@
+---
+title: "Reto 06: Temporary User Setup with Expiry - Usuario anita"
+category: linux
+difficulty: easy
+tags:
+  - linux
+  - ssh
+  - user-management
+  - permissions
+  - text-processing
+date: 2025-01-25
+status: completed
+---
+
 # Reto 06: Temporary User Setup with Expiry - Usuario anita
 
 ## Objetivo del Reto
