@@ -47,16 +47,22 @@ if (!validateChallengesData(challengesData)) {
             
             <div class="space-y-3">
                 {challengesData.recentActivity.slice(0, 5).map((activity, index) => (
-                    <div class="flex items-center bg-primary rounded-lg p-3">
+                    <a href={activity.link ? `https://github.com/statick88/challenges/blob/main/${activity.link}` : '#'} 
+                       target="_blank" 
+                       rel="noopener noreferrer"
+                       class="flex items-center bg-primary rounded-lg p-3 hover:bg-opacity-80 transition-colors cursor-pointer">
                         <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center mr-4">
                             <span class="text-lg">{activity.icon}</span>
                         </div>
                         <div class="flex-grow">
-                            <div class="text-text text-sm font-medium">{activity.activity}</div>
+                            <div class="text-text text-sm font-medium hover:text-accent transition-colors">{activity.activity}</div>
                             <div class="text-xs text-muted">{activity.program}</div>
                         </div>
-                        <div class="text-xs text-muted">{index === 0 ? 'Latest' : `${index + 1}h ago`}</div>
-                    </div>
+                        <div class="flex items-center gap-2">
+                            <div class="text-xs text-muted">{index === 0 ? 'Latest' : `${index + 1}h ago`}</div>
+                            {activity.link && <span class="text-accent text-xs">📄</span>}
+                        </div>
+                    </a>
                 ))}
             </div>
             
