@@ -2,6 +2,7 @@
 import MainLayout from '../layouts/MainLayout.astro';
 import HeroMetrics from '../components/HeroMetrics.astro';
 import ProgramCard from '../components/ProgramCard.astro';
+import SkillsGrid from '../components/SkillsGrid.astro';
 import { validateChallengesData } from '../utils/validation';
 
 // Load challenges data
@@ -68,17 +69,7 @@ if (!validateChallengesData(challengesData)) {
         </section>
 
         <!-- Skills Development -->
-        <section class="bg-secondary rounded-xl p-6 mb-8">
-            <h3 class="text-text text-xl font-semibold mb-6 flex items-center">
-                <span class="text-2xl mr-3">🛠️</span>
-                Skills Development
-            </h3>
-            
-            <div class="text-center text-muted py-8">
-                <span class="text-2xl mb-2">🎓</span>
-                Skills will appear as you complete challenges
-            </div>
-        </section>
+        <SkillsGrid skills={challengesData.skills} />
 
         <!-- Export Section -->
         <section class="bg-secondary rounded-xl p-6 mb-8">

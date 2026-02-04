@@ -9,8 +9,8 @@
 | 🐧 **Linux Challenges**  | 18               | 6 ✅      | 1 🔓        | 11 🔒      | **33.3%**       |
 | 🐳 **Docker Challenges** | 5                | 4 ✅      | 0 ⏳        | 1 ⏳       | **80%**         |
 | ⚙️ **100 Days DevOps**   | 100              | 6 ✅      | 0 🔄        | 94 ⏳      | **6%**          |
-| 🚩 **CTF Writeups**      | 1                | 1 ✅      | 0 ⏳        | 0 ⏳       | **100%**        |
-| **TOTAL**                | **124**          | **17** ✅ | **1** 🔓    | **106** ⏳ | **13.7%**       |
+| 🚩 **CTF Writeups**      | 2                | 2 ✅      | 0 ⏳        | 0 ⏳       | **100%**        |
+| **TOTAL**                | **125**          | **18** ✅ | **1** 🔓    | **106** ⏳ | **14.4%**       |
 
 ---
 
@@ -21,14 +21,14 @@
 - **🎯 Linux User Management Specialist** - Linux Challenges 01-04, 06
 - **🐳 Docker Container Operations Expert** - Docker Challenges 01-04
 - **⚙️ DevOps Foundation Starter** - 100 Days DevOps Days 01-06
-- **🚩 CTF Forensics Beginner** - Hidden Metadata PDF Challenge
+- **🚩 CTF Forensics Beginner** - Hidden Metadata PDF, Log Hunt Challenges
 
 ### 🚀 Current Streaks
 
 - **🔥 Linux Learning Streak**: 5 challenges completed
 - **🔥 DevOps Daily Streak**: 6 consecutive days 🔥
 - **🔥 Docker Progress**: 4 challenges completed
-- **🔥 CTF Progress**: 1 challenge completed
+- **🔥 CTF Progress**: 2 challenges completed
 
 ---
 
@@ -65,6 +65,7 @@
 
 | Date       | Program   | Challenge              | Status | Skills Gained                  |
 | ---------- | --------- | ---------------------- | ------ | ------------------------------ |
+| 04-02-2026 | 🚩 CTF    | Log Hunt               | ✅     | Log Analysis, grep, sort       |
 | 03-02-2026 | 🚩 CTF    | Hidden Metadata PDF    | ✅     | PDF Forensics, Base64 decoding |
 | 31-01-2026 | 🐳 Docker | Reto 4 Completed       | ✅     | Container file operations      |
 | 30-01-2026 | 🐧 Linux  | Challenge 05 Completed | ✅     | Temporary User Configuration   |
@@ -220,4 +221,4 @@
 
 ---
 
-_Progress Overview v1.0 | Last Updated: 31-01-2026 | Next Review: 03-02-2026_
+_Progress Overview v1.0 | Last Updated: 04-02-2026 | Next Review: 10-02-2026_

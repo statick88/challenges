@@ -4,13 +4,13 @@
 
 | Categoría | Total | Completados | En Progreso | Pendientes | Tasa de Completado |
 |-----------|-------|-------------|-------------|------------|-------------------|
-| 🔍 Forensics | 1 | 1 ✅ | 0 ⏳ | 0 ⏳ | **100%** |
+| 🔍 Forensics | 2 | 2 ✅ | 0 ⏳ | 0 ⏳ | **100%** |
 | 🔐 Crypto | 0 | 0 ⏳ | 0 ⏳ | 0 ⏳ | **0%** |
 | 🌐 Web | 0 | 0 ⏳ | 0 ⏳ | 0 ⏳ | **0%** |
 | 💥 Pwn | 0 | 0 ⏳ | 0 ⏳ | 0 ⏳ | **0%** |
 | 🔧 Reversing | 0 | 0 ⏳ | 0 ⏳ | 0 ⏳ | **0%** |
 | 🎲 Misc | 0 | 0 ⏳ | 0 ⏳ | 0 ⏳ | **0%** |
-| **TOTAL** | **1** | **1** ✅ | **0** ⏳ | **0** ⏳ | **100%** |
+| **TOTAL** | **2** | **2** ✅ | **0** ⏳ | **0** ⏳ | **100%** |
 
 ---
 
@@ -20,6 +20,7 @@
 
 | # | Reto | Plataforma | Dificultad | Fecha | Writeup |
 |---|------|------------|------------|-------|---------|
+| 2 | Log Hunt | picoCTF | ⭐ Fácil | 04-02-2026 | [Ver](../challenges/ctf/forensics/log-hunt.md) |
 | 1 | Documento Confidencial Oculto | picoCTF | ⭐ Fácil | 03-02-2026 | [Ver](../challenges/ctf/forensics/hidden-metadata-pdf.md) |
 
 ---
@@ -30,6 +31,8 @@
 - **Análisis de Metadatos PDF** - Extracción de datos ocultos en campos de metadatos
 - **Decodificación Base64** - Identificación y decodificación de strings Base64
 - **Forense de Línea de Comandos** - Uso de `strings`, `grep`, `sed` para análisis
+- **Análisis de Logs** - Filtrado y extracción de información de archivos de log
+- **Procesamiento de Texto Linux** - Uso de `grep`, `sort`, `uniq`, `awk` para análisis
 
 ### 🔄 Habilidades en Progreso
 - **Esteganografía** - Datos ocultos en imágenes
@@ -69,10 +72,10 @@
 
 ## 📈 Estadísticas
 
-- **Flags Capturadas**: 1
+- **Flags Capturadas**: 2
 - **Categoría Favorita**: Forensics
 - **Plataformas Usadas**: picoCTF
-- **Tiempo Promedio de Resolución**: 15 minutos
+- **Tiempo Promedio de Resolución**: 10 minutos
 
 ---
 
@@ -84,4 +87,4 @@
 
 ---
 
-*Última Actualización: 03-02-2026*
+*Última Actualización: 04-02-2026*

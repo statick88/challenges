@@ -1,10 +1,10 @@
 {
-  "lastUpdated": "2026-02-03T12:00:00.000Z",
+  "lastUpdated": "2026-02-04T11:08:34.614Z",
   "overview": {
-    "totalChallenges": 124,
-    "completed": 17,
-    "completionRate": 13.7,
-    "streak": 11
+    "totalChallenges": 125,
+    "completed": 18,
+    "completionRate": 14.4,
+    "streak": 12
   },
   "programs": {
     "linux": {
@@ -14,13 +14,10 @@
       "total": 18,
       "completed": 6,
       "percentage": 33.3,
-      "recentActivity": [
-        "Reto 05 Completado",
-        "Reto 04 Completado"
-      ],
+      "recentActivity": [],
       "skills": [
-        "Gestión de Usuarios",
-        "Administración de Sistemas"
+        "User Management",
+        "System Administration"
       ]
     },
     "docker": {
@@ -30,13 +27,9 @@
       "total": 5,
       "completed": 4,
       "percentage": 80,
-      "recentActivity": [
-        "Reto 4 Completado",
-        "Reto 3 Completado",
-        "Reto 2 Completado"
-      ],
+      "recentActivity": [],
       "skills": [
-        "Gestión de Contenedores"
+        "Container Management"
       ]
     },
     "devops": {
@@ -47,84 +40,81 @@
       "completed": 6,
       "percentage": 6,
       "recentActivity": [
-        "Día 06 Completado",
-        "Día 05 Completado",
-        "Día 04 Completado"
+        "Log Hunt",
+        "Hidden Metadata PDF",
+        "Reto 4 Completed",
+        "Challenge 05 Completed",
+        "Day 06 Completed",
+        "Reto 3 Completed",
+        "Day 05 Completed",
+        "Reto 2 Completed"
       ],
       "skills": [
-        "Automatización y Scripts",
-        "Pipelines CI/CD"
+        "Scripting & Automation",
+        "CI/CD Pipelines"
       ]
     },
     "ctf": {
       "name": "CTF",
       "icon": "🚩",
       "color": "red",
-      "total": 1,
-      "completed": 1,
+      "total": 2,
+      "completed": 2,
       "percentage": 100,
-      "recentActivity": [
-        "Hidden Metadata PDF Completado"
-      ],
-      "skills": [
-        "Análisis Forense",
-        "Decodificación Base64",
-        "Extracción de Metadatos"
-      ]
+      "recentActivity": [],
+      "skills": []
     }
   },
   "recentActivity": [
     {
-      "program": "ctf",
-      "activity": "Hidden Metadata PDF Completado",
-      "icon": "🚩"
-    },
-    {
-      "program": "docker",
-      "activity": "Reto 4 Completado",
-      "icon": "🐳"
-    },
-    {
-      "program": "linux",
-      "activity": "Reto 05 Completado",
-      "icon": "🐧"
-    },
-    {
       "program": "devops",
-      "activity": "Día 06 Completado",
+      "activity": "Log Hunt",
       "icon": "⚙️"
     },
     {
-      "program": "docker",
-      "activity": "Reto 3 Completado",
-      "icon": "🐳"
-    },
-    {
       "program": "devops",
-      "activity": "Día 05 Completado",
+      "activity": "Hidden Metadata PDF",
       "icon": "⚙️"
     },
     {
-      "program": "docker",
-      "activity": "Reto 2 Completado",
-      "icon": "🐳"
+      "program": "devops",
+      "activity": "Reto 4 Completed",
+      "icon": "⚙️"
     },
     {
-      "program": "linux",
-      "activity": "Reto 04 Completado",
-      "icon": "🐧"
+      "program": "devops",
+      "activity": "Challenge 05 Completed",
+      "icon": "⚙️"
+    },
+    {
+      "program": "devops",
+      "activity": "Day 06 Completed",
+      "icon": "⚙️"
+    },
+    {
+      "program": "devops",
+      "activity": "Reto 3 Completed",
+      "icon": "⚙️"
+    },
+    {
+      "program": "devops",
+      "activity": "Day 05 Completed",
+      "icon": "⚙️"
+    },
+    {
+      "program": "devops",
+      "activity": "Reto 2 Completed",
+      "icon": "⚙️"
     }
   ],
   "skills": [
-    "Gestión de Usuarios",
-    "Configuración de Seguridad",
-    "Gestión de Contenedores",
-    "Automatización y Scripts",
-    "Administración de Sistemas",
-    "Configuración de Red",
-    "Pipelines CI/CD",
-    "Infraestructura como Código",
-    "Análisis Forense",
-    "Criptografía Básica"
+    "User Management",
+    "Security Configuration",
+    "Container Management",
+    "Scripting & Automation",
+    "System Administration",
+    "Network Configuration",
+    "CI/CD Pipelines",
+    "Infrastructure as Code"
   ]
 }

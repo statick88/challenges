@@ -24,13 +24,13 @@ ctf/
 
 | Categoría | Total | Completados | Progreso |
 |-----------|-------|-------------|----------|
-| 🔍 Forensics | 1 | 1 ✅ | **100%** |
+| 🔍 Forensics | 2 | 2 ✅ | **100%** |
 | 🔐 Crypto | 0 | 0 ⏳ | **0%** |
 | 🌐 Web | 0 | 0 ⏳ | **0%** |
 | 💥 Pwn | 0 | 0 ⏳ | **0%** |
 | 🔧 Reversing | 0 | 0 ⏳ | **0%** |
 | 🎲 Misc | 0 | 0 ⏳ | **0%** |
-| **TOTAL** | **1** | **1** ✅ | **100%** |
+| **TOTAL** | **2** | **2** ✅ | **100%** |
 
 ---
 
@@ -41,6 +41,7 @@ ctf/
 | Reto | Plataforma | Dificultad | Writeup |
 |------|------------|------------|---------|
 | Documento Confidencial Oculto | picoCTF | ⭐ Fácil | [Ver](./forensics/hidden-metadata-pdf.md) |
+| Log Hunt | picoCTF | ⭐ Fácil | [Ver](./forensics/log-hunt.md) |
 
 ---
 
@@ -50,6 +51,8 @@ ctf/
 - **Análisis de Metadatos PDF** - Extracción de datos ocultos en campos de metadatos
 - **Decodificación Base64** - Identificación y decodificación de strings Base64
 - **Forense de Línea de Comandos** - Uso de `strings`, `grep`, `sed` para análisis
+- **Análisis de Logs** - Filtrado y extracción de información de archivos de log
+- **Procesamiento de Texto Linux** - Uso de `grep`, `sort`, `uniq`, `awk` para análisis
 
 ### 🔄 En Progreso
 - **Esteganografía** - Datos ocultos en imágenes
@@ -94,4 +97,4 @@ Ver [ctf-writeup-template.md](../../templates/ctf-writeup-template.md) para la p
 
 ---
 
-*Última actualización: 03-02-2026*
+*Última actualización: 04-02-2026*
