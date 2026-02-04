@@ -1,5 +1,5 @@
 ---
-title: Hidden Confidential Document
+title: Documento Confidencial Oculto
 platform: picoCTF
 category: forensics
 difficulty: easy
@@ -11,21 +11,22 @@ tags:
   - base64
   - picoCTF
   - easy
-date: 2025-02-03
+date: 2026-02-03
 flag: picoCTF{puzzl3d_m3tadata_f0und!_ee454950}
+status: completado
 ---
 
-# Hidden Confidential Document
+# Documento Confidencial Oculto
 
 ## 📋 Descripción
 
-> Hi, intrepid investigator! 📄🔍 You've stumbled upon a peculiar PDF filled with what seems like nothing more than garbled nonsense. But beware! Not everything is as it appears. Amidst the chaos lies a hidden treasure—an elusive flag waiting to be uncovered.
+> ¡Hola, intrépido investigador! 📄🔍 Has encontrado un peculiar PDF lleno de lo que parece ser nada más que texto sin sentido. ¡Pero cuidado! No todo es lo que parece. Entre el caos se esconde un tesoro oculto: una flag esperando ser descubierta.
 >
-> Find the PDF file here Hidden Confidential Document and uncover the flag within the metadata.
+> Encuentra el archivo PDF aquí "Hidden Confidential Document" y descubre la flag dentro de los metadatos.
 
-### Hints
-- Look beyond the surface for hidden clues
-- Don't be fooled by the visible text; it's just a decoy!
+### Pistas
+- Busca más allá de la superficie en busca de pistas ocultas
+- ¡No te dejes engañar por el texto visible; es solo una distracción!
 
 ---
 
@@ -46,7 +47,7 @@ El reto indica explícitamente que la flag está en los **metadatos** del PDF y 
 strings confidential.pdf | grep -i author
 ```
 
-**Output:**
+**Resultado:**
 ```
 /Author (cGljb0NURntwdXp6bDNkX20zdGFkYXRhX2YwdW5kIV9lZTQ1NDk1MH0\075)
 ```
@@ -61,14 +62,14 @@ El campo `Author` contiene un string en **Base64**. El `\075` es el caracter `=`
 echo "cGljb0NURntwdXp6bDNkX20zdGFkYXRhX2YwdW5kIV9lZTQ1NDk1MH0=" | base64 -d
 ```
 
-**Output:**
+**Resultado:**
 ```
 picoCTF{puzzl3d_m3tadata_f0und!_ee454950}
 ```
 
 ---
 
-## 🚀 One-liner
+## 🚀 Comando de una línea
 
 ```bash
 strings confidential.pdf | grep -i author | sed 's/.*(\(.*\)).*/\1/' | sed 's/\\075/=/g' | base64 -d

@@ -1,4 +1,4 @@
-# 🚩 CTF Challenges - Capture The Flag Writeups
+# 🚩 CTF Challenges - Writeups de Capture The Flag
 
 ## 📋 Descripción
 
@@ -40,7 +40,21 @@ ctf/
 
 | Reto | Plataforma | Dificultad | Writeup |
 |------|------------|------------|---------|
-| Hidden Confidential Document | picoCTF | ⭐ Easy | [Ver](./forensics/hidden-metadata-pdf.md) |
+| Documento Confidencial Oculto | picoCTF | ⭐ Fácil | [Ver](./forensics/hidden-metadata-pdf.md) |
+
+---
+
+## 🛠️ Habilidades Desarrolladas
+
+### ✅ Dominadas
+- **Análisis de Metadatos PDF** - Extracción de datos ocultos en campos de metadatos
+- **Decodificación Base64** - Identificación y decodificación de strings Base64
+- **Forense de Línea de Comandos** - Uso de `strings`, `grep`, `sed` para análisis
+
+### 🔄 En Progreso
+- **Esteganografía** - Datos ocultos en imágenes
+- **Forense de Memoria** - Análisis de dumps de RAM
+- **Forense de Red** - Análisis de PCAPs
 
 ---
 
@@ -67,16 +81,16 @@ ctf/
 
 ### Web
 - `Burp Suite`, `sqlmap`, `ffuf`
-- Browser DevTools
+- Herramientas de Desarrollador del Navegador
 
 ### Pwn/Reversing
 - `gdb`, `pwntools`, `ghidra`, `radare2`
 
 ---
 
-## 📝 Template de Writeup
+## 📝 Plantilla de Writeup
 
-Ver [writeup-template.md](../../templates/ctf-writeup-template.md) para la plantilla estándar.
+Ver [ctf-writeup-template.md](../../templates/ctf-writeup-template.md) para la plantilla estándar.
 
 ---
 

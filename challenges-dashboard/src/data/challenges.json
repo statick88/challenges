@@ -1,10 +1,10 @@
 {
-  "lastUpdated": "2026-01-31T07:28:44.266Z",
+  "lastUpdated": "2026-02-03T12:00:00.000Z",
   "overview": {
-    "totalChallenges": 123,
-    "completed": 16,
-    "completionRate": 13,
-    "streak": 10
+    "totalChallenges": 124,
+    "completed": 17,
+    "completionRate": 13.7,
+    "streak": 11
   },
   "programs": {
     "linux": {
@@ -14,10 +14,13 @@
       "total": 18,
       "completed": 6,
       "percentage": 33.3,
-      "recentActivity": [],
+      "recentActivity": [
+        "Reto 05 Completado",
+        "Reto 04 Completado"
+      ],
       "skills": [
-        "User Management",
-        "System Administration"
+        "Gestión de Usuarios",
+        "Administración de Sistemas"
       ]
     },
     "docker": {
@@ -27,9 +30,13 @@
       "total": 5,
       "completed": 4,
       "percentage": 80,
-      "recentActivity": [],
+      "recentActivity": [
+        "Reto 4 Completado",
+        "Reto 3 Completado",
+        "Reto 2 Completado"
+      ],
       "skills": [
-        "Container Management"
+        "Gestión de Contenedores"
       ]
     },
     "devops": {
@@ -40,71 +47,84 @@
       "completed": 6,
       "percentage": 6,
       "recentActivity": [
-        "Reto 4 Completed",
-        "Challenge 05 Completed",
-        "Day 06 Completed",
-        "Reto 3 Completed",
-        "Day 05 Completed",
-        "Reto 2 Completed",
-        "Challenge 04 Completed",
-        "Day 04 Completed"
+        "Día 06 Completado",
+        "Día 05 Completado",
+        "Día 04 Completado"
       ],
       "skills": [
-        "Scripting & Automation",
-        "CI/CD Pipelines"
+        "Automatización y Scripts",
+        "Pipelines CI/CD"
+      ]
+    },
+    "ctf": {
+      "name": "CTF",
+      "icon": "🚩",
+      "color": "red",
+      "total": 1,
+      "completed": 1,
+      "percentage": 100,
+      "recentActivity": [
+        "Hidden Metadata PDF Completado"
+      ],
+      "skills": [
+        "Análisis Forense",
+        "Decodificación Base64",
+        "Extracción de Metadatos"
       ]
     }
   },
   "recentActivity": [
     {
-      "program": "devops",
-      "activity": "Reto 4 Completed",
-      "icon": "⚙️"
+      "program": "ctf",
+      "activity": "Hidden Metadata PDF Completado",
+      "icon": "🚩"
+    },
+    {
+      "program": "docker",
+      "activity": "Reto 4 Completado",
+      "icon": "🐳"
+    },
+    {
+      "program": "linux",
+      "activity": "Reto 05 Completado",
+      "icon": "🐧"
     },
     {
       "program": "devops",
-      "activity": "Challenge 05 Completed",
+      "activity": "Día 06 Completado",
       "icon": "⚙️"
     },
     {
-      "program": "devops",
-      "activity": "Day 06 Completed",
-      "icon": "⚙️"
+      "program": "docker",
+      "activity": "Reto 3 Completado",
+      "icon": "🐳"
     },
     {
       "program": "devops",
-      "activity": "Reto 3 Completed",
+      "activity": "Día 05 Completado",
       "icon": "⚙️"
     },
     {
-      "program": "devops",
-      "activity": "Day 05 Completed",
-      "icon": "⚙️"
+      "program": "docker",
+      "activity": "Reto 2 Completado",
+      "icon": "🐳"
     },
     {
-      "program": "devops",
-      "activity": "Reto 2 Completed",
-      "icon": "⚙️"
-    },
-    {
-      "program": "devops",
-      "activity": "Challenge 04 Completed",
-      "icon": "⚙️"
-    },
-    {
-      "program": "devops",
-      "activity": "Day 04 Completed",
-      "icon": "⚙️"
+      "program": "linux",
+      "activity": "Reto 04 Completado",
+      "icon": "🐧"
     }
   ],
   "skills": [
-    "User Management",
-    "Security Configuration",
-    "Container Management",
-    "Scripting & Automation",
-    "System Administration",
-    "Network Configuration",
-    "CI/CD Pipelines",
-    "Infrastructure as Code"
+    "Gestión de Usuarios",
+    "Configuración de Seguridad",
+    "Gestión de Contenedores",
+    "Automatización y Scripts",
+    "Administración de Sistemas",
+    "Configuración de Red",
+    "Pipelines CI/CD",
+    "Infraestructura como Código",
+    "Análisis Forense",
+    "Criptografía Básica"
   ]
 }
