@@ -70,7 +70,7 @@ const PROGRAM_CONFIG = {
     name: "CTF",
     icon: "🚩",
     color: "red",
-    keywords: ["ctf", "forensics", "crypto", "web", "pwn", "reversing", "hacking"],
+    keywords: ["ctf", "forensics", "crypto", "web", "pwn", "reversing", "hacking", "log analysis", "metadata", "base64", "steganography"],
   },
 };
 

@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-02-04T11:08:34.614Z",
+  "lastUpdated": "2026-02-04T11:12:43.460Z",
   "overview": {
     "totalChallenges": 125,
     "completed": 18,
@@ -40,8 +40,6 @@
       "completed": 6,
       "percentage": 6,
       "recentActivity": [
-        "Log Hunt",
-        "Hidden Metadata PDF",
         "Reto 4 Completed",
         "Challenge 05 Completed",
         "Day 06 Completed",
@@ -61,20 +59,26 @@
       "total": 2,
       "completed": 2,
       "percentage": 100,
-      "recentActivity": [],
-      "skills": []
+      "recentActivity": [
+        "CTF Log Hunt Forensics",
+        "CTF Hidden Metadata"
+      ],
+      "skills": [
+        "CTF Forensics",
+        "CTF Crypto"
+      ]
     }
   },
   "recentActivity": [
     {
-      "program": "devops",
-      "activity": "Log Hunt",
-      "icon": "⚙️"
+      "program": "ctf",
+      "activity": "CTF Log Hunt Forensics",
+      "icon": "🚩"
     },
     {
-      "program": "devops",
-      "activity": "Hidden Metadata PDF",
-      "icon": "⚙️"
+      "program": "ctf",
+      "activity": "CTF Hidden Metadata",
+      "icon": "🚩"
     },
     {
       "program": "devops",
@@ -115,6 +119,8 @@
     "System Administration",
     "Network Configuration",
     "CI/CD Pipelines",
-    "Infrastructure as Code"
+    "Infrastructure as Code",
+    "CTF Forensics",
+    "CTF Crypto"
   ]
 }

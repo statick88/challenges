@@ -36,16 +36,18 @@
 
 ### 🛠️ Technical Skills Coverage
 
-| Skill Area                 | Linux  | Docker | DevOps | Overall Proficiency |
-| -------------------------- | ------ | ------ | ------ | ------------------- |
-| **User Management**        | ✅ 80% | -      | ✅ 40% | 🟢 **Advanced**     |
-| **Security Configuration** | 🔄 25% | -      | 🔄 30% | 🟡 **Intermediate** |
-| **Container Management**   | -      | 🔄 20% | -      | 🟡 **Learning**     |
-| **Scripting & Automation** | -      | -      | 🔄 10% | 🟡 **Beginning**    |
-| **System Administration**  | 🔄 40% | -      | 🔄 15% | 🟡 **Developing**   |
-| **Network Configuration**  | ⏳ 0%  | -      | ⏳ 0%  | 🔴 **Not Started**  |
-| **CI/CD Pipelines**        | -      | -      | ⏳ 0%  | 🔴 **Not Started**  |
-| **Infrastructure as Code** | -      | -      | ⏳ 0%  | 🔴 **Not Started**  |
+| Skill Area                 | Linux  | Docker | DevOps | CTF    | Overall Proficiency |
+| -------------------------- | ------ | ------ | ------ | ------ | ------------------- |
+| **User Management**        | ✅ 80% | -      | ✅ 40% | -      | 🟢 **Advanced**     |
+| **Security Configuration** | 🔄 25% | -      | 🔄 30% | -      | 🟡 **Intermediate** |
+| **Container Management**   | -      | 🔄 20% | -      | -      | 🟡 **Learning**     |
+| **Scripting & Automation** | -      | -      | 🔄 10% | -      | 🟡 **Beginning**    |
+| **System Administration**  | 🔄 40% | -      | 🔄 15% | -      | 🟡 **Developing**   |
+| **Network Configuration**  | ⏳ 0%  | -      | ⏳ 0%  | -      | 🔴 **Not Started**  |
+| **CI/CD Pipelines**        | -      | -      | ⏳ 0%  | -      | 🔴 **Not Started**  |
+| **Infrastructure as Code** | -      | -      | ⏳ 0%  | -      | 🔴 **Not Started**  |
+| **CTF Forensics**          | -      | -      | -      | ✅ 80% | 🟢 **Advanced**     |
+| **CTF Crypto**             | -      | -      | -      | 🔄 30% | 🟡 **Intermediate** |
 
 ### 🎯 Difficulty Level Progression
 
@@ -65,8 +67,8 @@
 
 | Date       | Program   | Challenge              | Status | Skills Gained                  |
 | ---------- | --------- | ---------------------- | ------ | ------------------------------ |
-| 04-02-2026 | 🚩 CTF    | Log Hunt               | ✅     | Log Analysis, grep, sort       |
-| 03-02-2026 | 🚩 CTF    | Hidden Metadata PDF    | ✅     | PDF Forensics, Base64 decoding |
+| 04-02-2026 | 🚩 CTF    | CTF Log Hunt Forensics | ✅     | Log Analysis, grep, sort       |
+| 03-02-2026 | 🚩 CTF    | CTF Hidden Metadata    | ✅     | PDF Forensics, Base64 decoding |
 | 31-01-2026 | 🐳 Docker | Reto 4 Completed       | ✅     | Container file operations      |
 | 30-01-2026 | 🐧 Linux  | Challenge 05 Completed | ✅     | Temporary User Configuration   |
 | 30-01-2026 | ⚙️ DevOps | Day 06 Completed       | ✅     | Cron Job Automation            |
