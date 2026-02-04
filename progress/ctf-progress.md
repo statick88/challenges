@@ -4,13 +4,13 @@
 
 | Categoría | Total | Completados | En Progreso | Pendientes | Tasa de Completado |
 |-----------|-------|-------------|-------------|------------|-------------------|
-| 🔍 Forensics | 2 | 2 ✅ | 0 ⏳ | 0 ⏳ | **100%** |
+| 🔍 Forensics | 3 | 3 ✅ | 0 ⏳ | 0 ⏳ | **100%** |
 | 🔐 Crypto | 0 | 0 ⏳ | 0 ⏳ | 0 ⏳ | **0%** |
 | 🌐 Web | 0 | 0 ⏳ | 0 ⏳ | 0 ⏳ | **0%** |
 | 💥 Pwn | 0 | 0 ⏳ | 0 ⏳ | 0 ⏳ | **0%** |
 | 🔧 Reversing | 0 | 0 ⏳ | 0 ⏳ | 0 ⏳ | **0%** |
 | 🎲 Misc | 0 | 0 ⏳ | 0 ⏳ | 0 ⏳ | **0%** |
-| **TOTAL** | **2** | **2** ✅ | **0** ⏳ | **0** ⏳ | **100%** |
+| **TOTAL** | **3** | **3** ✅ | **0** ⏳ | **0** ⏳ | **100%** |
 
 ---
 
@@ -20,6 +20,7 @@
 
 | # | Reto | Plataforma | Dificultad | Fecha | Writeup |
 |---|------|------------|------------|-------|---------|
+| 3 | Hidden in Plainsight | picoCTF | ⭐ Fácil | 04-02-2026 | [Ver](../challenges/ctf/forensics/hidden-in-plainsight.md) |
 | 2 | Log Hunt | picoCTF | ⭐ Fácil | 04-02-2026 | [Ver](../challenges/ctf/forensics/log-hunt.md) |
 | 1 | Documento Confidencial Oculto | picoCTF | ⭐ Fácil | 03-02-2026 | [Ver](../challenges/ctf/forensics/hidden-metadata-pdf.md) |
 
@@ -33,9 +34,10 @@
 - **Forense de Línea de Comandos** - Uso de `strings`, `grep`, `sed` para análisis
 - **Análisis de Logs** - Filtrado y extracción de información de archivos de log
 - **Procesamiento de Texto Linux** - Uso de `grep`, `sort`, `uniq`, `awk` para análisis
+- **Esteganografía con Steghide** - Extracción de datos ocultos en imágenes JPEG
 
 ### 🔄 Habilidades en Progreso
-- **Esteganografía** - Datos ocultos en imágenes
+- **Esteganografía Avanzada** - Datos ocultos en otros formatos de imagen
 - **Forense de Memoria** - Análisis de dumps de RAM
 - **Forense de Red** - Análisis de PCAPs
 
@@ -72,7 +74,7 @@
 
 ## 📈 Estadísticas
 
-- **Flags Capturadas**: 2
+- **Flags Capturadas**: 3
 - **Categoría Favorita**: Forensics
 - **Plataformas Usadas**: picoCTF
 - **Tiempo Promedio de Resolución**: 10 minutos

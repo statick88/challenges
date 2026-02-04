@@ -9,8 +9,8 @@
 | 🐧 **Linux Challenges**  | 18               | 6 ✅      | 1 🔓        | 11 🔒      | **33.3%**       |
 | 🐳 **Docker Challenges** | 5                | 4 ✅      | 0 ⏳        | 1 ⏳       | **80%**         |
 | ⚙️ **100 Days DevOps**   | 100              | 6 ✅      | 0 🔄        | 94 ⏳      | **6%**          |
-| 🚩 **CTF Writeups**      | 2                | 2 ✅      | 0 ⏳        | 0 ⏳       | **100%**        |
-| **TOTAL**                | **125**          | **18** ✅ | **1** 🔓    | **106** ⏳ | **14.4%**       |
+| 🚩 **CTF Writeups**      | 3                | 3 ✅      | 0 ⏳        | 0 ⏳       | **100%**        |
+| **TOTAL**                | **126**          | **19** ✅ | **1** 🔓    | **106** ⏳ | **15.1%**       |
 
 ---
 
@@ -28,7 +28,7 @@
 - **🔥 Linux Learning Streak**: 5 challenges completed
 - **🔥 DevOps Daily Streak**: 6 consecutive days 🔥
 - **🔥 Docker Progress**: 4 challenges completed
-- **🔥 CTF Progress**: 2 challenges completed
+- **🔥 CTF Progress**: 3 challenges completed
 
 ---
 
@@ -67,6 +67,7 @@
 
 | Date       | Program   | Challenge              | Status | Skills Gained                  |
 | ---------- | --------- | ---------------------- | ------ | ------------------------------ |
+| 04-02-2026 | 🚩 CTF    | CTF Hidden Plainsight  | ✅     | Steghide, Steganography        |
 | 04-02-2026 | 🚩 CTF    | CTF Log Hunt Forensics | ✅     | Log Analysis, grep, sort       |
 | 03-02-2026 | 🚩 CTF    | CTF Hidden Metadata    | ✅     | PDF Forensics, Base64 decoding |
 | 31-01-2026 | 🐳 Docker | Reto 4 Completed       | ✅     | Container file operations      |

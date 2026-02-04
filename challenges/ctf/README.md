@@ -24,13 +24,13 @@ ctf/
 
 | Categoría | Total | Completados | Progreso |
 |-----------|-------|-------------|----------|
-| 🔍 Forensics | 2 | 2 ✅ | **100%** |
+| 🔍 Forensics | 3 | 3 ✅ | **100%** |
 | 🔐 Crypto | 0 | 0 ⏳ | **0%** |
 | 🌐 Web | 0 | 0 ⏳ | **0%** |
 | 💥 Pwn | 0 | 0 ⏳ | **0%** |
 | 🔧 Reversing | 0 | 0 ⏳ | **0%** |
 | 🎲 Misc | 0 | 0 ⏳ | **0%** |
-| **TOTAL** | **2** | **2** ✅ | **100%** |
+| **TOTAL** | **3** | **3** ✅ | **100%** |
 
 ---
 
@@ -42,6 +42,7 @@ ctf/
 |------|------------|------------|---------|
 | Documento Confidencial Oculto | picoCTF | ⭐ Fácil | [Ver](./forensics/hidden-metadata-pdf.md) |
 | Log Hunt | picoCTF | ⭐ Fácil | [Ver](./forensics/log-hunt.md) |
+| Hidden in Plainsight | picoCTF | ⭐ Fácil | [Ver](./forensics/hidden-in-plainsight.md) |
 
 ---
 
@@ -53,6 +54,7 @@ ctf/
 - **Forense de Línea de Comandos** - Uso de `strings`, `grep`, `sed` para análisis
 - **Análisis de Logs** - Filtrado y extracción de información de archivos de log
 - **Procesamiento de Texto Linux** - Uso de `grep`, `sort`, `uniq`, `awk` para análisis
+- **Esteganografía con Steghide** - Extracción de datos ocultos en imágenes JPEG
 
 ### 🔄 En Progreso
 - **Esteganografía** - Datos ocultos en imágenes
@@ -97,4 +99,4 @@ Ver [ctf-writeup-template.md](../../templates/ctf-writeup-template.md) para la p
 
 ---
 
-*Última actualización: 04-02-2026*
+*Última actualización: 04-02-2026 (3 retos completados)*
