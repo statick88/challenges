@@ -22,15 +22,17 @@ ctf/
 
 ## 📊 Progreso
 
+> Basado en los retos disponibles en [picoCTF picoGym](https://play.picoctf.org/practice) (~150+ challenges)
+
 | Categoría | Total | Completados | Progreso |
 |-----------|-------|-------------|----------|
-| 🔍 Forensics | 3 | 3 ✅ | **100%** |
-| 🔐 Crypto | 0 | 0 ⏳ | **0%** |
-| 🌐 Web | 0 | 0 ⏳ | **0%** |
-| 💥 Pwn | 0 | 0 ⏳ | **0%** |
-| 🔧 Reversing | 0 | 0 ⏳ | **0%** |
-| 🎲 Misc | 0 | 0 ⏳ | **0%** |
-| **TOTAL** | **3** | **3** ✅ | **100%** |
+| 🔍 Forensics | 25 | 3 ✅ | **12%** |
+| 🔐 Crypto | 30 | 0 ⏳ | **0%** |
+| 🌐 Web | 30 | 0 ⏳ | **0%** |
+| 💥 Pwn | 25 | 0 ⏳ | **0%** |
+| 🔧 Reversing | 20 | 0 ⏳ | **0%** |
+| 🎲 General Skills | 20 | 0 ⏳ | **0%** |
+| **TOTAL** | **150** | **3** ✅ | **2%** |
 
 ---
 

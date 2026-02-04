@@ -1,9 +1,9 @@
 {
-  "lastUpdated": "2026-02-04T11:55:42.093Z",
+  "lastUpdated": "2026-02-04T12:20:05.575Z",
   "overview": {
-    "totalChallenges": 126,
+    "totalChallenges": 273,
     "completed": 19,
-    "completionRate": 15.1,
+    "completionRate": 7,
     "streak": 12
   },
   "programs": {
@@ -55,9 +55,9 @@
       "name": "CTF",
       "icon": "🚩",
       "color": "red",
-      "total": 3,
+      "total": 150,
       "completed": 3,
-      "percentage": 100,
+      "percentage": 2,
       "recentActivity": [
         "CTF Hidden Plainsight",
         "CTF Log Hunt Forensics",
