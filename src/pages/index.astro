@@ -1,0 +1,56 @@
+---
+// src/pages/index.astro
+import MainLayout from '../layouts/MainLayout.astro';
+---
+
+<MainLayout title="Dashboard de Desafíos Técnicos">
+  <main class="container mx-auto px-4 py-8">
+    <h1 class="text-4xl font-bold text-center mb-8 text-cyan-400">
+      🚀 Dashboard de Desafíos Técnicos
+    </h1>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="bg-slate-800 p-6 rounded-lg border border-slate-700">
+        <h2 class="text-xl font-semibold text-orange-400 mb-2">🐧 Linux</h2>
+        <p class="text-gray-300">Administración de sistemas Linux</p>
+        <a href="/challenges/linux" class="text-cyan-400 hover:text-cyan-300 mt-4 inline-block">
+          Ver desafíos →
+        </a>
+      </div>
+
+      <div class="bg-slate-800 p-6 rounded-lg border border-slate-700">
+        <h2 class="text-xl font-semibold text-blue-400 mb-2">🐳 Docker</h2>
+        <p class="text-gray-300">Containerización con Docker</p>
+        <a href="/challenges/docker" class="text-cyan-400 hover:text-cyan-300 mt-4 inline-block">
+          Ver desafíos →
+        </a>
+      </div>
+
+      <div class="bg-slate-800 p-6 rounded-lg border border-slate-700">
+        <h2 class="text-xl font-semibold text-green-400 mb-2">⚙️ DevOps</h2>
+        <p class="text-gray-300">100 días de DevOps</p>
+        <a href="/challenges/devops" class="text-cyan-400 hover:text-cyan-300 mt-4 inline-block">
+          Ver desafíos →
+        </a>
+      </div>
+
+      <div class="bg-slate-800 p-6 rounded-lg border border-slate-700">
+        <h2 class="text-xl font-semibold text-purple-400 mb-2">🚩 CTF</h2>
+        <p class="text-gray-300">Capture The Flag challenges</p>
+        <a href="/challenges/ctf" class="text-cyan-400 hover:text-cyan-300 mt-4 inline-block">
+          Ver desafíos →
+        </a>
+      </div>
+    </div>
+
+    <div class="mt-12 text-center">
+      <div class="bg-slate-800 p-6 rounded-lg border border-slate-700 inline-block">
+        <h2 class="text-xl font-semibold text-yellow-400 mb-2">🎯 HTB Academy</h2>
+        <p class="text-gray-300 mb-4">Desafíos de Hack The Box</p>
+        <a href="/challenges/htb" class="bg-cyan-600 hover:bg-cyan-700 px-6 py-2 rounded text-white">
+          Explorar HTB
+        </a>
+      </div>
+    </div>
+  </main>
+</MainLayout>
