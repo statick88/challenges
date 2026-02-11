@@ -1,7 +1,6 @@
 ---
 import fs from 'fs';
 import path from 'path';
-import { marked } from 'marked';
 import ChallengeModal from '../../../components/ChallengeModal.astro';
 
 export async function getStaticPaths() {
@@ -265,7 +264,7 @@ const categoryColor = 'from-green-500 to-teal-600';
             </div>
           )}
           
-          <div class="markdown-body" set:html={marked.parse(content.replace(/^---[\s\S]*?---/, '').trim())} />
+          <pre class="markdown-body whitespace-pre-wrap">{content.replace(/^---[\s\S]*?---/, '').trim()}</pre>
         </div>
       </article>
 
