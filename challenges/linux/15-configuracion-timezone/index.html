@@ -1,0 +1,91 @@
+<!DOCTYPE html><html lang="es"> <head><meta charset="UTF-8"><meta name="description" content="Plataforma interactiva de desafíos técnicos - Linux, Docker, DevOps, CTF"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.17.1"><title>Reto 15: Timezone Alignment - xFusionCorp Industries - Linux Challenges</title><style>.markdown-body{font-family:system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;line-height:1.8;color:#e5e7eb}.markdown-body h1{font-size:2rem;font-weight:700;color:#f97316;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid #374151}.markdown-body h2{font-size:1.5rem;font-weight:600;color:#22d3ee;margin:1.75rem 0 1rem;padding-bottom:.25rem}.markdown-body h3{font-size:1.25rem;font-weight:600;color:#a5f3fc;margin:1.5rem 0 .75rem}.markdown-body p{margin:.75rem 0;color:#d1d5db}.markdown-body strong{color:#fbbf24;font-weight:600}.markdown-body ul,.markdown-body ol{margin:.75rem 0;padding-left:1.5rem;color:#d1d5db}.markdown-body li{margin:.5rem 0;list-style-type:disc}.markdown-body table{width:100%;margin:1rem 0;border-collapse:collapse;font-size:.9rem}.markdown-body th,.markdown-body td{padding:.75rem;border:1px solid #374151;text-align:left}.markdown-body th{background:#37415180;color:#fbbf24;font-weight:600}.markdown-body td{color:#d1d5db}.markdown-body code{background:#06b6d426;color:#22d3ee;padding:.2rem .5rem;border-radius:.375rem;font-family:SF Mono,Monaco,Courier New,monospace;font-size:.875rem}.markdown-body pre{background:#0f172a;padding:1rem;border-radius:.75rem;overflow-x:auto;margin:1rem 0;border:1px solid #1e293b}.markdown-body pre code{background:transparent;padding:0;color:#a5b4fc}
+</style></head> <body class="bg-slate-900 text-gray-100 min-h-screen">   <main class="container mx-auto px-4 py-8"> <div class="max-w-4xl mx-auto"> <div class="mb-6"> <a href="/challenges/linux" class="text-cyan-400 hover:text-cyan-300">← Volver a Linux Challenges</a> </div> <article class="bg-slate-800 rounded-lg p-6 border border-slate-700"> <header class="mb-6"> <h1 class="text-3xl font-bold text-orange-400 mb-2">Reto 15: Timezone Alignment - xFusionCorp Industries</h1> <div class="flex items-center gap-4 text-sm text-gray-400"> <span class="bg-orange-600 px-2 py-1 rounded text-xs">Linux</span> <span class="capitalize">easy</span> <span>2025-01-25</span> </div> </header> <pre class="markdown-body whitespace-pre-wrap"># Reto 15: Timezone Alignment - xFusionCorp Industries
+
+## Objetivo del Reto
+
+Configurar zona horaria consistente en todos los servidores:
+
+**Configure consistent timezone across all servers.**
+
+## Infraestructura Objetivo
+
+| Servidor | IP | Usuario | Contraseña | Zona Horaria Destino |
+|----------|----|--------|-------------|-------------------|
+| stapp01 | 172.16.238.10 | tony | Ir0nM@n | America/New_York |
+| stapp02 | 172.16.238.11 | steve | Am3ric@ | America/New_York |
+| stapp03 | 172.16.238.12 | banner | BigGr33n | America/New_York |
+
+## Requisitos Técnicos
+
+- **Timezone objetivo**: America/New_York (UTC-5)
+- **Método**: timedatectl o link simbólico
+- **Servicios**: Configurar NTP para sincronización
+- **Verificación**: date y timedatectl status
+- **Persistencia**: Cambio permanente después de reboot
+
+## Estrategia de Implementación
+
+### Comandos Requeridos
+
+```bash
+# Para cada servidor (ejemplo en stapp01):
+ssh tony@172.16.238.10
+sudo su -
+
+# 1. Verificación actual
+timedatectl status
+date
+ls -la /etc/localtime
+
+# 2. Listar timezones disponibles
+timedatectl list-timezones | grep America
+
+# 3. Configurar timezone con timedatectl
+timedatectl set-timezone America/New_York
+
+# 4. Método alternativo (si timedatectl no disponible)
+ln -sf /usr/share/zoneinfo/America/New_York /etc/localtime
+
+# 5. Configurar NTP para sincronización
+systemctl enable ntpd
+systemctl start ntpd
+
+# 6. Verificación final
+timedatectl status
+date  # Debe mostrar hora de Nueva York
+
+# 7. Verificación de sincronización NTP
+ntpq -p
+
+# Repetir para stapp02 y stapp03
+```
+
+## Resultados Esperados
+
+- Todos los servidores con timezone America/New_York
+- Sincronización NTP activa y funcionando
+- Hora consistente entre todos los servidores
+- Cambios persistentes después de reboot
+
+## Estado del Reto
+
+🔒 **BLOQUEADO** - Requiere completar retos 4-6
+
+*Fecha planeada: Pendiente*</pre> </article> <div id="modal-15-configuracion-timezone" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50" aria-hidden="true"> <div class="flex items-center justify-center min-h-screen p-4"> <div class="bg-slate-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto"> <div class="p-6 border-b border-slate-700"> <div class="flex justify-between items-start"> <div> <h2 class="text-2xl font-bold text-gray-100">Reto 15: Timezone Alignment - xFusionCorp Industries</h2> <div class="flex items-center gap-4 mt-2 text-sm"> <span class="capitalize bg-slate-700 px-2 py-1 rounded">linux</span> <span class="text-cyan-400">easy</span>  </div> </div> <button onclick="closeModal('15-configuracion-timezone')" class="text-gray-400 hover:text-white">
+✕
+</button> </div> </div> <div class="p-6"> <div class="mb-6"> <h3 class="text-lg font-semibold text-cyan-400 mb-4">Pasos a Seguir</h3> <div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">1. Comandos Requeridos</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>ssh tony@172.16.238.10
+sudo su -
+timedatectl status
+date
+ls -la /etc/localtime
+timedatectl list-timezones | grep America
+timedatectl set-timezone America/New_York
+ln -sf /usr/share/zoneinfo/America/New_York /etc/localtime
+systemctl enable ntpd
+systemctl start ntpd
+timedatectl status
+date  # Debe mostrar hora de Nueva York
+ntpq -p</code>
+                  </pre>  </div> </div>    </div> </div> </div> </div> <script type="module">document.addEventListener("click",e=>{const t=e.target;t.classList.contains("bg-black")&&(t.classList.add("hidden"),t.setAttribute("aria-hidden","true"))});</script> </div> </main>  </body></html>

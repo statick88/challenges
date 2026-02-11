@@ -1,0 +1,162 @@
+<!DOCTYPE html><html lang="es"> <head><meta charset="UTF-8"><meta name="description" content="Plataforma interactiva de desafíos técnicos - Linux, Docker, DevOps, CTF"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.17.1"><title>Log Hunt - CTF Challenges</title></head> <body class="bg-slate-900 text-gray-100 min-h-screen">  <main class="container mx-auto px-4 py-8"> <div class="max-w-4xl mx-auto"> <div class="mb-6"> <a href="/challenges" class="text-cyan-400 hover:text-cyan-300">← Volver al Dashboard</a> </div> <article class="bg-slate-800 rounded-lg p-6 border border-slate-700"> <header class="mb-6"> <h1 class="text-3xl font-bold text-orange-400 mb-2">Log Hunt</h1> <div class="flex items-center gap-4 text-sm text-gray-400"> <span class="bg-purple-600 px-2 py-1 rounded text-xs">CTF</span> <span class="capitalize">easy</span> <span>2026-02-04</span> <span>picoCTF</span> </div> </header> <div class="prose prose-invert max-w-none"> <div>
+
+# Log Hunt
+
+## 📋 Descripción
+
+> Nuestro servidor parece estar filtrando fragmentos de una flag secreta en sus logs. Las partes están dispersas y a veces repetidas. ¿Puedes reconstruir la flag original?
+>
+> Descarga los logs y descubre la flag completa a partir de los fragmentos.
+
+### Pistas
+- Puedes usar `grep` para filtrar solo las líneas que coincidan
+- Algunas líneas están duplicadas; ignora las ocurrencias extra
+
+---
+
+## 🔍 Análisis
+
+El reto proporciona un archivo `server.log` con más de 1400 líneas de logs del servidor. Entre los logs normales (INFO, WARN, ERROR, DEBUG) se encuentran fragmentos del flag marcados con `FLAGPART:`.
+
+### Archivos proporcionados
+- `server.log` - Archivo de logs del servidor con fragmentos ocultos
+
+### Estructura del log
+```
+[1990-08-09 10:00:10] INFO FLAGPART: picoCTF{us3_
+[1990-08-09 10:00:16] WARN Disk space low
+[1990-08-09 10:00:19] DEBUG Cache cleared
+...
+```
+
+---
+
+## 🛠️ Solución
+
+### Paso 1: Filtrar líneas con fragmentos del flag
+
+```bash
+grep "FLAGPART" server.log
+```
+
+**Resultado (parcial):**
+```
+[1990-08-09 10:00:10] INFO FLAGPART: picoCTF{us3_
+[1990-08-09 10:02:55] INFO FLAGPART: y0urlinux_
+[1990-08-09 10:05:54] INFO FLAGPART: sk1lls_
+[1990-08-09 10:10:54] INFO FLAGPART: cedfa5fb}
+...
+```
+
+### Paso 2: Eliminar duplicados y ordenar
+
+```bash
+grep "FLAGPART" server.log | sort -u
+```
+
+**Resultado (fragmentos únicos ordenados por timestamp):**
+```
+[1990-08-09 10:00:10] INFO FLAGPART: picoCTF{us3_
+[1990-08-09 10:02:55] INFO FLAGPART: y0urlinux_
+[1990-08-09 10:05:54] INFO FLAGPART: sk1lls_
+[1990-08-09 10:10:54] INFO FLAGPART: cedfa5fb}
+```
+
+### Paso 3: Reconstruir la flag
+
+Concatenando los fragmentos en orden cronológico:
+
+| Orden | Timestamp | Fragmento |
+|-------|-----------|-----------|
+| 1 | 10:00:10 | `picoCTF{us3_` |
+| 2 | 10:02:55 | `y0urlinux_` |
+| 3 | 10:05:54 | `sk1lls_` |
+| 4 | 10:10:54 | `cedfa5fb}` |
+
+---
+
+## 🚀 Comando de una línea
+
+```bash
+grep "FLAGPART" server.log | sort -u | grep -oP 'FLAGPART: \K.*' | tr -d '\n'
+```
+
+**Alternativa más simple:**
+```bash
+grep -oP 'FLAGPART: \K.*' server.log | sort -u | tr -d '\n'
+```
+
+---
+
+## 🔧 Herramientas utilizadas
+
+| Herramienta | Uso |
+|-------------|-----|
+| `grep` | Filtrar líneas que contienen "FLAGPART" |
+| `sort -u` | Ordenar y eliminar duplicados |
+| `tr -d '\n'` | Concatenar fragmentos sin saltos de línea |
+
+### Alternativas
+
+```bash
+# Con awk
+awk '/FLAGPART/ && !seen[$0]++ {print}' server.log
+
+# Extraer solo los valores
+grep "FLAGPART" server.log | awk -F': ' '{print $2}' | sort -u
+
+# Con uniq (requiere ordenar primero)
+grep "FLAGPART" server.log | sort | uniq
+```
+
+---
+
+## 🎯 Flag
+
+```
+picoCTF{us3_y0urlinux_sk1lls_cedfa5fb}
+```
+
+---
+
+## 📝 Lecciones aprendidas
+
+- **Análisis de logs**: Habilidad fundamental en seguridad y administración de sistemas
+- **grep**: Herramienta esencial para filtrar texto por patrones
+- **sort -u**: Combinación poderosa para eliminar duplicados manteniendo orden
+- **Pensamiento lógico**: Los fragmentos deben concatenarse en orden cronológico
+- **Ruido en logs**: Los atacantes pueden ocultar información entre logs normales
+
+---
+
+## 🔗 Conceptos relacionados
+
+- [[grep-patterns]]
+- [[log-analysis]]
+- [[linux-text-processing]]
+- [[forensics-fundamentals]]
+
+---
+
+## 📊 Estadísticas del reto
+
+| Métrica | Valor |
+|---------|-------|
+| Líneas totales en log | ~1400 |
+| Fragmentos del flag | 4 únicos |
+| Duplicados ignorados | ~23 |
+| Tiempo de resolución | < 5 minutos |
+</div> </div> </article> <div id="modal-forensics/log-hunt" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50" aria-hidden="true"> <div class="flex items-center justify-center min-h-screen p-4"> <div class="bg-slate-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto"> <div class="p-6 border-b border-slate-700"> <div class="flex justify-between items-start"> <div> <h2 class="text-2xl font-bold text-gray-100">Log Hunt</h2> <div class="flex items-center gap-4 mt-2 text-sm"> <span class="capitalize bg-slate-700 px-2 py-1 rounded">ctf</span> <span class="text-cyan-400">easy</span> <span class="text-green-400 font-mono">Flag: picoCTF{us3_y0urlinux_sk1lls_cedfa5fb}</span> </div> </div> <button onclick="closeModal('forensics/log-hunt')" class="text-gray-400 hover:text-white">
+✕
+</button> </div> </div> <div class="p-6"> <div class="mb-6"> <h3 class="text-lg font-semibold text-cyan-400 mb-4">Pasos a Seguir</h3> <div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">1. Pistas</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">2. Archivos proporcionados</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">3. Estructura del log</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">4. Paso 1: Filtrar líneas con fragmentos del flag</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>grep &quot;FLAGPART&quot; server.log</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">5. Paso 2: Eliminar duplicados y ordenar</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>grep &quot;FLAGPART&quot; server.log | sort -u</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">6. Paso 3: Reconstruir la flag</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">7. Alternativas</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>awk &#39;/FLAGPART/ &amp;&amp; !seen[$0]++ {print}&#39; server.log
+grep &quot;FLAGPART&quot; server.log | awk -F&#39;: &#39; &#39;{print $2}&#39; | sort -u
+grep &quot;FLAGPART&quot; server.log | sort | uniq</code>
+                  </pre>  </div> </div>    </div> </div> </div> </div> <script type="module">document.addEventListener("click",e=>{const t=e.target;t.classList.contains("bg-black")&&(t.classList.add("hidden"),t.setAttribute("aria-hidden","true"))});</script> </div> </main>  </body></html>

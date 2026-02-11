@@ -1,0 +1,128 @@
+<!DOCTYPE html><html lang="es"> <head><meta charset="UTF-8"><meta name="description" content="Plataforma interactiva de desafíos técnicos - Linux, Docker, DevOps, CTF"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.17.1"><title>Reto 03 - Hidden in Image - CTF Challenges</title></head> <body class="bg-slate-900 text-gray-100 min-h-screen">  <main class="container mx-auto px-4 py-8"> <div class="max-w-4xl mx-auto"> <div class="mb-6"> <a href="/challenges" class="text-cyan-400 hover:text-cyan-300">← Volver al Dashboard</a> </div> <article class="bg-slate-800 rounded-lg p-6 border border-slate-700"> <header class="mb-6"> <h1 class="text-3xl font-bold text-orange-400 mb-2">Reto 03 - Hidden in Image</h1> <div class="flex items-center gap-4 text-sm text-gray-400"> <span class="bg-purple-600 px-2 py-1 rounded text-xs">CTF</span> <span class="capitalize">easy</span> <span>2025-02-03</span> <span>picoCTF</span> </div> </header> <div class="prose prose-invert max-w-none"> <div>
+
+# 🎓 Reto 03 - Hidden in Image
+
+## 🎭 Esteganografía en Imágenes
+
+---
+
+👨‍🏫 **Del Instructor**: La esteganografía es el arte de ocultar información en medios aparentemente inocentes. Como ethical hacker, debes saber detectarla y usarla defensivamente.
+
+> 💭 **Mentalidad de Hacker**: "Las imágenes pueden esconder secretos. No confíes en lo que ves; examina lo invisible."
+
+---
+
+## 🎭 El Escenario: Imagen Sospechosa
+
+Recibiste una imagen JPEG que parece normal, pero sospechas que oculta información. Necesitas extraer el mensaje oculto usando técnicas de esteganografía.
+
+**Tu misión como Ethical Hacker**:
+
+- Analizar la imagen con herramientas de esteganografía
+- Intentar extraer datos ocultos con contraseñas comunes
+- Descubrir el método de ocultamiento usado
+
+## 🧠 Fundamentos de Esteganografía
+
+La esteganografía oculta data en archivos multimedia modificando bits menos significativos. Herramientas como steghide usan algoritmos LSB (Least Significant Bit).
+
+## 🛠️ Metodología de Investigación Paso a Paso
+
+### Paso 1: Análisis Básico
+
+```bash
+file img.jpg
+exiftool img.jpg
+strings img.jpg | head -20
+```
+
+**Análisis**: Verificar tipo de archivo y buscar metadatos o strings obvios.
+
+### Paso 2: Detección de Esteganografía
+
+```bash
+steghide info img.jpg
+```
+
+**Análisis**: Verificar si la imagen contiene datos ocultos.
+
+> 💡 **Nota técnica**: steghide requiere contraseña si los datos están encriptados.
+
+### Paso 3: Extracción con Contraseñas Comunes
+
+```bash
+steghide extract -sf img.jpg -p ""  # Sin contraseña
+steghide extract -sf img.jpg -p "password"
+steghide extract -sf img.jpg -p "picoCTF"
+```
+
+**Análisis**: Probar contraseñas comunes hasta encontrar la correcta.
+
+## ✅ Checklist de Verificación
+
+- [x] Imagen analizada con exiftool
+- [x] steghide detectó datos ocultos
+- [x] Contraseña correcta encontrada
+- [x] Datos extraídos exitosamente
+
+## 🎓 Lo Que Acabas de Aprender
+
+Técnicas básicas de esteganografía: detección, extracción, uso de herramientas como steghide.
+
+**Mentalidad desarrollada**: Curiosidad sobre capas ocultas en archivos multimedia.
+
+## 🚀 Próximos Pasos
+
+1. Aprende otros algoritmos de esteganografía
+2. Practica con diferentes tipos de archivos
+3. Explora esteganografía en audio y video
+
+## 📚 Recursos
+
+- [Steganography Overview](https://en.wikipedia.org/wiki/Steganography)
+- [Steghide Manual](https://steghide.sourceforge.net/documentation.php)
+
+---
+
+## ✅ Estado
+
+**COMPLETADO** 🎉
+
+- 📅 Fecha: 2025-02-03
+- ⏱️ Tiempo: 10 minutos
+- 🎯 Dificultad: Fácil
+
+# Reto 03 - Hidden in Image
+
+## 📋 Descripción
+
+Imagen JPEG con esteganografía.
+
+## 📁 Archivos
+
+- `img.jpg` - Imagen con datos ocultos
+- `output.txt` - Flag extraída
+
+## 🔗 Writeup
+
+Ver: [reto03-steganography.md](../reto03-steganography.md)
+
+## 🏷️ Tags
+
+- `#ctf` `#forensics` `#steganography` `#steghide` `#picoCTF`
+</div> </div> </article> <div id="modal-reto03" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50" aria-hidden="true"> <div class="flex items-center justify-center min-h-screen p-4"> <div class="bg-slate-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto"> <div class="p-6 border-b border-slate-700"> <div class="flex justify-between items-start"> <div> <h2 class="text-2xl font-bold text-gray-100">Reto 03 - Hidden in Image</h2> <div class="flex items-center gap-4 mt-2 text-sm"> <span class="capitalize bg-slate-700 px-2 py-1 rounded">ctf</span> <span class="text-cyan-400">easy</span> <span class="text-green-400 font-mono">Flag: picoCTF{h1dd3n_1n_pLaIn_51GHT_4370189b}</span> </div> </div> <button onclick="closeModal('reto03')" class="text-gray-400 hover:text-white">
+✕
+</button> </div> </div> <div class="p-6"> <div class="mb-6"> <h3 class="text-lg font-semibold text-cyan-400 mb-4">Pasos a Seguir</h3> <div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">1. Paso 1: Análisis Básico</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>file img.jpg
+exiftool img.jpg
+strings img.jpg | head -20</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">2. Paso 2: Detección de Esteganografía</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>steghide info img.jpg</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">3. Paso 3: Extracción con Contraseñas Comunes</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>steghide extract -sf img.jpg -p &quot;&quot;  # Sin contraseña
+steghide extract -sf img.jpg -p &quot;password&quot;
+steghide extract -sf img.jpg -p &quot;picoCTF&quot;</code>
+                  </pre>  </div> </div>    </div> </div> </div> </div> <script type="module">document.addEventListener("click",e=>{const t=e.target;t.classList.contains("bg-black")&&(t.classList.add("hidden"),t.setAttribute("aria-hidden","true"))});</script> </div> </main>  </body></html>

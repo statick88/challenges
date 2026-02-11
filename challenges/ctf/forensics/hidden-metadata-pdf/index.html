@@ -1,0 +1,123 @@
+<!DOCTYPE html><html lang="es"> <head><meta charset="UTF-8"><meta name="description" content="Plataforma interactiva de desafíos técnicos - Linux, Docker, DevOps, CTF"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.17.1"><title>Documento Confidencial Oculto - CTF Challenges</title></head> <body class="bg-slate-900 text-gray-100 min-h-screen">  <main class="container mx-auto px-4 py-8"> <div class="max-w-4xl mx-auto"> <div class="mb-6"> <a href="/challenges" class="text-cyan-400 hover:text-cyan-300">← Volver al Dashboard</a> </div> <article class="bg-slate-800 rounded-lg p-6 border border-slate-700"> <header class="mb-6"> <h1 class="text-3xl font-bold text-orange-400 mb-2">Documento Confidencial Oculto</h1> <div class="flex items-center gap-4 text-sm text-gray-400"> <span class="bg-purple-600 px-2 py-1 rounded text-xs">CTF</span> <span class="capitalize">easy</span> <span>2026-02-03</span> <span>picoCTF</span> </div> </header> <div class="prose prose-invert max-w-none"> <div>
+
+# Documento Confidencial Oculto
+
+## 📋 Descripción
+
+> ¡Hola, intrépido investigador! 📄🔍 Has encontrado un peculiar PDF lleno de lo que parece ser nada más que texto sin sentido. ¡Pero cuidado! No todo es lo que parece. Entre el caos se esconde un tesoro oculto: una flag esperando ser descubierta.
+>
+> Encuentra el archivo PDF aquí "Hidden Confidential Document" y descubre la flag dentro de los metadatos.
+
+### Pistas
+- Busca más allá de la superficie en busca de pistas ocultas
+- ¡No te dejes engañar por el texto visible; es solo una distracción!
+
+---
+
+## 🔍 Análisis
+
+El reto indica explícitamente que la flag está en los **metadatos** del PDF y que el texto visible es un señuelo.
+
+### Archivos proporcionados
+- `confidential.pdf` - PDF con texto basura como distracción
+
+---
+
+## 🛠️ Solución
+
+### Paso 1: Extraer strings del PDF
+
+```bash
+strings confidential.pdf | grep -i author
+```
+
+**Resultado:**
+```
+/Author (cGljb0NURntwdXp6bDNkX20zdGFkYXRhX2YwdW5kIV9lZTQ1NDk1MH0\075)
+```
+
+### Paso 2: Identificar el encoding
+
+El campo `Author` contiene un string en **Base64**. El `\075` es el caracter `=` escapado en formato PDF.
+
+### Paso 3: Decodificar Base64
+
+```bash
+echo "cGljb0NURntwdXp6bDNkX20zdGFkYXRhX2YwdW5kIV9lZTQ1NDk1MH0=" | base64 -d
+```
+
+**Resultado:**
+```
+picoCTF{puzzl3d_m3tadata_f0und!_ee454950}
+```
+
+---
+
+## 🚀 Comando de una línea
+
+```bash
+strings confidential.pdf | grep -i author | sed 's/.*(\(.*\)).*/\1/' | sed 's/\\075/=/g' | base64 -d
+```
+
+---
+
+## 🔧 Herramientas utilizadas
+
+| Herramienta | Uso |
+|-------------|-----|
+| `strings` | Extraer texto legible del binario |
+| `grep` | Filtrar por campo Author |
+| `sed` | Limpiar y reemplazar caracteres escapados |
+| `base64` | Decodificar el payload |
+
+### Alternativas
+
+```bash
+# Con exiftool (si está instalado)
+exiftool confidential.pdf | grep -i author
+
+# Con Python
+python3 -c "from PyPDF2 import PdfReader; print(PdfReader('confidential.pdf').metadata)"
+
+# Con pdfinfo
+pdfinfo confidential.pdf
+```
+
+---
+
+## 🎯 Flag
+
+```
+picoCTF{puzzl3d_m3tadata_f0und!_ee454950}
+```
+
+---
+
+## 📝 Lecciones aprendidas
+
+- Los metadatos de PDFs pueden contener información oculta en campos como Author, Title, Subject, Keywords
+- El formato PDF escapa caracteres especiales (ej: `\075` = `=`)
+- Siempre verificar encoding Base64 cuando el contenido parece aleatorio pero tiene longitud múltiplo de 4
+- `strings` es una herramienta rápida para análisis inicial de binarios
+
+---
+
+## 🔗 Conceptos relacionados
+
+- [[pdf-metadata-forensics]]
+- [[base64-encoding]]
+- [[strings-command]]
+</div> </div> </article> <div id="modal-forensics/hidden-metadata-pdf" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50" aria-hidden="true"> <div class="flex items-center justify-center min-h-screen p-4"> <div class="bg-slate-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto"> <div class="p-6 border-b border-slate-700"> <div class="flex justify-between items-start"> <div> <h2 class="text-2xl font-bold text-gray-100">Documento Confidencial Oculto</h2> <div class="flex items-center gap-4 mt-2 text-sm"> <span class="capitalize bg-slate-700 px-2 py-1 rounded">ctf</span> <span class="text-cyan-400">easy</span> <span class="text-green-400 font-mono">Flag: picoCTF{puzzl3d_m3tadata_f0und!_ee454950}</span> </div> </div> <button onclick="closeModal('forensics/hidden-metadata-pdf')" class="text-gray-400 hover:text-white">
+✕
+</button> </div> </div> <div class="p-6"> <div class="mb-6"> <h3 class="text-lg font-semibold text-cyan-400 mb-4">Pasos a Seguir</h3> <div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">1. Pistas</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">2. Archivos proporcionados</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">3. Paso 1: Extraer strings del PDF</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>strings confidential.pdf | grep -i author</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">4. Paso 2: Identificar el encoding</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">5. Paso 3: Decodificar Base64</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>echo &quot;cGljb0NURntwdXp6bDNkX20zdGFkYXRhX2YwdW5kIV9lZTQ1NDk1MH0=&quot; | base64 -d</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">6. Alternativas</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>exiftool confidential.pdf | grep -i author
+python3 -c &quot;from PyPDF2 import PdfReader; print(PdfReader(&#39;confidential.pdf&#39;).metadata)&quot;
+pdfinfo confidential.pdf</code>
+                  </pre>  </div> </div>    </div> </div> </div> </div> <script type="module">document.addEventListener("click",e=>{const t=e.target;t.classList.contains("bg-black")&&(t.classList.add("hidden"),t.setAttribute("aria-hidden","true"))});</script> </div> </main>  </body></html>

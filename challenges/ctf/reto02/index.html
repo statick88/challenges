@@ -1,0 +1,127 @@
+<!DOCTYPE html><html lang="es"> <head><meta charset="UTF-8"><meta name="description" content="Plataforma interactiva de desafíos técnicos - Linux, Docker, DevOps, CTF"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.17.1"><title>Reto 02 - Server Log Hunt - CTF Challenges</title></head> <body class="bg-slate-900 text-gray-100 min-h-screen">  <main class="container mx-auto px-4 py-8"> <div class="max-w-4xl mx-auto"> <div class="mb-6"> <a href="/challenges" class="text-cyan-400 hover:text-cyan-300">← Volver al Dashboard</a> </div> <article class="bg-slate-800 rounded-lg p-6 border border-slate-700"> <header class="mb-6"> <h1 class="text-3xl font-bold text-orange-400 mb-2">Reto 02 - Server Log Hunt</h1> <div class="flex items-center gap-4 text-sm text-gray-400"> <span class="bg-purple-600 px-2 py-1 rounded text-xs">CTF</span> <span class="capitalize">easy</span> <span>2025-02-03</span> <span>picoCTF</span> </div> </header> <div class="prose prose-invert max-w-none"> <div>
+
+# 🎓 Reto 02 - Server Log Hunt
+
+## 🎭 Análisis de Logs de Servidor
+
+---
+
+👨‍🏫 **Del Instructor**: En este reto aprenderás análisis de logs, una habilidad crucial para cualquier ethical hacker que investiga incidentes de seguridad.
+
+> 💭 **Mentalidad de Hacker**: "Los logs cuentan historias. Cada entrada es evidencia. Busca patrones que otros ignoran."
+
+---
+
+## 🎭 El Escenario: Investigación de Acceso Sospechoso
+
+Eres administrador de sistemas que detectó acceso no autorizado. Tienes logs del servidor Apache y necesitas encontrar la flag que el atacante dejó.
+
+**Tu misión como Ethical Hacker**:
+
+- Analizar logs de acceso HTTP
+- Identificar patrones de requests sospechosos
+- Extraer la información oculta en los logs
+
+## 🧠 Fundamentos de Análisis de Logs
+
+Los logs de servidor registran todas las requests. Atacantes pueden usar técnicas para ocultar data en headers, paths, o fragmentar información.
+
+## 🛠️ Metodología de Investigación Paso a Paso
+
+### Paso 1: Exploración Inicial
+
+```bash
+head -20 server.log
+tail -20 server.log
+wc -l server.log
+```
+
+**Análisis**: Examinar estructura del log y volumen de entries.
+
+### Paso 2: Búsqueda de Patrones
+
+```bash
+grep -i flag server.log
+grep "GET" server.log | head -10
+```
+
+**Análisis**: Buscar menciones directas de flag o requests GET sospechosos.
+
+> 💡 **Nota técnica**: Atacantes fragmentan flags en múltiples requests para evadir detección.
+
+### Paso 3: Extracción de Flag
+
+```bash
+grep "picoCTF" server.log
+strings server.log | grep picoCTF
+```
+
+**Análisis**: Buscar partes de la flag y reconstruirla.
+
+## ✅ Checklist de Verificación
+
+- [x] Log analizado con grep
+- [x] Patrones de requests identificados
+- [x] Partes de flag encontradas y reconstruidas
+- [x] Flag completa extraída
+
+## 🎓 Lo Que Acabas de Aprender
+
+Técnicas de análisis de logs: grep, patrones de búsqueda, reconstrucción de información fragmentada.
+
+**Mentalidad desarrollada**: Paciencia y atención al detalle en grandes volúmenes de data.
+
+## 🚀 Próximos Pasos
+
+1. Aprende expresiones regulares avanzadas
+2. Practica con logs de diferentes servicios
+3. Explora herramientas de análisis automatizado
+
+## 📚 Recursos
+
+- [Apache Log Analysis](https://httpd.apache.org/docs/current/logs.html)
+- [Grep Tutorial](https://www.gnu.org/software/grep/manual/grep.html)
+
+---
+
+## ✅ Estado
+
+**COMPLETADO** 🎉
+
+- 📅 Fecha: 2025-02-03
+- ⏱️ Tiempo: 10 minutos
+- 🎯 Dificultad: Fácil
+
+# Reto 02 - Server Log Hunt
+
+## 📋 Descripción
+
+Archivo de log con flag fragmentada.
+
+## 📁 Archivos
+
+- `server.log` - Log del servidor con partes de la flag
+
+## 🔗 Writeup
+
+Ver: [reto02-log-hunt.md](../reto02-log-hunt.md)
+
+## 🏷️ Tags
+
+- `#ctf` `#forensics` `#logs` `#grep` `#picoCTF`
+</div> </div> </article> <div id="modal-reto02" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50" aria-hidden="true"> <div class="flex items-center justify-center min-h-screen p-4"> <div class="bg-slate-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto"> <div class="p-6 border-b border-slate-700"> <div class="flex justify-between items-start"> <div> <h2 class="text-2xl font-bold text-gray-100">Reto 02 - Server Log Hunt</h2> <div class="flex items-center gap-4 mt-2 text-sm"> <span class="capitalize bg-slate-700 px-2 py-1 rounded">ctf</span> <span class="text-cyan-400">easy</span> <span class="text-green-400 font-mono">Flag: picoCTF{logz_babyyyy_6ae3c2fb}</span> </div> </div> <button onclick="closeModal('reto02')" class="text-gray-400 hover:text-white">
+✕
+</button> </div> </div> <div class="p-6"> <div class="mb-6"> <h3 class="text-lg font-semibold text-cyan-400 mb-4">Pasos a Seguir</h3> <div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">1. Paso 1: Exploración Inicial</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>head -20 server.log
+tail -20 server.log
+wc -l server.log</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">2. Paso 2: Búsqueda de Patrones</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>grep -i flag server.log
+grep &quot;GET&quot; server.log | head -10</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">3. Paso 3: Extracción de Flag</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>grep &quot;picoCTF&quot; server.log
+strings server.log | grep picoCTF</code>
+                  </pre>  </div> </div>    </div> </div> </div> </div> <script type="module">document.addEventListener("click",e=>{const t=e.target;t.classList.contains("bg-black")&&(t.classList.add("hidden"),t.setAttribute("aria-hidden","true"))});</script> </div> </main>  </body></html>

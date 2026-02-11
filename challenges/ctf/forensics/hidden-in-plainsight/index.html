@@ -1,0 +1,198 @@
+<!DOCTYPE html><html lang="es"> <head><meta charset="UTF-8"><meta name="description" content="Plataforma interactiva de desafíos técnicos - Linux, Docker, DevOps, CTF"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.17.1"><title>Hidden in Plainsight - CTF Challenges</title></head> <body class="bg-slate-900 text-gray-100 min-h-screen">  <main class="container mx-auto px-4 py-8"> <div class="max-w-4xl mx-auto"> <div class="mb-6"> <a href="/challenges" class="text-cyan-400 hover:text-cyan-300">← Volver al Dashboard</a> </div> <article class="bg-slate-800 rounded-lg p-6 border border-slate-700"> <header class="mb-6"> <h1 class="text-3xl font-bold text-orange-400 mb-2">Hidden in Plainsight</h1> <div class="flex items-center gap-4 text-sm text-gray-400"> <span class="bg-purple-600 px-2 py-1 rounded text-xs">CTF</span> <span class="capitalize">easy</span> <span>2026-02-04</span> <span>picoCTF</span> </div> </header> <div class="prose prose-invert max-w-none"> <div>
+
+# Hidden in Plainsight
+
+## 📋 Descripción
+
+> Se te proporciona una imagen JPG aparentemente ordinaria. Algo está escondido fuera de la vista dentro del archivo. Tu tarea es descubrir el payload oculto y extraer la flag.
+>
+> Descarga la imagen jpg aquí.
+
+### Pistas
+- Descarga la imagen jpg y lee sus metadatos
+
+---
+
+## 🔍 Análisis
+
+El reto sugiere que hay datos ocultos en la imagen. El nombre "Hidden in Plainsight" (Oculto a plena vista) sugiere esteganografía.
+
+### Archivos proporcionados
+- `img.jpg` - Imagen JPEG de 640x640 píxeles
+
+---
+
+## 🛠️ Solución
+
+### Paso 1: Analizar metadatos de la imagen
+
+```bash
+file img.jpg
+```
+
+**Resultado:**
+```
+img.jpg: JPEG image data, JFIF standard 1.01, ..., comment: "c3RlZ2hpZGU6Y0VGNmVuZHZjbVE9"
+```
+
+El campo **comment** contiene un string sospechoso en Base64.
+
+### Paso 2: Decodificar el comentario Base64
+
+```bash
+echo "c3RlZ2hpZGU6Y0VGNmVuZHZjbVE9" | base64 -d
+```
+
+**Resultado:**
+```
+steghide:cEF6endvcmQ=
+```
+
+¡Es una pista! Indica que se usó **steghide** y proporciona otra cadena Base64.
+
+### Paso 3: Decodificar la contraseña
+
+```bash
+echo "cEF6endvcmQ=" | base64 -d
+```
+
+**Resultado:**
+```
+pAzzword
+```
+
+La contraseña para steghide es **pAzzword**.
+
+### Paso 4: Extraer el payload con steghide
+
+```bash
+steghide extract -sf img.jpg -p "pAzzword"
+```
+
+**Resultado:**
+```
+wrote extracted data to "output.txt".
+```
+
+### Paso 5: Leer la flag
+
+```bash
+cat output.txt
+```
+
+**Resultado:**
+```
+picoCTF{h1dd3n_1n_1m4g3_2ac27d95}
+```
+
+---
+
+## 🚀 Comando de una línea
+
+```bash
+steghide extract -sf img.jpg -p "$(echo 'cEF6endvcmQ=' | base64 -d)" -xf - 2>/dev/null
+```
+
+---
+
+## 🔧 Herramientas utilizadas
+
+| Herramienta | Uso |
+|-------------|-----|
+| `file` | Identificar tipo de archivo y metadatos |
+| `base64` | Decodificar strings en Base64 |
+| `steghide` | Extraer datos ocultos de imágenes |
+
+### Alternativas para extraer metadatos
+
+```bash
+# Con exiftool
+exiftool img.jpg | grep -i comment
+
+# Con strings
+strings img.jpg | head -5
+
+# Con identify (ImageMagick)
+identify -verbose img.jpg | grep -i comment
+```
+
+### Instalación de steghide
+
+```bash
+# Linux (Debian/Ubuntu)
+sudo apt install steghide
+
+# macOS (via Docker)
+docker run --rm -v $(pwd):/data dominicbreuker/stego-toolkit \
+  steghide extract -sf /data/img.jpg -p "pAzzword"
+
+# Online
+# https://futureboy.us/stegano/decinput.html
+```
+
+---
+
+## 🎯 Flag
+
+```
+picoCTF{h1dd3n_1n_1m4g3_2ac27d95}
+```
+
+---
+
+## 📝 Lecciones aprendidas
+
+- **Metadatos JPEG**: El campo "comment" en imágenes JPEG puede contener pistas ocultas
+- **Base64 anidado**: A veces se usa Base64 múltiples veces para ofuscar información
+- **Steghide**: Herramienta popular para ocultar datos en imágenes JPEG y audio
+- **Análisis sistemático**: Siempre revisar metadatos antes de técnicas más complejas
+- **Hint en el nombre**: "Hidden in Plainsight" sugiere que la pista está visible pero oculta
+
+---
+
+## 🔗 Conceptos relacionados
+
+- [[steganography-basics]]
+- [[steghide-usage]]
+- [[base64-encoding]]
+- [[jpeg-metadata]]
+- [[image-forensics]]
+
+---
+
+## 📊 Estadísticas del reto
+
+| Métrica | Valor |
+|---------|-------|
+| Tamaño de imagen | 73,504 bytes |
+| Dimensiones | 640x640 píxeles |
+| Capas de encoding | 2 (Base64 anidado) |
+| Tiempo de resolución | ~10 minutos |
+</div> </div> </article> <div id="modal-forensics/hidden-in-plainsight" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50" aria-hidden="true"> <div class="flex items-center justify-center min-h-screen p-4"> <div class="bg-slate-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto"> <div class="p-6 border-b border-slate-700"> <div class="flex justify-between items-start"> <div> <h2 class="text-2xl font-bold text-gray-100">Hidden in Plainsight</h2> <div class="flex items-center gap-4 mt-2 text-sm"> <span class="capitalize bg-slate-700 px-2 py-1 rounded">ctf</span> <span class="text-cyan-400">easy</span> <span class="text-green-400 font-mono">Flag: picoCTF{h1dd3n_1n_1m4g3_2ac27d95}</span> </div> </div> <button onclick="closeModal('forensics/hidden-in-plainsight')" class="text-gray-400 hover:text-white">
+✕
+</button> </div> </div> <div class="p-6"> <div class="mb-6"> <h3 class="text-lg font-semibold text-cyan-400 mb-4">Pasos a Seguir</h3> <div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">1. Pistas</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">2. Archivos proporcionados</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">3. Paso 1: Analizar metadatos de la imagen</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>file img.jpg</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">4. Paso 2: Decodificar el comentario Base64</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>echo &quot;c3RlZ2hpZGU6Y0VGNmVuZHZjbVE9&quot; | base64 -d</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">5. Paso 3: Decodificar la contraseña</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>echo &quot;cEF6endvcmQ=&quot; | base64 -d</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">6. Paso 4: Extraer el payload con steghide</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>steghide extract -sf img.jpg -p &quot;pAzzword&quot;</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">7. Paso 5: Leer la flag</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>cat output.txt</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">8. Alternativas para extraer metadatos</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>exiftool img.jpg | grep -i comment
+strings img.jpg | head -5
+identify -verbose img.jpg | grep -i comment</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">9. Instalación de steghide</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>sudo apt install steghide
+docker run --rm -v $(pwd):/data dominicbreuker/stego-toolkit \
+steghide extract -sf /data/img.jpg -p &quot;pAzzword&quot;</code>
+                  </pre>  </div> </div>    </div> </div> </div> </div> <script type="module">document.addEventListener("click",e=>{const t=e.target;t.classList.contains("bg-black")&&(t.classList.add("hidden"),t.setAttribute("aria-hidden","true"))});</script> </div> </main>  </body></html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html><html lang="es"> <head><meta charset="UTF-8"><meta name="description" content="Plataforma interactiva de desafíos técnicos - Linux, Docker, DevOps, CTF"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.17.1"><title>Reto 01 - Hidden Confidential Document - CTF Challenges</title></head> <body class="bg-slate-900 text-gray-100 min-h-screen">  <main class="container mx-auto px-4 py-8"> <div class="max-w-4xl mx-auto"> <div class="mb-6"> <a href="/challenges" class="text-cyan-400 hover:text-cyan-300">← Volver al Dashboard</a> </div> <article class="bg-slate-800 rounded-lg p-6 border border-slate-700"> <header class="mb-6"> <h1 class="text-3xl font-bold text-orange-400 mb-2">Reto 01 - Hidden Confidential Document</h1> <div class="flex items-center gap-4 text-sm text-gray-400"> <span class="bg-purple-600 px-2 py-1 rounded text-xs">CTF</span> <span class="capitalize">easy</span> <span>2025-02-03</span> <span>picoCTF</span> </div> </header> <div class="prose prose-invert max-w-none"> <div>
+
+# 🎓 Reto 01 - Hidden Confidential Document
+
+## 🎭 Forense en Metadatos de PDF
+
+---
+
+👨‍🏫 **Del Instructor**: Bienvenido a tu primer laboratorio de análisis forense. Como Ethical Hacker, aprenderás que los archivos pueden esconder información crítica en lugares inesperados.
+
+> 💭 **Mentalidad de Hacker**: "Nada es lo que parece. Los metadatos pueden contener payloads ocultos. Desconfía de todo archivo adjunto."
+
+---
+
+## 🎭 El Escenario: Investigación de Email Sospechoso
+
+Eres analista de seguridad en una empresa que recibió un email phishing con un archivo PDF adjunto. El empleado lo reportó sin abrirlo. Tu misión es analizar el archivo forensemente para encontrar información oculta.
+
+**Tu misión como Ethical Hacker**:
+
+- Examinar metadatos del PDF sin modificar el archivo
+- Identificar datos codificados en Base64
+- Extraer la información oculta
+
+## 🧠 Fundamentos de Análisis Forense
+
+Los PDFs contienen metadatos extensivos que pueden ser abusados por atacantes. Campos como Author, Creator, Producer pueden contener payloads codificados.
+
+## 🛠️ Metodología de Investigación Paso a Paso
+
+### Paso 1: Análisis Inicial
+
+```bash
+file confidential.pdf
+md5sum confidential.pdf
+```
+
+**Análisis**: Verificar tipo de archivo y hash para integridad.
+
+### Paso 2: Extracción de Metadatos
+
+```bash
+exiftool confidential.pdf
+```
+
+**Análisis**: Examinar campos de metadatos. Buscar strings sospechosos.
+
+> 💡 **Nota técnica**: Campos con texto alfanumérico largo pueden estar codificados en Base64.
+
+### Paso 3: Decodificación
+
+```bash
+strings confidential.pdf | grep Author
+echo "cGljb0NURntwdXp6bDNkX20zdGFkYXRhX2YwdW5kIV9lZTQ1NDk1MH0=" | base64 -d
+```
+
+**Análisis**: Extraer y decodificar el payload oculto.
+
+## ✅ Checklist de Verificación
+
+- [x] Archivo identificado como PDF válido
+- [x] Metadatos extraídos con exiftool
+- [x] Campo Author contiene string Base64
+- [x] Flag decodificada correctamente
+
+## 🎓 Lo Que Acabas de Aprender
+
+Aprendiste análisis forense básico: metadatos, codificación Base64, herramientas como exiftool y strings.
+
+**Mentalidad desarrollada**: Desconfianza sistemática hacia archivos adjuntos.
+
+## 🚀 Próximos Pasos
+
+1. Practica con más archivos PDF
+2. Aprende otros formatos de codificación
+3. Explora esteganografía en imágenes
+
+## 📚 Recursos
+
+- [PDF Metadata Analysis](https://en.wikipedia.org/wiki/Metadata)
+- [Base64 Encoding](https://en.wikipedia.org/wiki/Base64)
+- [ExifTool Documentation](https://exiftool.org/)
+
+---
+
+## ✅ Estado
+
+**COMPLETADO** 🎉
+
+- 📅 Fecha: 2025-02-03
+- ⏱️ Tiempo: 15 minutos
+- 🎯 Dificultad: Fácil
+
+# Reto 01 - Hidden Confidential Document
+
+## 📋 Descripción
+
+Documento PDF con flag oculta en metadatos.
+
+## 📁 Archivos
+
+- `confidential.pdf` - Archivo PDF con la flag
+- `reto01-writeup.md` - Solución del reto
+
+## 🔗 Writeup
+
+Ver: [reto01-writeup.md](./reto01-writeup.md)
+
+## 🏷️ Tags
+
+- `#ctf` `#forensics` `#metadata` `#pdf` `#base64` `#picoCTF`
+</div> </div> </article> <div id="modal-reto01" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50" aria-hidden="true"> <div class="flex items-center justify-center min-h-screen p-4"> <div class="bg-slate-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto"> <div class="p-6 border-b border-slate-700"> <div class="flex justify-between items-start"> <div> <h2 class="text-2xl font-bold text-gray-100">Reto 01 - Hidden Confidential Document</h2> <div class="flex items-center gap-4 mt-2 text-sm"> <span class="capitalize bg-slate-700 px-2 py-1 rounded">ctf</span> <span class="text-cyan-400">easy</span> <span class="text-green-400 font-mono">Flag: picoCTF{puzzl3d_m3tadata_f0und!_ee454950}</span> </div> </div> <button onclick="closeModal('reto01')" class="text-gray-400 hover:text-white">
+✕
+</button> </div> </div> <div class="p-6"> <div class="mb-6"> <h3 class="text-lg font-semibold text-cyan-400 mb-4">Pasos a Seguir</h3> <div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">1. Paso 1: Análisis Inicial</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>file confidential.pdf
+md5sum confidential.pdf</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">2. Paso 2: Extracción de Metadatos</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>exiftool confidential.pdf</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">3. Paso 3: Decodificación</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>strings confidential.pdf | grep Author
+echo &quot;cGljb0NURntwdXp6bDNkX20zdGFkYXRhX2YwdW5kIV9lZTQ1NDk1MH0=&quot; | base64 -d</code>
+                  </pre>  </div> </div>    </div> </div> </div> </div> <script type="module">document.addEventListener("click",e=>{const t=e.target;t.classList.contains("bg-black")&&(t.classList.add("hidden"),t.setAttribute("aria-hidden","true"))});</script> </div> </main>  </body></html>
