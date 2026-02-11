@@ -1,0 +1,107 @@
+---
+// src/pages/challenges/ctf/[...slug].astro
+import MainLayout from '../../../layouts/MainLayout.astro';
+import ChallengeModal from '../../../components/ChallengeModal.astro';
+import { parseFrontMatter, parseSteps } from '../../../utils/challenge-parser';
+import fs from 'fs';
+import path from 'path';
+
+export async function getStaticPaths() {
+  const challengesDir = path.join(process.cwd(), 'challenges/ctf');
+  const paths = [];
+
+  function scanDirectory(dir, prefix = '') {
+    const entries = fs.readdirSync(dir, { withFileTypes: true });
+
+    for (const entry of entries) {
+      if (entry.isDirectory()) {
+        const subDir = path.join(dir, entry.name);
+        const readmePath = path.join(subDir, 'README.md');
+
+        if (fs.existsSync(readmePath)) {
+          const slug = prefix ? `${prefix}/${entry.name}` : entry.name;
+          paths.push({ params: { slug } });
+        } else {
+          // Recursively scan subdirectories
+          scanDirectory(subDir, prefix ? `${prefix}/${entry.name}` : entry.name);
+        }
+      } else if (entry.isFile() && entry.name.endsWith('.md') && entry.name !== 'README.md') {
+        const slug = prefix ? `${prefix}/${entry.name.replace('.md', '')}` : entry.name.replace('.md', '');
+        paths.push({ params: { slug } });
+      }
+    }
+  }
+
+  scanDirectory(challengesDir);
+  return paths;
+}
+
+const { slug } = Astro.params;
+const slugParts = slug.split('/');
+const fileName = slugParts[slugParts.length - 1];
+
+let filePath;
+if (slugParts.length === 1) {
+  // Direct file like reto02-log-hunt.md
+  filePath = path.join(process.cwd(), 'challenges/ctf', `${fileName}.md`);
+} else {
+  // Directory with README.md like reto01/README.md or crypto/caesar-cipher.md
+  const dirPath = path.join(process.cwd(), 'challenges/ctf', ...slugParts.slice(0, -1));
+  const readmePath = path.join(dirPath, 'README.md');
+  const mdPath = path.join(dirPath, `${fileName}.md`);
+
+  if (fs.existsSync(readmePath)) {
+    filePath = readmePath;
+  } else if (fs.existsSync(mdPath)) {
+    filePath = mdPath;
+  } else {
+    throw new Error(`File not found for slug: ${slug}`);
+  }
+}
+
+const content = fs.readFileSync(filePath, 'utf-8');
+const frontMatter = parseFrontMatter(content);
+const steps = parseSteps(content);
+const mainContent = content.replace(/^---[\s\S]*?---/, '');
+
+const title = frontMatter.title || `CTF Challenge ${slug}`;
+---
+
+<MainLayout title={`${title} - CTF Challenges`}>
+  <main class="container mx-auto px-4 py-8">
+    <div class="max-w-4xl mx-auto">
+      <div class="mb-6">
+        <a href="/challenges" class="text-cyan-400 hover:text-cyan-300">← Volver al Dashboard</a>
+      </div>
+
+      <article class="bg-slate-800 rounded-lg p-6 border border-slate-700">
+        <header class="mb-6">
+          <h1 class="text-3xl font-bold text-orange-400 mb-2">{title}</h1>
+          <div class="flex items-center gap-4 text-sm text-gray-400">
+            <span class="bg-purple-600 px-2 py-1 rounded text-xs">CTF</span>
+            <span class="capitalize">{frontMatter.difficulty || 'Medium'}</span>
+            <span>{frontMatter.date || 'N/A'}</span>
+            {frontMatter.platform && <span>{frontMatter.platform}</span>}
+          </div>
+        </header>
+
+        <div class="prose prose-invert max-w-none">
+          <div set:html={mainContent} />
+        </div>
+      </article>
+
+      {steps.length > 0 && (
+        <ChallengeModal
+          id={slug}
+          title={title}
+          category="ctf"
+          difficulty={frontMatter.difficulty}
+          flag={frontMatter.flag}
+          steps={steps}
+          verification={frontMatter.verification}
+          learnings={frontMatter.learnings}
+        />
+      )}
+    </div>
+  </main>
+</MainLayout>
