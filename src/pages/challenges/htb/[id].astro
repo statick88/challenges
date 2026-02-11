@@ -2,6 +2,7 @@
 import fs from 'fs';
 import path from 'path';
 import ChallengeModal from '../../../components/ChallengeModal.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
 import { marked } from 'marked';
 
 export async function getStaticPaths() {
@@ -124,6 +125,9 @@ if (fs.existsSync(mdPath)) {
 if (filePath && fs.existsSync(filePath)) {
   content = fs.readFileSync(filePath, 'utf-8');
   frontMatter = parseFrontMatter(content);
+} else {
+  frontMatter = { title: `Challenge not found: ${id}` };
+  content = '# Challenge Not Found\n\nThe requested challenge could not be found.';
 }
 
 const title = frontMatter.title || id;
@@ -137,7 +141,7 @@ const categoryColor = 'from-green-500 to-teal-600';
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content={cleanTitle} />
+    <meta name="description" content={`${cleanTitle} - HTB Challenge`} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{cleanTitle} | HTB Challenge</title>
     <style is:global>
@@ -227,13 +231,14 @@ const categoryColor = 'from-green-500 to-teal-600';
     </style>
   </head>
   <body class="bg-dark-bg text-gray-100 min-h-screen">
-    <header class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 border-b border-dark-border">
-      <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-        <a href="/challenges/htb" class="flex items-center space-x-3 text-gray-400 hover:text-white transition-colors">
-          <span class="text-2xl">←</span>
-          <span>Volver a HTB Challenges</span>
-        </a>
-      </nav>
+     <header class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 border-b border-dark-border">
+       <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+         <Breadcrumb items={[
+           { label: 'Challenges', href: '/challenges' },
+           { label: 'HTB', href: '/challenges/htb' },
+           { label: cleanTitle }
+         ]} />
+       </nav>
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div class="flex items-center space-x-4 mb-4">
           <span class={`px-4 py-2 bg-gradient-to-r ${categoryColor} rounded-full text-lg font-bold text-white`}>

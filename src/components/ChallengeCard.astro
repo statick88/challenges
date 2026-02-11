@@ -1,13 +1,8 @@
 ---
 // src/components/ChallengeCard.astro
-export interface Props {
-  title: string;
-  category: string;
-  difficulty: string;
-  status: string;
-  date: string;
-  href: string;
-}
+import type { ChallengeCardProps } from '../types/challenges';
+
+export interface Props extends ChallengeCardProps {}
 
 const { title, category, difficulty, status, date, href } = Astro.props;
 

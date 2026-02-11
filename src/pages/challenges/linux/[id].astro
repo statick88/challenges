@@ -2,10 +2,12 @@
 // src/pages/challenges/linux/[id].astro
 import MainLayout from '../../../layouts/MainLayout.astro';
 import ChallengeModal from '../../../components/ChallengeModal.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
 import { parseFrontMatter, parseSteps } from '../../../utils/challenge-parser';
 import fs from 'fs';
 import path from 'path';
 import { marked } from 'marked';
+import type { Step } from '../../../types/challenges';
 
 export async function getStaticPaths() {
   const challengesDir = path.join(process.cwd(), 'challenges/linux/retos');
@@ -26,10 +28,19 @@ export async function getStaticPaths() {
 
 const { id } = Astro.params;
 const filePath = path.join(process.cwd(), 'challenges/linux/retos', id, 'README.md');
-const content = fs.readFileSync(filePath, 'utf-8');
+let content = '';
+let frontMatter: Record<string, any> = {};
+let steps: Step[] = [];
 
-const frontMatter = parseFrontMatter(content);
-const steps = parseSteps(content);
+if (fs.existsSync(filePath)) {
+  content = fs.readFileSync(filePath, 'utf-8');
+  frontMatter = parseFrontMatter(content);
+  steps = parseSteps(content);
+} else {
+  frontMatter = { title: `Challenge not found: ${id}` };
+  content = '# Challenge Not Found\n\nThe requested challenge could not be found.';
+  steps = [];
+}
 const htmlContent = marked.parse(content.replace(/^---[\s\S]*?---/, ''));
 
 const title = frontMatter.title || `Linux Challenge ${id}`;
@@ -123,10 +134,12 @@ const title = frontMatter.title || `Linux Challenge ${id}`;
   </style>
   <main class="container mx-auto px-4 py-8">
     <div class="max-w-4xl mx-auto">
-      <div class="mb-6">
-        <a href="/challenges/linux" class="text-cyan-400 hover:text-cyan-300">← Volver a Linux Challenges</a>
-      </div>
-
+      <Breadcrumb items={[
+        { label: 'Challenges', href: '/challenges' },
+        { label: 'Linux', href: '/challenges/linux' },
+        { label: title }
+      ]} />
+      
       <article class="bg-slate-800 rounded-lg p-6 border border-slate-700">
         <header class="mb-6">
           <h1 class="text-3xl font-bold text-orange-400 mb-2">{title}</h1>

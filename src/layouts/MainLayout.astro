@@ -4,16 +4,17 @@ import '../styles/global.css';
 
 export interface Props {
   title: string;
+  description?: string;
 }
 
-const { title } = Astro.props;
+const { title, description = "Plataforma interactiva de desafíos técnicos - Linux, Docker, DevOps, CTF" } = Astro.props;
 ---
 
 <!DOCTYPE html>
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content="Plataforma interactiva de desafíos técnicos - Linux, Docker, DevOps, CTF" />
+    <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />

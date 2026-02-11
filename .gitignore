@@ -20,6 +20,18 @@ target/
 dist/
 build/
 
+# Testing and audit artifacts
+.unlighthouse/
+audit-report.json/
+playwright-report/
+test-results/
+*.test.js
+*.spec.ts
+
+# Performance and analysis tools
+lighthouse/
+coverage/
+
 # Editor and IDE files
 .vscode/settings.json
 .idea/

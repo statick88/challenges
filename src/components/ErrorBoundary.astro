@@ -1,0 +1,17 @@
+---
+export interface Props {
+  fallback?: string;
+}
+
+const { fallback = 'Ha ocurrido un error al cargar el contenido.' } = Astro.props;
+---
+
+<div class="bg-red-900/20 border border-red-500/30 rounded-lg p-4 mb-4">
+  <div class="flex items-center">
+    <span class="text-red-400 text-xl mr-2">⚠️</span>
+    <div>
+      <h3 class="text-red-400 font-semibold">Error</h3>
+      <p class="text-red-300 text-sm">{fallback}</p>
+    </div>
+  </div>
+</div>

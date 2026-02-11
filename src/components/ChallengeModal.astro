@@ -1,27 +1,14 @@
 ---
 // src/components/ChallengeModal.astro
-export interface Step {
-  title: string;
-  commands?: string[];
-  output?: string;
-  explanation?: string;
-}
+import type { ChallengeModalProps, Step } from '../types/challenges';
 
-export interface Props {
-  id: string;
-  title: string;
-  category: string;
-  difficulty?: string;
-  flag?: string;
-  steps?: Step[];
+interface ExtendedProps extends ChallengeModalProps {
   summary?: string;
   tools?: string[];
-  verification?: string[];
   troubleshooting?: string;
-  learnings?: string[];
 }
 
-const { id, title, category, difficulty, flag, steps, summary, tools, verification, troubleshooting, learnings } = Astro.props;
+const { id, title, category, difficulty, flag, steps, summary, tools, verification, troubleshooting, learnings } = Astro.props as ExtendedProps;
 ---
 
 <div id={`modal-${id}`} class="fixed inset-0 bg-black bg-opacity-50 hidden z-50" aria-hidden="true">
