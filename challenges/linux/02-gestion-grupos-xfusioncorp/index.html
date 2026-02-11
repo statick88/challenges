@@ -1,36 +1,255 @@
-<!DOCTYPE html><html lang="es"> <head><meta charset="UTF-8"><meta name="description" content="Plataforma interactiva de desafíos técnicos - Linux, Docker, DevOps, CTF"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.17.1"><title>Reto 02: Gestión de Grupos nautilus_noc - xFusionCorp Industries - Linux Challenges</title><style>.markdown-body{font-family:system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;line-height:1.8;color:#e5e7eb}.markdown-body h1{font-size:2rem;font-weight:700;color:#f97316;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid #374151}.markdown-body h2{font-size:1.5rem;font-weight:600;color:#22d3ee;margin:1.75rem 0 1rem;padding-bottom:.25rem}.markdown-body h3{font-size:1.25rem;font-weight:600;color:#a5f3fc;margin:1.5rem 0 .75rem}.markdown-body p{margin:.75rem 0;color:#d1d5db}.markdown-body strong{color:#fbbf24;font-weight:600}.markdown-body ul,.markdown-body ol{margin:.75rem 0;padding-left:1.5rem;color:#d1d5db}.markdown-body li{margin:.5rem 0;list-style-type:disc}.markdown-body table{width:100%;margin:1rem 0;border-collapse:collapse;font-size:.9rem}.markdown-body th,.markdown-body td{padding:.75rem;border:1px solid #374151;text-align:left}.markdown-body th{background:#37415180;color:#fbbf24;font-weight:600}.markdown-body td{color:#d1d5db}.markdown-body code{background:#06b6d426;color:#22d3ee;padding:.2rem .5rem;border-radius:.375rem;font-family:SF Mono,Monaco,Courier New,monospace;font-size:.875rem}.markdown-body pre{background:#0f172a;padding:1rem;border-radius:.75rem;overflow-x:auto;margin:1rem 0;border:1px solid #1e293b}.markdown-body pre code{background:transparent;padding:0;color:#a5b4fc}
-</style></head> <body class="bg-slate-900 text-gray-100 min-h-screen">   <main class="container mx-auto px-4 py-8"> <div class="max-w-4xl mx-auto"> <div class="mb-6"> <a href="/challenges/linux" class="text-cyan-400 hover:text-cyan-300">← Volver a Linux Challenges</a> </div> <article class="bg-slate-800 rounded-lg p-6 border border-slate-700"> <header class="mb-6"> <h1 class="text-3xl font-bold text-orange-400 mb-2">Reto 02: Gestión de Grupos nautilus_noc - xFusionCorp Industries</h1> <div class="flex items-center gap-4 text-sm text-gray-400"> <span class="bg-orange-600 px-2 py-1 rounded text-xs">Linux</span> <span class="capitalize">medium</span> <span>2025-01-25</span> </div> </header> <pre class="markdown-body whitespace-pre-wrap"># Reto 02: Gestión de Grupos nautilus_noc - xFusionCorp Industries
+<!DOCTYPE html><html lang="es"> <head><meta charset="UTF-8"><meta name="description" content="Plataforma interactiva de desafíos técnicos - Linux, Docker, DevOps, CTF"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.17.1"><title>Reto 02: Gestión de Grupos nautilus_noc - xFusionCorp Industries - Linux Challenges</title><link rel="stylesheet" href="/_astro/_slug_.CR6T2awG.css">
+<style>@import"https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap";:root{--progress: 0%;--color-primary: 15 23 42;--color-secondary: 30 41 59;--color-text: 248 250 252;--color-muted: 148 163 184;--color-accent: 16 185 129;--color-success: 34 211 153;--color-warning: 245 158 11}[data-theme=dark]{--color-primary: 15 23 42;--color-secondary: 30 41 59;--color-text: 248 250 252;--color-muted: 148 163 184;--color-accent: 16 185 129;--color-success: 34 211 153;--color-warning: 245 158 11}[data-theme=light]{--color-primary: 248 250 252;--color-secondary: 226 232 240;--color-text: 30 41 59;--color-muted: 100 116 139;--color-accent: 16 185 129;--color-success: 34 211 153;--color-warning: 245 158 11}body{font-family:Inter,system-ui,sans-serif}::-webkit-scrollbar{width:8px}::-webkit-scrollbar-track{background:#1e293b}::-webkit-scrollbar-thumb{background:#475569;border-radius:4px}::-webkit-scrollbar-thumb:hover{background:#64748b}html{scroll-behavior:smooth}html.theme-transitioning *{transition:background-color .3s ease,border-color .3s ease,color .3s ease,box-shadow .3s ease}.theme-transition-overlay{position:fixed;inset:0;background:rgb(var(--color-primary) / .8);z-index:9999;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .2s ease}.theme-transition-overlay.active{opacity:1}.theme-toggle-ripple{position:absolute;border-radius:50%;background:currentColor;transform:scale(0);opacity:.6;pointer-events:none}.theme-toggle-ripple.animate{transform:scale(4);opacity:0;transition:all .6s cubic-bezier(.4,0,.2,1)}button:focus,a:focus{outline:2px solid rgb(var(--color-accent));outline-offset:2px}@media(max-width:768px){.animated-counter{font-size:2.5rem}}@media(prefers-reduced-motion:reduce){html.theme-transitioning *,.theme-transition-overlay,.theme-toggle-ripple.animate{transition:none}}@media print{.fixed{display:none}.bg-secondary,.bg-primary{background:#fff!important;color:#000!important}}
+.markdown-body{font-family:system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;line-height:1.8;color:#e5e7eb}.markdown-body h1{font-size:2rem;font-weight:700;color:#f97316;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid #374151}.markdown-body h2{font-size:1.5rem;font-weight:600;color:#22d3ee;margin:1.75rem 0 1rem;padding-bottom:.25rem}.markdown-body h3{font-size:1.25rem;font-weight:600;color:#a5f3fc;margin:1.5rem 0 .75rem}.markdown-body p{margin:.75rem 0;color:#d1d5db}.markdown-body strong{color:#fbbf24;font-weight:600}.markdown-body ul,.markdown-body ol{margin:.75rem 0;padding-left:1.5rem;color:#d1d5db}.markdown-body li{margin:.5rem 0;list-style-type:disc}.markdown-body table{width:100%;margin:1rem 0;border-collapse:collapse;font-size:.9rem}.markdown-body th,.markdown-body td{padding:.75rem;border:1px solid #374151;text-align:left}.markdown-body th{background:#37415180;color:#fbbf24;font-weight:600}.markdown-body td{color:#d1d5db}.markdown-body code{background:#06b6d426;color:#22d3ee;padding:.2rem .5rem;border-radius:.375rem;font-family:SF Mono,Monaco,Courier New,monospace;font-size:.875rem}.markdown-body pre{background:#0f172a;padding:1rem;border-radius:.75rem;overflow-x:auto;margin:1rem 0;border:1px solid #1e293b}.markdown-body pre code{background:transparent;padding:0;color:#a5b4fc}
+</style></head> <body class="bg-slate-900 text-gray-100 min-h-screen">   <main class="container mx-auto px-4 py-8"> <div class="max-w-4xl mx-auto"> <div class="mb-6"> <a href="/challenges/linux" class="text-cyan-400 hover:text-cyan-300">← Volver a Linux Challenges</a> </div> <article class="bg-slate-800 rounded-lg p-6 border border-slate-700"> <header class="mb-6"> <h1 class="text-3xl font-bold text-orange-400 mb-2">Reto 02: Gestión de Grupos nautilus_noc - xFusionCorp Industries</h1> <div class="flex items-center gap-4 text-sm text-gray-400"> <span class="bg-orange-600 px-2 py-1 rounded text-xs">Linux</span> <span class="capitalize">medium</span> <span>2025-01-25</span> </div> </header> <div class="prose prose-invert max-w-none"> <div class="markdown-body"><h1>Reto 02: Gestión de Grupos nautilus_noc - xFusionCorp Industries</h1>
+<h2>Control de Acceso Basado en Grupos en Entornos Empresariales</h2>
+<hr>
+<h2>🎓 Del Instructor</h2>
+<p>Bienvenido a tu segundo desafío como Administrador de Sistemas en xFusionCorp Industries. Soy tu instructor senior, y hoy vamos a implementar uno de los pilares fundamentales de la seguridad empresarial: el <strong>control de acceso basado en grupos (RBAC - Role-Based Access Control)</strong>.</p>
+<blockquote>
+<p>💭 <strong>Mentalidad de SysAdmin</strong>: &quot;La seguridad no es un producto, es un proceso. Un usuario mal gestionado hoy es una brecha de seguridad mañana. Siempre verifica, nunca asumas.&quot;</p>
+</blockquote>
+<p>En entornos empresariales reales, no gestionamos usuarios individualmente - eso sería un caos administrativo imposible de mantener. En su lugar, usamos <strong>grupos</strong> como contenedores lógicos de permisos, y asignamos usuarios a esos grupos según sus roles funcionales.</p>
+<hr>
+<h2>🎭 Escenario Real: Estandarización del NOC en Stratos Datacenter</h2>
+<p><strong>Empresa</strong>: xFusionCorp Industries<br><strong>Proyecto</strong>: Nautilus - Plataforma de monitoreo de infraestructura crítica<br><strong>Ubicación</strong>: Stratos Datacenter<br><strong>Tu rol</strong>: Senior System Administrator</p>
+<h3>La Problemática</h3>
+<p>El equipo de Network Operations Center (NOC) de xFusionCorp está creciendo. Rajesh, un nuevo ingeniero de monitoreo, se unirá al equipo y necesita acceso consistente a todos los servidores de aplicaciones del proyecto Nautilus.</p>
+<p><strong>El desafío</strong>: Los servidores App actuales no tienen estandarización en la gestión de accesos. Cada uno gestiona usuarios de forma diferente, lo que crea:</p>
+<ul>
+<li><strong>Inconsistencias de seguridad</strong>: Mismos usuarios con diferentes permisos</li>
+<li><strong>Dificultades de auditoría</strong>: No se puede rastrear quién tiene acceso a qué</li>
+<li><strong>Problemas operativos</strong>: Rajesh necesita acceso inmediato y uniforme a los 3 servidores</li>
+</ul>
+<h3>Tu Misión como SysAdmin Senior</h3>
+<p>Implementar un grupo de acceso estandarizado <code>nautilus_noc</code> en los 3 servidores App del Stratos Datacenter, y asegurar que Rajesh tenga acceso consistente mediante membresía a este grupo.</p>
+<h3>Infraestructura Objetivo</h3>
+<table>
+<thead>
+<tr>
+<th>Servidor</th>
+<th>IP</th>
+<th>Usuario Acceso</th>
+<th>Contraseña</th>
+<th>Propósito</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>stapp01</td>
+<td>172.16.238.10</td>
+<td>tony</td>
+<td>Ir0nM@n</td>
+<td>Nautilus App 1</td>
+</tr>
+<tr>
+<td>stapp02</td>
+<td>172.16.238.11</td>
+<td>steve</td>
+<td>Am3ric@</td>
+<td>Nautilus App 2</td>
+</tr>
+<tr>
+<td>stapp03</td>
+<td>172.16.238.12</td>
+<td>banner</td>
+<td>BigGr33n</td>
+<td>Nautilus App 3</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>🧠 La Arquitectura: Entendiendo el Sistema de Grupos Linux</h2>
+<h3>¿Por Qué Usar Grupos?</h3>
+<p>Imagina que tienes 50 servidores y 20 ingenieros de NOC. Si gestionaras permisos usuario por usuario, tendrías <strong>1,000 configuraciones individuales</strong> que mantener. Un grupo reduce esto a <strong>50 configuraciones de grupo</strong> + <strong>20 asignaciones de membresía</strong>.</p>
+<h3>Archivos de Configuración Clave</h3>
+<pre><code>/etc/group          # Definición de grupos y miembros
+/etc/gshadow        # Contraseñas de grupo (raramente usadas)
+/etc/passwd         # Información de usuarios (incluye grupo primario)
+/etc/login.defs     # Configuración por defecto de grupos
+</code></pre>
+<h3>Tipos de Grupos en Linux</h3>
+<table>
+<thead>
+<tr>
+<th>Tipo</th>
+<th>Propósito</th>
+<th>Ejemplo</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Primario</strong></td>
+<td>Grupo por defecto del usuario</td>
+<td><code>rajesh:x:1001:rajesh</code></td>
+</tr>
+<tr>
+<td><strong>Secundario</strong></td>
+<td>Grupos adicionales para acceso</td>
+<td><code>nautilus_noc:x:1002:rajesh</code></td>
+</tr>
+<tr>
+<td><strong>Sistema</strong></td>
+<td>Usados por procesos del sistema</td>
+<td><code>wheel</code>, <code>ssh</code>, <code>mail</code></td>
+</tr>
+</tbody></table>
+<h3>Comportamiento de Permisos con Grupos</h3>
+<pre><code>Archivo: /opt/nautilus/logs/app.log
+Permisos: -rw-rw---- (660)
+Propietario: root:nautilus_noc
 
-## Objetivo del Reto
+✅ Usuario root puede leer/escribir (owner)
+✅ Miembros de nautilus_noc pueden leer/escribir (group)
+❌ Otros usuarios no tienen acceso (others)
+</code></pre>
+<h3>Analogía: El Sistema de Llaves de un Hotel</h3>
+<ul>
+<li><strong>Usuarios</strong> = Huéspedes del hotel</li>
+<li><strong>Grupos</strong> = Tipos de habitación (Suite, Standard, Ejecutiva)</li>
+<li><strong>Permisos</strong> = Acceso a áreas del hotel (gimnasio, spa, restaurante)</li>
+</ul>
+<p>Un huésped con membresía &quot;Ejecutiva&quot; tiene acceso a todas las áreas de ese nivel, independientemente de en qué piso esté su habitación.</p>
+<hr>
+<h2>🛠️ Implementación Profesional</h2>
+<h3>Fase 1: Planificación y Verificación Pre-Implementación</h3>
+<p><strong>Antes de tocar cualquier sistema productivo, siempre verificamos.</strong></p>
+<h4>1.1 Verificar Estado Actual en Cada Servidor</h4>
+<pre><code class="language-bash"># Conectarse a cada servidor y verificar
+ssh tony@172.16.238.10
+sudo su -
 
-Implementar control de acceso basado en grupos en todos los servidores App del Stratos Datacenter:
+# ¿Existe el grupo nautilus_noc?
+getent group nautilus_noc
+# Salida esperada: (vacío si no existe)
 
-- **a.** Crear grupo `nautilus_noc` en todos los servidores App
-- **b.** Agregar usuario `rajesh` al grupo `nautilus_noc` en todos los servidores
-- **c.** Si el usuario `rajesh` no existe, crearlo
+# ¿Existe el usuario rajesh?
+id rajesh
+# Salida esperada: id: &#39;rajesh&#39;: no such user
 
-## Infraestructura Objetivo
+# ¿Cuál es el próximo GID disponible?
+cat /etc/group | tail -5
+</code></pre>
+<blockquote>
+<p>⚠️ <strong>Advertencia</strong>: Nunca asumas que un grupo o usuario no existe. Siempre verifica antes de crear.</p>
+</blockquote>
+<h4>1.2 Documentar Estado Inicial</h4>
+<pre><code class="language-bash"># Crear registro de auditoría
+echo &quot;=== Auditoría Pre-Implementación ===&quot; &gt; /tmp/grupo_audit.log
+echo &quot;Fecha: $(date)&quot; &gt;&gt; /tmp/grupo_audit.log
+echo &quot;Servidor: $(hostname)&quot; &gt;&gt; /tmp/grupo_audit.log
+echo &quot;&quot; &gt;&gt; /tmp/grupo_audit.log
+echo &quot;Grupos actuales:&quot; &gt;&gt; /tmp/grupo_audit.log
+getent group &gt;&gt; /tmp/grupo_audit.log
+echo &quot;&quot; &gt;&gt; /tmp/grupo_audit.log
+echo &quot;Usuario rajesh:&quot; &gt;&gt; /tmp/grupo_audit.log
+id rajesh 2&gt;&amp;1 &gt;&gt; /tmp/grupo_audit.log
+</code></pre>
+<h3>Fase 2: Creación del Grupo nautilus_noc</h3>
+<h4>2.1 Crear Grupo en stapp01</h4>
+<pre><code class="language-bash"># Conectar como tony
+ssh tony@172.16.238.10
+sudo su -
 
-| Servidor | IP | Usuario | Contraseña | Propósito |
-|----------|----|--------|-------------|-----------|
-| stapp01 | 172.16.238.10 | tony/Ir0nM@n | Nautilus App 1 |
-| stapp02 | 172.16.238.11 | steve/Am3ric@ | Nautilus App 2 |
-| stapp03 | 172.16.238.12 | banner/BigGr33n | Nautilus App 3 |
+# Crear grupo con GID específico (opcional, pero recomendado para consistencia)
+groupadd -g 2001 nautilus_noc
 
-## Estrategia de Implementación
+# Verificación inmediata
+getent group nautilus_noc
+# Salida esperada: nautilus_noc:x:2001:
+</code></pre>
+<p><strong>Análisis del comando <code>groupadd</code>:</strong></p>
+<ul>
+<li><code>-g 2001</code>: Especifica GID 2001 para consistencia entre servidores</li>
+<li>Sin <code>-g</code>: El sistema asigna el siguiente GID disponible automáticamente</li>
+</ul>
+<h4>2.2 Crear Grupo en stapp02</h4>
+<pre><code class="language-bash"># Conectar como steve
+ssh steve@172.16.238.11
+sudo su -
 
-### Secuencia de Ejecución
-1. **stapp01** → **stapp02** → **stapp03**
+# Usar el MISMO GID para consistencia
+groupadd -g 2001 nautilus_noc
 
-### Comandos por Servidor
+# Verificación
+getent group nautilus_noc
+</code></pre>
+<h4>2.3 Crear Grupo en stapp03</h4>
+<pre><code class="language-bash"># Conectar como banner
+ssh banner@172.16.238.12
+sudo su -
 
-```bash
+# Usar el MISMO GID para consistencia
+groupadd -g 2001 nautilus_noc
+
+# Verificación
+getent group nautilus_noc
+</code></pre>
+<h3>Fase 3: Creación del Usuario rajesh</h3>
+<h4>3.1 Crear Usuario en Cada Servidor</h4>
+<pre><code class="language-bash"># En cada servidor (stapp01, stapp02, stapp03)
+
+# Opción A: Crear usuario con grupo primario nautilus_noc
+useradd -m -s /bin/bash -g nautilus_noc rajesh
+
+# Opción B: Crear usuario y agregarlo como miembro secundario (más flexible)
+useradd -m -s /bin/bash rajesh
+usermod -aG nautilus_noc rajesh
+
+# Establecer contraseña (¡importante para acceso SSH!)
+passwd rajesh
+# Ingresar contraseña segura y confirmar
+</code></pre>
+<blockquote>
+<p>💡 <strong>Nota técnica</strong>: La opción B es preferida en entornos empresariales porque permite al usuario tener su propio grupo primario para archivos personales, mientras mantiene acceso a recursos compartidos mediante membresía secundaria.</p>
+</blockquote>
+<h4>3.2 Verificar Creación Correcta</h4>
+<pre><code class="language-bash"># Verificar información del usuario
+id rajesh
+# Salida esperada: uid=1001(rajesh) gid=1001(rajesh) groups=1001(rajesh),2001(nautilus_noc)
+
+# Verificar directorio home
+ls -la /home/rajesh
+# Debe mostrar directorio creado con permisos correctos
+
+# Verificar shell asignado
+grep rajesh /etc/passwd
+# Debe mostrar: rajesh:x:1001:1001::/home/rajesh:/bin/bash
+</code></pre>
+<h3>Fase 4: Verificación Final y Documentación</h3>
+<h4>4.1 Verificación en stapp01</h4>
+<pre><code class="language-bash"># Verificación completa
+echo &quot;=== Verificación Final en stapp01 ===&quot;
+getent group nautilus_noc
+id rajesh
+groups rajesh
+</code></pre>
+<h4>4.2 Verificación en stapp02</h4>
+<pre><code class="language-bash"># Conectar y verificar
+ssh steve@172.16.238.11
+sudo su -
+
+echo &quot;=== Verificación Final en stapp02 ===&quot;
+getent group nautilus_noc
+id rajesh
+groups rajesh
+</code></pre>
+<h4>4.3 Verificación en stapp03</h4>
+<pre><code class="language-bash"># Conectar y verificar
+ssh banner@172.16.238.12
+sudo su -
+
+echo &quot;=== Verificación Final en stapp03 ===&quot;
+getent group nautilus_noc
+id rajesh
+groups rajesh
+</code></pre>
+<h3>Resumen de Comandos por Servidor</h3>
+<pre><code class="language-bash"># SECUENCIA COMPLETA PARA CADA SERVIDOR
+
 # 1. Verificación inicial
 getent group nautilus_noc
 id rajesh
 
 # 2. Creación de grupo (si no existe)
-groupadd nautilus_noc
+groupadd -g 2001 nautilus_noc
 
 # 3. Creación de usuario (si no existe)
 useradd -m -s /bin/bash rajesh
@@ -42,37 +261,315 @@ usermod -aG nautilus_noc rajesh
 # 5. Verificación final
 id rajesh
 getent group nautilus_noc
-```
+</code></pre>
+<hr>
+<h2>🎯 Análisis Post-Implementación: Lo Que Acabas de Construir</h2>
+<h3>Arquitectura Implementada</h3>
+<pre><code>┌─────────────────────────────────────────────────────────────┐
+│                    Stratos Datacenter                        │
+├─────────────────────────────────────────────────────────────┤
+│  ┌──────────┐  ┌──────────┐  ┌──────────┐                  │
+│  │ stapp01  │  │ stapp02  │  │ stapp03  │                  │
+│  │          │  │          │  │          │                  │
+│  │ ┌──────┐ │  │ ┌──────┐ │  │ ┌──────┐ │                  │
+│  │ │Group │ │  │ │Group │ │  │ │Group │ │                  │
+│  │ │nautilus│ │  │ │nautilus│ │  │ │nautilus│ │                  │
+│  │ │_noc   │ │  │ │_noc   │ │  │ │_noc   │ │                  │
+│  │ └──┬───┘ │  │ └──┬───┘ │  │ └──┬───┘ │                  │
+│  │    │     │  │    │     │  │    │     │                  │
+│  │ ┌──▼──┐  │  │ ┌──▼──┐  │  │ ┌──▼──┐  │                  │
+│  │ │rajesh│ │  │ │rajesh│ │  │ │rajesh│ │                  │
+│  │ └──┬───┘ │  │ └──┬───┘ │  │ └──┬───┘ │                  │
+│  └────┼────┘  └────┼────┘  └────┼────┘                  │
+│       │            │            │                          │
+│       └────────────┴────────────┘                          │
+│              Acceso consistente                             │
+└─────────────────────────────────────────────────────────────┘
+</code></pre>
+<h3>Beneficios de la Implementación</h3>
+<table>
+<thead>
+<tr>
+<th>Aspecto</th>
+<th>Antes</th>
+<th>Después</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Gestión</strong></td>
+<td>Por usuario individual</td>
+<td>Por grupo centralizado</td>
+</tr>
+<tr>
+<td><strong>Escalabilidad</strong></td>
+<td>Añadir usuario = N configuraciones</td>
+<td>Añadir usuario = 1 comando</td>
+</tr>
+<tr>
+<td><strong>Auditoría</strong></td>
+<td>Difícil de rastrear</td>
+<td><code>getent group nautilus_noc</code></td>
+</tr>
+<tr>
+<td><strong>Consistencia</strong></td>
+<td>Cada servidor diferente</td>
+<td>Mismo GID, mismos permisos</td>
+</tr>
+</tbody></table>
+<h3>Checklist de Verificación</h3>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> Grupo <code>nautilus_noc</code> existe en los 3 servidores</li>
+<li><input checked="" disabled="" type="checkbox"> GID consistente (2001) en todos los servidores</li>
+<li><input checked="" disabled="" type="checkbox"> Usuario <code>rajesh</code> creado en los 3 servidores</li>
+<li><input checked="" disabled="" type="checkbox"> UID consistente del usuario</li>
+<li><input checked="" disabled="" type="checkbox"> Usuario <code>rajesh</code> es miembro de <code>nautilus_noc</code> en los 3 servidores</li>
+<li><input checked="" disabled="" type="checkbox"> Shell interactivo (<code>/bin/bash</code>) configurado</li>
+<li><input checked="" disabled="" type="checkbox"> Directorio home creado con permisos correctos</li>
+</ul>
+<hr>
+<h2>🎓 Reflexión Final: Mentalidad Desarrollada</h2>
+<h3>Lecciones Clave</h3>
+<ol>
+<li><p><strong>Estándares Antes que Velocidad</strong>: Gastar 5 minutos planificando GIDs consistentes ahorra horas de troubleshooting futuro.</p>
+</li>
+<li><p><strong>Verificación Continua</strong>: Cada comando de modificación debe ir seguido de un comando de verificación. &quot;¿Creé el grupo? Verifiquémoslo. ¿Agregué al usuario? Verifiquémoslo.&quot;</p>
+</li>
+<li><p><strong>Documentación como Código</strong>: Los comandos que ejecutas hoy son la documentación que tu &quot;yo&quot; del futuro necesitará cuando algo falle a las 3 AM.</p>
+</li>
+<li><p><strong>Seguridad por Diseño</strong>: Un grupo bien diseñado no solo da acceso, también define LÍMITES de acceso.</p>
+</li>
+</ol>
+<h3>Mejores Prácticas para Gestión de Grupos</h3>
+<pre><code class="language-bash"># ✅ HACER:
+# Usar GIDs consistentes en múltiples servidores
+groupadd -g 2001 nautilus_noc
 
-## Resultados Esperados
+# Verificar antes de crear
+getent group nautilus_noc || groupadd nautilus_noc
 
-- Grupo `nautilus_noc` con GID consistente en todos los servidores
-- Usuario `rajesh` con UID consistente y pertenencia al grupo `nautilus_noc`
-- Verificación exitosa en los 3 servidores App
+# Usar -a (append) con -G para no remover grupos existentes
+usermod -aG nautilus_noc rajesh
 
-## Estado del Reto
+# ❌ EVITAR:
+# Usuario con 15 grupos secundarios (difícil de auditar)
+# Grupos sin documentación de propósito
+# GIDs diferentes en servidores similares
+</code></pre>
+<hr>
+<h2>🚀 Siguientes Pasos</h2>
+<h3>Retos Relacionados</h3>
+<ul>
+<li><strong>Reto 03</strong>: Usuario con Shell No-Interactivo - Aprende a crear usuarios de servicio</li>
+<li><strong>Reto 04</strong>: Usuario sin Home Directory - Usuarios para procesos automatizados</li>
+<li><strong>Reto 09</strong>: Permisos de Scripts - Aplica grupos a permisos de archivos</li>
+</ul>
+<h3>Expansión de Conocimientos</h3>
+<ol>
+<li><p><strong>Gestión Avanzada de Grupos</strong>:</p>
+<ul>
+<li>Grupos privados vs. grupos públicos</li>
+<li>Grupos con contraseña (<code>gpasswd</code>)</li>
+<li>Administración delegada de grupos</li>
+</ul>
+</li>
+<li><p><strong>Integración con LDAP/AD</strong>:</p>
+<ul>
+<li>Grupos locales vs. grupos de directorio</li>
+<li>SSSD y nsswitch.conf</li>
+<li>Sincronización de grupos entre servidores</li>
+</ul>
+</li>
+<li><p><strong>Auditoría de Grupos</strong>:</p>
+<ul>
+<li><code>aureport --group</code></li>
+<li>Logs de PAM</li>
+<li>Monitoreo de membresía</li>
+</ul>
+</li>
+</ol>
+<h3>Comandos para Profundizar</h3>
+<pre><code class="language-bash"># Información detallada de grupo
+getent group nautilus_noc
+grpck  # Verificar integridad de /etc/group
 
-✅ **COMPLETADO** - Implementación exitosa en todos los servidores App del Stratos Datacenter
+# Gestionar miembros
+gpasswd -a rajesh nautilus_noc  # Agregar
+gpasswd -d rajesh nautilus_noc  # Eliminar
+gpasswd -A tony nautilus_noc     # Asignar administrador
 
-*Fecha de ejecución: 2025-01-25*
+# Ver grupos de un usuario
+groups rajesh
+id rajesh
+getent group | grep rajesh
+</code></pre>
+<hr>
+<h2>📚 Recursos y Referencias</h2>
+<h3>Documentación Oficial</h3>
+<ul>
+<li><a href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/configuring_basic_system_settings/managing-users-and-groups_configuring-basic-system-settings">Linux Group Management - Red Hat</a></li>
+<li><a href="https://man7.org/linux/man-pages/man8/usermod.8.html">Usermod Manual</a></li>
+<li><a href="https://man7.org/linux/man-pages/man8/groupadd.8.html">Groupadd Manual</a></li>
+</ul>
+<h3>Herramientas Relacionadas</h3>
+<pre><code class="language-bash"># Auditoría de grupos
+pwck              # Verificar integridad de passwd/shadow
+grpck             # Verificar integridad de group/gshadow
+faillock --user rajesh  # Verificar intentos fallidos
 
----
-
-## Archivos de Documentación Relacionados
-
-- [[stapp01-implementacion]] - Detalles de implementación en stapp01
-- [[stapp02-implementacion]] - Detalles de implementación en stapp02 (pendiente)
-- [[stapp03-implementacion]] - Detalles de implementación en stapp03 (pendiente)
-- [[resumen-ejecucion]] - Resumen comparativo de los 3 servidores (pendiente)</pre> </article> <div id="modal-02-gestion-grupos-xfusioncorp" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50" aria-hidden="true"> <div class="flex items-center justify-center min-h-screen p-4"> <div class="bg-slate-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto"> <div class="p-6 border-b border-slate-700"> <div class="flex justify-between items-start"> <div> <h2 class="text-2xl font-bold text-gray-100">Reto 02: Gestión de Grupos nautilus_noc - xFusionCorp Industries</h2> <div class="flex items-center gap-4 mt-2 text-sm"> <span class="capitalize bg-slate-700 px-2 py-1 rounded">linux</span> <span class="text-cyan-400">medium</span>  </div> </div> <button onclick="closeModal('02-gestion-grupos-xfusioncorp')" class="text-gray-400 hover:text-white">
+# Visualización
+lid -g nautilus_noc     # Listar miembros del grupo
+cat /etc/group | grep nautilus_noc
+</code></pre>
+<h3>Troubleshooting Común</h3>
+<table>
+<thead>
+<tr>
+<th>Síntoma</th>
+<th>Causa Probable</th>
+<th>Solución</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&quot;groupadd: group &#39;nautilus_noc&#39; already exists&quot;</td>
+<td>Grupo ya creado</td>
+<td>Usar <code>getent</code> primero para verificar</td>
+</tr>
+<tr>
+<td>&quot;usermod: user &#39;rajesh&#39; does not exist&quot;</td>
+<td>Usuario no creado</td>
+<td>Crear usuario primero con <code>useradd</code></td>
+</tr>
+<tr>
+<td>&quot;usermod: group &#39;nautilus_noc&#39; does not exist&quot;</td>
+<td>Grupo no existe en servidor</td>
+<td>Crear grupo antes de asignar</td>
+</tr>
+<tr>
+<td>GID diferente en servidores</td>
+<td>No se especificó GID</td>
+<td>Usar <code>groupadd -g GID</code> explícitamente</td>
+</tr>
+<tr>
+<td>Permisos denegados después de agregar a grupo</td>
+<td>Sesión no actualizada</td>
+<td>Re-loguear o usar <code>newgrp</code></td>
+</tr>
+</tbody></table>
+<hr>
+<h2>✅ Estado del Reto</h2>
+<p><strong>✅ COMPLETADO</strong> - Implementación exitosa en todos los servidores App del Stratos Datacenter</p>
+<ul>
+<li>📅 Fecha de ejecución: 2025-01-25</li>
+<li>⏱️ Tiempo estimado: 20 minutos</li>
+<li>🎯 Dificultad: Media</li>
+<li>📊 Servidores configurados: 3/3 (stapp01, stapp02, stapp03)</li>
+<li>👥 Usuarios gestionados: rajesh en todos los servidores</li>
+</ul>
+<h3>Métricas de Éxito</h3>
+<p>✅ Grupo <code>nautilus_noc</code> con GID 2001 consistente en todos los servidores<br>✅ Usuario <code>rajesh</code> con UID consistente y membresía al grupo<br>✅ Verificación exitosa de acceso en los 3 servidores App<br>✅ Documentación completa de implementación</p>
+<hr>
+<p><em>Documentación creada siguiendo estándares de SysAdmin - Última actualización: 2025-01-25</em></p>
+</div> </div> </article> <div id="modal-02-gestion-grupos-xfusioncorp" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50" aria-hidden="true"> <div class="flex items-center justify-center min-h-screen p-4"> <div class="bg-slate-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto"> <div class="p-6 border-b border-slate-700"> <div class="flex justify-between items-start"> <div> <h2 class="text-2xl font-bold text-gray-100">Reto 02: Gestión de Grupos nautilus_noc - xFusionCorp Industries</h2> <div class="flex items-center gap-4 mt-2 text-sm"> <span class="capitalize bg-slate-700 px-2 py-1 rounded">linux</span> <span class="text-cyan-400">medium</span>  </div> </div> <button onclick="closeModal('02-gestion-grupos-xfusioncorp')" class="text-gray-400 hover:text-white">
 ✕
-</button> </div> </div> <div class="p-6"> <div class="mb-6"> <h3 class="text-lg font-semibold text-cyan-400 mb-4">Pasos a Seguir</h3> <div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">1. Secuencia de Ejecución</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">2. Comandos por Servidor</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+</button> </div> </div> <div class="p-6"> <div class="mb-6"> <h3 class="text-lg font-semibold text-cyan-400 mb-4">Pasos a Seguir</h3> <div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">1. La Problemática</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">2. Tu Misión como SysAdmin Senior</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">3. Infraestructura Objetivo</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">4. ¿Por Qué Usar Grupos?</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">5. Archivos de Configuración Clave</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">6. Tipos de Grupos en Linux</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">7. Comportamiento de Permisos con Grupos</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">8. Analogía: El Sistema de Llaves de un Hotel</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">9. Fase 1: Planificación y Verificación Pre-Implementación</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">10. 1 Verificar Estado Actual en Cada Servidor</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>ssh tony@172.16.238.10
+sudo su -
+getent group nautilus_noc
+id rajesh
+cat /etc/group | tail -5</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">11. 2 Documentar Estado Inicial</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>echo &quot;=== Auditoría Pre-Implementación ===&quot; &gt; /tmp/grupo_audit.log
+echo &quot;Fecha: $(date)&quot; &gt;&gt; /tmp/grupo_audit.log
+echo &quot;Servidor: $(hostname)&quot; &gt;&gt; /tmp/grupo_audit.log
+echo &quot;&quot; &gt;&gt; /tmp/grupo_audit.log
+echo &quot;Grupos actuales:&quot; &gt;&gt; /tmp/grupo_audit.log
+getent group &gt;&gt; /tmp/grupo_audit.log
+echo &quot;&quot; &gt;&gt; /tmp/grupo_audit.log
+echo &quot;Usuario rajesh:&quot; &gt;&gt; /tmp/grupo_audit.log
+id rajesh 2&gt;&amp;1 &gt;&gt; /tmp/grupo_audit.log</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">12. Fase 2: Creación del Grupo nautilus_noc</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">13. 1 Crear Grupo en stapp01</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>ssh tony@172.16.238.10
+sudo su -
+groupadd -g 2001 nautilus_noc
+getent group nautilus_noc</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">14. 2 Crear Grupo en stapp02</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>ssh steve@172.16.238.11
+sudo su -
+groupadd -g 2001 nautilus_noc
+getent group nautilus_noc</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">15. 3 Crear Grupo en stapp03</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>ssh banner@172.16.238.12
+sudo su -
+groupadd -g 2001 nautilus_noc
+getent group nautilus_noc</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">16. Fase 3: Creación del Usuario rajesh</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">17. 1 Crear Usuario en Cada Servidor</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>useradd -m -s /bin/bash -g nautilus_noc rajesh
+useradd -m -s /bin/bash rajesh
+usermod -aG nautilus_noc rajesh
+passwd rajesh</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">18. 2 Verificar Creación Correcta</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>id rajesh
+ls -la /home/rajesh
+grep rajesh /etc/passwd</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">19. Fase 4: Verificación Final y Documentación</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">20. 1 Verificación en stapp01</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>echo &quot;=== Verificación Final en stapp01 ===&quot;
+getent group nautilus_noc
+id rajesh
+groups rajesh</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">21. 2 Verificación en stapp02</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>ssh steve@172.16.238.11
+sudo su -
+echo &quot;=== Verificación Final en stapp02 ===&quot;
+getent group nautilus_noc
+id rajesh
+groups rajesh</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">22. 3 Verificación en stapp03</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>ssh banner@172.16.238.12
+sudo su -
+echo &quot;=== Verificación Final en stapp03 ===&quot;
+getent group nautilus_noc
+id rajesh
+groups rajesh</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">23. Resumen de Comandos por Servidor</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
 
                     <code>getent group nautilus_noc
 id rajesh
-groupadd nautilus_noc
+groupadd -g 2001 nautilus_noc
 useradd -m -s /bin/bash rajesh
 passwd rajesh
 usermod -aG nautilus_noc rajesh
 id rajesh
 getent group nautilus_noc</code>
-                  </pre>  </div> </div>    </div> </div> </div> </div> <script type="module">document.addEventListener("click",e=>{const t=e.target;t.classList.contains("bg-black")&&(t.classList.add("hidden"),t.setAttribute("aria-hidden","true"))});</script> </div> </main>  </body></html>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">24. Arquitectura Implementada</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">25. Beneficios de la Implementación</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">26. Checklist de Verificación</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">27. Lecciones Clave</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">28. Mejores Prácticas para Gestión de Grupos</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>groupadd -g 2001 nautilus_noc
+getent group nautilus_noc || groupadd nautilus_noc
+usermod -aG nautilus_noc rajesh</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">29. Retos Relacionados</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">30. Expansión de Conocimientos</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">31. Comandos para Profundizar</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>getent group nautilus_noc
+grpck  # Verificar integridad de /etc/group
+gpasswd -a rajesh nautilus_noc  # Agregar
+gpasswd -d rajesh nautilus_noc  # Eliminar
+gpasswd -A tony nautilus_noc     # Asignar administrador
+groups rajesh
+id rajesh
+getent group | grep rajesh</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">32. Documentación Oficial</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">33. Herramientas Relacionadas</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>pwck              # Verificar integridad de passwd/shadow
+grpck             # Verificar integridad de group/gshadow
+faillock --user rajesh  # Verificar intentos fallidos
+lid -g nautilus_noc     # Listar miembros del grupo
+cat /etc/group | grep nautilus_noc</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">34. Troubleshooting Común</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">35. Métricas de Éxito</h4>   </div> </div>    </div> </div> </div> </div> <script type="module">document.addEventListener("click",e=>{const t=e.target;t.classList.contains("bg-black")&&(t.classList.add("hidden"),t.setAttribute("aria-hidden","true"))});</script> </div> </main>  </body></html>

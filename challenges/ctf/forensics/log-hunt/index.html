@@ -1,117 +1,513 @@
-<!DOCTYPE html><html lang="es"> <head><meta charset="UTF-8"><meta name="description" content="Plataforma interactiva de desafíos técnicos - Linux, Docker, DevOps, CTF"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.17.1"><title>Log Hunt - CTF Challenges</title></head> <body class="bg-slate-900 text-gray-100 min-h-screen">  <main class="container mx-auto px-4 py-8"> <div class="max-w-4xl mx-auto"> <div class="mb-6"> <a href="/challenges" class="text-cyan-400 hover:text-cyan-300">← Volver al Dashboard</a> </div> <article class="bg-slate-800 rounded-lg p-6 border border-slate-700"> <header class="mb-6"> <h1 class="text-3xl font-bold text-orange-400 mb-2">Log Hunt</h1> <div class="flex items-center gap-4 text-sm text-gray-400"> <span class="bg-purple-600 px-2 py-1 rounded text-xs">CTF</span> <span class="capitalize">easy</span> <span>2026-02-04</span> <span>picoCTF</span> </div> </header> <div class="prose prose-invert max-w-none"> <div>
+<!DOCTYPE html><html lang="es"> <head><meta charset="UTF-8"><meta name="description" content="Plataforma interactiva de desafíos técnicos - Linux, Docker, DevOps, CTF"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.17.1"><title>Log Hunt - CTF Challenges</title><link rel="stylesheet" href="/_astro/_slug_.CR6T2awG.css">
+<style>@import"https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap";:root{--progress: 0%;--color-primary: 15 23 42;--color-secondary: 30 41 59;--color-text: 248 250 252;--color-muted: 148 163 184;--color-accent: 16 185 129;--color-success: 34 211 153;--color-warning: 245 158 11}[data-theme=dark]{--color-primary: 15 23 42;--color-secondary: 30 41 59;--color-text: 248 250 252;--color-muted: 148 163 184;--color-accent: 16 185 129;--color-success: 34 211 153;--color-warning: 245 158 11}[data-theme=light]{--color-primary: 248 250 252;--color-secondary: 226 232 240;--color-text: 30 41 59;--color-muted: 100 116 139;--color-accent: 16 185 129;--color-success: 34 211 153;--color-warning: 245 158 11}body{font-family:Inter,system-ui,sans-serif}::-webkit-scrollbar{width:8px}::-webkit-scrollbar-track{background:#1e293b}::-webkit-scrollbar-thumb{background:#475569;border-radius:4px}::-webkit-scrollbar-thumb:hover{background:#64748b}html{scroll-behavior:smooth}html.theme-transitioning *{transition:background-color .3s ease,border-color .3s ease,color .3s ease,box-shadow .3s ease}.theme-transition-overlay{position:fixed;inset:0;background:rgb(var(--color-primary) / .8);z-index:9999;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .2s ease}.theme-transition-overlay.active{opacity:1}.theme-toggle-ripple{position:absolute;border-radius:50%;background:currentColor;transform:scale(0);opacity:.6;pointer-events:none}.theme-toggle-ripple.animate{transform:scale(4);opacity:0;transition:all .6s cubic-bezier(.4,0,.2,1)}button:focus,a:focus{outline:2px solid rgb(var(--color-accent));outline-offset:2px}@media(max-width:768px){.animated-counter{font-size:2.5rem}}@media(prefers-reduced-motion:reduce){html.theme-transitioning *,.theme-transition-overlay,.theme-toggle-ripple.animate{transition:none}}@media print{.fixed{display:none}.bg-secondary,.bg-primary{background:#fff!important;color:#000!important}}
+</style></head> <body class="bg-slate-900 text-gray-100 min-h-screen">  <main class="container mx-auto px-4 py-8"> <div class="max-w-4xl mx-auto"> <div class="mb-6"> <a href="/challenges" class="text-cyan-400 hover:text-cyan-300">← Volver al Dashboard</a> </div> <article class="bg-slate-800 rounded-lg p-6 border border-slate-700"> <header class="mb-6"> <h1 class="text-3xl font-bold text-orange-400 mb-2">Log Hunt</h1> <div class="flex items-center gap-4 text-sm text-gray-400"> <span class="bg-purple-600 px-2 py-1 rounded text-xs">CTF</span> <span class="capitalize">easy</span> <span>2026-02-04</span> <span>picoCTF</span> </div> </header> <div class="prose prose-invert max-w-none"> <div>
 
-# Log Hunt
-
-## 📋 Descripción
-
-> Nuestro servidor parece estar filtrando fragmentos de una flag secreta en sus logs. Las partes están dispersas y a veces repetidas. ¿Puedes reconstruir la flag original?
->
-> Descarga los logs y descubre la flag completa a partir de los fragmentos.
-
-### Pistas
-- Puedes usar `grep` para filtrar solo las líneas que coincidan
-- Algunas líneas están duplicadas; ignora las ocurrencias extra
+# Log Analysis - Digital Forensics Investigation
 
 ---
 
-## 🔍 Análisis
+👨‍🏫 **Del Instructor**: Ethical Hacker & SOC Analyst
 
-El reto proporciona un archivo `server.log` con más de 1400 líneas de logs del servidor. Entre los logs normales (INFO, WARN, ERROR, DEBUG) se encuentran fragmentos del flag marcados con `FLAGPART:`.
+> 🎯 **Mentalidad de Hacker**: _"Los logs no mienten. Son la memoria del sistema, testigos silenciosos de todo lo que sucedió. Un buen analista de logs puede reconstruir un incidente completo, encontrar el IOC que todos pasaron por alto, y atrapar al atacante que pensó que había cubierto sus huellas."_
 
-### Archivos proporcionados
-- `server.log` - Archivo de logs del servidor con fragmentos ocultos
+---
 
-### Estructura del log
+## 🎭 El Escenario: Breach de Servidor Web
+
+### Contexto de Incident Response
+
+Eres el analista principal del SOC de una empresa de e-commerce. A las 3:47 AM, el sistema de detección de intrusiones (IDS) generó una alerta crítica:
+
 ```
-[1990-08-09 10:00:10] INFO FLAGPART: picoCTF{us3_
-[1990-08-09 10:00:16] WARN Disk space low
-[1990-08-09 10:00:19] DEBUG Cache cleared
-...
+ALERT: Anomalía de tráfico detectada en web-server-03
+Patrón: Múltiples conexiones desde IP sospechosa
+Severidad: CRÍTICA
+```
+
+El administrador de sistemas te entrega el archivo de logs del servidor:
+
+```
+server.log  (1,400+ líneas)
+```
+
+El incidente parece contener una fuga de datos. Los atacantes dejaron pistas deliberadamente fragmentadas.
+
+**Tu misión como analista forense**:
+
+1. Procesar y filtrar 1,400+ líneas de logs
+2. Identificar patrones de ataque y anomalías
+3. Reconstruir el indicador de compromiso (IOC)
+4. Generar timeline del incidente
+
+---
+
+## 🧠 Fundamentos de Análisis: La Anatomía de un Log
+
+### Estructura de Logs de Servidor
+
+Los logs de servidor típicamente siguen formatos estándar:
+
+```
+# Formato Combinado Apache/Nginx
+[1990-08-09 10:00:10] INFO Server started successfully
+[1990-08-09 10:00:11] WARN High memory usage detected: 85%
+[1990-08-09 10:00:12] ERROR Connection timeout from 192.168.1.100
+```
+
+**Componentes clave**:
+
+- **Timestamp**: Cuándo ocurrió el evento
+- **Log Level**: INFO, WARN, ERROR, DEBUG, CRITICAL
+- **Message**: Descripción del evento
+- **Context**: IPs, usuarios, rutas, etc.
+
+### ¿Por qué los Logs son Críticos?
+
+1. **Forense Post-Incidente**: Reconstruir qué sucedió
+2. **Detección Temprana**: Identificar ataques en progreso
+3. **Cumplimiento**: Auditorías y regulaciones (PCI-DSS, GDPR)
+4. **Threat Hunting**: Buscar amenazas desconocidas
+5. **Tuning**: Mejorar detección basada en falsos positivos
+
+### Volumen y Escalabilidad
+
+```
+Small Server:     ~1MB/día   → grep funciona
+Medium Site:      ~100MB/día → awk, sed, scripts
+Enterprise:       ~10GB/día  → ELK Stack, Splunk
+Cloud Scale:      ~1TB/día   → Data pipelines, ML
 ```
 
 ---
 
-## 🛠️ Solución
+## 🔍 Metodología de Investigación
 
-### Paso 1: Filtrar líneas con fragmentos del flag
+### Fase 1: Reconocimiento del Dataset
 
 ```bash
+# Verificar archivo
+file server.log
+wc -l server.log
+ls -lh server.log
+
+# Vista general
+head -20 server.log
+tail -20 server.log
+
+# Estadísticas básicas
+wc -l server.log
+awk '{print $3}' server.log | sort | uniq -c  # Contar por log level
+```
+
+### Fase 2: Identificación de Patrones
+
+```bash
+# Buscar palabras clave sospechosas
+grep -i "error\|fail\|attack\|exploit\|flag" server.log
+
+# Identificar IPs únicas
+grep -oE '\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b' server.log | sort | uniq -c | sort -rn
+
+# Buscar el patrón FLAGPART
 grep "FLAGPART" server.log
 ```
 
-**Resultado (parcial):**
-```
-[1990-08-09 10:00:10] INFO FLAGPART: picoCTF{us3_
-[1990-08-09 10:02:55] INFO FLAGPART: y0urlinux_
-[1990-08-09 10:05:54] INFO FLAGPART: sk1lls_
-[1990-08-09 10:10:54] INFO FLAGPART: cedfa5fb}
-...
-```
-
-### Paso 2: Eliminar duplicados y ordenar
+### Fase 3: Extracción y Reconstrucción
 
 ```bash
+# Extraer todas las líneas FLAGPART
+grep "FLAGPART" server.log
+
+# Eliminar duplicados y ordenar
 grep "FLAGPART" server.log | sort -u
-```
 
-**Resultado (fragmentos únicos ordenados por timestamp):**
-```
-[1990-08-09 10:00:10] INFO FLAGPART: picoCTF{us3_
-[1990-08-09 10:02:55] INFO FLAGPART: y0urlinux_
-[1990-08-09 10:05:54] INFO FLAGPART: sk1lls_
-[1990-08-09 10:10:54] INFO FLAGPART: cedfa5fb}
-```
-
-### Paso 3: Reconstruir la flag
-
-Concatenando los fragmentos en orden cronológico:
-
-| Orden | Timestamp | Fragmento |
-|-------|-----------|-----------|
-| 1 | 10:00:10 | `picoCTF{us3_` |
-| 2 | 10:02:55 | `y0urlinux_` |
-| 3 | 10:05:54 | `sk1lls_` |
-| 4 | 10:10:54 | `cedfa5fb}` |
-
----
-
-## 🚀 Comando de una línea
-
-```bash
-grep "FLAGPART" server.log | sort -u | grep -oP 'FLAGPART: \K.*' | tr -d '\n'
-```
-
-**Alternativa más simple:**
-```bash
-grep -oP 'FLAGPART: \K.*' server.log | sort -u | tr -d '\n'
-```
-
----
-
-## 🔧 Herramientas utilizadas
-
-| Herramienta | Uso |
-|-------------|-----|
-| `grep` | Filtrar líneas que contienen "FLAGPART" |
-| `sort -u` | Ordenar y eliminar duplicados |
-| `tr -d '\n'` | Concatenar fragmentos sin saltos de línea |
-
-### Alternativas
-
-```bash
-# Con awk
-awk '/FLAGPART/ && !seen[$0]++ {print}' server.log
-
-# Extraer solo los valores
+# Extraer solo el contenido de la flag
 grep "FLAGPART" server.log | awk -F': ' '{print $2}' | sort -u
 
-# Con uniq (requiere ordenar primero)
-grep "FLAGPART" server.log | sort | uniq
+# Concatenar para formar la flag completa
+grep "FLAGPART" server.log | sort -u | awk -F': ' '{print $2}' | tr -d '\n'
+```
+
+### Fase 4: Timeline Analysis
+
+```bash
+# Timeline de eventos FLAGPART
+grep "FLAGPART" server.log | sort
+
+# Extraer timestamps
+awk '/FLAGPART/ {print $1, $2}' server.log | tr -d '[]'
+
+# Cronología completa
+awk -F'[][]' '/FLAGPART/ {print $2}' server.log
 ```
 
 ---
 
-## 🎯 Flag
+## 🛠️ Arsenal de Herramientas
+
+### Herramientas de Línea de Comandos
+
+| Herramienta | Uso                     | Ejemplo                    |
+| ----------- | ----------------------- | -------------------------- |
+| `grep`      | Filtrar por patrón      | `grep "ERROR" logfile`     |
+| `awk`       | Procesamiento de campos | `awk '{print $1}' logfile` |
+| `sed`       | Transformación de texto | `sed 's/old/new/g'`        |
+| `sort`      | Ordenar líneas          | `sort -u` (único)          |
+| `uniq`      | Eliminar duplicados     | `uniq -c` (contar)         |
+| `cut`       | Extraer campos          | `cut -d' ' -f1`            |
+| `tr`        | Traducir caracteres     | `tr -d '\n'`               |
+| `head/tail` | Ver inicio/fin          | `head -100`                |
+
+### Herramientas Avanzadas
+
+| Herramienta | Uso                           | Instalación                                   |
+| ----------- | ----------------------------- | --------------------------------------------- |
+| `lnav`      | Navegador de logs interactivo | `apt install lnav`                            |
+| `gron`      | JSON con grep                 | `go install github.com/tomnomnom/gron@latest` |
+| `jq`        | Procesador JSON               | `apt install jq`                              |
+| `mlr`       | Miller (CSV/TSV)              | `apt install miller`                          |
+
+### Script de Análisis Forense de Logs
+
+```python
+#!/usr/bin/env python3
+"""
+Log Forensics Analyzer - Digital Investigation Tool
+For SOC analysts and incident response teams
+"""
+
+import re
+import sys
+from collections import Counter, defaultdict
+from datetime import datetime
+from pathlib import Path
+import argparse
+
+class LogForensicsAnalyzer:
+    def __init__(self, log_file):
+        self.log_file = Path(log_file)
+        self.logs = []
+        self.timeline = defaultdict(list)
+        self.iocs = {
+            'ips': Counter(),
+            'users': Counter(),
+            'paths': Counter(),
+            'errors': Counter()
+        }
+
+    def parse_logs(self):
+        """Parsea el archivo de logs"""
+        print(f"[+] Parseando: {self.log_file}")
+
+        with open(self.log_file, 'r') as f:
+            for line_num, line in enumerate(f, 1):
+                line = line.strip()
+                if not line:
+                    continue
+
+                # Parsear timestamp y nivel
+                # Formato esperado: [1990-08-09 10:00:10] LEVEL message
+                match = re.match(r'\[(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})\] (\w+) (.*)', line)
+
+                if match:
+                    timestamp_str, level, message = match.groups()
+                    try:
+                        timestamp = datetime.strptime(timestamp_str, '%Y-%m-%d %H:%M:%S')
+                    except:
+                        timestamp = None
+
+                    entry = {
+                        'line_num': line_num,
+                        'timestamp': timestamp,
+                        'timestamp_str': timestamp_str,
+                        'level': level,
+                        'message': message,
+                        'raw': line
+                    }
+
+                    self.logs.append(entry)
+                    if timestamp:
+                        self.timeline[timestamp.strftime('%Y-%m-%d %H:%M')].append(entry)
+                else:
+                    # Línea sin formato estándar
+                    self.logs.append({
+                        'line_num': line_num,
+                        'timestamp': None,
+                        'level': 'UNKNOWN',
+                        'message': line,
+                        'raw': line
+                    })
+
+        print(f"[+] {len(self.logs)} entradas parseadas")
+
+    def extract_iocs(self):
+        """Extrae Indicadores de Compromiso"""
+        print("\n[*] Extrayendo IOCs...")
+
+        ip_pattern = r'\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b'
+        user_pattern = r'user[:\s=]+(\S+)'
+        path_pattern = r'(/[a-zA-Z0-9_/.-]+)'
+
+        for entry in self.logs:
+            message = entry['message']
+
+            # IPs
+            ips = re.findall(ip_pattern, message)
+            self.iocs['ips'].update(ips)
+
+            # Usuarios
+            users = re.findall(user_pattern, message, re.IGNORECASE)
+            self.iocs['users'].update(users)
+
+            # Rutas
+            paths = re.findall(path_pattern, message)
+            self.iocs['paths'].update(paths)
+
+            # Errores
+            if entry['level'] == 'ERROR':
+                self.iocs['errors'][message[:50]] += 1
+
+    def analyze_patterns(self):
+        """Analiza patrones sospechosos"""
+        print("\n[*] Analizando patrones...")
+
+        suspicious_patterns = {
+            'FLAGPART': [],
+            'SQL_INJECTION': [],
+            'PATH_TRAVERSAL': [],
+            'BRUTE_FORCE': [],
+        }
+
+        # Contar eventos por minuto para detectar brute force
+        events_per_minute = Counter()
+        for entry in self.logs:
+            if entry['timestamp']:
+                key = entry['timestamp'].strftime('%Y-%m-%d %H:%M')
+                events_per_minute[key] += 1
+
+        # Buscar FLAGPART
+        for entry in self.logs:
+            if 'FLAGPART' in entry['message']:
+                suspicious_patterns['FLAGPART'].append(entry)
+
+        return suspicious_patterns
+
+    def generate_timeline(self, suspicious_patterns):
+        """Genera timeline del incidente"""
+        print("\n" + "=" * 60)
+        print("TIMELINE DEL INCIDENTE")
+        print("=" * 60)
+
+        flag_parts = suspicious_patterns['FLAGPART']
+        if flag_parts:
+            print(f"\n[+] Flag Parts encontrados: {len(flag_parts)}")
+            for entry in flag_parts:
+                print(f"    {entry['timestamp_str']} - {entry['message'][:60]}")
+
+        # Top 5 minutos con más actividad
+        print("\n[+] Periodos de alta actividad:")
+        for period, count in Counter({k: v for k, v in events_per_minute.items()}).most_common(5):
+            print(f"    {period}: {count} eventos")
+
+    def generate_ioc_report(self):
+        """Genera reporte de IOCs"""
+        print("\n" + "=" * 60)
+        print("INDICADORES DE COMPROMISO (IOCs)")
+        print("=" * 60)
+
+        print("\n[+] Top IPs:")
+        for ip, count in self.iocs['ips'].most_common(10):
+            print(f"    {ip}: {count} ocurrencias")
+
+        print("\n[+] Top Errores:")
+        for error, count in self.iocs['errors'].most_common(5):
+            print(f"    {count}x: {error}")
+
+        print("\n[+] Rutas accedidas:")
+        for path, count in self.iocs['paths'].most_common(10):
+            print(f"    {path}: {count}x")
+
+    def reconstruct_flag(self, suspicious_patterns):
+        """Reconstruye la flag desde fragmentos"""
+        print("\n" + "=" * 60)
+        print("RECONSTRUCCIÓN DE EVIDENCIA")
+        print("=" * 60)
+
+        flag_parts = suspicious_patterns['FLAGPART']
+        if not flag_parts:
+            print("[-] No se encontraron fragmentos de flag")
+            return
+
+        # Extraer partes únicas ordenadas por tiempo
+        unique_parts = {}
+        for entry in flag_parts:
+            match = re.search(r'FLAGPART:\s*(.+)', entry['message'])
+            if match:
+                part = match.group(1)
+                if entry['timestamp'] and part not in unique_parts:
+                    unique_parts[part] = entry['timestamp']
+
+        # Ordenar por timestamp
+        sorted_parts = sorted(unique_parts.items(), key=lambda x: x[1])
+
+        print("\n[+] Partes de la flag (ordenadas cronológicamente):")
+        for part, timestamp in sorted_parts:
+            print(f"    [{timestamp}] {part}")
+
+        # Reconstruir flag completa
+        flag = ''.join([part for part, _ in sorted_parts])
+        print(f"\n[+] Flag reconstruida: {flag}")
+        return flag
+
+    def run_analysis(self):
+        """Ejecuta análisis completo"""
+        print(f"[+] Iniciando análisis forense de logs")
+        print(f"[*] Archivo: {self.log_file}")
+        print("=" * 60)
+
+        self.parse_logs()
+        self.extract_iocs()
+        suspicious = self.analyze_patterns()
+        self.generate_timeline(suspicious)
+        self.generate_ioc_report()
+        flag = self.reconstruct_flag(suspicious)
+
+        return flag
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='Log Forensics Analyzer')
+    parser.add_argument('logfile', help='Archivo de logs a analizar')
+
+    args = parser.parse_args()
+
+    analyzer = LogForensicsAnalyzer(args.logfile)
+    flag = analyzer.run_analysis()
+```
+
+### Uso del Script
+
+```bash
+# Ejecutar análisis
+python3 log_forensics.py server.log
+
+# Output esperado:
+# [+] Iniciando análisis forense de logs
+# [*] Archivo: server.log
+# ============================================================
+# [+] Parseando: server.log
+# [+] 1423 entradas parseadas
+#
+# [*] Extrayendo IOCs...
+#
+# [*] Analizando patrones...
+#
+# ============================================================
+# TIMELINE DEL INCIDENTE
+# ============================================================
+#
+# [+] Flag Parts encontrados: 27
+#     1990-08-09 10:00:10 - FLAGPART: picoCTF{us3_
+#     1990-08-09 10:02:55 - FLAGPART: y0urlinux_
+#     1990-08-09 10:05:54 - FLAGPART: sk1lls_
+#     1990-08-09 10:10:54 - FLAGPART: cedfa5fb}
+#
+# [+] Flag reconstruida: picoCTF{us3_y0urlinux_sk1lls_cedfa5fb}
+```
+
+---
+
+## 🎯 Lecciones del Mundo Real
+
+### Casos Documentados
+
+**Caso Target Breach (2013)**:
+
+- Logs mostraron movimiento lateral durante 2 semanas antes de detección
+- Malware exfiltró 40M tarjetas de crédito
+- **Lección**: Logs son críticos pero necesitan análisis proactivo
+
+**Caso SolarWinds (2020)**:
+
+- Logs de red revelaron comunicaciones C2 sospechosas
+- Timeline de 9 meses de actividad no detectada
+- **Lección**: Correlación de logs es esencial
+
+**Caso Equifax (2017)**:
+
+- Vulnerabilidad Apache Struts explotada
+- Logs mostraron 76 días de actividad maliciosa antes de detección
+- **Lección**: Logging adecuado puede reducir MTTD (Mean Time To Detect)
+
+### Mejores Prácticas en Logging
+
+**Centralización**:
+
+```bash
+# Usar ELK Stack o Splunk
+filebeat → logstash → elasticsearch → kibana
+```
+
+**Retención**:
+
+```yaml
+Retention_Policies:
+  web_access: 90_days
+  authentication: 1_year
+  security_events: 7_years
+  audit_logs: permanent
+```
+
+**Formato Estructurado**:
+
+```json
+{
+  "timestamp": "2024-01-15T10:30:00Z",
+  "level": "ERROR",
+  "service": "auth-api",
+  "user_id": "12345",
+  "ip": "192.168.1.100",
+  "event": "login_failed",
+  "message": "Invalid credentials"
+}
+```
+
+---
+
+## 🚀 Solución del Reto
+
+### Paso a Paso
+
+```bash
+# Paso 1: Verificar el archivo
+wc -l server.log  # ~1400 líneas
+
+# Paso 2: Buscar el patrón FLAGPART
+grep "FLAGPART" server.log
+
+# Paso 3: Eliminar duplicados y ordenar
+grep "FLAGPART" server.log | sort -u
+
+# Paso 4: Extraer solo las partes de la flag
+grep "FLAGPART" server.log | sort -u | awk -F': ' '{print $2}'
+
+# Paso 5: Concatenar sin saltos de línea
+grep "FLAGPART" server.log | sort -u | awk -F': ' '{print $2}' | tr -d '\n'
+```
+
+### One-liners
+
+```bash
+# Versión simple
+grep "FLAGPART" server.log | sort -u | grep -oP 'FLAGPART: \K.*' | tr -d '\n'
+
+# Versión con awk
+grep "FLAGPART" server.log | sort -u | awk -F': ' '{printf "%s", $2}'
+
+# Versión completa con timestamp
+grep "FLAGPART" server.log | sort -t'[' -k2 | awk -F': ' '/FLAGPART/ {printf "%s", $2}'
+```
+
+### Flag
 
 ```
 picoCTF{us3_y0urlinux_sk1lls_cedfa5fb}
@@ -119,44 +515,59 @@ picoCTF{us3_y0urlinux_sk1lls_cedfa5fb}
 
 ---
 
-## 📝 Lecciones aprendidas
+## 📚 Recursos y Referencias
 
-- **Análisis de logs**: Habilidad fundamental en seguridad y administración de sistemas
-- **grep**: Herramienta esencial para filtrar texto por patrones
-- **sort -u**: Combinación poderosa para eliminar duplicados manteniendo orden
-- **Pensamiento lógico**: Los fragmentos deben concatenarse en orden cronológico
-- **Ruido en logs**: Los atacantes pueden ocultar información entre logs normales
-
----
-
-## 🔗 Conceptos relacionados
-
-- [[grep-patterns]]
-- [[log-analysis]]
-- [[linux-text-processing]]
-- [[forensics-fundamentals]]
+- [SANS Log Analysis](https://www.sans.org/white-papers/coming-age-log-analysis-37172/)
+- [Awesome Log Analysis Tools](https://github.com/aliijaz1997/awesome-log-analysis)
+- [Elastic Security Labs](https://www.elastic.co/security-labs)
+- [Sigma Rules](https://github.com/SigmaHQ/sigma) - Generic SIEM signatures
 
 ---
 
-## 📊 Estadísticas del reto
-
-| Métrica | Valor |
-|---------|-------|
-| Líneas totales en log | ~1400 |
-| Fragmentos del flag | 4 únicos |
-| Duplicados ignorados | ~23 |
-| Tiempo de resolución | < 5 minutos |
+**¿Listo para el siguiente reto?** → Prueba análisis de logs complejos, threat hunting con ELK, o detección de APTs.
 </div> </div> </article> <div id="modal-forensics/log-hunt" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50" aria-hidden="true"> <div class="flex items-center justify-center min-h-screen p-4"> <div class="bg-slate-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto"> <div class="p-6 border-b border-slate-700"> <div class="flex justify-between items-start"> <div> <h2 class="text-2xl font-bold text-gray-100">Log Hunt</h2> <div class="flex items-center gap-4 mt-2 text-sm"> <span class="capitalize bg-slate-700 px-2 py-1 rounded">ctf</span> <span class="text-cyan-400">easy</span> <span class="text-green-400 font-mono">Flag: picoCTF{us3_y0urlinux_sk1lls_cedfa5fb}</span> </div> </div> <button onclick="closeModal('forensics/log-hunt')" class="text-gray-400 hover:text-white">
 ✕
-</button> </div> </div> <div class="p-6"> <div class="mb-6"> <h3 class="text-lg font-semibold text-cyan-400 mb-4">Pasos a Seguir</h3> <div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">1. Pistas</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">2. Archivos proporcionados</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">3. Estructura del log</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">4. Paso 1: Filtrar líneas con fragmentos del flag</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+</button> </div> </div> <div class="p-6"> <div class="mb-6"> <h3 class="text-lg font-semibold text-cyan-400 mb-4">Pasos a Seguir</h3> <div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">1. Contexto de Incident Response</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">2. Estructura de Logs de Servidor</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">3. ¿Por qué los Logs son Críticos?</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">4. Volumen y Escalabilidad</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">5. Fase 1: Reconocimiento del Dataset</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
 
-                    <code>grep &quot;FLAGPART&quot; server.log</code>
-                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">5. Paso 2: Eliminar duplicados y ordenar</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+                    <code>file server.log
+wc -l server.log
+ls -lh server.log
+head -20 server.log
+tail -20 server.log
+wc -l server.log
+awk &#39;{print $3}&#39; server.log | sort | uniq -c  # Contar por log level</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">6. Fase 2: Identificación de Patrones</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
 
-                    <code>grep &quot;FLAGPART&quot; server.log | sort -u</code>
-                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">6. Paso 3: Reconstruir la flag</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">7. Alternativas</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+                    <code>grep -i &quot;error\|fail\|attack\|exploit\|flag&quot; server.log
+grep -oE &#39;\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b&#39; server.log | sort | uniq -c | sort -rn
+grep &quot;FLAGPART&quot; server.log</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">7. Fase 3: Extracción y Reconstrucción</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
 
-                    <code>awk &#39;/FLAGPART/ &amp;&amp; !seen[$0]++ {print}&#39; server.log
+                    <code>grep &quot;FLAGPART&quot; server.log
+grep &quot;FLAGPART&quot; server.log | sort -u
 grep &quot;FLAGPART&quot; server.log | awk -F&#39;: &#39; &#39;{print $2}&#39; | sort -u
-grep &quot;FLAGPART&quot; server.log | sort | uniq</code>
-                  </pre>  </div> </div>    </div> </div> </div> </div> <script type="module">document.addEventListener("click",e=>{const t=e.target;t.classList.contains("bg-black")&&(t.classList.add("hidden"),t.setAttribute("aria-hidden","true"))});</script> </div> </main>  </body></html>
+grep &quot;FLAGPART&quot; server.log | sort -u | awk -F&#39;: &#39; &#39;{print $2}&#39; | tr -d &#39;\n&#39;</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">8. Fase 4: Timeline Analysis</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>grep &quot;FLAGPART&quot; server.log | sort
+awk &#39;/FLAGPART/ {print $1, $2}&#39; server.log | tr -d &#39;[]&#39;
+awk -F&#39;[][]&#39; &#39;/FLAGPART/ {print $2}&#39; server.log</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">9. Herramientas de Línea de Comandos</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">10. Herramientas Avanzadas</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">11. Script de Análisis Forense de Logs</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">12. Uso del Script</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>python3 log_forensics.py server.log</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">13. Casos Documentados</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">14. Mejores Prácticas en Logging</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>filebeat → logstash → elasticsearch → kibana</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">15. Paso a Paso</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>wc -l server.log  # ~1400 líneas
+grep &quot;FLAGPART&quot; server.log
+grep &quot;FLAGPART&quot; server.log | sort -u
+grep &quot;FLAGPART&quot; server.log | sort -u | awk -F&#39;: &#39; &#39;{print $2}&#39;
+grep &quot;FLAGPART&quot; server.log | sort -u | awk -F&#39;: &#39; &#39;{print $2}&#39; | tr -d &#39;\n&#39;</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">16. One-liners</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>grep &quot;FLAGPART&quot; server.log | sort -u | grep -oP &#39;FLAGPART: \K.*&#39; | tr -d &#39;\n&#39;
+grep &quot;FLAGPART&quot; server.log | sort -u | awk -F&#39;: &#39; &#39;{printf &quot;%s&quot;, $2}&#39;
+grep &quot;FLAGPART&quot; server.log | sort -t&#39;[&#39; -k2 | awk -F&#39;: &#39; &#39;/FLAGPART/ {printf &quot;%s&quot;, $2}&#39;</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">17. Flag</h4>   </div> </div>    </div> </div> </div> </div> <script type="module">document.addEventListener("click",e=>{const t=e.target;t.classList.contains("bg-black")&&(t.classList.add("hidden"),t.setAttribute("aria-hidden","true"))});</script> </div> </main>  </body></html>

@@ -1,66 +1,525 @@
-<!DOCTYPE html><html lang="es"> <head><meta charset="UTF-8"><meta name="description" content="Plataforma interactiva de desafíos técnicos - Linux, Docker, DevOps, CTF"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.17.1"><title>Reto 03: Usuario john con Shell No-Interactivo - xFusionCorp Industries - Linux Challenges</title><style>.markdown-body{font-family:system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;line-height:1.8;color:#e5e7eb}.markdown-body h1{font-size:2rem;font-weight:700;color:#f97316;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid #374151}.markdown-body h2{font-size:1.5rem;font-weight:600;color:#22d3ee;margin:1.75rem 0 1rem;padding-bottom:.25rem}.markdown-body h3{font-size:1.25rem;font-weight:600;color:#a5f3fc;margin:1.5rem 0 .75rem}.markdown-body p{margin:.75rem 0;color:#d1d5db}.markdown-body strong{color:#fbbf24;font-weight:600}.markdown-body ul,.markdown-body ol{margin:.75rem 0;padding-left:1.5rem;color:#d1d5db}.markdown-body li{margin:.5rem 0;list-style-type:disc}.markdown-body table{width:100%;margin:1rem 0;border-collapse:collapse;font-size:.9rem}.markdown-body th,.markdown-body td{padding:.75rem;border:1px solid #374151;text-align:left}.markdown-body th{background:#37415180;color:#fbbf24;font-weight:600}.markdown-body td{color:#d1d5db}.markdown-body code{background:#06b6d426;color:#22d3ee;padding:.2rem .5rem;border-radius:.375rem;font-family:SF Mono,Monaco,Courier New,monospace;font-size:.875rem}.markdown-body pre{background:#0f172a;padding:1rem;border-radius:.75rem;overflow-x:auto;margin:1rem 0;border:1px solid #1e293b}.markdown-body pre code{background:transparent;padding:0;color:#a5b4fc}
-</style></head> <body class="bg-slate-900 text-gray-100 min-h-screen">   <main class="container mx-auto px-4 py-8"> <div class="max-w-4xl mx-auto"> <div class="mb-6"> <a href="/challenges/linux" class="text-cyan-400 hover:text-cyan-300">← Volver a Linux Challenges</a> </div> <article class="bg-slate-800 rounded-lg p-6 border border-slate-700"> <header class="mb-6"> <h1 class="text-3xl font-bold text-orange-400 mb-2">Reto 03: Usuario john con Shell No-Interactivo - xFusionCorp Industries</h1> <div class="flex items-center gap-4 text-sm text-gray-400"> <span class="bg-orange-600 px-2 py-1 rounded text-xs">Linux</span> <span class="capitalize">easy</span> <span>2025-01-25</span> </div> </header> <pre class="markdown-body whitespace-pre-wrap"># Reto 03: Usuario john con Shell No-Interactivo - xFusionCorp Industries
+<!DOCTYPE html><html lang="es"> <head><meta charset="UTF-8"><meta name="description" content="Plataforma interactiva de desafíos técnicos - Linux, Docker, DevOps, CTF"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.17.1"><title>Reto 03: Usuario john con Shell No-Interactivo - xFusionCorp Industries - Linux Challenges</title><link rel="stylesheet" href="/_astro/_slug_.CR6T2awG.css">
+<style>@import"https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap";:root{--progress: 0%;--color-primary: 15 23 42;--color-secondary: 30 41 59;--color-text: 248 250 252;--color-muted: 148 163 184;--color-accent: 16 185 129;--color-success: 34 211 153;--color-warning: 245 158 11}[data-theme=dark]{--color-primary: 15 23 42;--color-secondary: 30 41 59;--color-text: 248 250 252;--color-muted: 148 163 184;--color-accent: 16 185 129;--color-success: 34 211 153;--color-warning: 245 158 11}[data-theme=light]{--color-primary: 248 250 252;--color-secondary: 226 232 240;--color-text: 30 41 59;--color-muted: 100 116 139;--color-accent: 16 185 129;--color-success: 34 211 153;--color-warning: 245 158 11}body{font-family:Inter,system-ui,sans-serif}::-webkit-scrollbar{width:8px}::-webkit-scrollbar-track{background:#1e293b}::-webkit-scrollbar-thumb{background:#475569;border-radius:4px}::-webkit-scrollbar-thumb:hover{background:#64748b}html{scroll-behavior:smooth}html.theme-transitioning *{transition:background-color .3s ease,border-color .3s ease,color .3s ease,box-shadow .3s ease}.theme-transition-overlay{position:fixed;inset:0;background:rgb(var(--color-primary) / .8);z-index:9999;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .2s ease}.theme-transition-overlay.active{opacity:1}.theme-toggle-ripple{position:absolute;border-radius:50%;background:currentColor;transform:scale(0);opacity:.6;pointer-events:none}.theme-toggle-ripple.animate{transform:scale(4);opacity:0;transition:all .6s cubic-bezier(.4,0,.2,1)}button:focus,a:focus{outline:2px solid rgb(var(--color-accent));outline-offset:2px}@media(max-width:768px){.animated-counter{font-size:2.5rem}}@media(prefers-reduced-motion:reduce){html.theme-transitioning *,.theme-transition-overlay,.theme-toggle-ripple.animate{transition:none}}@media print{.fixed{display:none}.bg-secondary,.bg-primary{background:#fff!important;color:#000!important}}
+.markdown-body{font-family:system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;line-height:1.8;color:#e5e7eb}.markdown-body h1{font-size:2rem;font-weight:700;color:#f97316;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid #374151}.markdown-body h2{font-size:1.5rem;font-weight:600;color:#22d3ee;margin:1.75rem 0 1rem;padding-bottom:.25rem}.markdown-body h3{font-size:1.25rem;font-weight:600;color:#a5f3fc;margin:1.5rem 0 .75rem}.markdown-body p{margin:.75rem 0;color:#d1d5db}.markdown-body strong{color:#fbbf24;font-weight:600}.markdown-body ul,.markdown-body ol{margin:.75rem 0;padding-left:1.5rem;color:#d1d5db}.markdown-body li{margin:.5rem 0;list-style-type:disc}.markdown-body table{width:100%;margin:1rem 0;border-collapse:collapse;font-size:.9rem}.markdown-body th,.markdown-body td{padding:.75rem;border:1px solid #374151;text-align:left}.markdown-body th{background:#37415180;color:#fbbf24;font-weight:600}.markdown-body td{color:#d1d5db}.markdown-body code{background:#06b6d426;color:#22d3ee;padding:.2rem .5rem;border-radius:.375rem;font-family:SF Mono,Monaco,Courier New,monospace;font-size:.875rem}.markdown-body pre{background:#0f172a;padding:1rem;border-radius:.75rem;overflow-x:auto;margin:1rem 0;border:1px solid #1e293b}.markdown-body pre code{background:transparent;padding:0;color:#a5b4fc}
+</style></head> <body class="bg-slate-900 text-gray-100 min-h-screen">   <main class="container mx-auto px-4 py-8"> <div class="max-w-4xl mx-auto"> <div class="mb-6"> <a href="/challenges/linux" class="text-cyan-400 hover:text-cyan-300">← Volver a Linux Challenges</a> </div> <article class="bg-slate-800 rounded-lg p-6 border border-slate-700"> <header class="mb-6"> <h1 class="text-3xl font-bold text-orange-400 mb-2">Reto 03: Usuario john con Shell No-Interactivo - xFusionCorp Industries</h1> <div class="flex items-center gap-4 text-sm text-gray-400"> <span class="bg-orange-600 px-2 py-1 rounded text-xs">Linux</span> <span class="capitalize">easy</span> <span>2025-01-25</span> </div> </header> <div class="prose prose-invert max-w-none"> <div class="markdown-body"><h1>Reto 03: Usuario john con Shell No-Interactivo - xFusionCorp Industries</h1>
+<h2>Seguridad en Usuarios de Servicio: El Principio del Menor Privilegio</h2>
+<hr>
+<h2>🎓 Del Instructor</h2>
+<p>Bienvenido a tu tercer desafío como SysAdmin Senior en xFusionCorp. Hoy vamos a explorar uno de los conceptos más críticos en seguridad de sistemas: <strong>el principio del menor privilegio</strong> aplicado a cuentas de usuario.</p>
+<blockquote>
+<p>💭 <strong>Mentalidad de SysAdmin</strong>: &quot;Un usuario que no necesita iniciar sesión interactiva, NO debe poder hacerlo. Cada shell interactiva innecesaria es una superficie de ataque potencial.&quot;</p>
+</blockquote>
+<p>En entornos empresariales, muchos procesos necesitan ejecutarse con una identidad específica (un usuario), pero no necesitan -ni deben tener- la capacidad de iniciar sesión interactivamente. Estos son los llamados <strong>usuarios de servicio</strong> o <strong>service accounts</strong>.</p>
+<hr>
+<h2>🎭 Escenario Real: Backup Agent Tool en Nautilus App 2</h2>
+<p><strong>Empresa</strong>: xFusionCorp Industries<br><strong>Proyecto</strong>: Nautilus - Infraestructura de Backup Automatizado<br><strong>Servidor</strong>: App Server 2 (stapp02)<br><strong>Tu rol</strong>: Senior System Administrator - Seguridad</p>
+<h3>La Problemática</h3>
+<p>El equipo de DevOps de xFusionCorp está implementando un nuevo <strong>Backup Agent Tool</strong> que necesita ejecutarse como un usuario específico del sistema. Este agente:</p>
+<ul>
+<li>Se ejecuta automáticamente mediante cron</li>
+<li>Accede a directorios de datos para backup</li>
+<li>No requiere interacción humana</li>
+<li>No debe permitir login interactivo por seguridad</li>
+</ul>
+<p><strong>El requerimiento específico del fabricante del backup tool</strong>:</p>
+<blockquote>
+<p>&quot;Create a user named &#39;john&#39; with a non-interactive shell on App Server 2.&quot;</p>
+</blockquote>
+<h3>Contexto de Seguridad</h3>
+<p>El usuario <code>john</code> será utilizado exclusivamente por el servicio de backup. Si un atacante obtiene las credenciales de <code>john</code>, no debe poder:</p>
+<ul>
+<li>Iniciar sesión SSH interactiva</li>
+<li>Obtener una shell para explorar el sistema</li>
+<li>Ejecutar comandos arbitrarios</li>
+</ul>
+<h3>Infraestructura Objetivo</h3>
+<table>
+<thead>
+<tr>
+<th>Servidor</th>
+<th>IP</th>
+<th>Hostname</th>
+<th>Usuario Acceso</th>
+<th>Contraseña</th>
+<th>Propósito</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>stapp02</td>
+<td>172.16.238.11</td>
+<td>stapp02.stratos.xfusioncorp.com</td>
+<td>steve</td>
+<td>Am3ric@</td>
+<td>Nautilus App 2</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>🧠 La Arquitectura: Shells No-Interactivos en Linux</h2>
+<h3>¿Qué es un Shell No-Interactivo?</h3>
+<p>Un shell no-interactivo es un programa que:</p>
+<ul>
+<li>✅ Puede ejecutar procesos y scripts</li>
+<li>❌ No proporciona interfaz de comandos interactiva</li>
+<li>❌ Rechaza intentos de login</li>
+<li>✅ Generalmente muestra un mensaje educativo al intentar acceso</li>
+</ul>
+<h3>Tipos de Shells No-Interactivos</h3>
+<table>
+<thead>
+<tr>
+<th>Shell</th>
+<th>Ubicación</th>
+<th>Comportamiento</th>
+<th>Uso Típico</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>nologin</strong></td>
+<td><code>/sbin/nologin</code></td>
+<td>Muestra mensaje y termina</td>
+<td>Usuarios de servicio modernos</td>
+</tr>
+<tr>
+<td><strong>false</strong></td>
+<td><code>/bin/false</code></td>
+<td>Termina inmediatamente con código 1</td>
+<td>Usuarios de servicio legacy</td>
+</tr>
+<tr>
+<td><strong>true</strong></td>
+<td><code>/bin/true</code></td>
+<td>Termina inmediatamente con código 0</td>
+<td>Casos especiales</td>
+</tr>
+</tbody></table>
+<h3>Archivos de Configuración Involucrados</h3>
+<pre><code>/etc/passwd         # Define el shell del usuario (último campo)
+/etc/nologin.txt    # Mensaje personalizado para nologin (opcional)
+/etc/shells         # Lista de shells válidos para el sistema
+/var/log/secure     # Logs de intentos de acceso (RHEL/CentOS)
+/var/log/auth.log   # Logs de autenticación (Debian/Ubuntu)
+</code></pre>
+<h3>Estructura de /etc/passwd</h3>
+<pre><code>username:password:UID:GID:GECOS:home_directory:shell
+   │         │      │   │    │        │          │
+   │         │      │   │    │        │          └── /sbin/nologin (¡este es el campo crítico!)
+   │         │      │   │    │        └───────────── /home/john
+   │         │      │   │    └────────────────────── &quot;Service Account - Backup Tool&quot;
+   │         │      │   └─────────────────────────── 1001 (GID)
+   │         │      └─────────────────────────────── 1001 (UID)
+   │         └────────────────────────────────────── x (shadow)
+   └──────────────────────────────────────────────── john
+</code></pre>
+<h3>Analogía: Tarjeta de Acceso vs. Llave Maestra</h3>
+<ul>
+<li><strong>Usuario con shell interactivo (/bin/bash)</strong>: Llave maestra que abre la puerta y te permite moverte por todo el edificio</li>
+<li><strong>Usuario con shell no-interactivo (/sbin/nologin)</strong>: Tarjeta de acceso que solo permite el paso a áreas específicas, pero no te deja &quot;entrar&quot; al edificio propiamente</li>
+</ul>
+<p>El backup tool usa la &quot;tarjeta de acceso&quot; para hacer su trabajo, pero incluso si alguien roba la tarjeta, no puede usarla para entrar al edificio.</p>
+<hr>
+<h2>🛠️ Implementación Profesional</h2>
+<h3>Fase 1: Verificación Pre-Implementación</h3>
+<h4>1.1 Acceso al Sistema</h4>
+<pre><code class="language-bash"># Conexión vía jump host (si aplica)
+ssh thor@jump_host.stratos.xfusioncorp.com
 
-## Objetivo del Reto
+# Conexión al servidor objetivo
+ssh steve@172.16.238.11
 
-Crear un usuario con shell no-interactivo según especificaciones del backup agent tool:
+# Escalar a root
+sudo su -
+</code></pre>
+<h4>1.2 Verificar Estado Actual</h4>
+<pre><code class="language-bash"># ¿Existe el usuario john?
+id john
+echo &quot;Exit code: $?&quot;  # 0 = existe, 1 = no existe
 
-**Crear un usuario named john with a non-interactive shell on App Server 2.**
+# ¿Qué usuarios tienen shell no-interactivo?
+grep -E &quot;(nologin|false)&quot; /etc/passwd | head -10
 
-## Servidor Objetivo
+# ¿Está disponible /sbin/nologin?
+ls -la /sbin/nologin
+file /sbin/nologin
+</code></pre>
+<blockquote>
+<p>⚠️ <strong>Advertencia</strong>: Siempre verifica que el shell <code>/sbin/nologin</code> existe antes de asignarlo.</p>
+</blockquote>
+<h3>Fase 2: Creación del Usuario john</h3>
+<h4>2.1 Crear Usuario con Shell No-Interactivo</h4>
+<pre><code class="language-bash"># Crear usuario con shell nologin
+useradd -m -s /sbin/nologin john
 
-| Servidor | IP | Hostname | Usuario | Contraseña | Propósito |
-|----------|----|-----------|--------|-------------|-----------|
-| stapp02 | 172.16.238.11 | stapp02.stratos.xfusioncorp.com | steve | Am3ric@ | Nautilus App 2 |
+# Análisis de flags:
+# -m : Crear directorio home (/home/john)
+# -s /sbin/nologin : Asignar shell no-interactivo
+# john : Nombre de usuario
+</code></pre>
+<h4>2.2 Verificar Creación</h4>
+<pre><code class="language-bash"># Verificar entrada en /etc/passwd
+grep john /etc/passwd
+# Salida esperada: john:x:1001:1001::/home/john:/sbin/nologin
 
-## Requisitos Técnicos
+# Verificar directorio home
+ls -la /home/john
+# Debe mostrar: drwxr-x--- 2 john john 4096 ... /home/john
 
-- **Usuario**: john
-- **Shell**: No-interactiva (/sbin/nologin o /bin/false)
-- **Servidor**: App Server 2 (stapp02)
-- **Acceso**: Sin inicio de sesión interactiva permitido
+# Verificar información completa
+id john
+# Salida: uid=1001(john) gid=1001(john) groups=1001(john)
+</code></pre>
+<h3>Fase 3: Configuración de Seguridad</h3>
+<h4>3.1 Establecer Contraseña (Obligatorio)</h4>
+<pre><code class="language-bash"># Establecer contraseña para el usuario
+passwd john
 
-## Estrategia de Implementación
+# Sistema solicitará:
+# Changing password for user john.
+# New password: [Ingresar contraseña segura]
+# Retype new password: [Confirmar]
+# passwd: all authentication tokens updated successfully.
+</code></pre>
+<blockquote>
+<p>💡 <strong>Nota técnica</strong>: Aunque el usuario no puede iniciar sesión interactivamente, NECESITA contraseña para:</p>
+<ul>
+<li>Ejecutar comandos con <code>su</code> (si se configura)</li>
+<li>Autenticación en servicios que verifiquen la cuenta</li>
+<li>Cumplimiento de políticas de seguridad (todas las cuentas deben tener contraseña)</li>
+</ul>
+</blockquote>
+<h4>3.2 Documentar el Propósito del Usuario</h4>
+<pre><code class="language-bash"># Agregar comentario GECOS (opcional pero recomendado)
+usermod -c &quot;Backup Agent Service Account - No Interactive Login&quot; john
 
-### Comandos Requeridos
+# Verificar cambio
+grep john /etc/passwd
+# Ahora muestra: john:x:1001:1001:Backup Agent Service Account - No Interactive Login:/home/john:/sbin/nologin
+</code></pre>
+<h3>Fase 4: Verificación de Seguridad</h3>
+<h4>4.1 Probar Acceso Interactivo (Debe Fallar)</h4>
+<pre><code class="language-bash"># Intentar iniciar sesión como john (desde root)
+su - john
 
-```bash
+# Salida esperada:
+# This account is currently not available.
+# O similar, dependiendo del sistema
+</code></pre>
+<h4>4.2 Verificar en Logs</h4>
+<pre><code class="language-bash"># En sistemas RHEL/CentOS
+tail /var/log/secure | grep john
+
+# En sistemas Debian/Ubuntu
+tail /var/log/auth.log | grep john
+
+# Debe mostrar intento de login denegado
+</code></pre>
+<h4>4.3 Verificar Estado del Shell</h4>
+<pre><code class="language-bash"># Confirmar shell asignado
+getent passwd john
+
+# Método alternativo
+grep &quot;^john:&quot; /etc/passwd | cut -d: -f7
+# Debe retornar: /sbin/nologin
+</code></pre>
+<h3>Resumen de Comandos</h3>
+<pre><code class="language-bash"># SECUENCIA COMPLETA
+
 # 1. Verificación inicial
 id john
 getent passwd john
 
-# 2. Creación del usuario
+# 2. Creación del usuario con shell no-interactivo
 useradd -m -s /sbin/nologin john
 
 # 3. Establecer contraseña
 passwd john
 
-# 4. Verificación final
+# 4. Agregar comentario descriptivo (opcional)
+usermod -c &quot;Backup Agent Service Account&quot; john
+
+# 5. Verificación final
 getent passwd john | grep john
-grep &quot;john&quot; /etc/passwd
-su - john  # Debe fallar
-```
+su - john  # Debe fallar con mensaje de cuenta no disponible
+</code></pre>
+<hr>
+<h2>🎯 Análisis Post-Implementación: Lo Que Acabas de Construir</h2>
+<h3>Arquitectura Implementada</h3>
+<pre><code>┌─────────────────────────────────────────────────────────┐
+│                    stapp02                              │
+│           Nautilus App Server 2                         │
+├─────────────────────────────────────────────────────────┤
+│                                                         │
+│  ┌─────────────────────────────────────────────────┐   │
+│  │            Usuario: john                         │   │
+│  │  ┌─────────────────────────────────────────┐    │   │
+│  │  │  UID: 1001                              │    │   │
+│  │  │  GID: 1001                              │    │   │
+│  │  │  Home: /home/john                       │    │   │
+│  │  │  Shell: /sbin/nologin  ◄── BLOQUEO      │    │   │
+│  │  └─────────────────────────────────────────┘    │   │
+│  │                                                 │   │
+│  │  ✅ Puede:                                      │   │
+│  │     • Ejecutar procesos (cron, scripts)         │   │
+│  │     • Acceder a archivos con permisos           │   │
+│  │     • Ser propietario de procesos               │   │
+│  │                                                 │   │
+│  │  ❌ No puede:                                   │   │
+│  │     • Iniciar sesión SSH interactiva            │   │
+│  │     • Obtener shell bash interactivo            │   │
+│  │     • Ejecutar comandos interactivos            │   │
+│  └─────────────────────────────────────────────────┘   │
+│                                                         │
+└─────────────────────────────────────────────────────────┘
+</code></pre>
+<h3>Comparativa: Usuario Normal vs. Usuario de Servicio</h3>
+<table>
+<thead>
+<tr>
+<th>Característica</th>
+<th>Usuario Normal</th>
+<th>Usuario de Servicio (john)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Shell</td>
+<td>/bin/bash</td>
+<td>/sbin/nologin</td>
+</tr>
+<tr>
+<td>Login SSH</td>
+<td>✅ Permitido</td>
+<td>❌ Bloqueado</td>
+</tr>
+<tr>
+<td>Ejecución de scripts</td>
+<td>✅ Sí</td>
+<td>✅ Sí</td>
+</tr>
+<tr>
+<td>Uso en cron</td>
+<td>✅ Sí</td>
+<td>✅ Sí</td>
+</tr>
+<tr>
+<td>Acceso interactivo</td>
+<td>✅ Sí</td>
+<td>❌ No</td>
+</tr>
+<tr>
+<td>Superficie de ataque</td>
+<td>Mayor</td>
+<td>Mínima</td>
+</tr>
+</tbody></table>
+<h3>Checklist de Verificación</h3>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> Usuario <code>john</code> creado con UID específico</li>
+<li><input checked="" disabled="" type="checkbox"> Shell configurada como <code>/sbin/nologin</code></li>
+<li><input checked="" disabled="" type="checkbox"> Directorio home creado en <code>/home/john</code></li>
+<li><input checked="" disabled="" type="checkbox"> Contraseña establecida</li>
+<li><input checked="" disabled="" type="checkbox"> Login interactivo bloqueado con mensaje educativo</li>
+<li><input checked="" disabled="" type="checkbox"> Documentación GECOS agregada</li>
+<li><input checked="" disabled="" type="checkbox"> Logs de seguridad verificados</li>
+</ul>
+<hr>
+<h2>🎓 Reflexión Final: Mentalidad Desarrollada</h2>
+<h3>El Principio del Menor Privilegio</h3>
+<blockquote>
+<p>&quot;Dar a cada usuario solo los permisos necesarios para su trabajo, ni más ni menos.&quot;</p>
+</blockquote>
+<p>En este caso, aplicamos el principio a nivel de shell:</p>
+<ul>
+<li><strong>¿Necesita john un shell interactivo?</strong> NO, es un usuario de servicio</li>
+<li><strong>¿Qué necesita john?</strong> Una identidad para ejecutar el backup tool</li>
+<li><strong>¿Cuál es el riesgo si tiene shell interactivo?</strong> Si las credenciales se filtran, el atacante tiene acceso completo al sistema</li>
+</ul>
+<h3>Lecciones Clave</h3>
+<ol>
+<li><p><strong>Shell es un Privilegio</strong>: No todos los usuarios necesitan shell interactivo.</p>
+</li>
+<li><p><strong>Verificación de Seguridad</strong>: Siempre prueba que el bloqueo funciona intentando acceder.</p>
+</li>
+<li><p><strong>Documentación del Propósito</strong>: El campo GECOS en /etc/passwd documenta por qué existe el usuario.</p>
+</li>
+<li><p><strong>Auditoría</strong>: Los logs de <code>/var/log/secure</code> o <code>/var/log/auth.log</code> registran intentos de acceso.</p>
+</li>
+</ol>
+<h3>Cuándo Usar Cada Tipo de Shell No-Interactivo</h3>
+<pre><code class="language-bash"># /sbin/nologin - Recomendado para usuarios de servicio modernos
+# Ventaja: Muestra mensaje educativo al usuario
+useradd -s /sbin/nologin service_account
 
-## Resultados Esperados
+# /bin/false - Para compatibilidad legacy
+# Ventaja: Universalmente disponible
+# Desventaja: No muestra mensaje, solo termina
+useradd -s /bin/false legacy_account
 
-- Usuario john creado con UID/GID específicos
-- Shell configurada como /sbin/nologin
-- Directorio home en /home/john
-- Login interactivo bloqueado con mensaje educativo
+# /usr/sbin/nologin - En algunas distribuciones modernas
+# Verificar primero: ls /usr/sbin/nologin
+</code></pre>
+<hr>
+<h2>🚀 Siguientes Pasos</h2>
+<h3>Retos Relacionados</h3>
+<ul>
+<li><strong>Reto 04</strong>: Usuario sin Home Directory - Optimización para usuarios de servicio puros</li>
+<li><strong>Reto 05</strong>: Usuario Temporal con Expiración - Control de acceso temporal</li>
+<li><strong>Reto 13</strong>: Restricción de Cron - Controlar quién puede usar cron</li>
+</ul>
+<h3>Escenarios de Expansión</h3>
+<ol>
+<li><p><strong>Integración con Backup Tool</strong>:</p>
+<pre><code class="language-bash"># Configurar crontab para john
+crontab -u john -e
+# 0 2 * * * /opt/backup-tool/backup.sh
+</code></pre>
+</li>
+<li><p><strong>Permisos de Archivos</strong>:</p>
+<pre><code class="language-bash"># Asegurar que john solo puede acceder a lo necesario
+chown -R john:backup /data/backup-source
+chmod 750 /data/backup-source
+</code></pre>
+</li>
+<li><p><strong>Monitoreo de Actividad</strong>:</p>
+<pre><code class="language-bash"># Auditar procesos ejecutados por john
+ps -u john -o pid,ppid,cmd,etime
+# Ver archivos abiertos
+lsof -u john
+</code></pre>
+</li>
+</ol>
+<h3>Comandos para Profundizar</h3>
+<pre><code class="language-bash"># Verificar todos los usuarios con shell no-interactivo
+awk -F: &#39;$7 ~ /(nologin|false)/ {print $1 &quot;:&quot; $7}&#39; /etc/passwd
 
-## Estado del Reto
+# Cambiar shell de usuario existente
+usermod -s /sbin/nologin username
 
-✅ **COMPLETADO** - Implementación exitosa con shell no-interactiva
+# Verificar shells disponibles
+chsh -l
+cat /etc/shells
 
-*Fecha de ejecución: 2025-01-25*</pre> </article> <div id="modal-03-usuario-no-interactivo-xfusioncorp" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50" aria-hidden="true"> <div class="flex items-center justify-center min-h-screen p-4"> <div class="bg-slate-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto"> <div class="p-6 border-b border-slate-700"> <div class="flex justify-between items-start"> <div> <h2 class="text-2xl font-bold text-gray-100">Reto 03: Usuario john con Shell No-Interactivo - xFusionCorp Industries</h2> <div class="flex items-center gap-4 mt-2 text-sm"> <span class="capitalize bg-slate-700 px-2 py-1 rounded">linux</span> <span class="text-cyan-400">easy</span>  </div> </div> <button onclick="closeModal('03-usuario-no-interactivo-xfusioncorp')" class="text-gray-400 hover:text-white">
+# Crear mensaje personalizado para nologin
+echo &quot;Acceso restringido. Contacte al administrador.&quot; &gt; /etc/nologin.txt
+</code></pre>
+<hr>
+<h2>📚 Recursos y Referencias</h2>
+<h3>Documentación Oficial</h3>
+<ul>
+<li><a href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/configuring_basic_system_settings/assembly_managing-users-and-groups_configuring-basic-system-settings">Linux User Shells - Red Hat</a></li>
+<li><a href="https://man7.org/linux/man-pages/man8/useradd.8.html">Useradd Manual</a></li>
+<li><a href="https://man7.org/linux/man-pages/man1/passwd.1.html">Passwd Manual</a></li>
+</ul>
+<h3>Troubleshooting Común</h3>
+<table>
+<thead>
+<tr>
+<th>Síntoma</th>
+<th>Causa Probable</th>
+<th>Solución</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&quot;su: failed to execute /sbin/nologin: No such file&quot;</td>
+<td>Shell no existe</td>
+<td>Usar <code>/bin/false</code> como alternativa</td>
+</tr>
+<tr>
+<td>&quot;su: Authentication failure&quot;</td>
+<td>Contraseña incorrecta</td>
+<td>Reestablecer con <code>passwd john</code></td>
+</tr>
+<tr>
+<td>Usuario puede iniciar sesión</td>
+<td>Shell no es nologin</td>
+<td>Verificar con <code>grep john /etc/passwd</code></td>
+</tr>
+<tr>
+<td>Mensaje genérico en lugar de personalizado</td>
+<td>Falta /etc/nologin.txt</td>
+<td>Crear archivo con mensaje personalizado</td>
+</tr>
+</tbody></table>
+<h3>Casos de Uso en el Mundo Real</h3>
+<ul>
+<li><strong>Servidores Web</strong>: Usuario <code>nginx</code>, <code>apache</code> con nologin</li>
+<li><strong>Bases de Datos</strong>: Usuario <code>mysql</code>, <code>postgres</code> con nologin</li>
+<li><strong>Servicios de Backup</strong>: Usuario <code>backup</code> con nologin</li>
+<li><strong>Aplicaciones Containerizadas</strong>: Usuarios de servicio sin shell</li>
+</ul>
+<hr>
+<h2>✅ Estado del Reto</h2>
+<p><strong>✅ COMPLETADO</strong> - Implementación exitosa con shell no-interactiva</p>
+<ul>
+<li>📅 Fecha de ejecución: 2025-01-25</li>
+<li>⏱️ Tiempo estimado: 10 minutos</li>
+<li>🎯 Dificultad: Fácil</li>
+<li>🖥️ Servidor configurado: stapp02</li>
+<li>🔒 Seguridad implementada: Shell no-interactivo activo</li>
+</ul>
+<h3>Métricas de Éxito</h3>
+<p>✅ Usuario <code>john</code> creado con UID/GID específicos<br>✅ Shell configurada como <code>/sbin/nologin</code><br>✅ Directorio home en <code>/home/john</code><br>✅ Login interactivo bloqueado correctamente<br>✅ Mensaje educativo mostrado al intentar acceso<br>✅ Logs de seguridad verificados</p>
+<hr>
+<p><em>Documentación creada siguiendo estándares de SysAdmin - Principio del Menor Privilegio</em></p>
+</div> </div> </article> <div id="modal-03-usuario-no-interactivo-xfusioncorp" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50" aria-hidden="true"> <div class="flex items-center justify-center min-h-screen p-4"> <div class="bg-slate-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto"> <div class="p-6 border-b border-slate-700"> <div class="flex justify-between items-start"> <div> <h2 class="text-2xl font-bold text-gray-100">Reto 03: Usuario john con Shell No-Interactivo - xFusionCorp Industries</h2> <div class="flex items-center gap-4 mt-2 text-sm"> <span class="capitalize bg-slate-700 px-2 py-1 rounded">linux</span> <span class="text-cyan-400">easy</span>  </div> </div> <button onclick="closeModal('03-usuario-no-interactivo-xfusioncorp')" class="text-gray-400 hover:text-white">
 ✕
-</button> </div> </div> <div class="p-6"> <div class="mb-6"> <h3 class="text-lg font-semibold text-cyan-400 mb-4">Pasos a Seguir</h3> <div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">1. Comandos Requeridos</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+</button> </div> </div> <div class="p-6"> <div class="mb-6"> <h3 class="text-lg font-semibold text-cyan-400 mb-4">Pasos a Seguir</h3> <div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">1. La Problemática</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">2. Contexto de Seguridad</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">3. Infraestructura Objetivo</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">4. ¿Qué es un Shell No-Interactivo?</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">5. Tipos de Shells No-Interactivos</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">6. Archivos de Configuración Involucrados</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">7. Estructura de /etc/passwd</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">8. Analogía: Tarjeta de Acceso vs. Llave Maestra</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">9. Fase 1: Verificación Pre-Implementación</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">10. 1 Acceso al Sistema</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>ssh thor@jump_host.stratos.xfusioncorp.com
+ssh steve@172.16.238.11
+sudo su -</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">11. 2 Verificar Estado Actual</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>id john
+echo &quot;Exit code: $?&quot;  # 0 = existe, 1 = no existe
+grep -E &quot;(nologin|false)&quot; /etc/passwd | head -10
+ls -la /sbin/nologin
+file /sbin/nologin</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">12. Fase 2: Creación del Usuario john</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">13. 1 Crear Usuario con Shell No-Interactivo</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>useradd -m -s /sbin/nologin john</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">14. 2 Verificar Creación</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>grep john /etc/passwd
+ls -la /home/john
+id john</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">15. Fase 3: Configuración de Seguridad</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">16. 1 Establecer Contraseña (Obligatorio)</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>passwd john</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">17. 2 Documentar el Propósito del Usuario</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>usermod -c &quot;Backup Agent Service Account - No Interactive Login&quot; john
+grep john /etc/passwd</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">18. Fase 4: Verificación de Seguridad</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">19. 1 Probar Acceso Interactivo (Debe Fallar)</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>su - john</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">20. 2 Verificar en Logs</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>tail /var/log/secure | grep john
+tail /var/log/auth.log | grep john</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">21. 3 Verificar Estado del Shell</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>getent passwd john
+grep &quot;^john:&quot; /etc/passwd | cut -d: -f7</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">22. Resumen de Comandos</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
 
                     <code>id john
 getent passwd john
 useradd -m -s /sbin/nologin john
 passwd john
+usermod -c &quot;Backup Agent Service Account&quot; john
 getent passwd john | grep john
-grep &quot;john&quot; /etc/passwd
-su - john  # Debe fallar</code>
-                  </pre>  </div> </div>    </div> </div> </div> </div> <script type="module">document.addEventListener("click",e=>{const t=e.target;t.classList.contains("bg-black")&&(t.classList.add("hidden"),t.setAttribute("aria-hidden","true"))});</script> </div> </main>  </body></html>
+su - john  # Debe fallar con mensaje de cuenta no disponible</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">23. Arquitectura Implementada</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">24. Comparativa: Usuario Normal vs. Usuario de Servicio</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">25. Checklist de Verificación</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">26. El Principio del Menor Privilegio</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">27. Lecciones Clave</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">28. Cuándo Usar Cada Tipo de Shell No-Interactivo</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>useradd -s /sbin/nologin service_account
+useradd -s /bin/false legacy_account</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">29. Retos Relacionados</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">30. Escenarios de Expansión</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>crontab -u john -e</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">31. Comandos para Profundizar</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>awk -F: &#39;$7 ~ /(nologin|false)/ {print $1 &quot;:&quot; $7}&#39; /etc/passwd
+usermod -s /sbin/nologin username
+chsh -l
+cat /etc/shells
+echo &quot;Acceso restringido. Contacte al administrador.&quot; &gt; /etc/nologin.txt</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">32. Documentación Oficial</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">33. Troubleshooting Común</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">34. Casos de Uso en el Mundo Real</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">35. Métricas de Éxito</h4>   </div> </div>    </div> </div> </div> </div> <script type="module">document.addEventListener("click",e=>{const t=e.target;t.classList.contains("bg-black")&&(t.classList.add("hidden"),t.setAttribute("aria-hidden","true"))});</script> </div> </main>  </body></html>

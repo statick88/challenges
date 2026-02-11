@@ -1,77 +1,719 @@
-<!DOCTYPE html><html lang="es"> <head><meta charset="UTF-8"><meta name="description" content="Plataforma interactiva de desafíos técnicos - Linux, Docker, DevOps, CTF"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.17.1"><title>Reto 11: String Replacement - xFusionCorp Industries - Linux Challenges</title><style>.markdown-body{font-family:system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;line-height:1.8;color:#e5e7eb}.markdown-body h1{font-size:2rem;font-weight:700;color:#f97316;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid #374151}.markdown-body h2{font-size:1.5rem;font-weight:600;color:#22d3ee;margin:1.75rem 0 1rem;padding-bottom:.25rem}.markdown-body h3{font-size:1.25rem;font-weight:600;color:#a5f3fc;margin:1.5rem 0 .75rem}.markdown-body p{margin:.75rem 0;color:#d1d5db}.markdown-body strong{color:#fbbf24;font-weight:600}.markdown-body ul,.markdown-body ol{margin:.75rem 0;padding-left:1.5rem;color:#d1d5db}.markdown-body li{margin:.5rem 0;list-style-type:disc}.markdown-body table{width:100%;margin:1rem 0;border-collapse:collapse;font-size:.9rem}.markdown-body th,.markdown-body td{padding:.75rem;border:1px solid #374151;text-align:left}.markdown-body th{background:#37415180;color:#fbbf24;font-weight:600}.markdown-body td{color:#d1d5db}.markdown-body code{background:#06b6d426;color:#22d3ee;padding:.2rem .5rem;border-radius:.375rem;font-family:SF Mono,Monaco,Courier New,monospace;font-size:.875rem}.markdown-body pre{background:#0f172a;padding:1rem;border-radius:.75rem;overflow-x:auto;margin:1rem 0;border:1px solid #1e293b}.markdown-body pre code{background:transparent;padding:0;color:#a5b4fc}
-</style></head> <body class="bg-slate-900 text-gray-100 min-h-screen">   <main class="container mx-auto px-4 py-8"> <div class="max-w-4xl mx-auto"> <div class="mb-6"> <a href="/challenges/linux" class="text-cyan-400 hover:text-cyan-300">← Volver a Linux Challenges</a> </div> <article class="bg-slate-800 rounded-lg p-6 border border-slate-700"> <header class="mb-6"> <h1 class="text-3xl font-bold text-orange-400 mb-2">Reto 11: String Replacement - xFusionCorp Industries</h1> <div class="flex items-center gap-4 text-sm text-gray-400"> <span class="bg-orange-600 px-2 py-1 rounded text-xs">Linux</span> <span class="capitalize">easy</span> <span>2025-01-25</span> </div> </header> <pre class="markdown-body whitespace-pre-wrap"># Reto 11: String Replacement - xFusionCorp Industries
+<!DOCTYPE html><html lang="es"> <head><meta charset="UTF-8"><meta name="description" content="Plataforma interactiva de desafíos técnicos - Linux, Docker, DevOps, CTF"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.17.1"><title>Reto 11: String Replacement - xFusionCorp Industries - Linux Challenges</title><link rel="stylesheet" href="/_astro/_slug_.CR6T2awG.css">
+<style>@import"https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap";:root{--progress: 0%;--color-primary: 15 23 42;--color-secondary: 30 41 59;--color-text: 248 250 252;--color-muted: 148 163 184;--color-accent: 16 185 129;--color-success: 34 211 153;--color-warning: 245 158 11}[data-theme=dark]{--color-primary: 15 23 42;--color-secondary: 30 41 59;--color-text: 248 250 252;--color-muted: 148 163 184;--color-accent: 16 185 129;--color-success: 34 211 153;--color-warning: 245 158 11}[data-theme=light]{--color-primary: 248 250 252;--color-secondary: 226 232 240;--color-text: 30 41 59;--color-muted: 100 116 139;--color-accent: 16 185 129;--color-success: 34 211 153;--color-warning: 245 158 11}body{font-family:Inter,system-ui,sans-serif}::-webkit-scrollbar{width:8px}::-webkit-scrollbar-track{background:#1e293b}::-webkit-scrollbar-thumb{background:#475569;border-radius:4px}::-webkit-scrollbar-thumb:hover{background:#64748b}html{scroll-behavior:smooth}html.theme-transitioning *{transition:background-color .3s ease,border-color .3s ease,color .3s ease,box-shadow .3s ease}.theme-transition-overlay{position:fixed;inset:0;background:rgb(var(--color-primary) / .8);z-index:9999;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .2s ease}.theme-transition-overlay.active{opacity:1}.theme-toggle-ripple{position:absolute;border-radius:50%;background:currentColor;transform:scale(0);opacity:.6;pointer-events:none}.theme-toggle-ripple.animate{transform:scale(4);opacity:0;transition:all .6s cubic-bezier(.4,0,.2,1)}button:focus,a:focus{outline:2px solid rgb(var(--color-accent));outline-offset:2px}@media(max-width:768px){.animated-counter{font-size:2.5rem}}@media(prefers-reduced-motion:reduce){html.theme-transitioning *,.theme-transition-overlay,.theme-toggle-ripple.animate{transition:none}}@media print{.fixed{display:none}.bg-secondary,.bg-primary{background:#fff!important;color:#000!important}}
+.markdown-body{font-family:system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;line-height:1.8;color:#e5e7eb}.markdown-body h1{font-size:2rem;font-weight:700;color:#f97316;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid #374151}.markdown-body h2{font-size:1.5rem;font-weight:600;color:#22d3ee;margin:1.75rem 0 1rem;padding-bottom:.25rem}.markdown-body h3{font-size:1.25rem;font-weight:600;color:#a5f3fc;margin:1.5rem 0 .75rem}.markdown-body p{margin:.75rem 0;color:#d1d5db}.markdown-body strong{color:#fbbf24;font-weight:600}.markdown-body ul,.markdown-body ol{margin:.75rem 0;padding-left:1.5rem;color:#d1d5db}.markdown-body li{margin:.5rem 0;list-style-type:disc}.markdown-body table{width:100%;margin:1rem 0;border-collapse:collapse;font-size:.9rem}.markdown-body th,.markdown-body td{padding:.75rem;border:1px solid #374151;text-align:left}.markdown-body th{background:#37415180;color:#fbbf24;font-weight:600}.markdown-body td{color:#d1d5db}.markdown-body code{background:#06b6d426;color:#22d3ee;padding:.2rem .5rem;border-radius:.375rem;font-family:SF Mono,Monaco,Courier New,monospace;font-size:.875rem}.markdown-body pre{background:#0f172a;padding:1rem;border-radius:.75rem;overflow-x:auto;margin:1rem 0;border:1px solid #1e293b}.markdown-body pre code{background:transparent;padding:0;color:#a5b4fc}
+</style></head> <body class="bg-slate-900 text-gray-100 min-h-screen">   <main class="container mx-auto px-4 py-8"> <div class="max-w-4xl mx-auto"> <div class="mb-6"> <a href="/challenges/linux" class="text-cyan-400 hover:text-cyan-300">← Volver a Linux Challenges</a> </div> <article class="bg-slate-800 rounded-lg p-6 border border-slate-700"> <header class="mb-6"> <h1 class="text-3xl font-bold text-orange-400 mb-2">Reto 11: String Replacement - xFusionCorp Industries</h1> <div class="flex items-center gap-4 text-sm text-gray-400"> <span class="bg-orange-600 px-2 py-1 rounded text-xs">Linux</span> <span class="capitalize">easy</span> <span>2025-01-25</span> </div> </header> <div class="prose prose-invert max-w-none"> <div class="markdown-body"><h1>Reto 11: String Replacement - xFusionCorp Industries</h1>
+<h2>Edición de Configuraciones: Precisión, Backup y Validación</h2>
+<hr>
+<h2>🎓 Del Instructor</h2>
+<p>Bienvenido a tu duodécimo desafío como SysAdmin Senior en xFusionCorp. Hoy enfrentamos una de las tareas más delicadas de la administración de sistemas: <strong>la modificación de archivos de configuración en producción</strong>.</p>
+<blockquote>
+<p>💭 <strong>Mentalidad de SysAdmin</strong>: &quot;Editar un archivo de configuración en producción sin backup es como caminar sobre cuerdas flojas sin red. Un solo error de sintaxis puede detener servicios críticos. Siempre hay que medir diez veces y cortar una.&quot;</p>
+</blockquote>
+<p>Los cambios de configuración son inevitables, pero deben hacerse con metodología, herramientas apropiadas y siempre con plan de reversión.</p>
+<hr>
+<h2>🎭 Escenario Real: Migración de Servidor en Nautilus App 2</h2>
+<p><strong>Empresa</strong>: xFusionCorp Industries<br><strong>Proyecto</strong>: Nautilus - Migración de Infraestructura<br><strong>Servidor</strong>: App Server 2 (stapp02)<br><strong>Tu rol</strong>: Senior System Administrator - Cambios Controlados</p>
+<h3>La Problemática</h3>
+<p>El equipo de infraestructura de xFusionCorp está migrando la aplicación crítica del servidor <code>old_server.local</code> al nuevo servidor <code>new_server.production</code>. La aplicación tiene múltiples referencias al servidor antiguo en su archivo de configuración principal:</p>
+<ul>
+<li>URLs de conexión a base de datos</li>
+<li>Endpoints de servicios externos</li>
+<li>Referencias a recursos compartidos</li>
+<li>Configuraciones de caché</li>
+</ul>
+<p><strong>El archivo afectado</strong>: <code>/etc/app/config.properties</code></p>
+<p><strong>El requerimiento del equipo de Migración</strong>:</p>
+<blockquote>
+<p>&quot;Perform string replacement in configuration files.&quot;</p>
+</blockquote>
+<h3>Contexto de Riesgo</h3>
+<p>Un error en este cambio podría:</p>
+<ul>
+<li>Conectar la aplicación al servidor incorrecto</li>
+<li>Exponer datos en el entorno equivocado</li>
+<li>Causar downtime de servicios críticos</li>
+<li>Corromper la configuración si se rompe la sintaxis</li>
+</ul>
+<h3>Infraestructura Objetivo</h3>
+<table>
+<thead>
+<tr>
+<th>Servidor</th>
+<th>IP</th>
+<th>Hostname</th>
+<th>Usuario Acceso</th>
+<th>Contraseña</th>
+<th>Propósito</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>stapp02</td>
+<td>172.16.238.11</td>
+<td>stapp02.stratos.xfusioncorp.com</td>
+<td>steve</td>
+<td>Am3ric@</td>
+<td>Text Processing</td>
+</tr>
+</tbody></table>
+<h3>Requisitos Técnicos</h3>
+<ul>
+<li><strong>Archivo objetivo</strong>: <code>/etc/app/config.properties</code></li>
+<li><strong>String a buscar</strong>: <code>old_server.local</code></li>
+<li><strong>String de reemplazo</strong>: <code>new_server.production</code></li>
+<li><strong>Método</strong>: <code>sed</code> con backup</li>
+<li><strong>Verificación</strong>: Validar cambios sin romper sintaxis</li>
+<li><strong>Respaldo</strong>: Archivo backup antes de cambios</li>
+</ul>
+<hr>
+<h2>🧠 La Arquitectura: Edición de Archivos de Configuración</h2>
+<h3>El Desafío de la Edición en Producción</h3>
+<pre><code>┌─────────────────────────────────────────────────────────────────┐
+│              RIESGOS DE EDICIÓN EN PRODUCCIÓN                    │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│  ⚠️  RIESGOS IDENTIFICADOS:                                      │
+│                                                                  │
+│  1. PÉRDIDA DE DATOS                                             │
+│     • Sobrescribir configuración sin backup                     │
+│     • No poder revertir si algo falla                           │
+│                                                                  │
+│  2. CORRUPCIÓN DE SINTAXIS                                       │
+│     • Caracteres especiales no escapados                        │
+│     • Expresiones regulares incorrectas                         │
+│     • Encoding dañado                                           │
+│                                                                  │
+│  3. REEMPLAZOS INDESeados                                        │
+│     • Reemplazar strings dentro de comentarios                  │
+│     • Modificar strings parciales (substring matches)           │
+│     • Afectar líneas que no debían cambiar                      │
+│                                                                  │
+│  4. SERVICIO NO FUNCIONAL                                        │
+│     • Configuración inválida después del cambio                 │
+│     • Aplicación no inicia                                      │
+│     • Downtime no planificado                                   │
+│                                                                  │
+└─────────────────────────────────────────────────────────────────┘
+</code></pre>
+<h3>Herramientas de Reemplazo de Texto</h3>
+<table>
+<thead>
+<tr>
+<th>Herramienta</th>
+<th>Uso</th>
+<th>Ventajas</th>
+<th>Desventajas</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>sed</strong></td>
+<td>Reemplazo en línea, scripts</td>
+<td>Potente, estándar</td>
+<td>Sintaxis compleja</td>
+</tr>
+<tr>
+<td><strong>awk</strong></td>
+<td>Procesamiento estructurado</td>
+<td>Flexible</td>
+<td>Verboso para simples</td>
+</tr>
+<tr>
+<td><strong>perl -pi</strong></td>
+<td>Reemplazo avanzado</td>
+<td>Regex complejas</td>
+<td>No siempre disponible</td>
+</tr>
+<tr>
+<td><strong>vi/vim</strong></td>
+<td>Edición interactiva</td>
+<td>Control total</td>
+<td>Manual, no automatizable</td>
+</tr>
+</tbody></table>
+<h3>Opciones Críticas de sed</h3>
+<pre><code class="language-bash"># Sintaxis básica
+sed &#39;s/patrón/reemplazo/flags&#39;
 
-## Objetivo del Reto
-
-Realizar reemplazo de cadenas de texto en archivos de configuración:
-
-**Perform string replacement in configuration files.**
-
-## Servidor Objetivo
-
-| Servidor | IP | Hostname | Usuario | Contraseña | Propósito |
-|----------|----|-----------|--------|-------------|-----------|
-| stapp02 | 172.16.238.11 | stapp02.stratos.xfusioncorp.com | steve | Am3ric@ | Text Processing |
-
-## Requisitos Técnicos
-
-- **Archivo objetivo**: /etc/app/config.properties
-- **Búsqueda**: old_server.local
-- **Reemplazo**: new_server.production
-- **Método**: sed con backup
-- **Verificación**: Validar cambios sin romper sintaxis
-- **Respaldo**: Archivo backup antes de cambios
-
-## Estrategia de Implementación
-
-### Comandos Requeridos
-
-```bash
-# 1. Conexión al servidor
+# Opciones importantes:
+-i                 # Editar en el archivo (in-place)
+-i.bak            # Editar y crear backup con extensión .bak
+&#39;s/old/new/g&#39;     # Reemplazo global (todas las ocurrencias por línea)
+&#39;s/old/new/&#39;      # Reemplazo por línea (solo primera ocurrencia)
+-n + p            # Modo silencioso, imprimir solo matches
+</code></pre>
+<h3>Flujo Seguro de Modificación</h3>
+<pre><code>┌─────────────────────────────────────────────────────────────────┐
+│            FLUJO SEGURO DE MODIFICACIÓN                          │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│  1. INSPECCIÓN                                                   │
+│     │                                                            │
+│     ├── Leer archivo de configuración                           │
+│     ├── Identificar strings a reemplazar                        │
+│     └── Contar ocurrencias                                      │
+│     │                                                            │
+│     ▼                                                            │
+│  2. BACKUP                                                       │
+│     │                                                            │
+│     ├── Copia del archivo original                              │
+│     ├── Verificación de backup                                  │
+│     └── Documentar estado inicial                               │
+│     │                                                            │
+│     ▼                                                            │
+│  3. PRUEBA                                                       │
+│     │                                                            │
+│     ├── Ejecutar sed sin modificar (-i)                         │
+│     ├── Verificar salida esperada                               │
+│     └── Validar sintaxis                                        │
+│     │                                                            │
+│     ▼                                                            │
+│  4. EJECUCIÓN                                                    │
+│     │                                                            │
+│     ├── Ejecutar sed con backup                                 │
+│     ├── Verificar archivo modificado                            │
+│     └── Comparar con original                                   │
+│     │                                                            │
+│     ▼                                                            │
+│  5. VALIDACIÓN                                                   │
+│     │                                                            │
+│     ├── Verificar sintaxis del archivo                          │
+│     ├── Probar aplicación/servicio                              │
+│     └── Confirmar funcionamiento                                │
+│                                                                  │
+└─────────────────────────────────────────────────────────────────┘
+</code></pre>
+<h3>Analogía: Cirugía de Precisión</h3>
+<ul>
+<li><strong>El archivo de configuración</strong>: El paciente en operación</li>
+<li><strong>El backup</strong>: La sangre y tejido del paciente preservados para transfusiones</li>
+<li><strong>sed</strong>: El bisturí quirúrgico</li>
+<li><strong>El patrón de búsqueda</strong>: El mapa de la anatomía</li>
+<li><strong>La validación</strong>: Las pruebas post-operatorias</li>
+<li><strong>El plan de rollback</strong>: El equipo de reanimación listo</li>
+</ul>
+<p>Un buen cirujano nunca opera sin:</p>
+<ol>
+<li>Haber estudiado la anatomía (inspección)</li>
+<li>Tener sangre compatible disponible (backup)</li>
+<li>Hacer una incisión de prueba (dry run)</li>
+<li>Verificar después de cada paso (validación)</li>
+</ol>
+<hr>
+<h2>🛠️ Implementación Profesional</h2>
+<h3>Fase 1: Inspección y Análisis</h3>
+<h4>1.1 Acceso al Sistema</h4>
+<pre><code class="language-bash"># Conexión al servidor
 ssh steve@172.16.238.11
 sudo su -
+</code></pre>
+<h4>1.2 Verificar Existencia del Archivo</h4>
+<pre><code class="language-bash"># Verificar que el archivo existe
+ls -la /etc/app/config.properties
 
-# 2. Verificación inicial
+# Ver permisos actuales
+stat /etc/app/config.properties
+
+# Verificar que es editable por root
+</code></pre>
+<blockquote>
+<p>⚠️ <strong>Advertencia</strong>: Si no tienes permisos de escritura, necesitarás <code>sudo</code> o cambiar permisos temporalmente.</p>
+</blockquote>
+<h4>1.3 Inspeccionar Contenido</h4>
+<pre><code class="language-bash"># Ver contenido del archivo
+cat /etc/app/config.properties
+
+# Buscar ocurrencias del string objetivo
 grep -n &quot;old_server.local&quot; /etc/app/config.properties
+
+# Contar total de ocurrencias
+grep -c &quot;old_server.local&quot; /etc/app/config.properties
+
+# Ver contexto (líneas alrededor)
+grep -n -B2 -A2 &quot;old_server.local&quot; /etc/app/config.properties
+</code></pre>
+<h3>Fase 2: Backup de Seguridad</h3>
+<h4>2.1 Crear Backup con Timestamp</h4>
+<pre><code class="language-bash"># Crear backup con fecha y hora
+BACKUP_FILE=&quot;/etc/app/config.properties.backup.$(date +%Y%m%d_%H%M%S)&quot;
+cp /etc/app/config.properties &quot;$BACKUP_FILE&quot;
+
+# Verificar backup creado
+ls -la &quot;$BACKUP_FILE&quot;
+echo &quot;Backup creado: $BACKUP_FILE&quot;
+
+# Comparar con original
+diff /etc/app/config.properties &quot;$BACKUP_FILE&quot;
+# No debe haber diferencias
+</code></pre>
+<h4>2.2 Documentar Estado Inicial</h4>
+<pre><code class="language-bash"># Guardar resumen del estado inicial
+echo &quot;=== Estado Inicial ===&quot; &gt; /tmp/config_change_log.txt
+echo &quot;Fecha: $(date)&quot; &gt;&gt; /tmp/config_change_log.txt
+echo &quot;Archivo: /etc/app/config.properties&quot; &gt;&gt; /tmp/config_change_log.txt
+echo &quot;Ocurrencias de old_server.local: $(grep -c &#39;old_server.local&#39; /etc/app/config.properties)&quot; &gt;&gt; /tmp/config_change_log.txt
+echo &quot;&quot; &gt;&gt; /tmp/config_change_log.txt
+echo &quot;Líneas con old_server.local:&quot; &gt;&gt; /tmp/config_change_log.txt
+grep -n &quot;old_server.local&quot; /etc/app/config.properties &gt;&gt; /tmp/config_change_log.txt
+
+cat /tmp/config_change_log.txt
+</code></pre>
+<h3>Fase 3: Prueba (Dry Run)</h3>
+<h4>3.1 Ejecutar sin Modificar Archivo</h4>
+<pre><code class="language-bash"># Ejecutar sed sin -i para ver resultado en stdout
+sed &#39;s/old_server.local/new_server.production/g&#39; /etc/app/config.properties | head -30
+
+# Flags:
+# s = sustitución
+# g = global (todas las ocurrencias por línea)
+</code></pre>
+<h4>3.2 Verificar Reemplazos Específicos</h4>
+<pre><code class="language-bash"># Contar cuántas ocurrencias serían reemplazadas
+sed &#39;s/old_server.local/new_server.production/g&#39; /etc/app/config.properties | grep -c &quot;new_server.production&quot;
+
+# Debe coincidir con el conteo original
+grep -c &quot;old_server.local&quot; /etc/app/config.properties
+</code></pre>
+<h4>3.3 Verificar que No Hay Falsos Positivos</h4>
+<pre><code class="language-bash"># Buscar old_server.local en resultado (debe estar vacío)
+sed &#39;s/old_server.local/new_server.production/g&#39; /etc/app/config.properties | grep &quot;old_server.local&quot;
+# No debe mostrar nada
+
+# Verificar que new_server.production aparece
+sed &#39;s/old_server.local/new_server.production/g&#39; /etc/app/config.properties | grep &quot;new_server.production&quot; | head -5
+</code></pre>
+<h3>Fase 4: Ejecución con Backup</h3>
+<h4>4.1 Ejecutar Reemplazo con Backup</h4>
+<pre><code class="language-bash"># Ejecutar sed con backup automático
+sed -i.backup &#39;s/old_server.local/new_server.production/g&#39; /etc/app/config.properties
+
+# Flags:
+# -i.backup = editar in-place y crear archivo .backup
+
+# Verificar que se creó backup
+ls -la /etc/app/config.properties*
+</code></pre>
+<h4>4.2 Verificar Cambio Aplicado</h4>
+<pre><code class="language-bash"># Verificar que old_server.local ya no existe
+grep &quot;old_server.local&quot; /etc/app/config.properties
+echo &quot;Exit code: $?&quot;  # Debe ser 1 (no encontrado)
+
+# Verificar que new_server.production existe
+grep &quot;new_server.production&quot; /etc/app/config.properties
+grep -c &quot;new_server.production&quot; /etc/app/config.properties
+</code></pre>
+<h4>4.3 Comparar Archivos</h4>
+<pre><code class="language-bash"># Comparar backup con archivo modificado
+diff /etc/app/config.properties.backup /etc/app/config.properties
+
+# O usando colordiff si está disponible
+colordiff /etc/app/config.properties.backup /etc/app/config.properties 2&gt;/dev/null || diff /etc/app/config.properties.backup /etc/app/config.properties
+
+# La salida debe mostrar solo las líneas cambiadas
+</code></pre>
+<h3>Fase 5: Validación</h3>
+<h4>5.1 Verificar Sintaxis</h4>
+<pre><code class="language-bash"># Método 1: Verificar que el archivo es legible
+cat /etc/app/config.properties &gt; /dev/null &amp;&amp; echo &quot;Archivo legible: OK&quot;
+
+# Método 2: Si es archivo .properties, verificar formato
+# Las líneas deben ser: clave=valor o comentarios #
+grep -v &quot;^#&quot; /etc/app/config.properties | grep -v &quot;^$&quot; | grep -v &quot;=&quot; &amp;&amp; echo &quot;Líneas sin formato = encontradas&quot;
+# No debe mostrar nada (o solo mostrar líneas malformadas)
+
+# Método 3: Usar herramienta específica si existe
+# java -jar /path/to/properties-validator.jar /etc/app/config.properties 2&gt;/dev/null || echo &quot;Validador no disponible&quot;
+</code></pre>
+<h4>5.2 Verificar Funcionamiento (Si aplica)</h4>
+<pre><code class="language-bash"># Si hay un servicio que usa esta configuración:
+# systemctl restart app-service
+# systemctl status app-service
+
+# O verificar que la aplicación puede leer la configuración
+# su - appuser -c &quot;cat /etc/app/config.properties&quot; &gt; /dev/null &amp;&amp; echo &quot;Aplicación puede leer config: OK&quot;
+</code></pre>
+<h3>Fase 6: Documentación</h3>
+<h4>6.1 Actualizar Log de Cambios</h4>
+<pre><code class="language-bash"># Agregar información del cambio al log
+echo &quot;&quot; &gt;&gt; /tmp/config_change_log.txt
+echo &quot;=== Estado Final ===&quot; &gt;&gt; /tmp/config_change_log.txt
+echo &quot;Fecha de cambio: $(date)&quot; &gt;&gt; /tmp/config_change_log.txt
+echo &quot;Backup creado: /etc/app/config.properties.backup&quot; &gt;&gt; /tmp/config_change_log.txt
+echo &quot;Ocurrencias de new_server.production: $(grep -c &#39;new_server.production&#39; /etc/app/config.properties)&quot; &gt;&gt; /tmp/config_change_log.txt
+echo &quot;Ocurrencias restantes de old_server.local: $(grep -c &#39;old_server.local&#39; /etc/app/config.properties || echo 0)&quot; &gt;&gt; /tmp/config_change_log.txt
+
+cat /tmp/config_change_log.txt
+</code></pre>
+<h3>Resumen de Comandos</h3>
+<pre><code class="language-bash"># SECUENCIA COMPLETA Y SEGURA
+
+# 1. Verificación inicial
+grep -n &quot;old_server.local&quot; /etc/app/config.properties
+
+# 2. Crear backup
 cp /etc/app/config.properties /etc/app/config.properties.backup
 
-# 3. Reemplazo con sed
-sed -i &#39;s/old_server.local/new_server.production/g&#39; /etc/app/config.properties
+# 3. Prueba (dry run)
+sed &#39;s/old_server.local/new_server.production/g&#39; /etc/app/config.properties | grep &quot;new_server.production&quot;
 
-# 4. Verificación del cambio
-grep -n &quot;new_server.production&quot; /etc/app/config.properties
+# 4. Ejecutar con backup
+sed -i.backup &#39;s/old_server.local/new_server.production/g&#39; /etc/app/config.properties
+
+# 5. Verificar cambio
+grep &quot;new_server.production&quot; /etc/app/config.properties
 grep &quot;old_server.local&quot; /etc/app/config.properties  # Debe estar vacío
 
-# 5. Verificación de sintaxis (si es archivo de configuración)
-# Asumiendo que es un archivo .properties
-java -cp /path/to/properties-validator.jar PropertiesValidator /etc/app/config.properties
+# 6. Verificación de sintaxis
+cat /etc/app/config.properties &gt; /dev/null &amp;&amp; echo &quot;OK&quot;
 
-# 6. Verificación funcional
-systemctl restart app-service  # Si aplica
-```
+# 7. Comparar
+diff /etc/app/config.properties.backup /etc/app/config.properties
+</code></pre>
+<hr>
+<h2>🎯 Análisis Post-Implementación: Lo Que Acabas de Construir</h2>
+<h3>Arquitectura del Cambio</h3>
+<pre><code>┌─────────────────────────────────────────────────────────────────────────┐
+│              REEMPLAZO DE STRINGS COMPLETADO - stapp02                  │
+├─────────────────────────────────────────────────────────────────────────┤
+│                                                                          │
+│  Archivo: /etc/app/config.properties                                     │
+│                                                                          │
+│  ANTES (Backup): config.properties.backup                                │
+│  ├── db.url=jdbc:mysql://old_server.local:3306/myapp                    │
+│  ├── api.endpoint=http://old_server.local/api/v1                        │
+│  ├── cache.server=old_server.local:11211                                │
+│  └── # Conexión a old_server.local - Producción                         │
+│                                                                          │
+│  DESPUÉS (Actual): config.properties                                     │
+│  ├── db.url=jdbc:mysql://new_server.production:3306/myapp   ◄── Cambiado │
+│  ├── api.endpoint=http://new_server.production/api/v1       ◄── Cambiado │
+│  ├── cache.server=new_server.production:11211               ◄── Cambiado │
+│  └── # Conexión a new_server.production - Producción        ◄── Cambiado │
+│                                                                          │
+│  ✅ CARACTERÍSTICAS DEL CAMBIO:                                          │
+│     • Backup automático creado                                          │
+│     • Reemplazo global de todas las ocurrencias                         │
+│     • Sintaxis preservada                                               │
+│     • Documentación del cambio                                          │
+│     • Plan de rollback disponible                                       │
+│                                                                          │
+│  🔒 SEGURIDAD:                                                           │
+│     • Verificación antes de modificar                                   │
+│     • Backup inmutable                                                   │
+│     • Validación post-cambio                                            │
+│                                                                          │
+└─────────────────────────────────────────────────────────────────────────┘
+</code></pre>
+<h3>Checklist de Verificación</h3>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> Backup creado antes de modificaciones</li>
+<li><input checked="" disabled="" type="checkbox"> Prueba (dry run) ejecutada exitosamente</li>
+<li><input checked="" disabled="" type="checkbox"> Reemplazo ejecutado con <code>sed -i.backup</code></li>
+<li><input checked="" disabled="" type="checkbox"> Validación de cambios: todas las ocurrencias reemplazadas</li>
+<li><input checked="" disabled="" type="checkbox"> Validación: <code>old_server.local</code> ya no existe en archivo</li>
+<li><input checked="" disabled="" type="checkbox"> Sintaxis del archivo preservada</li>
+<li><input checked="" disabled="" type="checkbox"> Servicio/aplicación funcionando (si aplica)</li>
+<li><input checked="" disabled="" type="checkbox"> Documentación del cambio completada</li>
+</ul>
+<hr>
+<h2>🎓 Reflexión Final: Mentalidad Desarrollada</h2>
+<h3>La Regla del Backup</h3>
+<blockquote>
+<p>&quot;Nunca toques un archivo de producción sin tener una forma de volver atrás.&quot;</p>
+</blockquote>
+<p>Este reto enseña:</p>
+<ul>
+<li><strong>Backup primero</strong>: Siempre antes de cualquier modificación</li>
+<li><strong>Dry run</strong>: Verificar antes de aplicar</li>
+<li><strong>Validación</strong>: Confirmar después de cambiar</li>
+<li><strong>Documentación</strong>: Registrar qué se hizo y cuándo</li>
+</ul>
+<h3>Lecciones Clave</h3>
+<ol>
+<li><p><strong>sed -i es Peligroso</strong>: Siempre usa <code>-i.backup</code> o crea backup manual antes.</p>
+</li>
+<li><p><strong>Dry Run</strong>: Ejecuta sin <code>-i</code> primero para ver qué cambiaría.</p>
+</li>
+<li><p><strong>grep es tu Amigo</strong>: Usa <code>grep -c</code> para contar ocurrencias antes y después.</p>
+</li>
+<li><p><strong>diff Confirma</strong>: Compara backup con archivo modificado para ver exactamente qué cambió.</p>
+</li>
+</ol>
+<h3>Escenarios Avanzados con sed</h3>
+<pre><code class="language-bash"># Reemplazo con caracteres especiales (escapar /)
+sed &#39;s/http:\/\/old_server/http:\/\/new_server/g&#39; file
 
-## Resultados Esperados
+# Usar delimitador diferente para evitar escapado
+sed &#39;s|http://old_server|http://new_server|g&#39; file
 
-- Todas las ocurrencias reemplazadas correctamente
-- Backup creado antes de modificaciones
-- Sintaxis del archivo preservada
-- Servicio funcionando con nueva configuración
+# Reemplazo solo en líneas que contienen patrón
+sed &#39;/pattern/s/old/new/g&#39; file
 
-## Estado del Reto
+# Reemplazo excepto en líneas que contienen patrón
+sed &#39;/pattern/!s/old/new/g&#39; file
 
-🔒 **BLOQUEADO** - Requiere completar retos 4-6
+# Reemplazo con captura de grupos
+sed &#39;s/old_\(server\)/new_\1/g&#39; file
 
-*Fecha planeada: Pendiente*</pre> </article> <div id="modal-11-reemplazo-cadenas" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50" aria-hidden="true"> <div class="flex items-center justify-center min-h-screen p-4"> <div class="bg-slate-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto"> <div class="p-6 border-b border-slate-700"> <div class="flex justify-between items-start"> <div> <h2 class="text-2xl font-bold text-gray-100">Reto 11: String Replacement - xFusionCorp Industries</h2> <div class="flex items-center gap-4 mt-2 text-sm"> <span class="capitalize bg-slate-700 px-2 py-1 rounded">linux</span> <span class="text-cyan-400">easy</span>  </div> </div> <button onclick="closeModal('11-reemplazo-cadenas')" class="text-gray-400 hover:text-white">
+# Múltiples reemplazos en un comando
+sed -e &#39;s/old1/new1/g&#39; -e &#39;s/old2/new2/g&#39; file
+</code></pre>
+<hr>
+<h2>🚀 Siguientes Pasos</h2>
+<h3>Retos Relacionados</h3>
+<ul>
+<li><strong>Reto 06</strong>: Transferencia de Datos - Mover configuraciones entre servidores</li>
+<li><strong>Reto 08</strong>: Backup Automatizado - Proteger configuraciones</li>
+<li><strong>Reto 16</strong>: Firewall - Seguridad de red</li>
+</ul>
+<h3>Mejoras y Automatización</h3>
+<pre><code class="language-bash"># Script de reemplazo seguro
+cat &gt; /usr/local/bin/safe_replace.sh &lt;&lt; &#39;EOF&#39;
+#!/bin/bash
+FILE=$1
+OLD=$2
+NEW=$3
+
+if [ -z &quot;$FILE&quot; ] || [ -z &quot;$OLD&quot; ] || [ -z &quot;$NEW&quot; ]; then
+    echo &quot;Uso: $0 &lt;archivo&gt; &lt;string_viejo&gt; &lt;string_nuevo&gt;&quot;
+    exit 1
+fi
+
+# Backup
+cp &quot;$FILE&quot; &quot;$FILE.backup.$(date +%Y%m%d_%H%M%S)&quot;
+
+# Reemplazo
+sed -i &quot;s/$OLD/$NEW/g&quot; &quot;$FILE&quot;
+
+# Verificación
+if grep -q &quot;$NEW&quot; &quot;$FILE&quot;; then
+    echo &quot;✓ Reemplazo exitoso&quot;
+else
+    echo &quot;✗ Error en reemplazo&quot;
+    exit 1
+fi
+EOF
+chmod +x /usr/local/bin/safe_replace.sh
+</code></pre>
+<h3>Comandos Útiles</h3>
+<pre><code class="language-bash"># Ver todos los backups de config
+ls -la /etc/app/config.properties.backup*
+
+# Restaurar desde backup
+ cp /etc/app/config.properties.backup /etc/app/config.properties
+
+# Reemplazo inverso (rollback)
+sed -i &#39;s/new_server.production/old_server.local/g&#39; /etc/app/config.properties
+
+# Ver historial de cambios
+diff /etc/app/config.properties.backup* 2&gt;/dev/null | less
+</code></pre>
+<hr>
+<h2>📚 Recursos y Referencias</h2>
+<h3>Documentación Oficial</h3>
+<ul>
+<li><a href="https://www.gnu.org/software/sed/manual/sed.html">Sed Manual</a></li>
+<li><a href="https://tldp.org/LDP/abs/html/textproc.html">Linux Text Processing</a></li>
+<li><a href="https://www.gnu.org/software/sed/manual/html_node/Regular-Expressions.html">Regular Expressions - GNU</a></li>
+</ul>
+<h3>Troubleshooting</h3>
+<table>
+<thead>
+<tr>
+<th>Síntoma</th>
+<th>Causa</th>
+<th>Solución</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&quot;sed: -e expression #1&quot;</td>
+<td>Caracteres especiales</td>
+<td>Escapar o usar delimitador diferente</td>
+</tr>
+<tr>
+<td>&quot;Permission denied&quot;</td>
+<td>Sin permisos de escritura</td>
+<td>Usar <code>sudo</code> o cambiar permisos</td>
+</tr>
+<tr>
+<td>Reemplazos parciales</td>
+<td>Sin flag <code>g</code></td>
+<td>Agregar <code>/g</code> al final</td>
+</tr>
+<tr>
+<td>Backup no creado</td>
+<td>Sintaxis incorrecta</td>
+<td>Usar <code>-i.backup</code> (con punto)</td>
+</tr>
+<tr>
+<td>&quot;No such file&quot;</td>
+<td>Ruta incorrecta</td>
+<td>Verificar con <code>ls</code> primero</td>
+</tr>
+</tbody></table>
+<h3>Mejores Prácticas</h3>
+<pre><code class="language-bash"># ✅ SIEMPRE:
+# - Crear backup
+# - Hacer dry run
+# - Verificar conteos antes/después
+# - Validar sintaxis
+# - Documentar cambios
+
+# ❌ NUNCA:
+# - Usar sed -i sin backup
+# - Reemplazar sin verificar primero
+# - Olvidar validar después
+# - Modificar sin plan de rollback
+</code></pre>
+<hr>
+<h2>✅ Estado del Reto</h2>
+<p>🔒 <strong>BLOQUEADO</strong> - Requiere completar retos 4-6</p>
+<ul>
+<li>📅 Fecha planeada: Pendiente</li>
+<li>⏱️ Tiempo estimado: 20 minutos</li>
+<li>🎯 Dificultad: Fácil</li>
+<li>🖥️ Servidor objetivo: stapp02 (172.16.238.11)</li>
+</ul>
+<h3>Plan de Implementación</h3>
+<ol>
+<li>Verificar archivo existe y localizar strings</li>
+<li>Crear backup con timestamp</li>
+<li>Ejecutar sed en modo dry-run (sin -i)</li>
+<li>Verificar salida esperada</li>
+<li>Ejecutar sed con backup (-i.backup)</li>
+<li>Confirmar reemplazo exitoso</li>
+<li>Validar sintaxis del archivo</li>
+<li>Documentar cambio</li>
+</ol>
+<h3>Criterios de Éxito</h3>
+<ul>
+<li>✅ Todas las ocurrencias de <code>old_server.local</code> reemplazadas por <code>new_server.production</code></li>
+<li>✅ Backup creado antes de modificaciones</li>
+<li>✅ Sintaxis del archivo preservada</li>
+<li>✅ Servicio funcionando con nueva configuración</li>
+<li>✅ Documentación del cambio completa</li>
+</ul>
+<hr>
+<p><em>Documentación creada siguiendo estándares de SysAdmin - Cambios Controlados</em></p>
+</div> </div> </article> <div id="modal-11-reemplazo-cadenas" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50" aria-hidden="true"> <div class="flex items-center justify-center min-h-screen p-4"> <div class="bg-slate-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto"> <div class="p-6 border-b border-slate-700"> <div class="flex justify-between items-start"> <div> <h2 class="text-2xl font-bold text-gray-100">Reto 11: String Replacement - xFusionCorp Industries</h2> <div class="flex items-center gap-4 mt-2 text-sm"> <span class="capitalize bg-slate-700 px-2 py-1 rounded">linux</span> <span class="text-cyan-400">easy</span>  </div> </div> <button onclick="closeModal('11-reemplazo-cadenas')" class="text-gray-400 hover:text-white">
 ✕
-</button> </div> </div> <div class="p-6"> <div class="mb-6"> <h3 class="text-lg font-semibold text-cyan-400 mb-4">Pasos a Seguir</h3> <div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">1. Comandos Requeridos</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+</button> </div> </div> <div class="p-6"> <div class="mb-6"> <h3 class="text-lg font-semibold text-cyan-400 mb-4">Pasos a Seguir</h3> <div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">1. La Problemática</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">2. Contexto de Riesgo</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">3. Infraestructura Objetivo</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">4. Requisitos Técnicos</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">5. El Desafío de la Edición en Producción</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">6. Herramientas de Reemplazo de Texto</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">7. Opciones Críticas de sed</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>sed &#39;s/patrón/reemplazo/flags&#39;
+-i                 # Editar en el archivo (in-place)
+-i.bak            # Editar y crear backup con extensión .bak
+&#39;s/old/new/g&#39;     # Reemplazo global (todas las ocurrencias por línea)
+&#39;s/old/new/&#39;      # Reemplazo por línea (solo primera ocurrencia)
+-n + p            # Modo silencioso, imprimir solo matches</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">8. Flujo Seguro de Modificación</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">9. Analogía: Cirugía de Precisión</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">10. Fase 1: Inspección y Análisis</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">11. 1 Acceso al Sistema</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
 
                     <code>ssh steve@172.16.238.11
-sudo su -
+sudo su -</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">12. 2 Verificar Existencia del Archivo</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>ls -la /etc/app/config.properties
+stat /etc/app/config.properties</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">13. 3 Inspeccionar Contenido</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>cat /etc/app/config.properties
 grep -n &quot;old_server.local&quot; /etc/app/config.properties
+grep -c &quot;old_server.local&quot; /etc/app/config.properties
+grep -n -B2 -A2 &quot;old_server.local&quot; /etc/app/config.properties</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">14. Fase 2: Backup de Seguridad</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">15. 1 Crear Backup con Timestamp</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>BACKUP_FILE=&quot;/etc/app/config.properties.backup.$(date +%Y%m%d_%H%M%S)&quot;
+cp /etc/app/config.properties &quot;$BACKUP_FILE&quot;
+ls -la &quot;$BACKUP_FILE&quot;
+echo &quot;Backup creado: $BACKUP_FILE&quot;
+diff /etc/app/config.properties &quot;$BACKUP_FILE&quot;</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">16. 2 Documentar Estado Inicial</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>echo &quot;=== Estado Inicial ===&quot; &gt; /tmp/config_change_log.txt
+echo &quot;Fecha: $(date)&quot; &gt;&gt; /tmp/config_change_log.txt
+echo &quot;Archivo: /etc/app/config.properties&quot; &gt;&gt; /tmp/config_change_log.txt
+echo &quot;Ocurrencias de old_server.local: $(grep -c &#39;old_server.local&#39; /etc/app/config.properties)&quot; &gt;&gt; /tmp/config_change_log.txt
+echo &quot;&quot; &gt;&gt; /tmp/config_change_log.txt
+echo &quot;Líneas con old_server.local:&quot; &gt;&gt; /tmp/config_change_log.txt
+grep -n &quot;old_server.local&quot; /etc/app/config.properties &gt;&gt; /tmp/config_change_log.txt
+cat /tmp/config_change_log.txt</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">17. Fase 3: Prueba (Dry Run)</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">18. 1 Ejecutar sin Modificar Archivo</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>sed &#39;s/old_server.local/new_server.production/g&#39; /etc/app/config.properties | head -30</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">19. 2 Verificar Reemplazos Específicos</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>sed &#39;s/old_server.local/new_server.production/g&#39; /etc/app/config.properties | grep -c &quot;new_server.production&quot;
+grep -c &quot;old_server.local&quot; /etc/app/config.properties</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">20. 3 Verificar que No Hay Falsos Positivos</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>sed &#39;s/old_server.local/new_server.production/g&#39; /etc/app/config.properties | grep &quot;old_server.local&quot;
+sed &#39;s/old_server.local/new_server.production/g&#39; /etc/app/config.properties | grep &quot;new_server.production&quot; | head -5</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">21. Fase 4: Ejecución con Backup</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">22. 1 Ejecutar Reemplazo con Backup</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>sed -i.backup &#39;s/old_server.local/new_server.production/g&#39; /etc/app/config.properties
+ls -la /etc/app/config.properties*</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">23. 2 Verificar Cambio Aplicado</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>grep &quot;old_server.local&quot; /etc/app/config.properties
+echo &quot;Exit code: $?&quot;  # Debe ser 1 (no encontrado)
+grep &quot;new_server.production&quot; /etc/app/config.properties
+grep -c &quot;new_server.production&quot; /etc/app/config.properties</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">24. 3 Comparar Archivos</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>diff /etc/app/config.properties.backup /etc/app/config.properties
+colordiff /etc/app/config.properties.backup /etc/app/config.properties 2&gt;/dev/null || diff /etc/app/config.properties.backup /etc/app/config.properties</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">25. Fase 5: Validación</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">26. 1 Verificar Sintaxis</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>cat /etc/app/config.properties &gt; /dev/null &amp;&amp; echo &quot;Archivo legible: OK&quot;
+grep -v &quot;^#&quot; /etc/app/config.properties | grep -v &quot;^$&quot; | grep -v &quot;=&quot; &amp;&amp; echo &quot;Líneas sin formato = encontradas&quot;</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">27. 2 Verificar Funcionamiento (Si aplica)</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">28. Fase 6: Documentación</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">29. 1 Actualizar Log de Cambios</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>echo &quot;&quot; &gt;&gt; /tmp/config_change_log.txt
+echo &quot;=== Estado Final ===&quot; &gt;&gt; /tmp/config_change_log.txt
+echo &quot;Fecha de cambio: $(date)&quot; &gt;&gt; /tmp/config_change_log.txt
+echo &quot;Backup creado: /etc/app/config.properties.backup&quot; &gt;&gt; /tmp/config_change_log.txt
+echo &quot;Ocurrencias de new_server.production: $(grep -c &#39;new_server.production&#39; /etc/app/config.properties)&quot; &gt;&gt; /tmp/config_change_log.txt
+echo &quot;Ocurrencias restantes de old_server.local: $(grep -c &#39;old_server.local&#39; /etc/app/config.properties || echo 0)&quot; &gt;&gt; /tmp/config_change_log.txt
+cat /tmp/config_change_log.txt</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">30. Resumen de Comandos</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>grep -n &quot;old_server.local&quot; /etc/app/config.properties
 cp /etc/app/config.properties /etc/app/config.properties.backup
-sed -i &#39;s/old_server.local/new_server.production/g&#39; /etc/app/config.properties
-grep -n &quot;new_server.production&quot; /etc/app/config.properties
+sed &#39;s/old_server.local/new_server.production/g&#39; /etc/app/config.properties | grep &quot;new_server.production&quot;
+sed -i.backup &#39;s/old_server.local/new_server.production/g&#39; /etc/app/config.properties
+grep &quot;new_server.production&quot; /etc/app/config.properties
 grep &quot;old_server.local&quot; /etc/app/config.properties  # Debe estar vacío
-java -cp /path/to/properties-validator.jar PropertiesValidator /etc/app/config.properties
-systemctl restart app-service  # Si aplica</code>
-                  </pre>  </div> </div>    </div> </div> </div> </div> <script type="module">document.addEventListener("click",e=>{const t=e.target;t.classList.contains("bg-black")&&(t.classList.add("hidden"),t.setAttribute("aria-hidden","true"))});</script> </div> </main>  </body></html>
+cat /etc/app/config.properties &gt; /dev/null &amp;&amp; echo &quot;OK&quot;
+diff /etc/app/config.properties.backup /etc/app/config.properties</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">31. Arquitectura del Cambio</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">32. Checklist de Verificación</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">33. La Regla del Backup</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">34. Lecciones Clave</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">35. Escenarios Avanzados con sed</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>sed &#39;s/http:\/\/old_server/http:\/\/new_server/g&#39; file
+sed &#39;s|http://old_server|http://new_server|g&#39; file
+sed &#39;/pattern/s/old/new/g&#39; file
+sed &#39;/pattern/!s/old/new/g&#39; file
+sed &#39;s/old_\(server\)/new_\1/g&#39; file
+sed -e &#39;s/old1/new1/g&#39; -e &#39;s/old2/new2/g&#39; file</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">36. Retos Relacionados</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">37. Mejoras y Automatización</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>cat &gt; /usr/local/bin/safe_replace.sh &lt;&lt; &#39;EOF&#39;
+FILE=$1
+OLD=$2
+NEW=$3
+if [ -z &quot;$FILE&quot; ] || [ -z &quot;$OLD&quot; ] || [ -z &quot;$NEW&quot; ]; then
+echo &quot;Uso: $0 &lt;archivo&gt; &lt;string_viejo&gt; &lt;string_nuevo&gt;&quot;
+exit 1
+fi
+cp &quot;$FILE&quot; &quot;$FILE.backup.$(date +%Y%m%d_%H%M%S)&quot;
+sed -i &quot;s/$OLD/$NEW/g&quot; &quot;$FILE&quot;
+if grep -q &quot;$NEW&quot; &quot;$FILE&quot;; then
+echo &quot;✓ Reemplazo exitoso&quot;
+else
+echo &quot;✗ Error en reemplazo&quot;
+exit 1
+fi
+EOF
+chmod +x /usr/local/bin/safe_replace.sh</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">38. Comandos Útiles</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>ls -la /etc/app/config.properties.backup*
+cp /etc/app/config.properties.backup /etc/app/config.properties
+sed -i &#39;s/new_server.production/old_server.local/g&#39; /etc/app/config.properties
+diff /etc/app/config.properties.backup* 2&gt;/dev/null | less</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">39. Documentación Oficial</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">40. Troubleshooting</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">41. Mejores Prácticas</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">42. Plan de Implementación</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">43. Criterios de Éxito</h4>   </div> </div>    </div> </div> </div> </div> <script type="module">document.addEventListener("click",e=>{const t=e.target;t.classList.contains("bg-black")&&(t.classList.add("hidden"),t.setAttribute("aria-hidden","true"))});</script> </div> </main>  </body></html>

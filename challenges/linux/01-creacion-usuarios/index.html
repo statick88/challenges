@@ -1,71 +1,372 @@
-<!DOCTYPE html><html lang="es"> <head><meta charset="UTF-8"><meta name="description" content="Plataforma interactiva de desafíos técnicos - Linux, Docker, DevOps, CTF"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.17.1"><title>Reto 01: Creación de Usuario javed - xFusionCorp Industries - Linux Challenges</title><style>.markdown-body{font-family:system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;line-height:1.8;color:#e5e7eb}.markdown-body h1{font-size:2rem;font-weight:700;color:#f97316;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid #374151}.markdown-body h2{font-size:1.5rem;font-weight:600;color:#22d3ee;margin:1.75rem 0 1rem;padding-bottom:.25rem}.markdown-body h3{font-size:1.25rem;font-weight:600;color:#a5f3fc;margin:1.5rem 0 .75rem}.markdown-body p{margin:.75rem 0;color:#d1d5db}.markdown-body strong{color:#fbbf24;font-weight:600}.markdown-body ul,.markdown-body ol{margin:.75rem 0;padding-left:1.5rem;color:#d1d5db}.markdown-body li{margin:.5rem 0;list-style-type:disc}.markdown-body table{width:100%;margin:1rem 0;border-collapse:collapse;font-size:.9rem}.markdown-body th,.markdown-body td{padding:.75rem;border:1px solid #374151;text-align:left}.markdown-body th{background:#37415180;color:#fbbf24;font-weight:600}.markdown-body td{color:#d1d5db}.markdown-body code{background:#06b6d426;color:#22d3ee;padding:.2rem .5rem;border-radius:.375rem;font-family:SF Mono,Monaco,Courier New,monospace;font-size:.875rem}.markdown-body pre{background:#0f172a;padding:1rem;border-radius:.75rem;overflow-x:auto;margin:1rem 0;border:1px solid #1e293b}.markdown-body pre code{background:transparent;padding:0;color:#a5b4fc}
-</style></head> <body class="bg-slate-900 text-gray-100 min-h-screen">   <main class="container mx-auto px-4 py-8"> <div class="max-w-4xl mx-auto"> <div class="mb-6"> <a href="/challenges/linux" class="text-cyan-400 hover:text-cyan-300">← Volver a Linux Challenges</a> </div> <article class="bg-slate-800 rounded-lg p-6 border border-slate-700"> <header class="mb-6"> <h1 class="text-3xl font-bold text-orange-400 mb-2">Reto 01: Creación de Usuario javed - xFusionCorp Industries</h1> <div class="flex items-center gap-4 text-sm text-gray-400"> <span class="bg-orange-600 px-2 py-1 rounded text-xs">Linux</span> <span class="capitalize">easy</span> <span>2025-01-25</span> </div> </header> <pre class="markdown-body whitespace-pre-wrap"># Reto 01: Creación de Usuario javed - xFusionCorp Industries
-
-## Objetivo del Reto
-
-Crear un usuario personalizado según especificaciones de seguridad de xFusionCorp Industries:
-
-**a.** Create a user named javed on App server 2 within Stratos Datacenter.
-**b.** Assign a unique UID 1467 and designate home directory as /var/www/javed.
-
-## Servidor Objetivo
-
-| Servidor | IP | Hostname | Usuario | Contraseña | Propósito |
-|----------|----|---------|--------|-------------|-----------|
-| stapp02 | 172.16.238.11 | stapp02.stratos.xfusioncorp.com | steve | Am3ric@ | Nautilus App 2 |
-
-## Requisitos Técnicos
-
-- **Usuario**: javed
-- **UID único**: 1467
-- **Directorio home**: /var/www/javed
-- **Servidor**: App Server 2 (stapp02)
-- **Propósito**: Personalizado para aplicación web específica
-
-## Estrategia de Implementación
-
-### Comandos Requeridos
-
-```bash
-# 1. Conexión al servidor
+<!DOCTYPE html><html lang="es"> <head><meta charset="UTF-8"><meta name="description" content="Plataforma interactiva de desafíos técnicos - Linux, Docker, DevOps, CTF"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.17.1"><title>Reto 01: Creación de Usuario javed - xFusionCorp Industries - Linux Challenges</title><link rel="stylesheet" href="/_astro/_slug_.CR6T2awG.css">
+<style>@import"https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap";:root{--progress: 0%;--color-primary: 15 23 42;--color-secondary: 30 41 59;--color-text: 248 250 252;--color-muted: 148 163 184;--color-accent: 16 185 129;--color-success: 34 211 153;--color-warning: 245 158 11}[data-theme=dark]{--color-primary: 15 23 42;--color-secondary: 30 41 59;--color-text: 248 250 252;--color-muted: 148 163 184;--color-accent: 16 185 129;--color-success: 34 211 153;--color-warning: 245 158 11}[data-theme=light]{--color-primary: 248 250 252;--color-secondary: 226 232 240;--color-text: 30 41 59;--color-muted: 100 116 139;--color-accent: 16 185 129;--color-success: 34 211 153;--color-warning: 245 158 11}body{font-family:Inter,system-ui,sans-serif}::-webkit-scrollbar{width:8px}::-webkit-scrollbar-track{background:#1e293b}::-webkit-scrollbar-thumb{background:#475569;border-radius:4px}::-webkit-scrollbar-thumb:hover{background:#64748b}html{scroll-behavior:smooth}html.theme-transitioning *{transition:background-color .3s ease,border-color .3s ease,color .3s ease,box-shadow .3s ease}.theme-transition-overlay{position:fixed;inset:0;background:rgb(var(--color-primary) / .8);z-index:9999;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .2s ease}.theme-transition-overlay.active{opacity:1}.theme-toggle-ripple{position:absolute;border-radius:50%;background:currentColor;transform:scale(0);opacity:.6;pointer-events:none}.theme-toggle-ripple.animate{transform:scale(4);opacity:0;transition:all .6s cubic-bezier(.4,0,.2,1)}button:focus,a:focus{outline:2px solid rgb(var(--color-accent));outline-offset:2px}@media(max-width:768px){.animated-counter{font-size:2.5rem}}@media(prefers-reduced-motion:reduce){html.theme-transitioning *,.theme-transition-overlay,.theme-toggle-ripple.animate{transition:none}}@media print{.fixed{display:none}.bg-secondary,.bg-primary{background:#fff!important;color:#000!important}}
+.markdown-body{font-family:system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;line-height:1.8;color:#e5e7eb}.markdown-body h1{font-size:2rem;font-weight:700;color:#f97316;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid #374151}.markdown-body h2{font-size:1.5rem;font-weight:600;color:#22d3ee;margin:1.75rem 0 1rem;padding-bottom:.25rem}.markdown-body h3{font-size:1.25rem;font-weight:600;color:#a5f3fc;margin:1.5rem 0 .75rem}.markdown-body p{margin:.75rem 0;color:#d1d5db}.markdown-body strong{color:#fbbf24;font-weight:600}.markdown-body ul,.markdown-body ol{margin:.75rem 0;padding-left:1.5rem;color:#d1d5db}.markdown-body li{margin:.5rem 0;list-style-type:disc}.markdown-body table{width:100%;margin:1rem 0;border-collapse:collapse;font-size:.9rem}.markdown-body th,.markdown-body td{padding:.75rem;border:1px solid #374151;text-align:left}.markdown-body th{background:#37415180;color:#fbbf24;font-weight:600}.markdown-body td{color:#d1d5db}.markdown-body code{background:#06b6d426;color:#22d3ee;padding:.2rem .5rem;border-radius:.375rem;font-family:SF Mono,Monaco,Courier New,monospace;font-size:.875rem}.markdown-body pre{background:#0f172a;padding:1rem;border-radius:.75rem;overflow-x:auto;margin:1rem 0;border:1px solid #1e293b}.markdown-body pre code{background:transparent;padding:0;color:#a5b4fc}
+</style></head> <body class="bg-slate-900 text-gray-100 min-h-screen">   <main class="container mx-auto px-4 py-8"> <div class="max-w-4xl mx-auto"> <div class="mb-6"> <a href="/challenges/linux" class="text-cyan-400 hover:text-cyan-300">← Volver a Linux Challenges</a> </div> <article class="bg-slate-800 rounded-lg p-6 border border-slate-700"> <header class="mb-6"> <h1 class="text-3xl font-bold text-orange-400 mb-2">Reto 01: Creación de Usuario javed - xFusionCorp Industries</h1> <div class="flex items-center gap-4 text-sm text-gray-400"> <span class="bg-orange-600 px-2 py-1 rounded text-xs">Linux</span> <span class="capitalize">easy</span> <span>2025-01-25</span> </div> </header> <div class="prose prose-invert max-w-none"> <div class="markdown-body"><h1>🎓 Clase 01: El Arte de la Gestión de Usuarios en Linux</h1>
+<h2>Pensando como un Administrador de Sistemas Senior</h2>
+<hr>
+<p>👨‍🏫 <strong>Del Instructor</strong>: Bienvenido a tu primera clase práctica. Soy tu instructor y durante los próximos minutos, voy a enseñarte a pensar como un <strong>SysAdmin profesional</strong>. No solo ejecutaremos comandos; entenderemos <em>por qué</em> los ejecutamos.</p>
+<blockquote>
+<p>💭 <strong>Mentalidad de SysAdmin</strong>: Un administrador de sistemas no es alguien que &quot;hace clic en botones&quot;. Es un profesional que comprende la arquitectura del sistema, anticipa problemas y construye infraestructura robusta. Antes de ejecutar cualquier comando, pregúntate: <em>&quot;¿Qué estoy cambiando? ¿Qué podría salir mal? ¿Cómo verifico que funcionó?&quot;</em></p>
+</blockquote>
+<hr>
+<h2>🎭 Escenario Real: Tu Primer Día en xFusionCorp</h2>
+<p>Imagina que acabas de ser contratado como Administrador de Sistemas Junior en <strong>xFusionCorp Industries</strong>. Es tu primer día y el Lead SysAdmin te asigna una tarea:</p>
+<blockquote>
+<p><em>&quot;El equipo de desarrollo web necesita un usuario llamado <strong>javed</strong> para desplegar su aplicación en el servidor stapp02. Necesitan UID 1467 y el home directory debe estar en <code>/var/www/javed</code>. El desarrollador jefe está esperando. ¿Puedes hacerlo?&quot;</em></p>
+</blockquote>
+<p><strong>Tu reacción como SysAdmin profesional:</strong></p>
+<p>🛑 <strong>ALTO</strong>. Antes de tocar el teclado, un buen administrador hace preguntas:</p>
+<ol>
+<li><strong>¿Por qué UID 1467 específicamente?</strong> → Puede ser un requisito de su aplicación o una política de la empresa</li>
+<li><strong>¿Por qué <code>/var/www/javed</code> y no <code>/home/javed</code>?</strong> → Las aplicaciones web a menudo necesitan estar en <code>/var/www/</code> por estándares de la industria</li>
+<li><strong>¿Ya verificaron que el UID 1467 no esté en uso?</strong> → Nunca asumas; siempre verificas</li>
+</ol>
+<p>Esta mentalidad de <strong>&quot;verificar antes de actuar&quot;</strong> es lo que separa a un script kiddie de un profesional.</p>
+<hr>
+<h2>🧠 La Arquitectura del Sistema: Entendiendo el /etc/passwd</h2>
+<p>Antes de crear usuarios, debes entender cómo Linux los gestiona internamente. Como SysAdmin, trabajas directamente con los archivos de configuración del sistema.</p>
+<h3>El Archivo /etc/passwd: La Base de Datos de Usuarios</h3>
+<p>Cada usuario en Linux está definido por una línea en <code>/etc/passwd</code>:</p>
+<pre><code>username:password:UID:GID:comment:home_directory:shell
+</code></pre>
+<p><strong>Ejemplo real:</strong></p>
+<pre><code>javed:x:1467:1467::/var/www/javed:/bin/bash
+│     │ │    │    │ │             │
+│     │ │    │    │ │             └─ Shell por defecto
+│     │ │    │    │ └─ Directorio home
+│     │ │    │    └─ Comentario (usualmente nombre completo)
+│     │ │    └─ Group ID (GID)
+│     │ └─ User ID (UID) ← ¡ESTO ES CRÍTICO!
+│     └─ Contraseña encriptada (x = en /etc/shadow)
+└─ Nombre de usuario
+</code></pre>
+<blockquote>
+<p>🎓 <strong>Lección del Instructor</strong>: El UID es el verdadero identificador del usuario. Linux no dice &quot;el usuario javed accedió&quot;; dice &quot;el UID 1467 accedió&quot;. Los nombres son solo etiquetas humanas para nosotros. Por eso los UIDs deben ser únicos: son la identidad real en el sistema.</p>
+</blockquote>
+<h3>¿Por Qué UID 1467?</h3>
+<p>En organizaciones grandes, los UIDs se asignan por rangos:</p>
+<ul>
+<li><strong>0-99</strong>: Usuarios del sistema (root, bin, daemon)</li>
+<li><strong>100-999</strong>: Cuentas de servicios (nginx, mysql, docker)</li>
+<li><strong>1000+</strong>: Usuarios humanos regulares</li>
+<li><strong>10000+</strong>: Aplicaciones específicas</li>
+</ul>
+<p>El <strong>1467</strong> probablemente está en un rango asignado al equipo de desarrollo web. Como SysAdmin, deberías tener documentación sobre estos rangos.</p>
+<hr>
+<h2>🛠️ La Implementación: Manos en el Código</h2>
+<h3>Paso 0: Recopilación de Información (Reconocimiento)</h3>
+<p>Antes de conectarte al servidor, documenta lo que sabes:</p>
+<table>
+<thead>
+<tr>
+<th>Información</th>
+<th>Valor</th>
+<th>Por qué importa</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Servidor</td>
+<td>stapp02</td>
+<td>Sabes dónde trabajar</td>
+</tr>
+<tr>
+<td>IP</td>
+<td>172.16.238.11</td>
+<td>Para conexión SSH</td>
+</tr>
+<tr>
+<td>Tu acceso</td>
+<td>steve / Am3ric@</td>
+<td>Credenciales iniciales</td>
+</tr>
+<tr>
+<td>Usuario objetivo</td>
+<td>javed</td>
+<td>Lo que debes crear</td>
+</tr>
+<tr>
+<td>UID requerido</td>
+<td>1467</td>
+<td>Debe ser exacto</td>
+</tr>
+<tr>
+<td>Home directory</td>
+<td>/var/www/javed</td>
+<td>No el default /home/javed</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>🔍 <strong>Mentalidad de Investigador</strong>: Un SysAdmin documenta todo. Cuando algo falla a las 3 AM, necesitas saber exactamente qué hiciste y por qué.</p>
+</blockquote>
+<h3>Paso 1: Acceso al Servidor</h3>
+<pre><code class="language-bash"># Conectamos vía SSH
 ssh steve@172.16.238.11
+</code></pre>
+<p><strong>¿Por qué SSH?</strong> SSH (Secure Shell) es el protocolo estándar para administración remota de servidores. Cifra todo el tráfico, incluyendo contraseñas. Nunca uses Telnet (no cifrado) o FTP (credenciales en texto plano).</p>
+<p>Una vez dentro, necesitas privilegios de administrador:</p>
+<pre><code class="language-bash"># Escalamos a root
 sudo su -
-
-# 2. Verificación inicial
+</code></pre>
+<p><strong>Análisis del comando:</strong></p>
+<ul>
+<li><code>sudo</code>: Ejecuta como superusuario</li>
+<li><code>su</code>: Switch User (cambiar usuario)</li>
+<li><code>-</code>: Carga el entorno completo de root (variables, PATH, etc.)</li>
+</ul>
+<blockquote>
+<p>⚠️ <strong>Advertencia del Instructor</strong>: Trabajar como root es peligroso. Un error puede destruir el sistema. Por eso usamos <code>sudo</code> para comandos específicos, no sesiones root permanentes. En este caso, <code>useradd</code> requiere root, así que es aceptable.</p>
+</blockquote>
+<h3>Paso 2: Inteligencia y Verificación</h3>
+<p>Como SysAdmin profesional, nunca asumes. Siempre verificas el estado actual antes de hacer cambios:</p>
+<pre><code class="language-bash"># Verificación 1: ¿El usuario ya existe?
 id javed
-getent passwd javed
+# Si existe, verás: uid=1467(javed) gid=1467(javed) groups=1467(javed)
+# Si NO existe: id: &#39;javed&#39;: no such user ← Esto es bueno
 
-# 3. Creación del usuario con UID específico
-useradd -u 1467 -d /var/www/javed -m javed
+# Verificación 2: ¿El UID 1467 ya está en uso?
+grep &quot;1467&quot; /etc/passwd
+# Si NO hay salida, el UID está disponible
 
-# 4. Establecer contraseña
-passwd javed
-
-# 5. Verificación final
+# Verificación 3: ¿El directorio /var/www/ existe?
+ls -ld /var/www/
+# Debería mostrar el directorio. Si no existe, lo crearemos.
+</code></pre>
+<blockquote>
+<p>🧠 <strong>Pensamiento Crítico</strong>: ¿Qué harías si <code>id javed</code> mostrara que el usuario ya existe con un UID diferente? ¿O si el UID 1467 ya está asignado a otro usuario? Estas son situaciones reales que enfrentarás. La respuesta: <strong>nunca sobrescribas sin consultar</strong>. Habla con el solicitante y documenta todo.</p>
+</blockquote>
+<h3>Paso 3: Creación del Usuario</h3>
+<p>Ahora ejecutamos el comando de creación:</p>
+<pre><code class="language-bash">useradd -u 1467 -d /var/www/javed -m javed
+</code></pre>
+<p><strong>Anatomía del comando:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Opción</th>
+<th>Significado</th>
+<th>Por qué lo usamos</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>-u 1467</code></td>
+<td>Especifica UID</td>
+<td>Requerimiento del equipo de desarrollo</td>
+</tr>
+<tr>
+<td><code>-d /var/www/javed</code></td>
+<td>Directorio home personalizado</td>
+<td>Estándar para aplicaciones web</td>
+</tr>
+<tr>
+<td><code>-m</code></td>
+<td>Crea el directorio home</td>
+<td>Sin esto, el usuario no tendría home</td>
+</tr>
+<tr>
+<td><code>javed</code></td>
+<td>Nombre de usuario</td>
+<td>Identificador humano</td>
+</tr>
+</tbody></table>
+<p><strong>¿Qué pasó detrás de escenas?</strong></p>
+<ol>
+<li>Linux asignó UID 1467 al usuario</li>
+<li>Creó un grupo con GID 1467 (mismo número por defecto)</li>
+<li>Creó el directorio <code>/var/www/javed</code></li>
+<li>Copió archivos de configuración desde <code>/etc/skel/</code> (.bashrc, .bash_profile, etc.)</li>
+<li>Registró todo en <code>/etc/passwd</code> y <code>/etc/group</code></li>
+</ol>
+<h3>Paso 4: Seguridad - Establecer Contraseña</h3>
+<p>Todo usuario necesita autenticación:</p>
+<pre><code class="language-bash">passwd javed
+</code></pre>
+<p>El sistema te pedirá la contraseña dos veces. <strong>Como SysAdmin</strong>, deberías:</p>
+<ul>
+<li>Usar contraseñas fuertes (12+ caracteres, mixtos)</li>
+<li>No usar información personal obvia</li>
+<li>Documentar la contraseña en un gestor seguro (HashiCorp Vault, 1Password, etc.)</li>
+<li>Forzar cambio en primer login: <code>passwd --expire javed</code></li>
+</ul>
+<blockquote>
+<p>🔐 <strong>Mejor Práctica</strong>: En producción, nunca sabes las contraseñas de usuarios. Configura autenticación por clave SSH y deshabilita contraseñas: <code>passwd -l javed</code> (bloquea contraseña).</p>
+</blockquote>
+<h3>Paso 5: Verificación Exhaustiva</h3>
+<p>Un profesional verifica tres veces. Nunca asumas que funcionó:</p>
+<pre><code class="language-bash"># Verificación 1: El usuario existe con UID correcto
 id javed
+# Salida esperada: uid=1467(javed) gid=1467(javed) groups=1467(javed)
+
+# Verificación 2: El home directory existe con permisos correctos
 ls -la /var/www/javed
-```
+# Debería mostrar archivos .bashrc, .bash_profile, .bash_logout
+# Permisos: drwxr-x--- (propietario javed, grupo javed)
 
-## Resultados Esperados
+# Verificación 3: Podemos cambiar al usuario
+su - javed
+# El prompt debería cambiar a: [javed@stapp02 ~]$
+# Verifica que estás en el directorio correcto:
+pwd
+# Salida: /var/www/javed
 
-- Usuario javed creado con UID 1467
-- Directorio home personalizado en /var/www/javed
-- Verificación funcional de acceso y permisos
+# Verificación 4: Salir y volver a root
+exit
+</code></pre>
+<blockquote>
+<p>✅ <strong>Checklist del Profesional</strong>:</p>
+<ul>
+<li><input disabled="" type="checkbox"> Usuario existe en /etc/passwd</li>
+<li><input disabled="" type="checkbox"> UID es exactamente 1467</li>
+<li><input disabled="" type="checkbox"> GID coincide con UID</li>
+<li><input disabled="" type="checkbox"> Home directory existe en /var/www/javed</li>
+<li><input disabled="" type="checkbox"> Permisos son javed:javed</li>
+<li><input disabled="" type="checkbox"> Archivos de configuración copiados</li>
+<li><input disabled="" type="checkbox"> Puedo hacer su - javed sin errores</li>
+<li><input disabled="" type="checkbox"> pwd muestra /var/www/javed</li>
+</ul>
+</blockquote>
+<hr>
+<h2>🎯 Análisis Post-Implementación</h2>
+<h3>¿Qué acabas de construir?</h3>
+<p>Has creado una identidad digital completa en el sistema:</p>
+<ol>
+<li><strong>Identidad del Sistema</strong>: UID 1467</li>
+<li><strong>Espacio de Trabajo</strong>: /var/www/javed</li>
+<li><strong>Autenticación</strong>: Contraseña segura</li>
+<li><strong>Entorno</strong>: Shell bash con configuraciones estándar</li>
+</ol>
+<h3>Escenarios de Troubleshooting</h3>
+<p><strong>Problema</strong>: El equipo de desarrollo dice &quot;No podemos escribir en /var/www/javed&quot;</p>
+<p><strong>Diagnóstico como SysAdmin</strong>:</p>
+<pre><code class="language-bash"># Verificar permisos
+ls -la /var/www/ | grep javed
+# Si muestra: drwxr-x--- 2 javed javed
+# El problema: El directorio es 750 (rwxr-x---)
+# Otros usuarios no tienen permiso de escritura
 
-## Estado del Reto
+# Solución: Dependiendo del caso...
+# Opción A: Agregar desarrolladores al grupo javed
+usermod -aG javed dev1
+usermod -aG javed dev2
 
-✅ **COMPLETADO** - Implementación exitosa con UID personalizado
+# Opción B: Cambiar permisos (menos seguro)
+chmod 775 /var/www/javed
 
-*Fecha de ejecución: 2025-01-25*</pre> </article> <div id="modal-01-creacion-usuarios" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50" aria-hidden="true"> <div class="flex items-center justify-center min-h-screen p-4"> <div class="bg-slate-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto"> <div class="p-6 border-b border-slate-700"> <div class="flex justify-between items-start"> <div> <h2 class="text-2xl font-bold text-gray-100">Reto 01: Creación de Usuario javed - xFusionCorp Industries</h2> <div class="flex items-center gap-4 mt-2 text-sm"> <span class="capitalize bg-slate-700 px-2 py-1 rounded">linux</span> <span class="text-cyan-400">easy</span>  </div> </div> <button onclick="closeModal('01-creacion-usuarios')" class="text-gray-400 hover:text-white">
+# Opción C: Crear un grupo compartido
+</code></pre>
+<blockquote>
+<p>🎓 <strong>Lección</strong>: Los permisos son el 50% de la seguridad en Linux. Siempre verifica quién puede hacer qué.</p>
+</blockquote>
+<hr>
+<h2>🚀 Expandiendo tu Conocimiento</h2>
+<h3>Variaciones del Comando useradd</h3>
+<pre><code class="language-bash"># Crear usuario de servicio (sin login)
+useradd -r -s /sbin/nologin mysql
+# -r: UID de sistema (bajo número)
+# -s /sbin/nologin: No puede iniciar sesión interactiva
+
+# Crear con grupo secundario
+useradd -G developers,deployers -m javed
+# El usuario pertenece a su grupo primario (javed)
+# Y a grupos secundarios developers y deployers
+
+# Crear con fecha de expiración
+useradd -e 2025-12-31 -m contractor1
+# La cuenta expira el 31 de diciembre de 2025
+</code></pre>
+<h3>Comandos de Gestión Avanzada</h3>
+<pre><code class="language-bash"># Modificar usuario existente
+usermod -aG docker javed          # Agregar a grupo docker
+usermod -d /new/home -m javed     # Cambiar home directory
+usermod -L javed                   # Bloquear cuenta
+usermod -U javed                   # Desbloquear cuenta
+
+# Eliminar usuario (¡cuidado!)
+userdel javed                      # Elimina usuario, conserva home
+userdel -r javed                   # Elimina usuario Y home directory
+
+# Información detallada
+finger javed                       # Información del usuario
+chage -l javed                     # Política de contraseñas
+last javed                         # Historial de logins
+</code></pre>
+<hr>
+<h2>🎓 Reflexión Final: La Mentalidad SysAdmin</h2>
+<p>Después de este reto, has practicado más que comandos. Has desarrollado:</p>
+<ol>
+<li><strong>Pensamiento Crítico</strong>: Verificar antes de actuar</li>
+<li><strong>Documentación</strong>: Entender qué estás cambiando</li>
+<li><strong>Verificación</strong>: Confirmar que funcionó como esperabas</li>
+<li><strong>Seguridad</strong>: Trabajar con privilegios mínimos necesarios</li>
+<li><strong>Troubleshooting</strong>: Diagnosticar problemas sistemáticamente</li>
+</ol>
+<blockquote>
+<p>💡 <strong>Sabiduría de un SysAdmin Senior</strong>: <em>&quot;El mejor SysAdmin no es el que sabe más comandos, es el que sabe qué preguntas hacer antes de ejecutarlos. Un comando ejecutado sin pensar puede causar un outage de producción. Un comando ejecutado con comprensión completa construye infraestructura robusta.&quot;</em></p>
+</blockquote>
+<hr>
+<h2>📚 Recursos para Continuar tu Aprendizaje</h2>
+<ul>
+<li><strong>man useradd</strong>: Documentación completa del comando</li>
+<li><strong>man passwd</strong>: Gestión de contraseñas</li>
+<li><strong>man usermod</strong>: Modificación de usuarios</li>
+<li><strong>/etc/passwd format</strong>: Investiga los 7 campos</li>
+<li><strong>Linux User Management</strong>: Cómo funcionan UIDs/GIDs internamente</li>
+</ul>
+<hr>
+<h2>✅ Estado del Laboratorio</h2>
+<p><strong>COMPLETADO EXITOSAMENTE</strong> 🎉</p>
+<ul>
+<li>📅 Fecha de ejecución: 2025-01-25</li>
+<li>⏱️ Tiempo dedicado: 10-15 minutos</li>
+<li>🎯 Nivel: Fundamentos de Administración Linux</li>
+<li>💼 Habilidades: User Management, SSH, Privilege Escalation, Verification</li>
+</ul>
+<p><strong>Próximo Laboratorio</strong>: Gestión de Grupos y Permisos Avanzados</p>
+<hr>
+<p><em>Recuerda: En Linux, la terminal es tu canvas y los comandos son tu pincel. Pero un verdadero artista SysAdmin no solo pinta; entiende la química de los colores antes de mezclarlos.</em> 🐧🎨</p>
+<p><strong>¿Listo para tu próxima misión, futuro SysAdmin?</strong></p>
+</div> </div> </article> <div id="modal-01-creacion-usuarios" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50" aria-hidden="true"> <div class="flex items-center justify-center min-h-screen p-4"> <div class="bg-slate-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto"> <div class="p-6 border-b border-slate-700"> <div class="flex justify-between items-start"> <div> <h2 class="text-2xl font-bold text-gray-100">Reto 01: Creación de Usuario javed - xFusionCorp Industries</h2> <div class="flex items-center gap-4 mt-2 text-sm"> <span class="capitalize bg-slate-700 px-2 py-1 rounded">linux</span> <span class="text-cyan-400">easy</span>  </div> </div> <button onclick="closeModal('01-creacion-usuarios')" class="text-gray-400 hover:text-white">
 ✕
-</button> </div> </div> <div class="p-6"> <div class="mb-6"> <h3 class="text-lg font-semibold text-cyan-400 mb-4">Pasos a Seguir</h3> <div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">1. Comandos Requeridos</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+</button> </div> </div> <div class="p-6"> <div class="mb-6"> <h3 class="text-lg font-semibold text-cyan-400 mb-4">Pasos a Seguir</h3> <div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">1. El Archivo /etc/passwd: La Base de Datos de Usuarios</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">2. ¿Por Qué UID 1467?</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">3. Paso 0: Recopilación de Información (Reconocimiento)</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">4. Paso 1: Acceso al Servidor</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
 
-                    <code>ssh steve@172.16.238.11
-sudo su -
-id javed
-getent passwd javed
-useradd -u 1467 -d /var/www/javed -m javed
-passwd javed
-id javed
-ls -la /var/www/javed</code>
+                    <code>ssh steve@172.16.238.11</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">5. Paso 2: Inteligencia y Verificación</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>id javed
+grep &quot;1467&quot; /etc/passwd
+ls -ld /var/www/</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">6. Paso 3: Creación del Usuario</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>useradd -u 1467 -d /var/www/javed -m javed</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">7. Paso 4: Seguridad - Establecer Contraseña</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>passwd javed</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">8. Paso 5: Verificación Exhaustiva</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>id javed
+ls -la /var/www/javed
+su - javed
+pwd
+exit</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">9. ¿Qué acabas de construir?</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">10. Escenarios de Troubleshooting</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>ls -la /var/www/ | grep javed
+usermod -aG javed dev1
+usermod -aG javed dev2
+chmod 775 /var/www/javed</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">11. Variaciones del Comando useradd</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>useradd -r -s /sbin/nologin mysql
+useradd -G developers,deployers -m javed
+useradd -e 2025-12-31 -m contractor1</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">12. Comandos de Gestión Avanzada</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>usermod -aG docker javed          # Agregar a grupo docker
+usermod -d /new/home -m javed     # Cambiar home directory
+usermod -L javed                   # Bloquear cuenta
+usermod -U javed                   # Desbloquear cuenta
+userdel javed                      # Elimina usuario, conserva home
+userdel -r javed                   # Elimina usuario Y home directory
+finger javed                       # Información del usuario
+chage -l javed                     # Política de contraseñas
+last javed                         # Historial de logins</code>
                   </pre>  </div> </div>    </div> </div> </div> </div> <script type="module">document.addEventListener("click",e=>{const t=e.target;t.classList.contains("bg-black")&&(t.classList.add("hidden"),t.setAttribute("aria-hidden","true"))});</script> </div> </main>  </body></html>

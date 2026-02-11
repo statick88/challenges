@@ -1,0 +1,529 @@
+<!DOCTYPE html><html lang="es"> <head><meta charset="UTF-8"><meta name="description" content="Plataforma interactiva de desafíos técnicos - Linux, Docker, DevOps, CTF"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.17.1"><title>Server Log Hunt - CTF Challenges</title><link rel="stylesheet" href="/_astro/_slug_.CR6T2awG.css">
+<style>@import"https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap";:root{--progress: 0%;--color-primary: 15 23 42;--color-secondary: 30 41 59;--color-text: 248 250 252;--color-muted: 148 163 184;--color-accent: 16 185 129;--color-success: 34 211 153;--color-warning: 245 158 11}[data-theme=dark]{--color-primary: 15 23 42;--color-secondary: 30 41 59;--color-text: 248 250 252;--color-muted: 148 163 184;--color-accent: 16 185 129;--color-success: 34 211 153;--color-warning: 245 158 11}[data-theme=light]{--color-primary: 248 250 252;--color-secondary: 226 232 240;--color-text: 30 41 59;--color-muted: 100 116 139;--color-accent: 16 185 129;--color-success: 34 211 153;--color-warning: 245 158 11}body{font-family:Inter,system-ui,sans-serif}::-webkit-scrollbar{width:8px}::-webkit-scrollbar-track{background:#1e293b}::-webkit-scrollbar-thumb{background:#475569;border-radius:4px}::-webkit-scrollbar-thumb:hover{background:#64748b}html{scroll-behavior:smooth}html.theme-transitioning *{transition:background-color .3s ease,border-color .3s ease,color .3s ease,box-shadow .3s ease}.theme-transition-overlay{position:fixed;inset:0;background:rgb(var(--color-primary) / .8);z-index:9999;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .2s ease}.theme-transition-overlay.active{opacity:1}.theme-toggle-ripple{position:absolute;border-radius:50%;background:currentColor;transform:scale(0);opacity:.6;pointer-events:none}.theme-toggle-ripple.animate{transform:scale(4);opacity:0;transition:all .6s cubic-bezier(.4,0,.2,1)}button:focus,a:focus{outline:2px solid rgb(var(--color-accent));outline-offset:2px}@media(max-width:768px){.animated-counter{font-size:2.5rem}}@media(prefers-reduced-motion:reduce){html.theme-transitioning *,.theme-transition-overlay,.theme-toggle-ripple.animate{transition:none}}@media print{.fixed{display:none}.bg-secondary,.bg-primary{background:#fff!important;color:#000!important}}
+</style></head> <body class="bg-slate-900 text-gray-100 min-h-screen">  <main class="container mx-auto px-4 py-8"> <div class="max-w-4xl mx-auto"> <div class="mb-6"> <a href="/challenges" class="text-cyan-400 hover:text-cyan-300">← Volver al Dashboard</a> </div> <article class="bg-slate-800 rounded-lg p-6 border border-slate-700"> <header class="mb-6"> <h1 class="text-3xl font-bold text-orange-400 mb-2">Server Log Hunt</h1> <div class="flex items-center gap-4 text-sm text-gray-400"> <span class="bg-purple-600 px-2 py-1 rounded text-xs">CTF</span> <span class="capitalize">easy</span> <span>2025-02-04</span> <span>picoCTF</span> </div> </header> <div class="prose prose-invert max-w-none"> <div>
+
+# Server Log Analysis - Threat Hunting
+
+---
+
+👨‍🏫 **Del Instructor**: Ethical Hacker & Threat Hunter
+
+> 🎯 **Mentalidad de Hacker**: _"En un mar de 3000+ líneas de logs, una sola anomalía puede ser la diferencia entre detener una brecha y convertirse en noticia. Los atacantes dejan rastros. Tu trabajo es encontrar la aguja en el pajar digital antes de que sea demasiado tarde."_
+
+---
+
+## 🎭 El Escenario: Actividad Sospechosa en Servidor de Producción
+
+### Contexto de Blue Team
+
+Eres analista de seguridad en una startup de fintech. El WAF (Web Application Firewall) alertó sobre un aumento inusual de tráfico hacia el servidor web principal. Los desarrolladores no reportaron despliegues recientes.
+
+El equipo de infraestructura extrae el log completo del servidor web:
+
+```
+server.log  (3,208 líneas, 108 KB)
+```
+
+Revisando manualmente las primeras 100 líneas, todo parece normal. Pero la intuición te dice que algo está oculto.
+
+**Tu misión como threat hunter**:
+
+1. Analizar 3,208 líneas eficientemente
+2. Identificar patrones de ataque o comportamiento anómalo
+3. Extraer cualquier dato exfiltrado o escondido
+4. Generar IOCs para detección futura
+
+---
+
+## 🧠 Fundamentos de Análisis: Threat Hunting con Logs
+
+### ¿Qué es Threat Hunting?
+
+El **threat hunting** es una práctica proactiva de seguridad donde los analistas buscan amenazas desconocidas o sofisticadas que han evadido las defensas automatizadas.
+
+**Diferencia con respuesta a incidentes**:
+
+- **IDS/SIEM**: Reactivo (espera alertas)
+- **Threat Hunting**: Proactivo (busca lo desconocido)
+
+### Tácticas de Ofuscación en Logs
+
+Los atacantes sofisticados esconden actividad usando:
+
+1. **Fragmentación**: Dividir datos en múltiples líneas
+2. **Timing**: Espaciar actividad para evadir thresholds
+3. **Encoding**: Base64, hex, URL encoding
+4. **Legitimidad**: Mimetizar tráfico malicioso como legítimo
+5. **Volumen**: Ocultar en grandes volúmenes de datos
+
+### Análisis Estadístico de Logs
+
+```bash
+# Distribución de IPs
+awk '{print $1}' access.log | sort | uniq -c | sort -rn | head -20
+
+# Distribución temporal
+awk -F'[:/]' '{print $2":"$3}' access.log | sort | uniq -c
+
+# Códigos de estado HTTP
+awk '{print $9}' access.log | sort | uniq -c | sort -rn
+
+# URLs más accedidas
+awk '{print $7}' access.log | sort | uniq -c | sort -rn | head -20
+```
+
+---
+
+## 🔍 Metodología de Investigación
+
+### Fase 1: Evaluación del Dataset
+
+```bash
+# Información básica
+file server.log
+wc -l server.log
+wc -c server.log
+
+# Formato del log
+head -5 server.log
+tail -5 server.log
+
+# Estadísticas de líneas
+awk '{print NF}' server.log | sort | uniq -c  # Campos por línea
+```
+
+### Fase 2: Búsqueda de Anomalías
+
+```bash
+# Palabras clave sospechosas
+grep -iE "(error|exception|fail|attack|exploit|union|select|flag)" server.log
+
+# Buscar el patrón específico FLAGPART
+grep "FLAGPART" server.log
+
+# Ver frecuencia
+grep -c "FLAGPART" server.log
+
+# Análisis de distribución
+grep "FLAGPART" server.log | awk '{print $2}' | cut -d']' -f1 | sort | uniq -c
+```
+
+### Fase 3: Extracción de Evidencia
+
+```bash
+# Extraer todas las ocurrencias
+grep "FLAGPART" server.log
+
+# Eliminar duplicados
+grep "FLAGPART" server.log | sort -u
+
+# Extraer el contenido después de "FLAGPART: "
+grep "FLAGPART" server.log | sed 's/.*FLAGPART: //'
+
+# Versión con cut (alternativa)
+grep "FLAGPART" server.log | cut -d' ' -f7
+```
+
+### Fase 4: Reconstrucción de Datos
+
+```bash
+# Ver el orden temporal
+grep "FLAGPART" server.log | sort -t'[' -k2
+
+# Extraer timestamps y partes
+grep "FLAGPART" server.log | awk -F'[][]' '{print $2, $4}'
+
+# Reconstruir flag completa
+grep "FLAGPART" server.log | sort -u | awk '{print $NF}' | tr '\n' '_' | sed 's/_$//'
+```
+
+---
+
+## 🛠️ Arsenal de Herramientas
+
+### Comandos Unix Esenciales
+
+| Comando | Propósito        | Ejemplo             |
+| ------- | ---------------- | ------------------- |
+| `grep`  | Filtrar patrones | `grep "ERROR" file` |
+| `awk`   | Procesar campos  | `awk '{print $1}'`  |
+| `sed`   | Transformar      | `sed 's/old/new/'`  |
+| `sort`  | Ordenar          | `sort -t' ' -k2`    |
+| `uniq`  | Únicos/conteo    | `uniq -c`           |
+| `cut`   | Extraer campos   | `cut -d' ' -f1,3`   |
+| `tr`    | Traducir         | `tr '\n' ','`       |
+| `wc`    | Contar           | `wc -l`             |
+
+### One-liners Avanzados
+
+```bash
+# Análisis completo de IPs
+awk '{print $1}' server.log | sort | uniq -c | sort -rn | head
+
+# Timeline de eventos por minuto
+awk -F'[\[\]:]' '{print $2":"$3}' server.log | sort | uniq -c | sort -t: -k1n -k2n
+
+# Buscar patrones de ataque SQLi
+grep -iE "(union|select|from|where|1=1)" server.log
+
+# Extraer user-agents únicos
+awk -F'"' '{print $6}' server.log | sort | uniq -c | sort -rn | head
+```
+
+### Script de Threat Hunting
+
+```python
+#!/usr/bin/env python3
+"""
+Log Threat Hunter - Proactive Threat Detection
+Analyzes server logs for hidden threats and anomalies
+"""
+
+import re
+import sys
+from collections import Counter, defaultdict
+from datetime import datetime
+import argparse
+from pathlib import Path
+
+class LogThreatHunter:
+    def __init__(self, log_file):
+        self.log_file = Path(log_file)
+        self.entries = []
+        self.threats = []
+        self.stats = {
+            'total_lines': 0,
+            'unique_ips': set(),
+            'error_count': 0,
+            'suspicious_patterns': Counter()
+        }
+
+    def parse_log(self):
+        """Parsea el archivo de log"""
+        print(f"[+] Hunting threats in: {self.log_file}")
+        print(f"[*] File size: {self.log_file.stat().st_size} bytes")
+
+        with open(self.log_file, 'r') as f:
+            content = f.readlines()
+
+        self.stats['total_lines'] = len(content)
+        print(f"[*] Total entries: {self.stats['total_lines']}")
+
+        # Patrones de análisis
+        log_pattern = re.compile(
+            r'\[(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})\] (\w+) (.+)'
+        )
+
+        for line_num, line in enumerate(content, 1):
+            line = line.strip()
+            match = log_pattern.match(line)
+
+            if match:
+                timestamp_str, level, message = match.groups()
+                entry = {
+                    'line_num': line_num,
+                    'timestamp': timestamp_str,
+                    'level': level,
+                    'message': message
+                }
+                self.entries.append(entry)
+
+                # Estadísticas
+                if level == 'ERROR':
+                    self.stats['error_count'] += 1
+
+                # Extraer IPs
+                ips = re.findall(r'\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b', message)
+                self.stats['unique_ips'].update(ips)
+
+    def hunt_suspicious_patterns(self):
+        """Busca patrones sospechosos"""
+        print("\n[*] Hunting for suspicious patterns...")
+
+        patterns = {
+            'FLAGPART': r'FLAGPART:\s*(.+)',
+            'SQL_INJECTION': r'(?i)(union\s+select|1\s*=\s*1|sleep\s*\(|benchmark\s*\()',
+            'PATH_TRAVERSAL': r'\.\./|\.\.\\|%2e%2e',
+            'COMMAND_INJECTION': r'[;&|]\s*(?:ls|cat|whoami|id|pwd|echo)',
+            'LFI': r'(?i)(?:file|php|http)\s*=\s*(?:/etc|/var|/proc|C:)',
+            'XSS': r'(?i)<script|javascript:|on\w+\s*=',
+        }
+
+        for entry in self.entries:
+            for threat_type, pattern in patterns.items():
+                matches = re.findall(pattern, entry['message'])
+                if matches:
+                    self.threats.append({
+                        'type': threat_type,
+                        'line': entry['line_num'],
+                        'timestamp': entry['timestamp'],
+                        'match': matches[0] if isinstance(matches[0], str) else matches[0][0],
+                        'message': entry['message'][:80]
+                    })
+                    self.stats['suspicious_patterns'][threat_type] += 1
+
+        print(f"[+] Found {len(self.threats)} potential threats")
+
+    def analyze_temporal_patterns(self):
+        """Analiza patrones temporales"""
+        print("\n[*] Analyzing temporal patterns...")
+
+        # Eventos por hora
+        hourly = Counter()
+        for entry in self.entries:
+            hour = entry['timestamp'].split(':')[0]
+            hourly[hour] += 1
+
+        print("[+] Events per hour:")
+        for hour, count in sorted(hourly.items()):
+            bar = '█' * (count // 10)
+            print(f"    {hour}: {count:4d} {bar}")
+
+    def extract_flag_parts(self):
+        """Extrae y reconstruye la flag"""
+        print("\n[*] Extracting flag fragments...")
+
+        flag_entries = [t for t in self.threats if t['type'] == 'FLAGPART']
+
+        if not flag_entries:
+            print("[-] No flag parts found")
+            return None
+
+        # Eliminar duplicados manteniendo orden
+        seen = set()
+        unique_parts = []
+        for entry in sorted(flag_entries, key=lambda x: x['timestamp']):
+            part = entry['match']
+            if part not in seen:
+                seen.add(part)
+                unique_parts.append((entry['timestamp'], part))
+
+        print(f"[+] Found {len(unique_parts)} unique flag parts")
+        for ts, part in unique_parts:
+            print(f"    [{ts}] {part}")
+
+        # Reconstruir
+        flag = ''.join([part for _, part in unique_parts])
+        print(f"\n[+] Reconstructed flag: {flag}")
+        return flag
+
+    def generate_threat_report(self):
+        """Genera reporte de amenazas"""
+        print("\n" + "=" * 70)
+        print("THREAT HUNTING REPORT")
+        print("=" * 70)
+
+        print(f"\n[+] Summary Statistics:")
+        print(f"    Total log entries: {self.stats['total_lines']}")
+        print(f"    Unique IPs: {len(self.stats['unique_ips'])}")
+        print(f"    Error entries: {self.stats['error_count']}")
+
+        print(f"\n[+] Suspicious Activity by Type:")
+        for pattern, count in self.stats['suspicious_patterns'].most_common():
+            print(f"    {pattern}: {count} occurrences")
+
+        if self.threats:
+            print(f"\n[+] Threat Details (Top 10):")
+            for threat in self.threats[:10]:
+                print(f"    Line {threat['line']:4d} [{threat['type']:15s}] {threat['message'][:50]}")
+
+    def run_hunt(self):
+        """Ejecuta threat hunt completo"""
+        self.parse_log()
+        self.hunt_suspicious_patterns()
+        self.analyze_temporal_patterns()
+        flag = self.extract_flag_parts()
+        self.generate_threat_report()
+        return flag
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='Log Threat Hunter')
+    parser.add_argument('logfile', help='Server log file to analyze')
+
+    args = parser.parse_args()
+
+    hunter = LogThreatHunter(args.logfile)
+    hunter.run_hunt()
+```
+
+### Uso del Script
+
+```bash
+# Ejecutar análisis de threat hunting
+python3 log_threat_hunter.py server.log
+
+# Output:
+# [+] Hunting threats in: server.log
+# [*] File size: 108234 bytes
+# [*] Total entries: 3208
+#
+# [*] Hunting for suspicious patterns...
+# [+] Found 32 potential threats
+#
+# [*] Analyzing temporal patterns...
+# [+] Events per hour:
+#     1990-08-09 10:  312 ████████████
+#     ...
+#
+# [*] Extracting flag fragments...
+# [+] Found 4 unique flag parts
+#     [1990-08-09 10:00:10] picoCTF{us3_
+#     [1990-08-09 10:02:55] y0urlinux_
+#     [1990-08-09 10:05:54] sk1lls_
+#     [1990-08-09 10:10:54] cedfa5fb}
+#
+# [+] Reconstructed flag: picoCTF{us3_y0urlinux_sk1lls_cedfa5fb}
+```
+
+---
+
+## 🎯 Lecciones del Mundo Real
+
+### Casos de Threat Hunting
+
+**Caso APT29 (Cozy Bear)**:
+
+- Usaron "living off the land" - herramientas legítimas para actividad maliciosa
+- Logs mostraron PowerShell anómalo
+- **Técnica**: Buscar PowerShell con encoding Base64
+
+**Caso Supply Chain Attack (SolarWinds)**:
+
+- Logs de red revelaron conexiones a dominios DGA
+- **Técnica**: Analizar DNS queries para patrones algorítmicos
+
+**Caso Ransomware Ryuk**:
+
+- Logs mostraron deshabilitación de servicios de backup
+- **Técnica**: Monitorear cambios en configuración de backup
+
+### IOCs a Buscar
+
+```yaml
+Network_IOCs:
+  - pattern: "FLAGPART"
+    description: "Data exfiltration marker"
+
+  - pattern: "User-Agent: (curl|wget|python-requests)"
+    description: "Non-browser access"
+
+Behavioral_IOCs:
+  - pattern: "multiple_failed_logins"
+    threshold: 5
+    timeframe: "1m"
+
+  - pattern: "off_hours_access"
+    hours: [0, 1, 2, 3, 4, 5]
+```
+
+---
+
+## 🚀 Solución del Reto
+
+### Paso a Paso
+
+```bash
+# Paso 1: Analizar estructura
+file server.log
+head -5 server.log
+
+# Paso 2: Buscar FLAGPART
+grep "FLAGPART" server.log
+
+# Paso 3: Extraer partes únicas ordenadas
+grep "FLAGPART" server.log | sort -u
+
+# Paso 4: Extraer solo el contenido
+grep "FLAGPART" server.log | sort -u | awk -F': ' '{print $2}'
+
+# Paso 5: Concatenar
+grep "FLAGPART" server.log | sort -u | awk -F': ' '{print $2}' | tr -d '\n'
+```
+
+### One-liners
+
+```bash
+# Usando cut
+grep "FLAGPART" server.log | sort -u | cut -d' ' -f7 | tr '\n' '_' | sed 's/_$//'
+
+# Usando perl
+grep "FLAGPART" server.log | sort -u | perl -pe 's/.*FLAGPART: //' | tr -d '\n'
+
+# Completo con timestamp
+grep "FLAGPART" server.log | sort -t'[' -k2 | sed 's/.*FLAGPART: //' | uniq | tr -d '\n'
+```
+
+### Flag
+
+```
+picoCTF{us3_y0urlinux_sk1lls_cedfa5fb}
+```
+
+---
+
+## 📚 Recursos y Referencias
+
+- [MITRE ATT&CK - Log Analysis](https://attack.mitre.org/)
+- [SANS Threat Hunting](https://www.sans.org/cyber-security-skills/threat-hunter/)
+- [Awesome Threat Detection](https://github.com/0x4D31/awesome-threat-detection)
+- [Sigma Rules](https://github.com/SigmaHQ/sigma)
+
+---
+
+**¿Listo para el siguiente reto?** → Prueba hunting en logs de Windows (Event Viewer), análisis de logs de firewall, o detección de insider threats.
+</div> </div> </article> <div id="modal-reto02-log-hunt" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50" aria-hidden="true"> <div class="flex items-center justify-center min-h-screen p-4"> <div class="bg-slate-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto"> <div class="p-6 border-b border-slate-700"> <div class="flex justify-between items-start"> <div> <h2 class="text-2xl font-bold text-gray-100">Server Log Hunt</h2> <div class="flex items-center gap-4 mt-2 text-sm"> <span class="capitalize bg-slate-700 px-2 py-1 rounded">ctf</span> <span class="text-cyan-400">easy</span> <span class="text-green-400 font-mono">Flag: picoCTF{us3_y0urlinux_sk1lls_cedfa5fb}</span> </div> </div> <button onclick="closeModal('reto02-log-hunt')" class="text-gray-400 hover:text-white">
+✕
+</button> </div> </div> <div class="p-6"> <div class="mb-6"> <h3 class="text-lg font-semibold text-cyan-400 mb-4">Pasos a Seguir</h3> <div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">1. Contexto de Blue Team</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">2. ¿Qué es Threat Hunting?</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">3. Tácticas de Ofuscación en Logs</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">4. Análisis Estadístico de Logs</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>awk &#39;{print $1}&#39; access.log | sort | uniq -c | sort -rn | head -20
+awk -F&#39;[:/]&#39; &#39;{print $2&quot;:&quot;$3}&#39; access.log | sort | uniq -c
+awk &#39;{print $9}&#39; access.log | sort | uniq -c | sort -rn
+awk &#39;{print $7}&#39; access.log | sort | uniq -c | sort -rn | head -20</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">5. Fase 1: Evaluación del Dataset</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>file server.log
+wc -l server.log
+wc -c server.log
+head -5 server.log
+tail -5 server.log
+awk &#39;{print NF}&#39; server.log | sort | uniq -c  # Campos por línea</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">6. Fase 2: Búsqueda de Anomalías</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>grep -iE &quot;(error|exception|fail|attack|exploit|union|select|flag)&quot; server.log
+grep &quot;FLAGPART&quot; server.log
+grep -c &quot;FLAGPART&quot; server.log
+grep &quot;FLAGPART&quot; server.log | awk &#39;{print $2}&#39; | cut -d&#39;]&#39; -f1 | sort | uniq -c</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">7. Fase 3: Extracción de Evidencia</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>grep &quot;FLAGPART&quot; server.log
+grep &quot;FLAGPART&quot; server.log | sort -u
+grep &quot;FLAGPART&quot; server.log | sed &#39;s/.*FLAGPART: //&#39;
+grep &quot;FLAGPART&quot; server.log | cut -d&#39; &#39; -f7</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">8. Fase 4: Reconstrucción de Datos</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>grep &quot;FLAGPART&quot; server.log | sort -t&#39;[&#39; -k2
+grep &quot;FLAGPART&quot; server.log | awk -F&#39;[][]&#39; &#39;{print $2, $4}&#39;
+grep &quot;FLAGPART&quot; server.log | sort -u | awk &#39;{print $NF}&#39; | tr &#39;\n&#39; &#39;_&#39; | sed &#39;s/_$//&#39;</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">9. Comandos Unix Esenciales</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">10. One-liners Avanzados</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>awk &#39;{print $1}&#39; server.log | sort | uniq -c | sort -rn | head
+awk -F&#39;[\[\]:]&#39; &#39;{print $2&quot;:&quot;$3}&#39; server.log | sort | uniq -c | sort -t: -k1n -k2n
+grep -iE &quot;(union|select|from|where|1=1)&quot; server.log
+awk -F&#39;&quot;&#39; &#39;{print $6}&#39; server.log | sort | uniq -c | sort -rn | head</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">11. Script de Threat Hunting</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">12. Uso del Script</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>python3 log_threat_hunter.py server.log</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">13. Casos de Threat Hunting</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">14. IOCs a Buscar</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">15. Paso a Paso</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>file server.log
+head -5 server.log
+grep &quot;FLAGPART&quot; server.log
+grep &quot;FLAGPART&quot; server.log | sort -u
+grep &quot;FLAGPART&quot; server.log | sort -u | awk -F&#39;: &#39; &#39;{print $2}&#39;
+grep &quot;FLAGPART&quot; server.log | sort -u | awk -F&#39;: &#39; &#39;{print $2}&#39; | tr -d &#39;\n&#39;</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">16. One-liners</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>grep &quot;FLAGPART&quot; server.log | sort -u | cut -d&#39; &#39; -f7 | tr &#39;\n&#39; &#39;_&#39; | sed &#39;s/_$//&#39;
+grep &quot;FLAGPART&quot; server.log | sort -u | perl -pe &#39;s/.*FLAGPART: //&#39; | tr -d &#39;\n&#39;
+grep &quot;FLAGPART&quot; server.log | sort -t&#39;[&#39; -k2 | sed &#39;s/.*FLAGPART: //&#39; | uniq | tr -d &#39;\n&#39;</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">17. Flag</h4>   </div> </div>    </div> </div> </div> </div> <script type="module">document.addEventListener("click",e=>{const t=e.target;t.classList.contains("bg-black")&&(t.classList.add("hidden"),t.setAttribute("aria-hidden","true"))});</script> </div> </main>  </body></html>

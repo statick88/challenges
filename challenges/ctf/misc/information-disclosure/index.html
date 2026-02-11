@@ -1,0 +1,481 @@
+<!DOCTYPE html><html lang="es"> <head><meta charset="UTF-8"><meta name="description" content="Plataforma interactiva de desafíos técnicos - Linux, Docker, DevOps, CTF"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.17.1"><title>Information Disclosure - CTF Challenges</title><link rel="stylesheet" href="/_astro/_slug_.CR6T2awG.css">
+<style>@import"https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap";:root{--progress: 0%;--color-primary: 15 23 42;--color-secondary: 30 41 59;--color-text: 248 250 252;--color-muted: 148 163 184;--color-accent: 16 185 129;--color-success: 34 211 153;--color-warning: 245 158 11}[data-theme=dark]{--color-primary: 15 23 42;--color-secondary: 30 41 59;--color-text: 248 250 252;--color-muted: 148 163 184;--color-accent: 16 185 129;--color-success: 34 211 153;--color-warning: 245 158 11}[data-theme=light]{--color-primary: 248 250 252;--color-secondary: 226 232 240;--color-text: 30 41 59;--color-muted: 100 116 139;--color-accent: 16 185 129;--color-success: 34 211 153;--color-warning: 245 158 11}body{font-family:Inter,system-ui,sans-serif}::-webkit-scrollbar{width:8px}::-webkit-scrollbar-track{background:#1e293b}::-webkit-scrollbar-thumb{background:#475569;border-radius:4px}::-webkit-scrollbar-thumb:hover{background:#64748b}html{scroll-behavior:smooth}html.theme-transitioning *{transition:background-color .3s ease,border-color .3s ease,color .3s ease,box-shadow .3s ease}.theme-transition-overlay{position:fixed;inset:0;background:rgb(var(--color-primary) / .8);z-index:9999;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .2s ease}.theme-transition-overlay.active{opacity:1}.theme-toggle-ripple{position:absolute;border-radius:50%;background:currentColor;transform:scale(0);opacity:.6;pointer-events:none}.theme-toggle-ripple.animate{transform:scale(4);opacity:0;transition:all .6s cubic-bezier(.4,0,.2,1)}button:focus,a:focus{outline:2px solid rgb(var(--color-accent));outline-offset:2px}@media(max-width:768px){.animated-counter{font-size:2.5rem}}@media(prefers-reduced-motion:reduce){html.theme-transitioning *,.theme-transition-overlay,.theme-toggle-ripple.animate{transition:none}}@media print{.fixed{display:none}.bg-secondary,.bg-primary{background:#fff!important;color:#000!important}}
+</style></head> <body class="bg-slate-900 text-gray-100 min-h-screen">  <main class="container mx-auto px-4 py-8"> <div class="max-w-4xl mx-auto"> <div class="mb-6"> <a href="/challenges" class="text-cyan-400 hover:text-cyan-300">← Volver al Dashboard</a> </div> <article class="bg-slate-800 rounded-lg p-6 border border-slate-700"> <header class="mb-6"> <h1 class="text-3xl font-bold text-orange-400 mb-2">Information Disclosure</h1> <div class="flex items-center gap-4 text-sm text-gray-400"> <span class="bg-purple-600 px-2 py-1 rounded text-xs">CTF</span> <span class="capitalize">easy</span> <span>2026-02-05</span> <span>picoCTF</span> </div> </header> <div class="prose prose-invert max-w-none"> <div>
+
+# Information Disclosure - OSINT & Reconnaissance
+
+---
+
+👨‍🏫 **Del Instructor**: Ethical Hacker & OSINT Specialist
+
+> 🎯 **Mentalidad de Hacker**: _"La información que consideras basura es oro para un atacante. Cada comentario HTML, cada metadato, cada archivo robots.txt cuenta una historia. Tu trabajo es escuchar lo que los desarrolladores no quieren que escuches."_
+
+---
+
+## 🎭 El Escenario: Fuga de Información en Aplicación Web
+
+### Contexto de Bug Bounty
+
+Eres un bug bounty hunter auditando "TechStartup Inc.", una nueva plataforma SaaS que acaba de lanzar su MVP. Durante tu reconocimiento inicial, notas que la aplicación parece básica pero prometedora.
+
+**Tu misión como investigador de seguridad**: Realizar reconocimiento pasivo y activo para encontrar información sensible que no debería ser pública - credenciales, rutas internas, datos de desarrollo, o cualquier fuga de información que pueda facilitar un ataque.
+
+---
+
+## 🧠 Fundamentos de Análisis: La Superficie de Ataque Invisible
+
+### ¿Qué es Information Disclosure?
+
+La **fuga de información** ocurre cuando una aplicación revela datos sensibles a usuarios que normalmente no tendrían acceso a ellos. Estos datos pueden ser usados por atacantes para:
+
+1. **Mapear la infraestructura**: Descubrir rutas, tecnologías, arquitectura
+2. **Encontrar credenciales**: API keys, contraseñas, tokens hardcodeados
+3. **Identificar vulnerabilidades**: Versiones de software, paths de debugging
+4. **Social engineering**: Emails, nombres de empleados, información interna
+
+**Fuentes comunes de fugas**:
+
+- HTML comments (`<!-- admin panel at /admin -->`)
+- Archivos de configuración expuestos (`.env`, `config.json`)
+- Metadatos (EXIF en imágenes, PDF metadata)
+- Error messages detallados
+- `robots.txt` y `sitemap.xml`
+- Repositorios públicos (GitHub, GitLab)
+- Documentación Swagger/API expuesta
+
+---
+
+## 🔍 Metodología de Investigación
+
+### Fase 1: Reconocimiento Pasivo (OSINT)
+
+```bash
+# Recopilación de subdominios
+subfinder -d target.com -o subdomains.txt
+amass enum -d target.com
+
+# Wayback Machine para URLs históricas
+waybackurls target.com | tee wayback.txt
+gau target.com | tee gau.txt
+
+# GitHub reconnaissance
+github-search -t "target.com" -s "password\|api_key\|secret"
+git-hound --config config.yml
+
+# Google dorks
+site:target.com filetype:env
+site:target.com filetype:sql
+site:target.com intitle:"index of"
+```
+
+### Fase 2: Análisis Activo de la Aplicación
+
+```bash
+# Inspección de código fuente HTML
+curl -s https://target.com | grep -i "<!--"
+curl -s https://target.com | grep -i "password\|secret\|key\|api"
+
+# Verificar archivos comunes
+curl -s https://target.com/robots.txt
+curl -s https://target.com/.env
+curl -s https://target.com/config.json
+curl -s https://target.com/.git/config
+curl -s https://target.com/api/swagger.json
+
+# Fuzzing de directorios
+ffuf -u https://target.com/FUZZ -w /usr/share/wordlists/dirb/common.txt
+gobuster dir -u https://target.com -w /usr/share/wordlists/dirb/common.txt
+
+# Análisis de headers
+curl -I https://target.com | grep -i "server\|x-powered\|via"
+```
+
+### Fase 3: Análisis de Metadatos
+
+```bash
+# Extraer metadatos de imágenes
+exiftool image.jpg | grep -i "author\|copyright\|comment"
+
+# Análisis de PDFs
+pdfinfo document.pdf
+exiftool document.pdf
+
+# Buscar strings en binarios
+strings binary_file | grep -i "password\|secret\|key"
+```
+
+---
+
+## 🛠️ Arsenal de Herramientas
+
+### Herramientas Esenciales
+
+| Herramienta   | Uso                           | Instalación                                                                |
+| ------------- | ----------------------------- | -------------------------------------------------------------------------- |
+| `subfinder`   | Descubrimiento de subdominios | `go install github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest` |
+| `amass`       | OSINT y enumeración de DNS    | `snap install amass`                                                       |
+| `waybackurls` | URLs históricas               | `go install github.com/tomnomnom/waybackurls@latest`                       |
+| `gau`         | GetAllUrls                    | `go install github.com/lc/gau/v2/cmd/gau@latest`                           |
+| `ffuf`        | Fuzzer de directorios         | `go install github.com/ffuf/ffuf@latest`                                   |
+| `gobuster`    | Directorio/file brute forcer  | `apt install gobuster`                                                     |
+| `exiftool`    | Análisis de metadatos         | `apt install libimage-exiftool-perl`                                       |
+| `trufflehog`  | Búsqueda de secretos          | `pip3 install trufflehog`                                                  |
+
+### Script de Reconocimiento Automatizado
+
+```python
+#!/usr/bin/env python3
+"""
+Information Disclosure Scanner - OSINT Automation
+For authorized security testing only
+"""
+
+import requests
+import re
+import sys
+from urllib.parse import urljoin, urlparse
+from concurrent.futures import ThreadPoolExecutor
+import argparse
+
+class InfoDisclosureScanner:
+    def __init__(self, target_url, threads=10):
+        self.target_url = target_url
+        self.threads = threads
+        self.findings = []
+        self.session = requests.Session()
+        self.session.headers.update({
+            'User-Agent': 'Mozilla/5.0 (Security Scanner)'
+        })
+
+    def check_common_files(self):
+        """Busca archivos comunes que podrían exponer información"""
+        common_files = [
+            '/robots.txt',
+            '/.env',
+            '/config.json',
+            '/.git/config',
+            '/.htaccess',
+            '/web.config',
+            '/api/swagger.json',
+            '/api/docs',
+            '/phpinfo.php',
+            '/.DS_Store',
+            '/sitemap.xml',
+            '/admin/',
+            '/backup/',
+            '/.svn/entries',
+            '/.hg/hgrc',
+        ]
+
+        print(f"[*] Escaneando archivos comunes...")
+
+        def check_file(path):
+            url = urljoin(self.target_url, path)
+            try:
+                resp = self.session.get(url, timeout=5, allow_redirects=False)
+                if resp.status_code == 200:
+                    size = len(resp.text)
+                    print(f"  [+] {path} - {resp.status_code} ({size} bytes)")
+                    return {
+                        'type': 'file',
+                        'path': path,
+                        'status': resp.status_code,
+                        'size': size,
+                        'content': resp.text[:500]  # Primeros 500 chars
+                    }
+            except:
+                pass
+            return None
+
+        with ThreadPoolExecutor(max_workers=self.threads) as executor:
+            results = executor.map(check_file, common_files)
+
+        self.findings.extend([r for r in results if r])
+
+    def analyze_html(self):
+        """Analiza el HTML en busca de información sensible"""
+        print(f"\n[*] Analizando HTML fuente...")
+
+        try:
+            resp = self.session.get(self.target_url, timeout=10)
+            html = resp.text
+
+            # Buscar comentarios HTML
+            comments = re.findall(r'<!--(.*?)-->', html, re.DOTALL)
+            for comment in comments:
+                comment = comment.strip()
+                if len(comment) > 5:
+                    print(f"  [+] Comentario HTML encontrado")
+                    self.findings.append({
+                        'type': 'html_comment',
+                        'content': comment[:200]
+                    })
+
+            # Buscar patrones sensibles
+            patterns = {
+                'api_key': r'api[_-]?key\s*[=:]\s*["\']([^"\']+)["\']',
+                'secret': r'secret\s*[=:]\s*["\']([^"\']+)["\']',
+                'password': r'password\s*[=:]\s*["\']([^"\']+)["\']',
+                'email': r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b',
+                'internal_ip': r'\b(?:192\.168\.|10\.|172\.(?:1[6-9]|2[0-9]|3[01])\.)[0-9.]+\b',
+            }
+
+            for pattern_name, pattern in patterns.items():
+                matches = re.findall(pattern, html, re.IGNORECASE)
+                for match in matches:
+                    print(f"  [+] {pattern_name.upper()}: {match}")
+                    self.findings.append({
+                        'type': pattern_name,
+                        'content': match
+                    })
+
+            # Buscar rutas en JavaScript
+            js_paths = re.findall(r'["\'](/[^"\']*(?:api|admin|internal)[^"\']*)["\']', html)
+            for path in set(js_paths):
+                print(f"  [+] Ruta potencial: {path}")
+                self.findings.append({
+                    'type': 'potential_path',
+                    'content': path
+                })
+
+        except Exception as e:
+            print(f"  [-] Error analizando HTML: {e}")
+
+    def check_headers(self):
+        """Analiza headers HTTP"""
+        print(f"\n[*] Analizando headers HTTP...")
+
+        try:
+            resp = self.session.head(self.target_url, timeout=10)
+
+            interesting_headers = ['server', 'x-powered-by', 'via',
+                                   'x-aspnet-version', 'x-generator']
+
+            for header in interesting_headers:
+                if header in resp.headers:
+                    value = resp.headers[header]
+                    print(f"  [+] {header}: {value}")
+                    self.findings.append({
+                        'type': 'header',
+                        'header': header,
+                        'value': value
+                    })
+        except Exception as e:
+            print(f"  [-] Error: {e}")
+
+    def generate_report(self):
+        """Genera reporte de hallazgos"""
+        print("\n" + "=" * 60)
+        print("REPORTE DE INFORMATION DISCLOSURE")
+        print("=" * 60)
+        print(f"\nTarget: {self.target_url}")
+        print(f"Hallazgos totales: {len(self.findings)}")
+        print("\nDetalles:")
+
+        for i, finding in enumerate(self.findings, 1):
+            print(f"\n{i}. Tipo: {finding['type']}")
+            for key, value in finding.items():
+                if key != 'type' and value:
+                    print(f"   {key}: {str(value)[:100]}")
+
+    def scan(self):
+        """Ejecuta escaneo completo"""
+        print(f"[+] Iniciando Information Disclosure Scan")
+        print(f"[*] Target: {self.target_url}")
+        print("=" * 60)
+
+        self.check_common_files()
+        self.analyze_html()
+        self.check_headers()
+        self.generate_report()
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='Information Disclosure Scanner')
+    parser.add_argument('url', help='URL objetivo')
+    parser.add_argument('-t', '--threads', type=int, default=10, help='Número de threads')
+
+    args = parser.parse_args()
+
+    scanner = InfoDisclosureScanner(args.url, args.threads)
+    scanner.scan()
+```
+
+### Uso del Script
+
+```bash
+# Instalar dependencias
+pip3 install requests
+
+# Ejecutar escaneo
+python3 info_disclosure_scanner.py https://target.com
+
+# Output esperado:
+# [+] Iniciando Information Disclosure Scan
+# [*] Target: https://target.com
+# ============================================================
+# [*] Escaneando archivos comunes...
+#   [+] /robots.txt - 200 (234 bytes)
+#   [+] /.env - 200 (156 bytes)
+#
+# [*] Analizando HTML fuente...
+#   [+] Comentario HTML encontrado
+#   [+] API_KEY: sk_live_12345...
+#
+# [*] Analizando headers HTTP...
+#   [+] server: nginx/1.18.0
+#   [+] x-powered-by: PHP/7.4.3
+```
+
+---
+
+## 🎯 Lecciones del Mundo Real
+
+### Casos Documentados
+
+**Caso Uber (2016)**:
+
+- Credentials expuestas en repositorio GitHub público
+- AWS keys comprometidas
+- Impacto: Datos de 57 millones de usuarios
+- **Lección**: Repositorios públicos son minas de oro para atacantes
+
+**Caso Tesla (2018)**:
+
+- Kubernetes console expuesta sin autenticación
+- Cryptominer desplegado en infraestructura
+- **Lección**: Dashboards administrativos deben estar protegidos
+
+**Caso Capital One (2019)**:
+
+- SSRF + Information disclosure
+- 100+ millones de registros expuestos
+- **Lección**: Metadatos cloud pueden ser peligrosos
+
+### OWASP Top 10 Relacionados
+
+- **A01:2021 – Broken Access Control**: Acceso a información sin autorización
+- **A05:2021 – Security Misconfiguration**: Configuraciones por defecto inseguras
+- **A06:2021 – Vulnerable and Outdated Components**: Versión expuesta en headers
+
+### Defensa y Mitigación
+
+**Prevención**:
+
+```bash
+# Remover comentarios HTML en producción
+# Usar build process que limpia comentarios
+
+# Proteger archivos sensibles
+location ~ /\. {
+    deny all;
+}
+
+location ~ ^/(\.env|config\.json|\.git) {
+    deny all;
+}
+
+# Headers de seguridad
+add_header X-Content-Type-Options nosniff;
+add_header X-Frame-Options DENY;
+server_tokens off;
+```
+
+**IOCs**:
+
+- Respuestas 200 en archivos `.env`, `config`
+- Comentarios HTML con rutas internas
+- Headers que revelan versiones exactas
+- Repositorios Git expuestos
+
+---
+
+## 🚀 Solución del Reto
+
+### Paso a Paso
+
+```bash
+# Paso 1: Revisar código fuente
+curl -s http://example.com | grep -i "<!--"
+# <!-- admin panel at /admin-panel -->
+
+# Paso 2: Verificar robots.txt
+curl -s http://example.com/robots.txt
+# User-agent: *
+# Disallow: /admin-panel
+# Disallow: /secret-config
+
+# Paso 3: Acceder a rutas descubiertas
+curl -s http://example.com/secret-config
+# {"flag": "picoCTF{information_disclosure_easy}"}
+```
+
+### Flag
+
+```
+picoCTF{information_disclosure_easy}
+```
+
+---
+
+## 📚 Recursos y Referencias
+
+- [OWASP Information Disclosure](https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/01-Information_Gathering/)
+- [PayloadsAllTheThings - Information Disclosure](https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Information%20Disclosure)
+- [Bug Bounty Hunter Methodology](https://github.com/0xmaximus/Galaxy-Bugbounty-Checklist)
+- [GitHub OSINT Tools](https://github.com/jivoi/awesome-osint)
+
+---
+
+**¿Listo para el siguiente reto?** → Prueba reconocimiento avanzado, análisis de APIs, o bug bounty hunting real.
+</div> </div> </article> <div id="modal-misc/information-disclosure" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50" aria-hidden="true"> <div class="flex items-center justify-center min-h-screen p-4"> <div class="bg-slate-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto"> <div class="p-6 border-b border-slate-700"> <div class="flex justify-between items-start"> <div> <h2 class="text-2xl font-bold text-gray-100">Information Disclosure</h2> <div class="flex items-center gap-4 mt-2 text-sm"> <span class="capitalize bg-slate-700 px-2 py-1 rounded">ctf</span> <span class="text-cyan-400">easy</span> <span class="text-green-400 font-mono">Flag: picoCTF{information_disclosure_easy}</span> </div> </div> <button onclick="closeModal('misc/information-disclosure')" class="text-gray-400 hover:text-white">
+✕
+</button> </div> </div> <div class="p-6"> <div class="mb-6"> <h3 class="text-lg font-semibold text-cyan-400 mb-4">Pasos a Seguir</h3> <div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">1. Contexto de Bug Bounty</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">2. ¿Qué es Information Disclosure?</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">3. Fase 1: Reconocimiento Pasivo (OSINT)</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>subfinder -d target.com -o subdomains.txt
+amass enum -d target.com
+waybackurls target.com | tee wayback.txt
+gau target.com | tee gau.txt
+github-search -t &quot;target.com&quot; -s &quot;password\|api_key\|secret&quot;
+git-hound --config config.yml
+site:target.com filetype:env
+site:target.com filetype:sql
+site:target.com intitle:&quot;index of&quot;</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">4. Fase 2: Análisis Activo de la Aplicación</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>curl -s https://target.com | grep -i &quot;&lt;!--&quot;
+curl -s https://target.com | grep -i &quot;password\|secret\|key\|api&quot;
+curl -s https://target.com/robots.txt
+curl -s https://target.com/.env
+curl -s https://target.com/config.json
+curl -s https://target.com/.git/config
+curl -s https://target.com/api/swagger.json
+ffuf -u https://target.com/FUZZ -w /usr/share/wordlists/dirb/common.txt
+gobuster dir -u https://target.com -w /usr/share/wordlists/dirb/common.txt
+curl -I https://target.com | grep -i &quot;server\|x-powered\|via&quot;</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">5. Fase 3: Análisis de Metadatos</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>exiftool image.jpg | grep -i &quot;author\|copyright\|comment&quot;
+pdfinfo document.pdf
+exiftool document.pdf
+strings binary_file | grep -i &quot;password\|secret\|key&quot;</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">6. Herramientas Esenciales</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">7. Script de Reconocimiento Automatizado</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">8. Uso del Script</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>pip3 install requests
+python3 info_disclosure_scanner.py https://target.com</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">9. Casos Documentados</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">10. OWASP Top 10 Relacionados</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">11. Defensa y Mitigación</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>location ~ /\. {
+deny all;
+}
+location ~ ^/(\.env|config\.json|\.git) {
+deny all;
+}
+add_header X-Content-Type-Options nosniff;
+add_header X-Frame-Options DENY;
+server_tokens off;</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">12. Paso a Paso</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>curl -s http://example.com | grep -i &quot;&lt;!--&quot;
+curl -s http://example.com/robots.txt
+curl -s http://example.com/secret-config</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">13. Flag</h4>   </div> </div>    </div> </div> </div> </div> <script type="module">document.addEventListener("click",e=>{const t=e.target;t.classList.contains("bg-black")&&(t.classList.add("hidden"),t.setAttribute("aria-hidden","true"))});</script> </div> </main>  </body></html>

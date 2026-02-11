@@ -1,90 +1,674 @@
-<!DOCTYPE html><html lang="es"> <head><meta charset="UTF-8"><meta name="description" content="Plataforma interactiva de desafíos técnicos - Linux, Docker, DevOps, CTF"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.17.1"><title>🏆 Reto 04: Service User Creation without Home Directory - xFusionCorp Industries ✅ - Linux Challenges</title><style>.markdown-body{font-family:system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;line-height:1.8;color:#e5e7eb}.markdown-body h1{font-size:2rem;font-weight:700;color:#f97316;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid #374151}.markdown-body h2{font-size:1.5rem;font-weight:600;color:#22d3ee;margin:1.75rem 0 1rem;padding-bottom:.25rem}.markdown-body h3{font-size:1.25rem;font-weight:600;color:#a5f3fc;margin:1.5rem 0 .75rem}.markdown-body p{margin:.75rem 0;color:#d1d5db}.markdown-body strong{color:#fbbf24;font-weight:600}.markdown-body ul,.markdown-body ol{margin:.75rem 0;padding-left:1.5rem;color:#d1d5db}.markdown-body li{margin:.5rem 0;list-style-type:disc}.markdown-body table{width:100%;margin:1rem 0;border-collapse:collapse;font-size:.9rem}.markdown-body th,.markdown-body td{padding:.75rem;border:1px solid #374151;text-align:left}.markdown-body th{background:#37415180;color:#fbbf24;font-weight:600}.markdown-body td{color:#d1d5db}.markdown-body code{background:#06b6d426;color:#22d3ee;padding:.2rem .5rem;border-radius:.375rem;font-family:SF Mono,Monaco,Courier New,monospace;font-size:.875rem}.markdown-body pre{background:#0f172a;padding:1rem;border-radius:.75rem;overflow-x:auto;margin:1rem 0;border:1px solid #1e293b}.markdown-body pre code{background:transparent;padding:0;color:#a5b4fc}
-</style></head> <body class="bg-slate-900 text-gray-100 min-h-screen">   <main class="container mx-auto px-4 py-8"> <div class="max-w-4xl mx-auto"> <div class="mb-6"> <a href="/challenges/linux" class="text-cyan-400 hover:text-cyan-300">← Volver a Linux Challenges</a> </div> <article class="bg-slate-800 rounded-lg p-6 border border-slate-700"> <header class="mb-6"> <h1 class="text-3xl font-bold text-orange-400 mb-2">🏆 Reto 04: Service User Creation without Home Directory - xFusionCorp Industries ✅</h1> <div class="flex items-center gap-4 text-sm text-gray-400"> <span class="bg-orange-600 px-2 py-1 rounded text-xs">Linux</span> <span class="capitalize">medium</span> <span>2025-01-25</span> </div> </header> <pre class="markdown-body whitespace-pre-wrap"># 🏆 Reto 04: Service User Creation without Home Directory - xFusionCorp Industries ✅
+<!DOCTYPE html><html lang="es"> <head><meta charset="UTF-8"><meta name="description" content="Plataforma interactiva de desafíos técnicos - Linux, Docker, DevOps, CTF"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.17.1"><title>Reto 04: Service User Creation without Home Directory - xFusionCorp Industries - Linux Challenges</title><link rel="stylesheet" href="/_astro/_slug_.CR6T2awG.css">
+<style>@import"https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap";:root{--progress: 0%;--color-primary: 15 23 42;--color-secondary: 30 41 59;--color-text: 248 250 252;--color-muted: 148 163 184;--color-accent: 16 185 129;--color-success: 34 211 153;--color-warning: 245 158 11}[data-theme=dark]{--color-primary: 15 23 42;--color-secondary: 30 41 59;--color-text: 248 250 252;--color-muted: 148 163 184;--color-accent: 16 185 129;--color-success: 34 211 153;--color-warning: 245 158 11}[data-theme=light]{--color-primary: 248 250 252;--color-secondary: 226 232 240;--color-text: 30 41 59;--color-muted: 100 116 139;--color-accent: 16 185 129;--color-success: 34 211 153;--color-warning: 245 158 11}body{font-family:Inter,system-ui,sans-serif}::-webkit-scrollbar{width:8px}::-webkit-scrollbar-track{background:#1e293b}::-webkit-scrollbar-thumb{background:#475569;border-radius:4px}::-webkit-scrollbar-thumb:hover{background:#64748b}html{scroll-behavior:smooth}html.theme-transitioning *{transition:background-color .3s ease,border-color .3s ease,color .3s ease,box-shadow .3s ease}.theme-transition-overlay{position:fixed;inset:0;background:rgb(var(--color-primary) / .8);z-index:9999;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .2s ease}.theme-transition-overlay.active{opacity:1}.theme-toggle-ripple{position:absolute;border-radius:50%;background:currentColor;transform:scale(0);opacity:.6;pointer-events:none}.theme-toggle-ripple.animate{transform:scale(4);opacity:0;transition:all .6s cubic-bezier(.4,0,.2,1)}button:focus,a:focus{outline:2px solid rgb(var(--color-accent));outline-offset:2px}@media(max-width:768px){.animated-counter{font-size:2.5rem}}@media(prefers-reduced-motion:reduce){html.theme-transitioning *,.theme-transition-overlay,.theme-toggle-ripple.animate{transition:none}}@media print{.fixed{display:none}.bg-secondary,.bg-primary{background:#fff!important;color:#000!important}}
+.markdown-body{font-family:system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;line-height:1.8;color:#e5e7eb}.markdown-body h1{font-size:2rem;font-weight:700;color:#f97316;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid #374151}.markdown-body h2{font-size:1.5rem;font-weight:600;color:#22d3ee;margin:1.75rem 0 1rem;padding-bottom:.25rem}.markdown-body h3{font-size:1.25rem;font-weight:600;color:#a5f3fc;margin:1.5rem 0 .75rem}.markdown-body p{margin:.75rem 0;color:#d1d5db}.markdown-body strong{color:#fbbf24;font-weight:600}.markdown-body ul,.markdown-body ol{margin:.75rem 0;padding-left:1.5rem;color:#d1d5db}.markdown-body li{margin:.5rem 0;list-style-type:disc}.markdown-body table{width:100%;margin:1rem 0;border-collapse:collapse;font-size:.9rem}.markdown-body th,.markdown-body td{padding:.75rem;border:1px solid #374151;text-align:left}.markdown-body th{background:#37415180;color:#fbbf24;font-weight:600}.markdown-body td{color:#d1d5db}.markdown-body code{background:#06b6d426;color:#22d3ee;padding:.2rem .5rem;border-radius:.375rem;font-family:SF Mono,Monaco,Courier New,monospace;font-size:.875rem}.markdown-body pre{background:#0f172a;padding:1rem;border-radius:.75rem;overflow-x:auto;margin:1rem 0;border:1px solid #1e293b}.markdown-body pre code{background:transparent;padding:0;color:#a5b4fc}
+</style></head> <body class="bg-slate-900 text-gray-100 min-h-screen">   <main class="container mx-auto px-4 py-8"> <div class="max-w-4xl mx-auto"> <div class="mb-6"> <a href="/challenges/linux" class="text-cyan-400 hover:text-cyan-300">← Volver a Linux Challenges</a> </div> <article class="bg-slate-800 rounded-lg p-6 border border-slate-700"> <header class="mb-6"> <h1 class="text-3xl font-bold text-orange-400 mb-2">Reto 04: Service User Creation without Home Directory - xFusionCorp Industries</h1> <div class="flex items-center gap-4 text-sm text-gray-400"> <span class="bg-orange-600 px-2 py-1 rounded text-xs">Linux</span> <span class="capitalize">medium</span> <span>2025-01-25</span> </div> </header> <div class="prose prose-invert max-w-none"> <div class="markdown-body"><h1>Reto 04: Service User Creation without Home Directory - xFusionCorp Industries</h1>
+<h2>Usuarios de Servicio Minimalistas: La Filosofía de &quot;Solo lo Necesario&quot;</h2>
+<hr>
+<h2>🎓 Del Instructor</h2>
+<p>Bienvenido a tu cuarto desafío como SysAdmin Senior en xFusionCorp. Hoy vamos a llevar el concepto de <strong>principio del menor privilegio</strong> un paso más allá: crearemos un usuario de servicio que no solo tiene shell no-interactivo, sino que <strong>tampoco tiene directorio home</strong>.</p>
+<blockquote>
+<p>💭 <strong>Mentalidad de SysAdmin</strong>: &quot;Si un usuario de servicio no necesita almacenar archivos personales, no necesita un home directory. Cada directorio innecesario es un directorio que puede ser explotado o mal configurado.&quot;</p>
+</blockquote>
+<p>En infraestructura moderna, especialmente en contenedores y sistemas minimizados, los usuarios de servicio puros no tienen razón para tener directorios home. Son identidades puramente funcionales para procesos.</p>
+<hr>
+<h2>🎭 Escenario Real: Servicios de Aplicación en Nautilus App 2</h2>
+<p><strong>Empresa</strong>: xFusionCorp Industries<br><strong>Proyecto</strong>: Nautilus - Microservicios y Contenedores<br><strong>Servidor</strong>: App Server 2 (stapp02)<br><strong>Tu rol</strong>: Senior System Administrator - Hardening</p>
+<h3>La Problemática</h3>
+<p>El equipo de desarrollo de xFusionCorp está migrando una aplicación legacy a una arquitectura de microservicios. La aplicación necesita ejecutarse como un usuario dedicado del sistema, pero:</p>
+<ul>
+<li>No almacena archivos de configuración personales</li>
+<li>No genera logs locales (usa sistemas centralizados)</li>
+<li>No requiere espacio de trabajo personal</li>
+<li>Solo necesita acceso a directorios de aplicación específicos (<code>/opt/app/</code>)</li>
+</ul>
+<p><strong>El requerimiento del equipo de arquitectura</strong>:</p>
+<blockquote>
+<p>&quot;Create a service user without a home directory for application service management.&quot;</p>
+</blockquote>
+<h3>Contexto de Seguridad</h3>
+<p>El usuario <code>james</code> será el propietario de procesos de aplicación. Un directorio home innecesario:</p>
+<ul>
+<li>Consume espacio en disco</li>
+<li>Crea una ruta predecible (<code>/home/james</code>) que podría ser atacada</li>
+<li>Puede contener archivos de configuración .rc que se ejecutan automáticamente</li>
+<li>Aumenta la superficie de ataque sin proporcionar valor funcional</li>
+</ul>
+<h3>Infraestructura Objetivo</h3>
+<table>
+<thead>
+<tr>
+<th>Servidor</th>
+<th>IP</th>
+<th>Hostname</th>
+<th>Usuario Acceso</th>
+<th>Contraseña</th>
+<th>Propósito</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>stapp02</td>
+<td>172.16.238.11</td>
+<td>stapp02.stratos.xfusioncorp.com</td>
+<td>steve</td>
+<td>Am3ric@</td>
+<td>Nautilus App 2</td>
+</tr>
+</tbody></table>
+<h3>Requisitos Técnicos Específicos</h3>
+<ul>
+<li><strong>Usuario</strong>: <code>james</code> (estándar del equipo de desarrollo)</li>
+<li><strong>Directorio home</strong>: NO crear (<code>/dev/null</code> o especificar <code>-M</code>)</li>
+<li><strong>Shell</strong>: <code>/sbin/nologin</code> (no-interactivo)</li>
+<li><strong>Tipo</strong>: Usuario de sistema (<code>-r</code> flag)</li>
+<li><strong>UID</strong>: Asignado automáticamente en rango de sistema (998-999)</li>
+<li><strong>Propósito</strong>: Ejecución de servicios de aplicación</li>
+</ul>
+<hr>
+<h2>🧠 La Arquitectura: Usuarios sin Directorio Home</h2>
+<h3>¿Por Qué Evitar el Directorio Home?</h3>
+<h4>Problemas de Seguridad</h4>
+<pre><code class="language-bash"># Directorio home típico - RIESGOS OCULTOS:
+/home/james/
+├── .bashrc          ← Ejecutado al iniciar sesión (si la hubiera)
+├── .bash_profile    ← Podría contener backdoors
+├── .ssh/            ← Si existe, riesgo de acceso no autorizado
+│   ├── authorized_keys
+│   └── id_rsa
+├── .myconfig        ← Archivos de configuración expuestos
+└── temp/            ← Archivos temporales olvidados
+</code></pre>
+<h4>Consumo de Recursos</h4>
+<table>
+<thead>
+<tr>
+<th>Recurso</th>
+<th>Con Home Directory</th>
+<th>Sin Home Directory</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Espacio en disco</td>
+<td>~4KB mínimo + archivos</td>
+<td>0 bytes</td>
+</tr>
+<tr>
+<td>Backups</td>
+<td>Incluido en /home backup</td>
+<td>Excluido</td>
+</tr>
+<tr>
+<td>Auditoría</td>
+<td>Más rutas a monitorear</td>
+<td>Menor superficie</td>
+</tr>
+<tr>
+<td>Exploración</td>
+<td>Ruta predecible (/home/user)</td>
+<td>No hay ruta predecible</td>
+</tr>
+</tbody></table>
+<h3>Archivos de Configuración Involucrados</h3>
+<pre><code>/etc/passwd         # El campo &#39;home&#39; apunta a /home/james o /dev/null
+/etc/default/useradd # Configuración por defecto de creación de usuarios
+/etc/skel/          # Plantillas de archivos para nuevos homes (omitido con -M)
+/etc/login.defs     # Define rango de UIDs de sistema (SYS_UID_MIN)
+</code></pre>
+<h3>Flags Críticas de Useradd</h3>
+<table>
+<thead>
+<tr>
+<th>Flag</th>
+<th>Nombre</th>
+<th>Propósito</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>-r</code></td>
+<td>--system</td>
+<td>Crea usuario de sistema (UID &lt; 1000)</td>
+</tr>
+<tr>
+<td><code>-M</code></td>
+<td>--no-create-home</td>
+<td>NO crea directorio home</td>
+</tr>
+<tr>
+<td><code>-s</code></td>
+<td>--shell</td>
+<td>Especifica shell (usamos /sbin/nologin)</td>
+</tr>
+<tr>
+<td><code>-d</code></td>
+<td>--home-dir</td>
+<td>Especifica directorio home alternativo</td>
+</tr>
+</tbody></table>
+<h3>Tipos de Usuarios en Linux</h3>
+<pre><code>Usuarios Normales:
+  UID: 1000-60000
+  Home: /home/username
+  Shell: /bin/bash
+  Uso: Personas físicas
 
-## 🎯 Objetivo del Reto
-
-Crear un usuario de servicio sin directorio home según especificaciones de seguridad:
-
-**Create a service user without a home directory for application service management.**
-
-## 🖥️ Servidor Objetivo (Actualizado)
-
-| Servidor | IP | Hostname | Usuario | Contraseña | Propósito |
-|----------|----|-----------|--------|-------------|-----------|
-| **stapp02** | **172.16.238.11** | **stapp02.stratos.xfusioncorp.com** | **steve** | **Am3ric@** | **Nautilus App 2** |
-
-## 📋 Requisitos Técnicos (Actualizados)
-
-- **Usuario**: **james** (especificaciones reales del reto)
-- **Directorio home**: No crear (/dev/null o especificar -M)
-- **Shell**: /sbin/nologin (no-interactivo)
-- **Servidor**: App Server 2 (stapp02)
-- **Propósito**: Usuario para ejecución de servicios del sistema
-- **UID**: 998 (asignado automáticamente)
-
-## 🚀 Estrategia de Implementación Exitosa
-
-### ✅ Comandos Clave Correctos
-
-```bash
-# 1. Conexión al servidor
-ssh thor@jump_host.stratos.xfusioncorp.com
+Usuarios de Sistema:
+  UID: 1-999 (SYS_UID_MIN a SYS_UID_MAX)
+  Home: /dev/null, /nonexistent, o omitido
+  Shell: /sbin/nologin, /bin/false
+  Uso: Procesos y servicios
+</code></pre>
+<h3>Analogía: Funcionario vs. Robot de Fábrica</h3>
+<ul>
+<li><strong>Usuario normal con home</strong>: Funcionario de oficina que necesita un escritorio, archivador y espacio personal para trabajar</li>
+<li><strong>Usuario de servicio sin home</strong>: Robot de fábrica que solo necesita estar conectado a la línea de producción - no necesita oficina, ni escritorio, ni archivador</li>
+</ul>
+<p>El robot <code>james</code> &quot;trabaja&quot; en <code>/opt/app/</code> (la línea de producción), no necesita espacio personal.</p>
+<hr>
+<h2>🛠️ Implementación Profesional</h2>
+<h3>Fase 1: Verificación Pre-Implementación</h3>
+<h4>1.1 Acceso al Sistema</h4>
+<pre><code class="language-bash"># Conexión al servidor objetivo
 ssh steve@172.16.238.11
+sudo su -
+</code></pre>
+<h4>1.2 Verificar Configuración del Sistema</h4>
+<pre><code class="language-bash"># Verificar rango de UIDs de sistema
+grep SYS_UID /etc/login.defs
+# Salida típica:
+# SYS_UID_MIN               201
+# SYS_UID_MAX               999
 
-# 2. Creación CORRECTA del usuario sin directorio home
+# Verificar qué shell usar
+ls -la /sbin/nologin
+# Si no existe: ls -la /bin/false
+
+# Verificar si el usuario ya existe
+id james
+getent passwd james
+ls -la /home/james 2&gt;&amp;1
+</code></pre>
+<blockquote>
+<p>⚠️ <strong>Advertencia</strong>: El flag <code>-r</code> (system user) asigna un UID en el rango 201-999 automáticamente. Nunca mezcles usuarios de sistema con usuarios regulares.</p>
+</blockquote>
+<h3>Fase 2: Creación del Usuario james</h3>
+<h4>2.1 Crear Usuario sin Directorio Home</h4>
+<pre><code class="language-bash"># Comando CORRECTO y COMPLETO
 sudo useradd -r -s /sbin/nologin -M james
+
+# Análisis detallado de flags:
+# -r              → Usuario de sistema (UID bajo: 998, 999, etc.)
+# -s /sbin/nologin → Shell no-interactivo
+# -M              → NO crear directorio home (¡crítico!)
+# james           → Nombre de usuario
+
+# Orden importante: Los flags pueden ir en cualquier orden,
+# pero -M debe estar presente para evitar creación de home
+</code></pre>
+<blockquote>
+<p>💡 <strong>Nota técnica</strong>: El orden de los flags no importa, pero si olvidas <code>-M</code>, el sistema creará automáticamente <code>/home/james</code> porque es el comportamiento por defecto.</p>
+</blockquote>
+<h4>2.2 Verificación Inmediata</h4>
+<pre><code class="language-bash"># Verificar entrada en /etc/passwd
+grep james /etc/passwd
+# Salida esperada: james:x:998:998::/home/james:/sbin/nologin
+#
+# Observa: Aún muestra /home/james en el campo home,
+# pero el directorio NO existe físicamente (-M lo evita)
+
+# Verificar UID (debe ser bajo - sistema)
+id james
+# Salida esperada: uid=998(james) gid=998(james) groups=998(james)
+
+# Verificar que home NO existe
+ls -la /home/ | grep james
+# Debe retornar vacío (sin resultados)
+
+ls -la /home/james
+# Debe mostrar: ls: cannot access &#39;/home/james&#39;: No such file or directory
+</code></pre>
+<h3>Fase 3: Limpieza y Configuración Adicional</h3>
+<h4>3.1 Si el Directorio Home Fue Creado por Error</h4>
+<pre><code class="language-bash"># Si accidentalmente se creó el directorio (olvidaste -M)
+# o si alguien lo creó manualmente:
+
+# Verificar existencia
+ls -la /home/james
+
+# Si existe, eliminarlo:
+sudo rm -rf /home/james
+
+# Verificar eliminación
+ls -la /home/ | grep james  # Debe estar vacío
+</code></pre>
+<blockquote>
+<p>⚠️ <strong>Precaución</strong>: Nunca uses <code>rm -rf</code> sin verificar primero que estás eliminando el directorio correcto.</p>
+</blockquote>
+<h4>3.2 Establecer Contraseña (Recomendado)</h4>
+<pre><code class="language-bash"># Aunque no puede iniciar sesión, debe tener contraseña
+# para cumplir políticas de seguridad
+passwd james
+
+# Ingresar contraseña segura cuando se solicite
+</code></pre>
+<h4>3.3 Verificación Doble: /etc/passwd vs Realidad</h4>
+<pre><code class="language-bash"># Paso crítico: Verificar coherencia entre configuración y sistema
+
+echo &quot;=== Verificación en /etc/passwd ===&quot;
+grep james /etc/passwd
+
+echo &quot;&quot;
+echo &quot;=== Verificación física del directorio ===&quot;
+ls -ld /home/james 2&gt;&amp;1 || echo &quot;✓ Directorio no existe (correcto)&quot;
+
+echo &quot;&quot;
+echo &quot;=== Verificación de espacio usado ===&quot;
+id james
+</code></pre>
+<h3>Fase 4: Documentación del Usuario</h3>
+<h4>4.1 Agregar Comentario Descriptivo</h4>
+<pre><code class="language-bash"># Agregar propósito del usuario en GECOS
+usermod -c &quot;Application Service Account - No Home Required&quot; james
+
+# Verificar
+grep james /etc/passwd
+# Ahora muestra: james:x:998:998:Application Service Account - No Home Required:/home/james:/sbin/nologin
+</code></pre>
+<h3>Resumen de Comandos Exitosos</h3>
+<pre><code class="language-bash"># SECUENCIA COMPLETA Y CORRECTA
+
+# 1. Verificación inicial
+id james
+getent passwd james
+
+# 2. Creación del usuario sin directorio home
+useradd -r -s /sbin/nologin -M james
 
 # 3. Verificación crítica del directorio home
 ls -la /home/ | grep james  # Debe mostrar vacío
 
-# 4. Si existe directorio home, eliminar manualmente
-sudo rm -rf /home/james
+# 4. Si existe directorio home (por error), eliminar manualmente
+rm -rf /home/james  # Solo si es necesario
 
-# 5. Verificación final
+# 5. Establecer contraseña
+passwd james
+
+# 6. Agregar descripción
+usermod -c &quot;Application Service Account&quot; james
+
+# 7. Verificación final exhaustiva
 grep james /etc/passwd
-# james:x:998:998::/home/james:/sbin/nologin
-```
+id james
+ls -la /home/james 2&gt;&amp;1
+</code></pre>
+<hr>
+<h2>🎯 Análisis Post-Implementación: Lo Que Acabas de Construir</h2>
+<h3>Arquitectura Implementada</h3>
+<pre><code>┌─────────────────────────────────────────────────────────┐
+│                    stapp02                              │
+│           Nautilus App Server 2                         │
+├─────────────────────────────────────────────────────────┤
+│                                                         │
+│  ┌─────────────────────────────────────────────────┐   │
+│  │            Usuario: james                        │   │
+│  │            TIPO: Sistema (UID 998)               │   │
+│  ├─────────────────────────────────────────────────┤   │
+│  │                                                  │   │
+│  │  Configuración en /etc/passwd:                   │   │
+│  │  james:x:998:998::/home/james:/sbin/nologin     │   │
+│  │       │   │  │  │       │            │           │   │
+│  │       │   │  │  │       │            └── Shell:  │   │
+│  │       │   │  │  │       │               nologin │   │
+│  │       │   │  │  │       │                       │   │
+│  │       │   │  │  │       └── Home REFERENCIA:    │   │
+│  │       │   │  │  │          /home/james          │   │
+│  │       │   │  │  │          (NO EXISTE físico)   │   │
+│  │       │   │  │  │                               │   │
+│  │       │   │  │  └── GID: 998 (sistema)          │   │
+│  │       │   │  └──── UID: 998 (sistema)           │   │
+│  │       │   └─────── Password: x (en shadow)      │   │
+│  │       └─────────── Username: james              │   │
+│  │                                                  │   │
+│  │  📁 En disco:                                    │   │
+│  │     /home/james → NO EXISTE ✓                   │   │
+│  │                                                  │   │
+│  │  🔒 Seguridad:                                   │   │
+│  │     • No puede iniciar sesión                   │   │
+│  │     • No tiene espacio personal                 │   │
+│  │     • Solo para ejecución de procesos          │   │
+│  │                                                  │   │
+│  └─────────────────────────────────────────────────┘   │
+│                                                         │
+└─────────────────────────────────────────────────────────┘
+</code></pre>
+<h3>Diferencias Clave: Con vs Sin Home Directory</h3>
+<table>
+<thead>
+<tr>
+<th>Aspecto</th>
+<th>Usuario Normal</th>
+<th>Usuario james (sin home)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>UID</td>
+<td>1000+</td>
+<td>998 (sistema)</td>
+</tr>
+<tr>
+<td>Home en /etc/passwd</td>
+<td>/home/username</td>
+<td>/home/james (referencia)</td>
+</tr>
+<tr>
+<td>Home físico</td>
+<td>✅ Existe</td>
+<td>❌ NO existe</td>
+</tr>
+<tr>
+<td>Shell</td>
+<td>/bin/bash</td>
+<td>/sbin/nologin</td>
+</tr>
+<tr>
+<td>Uso típico</td>
+<td>Personas</td>
+<td>Procesos/servicios</td>
+</tr>
+<tr>
+<td>Espacio usado</td>
+<td>~4KB+</td>
+<td>0 bytes</td>
+</tr>
+<tr>
+<td>Backups</td>
+<td>Incluido</td>
+<td>Excluido</td>
+</tr>
+</tbody></table>
+<h3>Checklist de Verificación Final</h3>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> Usuario <code>james</code> creado con UID de sistema (bajo 1000)</li>
+<li><input checked="" disabled="" type="checkbox"> Shell configurada como <code>/sbin/nologin</code></li>
+<li><input checked="" disabled="" type="checkbox"> Directorio home NO creado físicamente</li>
+<li><input checked="" disabled="" type="checkbox"> Verificación dual: <code>/etc/passwd</code> + <code>ls -la /home/</code></li>
+<li><input checked="" disabled="" type="checkbox"> Contraseña establecida (política de seguridad)</li>
+<li><input checked="" disabled="" type="checkbox"> Documentación GECOS agregada</li>
+<li><input checked="" disabled="" type="checkbox"> Usuario listo para ejecución de servicios</li>
+</ul>
+<hr>
+<h2>🎓 Reflexión Final: Mentalidad Desarrollada</h2>
+<h3>La Filosofía del Mínimo Necesario</h3>
+<blockquote>
+<p>&quot;Si no lo necesitas, no lo crees. Si ya existe y no lo necesitas, elimínalo.&quot;</p>
+</blockquote>
+<p>Este reto ilustra un principio fundamental de hardening:</p>
+<ul>
+<li><strong>Sin home directory</strong>: Menos superficie de ataque</li>
+<li><strong>Sin shell interactivo</strong>: No puede ser usado para exploración</li>
+<li><strong>UID de sistema</strong>: Claramente identificado como no-humano</li>
+<li><strong>Sin archivos personales</strong>: Nada que exfiltrar o corromper</li>
+</ul>
+<h3>Errores Comunes y Prevención</h3>
+<h4>Error #1: Olvidar el flag <code>-M</code></h4>
+<pre><code class="language-bash"># ❌ INCORRECTO - Crea directorio home
+useradd -r -s /sbin/nologin james
 
-### ⚠️ Errores Comunes y Soluciones
+# ✅ CORRECTO - Sin directorio home
+useradd -r -s /sbin/nologin -M james
+</code></pre>
+<h4>Error #2: No Verificar Físicamente</h4>
+<pre><code class="language-bash"># ❌ INSUFICIENTE - Solo verifica /etc/passwd
+grep james /etc/passwd
 
-| Error | Problema | Solución ✅ |
-|-------|----------|-------------|
-| `useradd -r -s` sin `-M` | Crea directorio home en `/home/usuario` | **Siempre usar `-M` explícitamente** |
-| No verificar `/home/` físicamente | `/etc/passwd` puede mostrar home pero no existe | **Verificar doble: `/etc/passwd` + `ls -la /home/`** |
-| Orden incorrecta de flags | Algunos sistemas requieren orden específica | **Usar: `-r -s /sbin/nologin -M`** |
+# ✅ COMPLETO - Verificación dual
+grep james /etc/passwd
+ls -la /home/ | grep james  # Debe estar vacío
+</code></pre>
+<h4>Error #3: Confundir Referencia con Existencia</h4>
+<pre><code class="language-bash"># /etc/passwd muestra /home/james, pero eso NO significa que exista
+# Es solo una referencia - el flag -M previene la creación física
+</code></pre>
+<h3>Cuándo Usar Usuarios Sin Home</h3>
+<pre><code class="language-bash"># ✅ USAR usuarios sin home para:
+# - Servicios de aplicación
+# - Procesos de backup
+# - Daemons del sistema
+# - Contenedores / microservicios
+# - Cron jobs específicos
 
-## 🎯 Resultados Obtenidos
+# ❌ NO usar para:
+# - Usuarios humanos (necesitan ~/.bashrc, etc.)
+# - Cuentas de desarrollo
+# - Usuarios que ejecutan aplicaciones interactivas
+# - Cuentas administrativas
+</code></pre>
+<hr>
+<h2>🚀 Siguientes Pasos</h2>
+<h3>Retos Relacionados</h3>
+<ul>
+<li><strong>Reto 03</strong>: Usuario con Shell No-Interactivo - Fundamentos de seguridad</li>
+<li><strong>Reto 05</strong>: Usuario Temporal con Expiración - Control de tiempo de vida</li>
+<li><strong>Reto 09</strong>: Permisos de Scripts - Aplicar usuarios a archivos ejecutables</li>
+</ul>
+<h3>Implementación en Producción</h3>
+<ol>
+<li><p><strong>Asignar a Proceso</strong>:</p>
+<pre><code class="language-bash"># Configurar servicio systemd para ejecutar como james
+# /etc/systemd/system/myservice.service
+[Service]
+User=james
+Group=james
+ExecStart=/opt/app/start.sh
+</code></pre>
+</li>
+<li><p><strong>Permisos de Directorios</strong>:</p>
+<pre><code class="language-bash"># Asegurar acceso solo a lo necesario
+chown -R james:james /opt/app/
+chmod 750 /opt/app/
 
-- ✅ Usuario james creado sin directorio home
-- ✅ Shell configurada como /sbin/nologin
-- ✅ Login interactivo bloqueado correctamente
-- ✅ Usuario disponible para ejecución de servicios
+# Sin acceso a /tmp innecesario
+# Sin acceso a otros directorios del sistema
+</code></pre>
+</li>
+<li><p><strong>Monitoreo</strong>:</p>
+<pre><code class="language-bash"># Ver procesos ejecutándose como james
+ps -u james -o pid,ppid,cmd,etime
 
-## 🏅 Estado del Reto
+# Auditar actividad
+ausearch -ua james -ts recent
+</code></pre>
+</li>
+</ol>
+<h3>Comandos Avanzados</h3>
+<pre><code class="language-bash"># Buscar todos los usuarios de sistema sin home
+awk -F: &#39;$3 &lt; 1000 &amp;&amp; $6 != &quot;/&quot; {print $1, $6}&#39; /etc/passwd
 
-**✅ COMPLETADO CON ÉXITO** - Usuario james creado en App Server 2
+# Encontrar usuarios con home que no deberían tenerlo
+for user in $(awk -F: &#39;$3 &lt; 1000 {print $1}&#39; /etc/passwd); do
+  if [ -d &quot;/home/$user&quot; ]; then
+    echo &quot;⚠️ Usuario sistema con home: $user&quot;
+  fi
+done
 
-*Fecha de finalización: 25 de Enero de 2026*  
-*Tiempo de ejecución: ~15 minutos*  
-*Dificultad: Básica*  
-
-### 📚 Lecciones Clave
-
-1. **🔍 Verificación Dual**: Siempre verificar `/etc/passwd` Y `/home/`
-2. **🛠️ Orden de Flags**: `-r -s /sbin/nologin -M` (orden específico)
-3. **🧹 Limpieza Manual**: Si algo falla, eliminar y recrear completamente
-4. **📝 Documentación Real**: Registrar tanto lo planeado como lo ejecutado
-
----
-
-**🔗 Implementación completa:** [[stapp02-james-implementacion|Ver ejecución detallada]]</pre> </article> <div id="modal-04-usuario-sin-home" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50" aria-hidden="true"> <div class="flex items-center justify-center min-h-screen p-4"> <div class="bg-slate-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto"> <div class="p-6 border-b border-slate-700"> <div class="flex justify-between items-start"> <div> <h2 class="text-2xl font-bold text-gray-100">🏆 Reto 04: Service User Creation without Home Directory - xFusionCorp Industries ✅</h2> <div class="flex items-center gap-4 mt-2 text-sm"> <span class="capitalize bg-slate-700 px-2 py-1 rounded">linux</span> <span class="text-cyan-400">medium</span>  </div> </div> <button onclick="closeModal('04-usuario-sin-home')" class="text-gray-400 hover:text-white">
+# Convertir usuario existente a &quot;sin home&quot;
+usermod -d /dev/null -M usuario_existente  # -M no funciona con usermod
+# Alternativa: usermod -d /nonexistent usuario_existente
+</code></pre>
+<hr>
+<h2>📚 Recursos y Referencias</h2>
+<h3>Documentación Oficial</h3>
+<ul>
+<li><a href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/configuring_basic_system_settings/assembly_managing-users-and-groups_configuring-basic-system-settings">Linux System Users - Red Hat</a></li>
+<li><a href="https://man.archlinux.org/man/useradd.8">Useradd Manual - Arch Linux</a></li>
+<li><a href="https://man7.org/linux/man-pages/man5/login.defs.5.html">Login.defs Configuration</a></li>
+</ul>
+<h3>Tabla de Referencia Rápida</h3>
+<table>
+<thead>
+<tr>
+<th>Comando</th>
+<th>Propósito</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>useradd -r -M user</code></td>
+<td>Usuario sistema sin home</td>
+</tr>
+<tr>
+<td><code>useradd -r user</code></td>
+<td>Usuario sistema CON home</td>
+</tr>
+<tr>
+<td><code>useradd -M user</code></td>
+<td>Usuario normal sin home</td>
+</tr>
+<tr>
+<td><code>id username</code></td>
+<td>Verificar UID/GID</td>
+</tr>
+<tr>
+<td><code>getent passwd user</code></td>
+<td>Verificar entrada en passwd</td>
+</tr>
+</tbody></table>
+<h3>Troubleshooting</h3>
+<table>
+<thead>
+<tr>
+<th>Síntoma</th>
+<th>Causa</th>
+<th>Solución</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&quot;useradd: user &#39;james&#39; already exists&quot;</td>
+<td>Usuario existe</td>
+<td>Usar <code>id james</code> para verificar primero</td>
+</tr>
+<tr>
+<td>Home creado a pesar de <code>-M</code></td>
+<td>Orden de flags</td>
+<td>Verificar: <code>useradd -r -M -s /sbin/nologin james</code></td>
+</tr>
+<tr>
+<td>UID alto (&gt;1000)</td>
+<td>Olvidaste <code>-r</code></td>
+<td>Eliminar y recrear con <code>-r</code></td>
+</tr>
+<tr>
+<td>Servicio no inicia como james</td>
+<td>Permisos</td>
+<td>Verificar <code>chown</code> en directorios de aplicación</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>✅ Estado del Reto</h2>
+<p><strong>✅ COMPLETADO CON ÉXITO</strong> - Usuario james creado en App Server 2</p>
+<ul>
+<li>📅 Fecha de finalización: 2025-01-25</li>
+<li>⏱️ Tiempo de ejecución: ~15 minutos</li>
+<li>🎯 Dificultad: Media</li>
+<li>🖥️ Servidor: stapp02 (172.16.238.11)</li>
+<li>👤 Usuario: james (UID 998)</li>
+</ul>
+<h3>Métricas de Éxito</h3>
+<p>✅ Usuario <code>james</code> creado sin directorio home físico<br>✅ Shell configurada como <code>/sbin/nologin</code><br>✅ UID de sistema asignado (998)<br>✅ Login interactivo bloqueado<br>✅ Verificación dual exitosa (<code>/etc/passwd</code> + <code>ls -la /home/</code>)<br>✅ Documentación completa del propósito</p>
+<h3>Lecciones Clave del Reto</h3>
+<ol>
+<li><strong>🔍 Verificación Dual</strong>: Siempre verificar <code>/etc/passwd</code> Y <code>/home/</code> físicamente</li>
+<li><strong>🛠️ Flag Crítico <code>-M</code></strong>: Sin él, se crea home automáticamente</li>
+<li><strong>🧹 Limpieza Manual</strong>: Si algo falla, eliminar y recrear es más seguro que &quot;arreglar&quot;</li>
+<li><strong>📝 Documentación Real</strong>: El campo GECOS documenta el propósito</li>
+</ol>
+<hr>
+<p><em>Documentación creada siguiendo estándares de SysAdmin - Principio del Mínimo Necesario</em></p>
+</div> </div> </article> <div id="modal-04-usuario-sin-home" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50" aria-hidden="true"> <div class="flex items-center justify-center min-h-screen p-4"> <div class="bg-slate-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto"> <div class="p-6 border-b border-slate-700"> <div class="flex justify-between items-start"> <div> <h2 class="text-2xl font-bold text-gray-100">Reto 04: Service User Creation without Home Directory - xFusionCorp Industries</h2> <div class="flex items-center gap-4 mt-2 text-sm"> <span class="capitalize bg-slate-700 px-2 py-1 rounded">linux</span> <span class="text-cyan-400">medium</span>  </div> </div> <button onclick="closeModal('04-usuario-sin-home')" class="text-gray-400 hover:text-white">
 ✕
-</button> </div> </div> <div class="p-6"> <div class="mb-6"> <h3 class="text-lg font-semibold text-cyan-400 mb-4">Pasos a Seguir</h3> <div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">1. ✅ Comandos Clave Correctos</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+</button> </div> </div> <div class="p-6"> <div class="mb-6"> <h3 class="text-lg font-semibold text-cyan-400 mb-4">Pasos a Seguir</h3> <div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">1. La Problemática</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">2. Contexto de Seguridad</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">3. Infraestructura Objetivo</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">4. Requisitos Técnicos Específicos</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">5. ¿Por Qué Evitar el Directorio Home?</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">6. Problemas de Seguridad</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
 
-                    <code>ssh thor@jump_host.stratos.xfusioncorp.com
-ssh steve@172.16.238.11
-sudo useradd -r -s /sbin/nologin -M james
-ls -la /home/ | grep james  # Debe mostrar vacío
+                    <code>/home/james/
+├── .bashrc          ← Ejecutado al iniciar sesión (si la hubiera)
+├── .bash_profile    ← Podría contener backdoors
+├── .ssh/            ← Si existe, riesgo de acceso no autorizado
+│   ├── authorized_keys
+│   └── id_rsa
+├── .myconfig        ← Archivos de configuración expuestos
+└── temp/            ← Archivos temporales olvidados</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">7. Consumo de Recursos</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">8. Archivos de Configuración Involucrados</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">9. Flags Críticas de Useradd</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">10. Tipos de Usuarios en Linux</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">11. Analogía: Funcionario vs. Robot de Fábrica</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">12. Fase 1: Verificación Pre-Implementación</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">13. 1 Acceso al Sistema</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>ssh steve@172.16.238.11
+sudo su -</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">14. 2 Verificar Configuración del Sistema</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>grep SYS_UID /etc/login.defs
+ls -la /sbin/nologin
+id james
+getent passwd james
+ls -la /home/james 2&gt;&amp;1</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">15. Fase 2: Creación del Usuario james</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">16. 1 Crear Usuario sin Directorio Home</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>sudo useradd -r -s /sbin/nologin -M james</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">17. 2 Verificación Inmediata</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>grep james /etc/passwd
+id james
+ls -la /home/ | grep james
+ls -la /home/james</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">18. Fase 3: Limpieza y Configuración Adicional</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">19. 1 Si el Directorio Home Fue Creado por Error</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>ls -la /home/james
 sudo rm -rf /home/james
+ls -la /home/ | grep james  # Debe estar vacío</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">20. 2 Establecer Contraseña (Recomendado)</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>passwd james</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">21. 3 Verificación Doble: /etc/passwd vs Realidad</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>echo &quot;=== Verificación en /etc/passwd ===&quot;
+grep james /etc/passwd
+echo &quot;&quot;
+echo &quot;=== Verificación física del directorio ===&quot;
+ls -ld /home/james 2&gt;&amp;1 || echo &quot;✓ Directorio no existe (correcto)&quot;
+echo &quot;&quot;
+echo &quot;=== Verificación de espacio usado ===&quot;
+id james</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">22. Fase 4: Documentación del Usuario</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">23. 1 Agregar Comentario Descriptivo</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>usermod -c &quot;Application Service Account - No Home Required&quot; james
 grep james /etc/passwd</code>
-                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">2. ⚠️ Errores Comunes y Soluciones</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">3. 📚 Lecciones Clave</h4>   </div> </div>    </div> </div> </div> </div> <script type="module">document.addEventListener("click",e=>{const t=e.target;t.classList.contains("bg-black")&&(t.classList.add("hidden"),t.setAttribute("aria-hidden","true"))});</script> </div> </main>  </body></html>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">24. Resumen de Comandos Exitosos</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>id james
+getent passwd james
+useradd -r -s /sbin/nologin -M james
+ls -la /home/ | grep james  # Debe mostrar vacío
+rm -rf /home/james  # Solo si es necesario
+passwd james
+usermod -c &quot;Application Service Account&quot; james
+grep james /etc/passwd
+id james
+ls -la /home/james 2&gt;&amp;1</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">25. Arquitectura Implementada</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">26. Diferencias Clave: Con vs Sin Home Directory</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">27. Checklist de Verificación Final</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">28. La Filosofía del Mínimo Necesario</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">29. Errores Comunes y Prevención</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">30. Error #1: Olvidar el flag `-M`</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>useradd -r -s /sbin/nologin james
+useradd -r -s /sbin/nologin -M james</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">31. Error #2: No Verificar Físicamente</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>grep james /etc/passwd
+grep james /etc/passwd
+ls -la /home/ | grep james  # Debe estar vacío</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">32. Error #3: Confundir Referencia con Existencia</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">33. Cuándo Usar Usuarios Sin Home</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">34. Retos Relacionados</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">35. Implementación en Producción</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>[Service]
+User=james
+Group=james
+ExecStart=/opt/app/start.sh</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">36. Comandos Avanzados</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>awk -F: &#39;$3 &lt; 1000 &amp;&amp; $6 != &quot;/&quot; {print $1, $6}&#39; /etc/passwd
+for user in $(awk -F: &#39;$3 &lt; 1000 {print $1}&#39; /etc/passwd); do
+if [ -d &quot;/home/$user&quot; ]; then
+echo &quot;⚠️ Usuario sistema con home: $user&quot;
+fi
+done
+usermod -d /dev/null -M usuario_existente  # -M no funciona con usermod</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">37. Documentación Oficial</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">38. Tabla de Referencia Rápida</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">39. Troubleshooting</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">40. Métricas de Éxito</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">41. Lecciones Clave del Reto</h4>   </div> </div>    </div> </div> </div> </div> <script type="module">document.addEventListener("click",e=>{const t=e.target;t.classList.contains("bg-black")&&(t.classList.add("hidden"),t.setAttribute("aria-hidden","true"))});</script> </div> </main>  </body></html>

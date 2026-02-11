@@ -1,145 +1,127 @@
-<!DOCTYPE html><html lang="es"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="HTB Academy - Nmap Default"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><title>HTB Academy - Nmap Default | HTB Challenge</title><style>.markdown-body{font-family:system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;line-height:1.8;color:#e5e7eb}.markdown-body h1{font-size:2rem;font-weight:700;color:#f97316;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid #374151}.markdown-body h2{font-size:1.5rem;font-weight:600;color:#22d3ee;margin:1.75rem 0 1rem;padding-bottom:.25rem}.markdown-body h3{font-size:1.25rem;font-weight:600;color:#a5f3fc;margin:1.5rem 0 .75rem}.markdown-body p{margin:.75rem 0;color:#d1d5db}.markdown-body strong{color:#fbbf24;font-weight:600}.markdown-body ul,.markdown-body ol{margin:.75rem 0;padding-left:1.5rem;color:#d1d5db}.markdown-body li{margin:.5rem 0;list-style-type:disc}.markdown-body table{width:100%;margin:1rem 0;border-collapse:collapse;font-size:.9rem}.markdown-body th,.markdown-body td{padding:.75rem;border:1px solid #374151;text-align:left}.markdown-body th{background:#37415180;color:#fbbf24;font-weight:600}.markdown-body td{color:#d1d5db}.markdown-body code{background:#06b6d426;color:#22d3ee;padding:.2rem .5rem;border-radius:.375rem;font-family:SF Mono,Monaco,Courier New,monospace;font-size:.875rem}.markdown-body pre{background:#0f172a;padding:1rem;border-radius:.75rem;overflow-x:auto;margin:1rem 0;border:1px solid #1e293b}.markdown-body pre code{background:transparent;padding:0;color:#a5b4fc}
+<!DOCTYPE html><html lang="es"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="HTB Academy - Nmap Default"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><title>HTB Academy - Nmap Default | HTB Challenge</title><link rel="stylesheet" href="/_astro/_slug_.CR6T2awG.css">
+<style>.markdown-body{font-family:system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;line-height:1.8;color:#e5e7eb}.markdown-body h1{font-size:2rem;font-weight:700;color:#f97316;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid #374151}.markdown-body h2{font-size:1.5rem;font-weight:600;color:#22d3ee;margin:1.75rem 0 1rem;padding-bottom:.25rem}.markdown-body h3{font-size:1.25rem;font-weight:600;color:#a5f3fc;margin:1.5rem 0 .75rem}.markdown-body p{margin:.75rem 0;color:#d1d5db}.markdown-body strong{color:#fbbf24;font-weight:600}.markdown-body ul,.markdown-body ol{margin:.75rem 0;padding-left:1.5rem;color:#d1d5db}.markdown-body li{margin:.5rem 0;list-style-type:disc}.markdown-body table{width:100%;margin:1rem 0;border-collapse:collapse;font-size:.9rem}.markdown-body th,.markdown-body td{padding:.75rem;border:1px solid #374151;text-align:left}.markdown-body th{background:#37415180;color:#fbbf24;font-weight:600}.markdown-body td{color:#d1d5db}.markdown-body code{background:#06b6d426;color:#22d3ee;padding:.2rem .5rem;border-radius:.375rem;font-family:SF Mono,Monaco,Courier New,monospace;font-size:.875rem}.markdown-body pre{background:#0f172a;padding:1rem;border-radius:.75rem;overflow-x:auto;margin:1rem 0;border:1px solid #1e293b}.markdown-body pre code{background:transparent;padding:0;color:#a5b4fc}
 </style></head> <body class="bg-dark-bg text-gray-100 min-h-screen"> <header class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 border-b border-dark-border"> <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4"> <a href="/challenges/htb" class="flex items-center space-x-3 text-gray-400 hover:text-white transition-colors"> <span class="text-2xl">←</span> <span>Volver a HTB Challenges</span> </a> </nav> <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12"> <div class="flex items-center space-x-4 mb-4"> <span class="px-4 py-2 bg-gradient-to-r from-green-500 to-teal-600 rounded-full text-lg font-bold text-white">
 🎯
-</span> <span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">✅ Completado</span> <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">⭐ easy</span> <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">HTB</span> </div> <h1 class="text-4xl font-bold text-white mb-2">HTB Academy - Nmap Default</h1> <p class="text-gray-400">HTB Challenge</p> </div> </header> <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12"> <article class="prose prose-invert max-w-none"> <div class="bg-dark-card rounded-xl border border-dark-border p-8"> <div class="mb-6 p-4 bg-red-500/10 border border-red-500/30 rounded-lg"> <p class="text-red-400 text-sm font-bold mb-2">🏴 Flag</p> <code class="text-red-300 font-mono text-lg">HTB{pr0F7pDv3r510nb4nn3r}</code> </div> <div class="flex flex-wrap gap-2 mb-6"> <span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#nmap</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#enumeration</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#htb-academy</span> </div> <pre class="markdown-body whitespace-pre-wrap"># 🎓 HTB Academy - Nmap Default
-
-## 🎭 Enumeración Básica con Nmap
-
----
-
-👨‍🏫 **Del Instructor**: Bienvenido a tu primer reto de Hack The Box Academy. Como Ethical Hacker, la enumeración es el primer paso crítico en cualquier pentest. Hoy exploraremos el uso fundamental de Nmap para mapear puertos y servicios en un objetivo simulado.
-
-&gt; 🎯 **Mentalidad de Hacker**: &quot;Nada es lo que parece. Cada puerto abierto cuenta una historia sobre el sistema objetivo. Piensa como un detective: recopila pistas sistemáticamente antes de actuar.&quot;
-
----
-
-## 🎭 El Escenario: Investigación de Red Corporativa
-
-Imagina que eres un consultor de ciberseguridad contratado por una empresa para auditar su red interna. Has recibido una IP objetivo (10.129.43.41) de un servidor Linux Ubuntu que supuestamente debería estar protegido. Tu misión es identificar todos los servicios expuestos y recopilar información crítica sobre el host.
-
-**Tu misión como Ethical Hacker**:
-
-- Descubrir todos los puertos TCP abiertos en el objetivo
-- Enumerar el nombre del host (hostname) de manera precisa
-- Documentar cada hallazgo con explicaciones técnicas
-
-## 🧠 Fundamentos de Análisis: Nmap como Herramienta de Reconocimiento
-
-Nmap (Network Mapper) es el escáner de puertos más poderoso y versátil disponible. Sus capacidades van más allá del simple escaneo de puertos:
-
-- **Escaneo de Puertos**: Identifica qué puertos están abiertos, cerrados o filtrados
-- **Detección de Servicios**: Intenta determinar qué servicios corren en cada puerto
-- **Detección de OS**: Analiza respuestas para identificar el sistema operativo
-- **Version Scanning**: Obtiene versiones exactas de servicios y software
-
-En un entorno real, esta información es crucial para:
-
-- Identificar vectores de ataque potenciales
-- Planificar estrategias de explotación
-- Evaluar la superficie de ataque del objetivo
-
-## 🔍 Metodología de Investigación: Enfoque Sistemático de Enumeración
-
-### Paso 1: Preparación del Entorno
-
-Primero, conectémonos al laboratorio de HTB Academy:
-
-```bash
-# Conectar a la VPN de HTB
+</span> <span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">✅ Completado</span> <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">⭐ easy</span> <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">HTB</span> </div> <h1 class="text-4xl font-bold text-white mb-2">HTB Academy - Nmap Default</h1> <p class="text-gray-400">HTB Challenge</p> </div> </header> <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12"> <article class="prose prose-invert max-w-none"> <div class="bg-dark-card rounded-xl border border-dark-border p-8"> <div class="mb-6 p-4 bg-red-500/10 border border-red-500/30 rounded-lg"> <p class="text-red-400 text-sm font-bold mb-2">🏴 Flag</p> <code class="text-red-300 font-mono text-lg">HTB{pr0F7pDv3r510nb4nn3r}</code> </div> <div class="flex flex-wrap gap-2 mb-6"> <span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#nmap</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#enumeration</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#htb-academy</span> </div> <div class="markdown-body"><h1>🎓 HTB Academy - Nmap Default</h1>
+<h2>🎭 Enumeración Básica con Nmap</h2>
+<hr>
+<p>👨‍🏫 <strong>Del Instructor</strong>: Bienvenido a tu primer reto de Hack The Box Academy. Como Ethical Hacker, la enumeración es el primer paso crítico en cualquier pentest. Hoy exploraremos el uso fundamental de Nmap para mapear puertos y servicios en un objetivo simulado.</p>
+<blockquote>
+<p>🎯 <strong>Mentalidad de Hacker</strong>: &quot;Nada es lo que parece. Cada puerto abierto cuenta una historia sobre el sistema objetivo. Piensa como un detective: recopila pistas sistemáticamente antes de actuar.&quot;</p>
+</blockquote>
+<hr>
+<h2>🎭 El Escenario: Investigación de Red Corporativa</h2>
+<p>Imagina que eres un consultor de ciberseguridad contratado por una empresa para auditar su red interna. Has recibido una IP objetivo (10.129.43.41) de un servidor Linux Ubuntu que supuestamente debería estar protegido. Tu misión es identificar todos los servicios expuestos y recopilar información crítica sobre el host.</p>
+<p><strong>Tu misión como Ethical Hacker</strong>:</p>
+<ul>
+<li>Descubrir todos los puertos TCP abiertos en el objetivo</li>
+<li>Enumerar el nombre del host (hostname) de manera precisa</li>
+<li>Documentar cada hallazgo con explicaciones técnicas</li>
+</ul>
+<h2>🧠 Fundamentos de Análisis: Nmap como Herramienta de Reconocimiento</h2>
+<p>Nmap (Network Mapper) es el escáner de puertos más poderoso y versátil disponible. Sus capacidades van más allá del simple escaneo de puertos:</p>
+<ul>
+<li><strong>Escaneo de Puertos</strong>: Identifica qué puertos están abiertos, cerrados o filtrados</li>
+<li><strong>Detección de Servicios</strong>: Intenta determinar qué servicios corren en cada puerto</li>
+<li><strong>Detección de OS</strong>: Analiza respuestas para identificar el sistema operativo</li>
+<li><strong>Version Scanning</strong>: Obtiene versiones exactas de servicios y software</li>
+</ul>
+<p>En un entorno real, esta información es crucial para:</p>
+<ul>
+<li>Identificar vectores de ataque potenciales</li>
+<li>Planificar estrategias de explotación</li>
+<li>Evaluar la superficie de ataque del objetivo</li>
+</ul>
+<h2>🔍 Metodología de Investigación: Enfoque Sistemático de Enumeración</h2>
+<h3>Paso 1: Preparación del Entorno</h3>
+<p>Primero, conectémonos al laboratorio de HTB Academy:</p>
+<pre><code class="language-bash"># Conectar a la VPN de HTB
 openvpn academy-regular.ovpn
 
 # Acceder a Pwnbox vía SSH
 ssh htb-ac-2300153@htb-qyd5plq1et.htb-cloud.com
-```
-
-&gt; 💡 **Nota técnica**: La VPN asegura que estamos en la misma red que el objetivo, permitiendo comunicación directa con IPs privadas como 10.129.43.41.
-
-### Paso 2: Escaneo Completo de Puertos
-
-El primer paso en cualquier enumeración es identificar todos los puertos TCP abiertos:
-
-```bash
-nmap -p- 10.129.43.41
-```
-
-**Análisis**:
-
-- `-p-` escanea todos los 65535 puertos TCP (no solo los 1000 más comunes)
-- Esto es crucial porque muchos servicios corren en puertos no estándar
-- En este caso, descubrimos 7 puertos abiertos: 22, 80, 110, 139, 143, 445, 31337
-
-&gt; ⚠️ **Advertencia**: Un escaneo completo puede tomar tiempo y generar logs en el objetivo. En entornos de producción, considera la discreción.
-
-### Paso 3: Enumeración de Servicios y Versiones
-
-Una vez identificados los puertos, determinemos qué servicios corren en ellos:
-
-```bash
-nmap -sV 10.129.43.41
-```
-
-**Análisis del Output**:
-
-- **Puerto 22 (SSH)**: OpenSSH 7.6p1 Ubuntu - Acceso remoto seguro
-- **Puerto 80 (HTTP)**: Apache 2.4.29 - Servidor web
-- **Puerto 110 (POP3)**: Dovecot - Protocolo de correo electrónico
-- **Puerto 139/445 (NetBIOS/SMB)**: Samba - Compartición de archivos Windows/Linux
-- **Puerto 143 (IMAP)**: Dovecot - Otro protocolo de correo
-- **Puerto 31337**: Servicio personalizado que revela la flag HTB{pr0F7pDv3r510nb4nn3r}
-
-&gt; 💡 **Nota técnica**: El puerto 31337 es inusual - típicamente usado por backdoors o servicios personalizados. El banner revela directamente la flag, mostrando un error de configuración común.
-
-## ✅ Checklist de Verificación
-
-- [x] VPN de HTB conectada correctamente
-- [x] Acceso a Pwnbox establecido
-- [x] Escaneo completo de puertos ejecutado (-p-)
-- [x] 7 puertos TCP identificados correctamente
-- [x] Servicios enumerados con versiones (-sV)
-- [x] Hostname extraído: NIX-NMAP-DEFAULT
-- [x] Flag capturada del banner del puerto 31337
-
-## 🎓 Lo Que Acabas de Aprender: Mentalidad Desarrollada
-
-Este reto te ha enseñado los fundamentos de la enumeración sistemática:
-
-**Habilidades Técnicas**:
-
-- Uso básico de Nmap para escaneo de puertos y servicios
-- Interpretación de outputs de escaneo
-- Identificación de servicios comunes (SSH, HTTP, SMB, email)
-- Reconocimiento de puertos no estándar y servicios personalizados
-
-**Mentalidad de Hacker Desarrollada**:
-
-- **Metodología Sistemática**: Siempre empezar con reconocimiento amplio antes de profundizar
-- **Atención al Detalle**: Cada puerto cuenta una historia sobre el sistema
-- **Curiosidad Investigativa**: ¿Por qué un puerto personalizado revela información sensible?
-- **Documentación Rigurosa**: Registrar cada comando y hallazgo para análisis posterior
-
-## 🚀 Próximos Pasos: Evolución en la Carrera de Hacker
-
-1. **Profundiza en Nmap**: Aprende opciones avanzadas como `-sC` (scripts NSE), `-O` (detección OS), y escaneo UDP
-2. **Explora Servicios**: Una vez enumerados, investiga vulnerabilidades en SSH 7.6p1, Apache 2.4.29, Samba 3.X-4.X
-3. **HTB Machines**: Pasa de Academy a máquinas reales con desafíos más complejos
-4. **Herramientas Complementarias**: Integra nmap con tools como nikto, dirbuster, o metasploit
-
-## 📚 Recursos y Referencias
-
-- [Nmap Official Documentation](https://nmap.org/docs.html)
-- [HTB Academy - Nmap Module](https://academy.hackthebox.com/module/details/19)
-- [Samba Security Best Practices](https://www.samba.org/samba/docs/current/man-html/smb.conf.5.html)
-- [Common Ports and Services](https://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers)
-
----
-
-## ✅ Estado
-
-**COMPLETADO** 🎉
-
-- 📅 Fecha: 2026-02-11
-- ⏱️ Tiempo: 15 minutos
-- 🎯 Dificultad: Fácil (Beginner)</pre> </div> </article> <div class="mt-8 flex justify-between items-center"> <a href="/challenges/htb" class="px-6 py-3 bg-slate-700 hover:bg-slate-600 rounded-lg transition-colors">
+</code></pre>
+<blockquote>
+<p>💡 <strong>Nota técnica</strong>: La VPN asegura que estamos en la misma red que el objetivo, permitiendo comunicación directa con IPs privadas como 10.129.43.41.</p>
+</blockquote>
+<h3>Paso 2: Escaneo Completo de Puertos</h3>
+<p>El primer paso en cualquier enumeración es identificar todos los puertos TCP abiertos:</p>
+<pre><code class="language-bash">nmap -p- 10.129.43.41
+</code></pre>
+<p><strong>Análisis</strong>:</p>
+<ul>
+<li><code>-p-</code> escanea todos los 65535 puertos TCP (no solo los 1000 más comunes)</li>
+<li>Esto es crucial porque muchos servicios corren en puertos no estándar</li>
+<li>En este caso, descubrimos 7 puertos abiertos: 22, 80, 110, 139, 143, 445, 31337</li>
+</ul>
+<blockquote>
+<p>⚠️ <strong>Advertencia</strong>: Un escaneo completo puede tomar tiempo y generar logs en el objetivo. En entornos de producción, considera la discreción.</p>
+</blockquote>
+<h3>Paso 3: Enumeración de Servicios y Versiones</h3>
+<p>Una vez identificados los puertos, determinemos qué servicios corren en ellos:</p>
+<pre><code class="language-bash">nmap -sV 10.129.43.41
+</code></pre>
+<p><strong>Análisis del Output</strong>:</p>
+<ul>
+<li><strong>Puerto 22 (SSH)</strong>: OpenSSH 7.6p1 Ubuntu - Acceso remoto seguro</li>
+<li><strong>Puerto 80 (HTTP)</strong>: Apache 2.4.29 - Servidor web</li>
+<li><strong>Puerto 110 (POP3)</strong>: Dovecot - Protocolo de correo electrónico</li>
+<li><strong>Puerto 139/445 (NetBIOS/SMB)</strong>: Samba - Compartición de archivos Windows/Linux</li>
+<li><strong>Puerto 143 (IMAP)</strong>: Dovecot - Otro protocolo de correo</li>
+<li><strong>Puerto 31337</strong>: Servicio personalizado que revela la flag HTB{pr0F7pDv3r510nb4nn3r}</li>
+</ul>
+<blockquote>
+<p>💡 <strong>Nota técnica</strong>: El puerto 31337 es inusual - típicamente usado por backdoors o servicios personalizados. El banner revela directamente la flag, mostrando un error de configuración común.</p>
+</blockquote>
+<h2>✅ Checklist de Verificación</h2>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> VPN de HTB conectada correctamente</li>
+<li><input checked="" disabled="" type="checkbox"> Acceso a Pwnbox establecido</li>
+<li><input checked="" disabled="" type="checkbox"> Escaneo completo de puertos ejecutado (-p-)</li>
+<li><input checked="" disabled="" type="checkbox"> 7 puertos TCP identificados correctamente</li>
+<li><input checked="" disabled="" type="checkbox"> Servicios enumerados con versiones (-sV)</li>
+<li><input checked="" disabled="" type="checkbox"> Hostname extraído: NIX-NMAP-DEFAULT</li>
+<li><input checked="" disabled="" type="checkbox"> Flag capturada del banner del puerto 31337</li>
+</ul>
+<h2>🎓 Lo Que Acabas de Aprender: Mentalidad Desarrollada</h2>
+<p>Este reto te ha enseñado los fundamentos de la enumeración sistemática:</p>
+<p><strong>Habilidades Técnicas</strong>:</p>
+<ul>
+<li>Uso básico de Nmap para escaneo de puertos y servicios</li>
+<li>Interpretación de outputs de escaneo</li>
+<li>Identificación de servicios comunes (SSH, HTTP, SMB, email)</li>
+<li>Reconocimiento de puertos no estándar y servicios personalizados</li>
+</ul>
+<p><strong>Mentalidad de Hacker Desarrollada</strong>:</p>
+<ul>
+<li><strong>Metodología Sistemática</strong>: Siempre empezar con reconocimiento amplio antes de profundizar</li>
+<li><strong>Atención al Detalle</strong>: Cada puerto cuenta una historia sobre el sistema</li>
+<li><strong>Curiosidad Investigativa</strong>: ¿Por qué un puerto personalizado revela información sensible?</li>
+<li><strong>Documentación Rigurosa</strong>: Registrar cada comando y hallazgo para análisis posterior</li>
+</ul>
+<h2>🚀 Próximos Pasos: Evolución en la Carrera de Hacker</h2>
+<ol>
+<li><strong>Profundiza en Nmap</strong>: Aprende opciones avanzadas como <code>-sC</code> (scripts NSE), <code>-O</code> (detección OS), y escaneo UDP</li>
+<li><strong>Explora Servicios</strong>: Una vez enumerados, investiga vulnerabilidades en SSH 7.6p1, Apache 2.4.29, Samba 3.X-4.X</li>
+<li><strong>HTB Machines</strong>: Pasa de Academy a máquinas reales con desafíos más complejos</li>
+<li><strong>Herramientas Complementarias</strong>: Integra nmap con tools como nikto, dirbuster, o metasploit</li>
+</ol>
+<h2>📚 Recursos y Referencias</h2>
+<ul>
+<li><a href="https://nmap.org/docs.html">Nmap Official Documentation</a></li>
+<li><a href="https://academy.hackthebox.com/module/details/19">HTB Academy - Nmap Module</a></li>
+<li><a href="https://www.samba.org/samba/docs/current/man-html/smb.conf.5.html">Samba Security Best Practices</a></li>
+<li><a href="https://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers">Common Ports and Services</a></li>
+</ul>
+<hr>
+<h2>✅ Estado</h2>
+<p><strong>COMPLETADO</strong> 🎉</p>
+<ul>
+<li>📅 Fecha: 2026-02-11</li>
+<li>⏱️ Tiempo: 15 minutos</li>
+<li>🎯 Dificultad: Fácil (Beginner)</li>
+</ul>
+</div> </div> </article> <div class="mt-8 flex justify-between items-center"> <a href="/challenges/htb" class="px-6 py-3 bg-slate-700 hover:bg-slate-600 rounded-lg transition-colors">
 ← Volver
 </a> <button onclick="openModal('HTB-Academy-Nmap-Default')" class="px-6 py-3 bg-gradient-to-r from-green-500 to-teal-600 hover:from-green-600 hover:to-teal-700 rounded-lg transition-all font-medium flex items-center gap-2 shadow-lg shadow-green-500/25"> <span>📋</span> <span>Ver Solución Paso a Paso</span> </button> </div> </main> <div id="modal-HTB-Academy-Nmap-Default" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50" aria-hidden="true"> <div class="flex items-center justify-center min-h-screen p-4"> <div class="bg-slate-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto"> <div class="p-6 border-b border-slate-700"> <div class="flex justify-between items-start"> <div> <h2 class="text-2xl font-bold text-gray-100">HTB Academy - Nmap Default</h2> <div class="flex items-center gap-4 mt-2 text-sm"> <span class="capitalize bg-slate-700 px-2 py-1 rounded">ctf</span> <span class="text-cyan-400">easy</span> <span class="text-green-400 font-mono">Flag: HTB{pr0F7pDv3r510nb4nn3r}</span> </div> </div> <button onclick="closeModal('HTB-Academy-Nmap-Default')" class="text-gray-400 hover:text-white">
 ✕

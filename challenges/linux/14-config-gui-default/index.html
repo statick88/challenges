@@ -1,84 +1,227 @@
-<!DOCTYPE html><html lang="es"> <head><meta charset="UTF-8"><meta name="description" content="Plataforma interactiva de desafíos técnicos - Linux, Docker, DevOps, CTF"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.17.1"><title>Reto 14: Default GUI Boot Configuration - xFusionCorp Industries - Linux Challenges</title><style>.markdown-body{font-family:system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;line-height:1.8;color:#e5e7eb}.markdown-body h1{font-size:2rem;font-weight:700;color:#f97316;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid #374151}.markdown-body h2{font-size:1.5rem;font-weight:600;color:#22d3ee;margin:1.75rem 0 1rem;padding-bottom:.25rem}.markdown-body h3{font-size:1.25rem;font-weight:600;color:#a5f3fc;margin:1.5rem 0 .75rem}.markdown-body p{margin:.75rem 0;color:#d1d5db}.markdown-body strong{color:#fbbf24;font-weight:600}.markdown-body ul,.markdown-body ol{margin:.75rem 0;padding-left:1.5rem;color:#d1d5db}.markdown-body li{margin:.5rem 0;list-style-type:disc}.markdown-body table{width:100%;margin:1rem 0;border-collapse:collapse;font-size:.9rem}.markdown-body th,.markdown-body td{padding:.75rem;border:1px solid #374151;text-align:left}.markdown-body th{background:#37415180;color:#fbbf24;font-weight:600}.markdown-body td{color:#d1d5db}.markdown-body code{background:#06b6d426;color:#22d3ee;padding:.2rem .5rem;border-radius:.375rem;font-family:SF Mono,Monaco,Courier New,monospace;font-size:.875rem}.markdown-body pre{background:#0f172a;padding:1rem;border-radius:.75rem;overflow-x:auto;margin:1rem 0;border:1px solid #1e293b}.markdown-body pre code{background:transparent;padding:0;color:#a5b4fc}
-</style></head> <body class="bg-slate-900 text-gray-100 min-h-screen">   <main class="container mx-auto px-4 py-8"> <div class="max-w-4xl mx-auto"> <div class="mb-6"> <a href="/challenges/linux" class="text-cyan-400 hover:text-cyan-300">← Volver a Linux Challenges</a> </div> <article class="bg-slate-800 rounded-lg p-6 border border-slate-700"> <header class="mb-6"> <h1 class="text-3xl font-bold text-orange-400 mb-2">Reto 14: Default GUI Boot Configuration - xFusionCorp Industries</h1> <div class="flex items-center gap-4 text-sm text-gray-400"> <span class="bg-orange-600 px-2 py-1 rounded text-xs">Linux</span> <span class="capitalize">easy</span> <span>2025-01-25</span> </div> </header> <pre class="markdown-body whitespace-pre-wrap"># Reto 14: Default GUI Boot Configuration - xFusionCorp Industries
-
-## Objetivo del Reto
-
-Configurar el sistema para iniciar en modo GUI por defecto:
-
-**Configure system to boot into GUI mode by default.**
-
-## Servidor Objetivo
-
-| Servidor | IP | Hostname | Usuario | Contraseña | Propósito |
-|----------|----|-----------|--------|-------------|-----------|
-| stapp01 | 172.16.238.10 | stapp01.stratos.xfusioncorp.com | tony | Ir0nM@n | GUI Configuration |
-
-## Requisitos Técnicos
-
-- **Target actual**: Multi-user (text mode)
-- **Target deseado**: Graphical (GUI mode)
-- **Método**: systemctl set-default
-- **Verificación**: Reboot y confirmación de GUI
-- **Fallback**: Método alternativo si systemd no disponible
-
-## Estrategia de Implementación
-
-### Comandos Requeridos
-
-```bash
-# 1. Conexión al servidor
+<!DOCTYPE html><html lang="es"> <head><meta charset="UTF-8"><meta name="description" content="Plataforma interactiva de desafíos técnicos - Linux, Docker, DevOps, CTF"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.17.1"><title>Reto 14: Default GUI Boot Configuration - xFusionCorp Industries - Linux Challenges</title><link rel="stylesheet" href="/_astro/_slug_.CR6T2awG.css">
+<style>@import"https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap";:root{--progress: 0%;--color-primary: 15 23 42;--color-secondary: 30 41 59;--color-text: 248 250 252;--color-muted: 148 163 184;--color-accent: 16 185 129;--color-success: 34 211 153;--color-warning: 245 158 11}[data-theme=dark]{--color-primary: 15 23 42;--color-secondary: 30 41 59;--color-text: 248 250 252;--color-muted: 148 163 184;--color-accent: 16 185 129;--color-success: 34 211 153;--color-warning: 245 158 11}[data-theme=light]{--color-primary: 248 250 252;--color-secondary: 226 232 240;--color-text: 30 41 59;--color-muted: 100 116 139;--color-accent: 16 185 129;--color-success: 34 211 153;--color-warning: 245 158 11}body{font-family:Inter,system-ui,sans-serif}::-webkit-scrollbar{width:8px}::-webkit-scrollbar-track{background:#1e293b}::-webkit-scrollbar-thumb{background:#475569;border-radius:4px}::-webkit-scrollbar-thumb:hover{background:#64748b}html{scroll-behavior:smooth}html.theme-transitioning *{transition:background-color .3s ease,border-color .3s ease,color .3s ease,box-shadow .3s ease}.theme-transition-overlay{position:fixed;inset:0;background:rgb(var(--color-primary) / .8);z-index:9999;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .2s ease}.theme-transition-overlay.active{opacity:1}.theme-toggle-ripple{position:absolute;border-radius:50%;background:currentColor;transform:scale(0);opacity:.6;pointer-events:none}.theme-toggle-ripple.animate{transform:scale(4);opacity:0;transition:all .6s cubic-bezier(.4,0,.2,1)}button:focus,a:focus{outline:2px solid rgb(var(--color-accent));outline-offset:2px}@media(max-width:768px){.animated-counter{font-size:2.5rem}}@media(prefers-reduced-motion:reduce){html.theme-transitioning *,.theme-transition-overlay,.theme-toggle-ripple.animate{transition:none}}@media print{.fixed{display:none}.bg-secondary,.bg-primary{background:#fff!important;color:#000!important}}
+.markdown-body{font-family:system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;line-height:1.8;color:#e5e7eb}.markdown-body h1{font-size:2rem;font-weight:700;color:#f97316;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid #374151}.markdown-body h2{font-size:1.5rem;font-weight:600;color:#22d3ee;margin:1.75rem 0 1rem;padding-bottom:.25rem}.markdown-body h3{font-size:1.25rem;font-weight:600;color:#a5f3fc;margin:1.5rem 0 .75rem}.markdown-body p{margin:.75rem 0;color:#d1d5db}.markdown-body strong{color:#fbbf24;font-weight:600}.markdown-body ul,.markdown-body ol{margin:.75rem 0;padding-left:1.5rem;color:#d1d5db}.markdown-body li{margin:.5rem 0;list-style-type:disc}.markdown-body table{width:100%;margin:1rem 0;border-collapse:collapse;font-size:.9rem}.markdown-body th,.markdown-body td{padding:.75rem;border:1px solid #374151;text-align:left}.markdown-body th{background:#37415180;color:#fbbf24;font-weight:600}.markdown-body td{color:#d1d5db}.markdown-body code{background:#06b6d426;color:#22d3ee;padding:.2rem .5rem;border-radius:.375rem;font-family:SF Mono,Monaco,Courier New,monospace;font-size:.875rem}.markdown-body pre{background:#0f172a;padding:1rem;border-radius:.75rem;overflow-x:auto;margin:1rem 0;border:1px solid #1e293b}.markdown-body pre code{background:transparent;padding:0;color:#a5b4fc}
+</style></head> <body class="bg-slate-900 text-gray-100 min-h-screen">   <main class="container mx-auto px-4 py-8"> <div class="max-w-4xl mx-auto"> <div class="mb-6"> <a href="/challenges/linux" class="text-cyan-400 hover:text-cyan-300">← Volver a Linux Challenges</a> </div> <article class="bg-slate-800 rounded-lg p-6 border border-slate-700"> <header class="mb-6"> <h1 class="text-3xl font-bold text-orange-400 mb-2">Reto 14: Default GUI Boot Configuration - xFusionCorp Industries</h1> <div class="flex items-center gap-4 text-sm text-gray-400"> <span class="bg-orange-600 px-2 py-1 rounded text-xs">Linux</span> <span class="capitalize">easy</span> <span>2025-01-25</span> </div> </header> <div class="prose prose-invert max-w-none"> <div class="markdown-body"><h1>Reto 14: Default GUI Boot Configuration - xFusionCorp Industries</h1>
+<h2>Configuración del Target de Boot: Entornos Desktop vs Server</h2>
+<hr>
+<h2>🎓 Del Instructor</h2>
+<p>Bienvenido a tu decimoquinto desafío como SysAdmin Senior en xFusionCorp. Hoy configuramos el <strong>target de boot</strong> del sistema, una decisión que afecta recursos, seguridad y usabilidad.</p>
+<blockquote>
+<p>💭 <strong>Mentalidad de SysAdmin</strong>: &quot;Un servidor con GUI es como una bicicleta con radio: funciona, pero consume recursos innecesarios. Sin embargo, hay casos donde la GUI es esencial. La clave es elegir el target correcto para cada caso de uso.&quot;</p>
+</blockquote>
+<p>En entornos empresariales, la mayoría de servidores usan modo texto (multi-user.target), pero estaciones de trabajo y servidores de administración necesitan GUI (graphical.target).</p>
+<hr>
+<h2>🎭 Escenario Real: Estación de Administración en Nautilus</h2>
+<p><strong>Empresa</strong>: xFusionCorp Industries<br><strong>Proyecto</strong>: Nautilus - Configuración de Estación de Trabajo<br><strong>Servidor</strong>: App Server 1 (stapp01)<br><strong>Tu rol</strong>: Senior System Administrator - Configuración de Sistema</p>
+<h3>La Problemática</h3>
+<p>El servidor stapp01 es una estación de administración utilizada por:</p>
+<ul>
+<li>Administradores de base de datos (herramientas GUI)</li>
+<li>Equipo de monitoreo (dashboards visuales)</li>
+<li>Soporte técnico (herramientas de diagnóstico gráficas)</li>
+</ul>
+<p>Actualmente arranca en modo texto (multi-user.target), requiriendo iniciar manualmente la GUI cuando se necesita.</p>
+<p><strong>El requerimiento del equipo de Operaciones</strong>:</p>
+<blockquote>
+<p>&quot;Configure system to boot into GUI mode by default.&quot;</p>
+</blockquote>
+<h3>Infraestructura Objetivo</h3>
+<table>
+<thead>
+<tr>
+<th>Servidor</th>
+<th>IP</th>
+<th>Hostname</th>
+<th>Usuario Acceso</th>
+<th>Contraseña</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>stapp01</td>
+<td>172.16.238.10</td>
+<td>stapp01.stratos.xfusioncorp.com</td>
+<td>tony</td>
+<td>Ir0nM@n</td>
+</tr>
+</tbody></table>
+<h3>Requisitos Técnicos</h3>
+<ul>
+<li><strong>Target actual</strong>: Multi-user (text mode)</li>
+<li><strong>Target deseado</strong>: Graphical (GUI mode)</li>
+<li><strong>Método</strong>: <code>systemctl set-default</code></li>
+<li><strong>Verificación</strong>: Reboot y confirmación de GUI</li>
+<li><strong>Fallback</strong>: Método alternativo si systemd no disponible</li>
+</ul>
+<hr>
+<h2>🧠 La Arquitectura: Targets de Systemd</h2>
+<h3>Targets Principales</h3>
+<table>
+<thead>
+<tr>
+<th>Target</th>
+<th>Descripción</th>
+<th>Uso</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>graphical.target</strong></td>
+<td>GUI completa</td>
+<td>Estaciones de trabajo, laptops</td>
+</tr>
+<tr>
+<td><strong>multi-user.target</strong></td>
+<td>Modo texto, múltiples usuarios</td>
+<td>Servidores</td>
+</tr>
+<tr>
+<td><strong>rescue.target</strong></td>
+<td>Modo de rescate</td>
+<td>Recuperación del sistema</td>
+</tr>
+<tr>
+<td><strong>emergency.target</strong></td>
+<td>Shell de emergencia</td>
+<td>Reparación crítica</td>
+</tr>
+</tbody></table>
+<h3>Relación entre Targets</h3>
+<pre><code>graphical.target
+      │
+      ├── multi-user.target
+      │       │
+      │       ├── basic.target
+      │       │       │
+      │       │       └── sysinit.target
+      │       │
+      │       └── getty.target
+      │
+      └── display-manager.service
+</code></pre>
+<hr>
+<h2>🛠️ Implementación Profesional</h2>
+<h3>Fase 1: Verificar Target Actual</h3>
+<pre><code class="language-bash"># Conexión al servidor
 ssh tony@172.16.238.10
 sudo su -
 
-# 2. Verificación del target actual
+# Verificar target actual
 systemctl get-default
+# Salida esperada: multi-user.target
+
+# Verificar targets disponibles
 systemctl list-units --type=target | grep graphical
-
-# 3. Verificar disponibilidad de GUI target
-systemctl status graphical.target
-
-# 4. Configurar target por defecto
+</code></pre>
+<h3>Fase 2: Cambiar Target por Defecto</h3>
+<pre><code class="language-bash"># Configurar graphical.target como default
 systemctl set-default graphical.target
 
-# 5. Verificación del cambio
-systemctl get-default  # Debe mostrar &quot;graphical.target&quot;
+# Verificar cambio
+systemctl get-default
+# Debe mostrar: graphical.target
+</code></pre>
+<h3>Fase 3: Verificación</h3>
+<pre><code class="language-bash"># Verificar que GUI está disponible
+systemctl status graphical.target
 
-# 6. Método alternativo (si falla systemd)
-# Editar /etc/inittab
-# id:5:initdefault:  # Cambiar a 5 para GUI
+# Verificar paquetes GUI instalados
+rpm -qa | grep -E &quot;(gnome|kde|x11|desktop)&quot;
 
-# 7. Verificar paquetes GUI necesarios
-rpm -qa | grep -i x11
-# Si falta: yum groupinstall &quot;Server with GUI&quot; o similar
+# Si falta GUI, instalar (opcional)
+# yum groupinstall &quot;Server with GUI&quot;
+</code></pre>
+<h3>Resumen de Comandos</h3>
+<pre><code class="language-bash"># Verificar target actual
+systemctl get-default
 
-# 8. Verificación final (requiere reboot)
-echo &quot;Sistema configurado para GUI. Reboot necesario para verificar.&quot;
-reboot  # Solo después de confirmación
-```
+# Cambiar a GUI
+systemctl set-default graphical.target
 
-## Resultados Esperados
+# Verificar cambio
+systemctl get-default
 
-- Sistema configurado para iniciar en modo GUI
-- Target por defecto cambiado a graphical.target
-- Interfaz gráfica disponible después del reboot
-- Funcionalidad completa del entorno desktop
-
-## Estado del Reto
-
-🔒 **BLOQUEADO** - Requiere completar retos 4-6
-
-*Fecha planeada: Pendiente*</pre> </article> <div id="modal-14-config-gui-default" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50" aria-hidden="true"> <div class="flex items-center justify-center min-h-screen p-4"> <div class="bg-slate-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto"> <div class="p-6 border-b border-slate-700"> <div class="flex justify-between items-start"> <div> <h2 class="text-2xl font-bold text-gray-100">Reto 14: Default GUI Boot Configuration - xFusionCorp Industries</h2> <div class="flex items-center gap-4 mt-2 text-sm"> <span class="capitalize bg-slate-700 px-2 py-1 rounded">linux</span> <span class="text-cyan-400">easy</span>  </div> </div> <button onclick="closeModal('14-config-gui-default')" class="text-gray-400 hover:text-white">
+# Reiniciar para aplicar (cuando sea posible)
+# reboot
+</code></pre>
+<hr>
+<h2>🎯 Análisis Post-Implementación</h2>
+<pre><code>┌─────────────────────────────────────────────────────────────────────────┐
+│              TARGET DE BOOT CONFIGURADO - stapp01                       │
+├─────────────────────────────────────────────────────────────────────────┤
+│                                                                          │
+│  ANTES:                                                                  │
+│  Target: multi-user.target                                              │
+│  Modo: Texto, línea de comandos                                         │
+│  Uso: Servidor tradicional                                              │
+│                                                                          │
+│  DESPUÉS:                                                                │
+│  Target: graphical.target                                               │
+│  Modo: GUI completa                                                     │
+│  Uso: Estación de administración                                        │
+│                                                                          │
+│  COMANDOS:                                                               │
+│  systemctl get-default    → graphical.target                            │
+│  systemctl set-default graphical.target                                 │
+│                                                                          │
+│  NOTA: Reboot requerido para activar GUI                                │
+│                                                                          │
+└─────────────────────────────────────────────────────────────────────────┘
+</code></pre>
+<hr>
+<h2>🎓 Reflexión Final</h2>
+<h3>Eligiendo el Target Correcto</h3>
+<table>
+<thead>
+<tr>
+<th>Escenario</th>
+<th>Target Recomendado</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Servidor web/DB/app</td>
+<td>multi-user.target</td>
+</tr>
+<tr>
+<td>Estación de trabajo</td>
+<td>graphical.target</td>
+</tr>
+<tr>
+<td>Servidor de monitoreo</td>
+<td>graphical.target (si requiere dashboards)</td>
+</tr>
+<tr>
+<td>Recuperación</td>
+<td>rescue.target</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>✅ Estado del Reto</h2>
+<p>🔒 <strong>BLOQUEADO</strong> - Requiere completar retos 4-6</p>
+<ul>
+<li>📅 Fecha planeada: Pendiente</li>
+<li>⏱️ Tiempo estimado: 10 minutos</li>
+<li>🎯 Dificultad: Fácil</li>
+</ul>
+<hr>
+<p><em>Documentación creada siguiendo estándares de SysAdmin - Configuración de Sistema</em></p>
+</div> </div> </article> <div id="modal-14-config-gui-default" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50" aria-hidden="true"> <div class="flex items-center justify-center min-h-screen p-4"> <div class="bg-slate-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto"> <div class="p-6 border-b border-slate-700"> <div class="flex justify-between items-start"> <div> <h2 class="text-2xl font-bold text-gray-100">Reto 14: Default GUI Boot Configuration - xFusionCorp Industries</h2> <div class="flex items-center gap-4 mt-2 text-sm"> <span class="capitalize bg-slate-700 px-2 py-1 rounded">linux</span> <span class="text-cyan-400">easy</span>  </div> </div> <button onclick="closeModal('14-config-gui-default')" class="text-gray-400 hover:text-white">
 ✕
-</button> </div> </div> <div class="p-6"> <div class="mb-6"> <h3 class="text-lg font-semibold text-cyan-400 mb-4">Pasos a Seguir</h3> <div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">1. Comandos Requeridos</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+</button> </div> </div> <div class="p-6"> <div class="mb-6"> <h3 class="text-lg font-semibold text-cyan-400 mb-4">Pasos a Seguir</h3> <div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">1. La Problemática</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">2. Infraestructura Objetivo</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">3. Requisitos Técnicos</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">4. Targets Principales</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">5. Relación entre Targets</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">6. Fase 1: Verificar Target Actual</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
 
                     <code>ssh tony@172.16.238.10
 sudo su -
 systemctl get-default
-systemctl list-units --type=target | grep graphical
-systemctl status graphical.target
+systemctl list-units --type=target | grep graphical</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">7. Fase 2: Cambiar Target por Defecto</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>systemctl set-default graphical.target
+systemctl get-default</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">8. Fase 3: Verificación</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>systemctl status graphical.target
+rpm -qa | grep -E &quot;(gnome|kde|x11|desktop)&quot;</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">9. Resumen de Comandos</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>systemctl get-default
 systemctl set-default graphical.target
-systemctl get-default  # Debe mostrar &quot;graphical.target&quot;
-rpm -qa | grep -i x11
-echo &quot;Sistema configurado para GUI. Reboot necesario para verificar.&quot;
-reboot  # Solo después de confirmación</code>
-                  </pre>  </div> </div>    </div> </div> </div> </div> <script type="module">document.addEventListener("click",e=>{const t=e.target;t.classList.contains("bg-black")&&(t.classList.add("hidden"),t.setAttribute("aria-hidden","true"))});</script> </div> </main>  </body></html>
+systemctl get-default</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">10. Eligiendo el Target Correcto</h4>   </div> </div>    </div> </div> </div> </div> <script type="module">document.addEventListener("click",e=>{const t=e.target;t.classList.contains("bg-black")&&(t.classList.add("hidden"),t.setAttribute("aria-hidden","true"))});</script> </div> </main>  </body></html>

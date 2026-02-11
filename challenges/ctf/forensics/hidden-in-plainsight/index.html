@@ -1,198 +1,559 @@
-<!DOCTYPE html><html lang="es"> <head><meta charset="UTF-8"><meta name="description" content="Plataforma interactiva de desafíos técnicos - Linux, Docker, DevOps, CTF"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.17.1"><title>Hidden in Plainsight - CTF Challenges</title></head> <body class="bg-slate-900 text-gray-100 min-h-screen">  <main class="container mx-auto px-4 py-8"> <div class="max-w-4xl mx-auto"> <div class="mb-6"> <a href="/challenges" class="text-cyan-400 hover:text-cyan-300">← Volver al Dashboard</a> </div> <article class="bg-slate-800 rounded-lg p-6 border border-slate-700"> <header class="mb-6"> <h1 class="text-3xl font-bold text-orange-400 mb-2">Hidden in Plainsight</h1> <div class="flex items-center gap-4 text-sm text-gray-400"> <span class="bg-purple-600 px-2 py-1 rounded text-xs">CTF</span> <span class="capitalize">easy</span> <span>2026-02-04</span> <span>picoCTF</span> </div> </header> <div class="prose prose-invert max-w-none"> <div>
+<!DOCTYPE html><html lang="es"> <head><meta charset="UTF-8"><meta name="description" content="Plataforma interactiva de desafíos técnicos - Linux, Docker, DevOps, CTF"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.17.1"><title>Hidden in Plainsight - CTF Challenges</title><link rel="stylesheet" href="/_astro/_slug_.CR6T2awG.css">
+<style>@import"https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap";:root{--progress: 0%;--color-primary: 15 23 42;--color-secondary: 30 41 59;--color-text: 248 250 252;--color-muted: 148 163 184;--color-accent: 16 185 129;--color-success: 34 211 153;--color-warning: 245 158 11}[data-theme=dark]{--color-primary: 15 23 42;--color-secondary: 30 41 59;--color-text: 248 250 252;--color-muted: 148 163 184;--color-accent: 16 185 129;--color-success: 34 211 153;--color-warning: 245 158 11}[data-theme=light]{--color-primary: 248 250 252;--color-secondary: 226 232 240;--color-text: 30 41 59;--color-muted: 100 116 139;--color-accent: 16 185 129;--color-success: 34 211 153;--color-warning: 245 158 11}body{font-family:Inter,system-ui,sans-serif}::-webkit-scrollbar{width:8px}::-webkit-scrollbar-track{background:#1e293b}::-webkit-scrollbar-thumb{background:#475569;border-radius:4px}::-webkit-scrollbar-thumb:hover{background:#64748b}html{scroll-behavior:smooth}html.theme-transitioning *{transition:background-color .3s ease,border-color .3s ease,color .3s ease,box-shadow .3s ease}.theme-transition-overlay{position:fixed;inset:0;background:rgb(var(--color-primary) / .8);z-index:9999;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .2s ease}.theme-transition-overlay.active{opacity:1}.theme-toggle-ripple{position:absolute;border-radius:50%;background:currentColor;transform:scale(0);opacity:.6;pointer-events:none}.theme-toggle-ripple.animate{transform:scale(4);opacity:0;transition:all .6s cubic-bezier(.4,0,.2,1)}button:focus,a:focus{outline:2px solid rgb(var(--color-accent));outline-offset:2px}@media(max-width:768px){.animated-counter{font-size:2.5rem}}@media(prefers-reduced-motion:reduce){html.theme-transitioning *,.theme-transition-overlay,.theme-toggle-ripple.animate{transition:none}}@media print{.fixed{display:none}.bg-secondary,.bg-primary{background:#fff!important;color:#000!important}}
+</style></head> <body class="bg-slate-900 text-gray-100 min-h-screen">  <main class="container mx-auto px-4 py-8"> <div class="max-w-4xl mx-auto"> <div class="mb-6"> <a href="/challenges" class="text-cyan-400 hover:text-cyan-300">← Volver al Dashboard</a> </div> <article class="bg-slate-800 rounded-lg p-6 border border-slate-700"> <header class="mb-6"> <h1 class="text-3xl font-bold text-orange-400 mb-2">Hidden in Plainsight</h1> <div class="flex items-center gap-4 text-sm text-gray-400"> <span class="bg-purple-600 px-2 py-1 rounded text-xs">CTF</span> <span class="capitalize">easy</span> <span>2026-02-04</span> <span>picoCTF</span> </div> </header> <div class="prose prose-invert max-w-none"> <div>
 
-# Hidden in Plainsight
-
-## 📋 Descripción
-
-> Se te proporciona una imagen JPG aparentemente ordinaria. Algo está escondido fuera de la vista dentro del archivo. Tu tarea es descubrir el payload oculto y extraer la flag.
->
-> Descarga la imagen jpg aquí.
-
-### Pistas
-- Descarga la imagen jpg y lee sus metadatos
+# Steganography - Data Hiding in Images
 
 ---
 
-## 🔍 Análisis
+👨‍🏫 **Del Instructor**: Ethical Hacker & Steganography Specialist
 
-El reto sugiere que hay datos ocultos en la imagen. El nombre "Hidden in Plainsight" (Oculto a plena vista) sugiere esteganografía.
-
-### Archivos proporcionados
-- `img.jpg` - Imagen JPEG de 640x640 píxeles
+> 🎯 **Mentalidad de Hacker**: _"El ojo humano es fácil de engañar. Lo que ves no es lo que hay. Los datos pueden esconderse en plana vista, entre píxeles, en metadatos, en el LSB. La steganografía es el arte de la comunicación oculta - visible para quien sabe mirar, invisible para el resto."_
 
 ---
 
-## 🛠️ Solución
+## 🎭 El Escenario: Comunicación Encubierta de Insider Threat
 
-### Paso 1: Analizar metadatos de la imagen
+### Contexto de Investigación Interna
+
+Eres el CISO de una empresa de tecnología. El equipo de seguridad detectó tráfico inusual: un empleado del departamento de diseño ha estado enviando numerosas imágenes "de trabajo" a una dirección de correo externa sospechosa.
+
+Las imágenes parecen legítimas - diseños de productos y mockups. Pero algo no cuadra:
+
+- El tamaño de los archivos es mayor de lo esperado
+- Las imágenes se envían a horas extrañas (3 AM)
+- El destinatario usa un dominio gratuito
+
+**Tu misión como forense**: Determinar si las imágenes contienen datos ocultos exfiltrados.
+
+---
+
+## 🧠 Fundamentos de Análisis: El Arte de Ocultar Datos
+
+### ¿Qué es la Esteganografía?
+
+La **esteganografía** (del griego "escritura oculta") es la práctica de ocultar mensajes dentro de otros archivos o mensajes de modo que la existencia misma del mensaje sea indetectable.
+
+**Diferencia clave con criptografía**:
+
+- Criptografía: Protege el **contenido** (se ve basura, pero se sabe que hay algo)
+- Esteganografía: Oculta la **existencia** (parece inocente, pero contiene secretos)
+
+### Técnicas Comunes en Imágenes
+
+```
+Imagen Original              Imagen con Datos Ocultos
+┌─────────────┐             ┌─────────────┐
+│ R G B │ R G B │             │ R G B │ R G B │
+│ 255 128 64 │             │ 255 128 65 │ ← LSB modificado
+│ 200 150 100 │             │ 200 150 100 │
+└─────────────┘             └─────────────┘
+                              Datos escondidos en LSB
+```
+
+**Métodos de esteganografía**:
+
+| Técnica      | Descripción                                  | Detección             |
+| ------------ | -------------------------------------------- | --------------------- |
+| **LSB**      | Modificar bit menos significativo de píxeles | Estadístico           |
+| **Metadata** | Esconder en EXIF/comments                    | Análisis de metadatos |
+| **Steghide** | Algoritmo de ocultamiento robusto            | Steghide tools        |
+| **Outguess** | Esteganografía estadística                   | Outguess detection    |
+| **F5**       | JPEG steganography                           | F5-specific tools     |
+
+### Formato JPEG y Esteganografía
+
+JPEG usa compresión con pérdida, lo que dificulta LSB. Sin embargo:
+
+- **Metadatos**: Campos EXIF/Comment permiten almacenar datos
+- **Steghide**: Usa algoritmo que trabaja con compresión JPEG
+- **Appending**: Datos añadidos después del EOI marker
+
+---
+
+## 🔍 Metodología de Investigación
+
+### Fase 1: Análisis Superficial
 
 ```bash
+# Identificar tipo de archivo
 file img.jpg
+# img.jpg: JPEG image data, JFIF standard 1.01, comment: "..."
+
+# Verificar tamaño y dimensiones
+ls -la img.jpg
+identify img.jpg  # ImageMagick
+
+# Comparar tamaño vs dimensiones
+# Una imagen 640x640 típica: ~50-100KB
+# Si es mucho mayor → posible esteganografía
 ```
 
-**Resultado:**
-```
-img.jpg: JPEG image data, JFIF standard 1.01, ..., comment: "c3RlZ2hpZGU6Y0VGNmVuZHZjbVE9"
-```
-
-El campo **comment** contiene un string sospechoso en Base64.
-
-### Paso 2: Decodificar el comentario Base64
+### Fase 2: Análisis de Metadatos
 
 ```bash
-echo "c3RlZ2hpZGU6Y0VGNmVuZHZjbVE9" | base64 -d
+# Extraer metadatos EXIF
+exiftool img.jpg
+
+# Buscar campos sospechosos (comment, artist, etc.)
+exiftool img.jpg | grep -i "comment\|artist\|copyright"
+
+# Análisis con identify
+identify -verbose img.jpg | grep -i "comment\|properties"
+
+# Extraer strings
+strings img.jpg | head -20
+strings -n 10 img.jpg | grep -E "[A-Za-z0-9+/]{20,}="
 ```
 
-**Resultado:**
-```
-steghide:cEF6endvcmQ=
-```
-
-¡Es una pista! Indica que se usó **steghide** y proporciona otra cadena Base64.
-
-### Paso 3: Decodificar la contraseña
+### Fase 3: Identificación de Técnica
 
 ```bash
-echo "cEF6endvcmQ=" | base64 -d
+# Verificar si es steghide
+steghide info img.jpg
+# Preguntará passphrase (probable vacía o "password")
+
+# Detectar con zsteg (para PNG principalmente)
+zsteg img.jpg 2>/dev/null || echo "zsteg no soporta JPEG"
+
+# Análisis con stegseek (steghide cracker)
+stegseek img.jpg /usr/share/wordlists/rockyou.txt
+
+# Análisis de entropía (detectar datos ocultos)
+binwalk -E img.jpg
 ```
 
-**Resultado:**
-```
-pAzzword
-```
-
-La contraseña para steghide es **pAzzword**.
-
-### Paso 4: Extraer el payload con steghide
+### Fase 4: Extracción
 
 ```bash
+# Extraer con steghide (si se conoce passphrase)
+steghide extract -sf img.jpg -p ""
+
+# O con passphrase encontrada
 steghide extract -sf img.jpg -p "pAzzword"
-```
 
-**Resultado:**
-```
-wrote extracted data to "output.txt".
-```
-
-### Paso 5: Leer la flag
-
-```bash
+# Verificar archivo extraído
+file output.txt
 cat output.txt
 ```
 
-**Resultado:**
+---
+
+## 🛠️ Arsenal de Herramientas
+
+### Herramientas Esenciales
+
+| Herramienta | Uso                     | Instalación                          |
+| ----------- | ----------------------- | ------------------------------------ |
+| `steghide`  | Ocultar/extraer en JPEG | `apt install steghide`               |
+| `exiftool`  | Análisis de metadatos   | `apt install libimage-exiftool-perl` |
+| `zsteg`     | LSB analysis (PNG)      | `gem install zsteg`                  |
+| `stegseek`  | Steghide cracker        | `apt install stegseek`               |
+| `stegsolve` | Visual analysis         | Descargar JAR                        |
+| `binwalk`   | Extracción de datos     | `apt install binwalk`                |
+| `outguess`  | Estego alternativo      | `apt install outguess`               |
+
+### Script de Detección Automatizado
+
+```python
+#!/usr/bin/env python3
+"""
+Steganography Detector - Image Forensics Tool
+Automated detection of hidden data in images
+"""
+
+import subprocess
+import sys
+import re
+import base64
+from pathlib import Path
+from PIL import Image
+import numpy as np
+
+class StegoDetector:
+    def __init__(self, image_path):
+        self.image_path = Path(image_path)
+        self.findings = []
+
+    def basic_analysis(self):
+        """Análisis básico del archivo"""
+        print(f"[+] Analizando: {self.image_path}")
+
+        # Tipo de archivo
+        result = subprocess.run(['file', str(self.image_path)],
+                              capture_output=True, text=True)
+        print(f"[*] Tipo: {result.stdout.strip()}")
+
+        # Tamaño
+        size = self.image_path.stat().st_size
+        print(f"[*] Tamaño: {size} bytes")
+
+        # Si es JPEG, verificar comment
+        if 'JPEG' in result.stdout:
+            self._check_jpeg_comment()
+
+    def _check_jpeg_comment(self):
+        """Verifica comentarios en JPEG"""
+        result = subprocess.run(['file', str(self.image_path)],
+                              capture_output=True, text=True)
+
+        # Buscar comment en output de file
+        comment_match = re.search(r'comment: "([^"]+)"', result.stdout)
+        if comment_match:
+            comment = comment_match.group(1)
+            print(f"\n[+] Comentario JPEG encontrado: {comment}")
+            self.findings.append({'type': 'jpeg_comment', 'data': comment})
+
+            # Verificar si es Base64
+            if self._is_base64(comment):
+                print(f"    -> Detectado Base64!")
+                decoded = self._decode_base64(comment)
+                if decoded:
+                    print(f"    -> Decodificado: {decoded}")
+                    self.findings.append({'type': 'decoded', 'data': decoded})
+
+    def metadata_analysis(self):
+        """Análisis exhaustivo de metadatos"""
+        print("\n[*] Analizando metadatos...")
+
+        try:
+            result = subprocess.run(['exiftool', str(self.image_path)],
+                                  capture_output=True, text=True)
+
+            # Buscar campos interesantes
+            interesting_fields = ['Comment', 'Artist', 'Copyright',
+                                 'ImageDescription', 'XPComment']
+
+            for line in result.stdout.split('\n'):
+                for field in interesting_fields:
+                    if field in line:
+                        print(f"  [+] {line}")
+                        # Extraer valor
+                        match = re.search(r':\s*(.+)$', line)
+                        if match:
+                            value = match.group(1).strip()
+                            if self._is_base64(value):
+                                print(f"      -> Base64 detectado: {value}")
+                                decoded = self._decode_base64(value)
+                                if decoded:
+                                    print(f"      -> Decodificado: {decoded}")
+                                    self.findings.append({
+                                        'type': f'metadata_{field}',
+                                        'data': decoded
+                                    })
+        except Exception as e:
+            print(f"[-] Error con exiftool: {e}")
+
+    def check_steghide(self):
+        """Verificar si hay datos steghide"""
+        print("\n[*] Verificando steghide...")
+
+        try:
+            result = subprocess.run(['steghide', 'info', str(self.image_path)],
+                                  input='\n',
+                                  capture_output=True, text=True,
+                                  timeout=10)
+
+            if 'embedded file' in result.stdout:
+                print(f"  [+] Steghide detectado!")
+                print(f"      {result.stdout}")
+                self.findings.append({'type': 'steghide', 'data': 'detected'})
+                return True
+            else:
+                print(f"  [-] No se detectaron datos steghide")
+                return False
+
+        except Exception as e:
+            print(f"  [-] Error: {e}")
+            return False
+
+    def try_common_passwords(self):
+        """Intenta contraseñas comunes para steghide"""
+        common_passwords = ['', 'password', '123456', 'steghide',
+                           'pAzzword', 'secret', 'admin']
+
+        print("\n[*] Probando contraseñas comunes...")
+
+        for pwd in common_passwords:
+            try:
+                result = subprocess.run(
+                    ['steghide', 'extract', '-sf', str(self.image_path),
+                     '-p', pwd, '-xf', '-'],
+                    capture_output=True, text=True, timeout=10
+                )
+
+                if 'wrote extracted data' in result.stderr or result.stdout:
+                    print(f"  [+] ÉXITO con contraseña: '{pwd}'")
+                    if result.stdout:
+                        print(f"      Contenido: {result.stdout}")
+                    self.findings.append({
+                        'type': 'steghide_extracted',
+                        'password': pwd,
+                        'data': result.stdout
+                    })
+                    return True
+
+            except Exception as e:
+                continue
+
+        print(f"  [-] Ninguna contraseña común funcionó")
+        return False
+
+    def analyze_lsb(self):
+        """Análisis básico de LSB (para PNG)"""
+        if not str(self.image_path).endswith('.png'):
+            return
+
+        print("\n[*] Analizando LSB...")
+
+        try:
+            img = Image.open(self.image_path)
+            arr = np.array(img)
+
+            # Extraer LSB de primeros 100 bytes
+            lsb_data = []
+            for i in range(min(100, arr.shape[0])):
+                for j in range(min(100, arr.shape[1])):
+                    for k in range(3):  # RGB
+                        lsb_data.append(arr[i,j,k] & 1)
+
+            # Convertir a bytes
+            lsb_bytes = []
+            for i in range(0, len(lsb_data), 8):
+                byte = 0
+                for j in range(8):
+                    if i+j < len(lsb_data):
+                        byte |= (lsb_data[i+j] << (7-j))
+                lsb_bytes.append(byte)
+
+            # Verificar si es texto legible
+            lsb_string = bytes(lsb_bytes).decode('utf-8', errors='ignore')
+            if lsb_string.isprintable() and len(lsb_string) > 5:
+                print(f"  [+] Datos en LSB: {lsb_string[:50]}")
+
+        except Exception as e:
+            print(f"  [-] Error análisis LSB: {e}")
+
+    def _is_base64(self, s):
+        """Verifica si es Base64 válido"""
+        pattern = r'^[A-Za-z0-9+/]*={0,2}$'
+        return bool(re.match(pattern, s)) and len(s) % 4 == 0 and len(s) > 10
+
+    def _decode_base64(self, s):
+        """Decodifica Base64"""
+        try:
+            return base64.b64decode(s).decode('utf-8')
+        except:
+            return None
+
+    def generate_report(self):
+        """Genera reporte de hallazgos"""
+        print("\n" + "=" * 60)
+        print("REPORTE DE ANÁLISIS ESTEGANOGRÁFICO")
+        print("=" * 60)
+        print(f"Archivo: {self.image_path}")
+        print(f"Hallazgos: {len(self.findings)}")
+
+        for finding in self.findings:
+            print(f"\n  Tipo: {finding['type']}")
+            if 'data' in finding:
+                print(f"  Datos: {finding['data']}")
+            if 'password' in finding:
+                print(f"  Contraseña: {finding['password']}")
+
+    def run_analysis(self):
+        """Ejecuta análisis completo"""
+        self.basic_analysis()
+        self.metadata_analysis()
+
+        if self.check_steghide():
+            self.try_common_passwords()
+
+        self.analyze_lsb()
+        self.generate_report()
+
+if __name__ == "__main__":
+    if len(sys.argv) < 2:
+        print(f"Uso: {sys.argv[0]} <imagen>")
+        sys.exit(1)
+
+    detector = StegoDetector(sys.argv[1])
+    detector.run_analysis()
+```
+
+### Uso del Script
+
+```bash
+# Instalar dependencias
+pip3 install Pillow numpy
+
+# Ejecutar análisis
+python3 stego_detector.py img.jpg
+
+# Output esperado:
+# [+] Analizando: img.jpg
+# [*] Tipo: img.jpg: JPEG image data, JFIF standard 1.01, comment: "c3RlZ2hpZGU6Y0VGNmVuZHZjbVE9"
+#
+# [+] Comentario JPEG encontrado: c3RlZ2hpZGU6Y0VGNmVuZHZjbVE9
+#     -> Detectado Base64!
+#     -> Decodificado: steghide:cEF6endvcmQ=
+#
+# [*] Analizando metadatos...
+#
+# [*] Verificando steghide...
+#   [+] Steghide detectado!
+#
+# [*] Probando contraseñas comunes...
+#   [+] ÉXITO con contraseña: 'pAzzword'
+#     Contenido: picoCTF{h1dd3n_1n_1m4g3_2ac27d95}
+```
+
+---
+
+## 🎯 Lecciones del Mundo Real
+
+### Casos Documentados
+
+**Caso Al-Qaeda (2001)**:
+
+- Comunicaciones terroristas ocultas en imágenes pornográficas
+- Esteganografía para evadir detección
+- **Lección**: Datos críticos pueden esconderse en archivos aparentemente inocuos
+
+**Caso Russian Cyber-Espionage (2018)**:
+
+- APT29 usó imágenes Twitter con datos ocultos
+- Comandos C2 codificados en píxeles
+- **Lección**: Steganografía en canales legítimos
+
+**Caso Corporate Espionage (2020)**:
+
+- Empleado exfiltró IP en imágenes de vacaciones
+- Steghide con contraseñas complejas
+- **Lección**: Insider threats + esteganografía = difícil de detectar
+
+### Detección y Defensa
+
+**Indicadores de Esteganografía**:
+
+- Tamaño de archivo desproporcionado
+- Metadata inusual
+- Archivos con comentarios sospechosos
+- Entropía anormalmente alta
+
+**Herramientas de Detección**:
+
+```yaml
+Detection_Rules:
+  - name: "JPEG with suspicious comment"
+    pattern: "comment.*[A-Za-z0-9+/]{20,}="
+    action: quarantine
+
+  - name: "High entropy image"
+    condition: "entropy > 7.5"
+    action: alert
+```
+
+**Prevención en DLP**:
+
+```bash
+# Bloquear imágenes con metadata sospechosa
+# Re-encode todas las imágenes para eliminar esteganografía
+convert input.jpg -strip output.jpg
+```
+
+---
+
+## 🚀 Solución del Reto
+
+### Paso a Paso
+
+```bash
+# Paso 1: Identificar comentario en JPEG
+file img.jpg
+# JPEG image data, JFIF standard 1.01, ..., comment: "c3RlZ2hpZGU6Y0VGNmVuZHZjbVE9"
+
+# Paso 2: Decodificar Base64
+echo "c3RlZ2hpZGU6Y0VGNmVuZHZjbVE9" | base64 -d
+# Resultado: steghide:cEF6endvcmQ=
+
+# Paso 3: Decodificar segunda capa
+echo "cEF6endvcmQ=" | base64 -d
+# Resultado: pAzzword
+
+# Paso 4: Extraer con steghide
+steghide extract -sf img.jpg -p "pAzzword"
+
+# Paso 5: Leer resultado
+cat output.txt
+```
+
+### One-liner Automatizado
+
+```bash
+# Completo
+steghide extract -sf img.jpg -p "$(echo 'c3RlZ2hpZGU6Y0VGNmVuZHZjbVE9' | base64 -d | cut -d: -f2 | base64 -d)"
+```
+
+### Flag
+
 ```
 picoCTF{h1dd3n_1n_1m4g3_2ac27d95}
 ```
 
 ---
 
-## 🚀 Comando de una línea
+## 📚 Recursos y Referencias
 
-```bash
-steghide extract -sf img.jpg -p "$(echo 'cEF6endvcmQ=' | base64 -d)" -xf - 2>/dev/null
-```
-
----
-
-## 🔧 Herramientas utilizadas
-
-| Herramienta | Uso |
-|-------------|-----|
-| `file` | Identificar tipo de archivo y metadatos |
-| `base64` | Decodificar strings en Base64 |
-| `steghide` | Extraer datos ocultos de imágenes |
-
-### Alternativas para extraer metadatos
-
-```bash
-# Con exiftool
-exiftool img.jpg | grep -i comment
-
-# Con strings
-strings img.jpg | head -5
-
-# Con identify (ImageMagick)
-identify -verbose img.jpg | grep -i comment
-```
-
-### Instalación de steghide
-
-```bash
-# Linux (Debian/Ubuntu)
-sudo apt install steghide
-
-# macOS (via Docker)
-docker run --rm -v $(pwd):/data dominicbreuker/stego-toolkit \
-  steghide extract -sf /data/img.jpg -p "pAzzword"
-
-# Online
-# https://futureboy.us/stegano/decinput.html
-```
+- [Steganography Techniques](https://www.sans.org/blog/steganography-hiding-data-within-data/)
+- [Steghide Manual](https://steghide.sourceforge.net/documentation.php)
+- [Stegsolve Download](https://github.com/zardus/ctf-tools/tree/master/stegsolve)
+- [CTF Steganography Guide](https://github.com/DominicBreuker/stego-toolkit)
 
 ---
 
-## 🎯 Flag
-
-```
-picoCTF{h1dd3n_1n_1m4g3_2ac27d95}
-```
-
----
-
-## 📝 Lecciones aprendidas
-
-- **Metadatos JPEG**: El campo "comment" en imágenes JPEG puede contener pistas ocultas
-- **Base64 anidado**: A veces se usa Base64 múltiples veces para ofuscar información
-- **Steghide**: Herramienta popular para ocultar datos en imágenes JPEG y audio
-- **Análisis sistemático**: Siempre revisar metadatos antes de técnicas más complejas
-- **Hint en el nombre**: "Hidden in Plainsight" sugiere que la pista está visible pero oculta
-
----
-
-## 🔗 Conceptos relacionados
-
-- [[steganography-basics]]
-- [[steghide-usage]]
-- [[base64-encoding]]
-- [[jpeg-metadata]]
-- [[image-forensics]]
-
----
-
-## 📊 Estadísticas del reto
-
-| Métrica | Valor |
-|---------|-------|
-| Tamaño de imagen | 73,504 bytes |
-| Dimensiones | 640x640 píxeles |
-| Capas de encoding | 2 (Base64 anidado) |
-| Tiempo de resolución | ~10 minutos |
+**¿Listo para el siguiente reto?** → Prueba LSB avanzado, espectrograms de audio, o steganografía en videos.
 </div> </div> </article> <div id="modal-forensics/hidden-in-plainsight" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50" aria-hidden="true"> <div class="flex items-center justify-center min-h-screen p-4"> <div class="bg-slate-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto"> <div class="p-6 border-b border-slate-700"> <div class="flex justify-between items-start"> <div> <h2 class="text-2xl font-bold text-gray-100">Hidden in Plainsight</h2> <div class="flex items-center gap-4 mt-2 text-sm"> <span class="capitalize bg-slate-700 px-2 py-1 rounded">ctf</span> <span class="text-cyan-400">easy</span> <span class="text-green-400 font-mono">Flag: picoCTF{h1dd3n_1n_1m4g3_2ac27d95}</span> </div> </div> <button onclick="closeModal('forensics/hidden-in-plainsight')" class="text-gray-400 hover:text-white">
 ✕
-</button> </div> </div> <div class="p-6"> <div class="mb-6"> <h3 class="text-lg font-semibold text-cyan-400 mb-4">Pasos a Seguir</h3> <div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">1. Pistas</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">2. Archivos proporcionados</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">3. Paso 1: Analizar metadatos de la imagen</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+</button> </div> </div> <div class="p-6"> <div class="mb-6"> <h3 class="text-lg font-semibold text-cyan-400 mb-4">Pasos a Seguir</h3> <div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">1. Contexto de Investigación Interna</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">2. ¿Qué es la Esteganografía?</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">3. Técnicas Comunes en Imágenes</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">4. Formato JPEG y Esteganografía</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">5. Fase 1: Análisis Superficial</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
 
-                    <code>file img.jpg</code>
-                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">4. Paso 2: Decodificar el comentario Base64</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+                    <code>file img.jpg
+ls -la img.jpg
+identify img.jpg  # ImageMagick</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">6. Fase 2: Análisis de Metadatos</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
 
-                    <code>echo &quot;c3RlZ2hpZGU6Y0VGNmVuZHZjbVE9&quot; | base64 -d</code>
-                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">5. Paso 3: Decodificar la contraseña</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+                    <code>exiftool img.jpg
+exiftool img.jpg | grep -i &quot;comment\|artist\|copyright&quot;
+identify -verbose img.jpg | grep -i &quot;comment\|properties&quot;
+strings img.jpg | head -20
+strings -n 10 img.jpg | grep -E &quot;[A-Za-z0-9+/]{20,}=&quot;</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">7. Fase 3: Identificación de Técnica</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
 
-                    <code>echo &quot;cEF6endvcmQ=&quot; | base64 -d</code>
-                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">6. Paso 4: Extraer el payload con steghide</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+                    <code>steghide info img.jpg
+zsteg img.jpg 2&gt;/dev/null || echo &quot;zsteg no soporta JPEG&quot;
+stegseek img.jpg /usr/share/wordlists/rockyou.txt
+binwalk -E img.jpg</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">8. Fase 4: Extracción</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
 
-                    <code>steghide extract -sf img.jpg -p &quot;pAzzword&quot;</code>
-                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">7. Paso 5: Leer la flag</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+                    <code>steghide extract -sf img.jpg -p &quot;&quot;
+steghide extract -sf img.jpg -p &quot;pAzzword&quot;
+file output.txt
+cat output.txt</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">9. Herramientas Esenciales</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">10. Script de Detección Automatizado</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">11. Uso del Script</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
 
-                    <code>cat output.txt</code>
-                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">8. Alternativas para extraer metadatos</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+                    <code>pip3 install Pillow numpy
+python3 stego_detector.py img.jpg</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">12. Casos Documentados</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">13. Detección y Defensa</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
 
-                    <code>exiftool img.jpg | grep -i comment
-strings img.jpg | head -5
-identify -verbose img.jpg | grep -i comment</code>
-                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">9. Instalación de steghide</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+                    <code>convert input.jpg -strip output.jpg</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">14. Paso a Paso</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
 
-                    <code>sudo apt install steghide
-docker run --rm -v $(pwd):/data dominicbreuker/stego-toolkit \
-steghide extract -sf /data/img.jpg -p &quot;pAzzword&quot;</code>
-                  </pre>  </div> </div>    </div> </div> </div> </div> <script type="module">document.addEventListener("click",e=>{const t=e.target;t.classList.contains("bg-black")&&(t.classList.add("hidden"),t.setAttribute("aria-hidden","true"))});</script> </div> </main>  </body></html>
+                    <code>file img.jpg
+echo &quot;c3RlZ2hpZGU6Y0VGNmVuZHZjbVE9&quot; | base64 -d
+echo &quot;cEF6endvcmQ=&quot; | base64 -d
+steghide extract -sf img.jpg -p &quot;pAzzword&quot;
+cat output.txt</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">15. One-liner Automatizado</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>steghide extract -sf img.jpg -p &quot;$(echo &#39;c3RlZ2hpZGU6Y0VGNmVuZHZjbVE9&#39; | base64 -d | cut -d: -f2 | base64 -d)&quot;</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">16. Flag</h4>   </div> </div>    </div> </div> </div> </div> <script type="module">document.addEventListener("click",e=>{const t=e.target;t.classList.contains("bg-black")&&(t.classList.add("hidden"),t.setAttribute("aria-hidden","true"))});</script> </div> </main>  </body></html>
