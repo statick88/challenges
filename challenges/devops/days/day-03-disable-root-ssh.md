@@ -13,146 +13,221 @@ date: 2026-01-26
 status: completed
 ---
 
-## 🎯 Objetivo
-Deshabilitar el acceso SSH directo como root en todos los servidores de aplicaciones dentro del Datacenter Stratos, como parte de los nuevos protocolos de seguridad implementados por el equipo de seguridad de xFusionCorp Industries tras auditorías de seguridad.
+# 🎓 Día 3: Hardening de SSH y Seguridad en Capas
 
-## 🏗️ Detalles de Infraestructura
-- **Datacenter**: Stratos Datacenter
-- **Servidores de Aplicaciones**: stapp01, stapp02, stapp03
-- **IPs**: 172.16.238.10, 172.16.238.11, 172.16.238.12
-- **Protocolo**: Nueva política de seguridad post-auditoría
+## 🎓 Del Instructor: DevOps Coach
+
+> 🔄 **Mentalidad DevOps**: "La seguridad es una responsabilidad compartida, no un departamento aparte. Cada cambio de configuración que hacemos es una oportunidad para fortalecer nuestro pipeline de entrega."
+
+Hoy implementamos una de las prácticas de seguridad más críticas en cualquier infraestructura: **eliminar el acceso root directo**. Esto no es solo "buena práctica" - es fundamental para la cultura DevOps de trazabilidad y responsabilidad compartida.
 
 ---
 
-## 🔧 Proceso de Solución
+## 🎭 Contexto del Día
 
-### Paso 1: Conectarse a cada App Server
+### Conexión con Días Anteriores
+
+- **Día 1-2**: Creaste usuarios regulares y temporales - ahora les darás un propósito crítico
+- **Hoy**: Esos usuarios se convierten en la **única vía de acceso** a producción
+- **Día 10**: SSH sin contraseña entre servidores (automatización segura)
+
+### Progresión hacia el Pipeline CI/CD
+
+Este patrón es la base de:
+
+- **Bastion Hosts**: Saltos seguros entre redes
+- **Audit Trails**: Saber QUIÉN hizo QUÉ y CUÁNDO
+- **Privileged Access Management (PAM)**: Control de accesos privilegiados
+
+### Escenario Empresarial
+
+Simulamos una auditoría de seguridad post-incidente. Tu equipo debe:
+
+1. Aplicar cambios en múltiples servidores
+2. Documentar cada cambio
+3. Verificar la aplicación correcta
+4. Mantener la disponibilidad del servicio
+
+---
+
+## 🧠 Fundamentos DevOps
+
+### Cultura de Colaboración
+
+Al eliminar el acceso root directo:
+
+- **Desarrolladores** deben usar cuentas nominales (trackeables)
+- **Operaciones** tienen visibilidad de quién accede a qué
+- **Seguridad** obtiene audit trails completos
+
+### Automatización
+
+Este cambio fuerza la automatización:
+
+```bash
+# Ya no puedes: ssh root@server
+# Debes usar: ssh user@server + sudo comando
+# O mejor aún: ansible-playbook (Día 7)
+```
+
+### Métricas y Observabilidad
+
+- **SSH Login Events**: Logs claros de quién se conecta
+- **Sudo Usage**: Trazabilidad de comandos privilegiados
+- **Failed Root Attempts**: Detección de intentos de ataque
+
+---
+
+## 🛠️ Implementación Paso a Paso
+
+### Paso 1: Conexión Multi-Servidor
+
 ```bash
 # Conectarse a stapp01
 ssh tony@172.16.238.10
 
-# Conectarse a stapp02  
+# Conectarse a stapp02
 ssh steve@172.16.238.11
 
 # Conectarse a stapp03
 ssh banner@172.16.238.12
 ```
-Conexiones exitosas a los tres servidores de aplicaciones.
+
+**Análisis DevOps**: Estamos aplicando **Infrastructure as Code** manualmente hoy, pero esto se convertirá en un playbook de Ansible automatizado.
 
 ### Paso 2: Verificar configuración SSH actual
+
 ```bash
-# Verificar si root SSH está permitido
 sudo grep -i "permitrootlogin" /etc/ssh/sshd_config
 ```
-Análisis de la configuración actual de SSH en cada servidor.
 
-### Paso 3: Editar configuración SSH
+**Análisis DevOps**: Siempre verificar el estado actual antes de modificar - principio fundamental del cambio seguro en producción.
+
+### Paso 3: Backup y Edición de Configuración
+
 ```bash
-# Hacer backup del archivo de configuración
-sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config.backup
+# Backup del archivo crítico
+sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config.backup.$(date +%Y%m%d)
 
-# Editar archivo de configuración SSH
+# Editar configuración
 sudo vi /etc/ssh/sshd_config
-```
-Modificación del parámetro `PermitRootLogin`:
 
-```bash
-# Cambiar de yes a no (o agregar si no existe)
+# Cambiar:
 PermitRootLogin no
 ```
 
+**Mejores Prácticas DevOps**:
+
+- **Backup automático** con timestamp
+- **Versionado** implícito del archivo
+- **Rollback** posible si hay problemas
+
 ### Paso 4: Reiniciar servicio SSH
+
 ```bash
-# Reiniciar servicio SSH para aplicar cambios
 sudo systemctl restart sshd
 ```
-Verificación de que el servicio se reinició correctamente.
 
-### Paso 5: Verificar configuración aplicada
+**Análisis DevOps**: El servicio se reinicia sin interrumpir conexiones existentes (graceful restart).
+
+### Paso 5: Verificación cruzada
+
 ```bash
-# Confirmar que el cambio fue aplicado
+# Método 1: Ver configuración en archivo
+sudo grep -i "permitrootlogin" /etc/ssh/sshd_config
+
+# Método 2: Ver configuración activa
 sudo sshd -T | grep -i "permitrootlogin"
-# O alternativamente
-sudo grep -i "permitrootlogin" /etc/ssh/sshd_config
+
+# Método 3: Intentar conexión root (debe fallar)
+ssh root@172.16.238.10
+# Resultado esperado: Permission denied
 ```
-Confirmación de que `PermitRootLogin no` está configurado.
 
 ---
 
-## ✅ Verificación
-- Acceso SSH directo como root deshabilitado en stapp01 ✅
-- Acceso SSH directo como root deshabilitado en stapp02 ✅  
-- Acceso SSH directo como root deshabilitado en stapp03 ✅
-- Servicios SSH reiniciados sin interrupciones ✅
-- Backups de configuración creados ✅
+## ✅ Criterios de Éxito
 
-### 📋 Comandos ejecutados por servidor:
-
-**stapp01 (tony@172.16.238.10):**
-```bash
-sudo grep -i "permitrootlogin" /etc/ssh/sshd_config
-sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config.backup
-sudo vi /etc/ssh/sshd_config
-sudo systemctl restart sshd
-sudo grep -i "permitrootlogin" /etc/ssh/sshd_config
-# Resultado: PermitRootLogin no
-```
-
-**stapp02 (steve@172.16.238.11):**
-```bash
-sudo grep -i "permitrootlogin" /etc/ssh/sshd_config
-sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config.backup
-sudo vi /etc/ssh/sshd_config
-sudo systemctl restart sshd
-sudo grep -i "permitrootlogin" /etc/ssh/sshd_config
-# Resultado: PermitRootLogin no
-```
-
-**stapp03 (banner@172.16.238.12):**
-```bash
-sudo grep -i "permitrootlogin" /etc/ssh/sshd_config
-sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config.backup
-sudo vi /etc/ssh/sshd_config
-sudo systemctl restart sshd
-sudo grep -i "permitrootlogin" /etc/ssh/sshd_config
-# Resultado: PermitRootLogin no
-```
-
-## 🐛 Solución de Problemas
-- **Validación crítica**: Verificado que el servicio SSH remainece funcional después de los cambios
-- **Documentación**: Se documentaron los cambios para cada servidor
-- **Pruebas**: Se probaron conexiones con usuarios no-root para confirmar acceso
-
-## 📚 Aprendizajes Clave
-- `PermitRootLogin no` en `/etc/ssh/sshd_config` deshabilita acceso SSH root directo
-- Siempre hacer backup de archivos de configuración críticos antes de modificar
-- Reiniciar `sshd` después de cambios de configuración
-- La seguridad por capas es fundamental: acceso root solo a través de usuarios con sudo
-
-## 🔗 Comandos Relacionados
-- `vi /etc/ssh/sshd_config` - Editar configuración SSH
-- `systemctl restart sshd` - Reiniciar servicio SSH
-- `sshd -T` - Test de configuración SSH
-- `grep -i` - Búsqueda insensible a mayúsculas/minúsculas
-
-## 📖 Recursos
-- Documentación de seguridad SSH de xFusionCorp
-- Linux Hardening Guides
-- Best practices para configuración de servidores
+- [x] Acceso SSH root deshabilitado en stapp01, stapp02, stapp03
+- [x] Backups de configuración creados antes de modificar
+- [x] Servicios SSH reiniciados sin downtime
+- [x] Verificación exitosa con `sshd -T`
+- [x] Conexiones de usuarios regulares funcionan correctamente
+- [x] Documentación del cambio completada
 
 ---
 
-## 📊 Seguimiento de Tiempo
-- **Hora de Inicio**: 09:00
-- **Hora de Finalización**: 09:45
-- **Duración Total**: 45 minutos
+## 🎓 Lecciones Aprendidas
 
-## 🏆 Criterios de Éxito Cumplidos
-- [x] Acceso SSH root deshabilitado en stapp01
-- [x] Acceso SSH root deshabilitado en stapp02
-- [x] Acceso SSH root deshabilitado en stapp03
-- [x] Servicios SSH reiniciados correctamente
-- [x] Configuración verificada en cada servidor
+### 🔑 Conceptos Clave
 
-## 🌐 Contexto Adicional
-Este reto implementa medidas de seguridad críticas post-auditoría, siguiendo principios de defensa en profundidad. Al deshabilitar el acceso root directo, se fuerza a los administradores a usar cuentas individuales con sudo, creando un rastro de auditoría claro y reduciendo la superficie de ataque. Esta práctica es estándar en entornos empresariales y cumple con compliance de seguridad.
+1. **Defense in Depth**: La seguridad por capas - múltiples controles de seguridad.
+
+2. **Least Privilege**: Usuarios solo tienen los permisos mínimos necesarios.
+
+3. **Auditability**: Cada acción debe ser trazable a un individuo.
+
+### 🚨 Troubleshooting DevOps
+
+**Problema**: Temor a quedar "bloqueado" fuera del servidor
+
+**Mitigación**:
+
+```bash
+# 1. Mantener sesión SSH actual abierta
+# 2. Abrir nueva terminal y probar conexión
+# 3. Si falla, usar sesión original para revertir
+sudo cp /etc/ssh/sshd_config.backup.20260126 /etc/ssh/sshd_config
+sudo systemctl restart sshd
+```
+
+### 💡 Patrones Avanzados
+
+**1. Ansible Playbook (Preview Día 7)**:
+
+```yaml
+- name: Disable root SSH
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: "^PermitRootLogin"
+    line: "PermitRootLogin no"
+  notify: restart sshd
+```
+
+**2. Monitoreo de Intentos**:
+
+```bash
+# Ver intentos fallidos de root
+sudo grep "Failed password for root" /var/log/secure
+```
+
+---
+
+## 🚀 Día Siguiente: Preparación
+
+**Día 4** trabaja con permisos de scripts - una habilidad esencial porque:
+
+- Los usuarios no-root necesitan ejecutar scripts de despliegue
+- Los permisos correctos son críticos para CI/CD runners
+- Preparación para `chmod`, `chown`, y gestión de archivos
+
+**Conexión**: Usuario sin root SSH + permisos correctos = Acceso seguro y funcional
+
+---
+
+## 📚 Recursos DevOps
+
+- [CIS Benchmarks for SSH](https://www.cisecurity.org/cis-benchmarks)
+- [Ansible SSH Hardening Role](https://github.com/dev-sec/ansible-ssh-hardening)
+- [NIST Guidelines on SSH](https://csrc.nist.gov/publications/detail/white-paper/2015/10/23/security-of-interactive-and-automated-access-management-using-secure-shell-ssh/final)
+
+---
+
+## 📊 Seguimiento de Progreso
+
+- **Día**: 3 de 100
+- **Bloque**: Seguridad y Hardening
+- **Progresión**: 1 → 2 → 3 → 4 (Usuarios → Expiración → SSH → Permisos)
+- **Impacto**: Seguridad enterprise-grade aplicada
+
+**¡Crítico completado! Tu infraestructura ahora tiene controles de seguridad de nivel empresarial.** 🛡️

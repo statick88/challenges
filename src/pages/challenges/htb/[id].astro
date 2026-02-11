@@ -2,6 +2,7 @@
 import fs from 'fs';
 import path from 'path';
 import ChallengeModal from '../../../components/ChallengeModal.astro';
+import { marked } from 'marked';
 
 export async function getStaticPaths() {
   const htbPath = path.join(process.cwd(), 'challenges', 'htb');
@@ -128,6 +129,7 @@ if (filePath && fs.existsSync(filePath)) {
 const title = frontMatter.title || id;
 const cleanTitle = title.replace(/^"\d+:\s*/,'').replace(/"/g,'');
 const steps = parseSteps(content);
+const htmlContent = marked.parse(content.replace(/^---[\s\S]*?---/, ''));
 const categoryColor = 'from-green-500 to-teal-600';
 ---
 
@@ -264,7 +266,7 @@ const categoryColor = 'from-green-500 to-teal-600';
             </div>
           )}
           
-          <pre class="markdown-body whitespace-pre-wrap">{content.replace(/^---[\s\S]*?---/, '').trim()}</pre>
+           <div class="markdown-body" set:html={htmlContent}></div>
         </div>
       </article>
 

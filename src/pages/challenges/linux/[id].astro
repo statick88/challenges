@@ -5,6 +5,7 @@ import ChallengeModal from '../../../components/ChallengeModal.astro';
 import { parseFrontMatter, parseSteps } from '../../../utils/challenge-parser';
 import fs from 'fs';
 import path from 'path';
+import { marked } from 'marked';
 
 export async function getStaticPaths() {
   const challengesDir = path.join(process.cwd(), 'challenges/linux/retos');
@@ -29,6 +30,7 @@ const content = fs.readFileSync(filePath, 'utf-8');
 
 const frontMatter = parseFrontMatter(content);
 const steps = parseSteps(content);
+const htmlContent = marked.parse(content.replace(/^---[\s\S]*?---/, ''));
 
 const title = frontMatter.title || `Linux Challenge ${id}`;
 ---
@@ -135,7 +137,9 @@ const title = frontMatter.title || `Linux Challenge ${id}`;
           </div>
         </header>
 
-        <pre class="markdown-body whitespace-pre-wrap">{content.replace(/^---[\s\S]*?---/, '').trim()}</pre>
+        <div class="prose prose-invert max-w-none">
+          <div class="markdown-body" set:html={htmlContent} />
+        </div>
       </article>
 
       {steps.length > 0 && (
