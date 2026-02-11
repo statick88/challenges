@@ -42,10 +42,20 @@ const fileName = slugParts[slugParts.length - 1];
 
 let filePath;
 if (slugParts.length === 1) {
-  // Direct file like reto02-log-hunt.md
-  filePath = path.join(process.cwd(), 'challenges/ctf', `${fileName}.md`);
+  // Check if it's a directory with README.md
+  const dirPath = path.join(process.cwd(), 'challenges/ctf', fileName);
+  const readmePath = path.join(dirPath, 'README.md');
+  const mdPath = path.join(process.cwd(), 'challenges/ctf', `${fileName}.md`);
+
+  if (fs.existsSync(readmePath)) {
+    filePath = readmePath;
+  } else if (fs.existsSync(mdPath)) {
+    filePath = mdPath;
+  } else {
+    throw new Error(`File not found for slug: ${slug}`);
+  }
 } else {
-  // Directory with README.md like reto01/README.md or crypto/caesar-cipher.md
+  // Directory with README.md like crypto/caesar-cipher.md
   const dirPath = path.join(process.cwd(), 'challenges/ctf', ...slugParts.slice(0, -1));
   const readmePath = path.join(dirPath, 'README.md');
   const mdPath = path.join(dirPath, `${fileName}.md`);
