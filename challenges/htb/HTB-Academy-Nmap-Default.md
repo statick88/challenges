@@ -1,72 +1,150 @@
 ---
-tags: HTB, Academy, Nmap, Enumeration
+title: "HTB Academy - Nmap Default"
+category: ctf
+difficulty: easy
+tags: ["nmap", "enumeration", "htb-academy"]
+date: 2026-02-11
+status: completed
+platform: HTB
+flag: HTB{pr0F7pDv3r510nb4nn3r}
 ---
 
-# HTB Academy - Nmap Default
+# 🎓 HTB Academy - Nmap Default
 
-## Challenge Information
-- **Platform**: Hack The Box Academy
-- **Module**: Nmap
-- **Difficulty**: Beginner
-- **IP**: 10.129.43.41
-- **Date Completed**: 2026-02-11
+## 🎭 Enumeración Básica con Nmap
 
-## Objectives
-1. Find all TCP ports on the target
-2. Enumerate the hostname of the target (case-sensitive)
+---
 
-## Reconnaissance
-- Connected to HTB VPN using OpenVPN config `academy-regular.ovpn`
-- Connected to Pwnbox via SSH: `ssh htb-ac-2300153@htb-qyd5plq1et.htb-cloud.com`
-- Target IP: 10.129.43.41
+👨‍🏫 **Del Instructor**: Bienvenido a tu primer reto de Hack The Box Academy. Como Ethical Hacker, la enumeración es el primer paso crítico en cualquier pentest. Hoy exploraremos el uso fundamental de Nmap para mapear puertos y servicios en un objetivo simulado.
 
-## Enumeration
-### Port Scanning
-- Command: `nmap -p- 10.129.43.41`
-- Result: 7 open TCP ports discovered
+> 🎯 **Mentalidad de Hacker**: "Nada es lo que parece. Cada puerto abierto cuenta una historia sobre el sistema objetivo. Piensa como un detective: recopila pistas sistemáticamente antes de actuar."
 
-### Service Enumeration
-- Command: `nmap -sV 10.129.43.41`
-- Output:
+---
+
+## 🎭 El Escenario: Investigación de Red Corporativa
+
+Imagina que eres un consultor de ciberseguridad contratado por una empresa para auditar su red interna. Has recibido una IP objetivo (10.129.43.41) de un servidor Linux Ubuntu que supuestamente debería estar protegido. Tu misión es identificar todos los servicios expuestos y recopilar información crítica sobre el host.
+
+**Tu misión como Ethical Hacker**:
+
+- Descubrir todos los puertos TCP abiertos en el objetivo
+- Enumerar el nombre del host (hostname) de manera precisa
+- Documentar cada hallazgo con explicaciones técnicas
+
+## 🧠 Fundamentos de Análisis: Nmap como Herramienta de Reconocimiento
+
+Nmap (Network Mapper) es el escáner de puertos más poderoso y versátil disponible. Sus capacidades van más allá del simple escaneo de puertos:
+
+- **Escaneo de Puertos**: Identifica qué puertos están abiertos, cerrados o filtrados
+- **Detección de Servicios**: Intenta determinar qué servicios corren en cada puerto
+- **Detección de OS**: Analiza respuestas para identificar el sistema operativo
+- **Version Scanning**: Obtiene versiones exactas de servicios y software
+
+En un entorno real, esta información es crucial para:
+
+- Identificar vectores de ataque potenciales
+- Planificar estrategias de explotación
+- Evaluar la superficie de ataque del objetivo
+
+## 🔍 Metodología de Investigación: Enfoque Sistemático de Enumeración
+
+### Paso 1: Preparación del Entorno
+
+Primero, conectémonos al laboratorio de HTB Academy:
+
+```bash
+# Conectar a la VPN de HTB
+openvpn academy-regular.ovpn
+
+# Acceder a Pwnbox vía SSH
+ssh htb-ac-2300153@htb-qyd5plq1et.htb-cloud.com
 ```
-Starting Nmap 7.94SVN ( https://nmap.org ) at 2026-02-10 23:07 CST
-Nmap scan report for 10.129.43.41
-Host is up (0.077s latency).
-Not shown: 993 closed tcp ports (reset)
-PORT      STATE SERVICE     VERSION
-22/tcp    open  ssh         OpenSSH 7.6p1 Ubuntu 4ubuntu0.7 (Ubuntu Linux; protocol 2.0)
-80/tcp    open  http        Apache httpd 2.4.29 ((Ubuntu))
-110/tcp   open  pop3        Dovecot pop3d
-139/tcp   open  netbios-ssn Samba smbd 3.X - 4.X (workgroup: WORKGROUP)
-143/tcp   open  imap        Dovecot imapd (Ubuntu)
-445/tcp   open  netbios-ssn Samba smbd 3.X - 4.X (workgroup: WORKGROUP)
-31337/tcp open  Elite?
-1 service unrecognized despite returning data. If you know the service/version, please submit the following fingerprint at https://nmap.org/cgi-bin/submit.cgi?new-service :
-SF-Port31337-TCP:V=7.94SVN%I=7%D=2/10%Time=698C0E88%P=x86_64-pc-linux-gnu%
-SF:r(GetRequest,1F,"220\x20HTB{pr0F7pDv3r510nb4nn3r}\r\n");
-Service Info: Host: NIX-NMAP-DEFAULT; OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+> 💡 **Nota técnica**: La VPN asegura que estamos en la misma red que el objetivo, permitiendo comunicación directa con IPs privadas como 10.129.43.41.
+
+### Paso 2: Escaneo Completo de Puertos
+
+El primer paso en cualquier enumeración es identificar todos los puertos TCP abiertos:
+
+```bash
+nmap -p- 10.129.43.41
 ```
 
-## Answers
-1. **Total TCP ports**: 7
-   - Open ports: 22 (SSH), 80 (HTTP), 110 (POP3), 139 (NetBIOS), 143 (IMAP), 445 (NetBIOS), 31337 (Elite?)
+**Análisis**:
 
-2. **Hostname**: NIX-NMAP-DEFAULT
-   - Found in Service Info section of nmap output
+- `-p-` escanea todos los 65535 puertos TCP (no solo los 1000 más comunes)
+- Esto es crucial porque muchos servicios corren en puertos no estándar
+- En este caso, descubrimos 7 puertos abiertos: 22, 80, 110, 139, 143, 445, 31337
 
-## Key Learnings
-- Nmap `-p-` scans all 65535 ports
-- Nmap `-sV` performs service version detection
-- Hostname enumeration can be done via service banners or reverse DNS
-- HTB Academy labs provide guided learning for basic tools
+> ⚠️ **Advertencia**: Un escaneo completo puede tomar tiempo y generar logs en el objetivo. En entornos de producción, considera la discreción.
 
-## Commands Used
-- `openvpn academy-regular.ovpn` - Connect to HTB VPN
-- `ssh htb-ac-2300153@htb-qyd5plq1et.htb-cloud.com` - Connect to Pwnbox
-- `nmap -p- 10.129.43.41` - Full port scan
-- `nmap -sV 10.129.43.41` - Service enumeration
+### Paso 3: Enumeración de Servicios y Versiones
 
-## Notes
-- Target runs Ubuntu Linux
-- Services include SSH, HTTP, POP3, IMAP, Samba
-- Port 31337 shows a custom service with HTB flag in banner
+Una vez identificados los puertos, determinemos qué servicios corren en ellos:
+
+```bash
+nmap -sV 10.129.43.41
+```
+
+**Análisis del Output**:
+
+- **Puerto 22 (SSH)**: OpenSSH 7.6p1 Ubuntu - Acceso remoto seguro
+- **Puerto 80 (HTTP)**: Apache 2.4.29 - Servidor web
+- **Puerto 110 (POP3)**: Dovecot - Protocolo de correo electrónico
+- **Puerto 139/445 (NetBIOS/SMB)**: Samba - Compartición de archivos Windows/Linux
+- **Puerto 143 (IMAP)**: Dovecot - Otro protocolo de correo
+- **Puerto 31337**: Servicio personalizado que revela la flag HTB{pr0F7pDv3r510nb4nn3r}
+
+> 💡 **Nota técnica**: El puerto 31337 es inusual - típicamente usado por backdoors o servicios personalizados. El banner revela directamente la flag, mostrando un error de configuración común.
+
+## ✅ Checklist de Verificación
+
+- [x] VPN de HTB conectada correctamente
+- [x] Acceso a Pwnbox establecido
+- [x] Escaneo completo de puertos ejecutado (-p-)
+- [x] 7 puertos TCP identificados correctamente
+- [x] Servicios enumerados con versiones (-sV)
+- [x] Hostname extraído: NIX-NMAP-DEFAULT
+- [x] Flag capturada del banner del puerto 31337
+
+## 🎓 Lo Que Acabas de Aprender: Mentalidad Desarrollada
+
+Este reto te ha enseñado los fundamentos de la enumeración sistemática:
+
+**Habilidades Técnicas**:
+
+- Uso básico de Nmap para escaneo de puertos y servicios
+- Interpretación de outputs de escaneo
+- Identificación de servicios comunes (SSH, HTTP, SMB, email)
+- Reconocimiento de puertos no estándar y servicios personalizados
+
+**Mentalidad de Hacker Desarrollada**:
+
+- **Metodología Sistemática**: Siempre empezar con reconocimiento amplio antes de profundizar
+- **Atención al Detalle**: Cada puerto cuenta una historia sobre el sistema
+- **Curiosidad Investigativa**: ¿Por qué un puerto personalizado revela información sensible?
+- **Documentación Rigurosa**: Registrar cada comando y hallazgo para análisis posterior
+
+## 🚀 Próximos Pasos: Evolución en la Carrera de Hacker
+
+1. **Profundiza en Nmap**: Aprende opciones avanzadas como `-sC` (scripts NSE), `-O` (detección OS), y escaneo UDP
+2. **Explora Servicios**: Una vez enumerados, investiga vulnerabilidades en SSH 7.6p1, Apache 2.4.29, Samba 3.X-4.X
+3. **HTB Machines**: Pasa de Academy a máquinas reales con desafíos más complejos
+4. **Herramientas Complementarias**: Integra nmap con tools como nikto, dirbuster, o metasploit
+
+## 📚 Recursos y Referencias
+
+- [Nmap Official Documentation](https://nmap.org/docs.html)
+- [HTB Academy - Nmap Module](https://academy.hackthebox.com/module/details/19)
+- [Samba Security Best Practices](https://www.samba.org/samba/docs/current/man-html/smb.conf.5.html)
+- [Common Ports and Services](https://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers)
+
+---
+
+## ✅ Estado
+
+**COMPLETADO** 🎉
+
+- 📅 Fecha: 2026-02-11
+- ⏱️ Tiempo: 15 minutos
+- 🎯 Dificultad: Fácil (Beginner)

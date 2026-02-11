@@ -1,0 +1,83 @@
+{
+  "lastUpdated": "2026-02-11T05:28:29.286Z",
+  "overview": {
+    "totalChallenges": 50,
+    "completed": 39,
+    "ctfCompleted": 10,
+    "completionRate": 78
+  },
+  "programs": {
+    "linux": {
+      "name": "Linux",
+      "icon": "🐧",
+      "description": "Administración de sistemas Linux para xFusionCorp Industries",
+      "path": "/challenges/linux",
+      "color": "from-orange-500 to-red-600",
+      "total": 19,
+      "completed": 19,
+      "percentage": 100
+    },
+    "docker": {
+      "name": "Docker",
+      "icon": "🐳",
+      "description": "Desafíos de contenerización y Docker",
+      "path": "/challenges/docker",
+      "color": "from-blue-500 to-cyan-600",
+      "total": 5,
+      "completed": 5,
+      "percentage": 100
+    },
+    "devops": {
+      "name": "DevOps",
+      "icon": "⚙️",
+      "description": "100 Días de DevOps - Retos de automatización",
+      "path": "/challenges/devops",
+      "color": "from-purple-500 to-pink-600",
+      "total": 15,
+      "completed": 15,
+      "percentage": 100
+    },
+    "htb": {
+      "name": "HTB",
+      "icon": "🎯",
+      "description": "Hack The Box - Cybersecurity challenges",
+      "path": "/challenges/htb",
+      "color": "from-green-500 to-emerald-600",
+      "total": 1,
+      "completed": 0,
+      "percentage": 0
+    }
+  },
+  "recentActivity": [
+    {
+      "program": "devops",
+      "activity": "DevOps Days 08-15 added",
+      "icon": "⚙️"
+    },
+    {
+      "program": "ctf",
+      "activity": "CTF categories expanded",
+      "icon": "🚩"
+    },
+    {
+      "program": "linux",
+      "activity": "Linux Challenge 19 completed",
+      "icon": "🐧"
+    },
+    {
+      "program": "docker",
+      "activity": "Docker Reto 5 completed",
+      "icon": "🐳"
+    },
+    {
+      "program": "devops",
+      "activity": "DevOps Day 07 completed",
+      "icon": "⚙️"
+    },
+    {
+      "program": "ctf",
+      "activity": "CTF Reto 03 completed",
+      "icon": "🚩"
+    }
+  ]
+}
