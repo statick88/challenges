@@ -39,9 +39,17 @@ function parseFrontMatter(content: string): Record<string, any> {
     const m = line.match(/^(\w+):\s*(.*)$/);
     if (m) {
       let value = m[2].trim().replace(/^["']|["']$/g, '');
-      if (value.startsWith('[')) {
-        frontMatter[m[1]] = value.replace(/[\[\]]/g, '').split(',').map((v: string) => v.trim().replace(/['"]/g, ''));
-      } else {
+      if (value === '') value = '[]';
+      try {
+        if (value.startsWith('[')) {
+          frontMatter[m[1]] = value.replace(/[\[\]]/g, '').split(',').map((v: string) => v.trim().replace(/['"]/g, ''));
+        } else if (value.includes(',')) {
+          // Handle comma-separated values as arrays
+          frontMatter[m[1]] = value.split(',').map((v: string) => v.trim().replace(/['"]/g, ''));
+        } else {
+          frontMatter[m[1]] = value;
+        }
+      } catch {
         frontMatter[m[1]] = value;
       }
     }

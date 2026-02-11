@@ -28,6 +28,9 @@ function parseFrontMatter(content: string) {
       try {
         if (value.startsWith('[')) {
           result[m[1]] = value.replace(/[\[\]]/g, '').split(',').map((v: string) => v.trim().replace(/['"]/g, ''));
+        } else if (value.includes(',')) {
+          // Handle comma-separated values as arrays
+          result[m[1]] = value.split(',').map((v: string) => v.trim().replace(/['"]/g, ''));
         } else {
           result[m[1]] = value;
         }
