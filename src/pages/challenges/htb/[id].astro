@@ -4,7 +4,7 @@ import path from 'path';
 import ChallengeModal from '../../../components/ChallengeModal.astro';
 
 export async function getStaticPaths() {
-  const htbPath = './challenges/htb';
+  const htbPath = path.join(process.cwd(), 'challenges', 'htb');
   const paths = [];
   
   if (!fs.existsSync(htbPath)) return [];
@@ -113,7 +113,7 @@ let filePath = '';
 let content = '';
 let frontMatter: Record<string, any> = {};
 
-const htbPath = './challenges/htb';
+const htbPath = path.join(process.cwd(), 'challenges', 'htb');
 const mdPath = path.join(htbPath, `${id}.md`);
 
 if (fs.existsSync(mdPath)) {
