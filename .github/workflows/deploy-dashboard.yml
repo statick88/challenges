@@ -44,11 +44,11 @@ jobs:
 
       - name: Parse progress data
         run: |
-          pnpm run parse-data
+          npm run parse-data
 
       - name: Build with Astro
         run: |
-          pnpm run build
+          npm run build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
