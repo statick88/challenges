@@ -6,6 +6,11 @@ on:
     paths:
       - 'progress/**'
       - 'challenges-dashboard/**'
+      - 'challenges/**'
+      - 'src/**'
+      - 'scripts/**'
+      - 'package.json'
+      - 'package-lock.json'
   workflow_dispatch:
 
 permissions:
@@ -31,27 +36,24 @@ jobs:
         with:
           node-version: '20'
           cache: 'npm'
-          cache-dependency-path: ./challenges-dashboard/package-lock.json
+          cache-dependency-path: ./package-lock.json
 
       - name: Install dependencies
-        working-directory: ./challenges-dashboard
         run: |
           npm ci
 
       - name: Parse progress data
-        working-directory: ./challenges-dashboard
         run: |
           npm run parse-data
 
       - name: Build with Astro
-        working-directory: ./challenges-dashboard
         run: |
           npm run build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./challenges-dashboard/dist
+          path: ./dist
 
   deploy:
     runs-on: ubuntu-latest
