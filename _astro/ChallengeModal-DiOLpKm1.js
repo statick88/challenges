@@ -1,8 +1,8 @@
-import { c as createComponent, m as maybeRenderHead, d as addAttribute, b as renderTemplate, a as renderScript, e as createAstro } from './astro/server-CtDjgMVI.js';
+import { e as createAstro, c as createComponent, m as maybeRenderHead, d as addAttribute, b as renderTemplate, a as renderScript } from './astro/server-DYxzlhiQ.js';
 import 'piccolore';
 import 'clsx';
 
-const $$Astro = createAstro();
+const $$Astro = createAstro("https://statick88.github.io");
 const $$ChallengeModal = createComponent(($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro, $$props, $$slots);
   Astro2.self = $$ChallengeModal;

@@ -1,4 +1,4 @@
-import { c as createComponent, m as maybeRenderHead, a as renderScript, b as renderTemplate, g as renderSlot, r as renderComponent, f as renderHead, d as addAttribute, e as createAstro } from './astro/server-CtDjgMVI.js';
+import { c as createComponent, m as maybeRenderHead, a as renderScript, b as renderTemplate, e as createAstro, g as renderSlot, r as renderComponent, f as renderHead, d as addAttribute } from './astro/server-DYxzlhiQ.js';
 import 'piccolore';
 /* empty css                         */
 import 'clsx';
@@ -11,7 +11,7 @@ var __freeze = Object.freeze;
 var __defProp = Object.defineProperty;
 var __template = (cooked, raw) => __freeze(__defProp(cooked, "raw", { value: __freeze(cooked.slice()) }));
 var _a;
-const $$Astro = createAstro();
+const $$Astro = createAstro("https://statick88.github.io");
 const $$MainLayout = createComponent(($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro, $$props, $$slots);
   Astro2.self = $$MainLayout;

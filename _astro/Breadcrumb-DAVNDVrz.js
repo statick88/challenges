@@ -1,8 +1,8 @@
-import { c as createComponent, m as maybeRenderHead, b as renderTemplate, d as addAttribute, e as createAstro } from './astro/server-CtDjgMVI.js';
+import { e as createAstro, c as createComponent, m as maybeRenderHead, b as renderTemplate, d as addAttribute } from './astro/server-DYxzlhiQ.js';
 import 'piccolore';
 import 'clsx';
 
-const $$Astro = createAstro();
+const $$Astro = createAstro("https://statick88.github.io");
 const $$Breadcrumb = createComponent(($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro, $$props, $$slots);
   Astro2.self = $$Breadcrumb;
