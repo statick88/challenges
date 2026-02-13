@@ -49,6 +49,7 @@ jobs:
         run: npm run build
         env:
           TZ: America/Guayaquil
+          GITHUB_PAGES: "true"
 
       - name: Upload build artifacts
         uses: actions/upload-pages-artifact@v3
@@ -65,9 +66,6 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-        with:
-          # Cache invalidation: fuerza actualización
-          token: ${{ secrets.GITHUB_TOKEN }}
 
   # Notificación de cambios (opcional)
   notify:

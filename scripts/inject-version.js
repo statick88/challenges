@@ -32,6 +32,15 @@ function injectVersion(dir) {
 
 try {
   injectVersion(distPath);
+  
+  // Crear archivo .nojekyll para GitHub Pages
+  // Esto permite que archivos con _ sean servidos correctamente
+  const nojekyllPath = `${distPath}/.nojekyll`;
+  if (!fs.existsSync(nojekyllPath)) {
+    fs.writeFileSync(nojekyllPath, "");
+    console.log("✅ Created .nojekyll file for GitHub Pages");
+  }
+  
   console.log(`✅ Build version injected: ${buildVersion}`);
   console.log(`   Timestamp: ${buildTimestamp}`);
 } catch (error) {
