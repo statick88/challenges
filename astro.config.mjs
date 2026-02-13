@@ -1,16 +1,15 @@
 import { defineConfig } from "astro/config";
 import tailwind from "@astrojs/tailwind";
 
-// Detectar si estamos en GitHub Pages o en desarrollo
-const isGitHubPages = process.env.GITHUB_PAGES === "true";
-const repoName = "challenges"; // Nombre del repositorio
+// Siempre usar el base path para GitHub Pages
+// El repositorio se sirve en /challenges/
+const repoName = "challenges";
 
 export default defineConfig({
   integrations: [tailwind()],
   output: "static",
-  // Configuración para GitHub Pages
   site: "https://statick88.github.io",
-  base: isGitHubPages ? `/${repoName}` : undefined,
+  base: `/${repoName}`,
   build: {
     inlineStylesheets: "auto",
   },
@@ -23,7 +22,6 @@ export default defineConfig({
       },
     },
     build: {
-      // Genera nombres únicos para evitar cache
       rollupOptions: {
         output: {
           entryFileNames: `_astro/[name]-[hash].js`,
