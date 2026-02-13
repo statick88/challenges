@@ -1,7 +1,7 @@
 ---
-// src/pages/challenges/devops/[id].astro
 import MainLayout from '../../../layouts/MainLayout.astro';
 import { parseFrontMatter } from '../../../utils/challenge-parser';
+import allChallenges from '../../../data/all-challenges.json';
 import fs from 'fs';
 import path from 'path';
 import { marked } from 'marked';
@@ -31,6 +31,11 @@ if (fs.existsSync(filePath)) {
 const htmlContent = marked.parse(content.replace(/^---[\s\S]*?---/, ''));
 const title = frontMatter.title || `DevOps Day ${id}`;
 const dayNum = id.match(/\d+/)?.[0] || '?';
+
+const challenges = allChallenges.devops;
+const currentIndex = challenges.findIndex((c: any) => c.id === id);
+const prevChallenge = currentIndex > 0 ? challenges[currentIndex - 1] : null;
+const nextChallenge = currentIndex < challenges.length - 1 ? challenges[currentIndex + 1] : null;
 ---
 
 <MainLayout title={`Day ${dayNum}: ${title} - DevOps 100 Days`}>
@@ -76,11 +81,135 @@ const dayNum = id.match(/\d+/)?.[0] || '?';
       </article>
       
       <!-- Navigation -->
-      <div class="flex justify-between mt-8">
-        <a href="/challenges/devops" class="btn btn-secondary">
-          ← Volver a DevOps
+      <div class="nav-buttons">
+        {prevChallenge ? (
+          <a href={prevChallenge.path} class="nav-btn prev">
+            <span class="nav-icon">←</span>
+            <span class="nav-content">
+              <span class="nav-label">Anterior</span>
+              <span class="nav-title">Day {String(prevChallenge.day || prevChallenge.id.match(/\d+/)?.[0] || '?').padStart(2, '0')} {prevChallenge.title.length > 35 ? prevChallenge.title.slice(0, 35) + '...' : prevChallenge.title}</span>
+            </span>
+          </a>
+        ) : (
+          <span class="nav-btn disabled prev">
+            <span class="nav-icon">←</span>
+            <span class="nav-content">
+              <span class="nav-label">Anterior</span>
+              <span class="nav-title">No hay día anterior</span>
+            </span>
+          </span>
+        )}
+        
+        <a href="/challenges/devops" class="nav-btn home">
+          <span class="nav-icon">⚙️</span>
+          <span class="nav-content">
+            <span class="nav-label">Volver</span>
+            <span class="nav-title">Todos los Días</span>
+          </span>
         </a>
+        
+        {nextChallenge ? (
+          <a href={nextChallenge.path} class="nav-btn next">
+            <span class="nav-content">
+              <span class="nav-label">Siguiente</span>
+              <span class="nav-title">Day {String(nextChallenge.day || nextChallenge.id.match(/\d+/)?.[0] || '?').padStart(2, '0')} {nextChallenge.title.length > 35 ? nextChallenge.title.slice(0, 35) + '...' : nextChallenge.title}</span>
+            </span>
+            <span class="nav-icon">→</span>
+          </a>
+        ) : (
+          <span class="nav-btn disabled next">
+            <span class="nav-content">
+              <span class="nav-label">Siguiente</span>
+              <span class="nav-title">No hay día siguiente</span>
+            </span>
+            <span class="nav-icon">→</span>
+          </span>
+        )}
       </div>
     </div>
   </main>
 </MainLayout>
+
+<style>
+  .nav-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .nav-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1.25rem;
+    background: rgba(30, 41, 59, 0.8);
+    border: 1px solid rgba(71, 85, 105, 0.3);
+    border-radius: 0.75rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    flex: 1;
+    min-width: 200px;
+    max-width: 280px;
+  }
+
+  .nav-btn:hover:not(.disabled) {
+    background: rgba(168, 85, 247, 0.1);
+    border-color: rgba(168, 85, 247, 0.3);
+    transform: translateY(-2px);
+  }
+
+  .nav-btn.disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  .nav-btn.prev {
+    text-align: left;
+  }
+
+  .nav-btn.next {
+    text-align: right;
+    justify-content: flex-end;
+  }
+
+  .nav-btn.home {
+    justify-content: center;
+    max-width: 200px;
+  }
+
+  .nav-icon {
+    font-size: 1.25rem;
+    color: #a855f7;
+  }
+
+  .nav-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .nav-label {
+    font-size: 0.7rem;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .nav-title {
+    font-size: 0.875rem;
+    color: #e2e8f0;
+    font-weight: 500;
+  }
+
+  @media (max-width: 768px) {
+    .nav-buttons {
+      flex-direction: column;
+    }
+    .nav-btn {
+      max-width: 100%;
+    }
+  }
+</style>

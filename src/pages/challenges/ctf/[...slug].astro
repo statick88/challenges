@@ -1,16 +1,16 @@
 ---
-// src/pages/challenges/ctf/[...slug].astro
 import MainLayout from '../../../layouts/MainLayout.astro';
 import ChallengeModal from '../../../components/ChallengeModal.astro';
 import { parseFrontMatter, parseSteps } from '../../../utils/challenge-parser';
+import allChallenges from '../../../data/all-challenges.json';
 import fs from 'fs';
 import path from 'path';
 
 export async function getStaticPaths() {
   const challengesDir = path.join(process.cwd(), 'challenges/ctf');
-  const paths = [];
+  const paths: { params: { slug: string } }[] = [];
 
-  function scanDirectory(dir, prefix = '') {
+  function scanDirectory(dir: string, prefix = ''): void {
     const entries = fs.readdirSync(dir, { withFileTypes: true });
 
     for (const entry of entries) {
@@ -22,7 +22,6 @@ export async function getStaticPaths() {
           const slug = prefix ? `${prefix}/${entry.name}` : entry.name;
           paths.push({ params: { slug } });
         } else {
-          // Recursively scan subdirectories (including academy)
           scanDirectory(subDir, prefix ? `${prefix}/${entry.name}` : entry.name);
         }
       } else if (entry.isFile() && entry.name.endsWith('.md') && entry.name !== 'README.md') {
@@ -36,13 +35,12 @@ export async function getStaticPaths() {
   return paths;
 }
 
-const { slug } = Astro.params;
+const { slug } = Astro.params as { slug: string };
 const slugParts = slug.split('/');
 const fileName = slugParts[slugParts.length - 1];
 
 let filePath;
 if (slugParts.length === 1) {
-  // Check if it's a directory with README.md
   const dirPath = path.join(process.cwd(), 'challenges/ctf', fileName);
   const readmePath = path.join(dirPath, 'README.md');
   const mdPath = path.join(process.cwd(), 'challenges/ctf', `${fileName}.md`);
@@ -55,7 +53,6 @@ if (slugParts.length === 1) {
     throw new Error(`File not found for slug: ${slug}`);
   }
 } else {
-  // Directory with README.md like crypto/caesar-cipher.md
   const dirPath = path.join(process.cwd(), 'challenges/ctf', ...slugParts.slice(0, -1));
   const readmePath = path.join(dirPath, 'README.md');
   const mdPath = path.join(dirPath, `${fileName}.md`);
@@ -75,6 +72,11 @@ const steps = parseSteps(content);
 const mainContent = content.replace(/^---[\s\S]*?---/, '');
 
 const title = frontMatter.title || `CTF Challenge ${slug}`;
+
+const challenges = allChallenges.ctf;
+const currentIndex = challenges.findIndex((c: any) => c.path === `/challenges/ctf/${slug}`);
+const prevChallenge = currentIndex > 0 ? challenges[currentIndex - 1] : null;
+const nextChallenge = currentIndex < challenges.length - 1 ? challenges[currentIndex + 1] : null;
 ---
 
 <MainLayout title={`${title} - CTF Challenges`}>
@@ -112,6 +114,137 @@ const title = frontMatter.title || `CTF Challenge ${slug}`;
           learnings={frontMatter.learnings}
         />
       )}
+
+      <!-- Navigation -->
+      <div class="nav-buttons">
+        {prevChallenge ? (
+          <a href={prevChallenge.path} class="nav-btn prev">
+            <span class="nav-icon">←</span>
+            <span class="nav-content">
+              <span class="nav-label">Anterior</span>
+              <span class="nav-title">{prevChallenge.title.length > 40 ? prevChallenge.title.slice(0, 40) + '...' : prevChallenge.title}</span>
+            </span>
+          </a>
+        ) : (
+          <span class="nav-btn disabled prev">
+            <span class="nav-icon">←</span>
+            <span class="nav-content">
+              <span class="nav-label">Anterior</span>
+              <span class="nav-title">No hay reto anterior</span>
+            </span>
+          </span>
+        )}
+        
+        <a href="/challenges/ctf" class="nav-btn home">
+          <span class="nav-icon">🚩</span>
+          <span class="nav-content">
+            <span class="nav-label">Volver</span>
+            <span class="nav-title">Todos los Retos</span>
+          </span>
+        </a>
+        
+        {nextChallenge ? (
+          <a href={nextChallenge.path} class="nav-btn next">
+            <span class="nav-content">
+              <span class="nav-label">Siguiente</span>
+              <span class="nav-title">{nextChallenge.title.length > 40 ? nextChallenge.title.slice(0, 40) + '...' : nextChallenge.title}</span>
+            </span>
+            <span class="nav-icon">→</span>
+          </a>
+        ) : (
+          <span class="nav-btn disabled next">
+            <span class="nav-content">
+              <span class="nav-label">Siguiente</span>
+              <span class="nav-title">No hay reto siguiente</span>
+            </span>
+            <span class="nav-icon">→</span>
+          </span>
+        )}
+      </div>
     </div>
   </main>
 </MainLayout>
+
+<style>
+  .nav-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .nav-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1.25rem;
+    background: rgba(30, 41, 59, 0.8);
+    border: 1px solid rgba(71, 85, 105, 0.3);
+    border-radius: 0.75rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    flex: 1;
+    min-width: 200px;
+    max-width: 280px;
+  }
+
+  .nav-btn:hover:not(.disabled) {
+    background: rgba(34, 197, 94, 0.1);
+    border-color: rgba(34, 197, 94, 0.3);
+    transform: translateY(-2px);
+  }
+
+  .nav-btn.disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  .nav-btn.prev {
+    text-align: left;
+  }
+
+  .nav-btn.next {
+    text-align: right;
+    justify-content: flex-end;
+  }
+
+  .nav-btn.home {
+    justify-content: center;
+    max-width: 200px;
+  }
+
+  .nav-icon {
+    font-size: 1.25rem;
+    color: #22c55e;
+  }
+
+  .nav-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .nav-label {
+    font-size: 0.7rem;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .nav-title {
+    font-size: 0.875rem;
+    color: #e2e8f0;
+    font-weight: 500;
+  }
+
+  @media (max-width: 768px) {
+    .nav-buttons {
+      flex-direction: column;
+    }
+    .nav-btn {
+      max-width: 100%;
+    }
+  }
+</style>

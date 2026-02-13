@@ -123,17 +123,53 @@ const skillColors: string[] = [
     </div>
     
     <!-- Progress Bar -->
-    <div class="mb-8">
+    <div class="mb-6">
       <div class="progress-bar" style="height: 10px;">
         <div class="progress-bar-fill" style={`width: ${percentage}%; background: linear-gradient(90deg, #22c55e, #10b981);`}></div>
       </div>
     </div>
     
-    <!-- Category Filter -->
-    <div class="flex flex-wrap gap-2 mb-8">
-      <button class="px-4 py-2 rounded-lg text-sm font-medium bg-accent text-white">
+    <!-- Filter Bar -->
+    <div class="filter-bar flex flex-wrap gap-2 mb-8">
+      <button 
+        class="filter-btn active" 
+        data-filter="all"
+        data-category="ctf"
+      >
         Todos ({total})
       </button>
+      <button 
+        class="filter-btn" 
+        data-filter="completed"
+        data-category="ctf"
+      >
+        Capturados 🏁 ({completed})
+      </button>
+      <button 
+        class="filter-btn" 
+        data-filter="in_progress"
+        data-category="ctf"
+      >
+        En Progreso ◐ ({inProgress})
+      </button>
+      <button 
+        class="filter-btn" 
+        data-filter="blocked"
+        data-category="ctf"
+      >
+        Bloqueados ⊘ ({blocked})
+      </button>
+      <button 
+        class="filter-btn" 
+        data-filter="ready"
+        data-category="ctf"
+      >
+        Pendientes ○ ({ready})
+      </button>
+    </div>
+    
+    <!-- Category Filter -->
+    <div class="flex flex-wrap gap-2 mb-8">
       {Object.entries(byCategory).map(([cat, items]: [string, any]) => (
         <span class={`px-4 py-2 rounded-lg text-sm font-medium border ${categoryColors[cat] || categoryColors.other}`} style="background: rgba(30, 41, 59, 0.5);">
           {categoryIcons[cat] || '📄'} {cat} ({items.length})
@@ -143,7 +179,7 @@ const skillColors: string[] = [
     
     <!-- Challenges by Category -->
     {Object.entries(byCategory).map(([category, categoryChallenges]: [string, any]) => (
-      <section class="mb-12">
+      <section class="mb-12 category-section" data-category={category}>
         <div class="flex items-center gap-3 mb-4">
           <span class="text-2xl">{categoryIcons[category] || '📄'}</span>
           <h2 class="text-xl font-bold capitalize" style="color: var(--color-text);">
@@ -162,7 +198,7 @@ const skillColors: string[] = [
             const statusIcon = statusIcons[challenge.status] || '○';
             
             return (
-              <div class="challenge-card group">
+              <div class="challenge-card group" data-status={challenge.status}>
                 <!-- Header with status -->
                 <div class="challenge-card-header">
                   <span class={`difficulty-badge ${diff.color}`}>
@@ -252,6 +288,10 @@ const skillColors: string[] = [
     border-color: rgba(34, 197, 94, 0.5);
     transform: translateY(-4px);
     box-shadow: 0 12px 40px -12px rgba(34, 197, 94, 0.25);
+  }
+
+  .challenge-card.hidden {
+    display: none;
   }
 
   .challenge-card-header {
@@ -346,4 +386,66 @@ const skillColors: string[] = [
   .view-solution-btn:hover {
     background: rgba(34, 197, 94, 0.2);
   }
+
+  .category-section.hidden {
+    display: none;
+  }
+
+  .filter-btn {
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    background: rgba(30, 41, 59, 0.8);
+    color: #94a3b8;
+    border: 1px solid rgba(71, 85, 105, 0.3);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .filter-btn:hover {
+    background: rgba(51, 65, 85, 0.8);
+    color: #e2e8f0;
+  }
+
+  .filter-btn.active {
+    background: rgba(34, 197, 94, 0.2);
+    color: #22c55e;
+    border-color: rgba(34, 197, 94, 0.5);
+  }
 </style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const cards = document.querySelectorAll('.challenge-card');
+    const sections = document.querySelectorAll('.category-section');
+    
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        
+        const filter = btn.getAttribute('data-filter');
+        
+        cards.forEach(card => {
+          const status = card.getAttribute('data-status');
+          if (filter === 'all' || status === filter) {
+            card.classList.remove('hidden');
+          } else {
+            card.classList.add('hidden');
+          }
+        });
+
+        sections.forEach(section => {
+          const sectionCards = section.querySelectorAll('.challenge-card:not(.hidden)');
+          if (sectionCards.length === 0 && filter !== 'all') {
+            section.classList.add('hidden');
+          } else {
+            section.classList.remove('hidden');
+          }
+        });
+      });
+    });
+  });
+</script>

@@ -92,14 +92,53 @@ const skillColors: string[] = [
     </div>
     
     <!-- Progress Bar -->
-    <div class="mb-8">
+    <div class="mb-6">
       <div class="progress-bar" style="height: 10px;">
         <div class="progress-bar-fill" style={`width: ${percentage}%;`}></div>
       </div>
     </div>
     
+    <!-- Filter Bar -->
+    <div class="filter-bar flex flex-wrap gap-2 mb-8">
+      <button 
+        class="filter-btn active" 
+        data-filter="all"
+        data-category="linux"
+      >
+        Todos ({total})
+      </button>
+      <button 
+        class="filter-btn" 
+        data-filter="completed"
+        data-category="linux"
+      >
+        Completados ✓ ({completed})
+      </button>
+      <button 
+        class="filter-btn" 
+        data-filter="in_progress"
+        data-category="linux"
+      >
+        En Progreso ◐ ({inProgress})
+      </button>
+      <button 
+        class="filter-btn" 
+        data-filter="blocked"
+        data-category="linux"
+      >
+        Bloqueados ⊘ ({blocked})
+      </button>
+      <button 
+        class="filter-btn" 
+        data-filter="ready"
+        data-category="linux"
+      >
+        Pendientes ○ ({ready})
+      </button>
+    </div>
+    
     <!-- Challenges Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="challenges-grid">
       {challenges.map((challenge: any) => {
         const diff = difficultyConfig[challenge.difficulty] || difficultyConfig.medium;
         const statusColor = statusColors[challenge.status] || statusColors.ready;
@@ -108,7 +147,7 @@ const skillColors: string[] = [
         const challengeNum = challenge.id.match(/\d+/)?.[0] || '?';
         
         return (
-          <div class="challenge-card group">
+          <div class="challenge-card group" data-status={challenge.status}>
             <!-- Header with number and status -->
             <div class="challenge-card-header">
               <div class="flex items-center gap-2">
@@ -199,6 +238,10 @@ const skillColors: string[] = [
     border-color: rgba(249, 115, 22, 0.5);
     transform: translateY(-4px);
     box-shadow: 0 12px 40px -12px rgba(249, 115, 22, 0.25);
+  }
+
+  .challenge-card.hidden {
+    display: none;
   }
 
   .challenge-card-header {
@@ -300,4 +343,52 @@ const skillColors: string[] = [
   .view-solution-btn:hover {
     background: rgba(249, 115, 22, 0.2);
   }
+
+  .filter-btn {
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    background: rgba(30, 41, 59, 0.8);
+    color: #94a3b8;
+    border: 1px solid rgba(71, 85, 105, 0.3);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .filter-btn:hover {
+    background: rgba(51, 65, 85, 0.8);
+    color: #e2e8f0;
+  }
+
+  .filter-btn.active {
+    background: rgba(249, 115, 22, 0.2);
+    color: #f97316;
+    border-color: rgba(249, 115, 22, 0.5);
+  }
 </style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const cards = document.querySelectorAll('.challenge-card');
+    
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        
+        const filter = btn.getAttribute('data-filter');
+        
+        cards.forEach(card => {
+          const status = card.getAttribute('data-status');
+          if (filter === 'all' || status === filter) {
+            card.classList.remove('hidden');
+          } else {
+            card.classList.add('hidden');
+          }
+        });
+      });
+    });
+  });
+</script>
