@@ -22,7 +22,7 @@ export async function getStaticPaths() {
           const slug = prefix ? `${prefix}/${entry.name}` : entry.name;
           paths.push({ params: { slug } });
         } else {
-          // Recursively scan subdirectories
+          // Recursively scan subdirectories (including academy)
           scanDirectory(subDir, prefix ? `${prefix}/${entry.name}` : entry.name);
         }
       } else if (entry.isFile() && entry.name.endsWith('.md') && entry.name !== 'README.md') {

@@ -4,36 +4,71 @@ import type { ChallengeCardProps } from '../types/challenges';
 
 export interface Props extends ChallengeCardProps {}
 
-const { title, category, difficulty, status, date, href } = Astro.props;
+const props = Astro.props;
+const { title, category, date, href } = props;
+const difficulty = props.difficulty ?? 'medium';
+const status = props.status ?? 'ready';
 
-const difficultyColors = {
+const difficultyColors: Record<string, string> = {
   easy: "text-green-400",
   medium: "text-yellow-400",
   hard: "text-red-400"
 };
 
-const statusColors = {
+const statusColors: Record<string, string> = {
   completed: "bg-green-600",
   in_progress: "bg-yellow-600",
   ready: "bg-blue-600"
 };
+
+const categoryColors: Record<string, string> = {
+  linux: "text-orange-400",
+  docker: "text-blue-400",
+  devops: "text-purple-400",
+  ctf: "text-green-400",
+  htb: "text-emerald-400"
+};
 ---
 
-<div class="bg-slate-800 p-6 rounded-lg border border-slate-700 hover:border-slate-600 transition-colors">
+<a 
+  href={href}
+  class="card block group cursor-pointer"
+>
   <div class="flex justify-between items-start mb-3">
-    <h3 class="text-lg font-semibold text-gray-100">{title}</h3>
-    <span class={`px-2 py-1 rounded text-xs font-medium ${statusColors[status] || "bg-gray-600"}`}>
+    <h3 class="text-lg font-semibold transition-colors group-hover:text-accent" style="color: var(--color-text);">
+      {title}
+    </h3>
+    <span class={`px-2 py-1 rounded text-xs font-medium ${statusColors[status] ?? "bg-gray-600"} text-white`}>
       {status}
     </span>
   </div>
 
-  <div class="flex items-center gap-4 text-sm text-gray-400 mb-4">
-    <span class="capitalize">{category}</span>
-    <span class={difficultyColors[difficulty] || "text-gray-400"}>{difficulty}</span>
-    <span>{date}</span>
+  <div class="flex items-center gap-4 text-sm mb-4">
+    <span class={`capitalize font-medium ${categoryColors[category] ?? ""}`}>
+      {category}
+    </span>
+    <span class={`${difficultyColors[difficulty] ?? "text-gray-400"}`}>
+      {difficulty === 'easy' ? '⭐' : difficulty === 'medium' ? '⭐⭐' : '⭐⭐⭐'}
+    </span>
+    {date && (
+      <span style="color: var(--color-text-muted);">{date}</span>
+    )}
   </div>
 
-  <a href={href} class="text-cyan-400 hover:text-cyan-300 text-sm font-medium">
-    Ver desafío →
-  </a>
-</div>
+  <div class="flex items-center gap-2 text-sm font-medium transition-colors" style="color: var(--color-accent);">
+    <span>Ver desafío</span>
+    <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+    </svg>
+  </div>
+</a>
+
+<style>
+  .card {
+    text-decoration: none;
+  }
+  
+  .group:hover .text-accent {
+    color: var(--color-accent);
+  }
+</style>

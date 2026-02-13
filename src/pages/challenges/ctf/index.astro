@@ -1,0 +1,189 @@
+---
+// src/pages/challenges/ctf/index.astro
+import MainLayout from '../../../layouts/MainLayout.astro';
+import allChallenges from '../../../data/all-challenges.json';
+
+const challenges = allChallenges.ctf;
+
+// Categorías de CTF
+const categoryIcons: Record<string, string> = {
+  forensics: '🔍',
+  crypto: '🔐',
+  web: '🌐',
+  pwn: '💥',
+  reversing: '🔄',
+  misc: '📦',
+  academy: '🎓',
+  ctf: '🚩',
+  other: '📄'
+};
+
+const categoryColors: Record<string, string> = {
+  forensics: 'text-amber-400 bg-amber-500/20',
+  crypto: 'text-violet-400 bg-violet-500/20',
+  web: 'text-cyan-400 bg-cyan-500/20',
+  pwn: 'text-red-400 bg-red-500/20',
+  reversing: 'text-orange-400 bg-orange-500/20',
+  misc: 'text-gray-400 bg-gray-500/20',
+  academy: 'text-emerald-400 bg-emerald-500/20',
+  ctf: 'text-green-400 bg-green-500/20',
+  other: 'text-slate-400 bg-slate-500/20'
+};
+
+// Estadísticas
+const completed = challenges.filter(c => c.status === 'completed').length;
+const inProgress = challenges.filter(c => c.status === 'in_progress').length;
+const blocked = challenges.filter(c => c.status === 'blocked').length;
+const ready = challenges.filter(c => c.status === 'ready').length;
+const total = challenges.length;
+const percentage = total > 0 ? Math.round((completed / total) * 100) : 0;
+
+// Agrupar por categoría
+const byCategory = challenges.reduce((acc: Record<string, any[]>, c: any) => {
+  const cat = c.category || 'other';
+  if (!acc[cat]) acc[cat] = [];
+  acc[cat].push(c);
+  return acc;
+}, {});
+
+// Colores por estado
+const statusColors: Record<string, string> = {
+  completed: 'bg-green-500/20 text-green-400 border-green-500/30',
+  in_progress: 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30',
+  blocked: 'bg-red-500/20 text-red-400 border-red-500/30',
+  ready: 'bg-blue-500/20 text-blue-400 border-blue-500/30'
+};
+
+const statusLabels: Record<string, string> = {
+  completed: '✅ Completado',
+  in_progress: '🔓 En Progreso',
+  blocked: '🔒 Bloqueado',
+  ready: '⏳ Listo'
+};
+---
+
+<MainLayout title="CTF Challenges - Capture The Flag">
+  <div class="container mx-auto px-4 py-8">
+    
+    <!-- Header -->
+    <div class="mb-8">
+      <nav class="flex items-center gap-2 text-sm mb-4" style="color: var(--color-text-secondary);">
+        <a href="/" class="hover:underline" style="color: var(--color-accent);">Dashboard</a>
+        <span>/</span>
+        <span>CTF</span>
+      </nav>
+      
+      <div class="flex items-center gap-4 mb-4">
+        <span class="text-5xl">🚩</span>
+        <div>
+          <h1 class="text-3xl font-bold" style="color: var(--color-text);">CTF Challenges</h1>
+          <p style="color: var(--color-text-secondary);">Capture The Flag - Cripto, Web, Pwn, Reversing, Forensics</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Stats Cards -->
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
+      <div class="card text-center py-4">
+        <div class="text-2xl font-bold" style="color: var(--color-accent);">{total}</div>
+        <div class="text-xs" style="color: var(--color-text-secondary);">Total</div>
+      </div>
+      <div class="card text-center py-4">
+        <div class="text-2xl font-bold text-green-400">{completed}</div>
+        <div class="text-xs" style="color: var(--color-text-secondary);">Capturados</div>
+      </div>
+      <div class="card text-center py-4">
+        <div class="text-2xl font-bold text-yellow-400">{inProgress}</div>
+        <div class="text-xs" style="color: var(--color-text-secondary);">En Progreso</div>
+      </div>
+      <div class="card text-center py-4">
+        <div class="text-2xl font-bold text-blue-400">{ready}</div>
+        <div class="text-xs" style="color: var(--color-text-secondary);">Pendientes</div>
+      </div>
+      <div class="card text-center py-4">
+        <div class="text-2xl font-bold" style="color: var(--color-accent);">{percentage}%</div>
+        <div class="text-xs" style="color: var(--color-text-secondary);">Progreso</div>
+      </div>
+    </div>
+    
+    <!-- Progress Bar -->
+    <div class="mb-8">
+      <div class="progress-bar" style="height: 10px;">
+        <div class="progress-bar-fill" style={`width: ${percentage}%; background: linear-gradient(90deg, #22c55e, #10b981);`}></div>
+      </div>
+    </div>
+    
+    <!-- Category Filter -->
+    <div class="flex flex-wrap gap-2 mb-8">
+      <button class="px-4 py-2 rounded-lg text-sm font-medium bg-accent text-white">
+        Todos ({total})
+      </button>
+      {Object.entries(byCategory).map(([cat, items]: [string, any]) => (
+        <span class={`px-4 py-2 rounded-lg text-sm font-medium ${categoryColors[cat] || categoryColors.other}`}>
+          {categoryIcons[cat] || '📄'} {cat} ({items.length})
+        </span>
+      ))}
+    </div>
+    
+    <!-- Challenges by Category -->
+    {Object.entries(byCategory).map(([category, categoryChallenges]: [string, any]) => (
+      <section class="mb-12">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="text-2xl">{categoryIcons[category] || '📄'}</span>
+          <h2 class="text-xl font-bold capitalize" style="color: var(--color-text);">
+            {category}
+          </h2>
+          <span class="text-sm px-2 py-1 rounded" style="color: var(--color-text-muted); background: var(--color-bg-hover);">
+            {(categoryChallenges as any[]).filter((c: any) => c.status === 'completed').length}/{(categoryChallenges as any[]).length}
+          </span>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {(categoryChallenges as any[]).map((challenge: any) => (
+            <a 
+              href={challenge.path}
+              class="card group relative overflow-hidden"
+            >
+              <!-- Status indicator -->
+              <div class={`absolute top-0 right-0 px-3 py-1 text-xs font-medium rounded-bl-lg border ${statusColors[challenge.status] || statusColors.ready}`}>
+                {statusLabels[challenge.status] || '⏳ Listo'}
+              </div>
+              
+              <!-- Content -->
+              <div class="pt-6">
+                <!-- Title -->
+                <h3 class="text-lg font-semibold mb-2 line-clamp-2" style="color: var(--color-text);">
+                  {challenge.title}
+                </h3>
+                
+                <!-- Excerpt -->
+                <p class="text-sm mb-4 line-clamp-3" style="color: var(--color-text-secondary);">
+                  {challenge.excerpt || 'Sin descripción disponible'}
+                </p>
+                
+                <!-- Footer -->
+                <div class="flex items-center justify-between">
+                  <span class="text-xs" style="color: var(--color-text-muted);">
+                    {challenge.date || 'Sin fecha'}
+                  </span>
+                  <span class="flex items-center gap-1 text-sm font-medium group-hover:translate-x-1 transition-transform" style="color: var(--color-accent);">
+                    Ver writeup
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                  </span>
+                </div>
+              </div>
+            </a>
+          ))}
+        </div>
+      </section>
+    ))}
+    
+  </div>
+</MainLayout>
+
+<style>
+  .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .line-clamp-3 { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+</style>

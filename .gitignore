@@ -51,4 +51,5 @@ coverage/
 # Training environment specific
 *.session
 *.history
-retries.log
+retries.log.astro/
+telemetry-id

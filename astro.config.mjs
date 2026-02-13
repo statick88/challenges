@@ -15,5 +15,15 @@ export default defineConfig({
         },
       },
     },
+    build: {
+      // Genera nombres únicos para evitar cache
+      rollupOptions: {
+        output: {
+          entryFileNames: `_astro/[name]-[hash].js`,
+          chunkFileNames: `_astro/[name]-[hash].js`,
+          assetFileNames: `_astro/[name]-[hash][extname]`,
+        },
+      },
+    },
   },
 });

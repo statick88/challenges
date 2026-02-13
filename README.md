@@ -355,3 +355,70 @@ Este repositorio demuestra un compromiso continuo con el aprendizaje técnico y 
 ---
 
 _Última actualización: 27-01-2026 | Compromiso con el aprendizaje técnico continuo_ 🚀
+
+---
+
+## 🔄 Sistema de Actualización Automática
+
+El **Dashboard de Desafíos** se actualiza automáticamente con cada push a la rama principal.
+
+### Flujo CI/CD
+
+```
+Push → GitHub Actions → Leer MD files → Generar JSON → Build → Deploy
+```
+
+### Cómo Actualizar un Reto
+
+1. **Editar el archivo markdown** del reto correspondiente
+2. **Cambiar el status** en el frontmatter:
+   ```yaml
+   ---
+   title: "Nombre del Reto"
+   status: completed # completed | in_progress | ready | blocked
+   difficulty: easy # easy | medium | hard
+   date: 2026-02-13
+   ---
+   ```
+3. **Commit y push**:
+   ```bash
+   git add challenges/linux/retos/01-creacion-usuarios/README.md
+   git commit -m "✅ Complete Linux challenge 01"
+   git push
+   ```
+
+### Estados Válidos
+
+| Estado                        | Descripción           |
+| ----------------------------- | --------------------- |
+| `completed` / `completado`    | Reto finalizado ✅    |
+| `in_progress` / `in-progress` | En desarrollo 🔓      |
+| `ready`                       | Listo para empezar ⏳ |
+| `blocked`                     | Bloqueado 🔒          |
+
+### Comandos Locales
+
+```bash
+# Desarrollo
+npm run dev
+
+# Build manual
+npm run build
+
+# Generar datos
+npm run parse-data
+
+# Validar estructura
+npm run validate:all
+```
+
+### Estructura del Dashboard
+
+```
+src/
+├── pages/index.astro      # Dashboard principal
+├── data/challenges.json   # Datos generados desde MD
+└── styles/global.css      # Estilos con tema claro/oscuro
+```
+
+El sistema implementa **cache busting** para garantizar que los usuarios siempre vean la última versión actualizada.

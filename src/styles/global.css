@@ -1,148 +1,421 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap");
 
-/* Custom CSS variables and global styles */
+/* ===================================
+   CSS Custom Properties - Theme System
+   Basado en statick88.github.io
+   =================================== */
+
 :root {
+  /* Tema Oscuro (default) */
+  --color-bg: #0a0e1a;
+  --color-bg-hover: #1b243d;
+  --color-bg-card: #1b243d;
+  --color-text: #ffffff;
+  --color-text-secondary: #b8b8b8;
+  --color-text-muted: #666666;
+  --color-border: #2a2a2a;
+  --color-accent: #4c80cc;
+  --color-accent-hover: #5a8fd4;
+  --color-accent-muted: rgba(76, 128, 204, 0.3);
+
+  /* Colores de estado */
+  --color-success: #1a7f37;
+  --color-warning: #f59e0b;
+  --color-error: #dc2626;
+
+  /* Colores de categoría */
+  --color-linux: #f97316;
+  --color-docker: #3b82f6;
+  --color-devops: #a855f7;
+  --color-ctf: #22c55e;
+  --color-htb: #10b981;
+
+  /* Progress bar */
   --progress: 0%;
 
-  /* Custom Tailwind color variables */
-  /*
-   * Token values are set per theme using [data-theme].
-   * Keep :root aligned with the default theme (dark).
-   */
-  --color-primary: 15 23 42; /* slate-900 */
-  --color-secondary: 30 41 59; /* slate-800 */
-  --color-text: 248 250 252; /* slate-50 */
-  --color-muted: 148 163 184; /* slate-400 */
-  --color-accent: 16 185 129; /* emerald-500 */
-  --color-success: 34 211 153; /* green-500 */
-  --color-warning: 245 158 11; /* amber-500 */
+  /* Shadows */
+  --shadow-card:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-card-hover:
+    0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-accent: 0 0 20px rgba(76, 128, 204, 0.3);
 }
 
-/* Theme-aware design tokens (consumed by Tailwind classes like bg-primary/text-text) */
-[data-theme="dark"] {
-  --color-primary: 15 23 42; /* slate-900 */
-  --color-secondary: 30 41 59; /* slate-800 */
-  --color-text: 248 250 252; /* slate-50 */
-  --color-muted: 148 163 184; /* slate-400 */
-  --color-accent: 16 185 129; /* emerald-500 */
-  --color-success: 34 211 153; /* green-500 */
-  --color-warning: 245 158 11; /* amber-500 */
+/* Tema Claro */
+html.light {
+  --color-bg: #ffffff;
+  --color-bg-hover: #f4f4f4;
+  --color-bg-card: #f4f4f4;
+  --color-text: #000000;
+  --color-text-secondary: #444444;
+  --color-text-muted: #888888;
+  --color-border: #dddddd;
+  --color-accent: #4c80cc;
+  --color-accent-hover: #3a70bc;
+  --color-accent-muted: rgba(76, 128, 204, 0.15);
+
+  --shadow-card:
+    0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  --shadow-card-hover:
+    0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+  --shadow-accent: 0 0 20px rgba(76, 128, 204, 0.2);
 }
 
-[data-theme="light"] {
-  --color-primary: 248 250 252; /* slate-50 */
-  --color-secondary: 226 232 240; /* slate-200 */
-  --color-text: 30 41 59; /* slate-800 */
-  --color-muted: 100 116 139; /* slate-500 */
-  --color-accent: 16 185 129; /* emerald-500 */
-  --color-success: 34 211 153; /* green-500 */
-  --color-warning: 245 158 11; /* amber-500 */
+/* ===================================
+   Base Styles
+   =================================== */
+
+* {
+  box-sizing: border-box;
 }
 
-body {
-  font-family: "Inter", system-ui, sans-serif;
-}
-
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: #1e293b;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #475569;
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #64748b;
-}
-
-/* Smooth scrolling */
 html {
   scroll-behavior: smooth;
 }
 
-/* Theme transition helpers (used by src/scripts/dark-mode.js) */
+body {
+  font-family:
+    "Inter",
+    system-ui,
+    -apple-system,
+    sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  min-height: 100vh;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+  line-height: 1.6;
+}
+
+/* ===================================
+   Custom Scrollbar
+   =================================== */
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent);
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border) var(--color-bg);
+}
+
+/* ===================================
+   Theme Toggle Transitions
+   =================================== */
+
 html.theme-transitioning * {
   transition:
     background-color 0.3s ease,
     border-color 0.3s ease,
     color 0.3s ease,
-    box-shadow 0.3s ease;
+    box-shadow 0.3s ease !important;
 }
 
 .theme-transition-overlay {
   position: fixed;
   inset: 0;
-  background: rgb(var(--color-primary) / 0.8);
+  background: var(--color-bg);
+  opacity: 0;
   z-index: 9999;
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0;
+  pointer-events: none;
   transition: opacity 0.2s ease;
 }
 
 .theme-transition-overlay.active {
-  opacity: 1;
+  opacity: 0.8;
+  pointer-events: auto;
 }
 
-.theme-toggle-ripple {
-  position: absolute;
-  border-radius: 50%;
-  background: currentColor;
-  transform: scale(0);
-  opacity: 0.6;
-  pointer-events: none;
+/* ===================================
+   Card Styles
+   =================================== */
+
+.card {
+  background-color: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-card);
 }
 
-.theme-toggle-ripple.animate {
-  transform: scale(4);
-  opacity: 0;
-  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+.card:hover {
+  border-color: var(--color-accent);
+  box-shadow: var(--shadow-card-hover), var(--shadow-accent);
+  transform: translateY(-2px);
 }
 
-/* Focus styles */
+/* ===================================
+   Progress Bar
+   =================================== */
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background-color: var(--color-border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    var(--color-accent),
+    var(--color-accent-hover)
+  );
+  border-radius: 4px;
+  transition: width 0.5s ease;
+}
+
+/* ===================================
+   Focus States
+   =================================== */
+
 button:focus,
-a:focus {
-  outline: 2px solid rgb(var(--color-accent));
+a:focus,
+input:focus {
+  outline: 2px solid var(--color-accent);
   outline-offset: 2px;
 }
 
-/* Mobile optimizations */
-@media (max-width: 768px) {
-  .animated-counter {
-    font-size: 2.5rem; /* Smaller on mobile */
+/* ===================================
+   Links
+   =================================== */
+
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--color-accent-hover);
+}
+
+/* ===================================
+   Buttons
+   =================================== */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  border: none;
+}
+
+.btn-primary {
+  background-color: var(--color-accent);
+  color: #ffffff;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-accent-hover);
+  box-shadow: var(--shadow-accent);
+}
+
+.btn-secondary {
+  background-color: var(--color-bg-card);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+}
+
+.btn-secondary:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+/* ===================================
+   Category Badges
+   =================================== */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.badge-linux {
+  background-color: rgba(249, 115, 22, 0.2);
+  color: #f97316;
+}
+
+.badge-docker {
+  background-color: rgba(59, 130, 246, 0.2);
+  color: #3b82f6;
+}
+
+.badge-devops {
+  background-color: rgba(168, 85, 247, 0.2);
+  color: #a855f7;
+}
+
+.badge-ctf {
+  background-color: rgba(34, 197, 94, 0.2);
+  color: #22c55e;
+}
+
+.badge-htb {
+  background-color: rgba(16, 185, 129, 0.2);
+  color: #10b981;
+}
+
+.badge-success {
+  background-color: rgba(26, 127, 55, 0.2);
+  color: #1a7f37;
+}
+
+.badge-warning {
+  background-color: rgba(245, 158, 11, 0.2);
+  color: #f59e0b;
+}
+
+/* ===================================
+   Stats Counter
+   =================================== */
+
+.stat-card {
+  text-align: center;
+  padding: 1.5rem;
+}
+
+.stat-value {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--color-accent);
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  margin-top: 0.5rem;
+}
+
+/* ===================================
+   Activity Timeline
+   =================================== */
+
+.activity-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  transition: background-color 0.2s ease;
+}
+
+.activity-item:hover {
+  background-color: var(--color-bg-hover);
+}
+
+.activity-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-accent-muted);
+  border-radius: 50%;
+  font-size: 1.25rem;
+}
+
+/* ===================================
+   Grid Layout
+   =================================== */
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .dashboard-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
+
+@media (min-width: 1024px) {
+  .dashboard-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* ===================================
+   Responsive Typography
+   =================================== */
+
+@media (max-width: 768px) {
+  .stat-value {
+    font-size: 2rem;
+  }
+}
+
+/* ===================================
+   Reduced Motion
+   =================================== */
 
 @media (prefers-reduced-motion: reduce) {
-  html.theme-transitioning * {
-    transition: none;
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 
-  .theme-transition-overlay {
-    transition: none;
-  }
-
-  .theme-toggle-ripple.animate {
-    transition: none;
+  html {
+    scroll-behavior: auto;
   }
 }
 
-/* Print styles */
+/* ===================================
+   Print Styles
+   =================================== */
+
 @media print {
-  .fixed {
-    display: none; /* Hide refresh button */
+  .no-print {
+    display: none !important;
   }
 
-  .bg-secondary,
-  .bg-primary {
+  body {
     background: white !important;
     color: black !important;
+  }
+
+  .card {
+    border: 1px solid #ccc !important;
+    box-shadow: none !important;
   }
 }

@@ -1,158 +1,384 @@
 import fs from "fs";
 import path from "path";
 
-function countChallenges() {
-  const counts = {
-    linux: 0,
-    docker: 0,
-    devops: 0,
-    ctf: 0,
-    htb: 0,
-    total: 0,
+// Parsear frontmatter de un archivo markdown
+function parseFrontMatter(filePath) {
+  try {
+    const content = fs.readFileSync(filePath, "utf-8");
+    const match = content.match(/^---\n([\s\S]*?)\n---/);
+
+    if (!match) return null;
+
+    const yaml = match[1];
+    const data = {
+      title: "",
+      status: "",
+      difficulty: "",
+      date: "",
+      category: "",
+    };
+
+    yaml.split("\n").forEach((line) => {
+      const m = line.match(/^(\w+):\s*(.*)$/);
+      if (m) {
+        let value = m[2].trim().replace(/^["']|["']$/g, "");
+        const key = m[1];
+        if (key === "title") data.title = value;
+        if (key === "status") data.status = value.toLowerCase();
+        if (key === "difficulty") data.difficulty = value;
+        if (key === "date") data.date = value;
+        if (key === "category") data.category = value;
+      }
+    });
+
+    return data;
+  } catch {
+    return null;
+  }
+}
+
+// Normalizar status
+function normalizeStatus(status) {
+  if (!status) return "ready";
+  const s = status.toLowerCase();
+  if (["completed", "completado", "done"].includes(s)) return "completed";
+  if (["in-progress", "in_progress", "in progress"].includes(s))
+    return "in_progress";
+  if (["blocked"].includes(s)) return "blocked";
+  if (["ready", "pending"].includes(s)) return "ready";
+  return "ready";
+}
+
+// Contar retos de Linux
+function countLinux() {
+  const retosPath = "./challenges/linux/retos";
+  const dirs = fs.readdirSync(retosPath).filter((f) => {
+    const fullPath = path.join(retosPath, f);
+    return fs.statSync(fullPath).isDirectory();
+  });
+
+  let completed = 0;
+  let inProgress = 0;
+  let ready = 0;
+  let blocked = 0;
+
+  dirs.forEach((dir) => {
+    const readmePath = path.join(retosPath, dir, "README.md");
+    if (fs.existsSync(readmePath)) {
+      const data = parseFrontMatter(readmePath);
+      if (data) {
+        const status = normalizeStatus(data.status);
+        if (status === "completed") completed++;
+        else if (status === "in_progress") inProgress++;
+        else if (status === "blocked") blocked++;
+        else ready++;
+      }
+    }
+  });
+
+  const total = dirs.length;
+
+  return {
+    name: "Linux",
+    icon: "🐧",
+    description: "Administración de sistemas Linux para xFusionCorp Industries",
+    path: "/challenges/linux",
+    color: "from-orange-500 to-red-600",
+    total,
+    completed,
+    inProgress,
+    ready,
+    blocked,
+    percentage: total > 0 ? Math.round((completed / total) * 100) : 0,
   };
+}
 
-  // Linux: count directorios en retos/
-  try {
-    const linuxRetos = fs.readdirSync("./challenges/linux/retos");
-    counts.linux = linuxRetos.filter((f) => {
-      const fullPath = path.join("./challenges/linux/retos", f);
-      return fs.statSync(fullPath).isDirectory();
-    }).length;
-  } catch {
-    counts.linux = 19;
-  }
+// Contar retos de Docker
+function countDocker() {
+  const dockerPath = "./challenges/docker/challenges";
+  const files = fs.readdirSync(dockerPath).filter((f) => f.endsWith(".md"));
 
-  // Docker: count .md files
-  try {
-    const dockerMd = fs.readdirSync("./challenges/docker/challenges");
-    counts.docker = dockerMd.filter((f) => f.endsWith(".md")).length;
-  } catch {
-    counts.docker = 5;
-  }
+  let completed = 0;
+  let inProgress = 0;
+  let ready = 0;
+  let blocked = 0;
 
-  // DevOps: count .md files
-  try {
-    const devopsMd = fs.readdirSync("./challenges/devops/days");
-    counts.devops = devopsMd.filter((f) => f.endsWith(".md")).length;
-  } catch {
-    counts.devops = 15;
-  }
+  files.forEach((file) => {
+    const filePath = path.join(dockerPath, file);
+    const data = parseFrontMatter(filePath);
+    if (data) {
+      const status = normalizeStatus(data.status);
+      if (status === "completed") completed++;
+      else if (status === "in_progress") inProgress++;
+      else if (status === "blocked") blocked++;
+      else ready++;
+    }
+  });
 
-  // CTF: count retos directories + md files en todas las carpetas
-  try {
-    const ctfPath = "./challenges/ctf";
-    const ctfItems = fs.readdirSync(ctfPath);
+  const total = files.length;
 
-    // Contar retos01, retos02, etc.
-    const retos = ctfItems.filter((f) => {
-      const fullPath = path.join(ctfPath, f);
-      return f.startsWith("reto") && fs.statSync(fullPath).isDirectory();
+  return {
+    name: "Docker",
+    icon: "🐳",
+    description: "Desafíos de contenerización y Docker",
+    path: "/challenges/docker",
+    color: "from-blue-500 to-cyan-600",
+    total,
+    completed,
+    inProgress,
+    ready,
+    blocked,
+    percentage: total > 0 ? Math.round((completed / total) * 100) : 0,
+  };
+}
+
+// Contar retos de DevOps
+function countDevOps() {
+  const devopsPath = "./challenges/devops/days";
+  const files = fs.readdirSync(devopsPath).filter((f) => f.endsWith(".md"));
+
+  let completed = 0;
+  let inProgress = 0;
+  let ready = 0;
+  let blocked = 0;
+
+  files.forEach((file) => {
+    const filePath = path.join(devopsPath, file);
+    const data = parseFrontMatter(filePath);
+    if (data) {
+      const status = normalizeStatus(data.status);
+      if (status === "completed") completed++;
+      else if (status === "in_progress") inProgress++;
+      else if (status === "blocked") blocked++;
+      else ready++;
+    }
+  });
+
+  const total = files.length;
+
+  return {
+    name: "DevOps",
+    icon: "⚙️",
+    description: "100 Días de DevOps - Retos de automatización",
+    path: "/challenges/devops",
+    color: "from-purple-500 to-pink-600",
+    total,
+    completed,
+    inProgress,
+    ready,
+    blocked,
+    percentage: total > 0 ? Math.round((completed / total) * 100) : 0,
+  };
+}
+
+// Contar retos de CTF
+function countCTF() {
+  const ctfPath = "./challenges/ctf";
+  const allMdFiles = [];
+
+  // Función recursiva para encontrar todos los .md
+  function findMdFiles(dir) {
+    const items = fs.readdirSync(dir);
+    items.forEach((item) => {
+      const fullPath = path.join(dir, item);
+      if (fs.statSync(fullPath).isDirectory()) {
+        findMdFiles(fullPath);
+      } else if (item.endsWith(".md") && item !== "README.md") {
+        allMdFiles.push(fullPath);
+      }
     });
-
-    // Contar md files en el directorio principal (no en subcarpetas)
-    const mainMdFiles = ctfItems.filter(
-      (f) => f.endsWith(".md") && f !== "README.md",
-    );
-
-    // Contar md files en subcarpetas (crypto, web, pwn, reversing, misc)
-    const categories = ["crypto", "web", "pwn", "reversing", "misc"];
-    let categoryMdFiles = 0;
-    categories.forEach((cat) => {
-      try {
-        const catPath = path.join(ctfPath, cat);
-        if (fs.existsSync(catPath)) {
-          const catFiles = fs.readdirSync(catPath);
-          categoryMdFiles += catFiles.filter((f) => f.endsWith(".md")).length;
-        }
-      } catch {}
-    });
-
-    counts.ctf = retos.length + mainMdFiles.length + categoryMdFiles;
-  } catch {
-    counts.ctf = 12;
   }
 
-  // HTB: count .md files
-  try {
-    const htbMd = fs.readdirSync("./challenges/htb");
-    counts.htb = htbMd.filter((f) => f.endsWith(".md")).length;
-  } catch {
-    counts.htb = 1;
+  findMdFiles(ctfPath);
+
+  let completed = 0;
+  let inProgress = 0;
+  let ready = 0;
+  let blocked = 0;
+
+  const categoryCounts = {};
+
+  allMdFiles.forEach((file) => {
+    const data = parseFrontMatter(file);
+    if (data) {
+      const status = normalizeStatus(data.status);
+      if (status === "completed") completed++;
+      else if (status === "in_progress") inProgress++;
+      else if (status === "blocked") blocked++;
+      else ready++;
+
+      // Contar por categoría
+      const category = data.category || "other";
+      if (!categoryCounts[category]) {
+        categoryCounts[category] = { total: 0, completed: 0 };
+      }
+      categoryCounts[category].total++;
+      if (status === "completed") {
+        categoryCounts[category].completed++;
+      }
+    }
+  });
+
+  const total = allMdFiles.length;
+
+  const categories = Object.entries(categoryCounts).map(([name, counts]) => ({
+    name,
+    total: counts.total,
+    completed: counts.completed,
+  }));
+
+  return {
+    stats: {
+      name: "CTF",
+      icon: "🚩",
+      description: "Capture The Flag - Cripto, Web, Pwn, Reversing, Forensics",
+      path: "/challenges/ctf",
+      color: "from-green-500 to-emerald-600",
+      total,
+      completed,
+      inProgress,
+      ready,
+      blocked,
+      percentage: total > 0 ? Math.round((completed / total) * 100) : 0,
+    },
+    categories,
+  };
+}
+
+// Contar retos de HTB
+function countHTB() {
+  const htbPath = "./challenges/htb";
+
+  if (!fs.existsSync(htbPath)) {
+    return {
+      name: "HTB",
+      icon: "🎯",
+      description: "Hack The Box - Cybersecurity challenges",
+      path: "/challenges/htb",
+      color: "from-teal-500 to-cyan-600",
+      total: 0,
+      completed: 0,
+      inProgress: 0,
+      ready: 0,
+      blocked: 0,
+      percentage: 0,
+    };
   }
 
-  counts.total = counts.linux + counts.docker + counts.devops + counts.ctf + counts.htb;
+  const files = fs
+    .readdirSync(htbPath)
+    .filter((f) => f.endsWith(".md") && f !== "README.md");
 
-  return counts;
+  let completed = 0;
+  let inProgress = 0;
+  let ready = 0;
+  let blocked = 0;
+
+  files.forEach((file) => {
+    const filePath = path.join(htbPath, file);
+    const data = parseFrontMatter(filePath);
+    if (data) {
+      const status = normalizeStatus(data.status);
+      if (status === "completed") completed++;
+      else if (status === "in_progress") inProgress++;
+      else if (status === "blocked") blocked++;
+      else ready++;
+    }
+  });
+
+  const total = files.length;
+
+  return {
+    name: "HTB",
+    icon: "🎯",
+    description: "Hack The Box - Cybersecurity challenges",
+    path: "/challenges/htb",
+    color: "from-teal-500 to-cyan-600",
+    total,
+    completed,
+    inProgress,
+    ready,
+    blocked,
+    percentage: total > 0 ? Math.round((completed / total) * 100) : 0,
+  };
 }
 
 async function generateChallengesData() {
   try {
-    const counts = countChallenges();
+    const linux = countLinux();
+    const docker = countDocker();
+    const devops = countDevOps();
+    const ctfResult = countCTF();
+    const htb = countHTB();
+
+    const programs = {
+      linux,
+      docker,
+      devops,
+      ctf: ctfResult.stats,
+      htb,
+    };
+
+    const totalChallenges =
+      linux.total +
+      docker.total +
+      devops.total +
+      ctfResult.stats.total +
+      htb.total;
+    const totalCompleted =
+      linux.completed +
+      docker.completed +
+      devops.completed +
+      ctfResult.stats.completed +
+      htb.completed;
+
+    const buildTimestamp = new Date().toISOString();
 
     const data = {
-      lastUpdated: new Date().toISOString(),
+      lastUpdated: buildTimestamp,
+      buildVersion: Date.now(),
       overview: {
-        totalChallenges: counts.total,
-        completed: counts.linux + counts.docker + counts.devops, // Solo estos 3 están completos
-        ctfCompleted: counts.ctf,
-        completionRate: Math.round(
-          ((counts.linux + counts.docker + counts.devops) / counts.total) * 100,
-        ),
+        totalChallenges,
+        completed: totalCompleted,
+        ctfCompleted: ctfResult.stats.completed,
+        completionRate:
+          totalChallenges > 0
+            ? Math.round((totalCompleted / totalChallenges) * 100)
+            : 0,
       },
-      programs: {
-        linux: {
-          name: "Linux",
-          icon: "🐧",
-          description:
-            "Administración de sistemas Linux para xFusionCorp Industries",
-          path: "/challenges/linux",
-          color: "from-orange-500 to-red-600",
-          total: counts.linux,
-          completed: counts.linux,
-          percentage: 100,
-        },
-        docker: {
-          name: "Docker",
-          icon: "🐳",
-          description: "Desafíos de contenerización y Docker",
-          path: "/challenges/docker",
-          color: "from-blue-500 to-cyan-600",
-          total: counts.docker,
-          completed: counts.docker,
-          percentage: 100,
-        },
-        devops: {
-          name: "DevOps",
-          icon: "⚙️",
-          description: "100 Días de DevOps - Retos de automatización",
-          path: "/challenges/devops",
-          color: "from-purple-500 to-pink-600",
-          total: counts.devops,
-          completed: counts.devops,
-          percentage: 100,
-        },
-        htb: {
-          name: "HTB",
-          icon: "🎯",
-          description: "Hack The Box - Cybersecurity challenges",
-          path: "/challenges/htb",
-          color: "from-green-500 to-emerald-600",
-          total: counts.htb,
-          completed: 0, // HTB challenges are not fully completed yet
-          percentage: 0,
-        },
-      },
+      programs,
+      ctfCategories: ctfResult.categories,
       recentActivity: [
-        { program: "devops", activity: "DevOps Days 08-15 added", icon: "⚙️" },
-        { program: "ctf", activity: "CTF categories expanded", icon: "🚩" },
+        {
+          program: "devops",
+          activity: "DevOps Days 08-15 ready for implementation",
+          icon: "⚙️",
+        },
+        {
+          program: "ctf",
+          activity: `CTF challenges: ${ctfResult.stats.completed}/${ctfResult.stats.total} completed`,
+          icon: "🚩",
+        },
         {
           program: "linux",
-          activity: "Linux Challenge 19 completed",
+          activity: `Linux: ${linux.completed}/${linux.total} completed (${linux.blocked} blocked)`,
           icon: "🐧",
         },
-        { program: "docker", activity: "Docker Reto 5 completed", icon: "🐳" },
-        { program: "devops", activity: "DevOps Day 07 completed", icon: "⚙️" },
-        { program: "ctf", activity: "CTF Reto 03 completed", icon: "🚩" },
+        {
+          program: "docker",
+          activity: `Docker: ${docker.completed}/${docker.total} completed`,
+          icon: "🐳",
+        },
+        {
+          program: "devops",
+          activity: `DevOps: ${devops.completed}/${devops.total} days completed`,
+          icon: "⚙️",
+        },
+        {
+          program: "htb",
+          activity: `HTB: ${htb.completed}/${htb.total} challenges`,
+          icon: "🎯",
+        },
       ],
     };
 
@@ -162,17 +388,37 @@ async function generateChallengesData() {
       JSON.stringify(data, null, 2),
     );
 
+    // Crear archivo de versión para cache busting
+    await fs.promises.writeFile(
+      "src/data/version.json",
+      JSON.stringify(
+        {
+          version: data.buildVersion,
+          timestamp: buildTimestamp,
+        },
+        null,
+        2,
+      ),
+    );
+
     console.log("✅ Challenges data generated successfully!");
     console.log(
-      `📊 Total: ${data.overview.completed}/${data.overview.totalChallenges} (${data.overview.completionRate}%)`,
+      `📊 Total: ${totalCompleted}/${totalChallenges} (${data.overview.completionRate}%)`,
     );
-    console.log(`🐧 Linux: ${counts.linux}`);
-    console.log(`🐳 Docker: ${counts.docker}`);
-    console.log(`⚙️ DevOps: ${counts.devops}`);
     console.log(
-      `🚩 CTF: ${counts.ctf} (includes ${counts.ctf - 7} new challenges)`,
+      `🐧 Linux: ${linux.completed}/${linux.total} (${linux.percentage}%) - ${linux.blocked} blocked`,
     );
-    console.log(`🎯 HTB: ${counts.htb}`);
+    console.log(
+      `🐳 Docker: ${docker.completed}/${docker.total} (${docker.percentage}%)`,
+    );
+    console.log(
+      `⚙️  DevOps: ${devops.completed}/${devops.total} (${devops.percentage}%)`,
+    );
+    console.log(
+      `🚩 CTF: ${ctfResult.stats.completed}/${ctfResult.stats.total} (${ctfResult.stats.percentage}%)`,
+    );
+    console.log(`🎯 HTB: ${htb.completed}/${htb.total} (${htb.percentage}%)`);
+    console.log(`🏗️  Build version: ${data.buildVersion}`);
 
     return data;
   } catch (error) {

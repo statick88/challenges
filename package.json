@@ -4,17 +4,18 @@
   "version": "1.0.0",
   "description": "Interactive dashboard for technical challenges progress",
   "scripts": {
-    "dev": "node scripts/generate-challenges-data.js && astro dev",
+    "dev": "node scripts/generate-challenges-data.js && node scripts/generate-all-challenges.js && astro dev",
     "start": "astro dev",
-    "build": "node scripts/generate-challenges-data.js && astro build",
+    "build": "node scripts/generate-challenges-data.js && node scripts/generate-all-challenges.js && astro build && node scripts/inject-version.js",
     "preview": "astro preview",
-    "parse-data": "node scripts/generate-challenges-data.js",
+    "parse-data": "node scripts/generate-challenges-data.js && node scripts/generate-all-challenges.js",
     "astro": "astro",
     "validate": "node scripts/validation/validate-structure.js",
     "validate:frontmatter": "node scripts/validation/validate-frontmatter.js",
     "validate:consistency": "node scripts/validation/validate-consistency.js",
     "validate:health": "node scripts/validation/health-check.js",
-    "validate:all": "npm run parse-data && npm run validate && npm run validate:frontmatter && npm run validate:consistency && npm run validate:health"
+    "validate:all": "npm run parse-data && npm run validate && npm run validate:frontmatter && npm run validate:consistency && npm run validate:health",
+    "predeploy": "npm run build"
   },
   "dependencies": {
     "@astrojs/tailwind": "^5.1.0",
