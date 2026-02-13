@@ -1,0 +1,282 @@
+<!DOCTYPE html><html lang="es" data-astro-cid-ouamjn2i> <head><meta charset="UTF-8"><meta name="description" content="Plataforma interactiva de desafíos técnicos - Linux, Docker, DevOps, CTF"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.17.1"><meta name="theme-color" content="#4c80cc"><title>Day 11: Configuración de Variables de Entorno - DevOps 100 Days</title><!-- Preconnect for fonts --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><!-- Script para prevenir flash de tema incorrecto --><script>
+      const theme = (() => {
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+          return localStorage.getItem('theme');
+        }
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          return 'dark';
+        }
+        return 'light';
+      })();
+      
+      if (theme === 'light') {
+        document.documentElement.classList.add('light');
+      } else {
+        document.documentElement.classList.add('dark');
+      }
+    </script><!-- Cache busting: Verificar versión y recargar si hay cambios --><script>
+      (function() {
+        const BUILD_VERSION = '1770952254556';
+        const CACHE_KEY = 'tech-challenges-build-version';
+        
+        // Verificar si hay nueva versión
+        const storedVersion = localStorage.getItem(CACHE_KEY);
+        
+        if (storedVersion && storedVersion !== BUILD_VERSION) {
+          // Nueva versión detectada, limpiar cache y recargar
+          console.log('🆕 Nueva versión detectada. Actualizando...');
+          if ('caches' in window) {
+            caches.keys().then(names => {
+              names.forEach(name => caches.delete(name));
+            });
+          }
+          localStorage.setItem(CACHE_KEY, BUILD_VERSION);
+          window.location.reload();
+        } else if (!storedVersion) {
+          localStorage.setItem(CACHE_KEY, BUILD_VERSION);
+        }
+      })();
+    </script><link rel="stylesheet" href="/_astro/_slug_-DjAw3gU4.css">
+<link rel="stylesheet" href="/_astro/_slug_-BSbIuNxR.css">
+<style>.markdown-body{font-family:system-ui;line-height:1.8;color:#e5e7eb}.markdown-body h1{font-size:2rem;font-weight:700;color:#a855f7;margin:2rem 0 1rem;border-bottom:1px solid #374151;padding-bottom:.5rem}.markdown-body h2{font-size:1.5rem;font-weight:600;color:#f472b6;margin:1.75rem 0 1rem}.markdown-body h3{font-size:1.25rem;font-weight:600;color:#f9a8d4;margin:1.5rem 0 .75rem}.markdown-body p{margin:.75rem 0;color:#d1d5db}.markdown-body strong{color:#fbbf24;font-weight:600}.markdown-body code{background:#a855f726;color:#c084fc;padding:.2rem .5rem;border-radius:.375rem;font-family:monospace}.markdown-body pre{background:#0f172a;padding:1rem;border-radius:.75rem;overflow-x:auto;margin:1rem 0;border:1px solid #1e293b}.markdown-body pre code{background:transparent;padding:0;color:#a5b4fc}.markdown-body ul,.markdown-body ol{margin:.75rem 0;padding-left:1.5rem;color:#d1d5db}.markdown-body li{margin:.5rem 0}.markdown-body blockquote{border-left:4px solid #a855f7;padding-left:1rem;margin:1rem 0;color:#9ca3af}
+</style></head> <body class="min-h-screen flex flex-col" data-astro-cid-ouamjn2i> <!-- Header --> <header class="sticky top-0 z-50 border-b" style="background-color: var(--color-bg); border-color: var(--color-border);" data-astro-cid-ouamjn2i> <div class="container mx-auto px-4 py-4 flex items-center justify-between" data-astro-cid-ouamjn2i> <!-- Logo / Brand --> <a href="/" class="flex items-center gap-3 group" data-astro-cid-ouamjn2i> <span class="text-2xl" data-astro-cid-ouamjn2i>🚀</span> <span class="font-bold text-lg transition-colors group-hover:text-accent" style="color: var(--color-text);" data-astro-cid-ouamjn2i>
+Tech Challenges
+</span> </a> <!-- Navigation --> <nav class="hidden md:flex items-center gap-6" data-astro-cid-ouamjn2i> <a href="/" class="nav-link" data-astro-cid-ouamjn2i>Dashboard</a> <a href="/challenges/linux" class="nav-link" data-astro-cid-ouamjn2i>Linux</a> <a href="/challenges/docker" class="nav-link" data-astro-cid-ouamjn2i>Docker</a> <a href="/challenges/devops" class="nav-link" data-astro-cid-ouamjn2i>DevOps</a> <a href="/challenges/ctf" class="nav-link" data-astro-cid-ouamjn2i>CTF</a> <a href="/challenges/htb" class="nav-link" data-astro-cid-ouamjn2i>HTB</a> </nav> <!-- Theme Toggle --> <div class="flex items-center gap-4" data-astro-cid-ouamjn2i> <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Cambiar tema" title="Cambiar tema claro/oscuro" data-astro-cid-x3pjskd3> <!-- Icono Sol (visible en tema oscuro) --> <svg class="icon-sun w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" data-astro-cid-x3pjskd3> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" data-astro-cid-x3pjskd3></path> </svg> <!-- Icono Luna (visible en tema claro) --> <svg class="icon-moon w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" data-astro-cid-x3pjskd3> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" data-astro-cid-x3pjskd3></path> </svg> </button>  <script type="module">const m=document.getElementById("theme-toggle");function c(){return typeof localStorage<"u"&&localStorage.getItem("theme")?localStorage.getItem("theme"):window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}function t(e){e==="dark"?(document.documentElement.classList.remove("light"),document.documentElement.classList.add("dark")):(document.documentElement.classList.remove("dark"),document.documentElement.classList.add("light")),localStorage.setItem("theme",e)}const d=c();d==="light"?document.documentElement.classList.add("light"):document.documentElement.classList.add("dark");m?.addEventListener("click",()=>{const n=(document.documentElement.classList.contains("light")?"light":"dark")==="dark"?"light":"dark";document.documentElement.classList.add("theme-transitioning"),t(n),setTimeout(()=>{document.documentElement.classList.remove("theme-transitioning")},300)});window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change",e=>{localStorage.getItem("theme")||t(e.matches?"dark":"light")});</script> <!-- Mobile Menu Button --> <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg border transition-colors" style="background-color: var(--color-bg-card); border-color: var(--color-border);" aria-label="Menú" data-astro-cid-ouamjn2i> <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-ouamjn2i> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" data-astro-cid-ouamjn2i></path> </svg> </button> </div> </div> <!-- Mobile Navigation --> <div id="mobile-menu" class="hidden md:hidden border-t" style="border-color: var(--color-border); background-color: var(--color-bg-card);" data-astro-cid-ouamjn2i> <nav class="container mx-auto px-4 py-4 flex flex-col gap-2" data-astro-cid-ouamjn2i> <a href="/" class="mobile-nav-link" data-astro-cid-ouamjn2i>Dashboard</a> <a href="/challenges/linux" class="mobile-nav-link" data-astro-cid-ouamjn2i>🐧 Linux</a> <a href="/challenges/docker" class="mobile-nav-link" data-astro-cid-ouamjn2i>🐳 Docker</a> <a href="/challenges/devops" class="mobile-nav-link" data-astro-cid-ouamjn2i>⚙️ DevOps</a> <a href="/challenges/ctf" class="mobile-nav-link" data-astro-cid-ouamjn2i>🚩 CTF</a> <a href="/challenges/htb" class="mobile-nav-link" data-astro-cid-ouamjn2i>🎯 HTB</a> </nav> </div> </header> <!-- Main Content --> <main class="flex-1" data-astro-cid-ouamjn2i>   <main class="container mx-auto px-4 py-8"> <div class="max-w-4xl mx-auto"> <!-- Breadcrumb --> <nav class="flex items-center gap-2 text-sm mb-6" style="color: var(--color-text-secondary);"> <a href="/" class="hover:underline" style="color: var(--color-accent);">Dashboard</a> <span>/</span> <a href="/challenges/devops" class="hover:underline" style="color: var(--color-accent);">DevOps</a> <span>/</span> <span>Day 11</span> </nav> <article class="card p-8"> <header class="mb-6"> <div class="flex items-center gap-2 mb-2"> <span class="text-purple-400 font-mono font-bold">⚙️ Day 11</span> </div> <h1 class="text-3xl font-bold mb-4" style="color: var(--color-text);">Configuración de Variables de Entorno</h1> <div class="flex items-center gap-4 text-sm" style="color: var(--color-text-secondary);"> <span>Dificultad: 1</span> <span>Fecha: 2026-02-05</span> </div> </header> <div class="markdown-body"><h1>🎓 Día 11: Variables de Entorno y Configuración de Aplicaciones</h1>
+<h2>🎓 Del Instructor: DevOps Coach</h2>
+<blockquote>
+<p>🔄 <strong>Mentalidad DevOps</strong>: &quot;La configuración no debe estar en el código - debe estar en el entorno. Las variables de entorno son el contrato entre tu infraestructura y tu aplicación, permitiendo el mismo código funcionar en desarrollo, staging y producción.&quot;</p>
+</blockquote>
+<p>Hoy configuramos <strong>variables de entorno</strong> - el mecanismo estándar para separar configuración de código. Este es el principio fundamental de las aplicaciones 12-Factor.</p>
+<hr>
+<h2>🎭 Contexto del Día</h2>
+<h3>Conexión con Días Anteriores</h3>
+<ul>
+<li><strong>Días 1-10</strong>: Infraestructura, usuarios, SSH, Git configurados</li>
+<li><strong>Hoy</strong>: Preparamos el entorno para aplicaciones</li>
+<li><strong>Días 12-15</strong>: Desplegaremos servicios que usan estas variables</li>
+</ul>
+<h3>Progresión hacia el Pipeline CI/CD</h3>
+<p>Variables de entorno son esenciales para:</p>
+<ul>
+<li><strong>12-Factor Apps</strong>: Configuración en el entorno, no en el código</li>
+<li><strong>CI/CD Pipelines</strong>: Diferentes valores por ambiente (dev/staging/prod)</li>
+<li><strong>Secrets Management</strong>: Separar credenciales del código</li>
+<li><strong>Container Orchestration</strong>: Docker, Kubernetes dependen de esto</li>
+</ul>
+<h3>Escenario Empresarial</h3>
+<p>La aplicación Nautilus necesita:</p>
+<ul>
+<li><code>APP_ENV=production</code> (identificar ambiente)</li>
+<li><code>APP_PORT=8080</code> (puerto de escucha)</li>
+<li><code>LOG_LEVEL=info</code> (nivel de logging)</li>
+</ul>
+<p>Estos valores deben persistir entre sesiones y estar disponibles para el usuario <code>deploy</code>.</p>
+<hr>
+<h2>🧠 Fundamentos DevOps</h2>
+<h3>Cultura de Colaboración</h3>
+<p>Variables de entorno facilitan:</p>
+<ul>
+<li><strong>Desarrolladores</strong>: Mismo código, diferente configuración</li>
+<li><strong>Operaciones</strong>: Cambiar comportamiento sin modificar código</li>
+<li><strong>DevOps</strong>: Automatización de despliegues por ambiente</li>
+</ul>
+<h3>Automatización</h3>
+<pre><code class="language-bash"># Sin variables (código hardcodeado):
+# const dbHost = &quot;localhost&quot;;  // No funciona en producción
+
+# Con variables (configurable):
+# const dbHost = process.env.DB_HOST;
+# DB_HOST=db.production.com npm start
+</code></pre>
+<h3>Métricas y Calidad</h3>
+<ul>
+<li><strong>Configuration Drift</strong>: Diferencias de configuración entre ambientes</li>
+<li><strong>Deployment Time</strong>: Qué tan rápido se configura un nuevo ambiente</li>
+<li><strong>Environment Parity</strong>: Qué tan similares son dev y prod</li>
+</ul>
+<hr>
+<h2>🛠️ Implementación Paso a Paso</h2>
+<h3>Paso 1: Conectar como Usuario Deploy</h3>
+<pre><code class="language-bash">ssh tony@stapp01.xfusioncorp.com
+sudo su - deploy
+</code></pre>
+<p><strong>Análisis DevOps</strong>: Configuramos variables para el usuario específico que ejecutará la aplicación (principio de separación de responsabilidades).</p>
+<h3>Paso 2: Crear Archivo de Variables</h3>
+<pre><code class="language-bash"># Crear archivo .env con variables
+cat &gt; ~/.env &lt;&lt;EOF
+APP_ENV=production
+APP_PORT=8080
+LOG_LEVEL=info
+EOF
+</code></pre>
+<p><strong>Análisis DevOps</strong>:</p>
+<ul>
+<li>Archivo separado para mejor organización</li>
+<li>Formato <code>KEY=VALUE</code> estándar</li>
+<li>Fácil de versionar o replicar en otros servidores</li>
+</ul>
+<h3>Paso 3: Integrar con Shell</h3>
+<pre><code class="language-bash"># Agregar source al .bashrc para carga automática
+echo &#39;source ~/.env&#39; &gt;&gt; ~/.bashrc
+</code></pre>
+<p><strong>Análisis DevOps</strong>:</p>
+<ul>
+<li><code>~/.bashrc</code>: Se ejecuta en cada nueva shell interactiva</li>
+<li><code>source</code>: Carga variables en el shell actual (no en subshell)</li>
+<li>Persistente: Disponible en todas las sesiones futuras</li>
+</ul>
+<h3>Paso 4: Verificar Carga Automática</h3>
+<pre><code class="language-bash"># Recargar configuración
+source ~/.bashrc
+
+# Verificar variables disponibles
+env | grep -E &quot;^(APP_|LOG_)&quot;
+</code></pre>
+<p><strong>Salida esperada</strong>:</p>
+<pre><code>APP_ENV=production
+APP_PORT=8080
+LOG_LEVEL=info
+</code></pre>
+<p><strong>Verificación individual</strong>:</p>
+<pre><code class="language-bash">echo $APP_ENV
+echo $APP_PORT
+echo $LOG_LEVEL
+</code></pre>
+<h3>Paso 5: Testing en Nueva Sesión</h3>
+<pre><code class="language-bash"># Abrir nueva sesión SSH o terminal
+ssh deploy@stapp01
+
+# Verificar variables persisten
+echo $APP_ENV  # Debe mostrar: production
+</code></pre>
+<hr>
+<h2>✅ Criterios de Éxito</h2>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> Archivo <code>.env</code> creado con variables requeridas</li>
+<li><input checked="" disabled="" type="checkbox"> Variables cargadas en <code>.bashrc</code> para persistencia</li>
+<li><input checked="" disabled="" type="checkbox"> Verificación con <code>env</code> muestra todas las variables</li>
+<li><input checked="" disabled="" type="checkbox"> Testing individual de cada variable exitoso</li>
+<li><input checked="" disabled="" type="checkbox"> Persistencia verificada en nueva sesión</li>
+<li><input checked="" disabled="" type="checkbox"> Formato correcto KEY=VALUE</li>
+</ul>
+<hr>
+<h2>🎓 Lecciones Aprendidas</h2>
+<h3>🔑 Conceptos Clave</h3>
+<ol>
+<li><p><strong>12-Factor App Methodology</strong>:</p>
+<ul>
+<li><strong>Factor III</strong>: Configuración en el entorno</li>
+<li>Código es el mismo en todos los ambientes</li>
+<li>Configuración cambia entre ambientes</li>
+</ul>
+</li>
+<li><p><strong>Scopes de Variables</strong>:</p>
+<pre><code class="language-bash">export VAR=value    # Disponible en shell actual y subshells
+VAR=value           # Solo shell actual
+</code></pre>
+</li>
+<li><p><strong>Archivos de Configuración</strong>:</p>
+<ul>
+<li><code>/etc/profile</code>: Global para todos los usuarios</li>
+<li><code>~/.bashrc</code>: Usuario específico, shell interactivo</li>
+<li><code>~/.profile</code>: Usuario específico, login shell</li>
+<li><code>~/.env</code>: Convención común para aplicaciones</li>
+</ul>
+</li>
+</ol>
+<h3>🚨 Troubleshooting DevOps</h3>
+<p><strong>Problema 1</strong>: Variables no disponibles en scripts cron</p>
+<ul>
+<li><strong>Causa</strong>: Cron ejecuta con mínimo environment</li>
+<li><strong>Solución</strong>: Cargar explícitamente el archivo<pre><code class="language-bash">* * * * * source ~/.env &amp;&amp; /usr/local/bin/app
+</code></pre>
+</li>
+</ul>
+<p><strong>Problema 2</strong>: Variables con espacios</p>
+<ul>
+<li><strong>Solución</strong>: Usar comillas<pre><code class="language-bash">APP_NAME=&quot;My Application&quot;
+</code></pre>
+</li>
+</ul>
+<p><strong>Problema 3</strong>: Variables no persisten</p>
+<ul>
+<li><strong>Causa</strong>: Olvidar <code>export</code> en algunos shells</li>
+<li><strong>Solución</strong>: Asegurar <code>export VAR=value</code> en el archivo</li>
+</ul>
+<h3>💡 Mejores Prácticas</h3>
+<ol>
+<li><p><strong>Secrets Management</strong>: NUNCA commits de secrets</p>
+<pre><code class="language-bash"># .gitignore
+.env
+.env.local
+</code></pre>
+</li>
+<li><p><strong>Documentación</strong>:</p>
+<pre><code class="language-bash"># Crear .env.example con valores dummy
+APP_ENV=development
+APP_PORT=3000
+LOG_LEVEL=debug
+</code></pre>
+</li>
+<li><p><strong>Hierarquía de Configuración</strong>:</p>
+<pre><code>1. Variables de entorno (producción)
+2. Archivo .env (desarrollo local)
+3. Defaults en código (fallback)
+</code></pre>
+</li>
+<li><p><strong>Ansible Automation</strong>:</p>
+<pre><code class="language-yaml">- name: Configure environment variables
+  lineinfile:
+    path: /home/deploy/.env
+    line: &quot;{{ item }}&quot;
+  loop:
+    - &quot;APP_ENV=production&quot;
+    - &quot;APP_PORT=8080&quot;
+    - &quot;LOG_LEVEL=info&quot;
+</code></pre>
+</li>
+<li><p><strong>Docker Integration</strong>:</p>
+<pre><code class="language-dockerfile"># Dockerfile
+ENV APP_ENV=production
+ENV APP_PORT=8080
+</code></pre>
+<pre><code class="language-yaml"># docker-compose.yml
+environment:
+  - APP_ENV=production
+  - APP_PORT=8080
+</code></pre>
+</li>
+</ol>
+<hr>
+<h2>🚀 Día Siguiente: Preparación</h2>
+<p><strong>Día 12</strong> instala Nginx - un servidor web que usará estas variables:</p>
+<ul>
+<li><code>APP_PORT=8080</code> podría ser el backend que Nginx proxya</li>
+<li><code>APP_ENV=production</code> cambia comportamiento de logs de Nginx</li>
+<li>Separación de responsabilidades: Nginx (proxy) + App (backend)</li>
+</ul>
+<p><strong>Preparación</strong>: Investiga cómo Nginx puede leer variables de entorno y usarlas en su configuración.</p>
+<hr>
+<h2>📚 Recursos DevOps</h2>
+<ul>
+<li><a href="https://12factor.net/">12-Factor App Methodology</a></li>
+<li><a href="https://12factor.net/config">The Twelve-Factor App - Config</a></li>
+<li><a href="https://docs.docker.com/compose/environment-variables/">Docker Environment Variables</a></li>
+<li><a href="https://kubernetes.io/docs/concepts/configuration/">Kubernetes ConfigMaps and Secrets</a></li>
+</ul>
+<hr>
+<h2>📊 Seguimiento de Progreso</h2>
+<ul>
+<li><strong>Día</strong>: 11 de 100</li>
+<li><strong>Bloque</strong>: Configuración de Aplicaciones</li>
+<li><strong>Progresión</strong>: 1-10 → 11 → 12 (Infraestructura/SSH → Variables → Servicios)</li>
+<li><strong>Habilidad</strong>: Separación de configuración y código</li>
+</ul>
+<p><strong>¡Perfecto! Ahora tu aplicación puede ser configurada desde el entorno, siguiendo las mejores prácticas de DevOps.</strong> ⚙️</p>
+</div> </article> <!-- Navigation --> <div class="flex justify-between mt-8"> <a href="/challenges/devops" class="btn btn-secondary">
+← Volver a DevOps
+</a> </div> </div> </main>  </main> <!-- Footer --> <footer class="border-t py-6" style="border-color: var(--color-border); background-color: var(--color-bg);" data-astro-cid-ouamjn2i> <div class="container mx-auto px-4 text-center" style="color: var(--color-text-secondary);" data-astro-cid-ouamjn2i> <p class="text-sm" data-astro-cid-ouamjn2i>
+Tech Challenges Dashboard &copy; 2026 |
+<a href="https://github.com/statick88" target="_blank" rel="noopener noreferrer" class="hover:underline" style="color: var(--color-accent);" data-astro-cid-ouamjn2i>
+@statick88
+</a> </p> </div> </footer>  <script type="module">const e=document.getElementById("mobile-menu-btn"),n=document.getElementById("mobile-menu");e?.addEventListener("click",()=>{n?.classList.toggle("hidden")});</script></body></html>

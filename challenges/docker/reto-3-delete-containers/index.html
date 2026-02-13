@@ -1,0 +1,424 @@
+<!DOCTYPE html><html lang="es" data-astro-cid-ouamjn2i> <head><meta charset="UTF-8"><meta name="description" content="Plataforma interactiva de desafíos técnicos - Linux, Docker, DevOps, CTF"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.17.1"><meta name="theme-color" content="#4c80cc"><title>Docker Challenge Reto 3: Delete Docker Container - Docker Challenges</title><!-- Preconnect for fonts --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><!-- Script para prevenir flash de tema incorrecto --><script>
+      const theme = (() => {
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+          return localStorage.getItem('theme');
+        }
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          return 'dark';
+        }
+        return 'light';
+      })();
+      
+      if (theme === 'light') {
+        document.documentElement.classList.add('light');
+      } else {
+        document.documentElement.classList.add('dark');
+      }
+    </script><!-- Cache busting: Verificar versión y recargar si hay cambios --><script>
+      (function() {
+        const BUILD_VERSION = '1770952254556';
+        const CACHE_KEY = 'tech-challenges-build-version';
+        
+        // Verificar si hay nueva versión
+        const storedVersion = localStorage.getItem(CACHE_KEY);
+        
+        if (storedVersion && storedVersion !== BUILD_VERSION) {
+          // Nueva versión detectada, limpiar cache y recargar
+          console.log('🆕 Nueva versión detectada. Actualizando...');
+          if ('caches' in window) {
+            caches.keys().then(names => {
+              names.forEach(name => caches.delete(name));
+            });
+          }
+          localStorage.setItem(CACHE_KEY, BUILD_VERSION);
+          window.location.reload();
+        } else if (!storedVersion) {
+          localStorage.setItem(CACHE_KEY, BUILD_VERSION);
+        }
+      })();
+    </script><link rel="stylesheet" href="/_astro/_slug_-DjAw3gU4.css">
+<link rel="stylesheet" href="/_astro/_slug_-BSbIuNxR.css">
+<style>.markdown-body{font-family:system-ui;line-height:1.8;color:#e5e7eb}.markdown-body h1{font-size:2rem;font-weight:700;color:#3b82f6;margin:2rem 0 1rem;border-bottom:1px solid #374151;padding-bottom:.5rem}.markdown-body h2{font-size:1.5rem;font-weight:600;color:#22d3ee;margin:1.75rem 0 1rem}.markdown-body h3{font-size:1.25rem;font-weight:600;color:#a5f3fc;margin:1.5rem 0 .75rem}.markdown-body p{margin:.75rem 0;color:#d1d5db}.markdown-body strong{color:#fbbf24;font-weight:600}.markdown-body code{background:#06b6d426;color:#22d3ee;padding:.2rem .5rem;border-radius:.375rem;font-family:monospace}.markdown-body pre{background:#0f172a;padding:1rem;border-radius:.75rem;overflow-x:auto;margin:1rem 0;border:1px solid #1e293b}.markdown-body pre code{background:transparent;padding:0;color:#a5b4fc}.markdown-body ul,.markdown-body ol{margin:.75rem 0;padding-left:1.5rem;color:#d1d5db}.markdown-body li{margin:.5rem 0}.markdown-body blockquote{border-left:4px solid #3b82f6;padding-left:1rem;margin:1rem 0;color:#9ca3af}
+</style></head> <body class="min-h-screen flex flex-col" data-astro-cid-ouamjn2i> <!-- Header --> <header class="sticky top-0 z-50 border-b" style="background-color: var(--color-bg); border-color: var(--color-border);" data-astro-cid-ouamjn2i> <div class="container mx-auto px-4 py-4 flex items-center justify-between" data-astro-cid-ouamjn2i> <!-- Logo / Brand --> <a href="/" class="flex items-center gap-3 group" data-astro-cid-ouamjn2i> <span class="text-2xl" data-astro-cid-ouamjn2i>🚀</span> <span class="font-bold text-lg transition-colors group-hover:text-accent" style="color: var(--color-text);" data-astro-cid-ouamjn2i>
+Tech Challenges
+</span> </a> <!-- Navigation --> <nav class="hidden md:flex items-center gap-6" data-astro-cid-ouamjn2i> <a href="/" class="nav-link" data-astro-cid-ouamjn2i>Dashboard</a> <a href="/challenges/linux" class="nav-link" data-astro-cid-ouamjn2i>Linux</a> <a href="/challenges/docker" class="nav-link" data-astro-cid-ouamjn2i>Docker</a> <a href="/challenges/devops" class="nav-link" data-astro-cid-ouamjn2i>DevOps</a> <a href="/challenges/ctf" class="nav-link" data-astro-cid-ouamjn2i>CTF</a> <a href="/challenges/htb" class="nav-link" data-astro-cid-ouamjn2i>HTB</a> </nav> <!-- Theme Toggle --> <div class="flex items-center gap-4" data-astro-cid-ouamjn2i> <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Cambiar tema" title="Cambiar tema claro/oscuro" data-astro-cid-x3pjskd3> <!-- Icono Sol (visible en tema oscuro) --> <svg class="icon-sun w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" data-astro-cid-x3pjskd3> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" data-astro-cid-x3pjskd3></path> </svg> <!-- Icono Luna (visible en tema claro) --> <svg class="icon-moon w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" data-astro-cid-x3pjskd3> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" data-astro-cid-x3pjskd3></path> </svg> </button>  <script type="module">const m=document.getElementById("theme-toggle");function c(){return typeof localStorage<"u"&&localStorage.getItem("theme")?localStorage.getItem("theme"):window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}function t(e){e==="dark"?(document.documentElement.classList.remove("light"),document.documentElement.classList.add("dark")):(document.documentElement.classList.remove("dark"),document.documentElement.classList.add("light")),localStorage.setItem("theme",e)}const d=c();d==="light"?document.documentElement.classList.add("light"):document.documentElement.classList.add("dark");m?.addEventListener("click",()=>{const n=(document.documentElement.classList.contains("light")?"light":"dark")==="dark"?"light":"dark";document.documentElement.classList.add("theme-transitioning"),t(n),setTimeout(()=>{document.documentElement.classList.remove("theme-transitioning")},300)});window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change",e=>{localStorage.getItem("theme")||t(e.matches?"dark":"light")});</script> <!-- Mobile Menu Button --> <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg border transition-colors" style="background-color: var(--color-bg-card); border-color: var(--color-border);" aria-label="Menú" data-astro-cid-ouamjn2i> <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-ouamjn2i> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" data-astro-cid-ouamjn2i></path> </svg> </button> </div> </div> <!-- Mobile Navigation --> <div id="mobile-menu" class="hidden md:hidden border-t" style="border-color: var(--color-border); background-color: var(--color-bg-card);" data-astro-cid-ouamjn2i> <nav class="container mx-auto px-4 py-4 flex flex-col gap-2" data-astro-cid-ouamjn2i> <a href="/" class="mobile-nav-link" data-astro-cid-ouamjn2i>Dashboard</a> <a href="/challenges/linux" class="mobile-nav-link" data-astro-cid-ouamjn2i>🐧 Linux</a> <a href="/challenges/docker" class="mobile-nav-link" data-astro-cid-ouamjn2i>🐳 Docker</a> <a href="/challenges/devops" class="mobile-nav-link" data-astro-cid-ouamjn2i>⚙️ DevOps</a> <a href="/challenges/ctf" class="mobile-nav-link" data-astro-cid-ouamjn2i>🚩 CTF</a> <a href="/challenges/htb" class="mobile-nav-link" data-astro-cid-ouamjn2i>🎯 HTB</a> </nav> </div> </header> <!-- Main Content --> <main class="flex-1" data-astro-cid-ouamjn2i>   <main class="container mx-auto px-4 py-8"> <div class="max-w-4xl mx-auto"> <!-- Breadcrumb --> <nav class="flex items-center gap-2 text-sm mb-6" style="color: var(--color-text-secondary);"> <a href="/" class="hover:underline" style="color: var(--color-accent);">Dashboard</a> <span>/</span> <a href="/challenges/docker" class="hover:underline" style="color: var(--color-accent);">Docker</a> <span>/</span> <span>Docker Challenge Reto 3: Delete Docker Container</span> </nav> <article class="card p-8"> <header class="mb-6"> <div class="flex items-center gap-2 mb-2"> <span class="text-blue-400 font-mono">🐳 Docker</span> <span class="text-xs px-2 py-1 rounded bg-blue-500/20 text-blue-400">
+Reto #3 </span> </div> <h1 class="text-3xl font-bold mb-4" style="color: var(--color-text);">Docker Challenge Reto 3: Delete Docker Container</h1> <div class="flex items-center gap-4 text-sm" style="color: var(--color-text-secondary);"> <span>Dificultad: 2</span> <span>Fecha: 30-01-2026</span> </div> </header> <div class="markdown-body"><h1>🐳 Docker Challenge Reto 3: Delete Docker Container</h1>
+<hr>
+<h2>🎓 Del Instructor</h2>
+<p>Como <strong>Platform Engineer</strong>, la limpieza es tan importante como el despliegue. En mi experiencia manejando clusters de producción, el 40% de los problemas de recursos vienen de contenedores &quot;zombie&quot; - pruebas olvidadas, jobs fallidos, pods huérfanos. Una plataforma saludable requiere higiene constante.</p>
+<blockquote>
+<p>🎯 <strong>Mentalidad DevOps</strong>: &quot;Cada recurso tiene un costo: disco, CPU, memoria, y atención cognitiva. Si no lo necesitas, elimínalo.&quot;</p>
+</blockquote>
+<hr>
+<h2>🎭 Escenario Empresarial</h2>
+<p><strong>Contexto</strong>: El equipo de desarrollo dejó corriendo el contenedor <code>kke-container</code> en stapp03 hace 3 semanas. Es un busybox con <code>tail -f /dev/null</code> - literalmente no hace nada, solo consume recursos. El CTO quiere un reporte de por qué el servidor está al 60% de capacidad.</p>
+<p><strong>Tu misión</strong>: Identificar y eliminar todos los contenedores &quot;zombie&quot; de prueba, documentando el proceso para futura automatización.</p>
+<p><strong>Consideraciones de producción</strong>:</p>
+<ul>
+<li><strong>Compliance</strong>: ¿El contenedor tiene datos sensibles que deben archivarse?</li>
+<li><strong>Auditoría</strong>: ¿Quién lo creó y cuándo? (Hint: <code>docker inspect</code>)</li>
+<li><strong>Automatización</strong>: ¿Cómo evitamos que esto vuelva a pasar?</li>
+</ul>
+<p><strong>Infraestructura</strong>:</p>
+<ul>
+<li><strong>Servidor</strong>: stapp03.stratos.xfusioncorp.com</li>
+<li><strong>IP</strong>: 172.16.238.12</li>
+<li><strong>Usuario</strong>: banner</li>
+<li><strong>Contenedor objetivo</strong>: <code>kke-container</code> (busybox:latest)</li>
+<li><strong>Acceso</strong>: Via jump_host (<a href="mailto:thor@jump_host.stratos.xfusioncorp.com">thor@jump_host.stratos.xfusioncorp.com</a>)</li>
+</ul>
+<hr>
+<h2>🧠 Arquitectura: Ciclo de Vida y Gestión de Recursos</h2>
+<h3>Estados de un Contenedor</h3>
+<pre><code>                    docker run
+                         │
+                         ▼
+    ┌──────────────────────────────────────┐
+    │           CREATED                    │
+    │    (filesystem preparado)            │
+    └──────────────┬───────────────────────┘
+                   │ docker start
+                   ▼
+    ┌──────────────────────────────────────┐
+    │           RUNNING ◄────────────┐     │
+    │    (proceso principal activo)   │     │
+    │                                 │     │
+    │  docker stop ───────────────┘     │
+    └──────────────┬───────────────────────┘
+                   │ proceso termina/stop
+                   ▼
+    ┌──────────────────────────────────────┐
+    │           EXITED                     │
+    │    (filesystem persiste)             │
+    │                                      │
+    │  docker rm ◄────────────────────┐    │
+    └──────────────┬──────────────────┘────┘
+                   │ docker rm -f (force)
+                   ▼
+              ELIMINADO
+         (solo imagen permanece)
+</code></pre>
+<h3>Anatomía de un Contenedor &quot;Zombie&quot;</h3>
+<pre><code>Sistema de Archivos del Host (/var/lib/docker)
+├── containers/
+│   └── &lt;container-id&gt;/
+│       ├── config.v2.json          # Metadata (nombres, labels, env vars)
+│       ├── hostconfig.json         # Config de runtime (restart policy, resources)
+│       ├── checkpoints/            # Estados guardados (raro en prod)
+│       └── &lt;container-id&gt;-json.log # Logs del contenedor (¡pueden crecer!)
+├── overlay2/
+│   └── &lt;layer-id&gt;/                 # Capas de filesystem del contenedor
+└── volumes/
+    └── ...                         # Datos persistentes (NO se eliminan con rm)
+</code></pre>
+<p><strong>Impacto de recursos</strong>:</p>
+<ul>
+<li><strong>Disco</strong>: Config JSON (~2KB) + logs (pueden ser GB si no hay rotación)</li>
+<li><strong>CPU/Memoria</strong>: 0 si está parado, pero el scheduler de Docker sigue track de él</li>
+<li><strong>Red</strong>: Interfaces de red virtuales liberadas, pero reglas iptables pueden quedar</li>
+</ul>
+<hr>
+<h2>🛠️ Implementación Profesional</h2>
+<h3>Fase 1: Reconocimiento y Clasificación</h3>
+<p>Antes de eliminar nada, investigamos qué tenemos:</p>
+<pre><code class="language-bash"># Acceso via jump host con registro de auditoría
+ssh thor@jump_host.stratos.xfusioncorp.com
+# Contraseña: mjolnir123
+
+ssh banner@stapp03.stratos.xfusioncorp.com
+# Contraseña: BigGr33n
+
+sudo su -
+
+# Inventario completo - TODOS los contenedores, no solo los corriendo
+docker ps -a --format &quot;table {{.Names}}\t{{.Image}}\t{{.Status}}\t{{.RunningFor}}&quot;
+</code></pre>
+<p><strong>Salida esperada</strong>:</p>
+<pre><code>NAMES           IMAGE       STATUS                  CREATED
+kke-container   busybox     Up About a minute       3 weeks ago
+</code></pre>
+<p><strong>Análisis crítico</strong>:</p>
+<ul>
+<li><strong>Status &quot;Up&quot;</strong>: El contenedor está corriendo - no podemos eliminarlo directamente</li>
+<li><strong>Created &quot;3 weeks ago&quot;</strong>: Contenedor abandonado, candidato claro para limpieza</li>
+<li><strong>Image &quot;busybox&quot;</strong>: Imagen mínima, típica de contenedores de debug</li>
+</ul>
+<h3>Fase 2: Investigación Forense (Antes de Eliminar)</h3>
+<pre><code class="language-bash"># ¿Quién creó esto? ¿Cuándo? ¿Por qué?
+docker inspect kke-container --format &quot;
+Nombre: {{.Name}}
+Creado: {{.Created}}
+Imagen: {{.Config.Image}}
+Comando: {{.Config.Cmd}}
+Estado: {{.State.Status}}
+PID: {{.State.Pid}}
+Restart Count: {{.RestartCount}}
+&quot;
+</code></pre>
+<p><strong>Salida esperada</strong>:</p>
+<pre><code>Nombre: /kke-container
+Creado: 2026-01-09T14:23:00.000000000Z
+Imagen: busybox
+Comando: [tail -f /dev/null]
+Estado: running
+PID: 1234
+Restart Count: 0
+</code></pre>
+<p><strong>Veredicto</strong>: Contenedor de debug con <code>tail -f /dev/null</code> - estrategia común para &quot;mantener vivo&quot; un contenedor. Sin servicio real. Seguro para eliminar.</p>
+<h3>Fase 3: Eliminación con Seguridad</h3>
+<p><strong>Opción A: Graceful (Recomendada)</strong> - Da tiempo al proceso para limpiar:</p>
+<pre><code class="language-bash"># Paso 1: Señal SIGTERM (graceful shutdown)
+docker stop kke-container
+# Espera 10 segundos (timeout por defecto), luego SIGKILL si no responde
+
+# Paso 2: Eliminación segura del filesystem
+docker rm kke-container
+</code></pre>
+<p><strong>Opción B: Force (Emergencias)</strong> - Inmediato, riesgo de corrupción de datos:</p>
+<pre><code class="language-bash"># SIGKILL inmediato + eliminación en un comando
+# ⚠️ Solo usar si el contenedor está stuck o no tiene datos importantes
+docker rm -f kke-container
+</code></pre>
+<p><strong>Ejecución paso a paso</strong>:</p>
+<pre><code class="language-bash"># Intentamos Opción A (mejor práctica)
+docker stop kke-container
+</code></pre>
+<p><strong>Salida</strong>:</p>
+<pre><code>kke-container
+</code></pre>
+<pre><code class="language-bash"># Verificamos que está detenido
+docker ps -a | grep kke-container
+</code></pre>
+<p><strong>Salida</strong>:</p>
+<pre><code>c7f1445197d7   busybox   &quot;tail -f /dev/null&quot;   3 weeks ago   Exited (137) 2 seconds ago   kke-container
+</code></pre>
+<pre><code class="language-bash"># Ahora sí, eliminación segura
+docker rm kke-container
+</code></pre>
+<p><strong>Salida</strong>:</p>
+<pre><code>kke-container
+</code></pre>
+<h3>Fase 4: Verificación y Limpieza Post-Eliminación</h3>
+<pre><code class="language-bash"># Confirmación de eliminación
+docker ps -a | grep kke-container
+# Sin resultados = éxito
+
+# Reporte de recursos liberados
+docker system df
+</code></pre>
+<p><strong>Salida esperada</strong>:</p>
+<pre><code>TYPE            TOTAL     ACTIVE    SIZE      RECLAIMABLE
+Images          1         0         4.425MB   4.425MB (100%)
+Containers      0         0         0B        0B
+Local Volumes   0         0         0B        0B
+Build Cache     0         0         0B        0B
+</code></pre>
+<p><strong>Análisis</strong>: 0 contenedores = sistema limpio. La imagen busybox aún existe (reclaimable) pero no ocupa espacio activo.</p>
+<h3>Fase 5: Limpieza Opcional (Avanzado)</h3>
+<pre><code class="language-bash"># Si queremos liberar TODO el espacio no usado:
+docker system prune -f
+# Elimina: contenedores detenidos, redes no usadas, imágenes dangling, cache de build
+
+# Para limpiar específicamente imágenes no referenciadas:
+docker image prune -a -f
+</code></pre>
+<hr>
+<h2>📊 Checklist de Producción</h2>
+<h3>Pre-Eliminación (Investigación)</h3>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> Contenedor identificado en inventario completo (<code>docker ps -a</code>)</li>
+<li><input checked="" disabled="" type="checkbox"> Metadata revisada (<code>docker inspect</code>) - ¿es seguro eliminar?</li>
+<li><input checked="" disabled="" type="checkbox"> Estado verificado: &quot;Up&quot; (requiere stop primero) o &quot;Exited&quot; (listo para rm)</li>
+<li><input checked="" disabled="" type="checkbox"> <strong>NO</strong> tiene volúmenes montados con datos importantes</li>
+<li><input checked="" disabled="" type="checkbox"> <strong>NO</strong> es parte de un servicio crítico (verificar con equipo)</li>
+</ul>
+<h3>Eliminación</h3>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> Contenedor detenido gracefulmente (<code>docker stop</code>)</li>
+<li><input checked="" disabled="" type="checkbox"> Eliminación ejecutada (<code>docker rm</code>)</li>
+<li><input checked="" disabled="" type="checkbox"> Sin errores de &quot;container is running&quot;</li>
+</ul>
+<h3>Post-Eliminación</h3>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> Contenedor <strong>NO</strong> aparece en <code>docker ps -a</code></li>
+<li><input checked="" disabled="" type="checkbox"> Búsqueda específica retorna vacío (<code>docker ps -a | grep nombre</code>)</li>
+<li><input checked="" disabled="" type="checkbox"> Recursos liberados verificados (<code>docker system df</code>)</li>
+<li><input checked="" disabled="" type="checkbox"> Logs del sistema revisados por errores (<code>journalctl -u docker</code>)</li>
+</ul>
+<h3>Documentación</h3>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> Razón de eliminación documentada</li>
+<li><input checked="" disabled="" type="checkbox"> Fecha y responsable registrados</li>
+<li><input checked="" disabled="" type="checkbox"> Proceso automatizable identificado</li>
+</ul>
+<hr>
+<h2>🎓 Reflexión Final: From Installer to Engineer</h2>
+<h3>¿Por qué no usar <code>docker rm -f</code> siempre?</h3>
+<table>
+<thead>
+<tr>
+<th>Aspecto</th>
+<th><code>docker stop + rm</code></th>
+<th><code>docker rm -f</code></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Señal al proceso</strong></td>
+<td>SIGTERM (15) → 10s → SIGKILL (9)</td>
+<td>SIGKILL (9) inmediato</td>
+</tr>
+<tr>
+<td><strong>Limpieza</strong></td>
+<td>Permite cerrar conexiones, flush buffers</td>
+<td>Terminación abrupta</td>
+</tr>
+<tr>
+<td><strong>Riesgo de corrupción</strong></td>
+<td>Mínimo</td>
+<td>Alto si hay I/O activo</td>
+</tr>
+<tr>
+<td><strong>Tiempo</strong></td>
+<td>10+ segundos</td>
+<td>Inmediato</td>
+</tr>
+<tr>
+<td><strong>Uso recomendado</strong></td>
+<td>Producción, datos importantes</td>
+<td>Debug, contenedores stuck</td>
+</tr>
+</tbody></table>
+<h3>Anti-Patrón: El &quot;Contenedor Zombie&quot;</h3>
+<p><strong>Síntomas</strong>:</p>
+<ul>
+<li><code>docker ps -a</code> muestra cientos de contenedores &quot;Exited&quot;</li>
+<li>Disco se llena inexplicablemente</li>
+<li><code>docker system df</code> muestra GB reclaimable</li>
+</ul>
+<p><strong>Solución sistémica</strong>: Script de limpieza automatizada</p>
+<pre><code class="language-bash">#!/bin/bash
+# cleanup-zombies.sh - Ejecutar vía cron semanal
+
+# Eliminar contenedores detenidos de más de 7 días
+docker container prune -f --filter &quot;until=168h&quot;
+
+# Eliminar imágenes no usadas
+docker image prune -a -f
+
+# Reporte
+echo &quot;$(date): Limpieza completada&quot; &gt;&gt; /var/log/docker-cleanup.log
+</code></pre>
+<h3>Evolución del Mindset</h3>
+<table>
+<thead>
+<tr>
+<th>Instalador</th>
+<th>Platform Engineer</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&quot;Eliminé el contenedor&quot;</td>
+<td>&quot;Ejecuté procedimiento de decommission con validación de recursos liberados&quot;</td>
+</tr>
+<tr>
+<td><code>docker rm -f</code> para todo</td>
+<td>Evalúo estado y elijo método apropiado</td>
+</tr>
+<tr>
+<td>Limpieza manual</td>
+<td>Automatización con guardrails y auditoría</td>
+</tr>
+<tr>
+<td>&quot;Parece que funcionó&quot;</td>
+<td>Métricas verificables post-operación</td>
+</tr>
+</tbody></table>
+<h3>Próximos Pasos</h3>
+<p><strong>Nivel Mid</strong>: Docker Compose + <code>docker-compose down</code> (limpia todo el stack)<br><strong>Nivel Sr</strong>: Kubernetes + <code>kubectl delete</code> + finalizers + graceful termination<br><strong>Staff</strong>: Políticas de retención, cost attribution, garbage collection automático</p>
+<blockquote>
+<p><strong>Recuerda</strong>: En infraestructura a escala, la limpieza no es opcional - es operación crítica.</p>
+</blockquote>
+<hr>
+<h2>🚀 Próximos Pasos en el Learning Path</h2>
+<ol>
+<li><strong>Reto 4</strong>: Operaciones avanzadas - copiar archivos entre host y contenedores</li>
+<li><strong>Reto 5</strong>: Troubleshooting completo - diagnóstico de problemas reales</li>
+<li><strong>Investigar</strong>:<ul>
+<li>Docker garbage collection strategies</li>
+<li>Resource quotas y limites preventivos</li>
+<li>Container retention policies en CI/CD</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2>📚 Recursos y Referencias</h2>
+<h3>Comandos de Limpieza</h3>
+<pre><code class="language-bash"># Contenedores
+docker container prune -f                    # Todos los stopped
+docker rm $(docker ps -aq)                   # Fuerza bruta (¡cuidado!)
+docker rm $(docker ps -q -f status=exited)   # Solo exited
+
+# Imágenes
+docker image prune -f                        # Dangling only
+docker image prune -a -f                     # Todas las no usadas
+
+# Sistema completo
+docker system prune -f                       # Contenedores, redes, imágenes dangling
+docker system prune -a -f --volumes          # TODO incluyendo volúmenes
+</code></pre>
+<h3>Documentación</h3>
+<ul>
+<li><a href="https://docs.docker.com/engine/reference/commandline/rm/">Docker rm Reference</a></li>
+<li><a href="https://docs.docker.com/config/pruning/">Prune Unused Objects</a></li>
+<li><a href="https://docs.docker.com/engine/reference/commandline/container/">Container Lifecycle</a></li>
+</ul>
+<h3>Mejores Prácticas</h3>
+<ul>
+<li><a href="https://www.cisecurity.org/benchmark/docker">CIS Docker Benchmark - Container Runtime</a></li>
+<li><a href="https://docs.docker.com/engine/security/">Docker Security - Resource Management</a></li>
+</ul>
+<hr>
+<h2>📊 Métricas del Reto</h2>
+<table>
+<thead>
+<tr>
+<th>Métrica</th>
+<th>Valor</th>
+<th>Objetivo</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Tiempo total</td>
+<td>~5 min</td>
+<td>&lt; 10 min ✅</td>
+</tr>
+<tr>
+<td>Método usado</td>
+<td>Graceful (stop + rm)</td>
+<td>Mejor práctica ✅</td>
+</tr>
+<tr>
+<td>Recursos liberados</td>
+<td>100%</td>
+<td>Completo ✅</td>
+</tr>
+<tr>
+<td>Errores</td>
+<td>0</td>
+<td>Limpio ✅</td>
+</tr>
+<tr>
+<td>Verificación</td>
+<td>Multi-step</td>
+<td>Riguroso ✅</td>
+</tr>
+</tbody></table>
+<hr>
+<p><strong>Reto 3 completado exitosamente</strong> 🎉<br><em>Fecha: 30-01-2026 | Status: Limpieza ejecutada | Engineer: Platform Engineer Jr.</em></p>
+</div> </article> <!-- Navigation --> <div class="flex justify-between mt-8"> <a href="/challenges/docker" class="btn btn-secondary">
+← Volver a Docker
+</a> </div> </div> </main>  </main> <!-- Footer --> <footer class="border-t py-6" style="border-color: var(--color-border); background-color: var(--color-bg);" data-astro-cid-ouamjn2i> <div class="container mx-auto px-4 text-center" style="color: var(--color-text-secondary);" data-astro-cid-ouamjn2i> <p class="text-sm" data-astro-cid-ouamjn2i>
+Tech Challenges Dashboard &copy; 2026 |
+<a href="https://github.com/statick88" target="_blank" rel="noopener noreferrer" class="hover:underline" style="color: var(--color-accent);" data-astro-cid-ouamjn2i>
+@statick88
+</a> </p> </div> </footer>  <script type="module">const e=document.getElementById("mobile-menu-btn"),n=document.getElementById("mobile-menu");e?.addEventListener("click",()=>{n?.classList.toggle("hidden")});</script></body></html>

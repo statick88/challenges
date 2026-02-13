@@ -1,0 +1,267 @@
+<!DOCTYPE html><html lang="es" data-astro-cid-ouamjn2i> <head><meta charset="UTF-8"><meta name="description" content="Plataforma interactiva de desafíos técnicos - Linux, Docker, DevOps, CTF"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.17.1"><meta name="theme-color" content="#4c80cc"><title>Day 06: Cron Job Deployment Across Multiple Servers - DevOps 100 Days</title><!-- Preconnect for fonts --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><!-- Script para prevenir flash de tema incorrecto --><script>
+      const theme = (() => {
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+          return localStorage.getItem('theme');
+        }
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          return 'dark';
+        }
+        return 'light';
+      })();
+      
+      if (theme === 'light') {
+        document.documentElement.classList.add('light');
+      } else {
+        document.documentElement.classList.add('dark');
+      }
+    </script><!-- Cache busting: Verificar versión y recargar si hay cambios --><script>
+      (function() {
+        const BUILD_VERSION = '1770952254556';
+        const CACHE_KEY = 'tech-challenges-build-version';
+        
+        // Verificar si hay nueva versión
+        const storedVersion = localStorage.getItem(CACHE_KEY);
+        
+        if (storedVersion && storedVersion !== BUILD_VERSION) {
+          // Nueva versión detectada, limpiar cache y recargar
+          console.log('🆕 Nueva versión detectada. Actualizando...');
+          if ('caches' in window) {
+            caches.keys().then(names => {
+              names.forEach(name => caches.delete(name));
+            });
+          }
+          localStorage.setItem(CACHE_KEY, BUILD_VERSION);
+          window.location.reload();
+        } else if (!storedVersion) {
+          localStorage.setItem(CACHE_KEY, BUILD_VERSION);
+        }
+      })();
+    </script><link rel="stylesheet" href="/_astro/_slug_-DjAw3gU4.css">
+<link rel="stylesheet" href="/_astro/_slug_-BSbIuNxR.css">
+<style>.markdown-body{font-family:system-ui;line-height:1.8;color:#e5e7eb}.markdown-body h1{font-size:2rem;font-weight:700;color:#a855f7;margin:2rem 0 1rem;border-bottom:1px solid #374151;padding-bottom:.5rem}.markdown-body h2{font-size:1.5rem;font-weight:600;color:#f472b6;margin:1.75rem 0 1rem}.markdown-body h3{font-size:1.25rem;font-weight:600;color:#f9a8d4;margin:1.5rem 0 .75rem}.markdown-body p{margin:.75rem 0;color:#d1d5db}.markdown-body strong{color:#fbbf24;font-weight:600}.markdown-body code{background:#a855f726;color:#c084fc;padding:.2rem .5rem;border-radius:.375rem;font-family:monospace}.markdown-body pre{background:#0f172a;padding:1rem;border-radius:.75rem;overflow-x:auto;margin:1rem 0;border:1px solid #1e293b}.markdown-body pre code{background:transparent;padding:0;color:#a5b4fc}.markdown-body ul,.markdown-body ol{margin:.75rem 0;padding-left:1.5rem;color:#d1d5db}.markdown-body li{margin:.5rem 0}.markdown-body blockquote{border-left:4px solid #a855f7;padding-left:1rem;margin:1rem 0;color:#9ca3af}
+</style></head> <body class="min-h-screen flex flex-col" data-astro-cid-ouamjn2i> <!-- Header --> <header class="sticky top-0 z-50 border-b" style="background-color: var(--color-bg); border-color: var(--color-border);" data-astro-cid-ouamjn2i> <div class="container mx-auto px-4 py-4 flex items-center justify-between" data-astro-cid-ouamjn2i> <!-- Logo / Brand --> <a href="/" class="flex items-center gap-3 group" data-astro-cid-ouamjn2i> <span class="text-2xl" data-astro-cid-ouamjn2i>🚀</span> <span class="font-bold text-lg transition-colors group-hover:text-accent" style="color: var(--color-text);" data-astro-cid-ouamjn2i>
+Tech Challenges
+</span> </a> <!-- Navigation --> <nav class="hidden md:flex items-center gap-6" data-astro-cid-ouamjn2i> <a href="/" class="nav-link" data-astro-cid-ouamjn2i>Dashboard</a> <a href="/challenges/linux" class="nav-link" data-astro-cid-ouamjn2i>Linux</a> <a href="/challenges/docker" class="nav-link" data-astro-cid-ouamjn2i>Docker</a> <a href="/challenges/devops" class="nav-link" data-astro-cid-ouamjn2i>DevOps</a> <a href="/challenges/ctf" class="nav-link" data-astro-cid-ouamjn2i>CTF</a> <a href="/challenges/htb" class="nav-link" data-astro-cid-ouamjn2i>HTB</a> </nav> <!-- Theme Toggle --> <div class="flex items-center gap-4" data-astro-cid-ouamjn2i> <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Cambiar tema" title="Cambiar tema claro/oscuro" data-astro-cid-x3pjskd3> <!-- Icono Sol (visible en tema oscuro) --> <svg class="icon-sun w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" data-astro-cid-x3pjskd3> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" data-astro-cid-x3pjskd3></path> </svg> <!-- Icono Luna (visible en tema claro) --> <svg class="icon-moon w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" data-astro-cid-x3pjskd3> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" data-astro-cid-x3pjskd3></path> </svg> </button>  <script type="module">const m=document.getElementById("theme-toggle");function c(){return typeof localStorage<"u"&&localStorage.getItem("theme")?localStorage.getItem("theme"):window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}function t(e){e==="dark"?(document.documentElement.classList.remove("light"),document.documentElement.classList.add("dark")):(document.documentElement.classList.remove("dark"),document.documentElement.classList.add("light")),localStorage.setItem("theme",e)}const d=c();d==="light"?document.documentElement.classList.add("light"):document.documentElement.classList.add("dark");m?.addEventListener("click",()=>{const n=(document.documentElement.classList.contains("light")?"light":"dark")==="dark"?"light":"dark";document.documentElement.classList.add("theme-transitioning"),t(n),setTimeout(()=>{document.documentElement.classList.remove("theme-transitioning")},300)});window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change",e=>{localStorage.getItem("theme")||t(e.matches?"dark":"light")});</script> <!-- Mobile Menu Button --> <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg border transition-colors" style="background-color: var(--color-bg-card); border-color: var(--color-border);" aria-label="Menú" data-astro-cid-ouamjn2i> <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-ouamjn2i> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" data-astro-cid-ouamjn2i></path> </svg> </button> </div> </div> <!-- Mobile Navigation --> <div id="mobile-menu" class="hidden md:hidden border-t" style="border-color: var(--color-border); background-color: var(--color-bg-card);" data-astro-cid-ouamjn2i> <nav class="container mx-auto px-4 py-4 flex flex-col gap-2" data-astro-cid-ouamjn2i> <a href="/" class="mobile-nav-link" data-astro-cid-ouamjn2i>Dashboard</a> <a href="/challenges/linux" class="mobile-nav-link" data-astro-cid-ouamjn2i>🐧 Linux</a> <a href="/challenges/docker" class="mobile-nav-link" data-astro-cid-ouamjn2i>🐳 Docker</a> <a href="/challenges/devops" class="mobile-nav-link" data-astro-cid-ouamjn2i>⚙️ DevOps</a> <a href="/challenges/ctf" class="mobile-nav-link" data-astro-cid-ouamjn2i>🚩 CTF</a> <a href="/challenges/htb" class="mobile-nav-link" data-astro-cid-ouamjn2i>🎯 HTB</a> </nav> </div> </header> <!-- Main Content --> <main class="flex-1" data-astro-cid-ouamjn2i>   <main class="container mx-auto px-4 py-8"> <div class="max-w-4xl mx-auto"> <!-- Breadcrumb --> <nav class="flex items-center gap-2 text-sm mb-6" style="color: var(--color-text-secondary);"> <a href="/" class="hover:underline" style="color: var(--color-accent);">Dashboard</a> <span>/</span> <a href="/challenges/devops" class="hover:underline" style="color: var(--color-accent);">DevOps</a> <span>/</span> <span>Day 06</span> </nav> <article class="card p-8"> <header class="mb-6"> <div class="flex items-center gap-2 mb-2"> <span class="text-purple-400 font-mono font-bold">⚙️ Day 06</span> </div> <h1 class="text-3xl font-bold mb-4" style="color: var(--color-text);">Cron Job Deployment Across Multiple Servers</h1> <div class="flex items-center gap-4 text-sm" style="color: var(--color-text-secondary);"> <span>Dificultad: 3</span> <span>Fecha: 2026-01-30</span> </div> </header> <div class="markdown-body"><h1>🎓 Día 6: Automatización Programada con Cron</h1>
+<h2>🎓 Del Instructor: DevOps Coach</h2>
+<blockquote>
+<p>🔄 <strong>Mentalidad DevOps</strong>: &quot;La verdadera automatización no requiere tu presencia. Un cron job bien diseñado es tu &#39;yo&#39; automatizado trabajando 24/7, ejecutando tareas repetitivas para que tú puedas enfocarte en mejorar el sistema.&quot;</p>
+</blockquote>
+<p>Hoy implementamos <strong>cron jobs</strong> en múltiples servidores - la base de la automatización en Linux. Este es el precursor de pipelines CI/CD y orquestadores modernos.</p>
+<hr>
+<h2>🎭 Contexto del Día</h2>
+<h3>Conexión con Días Anteriores</h3>
+<ul>
+<li><strong>Días 1-5</strong>: Usuarios, SSH, permisos, SELinux - infraestructura segura</li>
+<li><strong>Hoy</strong>: Añadimos <strong>automatización temporal</strong> - tareas que se ejecutan solas</li>
+<li><strong>Día 7</strong>: Ansible - automatización a escala con código</li>
+</ul>
+<h3>Progresión hacia el Pipeline CI/CD</h3>
+<p>Cron es el ancestro de:</p>
+<ul>
+<li><strong>GitLab CI Scheduled Pipelines</strong>: Jobs que corren cada X tiempo</li>
+<li><strong>Kubernetes CronJobs</strong>: Pods que se ejecutan periódicamente</li>
+<li><strong>Lambda/EventBridge</strong>: Funciones serverless programadas</li>
+</ul>
+<h3>Escenario Empresarial</h3>
+<p>El equipo Nautilus necesita:</p>
+<ol>
+<li>Monitoreo automático cada 5 minutos en 3 servidores</li>
+<li>Sincronización de logs horaria</li>
+<li>Health checks automatizados</li>
+</ol>
+<hr>
+<h2>🧠 Fundamentos DevOps</h2>
+<h3>Cultura de Colaboración</h3>
+<p>Cron jobs facilitan:</p>
+<ul>
+<li><strong>Desarrolladores</strong>: Logs de aplicación rotados automáticamente</li>
+<li><strong>Operaciones</strong>: Backups sin intervención humana</li>
+<li><strong>QA</strong>: Reportes de testing generados nightly</li>
+</ul>
+<h3>Automatización</h3>
+<pre><code class="language-bash"># Sin cron (manual, propenso a errores):
+# &quot;Recuerda hacer backup cada día a las 2 AM&quot;
+
+# Con cron (automático, confiable):
+0 2 * * * /usr/local/bin/backup.sh
+</code></pre>
+<h3>Métricas y Observabilidad</h3>
+<ul>
+<li><strong>Cron Success Rate</strong>: % de jobs que completan exitosamente</li>
+<li><strong>Execution Time</strong>: Duración de cada job</li>
+<li><strong>Resource Usage</strong>: CPU/memoria consumida por tareas programadas</li>
+</ul>
+<hr>
+<h2>🛠️ Implementación Paso a Paso</h2>
+<h3>Fase 1: Conexión al Jump Host</h3>
+<pre><code class="language-bash">ssh thor@jump_host.stratos.xfusioncorp.com
+</code></pre>
+<p><strong>Análisis DevOps</strong>: El jump host es nuestro &quot;bastión&quot; de administración - patrón de seguridad enterprise.</p>
+<h3>Fase 2: Instalación en stapp01</h3>
+<h4>Paso 1: Conexión y Elevación</h4>
+<pre><code class="language-bash">ssh tony@stapp01.stratos.xfusioncorp.com
+sudo su -
+</code></pre>
+<p><strong>Análisis DevOps</strong>: <code>sudo su -</code> nos da shell root completo, necesario para gestión de servicios.</p>
+<h4>Paso 2: Instalar Cronie</h4>
+<pre><code class="language-bash">yum install -y cronie
+</code></pre>
+<p><strong>Paquetes instalados</strong>:</p>
+<ul>
+<li><code>cronie</code>: Demonio cron moderno (reemplaza vixie-cron)</li>
+<li><code>cronie-anacron</code>: Soporte para anacron (ejecución de jobs perdidos)</li>
+<li><code>crontabs</code>: Archivos de configuración base</li>
+</ul>
+<h4>Paso 3: Iniciar y Habilitar Servicio</h4>
+<pre><code class="language-bash">systemctl start crond
+systemctl enable crond
+</code></pre>
+<p><strong>Análisis DevOps</strong>:</p>
+<ul>
+<li><code>start</code>: Inicia el servicio ahora</li>
+<li><code>enable</code>: Configura arranque automático en boot</li>
+<li>En CI/CD: equivalente a <code>systemctl restart</code> después de deploy</li>
+</ul>
+<h4>Paso 4: Crear Cron Job</h4>
+<pre><code class="language-bash">crontab -e
+
+# Agregar línea:
+*/5 * * * * echo hello &gt; /tmp/cron_text
+</code></pre>
+<p><strong>Sintaxis Cron Explained</strong>:</p>
+<pre><code>*/5 * * * *  comando
+│   │ │ │ │
+│   │ │ │ └─── Día de semana (0-7, 0=domingo)
+│   │ │ └───── Mes (1-12)
+│   │ └─────── Día del mes (1-31)
+│   └───────── Hora (0-23)
+└───────────── Minuto (0-59)
+
+*/5 = cada 5 minutos
+</code></pre>
+<h4>Paso 5: Verificar</h4>
+<pre><code class="language-bash">crontab -l
+# Muestra: */5 * * * * echo hello &gt; /tmp/cron_text
+</code></pre>
+<h3>Fase 3: Replicar en stapp02 y stapp03</h3>
+<pre><code class="language-bash"># En stapp02
+ssh steve@stapp02.stratos.xfusioncorp.com
+sudo su -
+yum install -y cronie
+systemctl start crond
+systemctl enable crond
+crontab -e
+# Agregar: */5 * * * * echo hello &gt; /tmp/cron_text
+
+# En stapp03
+ssh banner@stapp03.stratos.xfusioncorp.com
+sudo su -
+# ... repetir pasos
+</code></pre>
+<p><strong>Análisis DevOps</strong>: Patrón <strong>multi-server deployment manual</strong> - preparación para Ansible (Día 7).</p>
+<h3>Fase 4: Verificación de Ejecución</h3>
+<pre><code class="language-bash"># Esperar 5 minutos...
+cat /tmp/cron_text
+# Salida: hello
+</code></pre>
+<p><strong>Diagnóstico</strong>:</p>
+<pre><code class="language-bash"># Ver logs de cron
+tail -f /var/log/cron
+
+# Ver si el job se ejecutó
+grep CRON /var/log/secure
+</code></pre>
+<hr>
+<h2>✅ Criterios de Éxito</h2>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> Cronie instalado en stapp01, stapp02, stapp03</li>
+<li><input checked="" disabled="" type="checkbox"> Servicio crond iniciado y habilitado en los 3 servidores</li>
+<li><input checked="" disabled="" type="checkbox"> Cron job configurado: <code>*/5 * * * * echo hello &gt; /tmp/cron_text</code></li>
+<li><input checked="" disabled="" type="checkbox"> Cron job ejecutándose exitosamente (archivo contiene &quot;hello&quot;)</li>
+<li><input checked="" disabled="" type="checkbox"> Verificación mediante logs y archivo de salida</li>
+<li><input checked="" disabled="" type="checkbox"> Patrón de despliegue multi-servidor demostrado</li>
+</ul>
+<hr>
+<h2>🎓 Lecciones Aprendidas</h2>
+<h3>🔑 Conceptos Clave</h3>
+<ol>
+<li><p><strong>Cronie vs Cron</strong>: Cronie es la implementación moderna con mejor logging y soporte SELinux.</p>
+</li>
+<li><p><strong>Environment</strong>: Cron jobs ejecutan con mínimo environment:</p>
+<pre><code class="language-bash"># Solución: Usar paths absolutos
+*/5 * * * * /usr/bin/echo hello &gt; /tmp/cron_text
+</code></pre>
+</li>
+<li><p><strong>Redirección</strong>: <code>&gt;</code> sobrescribe, <code>&gt;&gt;</code> append:</p>
+<pre><code class="language-bash"># Para mantener historia:
+*/5 * * * * echo &quot;$(date): hello&quot; &gt;&gt; /tmp/cron_text
+</code></pre>
+</li>
+</ol>
+<h3>🚨 Troubleshooting DevOps</h3>
+<p><strong>Problema 1</strong>: Archivo no existe inmediatamente</p>
+<ul>
+<li><strong>Causa</strong>: Cron ejecuta en intervalos, no inmediatamente</li>
+<li><strong>Solución</strong>: Esperar el intervalo completo (5 minutos)</li>
+</ul>
+<p><strong>Problema 2</strong>: Comando no encontrado</p>
+<ul>
+<li><strong>Causa</strong>: PATH mínimo en cron</li>
+<li><strong>Solución</strong>: Usar paths absolutos o definir PATH al inicio del crontab</li>
+</ul>
+<p><strong>Problema 3</strong>: SELinux bloquea ejecución</p>
+<ul>
+<li><strong>Diagnóstico</strong>: <code>ausearch -m avc -ts recent</code></li>
+<li><strong>Solución</strong>: Configurar contexto correcto o usar <code>unconfined</code> (temporal)</li>
+</ul>
+<h3>💡 Mejores Prácticas</h3>
+<ol>
+<li><p><strong>Logging</strong>: Siempre redirigir output:</p>
+<pre><code class="language-bash">*/5 * * * * /script.sh &gt;&gt; /var/log/script.log 2&gt;&amp;1
+</code></pre>
+</li>
+<li><p><strong>Locking</strong>: Prevenir ejecuciones solapadas:</p>
+<pre><code class="language-bash">*/5 * * * * flock -n /var/lock/script.lock -c /script.sh
+</code></pre>
+</li>
+<li><p><strong>Testing</strong>: Probar comandos manualmente antes de agregarlos a cron</p>
+</li>
+<li><p><strong>Documentación</strong>: Comentar crontab:</p>
+<pre><code class="language-bash"># Health check cada 5 minutos
+*/5 * * * * /usr/local/bin/health-check.sh
+</code></pre>
+</li>
+</ol>
+<hr>
+<h2>🚀 Día Siguiente: Preparación</h2>
+<p><strong>Día 7</strong> introduce <strong>Ansible</strong> - automatización declarativa. Hiciste el trabajo manual hoy para entender:</p>
+<ul>
+<li>Qué es un multi-server deployment</li>
+<li>Por qué es tedioso hacerlo manualmente</li>
+<li>Por qué necesitamos herramientas de configuration management</li>
+</ul>
+<p><strong>Conexión</strong>: Cron manual → Ansible playbook → GitLab CI pipeline</p>
+<hr>
+<h2>📚 Recursos DevOps</h2>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Cron">Cron Wikipedia</a></li>
+<li><a href="https://crontab.guru/">Crontab Guru</a> - Editor visual de cron</li>
+<li><a href="https://docs.ansible.com/ansible/latest/collections/ansible/builtin/cron_module.html">Ansible Cron Module</a></li>
+<li><a href="https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/">Kubernetes CronJobs</a></li>
+</ul>
+<hr>
+<h2>📊 Seguimiento de Progreso</h2>
+<ul>
+<li><strong>Día</strong>: 6 de 100</li>
+<li><strong>Bloque</strong>: Automatización y Scheduling</li>
+<li><strong>Progresión</strong>: 1-5 → 6 → 7 (Fundamentos → Cron → Ansible)</li>
+<li><strong>Habilidad</strong>: Tareas automatizadas multi-servidor</li>
+</ul>
+<p><strong>¡Genial! Ahora tienes &quot;minions&quot; automatizados trabajando por ti 24/7.</strong> 🤖</p>
+</div> </article> <!-- Navigation --> <div class="flex justify-between mt-8"> <a href="/challenges/devops" class="btn btn-secondary">
+← Volver a DevOps
+</a> </div> </div> </main>  </main> <!-- Footer --> <footer class="border-t py-6" style="border-color: var(--color-border); background-color: var(--color-bg);" data-astro-cid-ouamjn2i> <div class="container mx-auto px-4 text-center" style="color: var(--color-text-secondary);" data-astro-cid-ouamjn2i> <p class="text-sm" data-astro-cid-ouamjn2i>
+Tech Challenges Dashboard &copy; 2026 |
+<a href="https://github.com/statick88" target="_blank" rel="noopener noreferrer" class="hover:underline" style="color: var(--color-accent);" data-astro-cid-ouamjn2i>
+@statick88
+</a> </p> </div> </footer>  <script type="module">const e=document.getElementById("mobile-menu-btn"),n=document.getElementById("mobile-menu");e?.addEventListener("click",()=>{n?.classList.toggle("hidden")});</script></body></html>

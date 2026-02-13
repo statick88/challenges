@@ -1,0 +1,346 @@
+<!DOCTYPE html><html lang="es" data-astro-cid-ouamjn2i> <head><meta charset="UTF-8"><meta name="description" content="Plataforma interactiva de desafíos técnicos - Linux, Docker, DevOps, CTF"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.17.1"><meta name="theme-color" content="#4c80cc"><title>Day 14: Configuración de Respaldo con tar - DevOps 100 Days</title><!-- Preconnect for fonts --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><!-- Script para prevenir flash de tema incorrecto --><script>
+      const theme = (() => {
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+          return localStorage.getItem('theme');
+        }
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          return 'dark';
+        }
+        return 'light';
+      })();
+      
+      if (theme === 'light') {
+        document.documentElement.classList.add('light');
+      } else {
+        document.documentElement.classList.add('dark');
+      }
+    </script><!-- Cache busting: Verificar versión y recargar si hay cambios --><script>
+      (function() {
+        const BUILD_VERSION = '1770952254556';
+        const CACHE_KEY = 'tech-challenges-build-version';
+        
+        // Verificar si hay nueva versión
+        const storedVersion = localStorage.getItem(CACHE_KEY);
+        
+        if (storedVersion && storedVersion !== BUILD_VERSION) {
+          // Nueva versión detectada, limpiar cache y recargar
+          console.log('🆕 Nueva versión detectada. Actualizando...');
+          if ('caches' in window) {
+            caches.keys().then(names => {
+              names.forEach(name => caches.delete(name));
+            });
+          }
+          localStorage.setItem(CACHE_KEY, BUILD_VERSION);
+          window.location.reload();
+        } else if (!storedVersion) {
+          localStorage.setItem(CACHE_KEY, BUILD_VERSION);
+        }
+      })();
+    </script><link rel="stylesheet" href="/_astro/_slug_-DjAw3gU4.css">
+<link rel="stylesheet" href="/_astro/_slug_-BSbIuNxR.css">
+<style>.markdown-body{font-family:system-ui;line-height:1.8;color:#e5e7eb}.markdown-body h1{font-size:2rem;font-weight:700;color:#a855f7;margin:2rem 0 1rem;border-bottom:1px solid #374151;padding-bottom:.5rem}.markdown-body h2{font-size:1.5rem;font-weight:600;color:#f472b6;margin:1.75rem 0 1rem}.markdown-body h3{font-size:1.25rem;font-weight:600;color:#f9a8d4;margin:1.5rem 0 .75rem}.markdown-body p{margin:.75rem 0;color:#d1d5db}.markdown-body strong{color:#fbbf24;font-weight:600}.markdown-body code{background:#a855f726;color:#c084fc;padding:.2rem .5rem;border-radius:.375rem;font-family:monospace}.markdown-body pre{background:#0f172a;padding:1rem;border-radius:.75rem;overflow-x:auto;margin:1rem 0;border:1px solid #1e293b}.markdown-body pre code{background:transparent;padding:0;color:#a5b4fc}.markdown-body ul,.markdown-body ol{margin:.75rem 0;padding-left:1.5rem;color:#d1d5db}.markdown-body li{margin:.5rem 0}.markdown-body blockquote{border-left:4px solid #a855f7;padding-left:1rem;margin:1rem 0;color:#9ca3af}
+</style></head> <body class="min-h-screen flex flex-col" data-astro-cid-ouamjn2i> <!-- Header --> <header class="sticky top-0 z-50 border-b" style="background-color: var(--color-bg); border-color: var(--color-border);" data-astro-cid-ouamjn2i> <div class="container mx-auto px-4 py-4 flex items-center justify-between" data-astro-cid-ouamjn2i> <!-- Logo / Brand --> <a href="/" class="flex items-center gap-3 group" data-astro-cid-ouamjn2i> <span class="text-2xl" data-astro-cid-ouamjn2i>🚀</span> <span class="font-bold text-lg transition-colors group-hover:text-accent" style="color: var(--color-text);" data-astro-cid-ouamjn2i>
+Tech Challenges
+</span> </a> <!-- Navigation --> <nav class="hidden md:flex items-center gap-6" data-astro-cid-ouamjn2i> <a href="/" class="nav-link" data-astro-cid-ouamjn2i>Dashboard</a> <a href="/challenges/linux" class="nav-link" data-astro-cid-ouamjn2i>Linux</a> <a href="/challenges/docker" class="nav-link" data-astro-cid-ouamjn2i>Docker</a> <a href="/challenges/devops" class="nav-link" data-astro-cid-ouamjn2i>DevOps</a> <a href="/challenges/ctf" class="nav-link" data-astro-cid-ouamjn2i>CTF</a> <a href="/challenges/htb" class="nav-link" data-astro-cid-ouamjn2i>HTB</a> </nav> <!-- Theme Toggle --> <div class="flex items-center gap-4" data-astro-cid-ouamjn2i> <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Cambiar tema" title="Cambiar tema claro/oscuro" data-astro-cid-x3pjskd3> <!-- Icono Sol (visible en tema oscuro) --> <svg class="icon-sun w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" data-astro-cid-x3pjskd3> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" data-astro-cid-x3pjskd3></path> </svg> <!-- Icono Luna (visible en tema claro) --> <svg class="icon-moon w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" data-astro-cid-x3pjskd3> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" data-astro-cid-x3pjskd3></path> </svg> </button>  <script type="module">const m=document.getElementById("theme-toggle");function c(){return typeof localStorage<"u"&&localStorage.getItem("theme")?localStorage.getItem("theme"):window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}function t(e){e==="dark"?(document.documentElement.classList.remove("light"),document.documentElement.classList.add("dark")):(document.documentElement.classList.remove("dark"),document.documentElement.classList.add("light")),localStorage.setItem("theme",e)}const d=c();d==="light"?document.documentElement.classList.add("light"):document.documentElement.classList.add("dark");m?.addEventListener("click",()=>{const n=(document.documentElement.classList.contains("light")?"light":"dark")==="dark"?"light":"dark";document.documentElement.classList.add("theme-transitioning"),t(n),setTimeout(()=>{document.documentElement.classList.remove("theme-transitioning")},300)});window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change",e=>{localStorage.getItem("theme")||t(e.matches?"dark":"light")});</script> <!-- Mobile Menu Button --> <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg border transition-colors" style="background-color: var(--color-bg-card); border-color: var(--color-border);" aria-label="Menú" data-astro-cid-ouamjn2i> <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-ouamjn2i> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" data-astro-cid-ouamjn2i></path> </svg> </button> </div> </div> <!-- Mobile Navigation --> <div id="mobile-menu" class="hidden md:hidden border-t" style="border-color: var(--color-border); background-color: var(--color-bg-card);" data-astro-cid-ouamjn2i> <nav class="container mx-auto px-4 py-4 flex flex-col gap-2" data-astro-cid-ouamjn2i> <a href="/" class="mobile-nav-link" data-astro-cid-ouamjn2i>Dashboard</a> <a href="/challenges/linux" class="mobile-nav-link" data-astro-cid-ouamjn2i>🐧 Linux</a> <a href="/challenges/docker" class="mobile-nav-link" data-astro-cid-ouamjn2i>🐳 Docker</a> <a href="/challenges/devops" class="mobile-nav-link" data-astro-cid-ouamjn2i>⚙️ DevOps</a> <a href="/challenges/ctf" class="mobile-nav-link" data-astro-cid-ouamjn2i>🚩 CTF</a> <a href="/challenges/htb" class="mobile-nav-link" data-astro-cid-ouamjn2i>🎯 HTB</a> </nav> </div> </header> <!-- Main Content --> <main class="flex-1" data-astro-cid-ouamjn2i>   <main class="container mx-auto px-4 py-8"> <div class="max-w-4xl mx-auto"> <!-- Breadcrumb --> <nav class="flex items-center gap-2 text-sm mb-6" style="color: var(--color-text-secondary);"> <a href="/" class="hover:underline" style="color: var(--color-accent);">Dashboard</a> <span>/</span> <a href="/challenges/devops" class="hover:underline" style="color: var(--color-accent);">DevOps</a> <span>/</span> <span>Day 14</span> </nav> <article class="card p-8"> <header class="mb-6"> <div class="flex items-center gap-2 mb-2"> <span class="text-purple-400 font-mono font-bold">⚙️ Day 14</span> </div> <h1 class="text-3xl font-bold mb-4" style="color: var(--color-text);">Configuración de Respaldo con tar</h1> <div class="flex items-center gap-4 text-sm" style="color: var(--color-text-secondary);"> <span>Dificultad: 2</span> <span>Fecha: 2026-02-05</span> </div> </header> <div class="markdown-body"><h1>🎓 Día 14: Automatización de Backups</h1>
+<h2>🎓 Del Instructor: DevOps Coach</h2>
+<blockquote>
+<p>🔄 <strong>Mentalidad DevOps</strong>: &quot;Un backup que no has restaurado es un backup que no existe. Los backups automatizados son tu red de seguridad invisible, trabajando silenciosamente para que puedas dormir tranquilo sabiendo que tu infraestructura puede recuperarse de cualquier desastre.&quot;</p>
+</blockquote>
+<p>Hoy implementamos <strong>backups automatizados</strong> - una de las responsabilidades más críticas en DevOps. Cuando todo falla, los backups son tu última línea de defensa.</p>
+<hr>
+<h2>🎭 Contexto del Día</h2>
+<h3>Conexión con Días Anteriores</h3>
+<ul>
+<li><strong>Días 1-13</strong>: Infraestructura, servicios, troubleshooting</li>
+<li><strong>Hoy</strong>: Protegemos todo lo construido con backups</li>
+<li><strong>Día 15</strong>: Configuramos timezone para logs y backups consistentes</li>
+</ul>
+<h3>Progresión hacia el Pipeline CI/CD</h3>
+<p>Backups son parte de:</p>
+<ul>
+<li><strong>Disaster Recovery</strong>: Plan de recuperación ante desastres</li>
+<li><strong>Data Protection</strong>: Cumplimiento normativo (GDPR, HIPAA)</li>
+<li><strong>CI/CD Safety</strong>: Poder rollback si un deploy falla</li>
+<li><strong>Business Continuity</strong>: Minimizar RTO/RPO</li>
+</ul>
+<h3>Escenario Empresarial</h3>
+<p>El contenido web en <code>/var/www/html</code> es crítico para el negocio. Necesitamos:</p>
+<ol>
+<li>Backup diario automatizado</li>
+<li>Almacenamiento en <code>/backup/daily/</code></li>
+<li>Compresión para ahorrar espacio</li>
+<li>Timestamp para identificación</li>
+<li>Verificación de integridad</li>
+</ol>
+<hr>
+<h2>🧠 Fundamentos DevOps</h2>
+<h3>Cultura de Colaboración</h3>
+<p>Backups requieren coordinación:</p>
+<ul>
+<li><strong>Desarrolladores</strong>: Saber qué datos son críticos</li>
+<li><strong>Operaciones</strong>: Implementar y monitorear backups</li>
+<li><strong>Business</strong>: Definir RPO/RTO (objetivos de recuperación)</li>
+</ul>
+<h3>Automatización</h3>
+<pre><code class="language-bash"># Sin automatización (riesgoso):
+# &quot;Alguien debe recordar hacer backup manualmente&quot;
+
+# Con automatización (confiable):
+# Backup ejecuta a las 2 AM todos los días, sin excepciones
+</code></pre>
+<h3>Métricas y Confiabilidad</h3>
+<ul>
+<li><strong>Backup Success Rate</strong>: % de backups completados</li>
+<li><strong>Backup Age</strong>: Cuánto tiempo desde el último backup exitoso</li>
+<li><strong>Restore Time</strong>: Cuánto toma recuperar (DR drills)</li>
+<li><strong>Storage Usage</strong>: Cuánto espacio ocupan los backups</li>
+</ul>
+<hr>
+<h2>🛠️ Implementación Paso a Paso</h2>
+<h3>Paso 1: Preparar Estructura de Directorios</h3>
+<pre><code class="language-bash"># Crear directorio de backups
+sudo mkdir -p /backup/daily
+
+# Establecer permisos adecuados
+sudo chmod 750 /backup
+sudo chown root:root /backup
+</code></pre>
+<p><strong>Análisis DevOps</strong>:</p>
+<ul>
+<li><code>750</code>: Root puede todo, grupo puede leer/ejecutar, otros nada</li>
+<li>Estructura separada: <code>/backup/daily/</code>, <code>/backup/weekly/</code>, <code>/backup/monthly/</code></li>
+</ul>
+<h3>Paso 2: Crear Script de Backup</h3>
+<pre><code class="language-bash"># Crear script de backup
+sudo tee /usr/local/bin/backup.sh &lt;&lt;&#39;EOF&#39;
+#!/bin/bash
+
+# Backup Script for /var/www/html
+# Created: $(date)
+# Purpose: Daily automated backup
+
+# Configuración
+SOURCE_DIR=&quot;/var/www/html&quot;
+BACKUP_DIR=&quot;/backup/daily&quot;
+DATE=$(date +%Y%m%d_%H%M%S)
+HOSTNAME=$(hostname)
+BACKUP_FILE=&quot;${BACKUP_DIR}/backup_${HOSTNAME}_${DATE}.tar.gz&quot;
+
+# Crear directorio si no existe
+mkdir -p &quot;$BACKUP_DIR&quot;
+
+# Ejecutar backup
+tar -czf &quot;$BACKUP_FILE&quot; &quot;$SOURCE_DIR&quot; 2&gt;/dev/null
+
+# Verificar éxito
+if [ $? -eq 0 ]; then
+    echo &quot;✓ Backup completed: $BACKUP_FILE&quot;
+    echo &quot;  Size: $(du -h &quot;$BACKUP_FILE&quot; | cut -f1)&quot;
+    echo &quot;  Created: $(date)&quot;
+    logger -t backup &quot;Daily backup completed: $BACKUP_FILE&quot;
+    exit 0
+else
+    echo &quot;✗ Backup failed!&quot;
+    logger -t backup &quot;Daily backup FAILED&quot;
+    exit 1
+fi
+EOF
+</code></pre>
+<p><strong>Análisis DevOps</strong>:</p>
+<ul>
+<li><strong>Shebang</strong>: <code>#!/bin/bash</code> - Especifica intérprete</li>
+<li><strong>Variables</strong>: Configuración al inicio, fácil de modificar</li>
+<li><strong>Logging</strong>: <code>logger</code> envía a syslog para auditoría</li>
+<li><strong>Error handling</strong>: Códigos de salida explícitos (0=éxito, 1=fallo)</li>
+</ul>
+<h3>Paso 3: Hacer Script Ejecutable</h3>
+<pre><code class="language-bash">sudo chmod +x /usr/local/bin/backup.sh
+
+# Verificar permisos
+ls -la /usr/local/bin/backup.sh
+</code></pre>
+<h3>Paso 4: Probar Script Manualmente</h3>
+<pre><code class="language-bash"># Ejecutar backup manualmente
+sudo /usr/local/bin/backup.sh
+</code></pre>
+<p><strong>Salida esperada</strong>:</p>
+<pre><code>✓ Backup completed: /backup/daily/backup_stapp01_20260205_143022.tar.gz
+  Size: 2.5M
+  Created: Wed Feb 5 14:30:22 UTC 2026
+</code></pre>
+<p><strong>Verificación</strong>:</p>
+<pre><code class="language-bash"># Listar backup creado
+ls -lh /backup/daily/
+
+# Verificar contenido
+tar -tzf /backup/daily/backup_stapp01_*.tar.gz | head -20
+</code></pre>
+<h3>Paso 5: Programar en Cron</h3>
+<pre><code class="language-bash"># Crear entrada cron para ejecución diaria a las 2 AM
+echo &quot;0 2 * * * root /usr/local/bin/backup.sh&quot; | sudo tee /etc/cron.d/daily-backup
+</code></pre>
+<p><strong>Análisis DevOps</strong>:</p>
+<ul>
+<li><code>0 2 * * *</code>: A las 2:00 AM todos los días</li>
+<li><code>root</code>: Ejecuta como usuario root (acceso completo)</li>
+<li>Archivo en <code>/etc/cron.d/</code>: Mejor que <code>crontab -e</code> para scripts de sistema</li>
+</ul>
+<h3>Paso 6: Verificar Configuración Cron</h3>
+<pre><code class="language-bash"># Verificar entrada cron
+cat /etc/cron.d/daily-backup
+
+# Verificar que cron reconoce el job
+sudo crontab -l -u root  # O simplemente verificar el archivo
+</code></pre>
+<h3>Paso 7: Testing de Restauración (Crítico)</h3>
+<pre><code class="language-bash"># Crear directorio de prueba
+sudo mkdir -p /tmp/restore-test
+
+# Extraer backup
+sudo tar -xzf /backup/daily/backup_stapp01_*.tar.gz -C /tmp/restore-test
+
+# Verificar contenido
+ls -la /tmp/restore-test/var/www/html/
+
+# Comparar con original
+diff -r /var/www/html /tmp/restore-test/var/www/html &amp;&amp; echo &quot;✓ Restauración verificada&quot;
+</code></pre>
+<p><strong>⚠️ Importante</strong>: Un backup que no puedes restaurar es inútil. Siempre verificar restauración.</p>
+<hr>
+<h2>✅ Criterios de Éxito</h2>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> Directorio <code>/backup/daily/</code> creado con permisos correctos</li>
+<li><input checked="" disabled="" type="checkbox"> Script <code>/usr/local/bin/backup.sh</code> creado y funcional</li>
+<li><input checked="" disabled="" type="checkbox"> Script marcado como ejecutable (<code>chmod +x</code>)</li>
+<li><input checked="" disabled="" type="checkbox"> Backup manual ejecutado exitosamente</li>
+<li><input checked="" disabled="" type="checkbox"> Cron job configurado para ejecución diaria a las 2 AM</li>
+<li><input checked="" disabled="" type="checkbox"> Verificación de backup (listar archivos creados)</li>
+<li><input checked="" disabled="" type="checkbox"> Test de restauración completado exitosamente</li>
+<li><input checked="" disabled="" type="checkbox"> Logging configurado (<code>logger</code> para syslog)</li>
+</ul>
+<hr>
+<h2>🎓 Lecciones Aprendidas</h2>
+<h3>🔑 Conceptos Clave</h3>
+<ol>
+<li><p><strong>Backup 3-2-1 Rule</strong>:</p>
+<ul>
+<li><strong>3</strong> copias de los datos</li>
+<li><strong>2</strong> medios diferentes</li>
+<li><strong>1</strong> copia offsite/remota</li>
+</ul>
+</li>
+<li><p><strong>RPO vs RTO</strong>:</p>
+<ul>
+<li><strong>RPO</strong> (Recovery Point Objective): Cuántos datos puedes perder</li>
+<li><strong>RTO</strong> (Recovery Time Objective): Cuánto tiempo para recuperar</li>
+</ul>
+</li>
+<li><p><strong>Tar Options</strong>:</p>
+<pre><code class="language-bash">-c  # Create archive
+-x  # Extract archive
+-t  # List contents
+-v  # Verbose
+-z  # Compress with gzip
+-f  # Specify filename
+</code></pre>
+</li>
+</ol>
+<h3>🚨 Troubleshooting DevOps</h3>
+<p><strong>Problema 1</strong>: &quot;Permission denied&quot; al ejecutar backup</p>
+<ul>
+<li><strong>Causa</strong>: Script no tiene permisos de ejecución</li>
+<li><strong>Solución</strong>: <code>chmod +x /usr/local/bin/backup.sh</code></li>
+</ul>
+<p><strong>Problema 2</strong>: Archivo de backup vacío o muy pequeño</p>
+<ul>
+<li><strong>Causa</strong>: Ruta incorrecta o directorio vacío</li>
+<li><strong>Diagnóstico</strong>: Verificar <code>SOURCE_DIR</code> existe y tiene contenido</li>
+<li><strong>Solución</strong>: <code>ls -la $SOURCE_DIR</code></li>
+</ul>
+<p><strong>Problema 3</strong>: Cron job no ejecuta</p>
+<ul>
+<li><strong>Causas</strong>:<ul>
+<li>Servicio cron no está corriendo</li>
+<li>Sintaxis incorrecta en crontab</li>
+<li>Permisos del script</li>
+</ul>
+</li>
+<li><strong>Solución</strong>:<pre><code class="language-bash">sudo systemctl status cron
+sudo grep CRON /var/log/syslog
+</code></pre>
+</li>
+</ul>
+<h3>💡 Mejores Prácticas</h3>
+<ol>
+<li><p><strong>Retention Policy</strong>: Rotar backups antiguos</p>
+<pre><code class="language-bash"># Agregar al script de backup
+# Mantener solo últimos 7 días
+find &quot;$BACKUP_DIR&quot; -name &quot;backup_*.tar.gz&quot; -mtime +7 -delete
+</code></pre>
+</li>
+<li><p><strong>Remote Backup</strong>: Copiar a ubicación remota</p>
+<pre><code class="language-bash"># Agregar al final del script
+rsync -avz &quot;$BACKUP_FILE&quot; backup-server:/backups/
+</code></pre>
+</li>
+<li><p><strong>Backup Verification</strong>:</p>
+<pre><code class="language-bash"># Verificar integridad del archivo tar
+tar -tzf &quot;$BACKUP_FILE&quot; &gt; /dev/null &amp;&amp; echo &quot;✓ Integrity OK&quot;
+</code></pre>
+</li>
+<li><p><strong>Ansible Automation</strong>:</p>
+<pre><code class="language-yaml">- name: Setup automated backups
+  template:
+    src: backup.sh.j2
+    dest: /usr/local/bin/backup.sh
+    mode: &quot;0755&quot;
+
+- name: Configure cron job
+  cron:
+    name: &quot;Daily backup&quot;
+    hour: &quot;2&quot;
+    minute: &quot;0&quot;
+    job: &quot;/usr/local/bin/backup.sh&quot;
+    user: root
+</code></pre>
+</li>
+<li><p><strong>Monitoring</strong>:</p>
+<pre><code class="language-bash"># Verificar último backup (alertar si &gt; 25 horas)
+if [ $(find /backup/daily -name &quot;*.tar.gz&quot; -mtime -1 | wc -l) -eq 0 ]; then
+  echo &quot;ALERT: No recent backup found!&quot;
+fi
+</code></pre>
+</li>
+</ol>
+<hr>
+<h2>🚀 Día Siguiente: Preparación</h2>
+<p><strong>Día 15</strong> configura timezone - esencial para:</p>
+<ul>
+<li>Backups con timestamp correcto</li>
+<li>Logs con hora local apropiada</li>
+<li>Cron jobs ejecutando en horario esperado</li>
+</ul>
+<p><strong>Conexión</strong>: Backup funcional + Timezone correcto = Operaciones temporales consistentes.</p>
+<hr>
+<h2>📚 Recursos DevOps</h2>
+<ul>
+<li><a href="https://www.backblaze.com/blog/the-3-2-1-backup-strategy/">Backup Best Practices</a></li>
+<li><a href="https://www.gnu.org/software/tar/manual/">Tar Command Tutorial</a></li>
+<li><a href="https://rsync.samba.org/documentation.html">Rsync Documentation</a></li>
+</ul>
+<hr>
+<h2>📊 Seguimiento de Progreso</h2>
+<ul>
+<li><strong>Día</strong>: 14 de 100</li>
+<li><strong>Bloque</strong>: Data Protection y Resiliencia</li>
+<li><strong>Progresión</strong>: 1-13 → 14 → 15 (Operaciones → Backups → Timezone)</li>
+<li><strong>Habilidad</strong>: Implementación de backups automatizados</li>
+</ul>
+<p><strong>¡Excelente! Tu infraestructura ahora está protegida contra pérdida de datos.</strong> 💾</p>
+</div> </article> <!-- Navigation --> <div class="flex justify-between mt-8"> <a href="/challenges/devops" class="btn btn-secondary">
+← Volver a DevOps
+</a> </div> </div> </main>  </main> <!-- Footer --> <footer class="border-t py-6" style="border-color: var(--color-border); background-color: var(--color-bg);" data-astro-cid-ouamjn2i> <div class="container mx-auto px-4 text-center" style="color: var(--color-text-secondary);" data-astro-cid-ouamjn2i> <p class="text-sm" data-astro-cid-ouamjn2i>
+Tech Challenges Dashboard &copy; 2026 |
+<a href="https://github.com/statick88" target="_blank" rel="noopener noreferrer" class="hover:underline" style="color: var(--color-accent);" data-astro-cid-ouamjn2i>
+@statick88
+</a> </p> </div> </footer>  <script type="module">const e=document.getElementById("mobile-menu-btn"),n=document.getElementById("mobile-menu");e?.addEventListener("click",()=>{n?.classList.toggle("hidden")});</script></body></html>

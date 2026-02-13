@@ -1,0 +1,199 @@
+<!DOCTYPE html><html lang="es" data-astro-cid-ouamjn2i> <head><meta charset="UTF-8"><meta name="description" content="Plataforma interactiva de desafíos técnicos - Linux, Docker, DevOps, CTF"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.17.1"><meta name="theme-color" content="#4c80cc"><title>HTB Academy - Nmap Default - CTF Challenges</title><!-- Preconnect for fonts --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><!-- Script para prevenir flash de tema incorrecto --><script>
+      const theme = (() => {
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+          return localStorage.getItem('theme');
+        }
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          return 'dark';
+        }
+        return 'light';
+      })();
+      
+      if (theme === 'light') {
+        document.documentElement.classList.add('light');
+      } else {
+        document.documentElement.classList.add('dark');
+      }
+    </script><!-- Cache busting: Verificar versión y recargar si hay cambios --><script>
+      (function() {
+        const BUILD_VERSION = '1770952254556';
+        const CACHE_KEY = 'tech-challenges-build-version';
+        
+        // Verificar si hay nueva versión
+        const storedVersion = localStorage.getItem(CACHE_KEY);
+        
+        if (storedVersion && storedVersion !== BUILD_VERSION) {
+          // Nueva versión detectada, limpiar cache y recargar
+          console.log('🆕 Nueva versión detectada. Actualizando...');
+          if ('caches' in window) {
+            caches.keys().then(names => {
+              names.forEach(name => caches.delete(name));
+            });
+          }
+          localStorage.setItem(CACHE_KEY, BUILD_VERSION);
+          window.location.reload();
+        } else if (!storedVersion) {
+          localStorage.setItem(CACHE_KEY, BUILD_VERSION);
+        }
+      })();
+    </script><link rel="stylesheet" href="/_astro/_slug_-DjAw3gU4.css">
+<link rel="stylesheet" href="/_astro/_slug_-BSbIuNxR.css"></head> <body class="min-h-screen flex flex-col" data-astro-cid-ouamjn2i> <!-- Header --> <header class="sticky top-0 z-50 border-b" style="background-color: var(--color-bg); border-color: var(--color-border);" data-astro-cid-ouamjn2i> <div class="container mx-auto px-4 py-4 flex items-center justify-between" data-astro-cid-ouamjn2i> <!-- Logo / Brand --> <a href="/" class="flex items-center gap-3 group" data-astro-cid-ouamjn2i> <span class="text-2xl" data-astro-cid-ouamjn2i>🚀</span> <span class="font-bold text-lg transition-colors group-hover:text-accent" style="color: var(--color-text);" data-astro-cid-ouamjn2i>
+Tech Challenges
+</span> </a> <!-- Navigation --> <nav class="hidden md:flex items-center gap-6" data-astro-cid-ouamjn2i> <a href="/" class="nav-link" data-astro-cid-ouamjn2i>Dashboard</a> <a href="/challenges/linux" class="nav-link" data-astro-cid-ouamjn2i>Linux</a> <a href="/challenges/docker" class="nav-link" data-astro-cid-ouamjn2i>Docker</a> <a href="/challenges/devops" class="nav-link" data-astro-cid-ouamjn2i>DevOps</a> <a href="/challenges/ctf" class="nav-link" data-astro-cid-ouamjn2i>CTF</a> <a href="/challenges/htb" class="nav-link" data-astro-cid-ouamjn2i>HTB</a> </nav> <!-- Theme Toggle --> <div class="flex items-center gap-4" data-astro-cid-ouamjn2i> <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Cambiar tema" title="Cambiar tema claro/oscuro" data-astro-cid-x3pjskd3> <!-- Icono Sol (visible en tema oscuro) --> <svg class="icon-sun w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" data-astro-cid-x3pjskd3> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" data-astro-cid-x3pjskd3></path> </svg> <!-- Icono Luna (visible en tema claro) --> <svg class="icon-moon w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" data-astro-cid-x3pjskd3> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" data-astro-cid-x3pjskd3></path> </svg> </button>  <script type="module">const m=document.getElementById("theme-toggle");function c(){return typeof localStorage<"u"&&localStorage.getItem("theme")?localStorage.getItem("theme"):window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}function t(e){e==="dark"?(document.documentElement.classList.remove("light"),document.documentElement.classList.add("dark")):(document.documentElement.classList.remove("dark"),document.documentElement.classList.add("light")),localStorage.setItem("theme",e)}const d=c();d==="light"?document.documentElement.classList.add("light"):document.documentElement.classList.add("dark");m?.addEventListener("click",()=>{const n=(document.documentElement.classList.contains("light")?"light":"dark")==="dark"?"light":"dark";document.documentElement.classList.add("theme-transitioning"),t(n),setTimeout(()=>{document.documentElement.classList.remove("theme-transitioning")},300)});window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change",e=>{localStorage.getItem("theme")||t(e.matches?"dark":"light")});</script> <!-- Mobile Menu Button --> <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg border transition-colors" style="background-color: var(--color-bg-card); border-color: var(--color-border);" aria-label="Menú" data-astro-cid-ouamjn2i> <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-ouamjn2i> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" data-astro-cid-ouamjn2i></path> </svg> </button> </div> </div> <!-- Mobile Navigation --> <div id="mobile-menu" class="hidden md:hidden border-t" style="border-color: var(--color-border); background-color: var(--color-bg-card);" data-astro-cid-ouamjn2i> <nav class="container mx-auto px-4 py-4 flex flex-col gap-2" data-astro-cid-ouamjn2i> <a href="/" class="mobile-nav-link" data-astro-cid-ouamjn2i>Dashboard</a> <a href="/challenges/linux" class="mobile-nav-link" data-astro-cid-ouamjn2i>🐧 Linux</a> <a href="/challenges/docker" class="mobile-nav-link" data-astro-cid-ouamjn2i>🐳 Docker</a> <a href="/challenges/devops" class="mobile-nav-link" data-astro-cid-ouamjn2i>⚙️ DevOps</a> <a href="/challenges/ctf" class="mobile-nav-link" data-astro-cid-ouamjn2i>🚩 CTF</a> <a href="/challenges/htb" class="mobile-nav-link" data-astro-cid-ouamjn2i>🎯 HTB</a> </nav> </div> </header> <!-- Main Content --> <main class="flex-1" data-astro-cid-ouamjn2i>  <main class="container mx-auto px-4 py-8"> <div class="max-w-4xl mx-auto"> <div class="mb-6"> <a href="/challenges" class="text-cyan-400 hover:text-cyan-300">← Volver al Dashboard</a> </div> <article class="bg-slate-800 rounded-lg p-6 border border-slate-700"> <header class="mb-6"> <h1 class="text-3xl font-bold text-orange-400 mb-2">HTB Academy - Nmap Default</h1> <div class="flex items-center gap-4 text-sm text-gray-400"> <span class="bg-purple-600 px-2 py-1 rounded text-xs">CTF</span> <span class="capitalize">easy</span> <span>2026-02-11</span> <span>HTB</span> </div> </header> <div class="prose prose-invert max-w-none"> <div>
+
+# 🎓 HTB Academy - Nmap Default
+
+## 🎭 Enumeración Básica con Nmap
+
+---
+
+👨‍🏫 **Del Instructor**: Bienvenido a tu primer reto de Hack The Box Academy. Como Ethical Hacker, la enumeración es el primer paso crítico en cualquier pentest. Hoy exploraremos el uso fundamental de Nmap para mapear puertos y servicios en un objetivo simulado.
+
+> 🎯 **Mentalidad de Hacker**: "Nada es lo que parece. Cada puerto abierto cuenta una historia sobre el sistema objetivo. Piensa como un detective: recopila pistas sistemáticamente antes de actuar."
+
+---
+
+## 🎭 El Escenario: Investigación de Red Corporativa
+
+Imagina que eres un consultor de ciberseguridad contratado por una empresa para auditar su red interna. Has recibido una IP objetivo (10.129.43.41) de un servidor Linux Ubuntu que supuestamente debería estar protegido. Tu misión es identificar todos los servicios expuestos y recopilar información crítica sobre el host.
+
+**Tu misión como Ethical Hacker**:
+
+- Descubrir todos los puertos TCP abiertos en el objetivo
+- Enumerar el nombre del host (hostname) de manera precisa
+- Documentar cada hallazgo con explicaciones técnicas
+
+## 🧠 Fundamentos de Análisis: Nmap como Herramienta de Reconocimiento
+
+Nmap (Network Mapper) es el escáner de puertos más poderoso y versátil disponible. Sus capacidades van más allá del simple escaneo de puertos:
+
+- **Escaneo de Puertos**: Identifica qué puertos están abiertos, cerrados o filtrados
+- **Detección de Servicios**: Intenta determinar qué servicios corren en cada puerto
+- **Detección de OS**: Analiza respuestas para identificar el sistema operativo
+- **Version Scanning**: Obtiene versiones exactas de servicios y software
+
+En un entorno real, esta información es crucial para:
+
+- Identificar vectores de ataque potenciales
+- Planificar estrategias de explotación
+- Evaluar la superficie de ataque del objetivo
+
+## 🔍 Metodología de Investigación: Enfoque Sistemático de Enumeración
+
+### Paso 1: Preparación del Entorno
+
+Primero, conectémonos al laboratorio de HTB Academy:
+
+```bash
+# Conectar a la VPN de HTB
+openvpn academy-regular.ovpn
+
+# Acceder a Pwnbox vía SSH
+ssh htb-ac-2300153@htb-qyd5plq1et.htb-cloud.com
+```
+
+> 💡 **Nota técnica**: La VPN asegura que estamos en la misma red que el objetivo, permitiendo comunicación directa con IPs privadas como 10.129.43.41.
+
+### Paso 2: Escaneo Completo de Puertos
+
+El primer paso en cualquier enumeración es identificar todos los puertos TCP abiertos:
+
+```bash
+nmap -p- 10.129.43.41
+```
+
+**Análisis**:
+
+- `-p-` escanea todos los 65535 puertos TCP (no solo los 1000 más comunes)
+- Esto es crucial porque muchos servicios corren en puertos no estándar
+- En este caso, descubrimos 7 puertos abiertos: 22, 80, 110, 139, 143, 445, 31337
+
+> ⚠️ **Advertencia**: Un escaneo completo puede tomar tiempo y generar logs en el objetivo. En entornos de producción, considera la discreción.
+
+### Paso 3: Enumeración de Servicios y Versiones
+
+Una vez identificados los puertos, determinemos qué servicios corren en ellos:
+
+```bash
+nmap -sV 10.129.43.41
+```
+
+**Análisis del Output**:
+
+- **Puerto 22 (SSH)**: OpenSSH 7.6p1 Ubuntu - Acceso remoto seguro
+- **Puerto 80 (HTTP)**: Apache 2.4.29 - Servidor web
+- **Puerto 110 (POP3)**: Dovecot - Protocolo de correo electrónico
+- **Puerto 139/445 (NetBIOS/SMB)**: Samba - Compartición de archivos Windows/Linux
+- **Puerto 143 (IMAP)**: Dovecot - Otro protocolo de correo
+- **Puerto 31337**: Servicio personalizado que revela la flag HTB{pr0F7pDv3r510nb4nn3r}
+
+> 💡 **Nota técnica**: El puerto 31337 es inusual - típicamente usado por backdoors o servicios personalizados. El banner revela directamente la flag, mostrando un error de configuración común.
+
+## ✅ Checklist de Verificación
+
+- [x] VPN de HTB conectada correctamente
+- [x] Acceso a Pwnbox establecido
+- [x] Escaneo completo de puertos ejecutado (-p-)
+- [x] 7 puertos TCP identificados correctamente
+- [x] Servicios enumerados con versiones (-sV)
+- [x] Hostname extraído: NIX-NMAP-DEFAULT
+- [x] Flag capturada del banner del puerto 31337
+
+## 🎓 Lo Que Acabas de Aprender: Mentalidad Desarrollada
+
+Este reto te ha enseñado los fundamentos de la enumeración sistemática:
+
+**Habilidades Técnicas**:
+
+- Uso básico de Nmap para escaneo de puertos y servicios
+- Interpretación de outputs de escaneo
+- Identificación de servicios comunes (SSH, HTTP, SMB, email)
+- Reconocimiento de puertos no estándar y servicios personalizados
+
+**Mentalidad de Hacker Desarrollada**:
+
+- **Metodología Sistemática**: Siempre empezar con reconocimiento amplio antes de profundizar
+- **Atención al Detalle**: Cada puerto cuenta una historia sobre el sistema
+- **Curiosidad Investigativa**: ¿Por qué un puerto personalizado revela información sensible?
+- **Documentación Rigurosa**: Registrar cada comando y hallazgo para análisis posterior
+
+## 🚀 Próximos Pasos: Evolución en la Carrera de Hacker
+
+1. **Profundiza en Nmap**: Aprende opciones avanzadas como `-sC` (scripts NSE), `-O` (detección OS), y escaneo UDP
+2. **Explora Servicios**: Una vez enumerados, investiga vulnerabilidades en SSH 7.6p1, Apache 2.4.29, Samba 3.X-4.X
+3. **HTB Machines**: Pasa de Academy a máquinas reales con desafíos más complejos
+4. **Herramientas Complementarias**: Integra nmap con tools como nikto, dirbuster, o metasploit
+
+## 📚 Recursos y Referencias
+
+- [Nmap Official Documentation](https://nmap.org/docs.html)
+- [HTB Academy - Nmap Module](https://academy.hackthebox.com/module/details/19)
+- [Samba Security Best Practices](https://www.samba.org/samba/docs/current/man-html/smb.conf.5.html)
+- [Common Ports and Services](https://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers)
+
+---
+
+## ✅ Estado
+
+**COMPLETADO** 🎉
+
+- 📅 Fecha: 2026-02-11
+- ⏱️ Tiempo: 15 minutos
+- 🎯 Dificultad: Fácil (Beginner)
+</div> </div> </article> <div id="modal-academy/nmap-default" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50" aria-hidden="true"> <div class="flex items-center justify-center min-h-screen p-4"> <div class="bg-slate-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto"> <div class="p-6 border-b border-slate-700"> <div class="flex justify-between items-start"> <div> <h2 class="text-2xl font-bold text-gray-100">HTB Academy - Nmap Default</h2> <div class="flex items-center gap-4 mt-2 text-sm"> <span class="capitalize bg-slate-700 px-2 py-1 rounded">ctf</span> <span class="text-cyan-400">easy</span> <span class="text-green-400 font-mono">Flag: HTB{pr0F7pDv3r510nb4nn3r}</span> </div> </div> <button onclick="closeModal('academy/nmap-default')" class="text-gray-400 hover:text-white">
+✕
+</button> </div> </div> <div class="p-6"> <div class="mb-6"> <h3 class="text-lg font-semibold text-cyan-400 mb-4">Pasos a Seguir</h3> <div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">1. Paso 1: Preparación del Entorno</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>openvpn academy-regular.ovpn
+ssh htb-ac-2300153@htb-qyd5plq1et.htb-cloud.com</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">2. Paso 2: Escaneo Completo de Puertos</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>nmap -p- 10.129.43.41</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">3. Paso 3: Enumeración de Servicios y Versiones</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>nmap -sV 10.129.43.41</code>
+                  </pre>  </div> </div>    </div> </div> </div> </div> <script type="module">document.addEventListener("click",e=>{const t=e.target;t.classList.contains("bg-black")&&(t.classList.add("hidden"),t.setAttribute("aria-hidden","true"))});</script> </div> </main>  </main> <!-- Footer --> <footer class="border-t py-6" style="border-color: var(--color-border); background-color: var(--color-bg);" data-astro-cid-ouamjn2i> <div class="container mx-auto px-4 text-center" style="color: var(--color-text-secondary);" data-astro-cid-ouamjn2i> <p class="text-sm" data-astro-cid-ouamjn2i>
+Tech Challenges Dashboard &copy; 2026 |
+<a href="https://github.com/statick88" target="_blank" rel="noopener noreferrer" class="hover:underline" style="color: var(--color-accent);" data-astro-cid-ouamjn2i>
+@statick88
+</a> </p> </div> </footer>  <script type="module">const e=document.getElementById("mobile-menu-btn"),n=document.getElementById("mobile-menu");e?.addEventListener("click",()=>{n?.classList.toggle("hidden")});</script></body></html>

@@ -1,0 +1,554 @@
+<!DOCTYPE html><html lang="es" data-astro-cid-ouamjn2i> <head><meta charset="UTF-8"><meta name="description" content="Plataforma interactiva de desafíos técnicos - Linux, Docker, DevOps, CTF"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.17.1"><meta name="theme-color" content="#4c80cc"><title>Docker Challenge Reto 5: Troubleshoot Docker Container Issue - Docker Challenges</title><!-- Preconnect for fonts --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><!-- Script para prevenir flash de tema incorrecto --><script>
+      const theme = (() => {
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+          return localStorage.getItem('theme');
+        }
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          return 'dark';
+        }
+        return 'light';
+      })();
+      
+      if (theme === 'light') {
+        document.documentElement.classList.add('light');
+      } else {
+        document.documentElement.classList.add('dark');
+      }
+    </script><!-- Cache busting: Verificar versión y recargar si hay cambios --><script>
+      (function() {
+        const BUILD_VERSION = '1770952254556';
+        const CACHE_KEY = 'tech-challenges-build-version';
+        
+        // Verificar si hay nueva versión
+        const storedVersion = localStorage.getItem(CACHE_KEY);
+        
+        if (storedVersion && storedVersion !== BUILD_VERSION) {
+          // Nueva versión detectada, limpiar cache y recargar
+          console.log('🆕 Nueva versión detectada. Actualizando...');
+          if ('caches' in window) {
+            caches.keys().then(names => {
+              names.forEach(name => caches.delete(name));
+            });
+          }
+          localStorage.setItem(CACHE_KEY, BUILD_VERSION);
+          window.location.reload();
+        } else if (!storedVersion) {
+          localStorage.setItem(CACHE_KEY, BUILD_VERSION);
+        }
+      })();
+    </script><link rel="stylesheet" href="/_astro/_slug_-DjAw3gU4.css">
+<link rel="stylesheet" href="/_astro/_slug_-BSbIuNxR.css">
+<style>.markdown-body{font-family:system-ui;line-height:1.8;color:#e5e7eb}.markdown-body h1{font-size:2rem;font-weight:700;color:#3b82f6;margin:2rem 0 1rem;border-bottom:1px solid #374151;padding-bottom:.5rem}.markdown-body h2{font-size:1.5rem;font-weight:600;color:#22d3ee;margin:1.75rem 0 1rem}.markdown-body h3{font-size:1.25rem;font-weight:600;color:#a5f3fc;margin:1.5rem 0 .75rem}.markdown-body p{margin:.75rem 0;color:#d1d5db}.markdown-body strong{color:#fbbf24;font-weight:600}.markdown-body code{background:#06b6d426;color:#22d3ee;padding:.2rem .5rem;border-radius:.375rem;font-family:monospace}.markdown-body pre{background:#0f172a;padding:1rem;border-radius:.75rem;overflow-x:auto;margin:1rem 0;border:1px solid #1e293b}.markdown-body pre code{background:transparent;padding:0;color:#a5b4fc}.markdown-body ul,.markdown-body ol{margin:.75rem 0;padding-left:1.5rem;color:#d1d5db}.markdown-body li{margin:.5rem 0}.markdown-body blockquote{border-left:4px solid #3b82f6;padding-left:1rem;margin:1rem 0;color:#9ca3af}
+</style></head> <body class="min-h-screen flex flex-col" data-astro-cid-ouamjn2i> <!-- Header --> <header class="sticky top-0 z-50 border-b" style="background-color: var(--color-bg); border-color: var(--color-border);" data-astro-cid-ouamjn2i> <div class="container mx-auto px-4 py-4 flex items-center justify-between" data-astro-cid-ouamjn2i> <!-- Logo / Brand --> <a href="/" class="flex items-center gap-3 group" data-astro-cid-ouamjn2i> <span class="text-2xl" data-astro-cid-ouamjn2i>🚀</span> <span class="font-bold text-lg transition-colors group-hover:text-accent" style="color: var(--color-text);" data-astro-cid-ouamjn2i>
+Tech Challenges
+</span> </a> <!-- Navigation --> <nav class="hidden md:flex items-center gap-6" data-astro-cid-ouamjn2i> <a href="/" class="nav-link" data-astro-cid-ouamjn2i>Dashboard</a> <a href="/challenges/linux" class="nav-link" data-astro-cid-ouamjn2i>Linux</a> <a href="/challenges/docker" class="nav-link" data-astro-cid-ouamjn2i>Docker</a> <a href="/challenges/devops" class="nav-link" data-astro-cid-ouamjn2i>DevOps</a> <a href="/challenges/ctf" class="nav-link" data-astro-cid-ouamjn2i>CTF</a> <a href="/challenges/htb" class="nav-link" data-astro-cid-ouamjn2i>HTB</a> </nav> <!-- Theme Toggle --> <div class="flex items-center gap-4" data-astro-cid-ouamjn2i> <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Cambiar tema" title="Cambiar tema claro/oscuro" data-astro-cid-x3pjskd3> <!-- Icono Sol (visible en tema oscuro) --> <svg class="icon-sun w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" data-astro-cid-x3pjskd3> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" data-astro-cid-x3pjskd3></path> </svg> <!-- Icono Luna (visible en tema claro) --> <svg class="icon-moon w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" data-astro-cid-x3pjskd3> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" data-astro-cid-x3pjskd3></path> </svg> </button>  <script type="module">const m=document.getElementById("theme-toggle");function c(){return typeof localStorage<"u"&&localStorage.getItem("theme")?localStorage.getItem("theme"):window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}function t(e){e==="dark"?(document.documentElement.classList.remove("light"),document.documentElement.classList.add("dark")):(document.documentElement.classList.remove("dark"),document.documentElement.classList.add("light")),localStorage.setItem("theme",e)}const d=c();d==="light"?document.documentElement.classList.add("light"):document.documentElement.classList.add("dark");m?.addEventListener("click",()=>{const n=(document.documentElement.classList.contains("light")?"light":"dark")==="dark"?"light":"dark";document.documentElement.classList.add("theme-transitioning"),t(n),setTimeout(()=>{document.documentElement.classList.remove("theme-transitioning")},300)});window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change",e=>{localStorage.getItem("theme")||t(e.matches?"dark":"light")});</script> <!-- Mobile Menu Button --> <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg border transition-colors" style="background-color: var(--color-bg-card); border-color: var(--color-border);" aria-label="Menú" data-astro-cid-ouamjn2i> <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-ouamjn2i> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" data-astro-cid-ouamjn2i></path> </svg> </button> </div> </div> <!-- Mobile Navigation --> <div id="mobile-menu" class="hidden md:hidden border-t" style="border-color: var(--color-border); background-color: var(--color-bg-card);" data-astro-cid-ouamjn2i> <nav class="container mx-auto px-4 py-4 flex flex-col gap-2" data-astro-cid-ouamjn2i> <a href="/" class="mobile-nav-link" data-astro-cid-ouamjn2i>Dashboard</a> <a href="/challenges/linux" class="mobile-nav-link" data-astro-cid-ouamjn2i>🐧 Linux</a> <a href="/challenges/docker" class="mobile-nav-link" data-astro-cid-ouamjn2i>🐳 Docker</a> <a href="/challenges/devops" class="mobile-nav-link" data-astro-cid-ouamjn2i>⚙️ DevOps</a> <a href="/challenges/ctf" class="mobile-nav-link" data-astro-cid-ouamjn2i>🚩 CTF</a> <a href="/challenges/htb" class="mobile-nav-link" data-astro-cid-ouamjn2i>🎯 HTB</a> </nav> </div> </header> <!-- Main Content --> <main class="flex-1" data-astro-cid-ouamjn2i>   <main class="container mx-auto px-4 py-8"> <div class="max-w-4xl mx-auto"> <!-- Breadcrumb --> <nav class="flex items-center gap-2 text-sm mb-6" style="color: var(--color-text-secondary);"> <a href="/" class="hover:underline" style="color: var(--color-accent);">Dashboard</a> <span>/</span> <a href="/challenges/docker" class="hover:underline" style="color: var(--color-accent);">Docker</a> <span>/</span> <span>Docker Challenge Reto 5: Troubleshoot Docker Container Issue</span> </nav> <article class="card p-8"> <header class="mb-6"> <div class="flex items-center gap-2 mb-2"> <span class="text-blue-400 font-mono">🐳 Docker</span> <span class="text-xs px-2 py-1 rounded bg-blue-500/20 text-blue-400">
+Reto #5 </span> </div> <h1 class="text-3xl font-bold mb-4" style="color: var(--color-text);">Docker Challenge Reto 5: Troubleshoot Docker Container Issue</h1> <div class="flex items-center gap-4 text-sm" style="color: var(--color-text-secondary);"> <span>Dificultad: 4</span> <span>Fecha: 30-01-2026</span> </div> </header> <div class="markdown-body"><h1>🐳 Docker Challenge Reto 5: Troubleshoot Docker Container Issue</h1>
+<hr>
+<h2>🎓 Del Instructor</h2>
+<p>En mis años como <strong>Platform Engineer</strong>, he aprendido que los contenedores fallan en producción por razones que nunca imaginas en desarrollo: OOM killers silenciosos, race conditions en startup, volúmenes que no montan, DNS que no resuelve. Debugging es 50% técnica, 50% metodología.</p>
+<blockquote>
+<p>🎯 <strong>Mentalidad DevOps</strong>: &quot;No arregles el síntoma. Entiende la causa raíz. Si no puedes explicar por qué falló, no has terminado de debuggear.&quot;</p>
+</blockquote>
+<hr>
+<h2>🎭 Escenario Empresarial</h2>
+<p><strong>Contexto</strong>: Es 3 AM. El pagerduty explota. El servicio de autenticación está retornando 502 Bad Gateway. El contenedor muestra &quot;Up&quot; en el dashboard, pero las métricas de latencia están por las nubes. El último deploy fue hace 6 horas y &quot;funcionaba perfecto&quot;.</p>
+<p><strong>Tu misión</strong>: Diagnosticar y resolver el problema bajo presión, con SLAs de 99.9% uptime en juego.</p>
+<p><strong>Datos del incidente</strong>:</p>
+<ul>
+<li><strong>Hora del reporte</strong>: 03:15 AM</li>
+<li><strong>Impacto</strong>: 15,000 usuarios sin login</li>
+<li><strong>Último cambio</strong>: Configuración de nginx actualizada ayer</li>
+<li><strong>Síntomas</strong>: Contenedor running, pero health checks fallando</li>
+</ul>
+<p><strong>Infraestructura</strong>:</p>
+<ul>
+<li><strong>Servidor</strong>: stapp01.stratos.xfusioncorp.com</li>
+<li><strong>IP</strong>: 172.16.238.10</li>
+<li><strong>Usuario</strong>: tony</li>
+<li><strong>Stack</strong>: nginx + backend API en contenedores separados</li>
+</ul>
+<hr>
+<h2>🧠 Arquitectura: El Ecosistema de Debugging</h2>
+<h3>El Stack de Observabilidad</h3>
+<pre><code>┌─────────────────────────────────────────────────────────────┐
+│  CAPA DE APLICACIÓN                                         │
+│  ├── Health checks (/health, /ready)                        │
+│  ├── Application logs (structured JSON)                     │
+│  └── Business metrics (prometheus)                          │
+├─────────────────────────────────────────────────────────────┤
+│  CAPA DE CONTENEDOR                                         │
+│  ├── docker logs (stdout/stderr)                            │
+│  ├── docker stats (CPU, mem, IO, network)                   │
+│  ├── docker inspect (config, state, network)                │
+│  └── docker top (procesos internos)                         │
+├─────────────────────────────────────────────────────────────┤
+│  CAPA DE HOST                                               │
+│  ├── systemctl status docker                                │
+│  ├── journalctl -u docker                                   │
+│  ├── dmesg (OOM killer, kernel issues)                      │
+│  └── netstat/ss (conexiones de red)                         │
+├─────────────────────────────────────────────────────────────┤
+│  CAPA DE INFRAESTRUCTURA                                    │
+│  ├── Docker daemon logs                                     │
+│  ├── Resource limits (cgroups)                              │
+│  └── Network connectivity (DNS, firewalls)                  │
+└─────────────────────────────────────────────────────────────┘
+</code></pre>
+<h3>Taxonomía de Fallos Docker</h3>
+<table>
+<thead>
+<tr>
+<th>Categoría</th>
+<th>Síntomas</th>
+<th>Herramientas</th>
+<th>Frecuencia</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Startup Fail</strong></td>
+<td>Exited immediatamente</td>
+<td><code>docker logs</code>, <code>docker inspect</code></td>
+<td>40%</td>
+</tr>
+<tr>
+<td><strong>Runtime Crash</strong></td>
+<td>Exited después de X tiempo</td>
+<td><code>docker logs --tail</code>, <code>docker events</code></td>
+<td>25%</td>
+</tr>
+<tr>
+<td><strong>Resource Exhaustion</strong></td>
+<td>OOM, CPU throttling</td>
+<td><code>docker stats</code>, <code>dmesg</code></td>
+<td>20%</td>
+</tr>
+<tr>
+<td><strong>Network Issues</strong></td>
+<td>Timeout, refused connection</td>
+<td><code>docker network inspect</code>, <code>ping</code>, <code>curl</code></td>
+<td>10%</td>
+</tr>
+<tr>
+<td><strong>Storage Issues</strong></td>
+<td>I/O errors, full disk</td>
+<td><code>docker system df</code>, <code>df -h</code></td>
+<td>5%</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>🛠️ Implementación Profesional</h2>
+<h3>Fase 1: Triage Inicial (30 segundos)</h3>
+<pre><code class="language-bash"># Acceso al servidor
+ssh tony@172.16.238.10
+sudo su -
+
+# 1. Estado general - ¿Qué está corriendo?
+docker ps --format &quot;table {{.Names}}\t{{.Status}}\t{{.Ports}}&quot;
+
+# 2. Todos los contenedores - ¿Alguno falló recientemente?
+docker ps -a --format &quot;table {{.Names}}\t{{.Status}}\t{{.Image}}&quot; | head -20
+
+# 3. Uso de recursos - ¿Hay algo consumiendo todo?
+docker stats --no-stream --format &quot;table {{.Name}}\t{{.CPUPerc}}\t{{.MemUsage}}\t{{.NetIO}}&quot;
+</code></pre>
+<p><strong>Qué buscar</strong>:</p>
+<ul>
+<li>Contenedores en &quot;Restarting&quot; o &quot;Exited&quot;</li>
+<li>CPU/memoria anormalmente altos</li>
+<li>Contenedores que acaban de morir (Created X seconds ago)</li>
+</ul>
+<h3>Fase 2: Análisis de Logs (El 80% de los problemas están aquí)</h3>
+<pre><code class="language-bash"># Logs en tiempo real (follow mode)
+docker logs -f nombre_contenedor
+
+# Últimas 100 líneas (crítico si hay mucho tráfico)
+docker logs --tail 100 nombre_contenedor
+
+# Logs con timestamps (para correlacionar con incidentes)
+docker logs --timestamps nombre_contenedor | tail -50
+
+# Logs de múltiples contenedores (útil para microservicios)
+docker logs container1 container2 2&gt;&amp;1 | grep ERROR
+
+# Buscar patrones específicos
+docker logs nombre_contenedor 2&gt;&amp;1 | grep -i &quot;error\|exception\|fatal\|panic&quot;
+</code></pre>
+<p><strong>Análisis de log patterns</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Pattern</th>
+<th>Significado</th>
+<th>Acción</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>connection refused</code></td>
+<td>Dependencia no lista</td>
+<td>Verificar orden de startup</td>
+</tr>
+<tr>
+<td><code>OOMKilled</code></td>
+<td>Out of memory</td>
+<td>Aumentar memoria o optimizar app</td>
+</tr>
+<tr>
+<td><code>exit code 137</code></td>
+<td>SIGKILL (probable OOM)</td>
+<td><code>dmesg</code> para confirmar</td>
+</tr>
+<tr>
+<td><code>permission denied</code></td>
+<td>Problemas de filesystem</td>
+<td>Revisar usuarios y permisos</td>
+</tr>
+<tr>
+<td><code>no such file</code></td>
+<td>Falta archivo o directorio</td>
+<td>Validar paths en Dockerfile</td>
+</tr>
+</tbody></table>
+<h3>Fase 3: Inspección Profunda (Forense)</h3>
+<pre><code class="language-bash"># Información completa en JSON
+docker inspect nombre_contenedor
+
+# Campos específicos útiles:
+
+# Estado y errores
+docker inspect nombre_contenedor --format &quot;
+Estado: {{.State.Status}}
+Error: {{.State.Error}}
+ExitCode: {{.State.ExitCode}}
+Started: {{.State.StartedAt}}
+Finished: {{.State.FinishedAt}}
+OOMKilled: {{.State.OOMKilled}}
+&quot;
+
+# Configuración de red
+docker inspect nombre_contenedor --format &quot;{{json .NetworkSettings}}&quot; | jq
+
+# Volúmenes montados
+docker inspect nombre_contenedor --format &quot;{{json .Mounts}}&quot; | jq
+
+# Variables de entorno (⚠️ puede contener secrets)
+docker inspect nombre_contenedor --format &quot;{{json .Config.Env}}&quot; | jq
+
+# Resource limits
+docker inspect nombre_contenedor --format &quot;
+CPU Limit: {{.HostConfig.CpuQuota}}/{{.HostConfig.CpuPeriod}}
+Memory Limit: {{.HostConfig.Memory}}
+Memory Swap: {{.HostConfig.MemorySwap}}
+&quot;
+</code></pre>
+<h3>Fase 4: Debugging Interactivo (Invasivo, pero poderoso)</h3>
+<pre><code class="language-bash"># Shell interactivo dentro del contenedor
+docker exec -it nombre_contenedor /bin/sh
+# o si tiene bash:
+docker exec -it nombre_contenedor /bin/bash
+
+# Una vez dentro, herramientas de diagnóstico:
+ps aux                    # Procesos en ejecución
+netstat -tlnp            # Puertos abiertos
+cat /proc/1/status       # Info del proceso init
+env | sort               # Variables de entorno
+df -h                    # Espacio en disco
+free -m                  # Memoria disponible
+</code></pre>
+<p><strong>Instalar herramientas de debug</strong> (si no están disponibles):</p>
+<pre><code class="language-bash"># Para Alpine
+docker exec -it nombre_contenedor sh -c &quot;apk add --no-cache curl net-tools procps&quot;
+
+# Para Debian/Ubuntu
+docker exec -it nombre_contenedor sh -c &quot;apt-get update &amp;&amp; apt-get install -y curl net-tools procps&quot;
+</code></pre>
+<h3>Fase 5: Diagnóstico de Red</h3>
+<pre><code class="language-bash"># Listar redes
+docker network ls
+
+# Inspeccionar red específica
+docker network inspect bridge
+
+# Probar conectividad entre contenedores
+docker exec -it container1 ping container2
+
+# Probar resolución DNS
+docker exec -it container1 nslookup google.com
+
+# Probar endpoints externos
+docker exec -it container1 curl -v http://backend-api:8080/health
+
+# Verificar puertos expuestos
+docker port nombre_contenedor
+</code></pre>
+<h3>Fase 6: Análisis de Eventos del Sistema</h3>
+<pre><code class="language-bash"># Eventos Docker en tiempo real
+docker events --since 1h
+
+# Eventos filtrados
+docker events --filter event=die --filter event=oom
+
+# Historial del sistema (OOM kills)
+dmesg | grep -i &quot;killed process\|oom\|out of memory&quot;
+
+# Logs del daemon Docker
+journalctl -u docker --since &quot;1 hour ago&quot;
+</code></pre>
+<h3>Fase 7: Recuperación y Mitigación</h3>
+<h4>Escenario A: Configuración inválida</h4>
+<pre><code class="language-bash"># Editar archivo de configuración en caliente
+docker cp ./nginx-fixed.conf container:/etc/nginx/nginx.conf
+
+# Recargar nginx sin reiniciar contenedor
+docker exec container nginx -s reload
+</code></pre>
+<h4>Escenario B: Recursos agotados</h4>
+<pre><code class="language-bash"># Verificar OOM kills
+dmesg | grep &quot;Out of memory&quot;
+
+# Reiniciar con más memoria
+docker update --memory 1g --memory-swap 1g container
+
+# O recrear con nuevos límites:
+docker stop container
+docker rm container
+docker run -d --memory 1g --name container imagen
+</code></pre>
+<h4>Escenario C: Imagen corrupta / bug en código</h4>
+<pre><code class="language-bash"># Crear snapshot antes de cambios (backup forense)
+docker commit container_debug nombre_contenedor:debug-$(date +%s)
+
+# Rollback a versión anterior
+docker stop container
+docker rm container
+docker run -d --name container imagen:version-anterior
+</code></pre>
+<hr>
+<h2>📊 Checklist de Producción</h2>
+<h3>Diagnóstico Completo</h3>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> Estado de todos los contenedores verificado (<code>docker ps -a</code>)</li>
+<li><input checked="" disabled="" type="checkbox"> Uso de recursos analizado (<code>docker stats</code>)</li>
+<li><input checked="" disabled="" type="checkbox"> Logs revisados sin errores críticos sin explicación</li>
+<li><input checked="" disabled="" type="checkbox"> Inspección de contenedor problemático completada</li>
+<li><input checked="" disabled="" type="checkbox"> Eventos del sistema Docker revisados</li>
+</ul>
+<h3>Debugging Profundo</h3>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> Shell interactivo probado en contenedor</li>
+<li><input checked="" disabled="" type="checkbox"> Conectividad de red verificada</li>
+<li><input checked="" disabled="" type="checkbox"> Resolución DNS funcional confirmada</li>
+<li><input checked="" disabled="" type="checkbox"> Procesos internos examinados</li>
+</ul>
+<h3>Resolución</h3>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> Causa raíz identificada y documentada</li>
+<li><input checked="" disabled="" type="checkbox"> Fix aplicado y verificado</li>
+<li><input checked="" disabled="" type="checkbox"> Rollback plan disponible si el fix falla</li>
+<li><input checked="" disabled="" type="checkbox"> Monitoreo continuo establecido</li>
+</ul>
+<h3>Post-Mortem</h3>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> Timeline del incidente documentado</li>
+<li><input checked="" disabled="" type="checkbox"> Lecciones aprendidas registradas</li>
+<li><input checked="" disabled="" type="checkbox"> Acciones preventivas identificadas</li>
+<li><input checked="" disabled="" type="checkbox"> Runbook actualizado si aplica</li>
+</ul>
+<hr>
+<h2>🎓 Reflexión Final: From Installer to Engineer</h2>
+<h3>La Metodología SRE de Debugging</h3>
+<pre><code>1. OBSERVAR → 2. ORIENTARSE → 3. DECIDIR → 4. ACTUAR
+     ↑___________________________________________↓
+</code></pre>
+<p><strong>Observe</strong>: Recolectar datos sin hacer cambios<br><strong>Orient</strong>: Entender el contexto y posibles causas<br><strong>Decide</strong>: Elegir la hipótesis más probable<br><strong>Act</strong>: Aplicar fix con plan de rollback</p>
+<h3>Errores Comunes de Debugging</h3>
+<table>
+<thead>
+<tr>
+<th>Error</th>
+<th>Por qué es malo</th>
+<th>Solución</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Reiniciar sin investigar</td>
+<td>Pierdes evidencia del problema</td>
+<td>Inspeccionar primero, actuar después</td>
+</tr>
+<tr>
+<td>Hacer múltiples cambios</td>
+<td>No sabes qué funcionó</td>
+<td>Un cambio a la vez, con validación</td>
+</tr>
+<tr>
+<td>Ignorar logs</td>
+<td>Los logs tienen la respuesta 80% del tiempo</td>
+<td>Leer logs antes de googlear</td>
+</tr>
+<tr>
+<td>No documentar</td>
+<td>Repites el mismo debugging en 3 meses</td>
+<td>Documentar causa raíz y fix</td>
+</tr>
+</tbody></table>
+<h3>Evolución del Mindset</h3>
+<table>
+<thead>
+<tr>
+<th>Instalador</th>
+<th>Platform Engineer</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&quot;Reinicié y funcionó&quot;</td>
+<td>&quot;Identifiqué race condition en startup, implementé health check retry&quot;</td>
+</tr>
+<tr>
+<td>&quot;No sé por qué falló&quot;</td>
+<td>&quot;OOM kill debido a memory leak en worker, escalé ticket a desarrollo&quot;</td>
+</tr>
+<tr>
+<td>&quot;Borré y creé de nuevo&quot;</td>
+<td>&quot;Snapshot creado para forense, rollback a versión estable, RCA en curso&quot;</td>
+</tr>
+<tr>
+<td>Debug por intuición</td>
+<td>Debug sistemático con runbooks y playbooks</td>
+</tr>
+</tbody></table>
+<h3>El Runbook de Emergencia</h3>
+<p>Todo equipo debe tener:</p>
+<pre><code class="language-markdown">## Runbook: Container Health Check Failure
+
+### Síntomas
+
+- Contenedor muestra &quot;Up&quot; pero /health retorna 503
+- Latencia P99 &gt; 2000ms
+
+### Checks (en orden)
+
+1. `docker ps` - ¿Está running?
+2. `docker logs --tail 50` - ¿Errores de aplicación?
+3. `docker stats` - ¿Recursos agotados?
+4. `docker exec` - ¿Procesos internos healthy?
+5. `docker network inspect` - ¿Conectividad?
+
+### Fixes Comunes
+
+- Out of memory: Escalar a instancia mayor
+- Database connection pool: Reiniciar contenedor
+- Config desactualizada: `docker cp` nueva config + reload
+
+### Escalación
+
+- Si no se resuelve en 15 min, escalar a On-Call Engineer
+</code></pre>
+<blockquote>
+<p><strong>Recuerda</strong>: El mejor debugging es el que nunca tienes que hacer. Observabilidad proactiva &gt; debugging reactivo.</p>
+</blockquote>
+<hr>
+<h2>🚀 Próximos Pasos en el Learning Path</h2>
+<ol>
+<li><p><strong>Observabilidad Avanzada</strong>:</p>
+<ul>
+<li>Prometheus + Grafana para métricas</li>
+<li>ELK/Loki para logs centralizados</li>
+<li>Jaeger/Zipkin para distributed tracing</li>
+</ul>
+</li>
+<li><p><strong>Herramientas de Diagnóstico</strong>:</p>
+<ul>
+<li><code>ctop</code> - top para contenedores</li>
+<li><code>dive</code> - analizar capas de imagen</li>
+<li><code>sysdig</code> - inspección de sistema a nivel de kernel</li>
+</ul>
+</li>
+<li><p><strong>Conceptos Avanzados</strong>:</p>
+<ul>
+<li>eBPF para tracing de bajo nivel</li>
+<li>Service mesh (Istio/Linkerd) para observabilidad de red</li>
+<li>Chaos engineering (Gremlin/Chaos Monkey)</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2>📚 Recursos y Referencias</h2>
+<h3>Comandos de Debugging</h3>
+<pre><code class="language-bash"># One-liners útiles:
+
+# Top de contenedores por uso de CPU
+docker stats --no-stream --format &quot;table {{.Name}}\t{{.CPUPerc}}&quot; | sort -k2 -h
+
+# Contenedores que han reiniciado recientemente
+docker ps -a --filter &quot;exited=0&quot; --format &quot;table {{.Names}}\t{{.Status}}&quot;
+
+# Buscar en logs de todos los contenedores
+docker ps -q | xargs -I {} docker logs {} 2&gt;&amp;1 | grep ERROR
+
+# Recursos usados por imagen
+docker system df -v
+</code></pre>
+<h3>Documentación</h3>
+<ul>
+<li><a href="https://docs.docker.com/config/daemon/">Docker Debugging Guide</a></li>
+<li><a href="https://docs.docker.com/engine/reference/commandline/logs/">Docker Troubleshooting</a></li>
+<li><a href="https://kubernetes.io/docs/tasks/debug/debug-cluster/crictl/">Container Runtime Troubleshooting</a></li>
+</ul>
+<h3>Libros y Cursos</h3>
+<ul>
+<li>&quot;Site Reliability Engineering&quot; - Google (SRE Book)</li>
+<li>&quot;The Practice of System and Network Administration&quot;</li>
+<li>&quot;Systems Performance: Enterprise and the Cloud&quot;</li>
+</ul>
+<hr>
+<h2>📊 Métricas del Reto</h2>
+<table>
+<thead>
+<tr>
+<th>Habilidad</th>
+<th>Dominio</th>
+<th>Nivel</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Log analysis</td>
+<td><code>docker logs</code> flags</td>
+<td>⭐⭐⭐⭐</td>
+</tr>
+<tr>
+<td>Container inspection</td>
+<td><code>docker inspect</code> templates</td>
+<td>⭐⭐⭐⭐</td>
+</tr>
+<tr>
+<td>Interactive debugging</td>
+<td><code>docker exec</code> workflows</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr>
+<td>Network diagnostics</td>
+<td><code>docker network</code> + tools</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr>
+<td>Resource analysis</td>
+<td><code>docker stats</code> + kernel logs</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr>
+<td>Root cause analysis</td>
+<td>Metodología sistemática</td>
+<td>⭐⭐⭐⭐</td>
+</tr>
+</tbody></table>
+<hr>
+<p><strong>Reto 5 completado exitosamente</strong> 🎉<br><em>Fecha: 30-01-2026 | Status: Debugging mastery | Engineer: Platform Engineer Jr.</em></p>
+<blockquote>
+<p><em>&quot;The art of debugging is figuring out what you really told your computer to do rather than what you thought you told it to do.&quot;</em> - Andrew Singer</p>
+</blockquote>
+</div> </article> <!-- Navigation --> <div class="flex justify-between mt-8"> <a href="/challenges/docker" class="btn btn-secondary">
+← Volver a Docker
+</a> </div> </div> </main>  </main> <!-- Footer --> <footer class="border-t py-6" style="border-color: var(--color-border); background-color: var(--color-bg);" data-astro-cid-ouamjn2i> <div class="container mx-auto px-4 text-center" style="color: var(--color-text-secondary);" data-astro-cid-ouamjn2i> <p class="text-sm" data-astro-cid-ouamjn2i>
+Tech Challenges Dashboard &copy; 2026 |
+<a href="https://github.com/statick88" target="_blank" rel="noopener noreferrer" class="hover:underline" style="color: var(--color-accent);" data-astro-cid-ouamjn2i>
+@statick88
+</a> </p> </div> </footer>  <script type="module">const e=document.getElementById("mobile-menu-btn"),n=document.getElementById("mobile-menu");e?.addEventListener("click",()=>{n?.classList.toggle("hidden")});</script></body></html>
