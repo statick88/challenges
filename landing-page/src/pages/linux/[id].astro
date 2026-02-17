@@ -1,13 +1,13 @@
 ---
-import MainLayout from '../../../layouts/MainLayout.astro';
-import ChallengeModal from '../../../components/ChallengeModal.astro';
-import Breadcrumb from '../../../components/Breadcrumb.astro';
-import { parseFrontMatter, parseSteps } from '../../../utils/challenge-parser';
-import allChallenges from '../../../data/all-challenges.json';
+import MainLayout from '../../layouts/MainLayout.astro';
+import ChallengeModal from '../../components/ChallengeModal.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import { parseFrontMatter, parseSteps } from '../../utils/challenge-parser';
+import allChallenges from '../../data/all-challenges.json';
 import fs from 'fs';
 import path from 'path';
 import { marked } from 'marked';
-import type { Step } from '../../../types/challenges';
+import type { Step } from '../../types/challenges';
 
 export async function getStaticPaths() {
   const challengesDir = path.join(process.cwd(), '..', 'challenges', 'linux', 'retos');
@@ -194,7 +194,7 @@ const challengeNum = id.match(/\d+/)?.[0] || '?';
           </span>
         )}
         
-        <a href="/challenges/linux/" class="nav-btn home">
+        <a href="/linux/" class="nav-btn home">
           <span class="nav-icon">🐧</span>
           <span class="nav-content">
             <span class="nav-label">Volver</span>
