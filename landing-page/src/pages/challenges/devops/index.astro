@@ -1,0 +1,737 @@
+---
+import MainLayout from '../../../layouts/MainLayout.astro';
+import allChallenges from '../../../data/all-challenges.json';
+
+interface DevOpsChallenge {
+  id: string;
+  title: string;
+  status: string;
+  difficulty: string;
+  skills?: string[];
+  path: string;
+  timeEstimate?: string;
+  date?: string;
+  scenario?: string;
+  day?: number;
+}
+
+const challenges = (allChallenges.devops || []) as DevOpsChallenge[];
+
+// Ordenar por día
+const sortedChallenges = [...challenges].sort((a, b) => {
+  const dayA = a.day || parseInt(a.id.match(/\d+/)?.[0] || '0');
+  const dayB = b.day || parseInt(b.id.match(/\d+/)?.[0] || '0');
+  return dayA - dayB;
+});
+
+// Estadísticas
+const completed = challenges.filter(c => c.status === 'completed').length;
+const inProgress = challenges.filter(c => c.status === 'in_progress').length;
+const blocked = challenges.filter(c => c.status === 'blocked').length;
+const ready = challenges.filter(c => c.status === 'ready').length;
+const total = challenges.length;
+const percentage = total > 0 ? Math.round((completed / total) * 100) : 0;
+
+// Análisis de herramientas y conceptos
+const toolCounts: { [key: string]: number } = sortedChallenges.reduce((acc: { [key: string]: number }, c: DevOpsChallenge) => {
+  if (c.skills) {
+    c.skills.forEach((skill: string) => {
+      acc[skill] = (acc[skill] || 0) + 1;
+    });
+  }
+  return acc;
+}, {});
+
+interface ToolProgress {
+  tool: string;
+  total: number;
+  mastered: number;
+  percentage: number;
+}
+
+const toolProgress: ToolProgress[] = Object.entries(toolCounts).map(([tool, total]): ToolProgress => {
+  const mastered = sortedChallenges.filter((c: DevOpsChallenge) => 
+    c.skills && c.skills.includes(tool) && c.status === 'completed'
+  ).length;
+  return { tool, total, mastered, percentage: Math.round((mastered / total) * 100) };
+});
+
+// Línea de tiempo de aprendizaje
+interface TimelineEntry {
+  day: number;
+  title: string;
+  status: string;
+  skills: string[];
+  milestone?: string;
+}
+
+const timeline: TimelineEntry[] = sortedChallenges.map((challenge): TimelineEntry => {
+  const day = challenge.day || parseInt(challenge.id.match(/\d+/)?.[0] || '0');
+  return {
+    day,
+    title: challenge.title,
+    status: challenge.status,
+    skills: challenge.skills || [],
+    milestone: day % 5 === 0 ? `Semana ${Math.ceil(day / 5)}` : undefined
+  };
+});
+
+const statusColors = {
+  completed: 'bg-emerald-500/20 text-emerald-400 border-emerald-500/40',
+  in_progress: 'bg-amber-500/20 text-amber-400 border-amber-500/40',
+  blocked: 'bg-rose-500/20 text-rose-400 border-rose-500/40',
+  ready: 'bg-sky-500/20 text-sky-400 border-sky-500/40'
+};
+
+const statusLabels = {
+  completed: 'Completado',
+  in_progress: 'En Progreso',
+  blocked: 'Bloqueado',
+  ready: 'Pendiente'
+};
+
+const statusIcons = {
+  completed: '✓',
+  in_progress: '◐',
+  blocked: '⊘',
+  ready: '○'
+};
+
+const difficultyConfig = {
+  easy: { stars: '⭐', color: 'text-emerald-400 bg-emerald-500/10', label: 'Fácil' },
+  medium: { stars: '⭐⭐', color: 'text-amber-400 bg-amber-500/10', label: 'Medio' },
+  hard: { stars: '⭐⭐⭐', color: 'text-rose-400 bg-rose-500/10', label: 'Difícil' }
+};
+
+const toolColors = [
+  'bg-purple-500/20 text-purple-300 border-purple-500/30',
+  'bg-pink-500/20 text-pink-300 border-pink-500/30',
+  'bg-fuchsia-500/20 text-fuchsia-300 border-fuchsia-500/30',
+  'bg-violet-500/20 text-violet-300 border-violet-500/30',
+  'bg-indigo-500/20 text-indigo-300 border-indigo-500/30'
+];
+---
+
+<MainLayout title="DevOps 100 Days - Automatización">
+  <div class="container mx-auto px-4 py-8">
+    
+    <!-- Header -->
+    <div class="mb-8">
+      <nav class="flex items-center gap-2 text-sm mb-4" style="color: var(--color-text-secondary);">
+        <a href="/" class="hover:underline" style="color: var(--color-accent);">Dashboard</a>
+        <span>/</span>
+        <span>DevOps</span>
+      </nav>
+      
+      <div class="flex items-center gap-4 mb-4">
+        <span class="text-5xl">⚙️</span>
+        <div>
+          <h1 class="text-3xl font-bold" style="color: var(--color-text);">100 Días de DevOps</h1>
+          <p style="color: var(--color-text-secondary);">Retos de automatización e infraestructura</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Stats Cards -->
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
+      <div class="card text-center py-4">
+        <div class="text-2xl font-bold" style="color: var(--color-accent);">{total}</div>
+        <div class="text-xs" style="color: var(--color-text-secondary);">Total Días</div>
+      </div>
+      <div class="card text-center py-4">
+        <div class="text-2xl font-bold text-emerald-400">{completed}</div>
+        <div class="text-xs" style="color: var(--color-text-secondary);">Completados</div>
+      </div>
+      <div class="card text-center py-4">
+        <div class="text-2xl font-bold text-amber-400">{inProgress}</div>
+        <div class="text-xs" style="color: var(--color-text-secondary);">En Progreso</div>
+      </div>
+      <div class="card text-center py-4">
+        <div class="text-2xl font-bold text-sky-400">{ready}</div>
+        <div class="text-xs" style="color: var(--color-text-secondary);">Listos</div>
+      </div>
+      <div class="card text-center py-4">
+        <div class="text-2xl font-bold" style="color: var(--color-accent);">{percentage}%</div>
+        <div class="text-xs" style="color: var(--color-text-secondary);">Progreso</div>
+      </div>
+    </div>
+    
+    <!-- Progress Bar -->
+    <div class="mb-6">
+      <div class="progress-bar" style="height: 10px;">
+        <div class="progress-bar-fill" style={`width: ${percentage}%; background: linear-gradient(90deg, #a855f7, #ec4899);`}></div>
+      </div>
+    </div>
+    
+    <!-- Quick Actions -->
+    <div class="mb-8 flex gap-4 flex-wrap">
+      <button class="action-btn" onclick="document.getElementById('timeline-view').scrollIntoView({behavior: 'smooth'})">
+        📅 Ver Timeline 100 Días
+      </button>
+      <button class="action-btn" onclick="document.getElementById('tools-mastery').scrollIntoView({behavior: 'smooth'})">
+        🔧 Herramientas Dominadas
+      </button>
+      <button class="action-btn" onclick="exportDevOpsProgress()">
+        📊 Exportar Progreso
+      </button>
+    </div>
+    
+    <!-- Tools Mastery Overview -->
+    <div class="mb-8" id="tools-mastery">
+      <h2 class="text-xl font-bold mb-4" style="color: var(--color-text);">
+        🔧 Progreso de Herramientas DevOps
+      </h2>
+      <div class="tools-grid">
+        {toolProgress.map(({ tool, total, mastered, percentage }) => (
+          <div class="tool-card">
+            <div class="tool-header">
+              <span class="tool-name">{tool}</span>
+              <span class="tool-count">{mastered}/{total}</span>
+            </div>
+            <div class="tool-progress">
+              <div class="progress-bar" style="height: 6px;">
+                <div class="progress-bar-fill" style={`width: ${percentage}%; background: linear-gradient(90deg, #a855f7, #ec4899);`}></div>
+              </div>
+              <span class="tool-percentage">{percentage}%</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+    
+    <!-- DevOps Timeline -->
+    <div class="mb-8" id="timeline-view">
+      <h2 class="text-xl font-bold mb-4" style="color: var(--color-text);">
+        📅 Ruta de Aprendizaje 100 Días
+      </h2>
+      <div class="timeline-container">
+        {timeline.map((entry, index) => {
+          const isCompleted = entry.status === 'completed';
+          const isInProgress = entry.status === 'in_progress';
+          const isBlocked = entry.status === 'blocked';
+          const isMilestone = entry.milestone;
+          
+          return (
+            <div class={`timeline-item ${isCompleted ? 'completed' : isInProgress ? 'in-progress' : isBlocked ? 'blocked' : 'pending'}`}>
+              {isMilestone && (
+                <div class="milestone-marker">
+                  🎯 {entry.milestone}
+                </div>
+              )}
+              <div class="timeline-content">
+                <div class="timeline-day">Día {entry.day}</div>
+                <div class="timeline-title">{entry.title}</div>
+                <div class="timeline-status">
+                  <span class={`status-indicator ${entry.status}`}>
+                    {isCompleted ? '✓' : isInProgress ? '◐' : isBlocked ? '⊘' : '○'}
+                    {statusLabels[entry.status] || 'Pendiente'}
+                  </span>
+                </div>
+                {entry.skills.length > 0 && (
+                  <div class="timeline-skills">
+                    {entry.skills.slice(0, 3).map(skill => (
+                      <span class="skill-dot" title={skill}>{skill}</span>
+                    ))}
+                  </div>
+                )}
+              </div>
+              <div class="timeline-connector">
+                {index < timeline.length - 1 && <div class={`connector-line ${isCompleted ? 'completed' : 'pending'}`}></div>}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+    
+    <!-- Filter Bar -->
+    <div class="filter-bar flex flex-wrap gap-2 mb-8">
+      <button class="filter-btn active" data-filter="all" data-category="devops">
+        Todos ({total})
+      </button>
+      <button class="filter-btn" data-filter="completed" data-category="devops">
+        Completados ✓ ({completed})
+      </button>
+      <button class="filter-btn" data-filter="in_progress" data-category="devops">
+        En Progreso ◐ ({inProgress})
+      </button>
+      <button class="filter-btn" data-filter="blocked" data-category="devops">
+        Bloqueados ⊘ ({blocked})
+      </button>
+      <button class="filter-btn" data-filter="ready" data-category="devops">
+        Pendientes ○ ({ready})
+      </button>
+    </div>
+    
+    <!-- Challenges Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="challenges-grid">
+      {sortedChallenges.map((challenge: DevOpsChallenge) => {
+        const diff = difficultyConfig[challenge.difficulty] || difficultyConfig.medium;
+        const statusColor = statusColors[challenge.status] || statusColors.ready;
+        const statusLabel = statusLabels[challenge.status] || 'Pendiente';
+        const statusIcon = statusIcons[challenge.status] || '○';
+        const dayNum = challenge.day || challenge.id.match(/\d+/)?.[0] || '?';
+        
+        return (
+          <div class="challenge-card group" data-status={challenge.status}>
+            <!-- Header with day and status -->
+            <div class="challenge-card-header">
+              <div class="flex items-center gap-2">
+                <span class="challenge-number">Day {dayNum}</span>
+                <span class={`difficulty-badge ${diff.color}`}>
+                  {diff.stars} {diff.label}
+                </span>
+              </div>
+              <span class={`status-badge ${statusColor}`}>
+                <span class="status-icon">{statusIcon}</span>
+                {statusLabel}
+              </span>
+            </div>
+            
+            <!-- Title -->
+            <h3 class="challenge-title">
+              {challenge.title}
+            </h3>
+            
+            <!-- Scenario -->
+            {challenge.scenario && (
+              <p class="challenge-scenario">
+                {challenge.scenario}
+              </p>
+            )}
+            
+            <!-- Skills -->
+            {challenge.skills && challenge.skills.length > 0 && (
+              <div class="challenge-skills">
+                {challenge.skills.slice(0, 4).map((skill: string, idx: number) => (
+                  <span class={`skill-tag ${toolColors[idx % toolColors.length]}`}>
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            )}
+            
+            <!-- Week Progress Indicator -->
+            <div class="week-indicator">
+              Semana {Math.ceil(dayNum / 5)}
+            </div>
+            
+            <!-- Footer -->
+            <div class="challenge-footer">
+              <div class="flex items-center gap-3 text-xs" style="color: var(--color-text-muted);">
+                {challenge.timeEstimate && (
+                  <span class="flex items-center gap-1">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    {challenge.timeEstimate}
+                  </span>
+                )}
+                <span>{challenge.date || 'Sin fecha'}</span>
+              </div>
+              
+              <a href={challenge.path} class="view-solution-btn group-hover:scale-105">
+                Ver Solución
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+    
+    <!-- Empty state -->
+    {challenges.length === 0 && (
+      <div class="card text-center py-12">
+        <span class="text-4xl mb-4">📭</span>
+        <p style="color: var(--color-text-secondary);">No hay desafíos disponibles</p>
+      </div>
+    )}
+    
+  </div>
+</MainLayout>
+
+<script>
+  // Función para exportar progreso DevOps
+  function exportDevOpsProgress() {
+    const data = {
+      totalChallenges: total,
+      completed: completed,
+      inProgress: inProgress,
+      blocked: blocked,
+      ready: ready,
+      percentage: percentage,
+      tools: toolProgress,
+      timeline: timeline,
+      timestamp: new Date().toISOString()
+    };
+    
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `devops-100days-progress-${new Date().toISOString().split('T')[0]}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+</script>
+
+<style>
+  .challenge-card {
+    background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%);
+    border: 1px solid rgba(71, 85, 105, 0.3);
+    border-radius: 1rem;
+    padding: 1.25rem;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    position: relative;
+  }
+
+  .challenge-card:hover {
+    border-color: rgba(168, 85, 247, 0.5);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px -12px rgba(168, 85, 247, 0.25);
+  }
+
+  .challenge-card.hidden {
+    display: none;
+  }
+
+  .challenge-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+
+  .challenge-number {
+    font-family: SF Mono, Monaco, 'Courier New', monospace;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: #a855f7;
+  }
+
+  .difficulty-badge {
+    font-size: 0.7rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.375rem;
+    font-weight: 500;
+  }
+
+  .status-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.7rem;
+    padding: 0.25rem 0.625rem;
+    border-radius: 9999px;
+    border: 1px solid;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .status-icon {
+    font-size: 0.625rem;
+  }
+
+  .challenge-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #f1f5f9;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .challenge-scenario {
+    font-size: 0.8rem;
+    color: #94a3b8;
+    line-height: 1.6;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    flex-grow: 1;
+  }
+
+  .challenge-skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem;
+  }
+
+  .skill-tag {
+    font-size: 0.65rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.25rem;
+    border: 1px solid;
+    font-weight: 500;
+    text-transform: lowercase;
+  }
+
+  .week-indicator {
+    font-size: 0.75rem;
+    color: #a855f7;
+    background: rgba(168, 85, 247, 0.1);
+    border: 1px solid rgba(168, 85, 247, 0.2);
+    border-radius: 0.375rem;
+    padding: 0.25rem 0.5rem;
+    align-self: flex-start;
+    margin-top: auto;
+  }
+
+  .challenge-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 0.75rem;
+    border-top: 1px solid rgba(71, 85, 105, 0.3);
+    margin-top: auto;
+  }
+
+  .view-solution-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #a855f7;
+    padding: 0.5rem 0.875rem;
+    background: rgba(168, 85, 247, 0.1);
+    border-radius: 0.5rem;
+    transition: all 0.2s ease;
+  }
+
+  .view-solution-btn:hover {
+    background: rgba(168, 85, 247, 0.2);
+  }
+
+  .filter-btn {
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    background: rgba(30, 41, 59, 0.8);
+    color: #94a3b8;
+    border: 1px solid rgba(71, 85, 105, 0.3);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .filter-btn:hover {
+    background: rgba(51, 65, 85, 0.8);
+    color: #e2e8f0;
+  }
+
+  .filter-btn.active {
+    background: rgba(168, 85, 247, 0.2);
+    color: #a855f7;
+    border-color: rgba(168, 85, 247, 0.5);
+  }
+
+  .action-btn {
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    background: rgba(168, 85, 247, 0.1);
+    color: #a855f7;
+    border: 1px solid rgba(168, 85, 247, 0.3);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .action-btn:hover {
+    background: rgba(168, 85, 247, 0.2);
+    border-color: rgba(168, 85, 247, 0.5);
+  }
+
+  /* Tools Grid Styles */
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .tool-card {
+    background: rgba(30, 41, 59, 0.8);
+    border: 1px solid rgba(71, 85, 105, 0.3);
+    border-radius: 0.75rem;
+    padding: 1rem;
+    transition: all 0.3s ease;
+  }
+
+  .tool-card:hover {
+    border-color: rgba(168, 85, 247, 0.3);
+    transform: translateY(-2px);
+  }
+
+  .tool-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+  }
+
+  .tool-name {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-text);
+  }
+
+  .tool-count {
+    font-size: 0.75rem;
+    color: var(--color-text-secondary);
+    background: rgba(71, 85, 105, 0.5);
+    padding: 0.125rem 0.375rem;
+    border-radius: 0.375rem;
+  }
+
+  .tool-progress {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .tool-percentage {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #a855f7;
+    min-width: 3rem;
+    text-align: right;
+  }
+
+  /* Timeline Styles */
+  .timeline-container {
+    background: rgba(30, 41, 59, 0.6);
+    border: 1px solid rgba(71, 85, 105, 0.3);
+    border-radius: 1rem;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    overflow-x: auto;
+  }
+
+  .timeline-item {
+    position: relative;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background: rgba(71, 85, 105, 0.3);
+    border-radius: 0.75rem;
+    border-left: 4px solid rgba(71, 85, 105, 0.3);
+    transition: all 0.3s ease;
+  }
+
+  .timeline-item.completed {
+    background: rgba(16, 185, 129, 0.1);
+    border-left-color: #10b981;
+  }
+
+  .timeline-item.in-progress {
+    background: rgba(245, 158, 11, 0.1);
+    border-left-color: #f59e0b;
+  }
+
+  .timeline-item.blocked {
+    background: rgba(239, 68, 68, 0.1);
+    border-left-color: #ef4444;
+  }
+
+  .timeline-item.pending {
+    background: rgba(71, 85, 105, 0.3);
+    border-left-color: rgba(71, 85, 105, 0.3);
+  }
+
+  .milestone-marker {
+    position: absolute;
+    top: -0.75rem;
+    left: 1rem;
+    background: #a855f7;
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.375rem;
+    z-index: 1;
+  }
+
+  .timeline-content {
+    margin-bottom: 0.5rem;
+  }
+
+  .timeline-day {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: #a855f7;
+    margin-bottom: 0.25rem;
+  }
+
+  .timeline-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin-bottom: 0.25rem;
+  }
+
+  .timeline-status {
+    margin-bottom: 0.5rem;
+  }
+
+  .status-indicator {
+    font-size: 0.75rem;
+    padding: 0.125rem 0.5rem;
+    border-radius: 0.375rem;
+    background: rgba(71, 85, 105, 0.5);
+    color: var(--color-text-secondary);
+  }
+
+  .status-indicator.completed {
+    background: rgba(16, 185, 129, 0.2);
+    color: #10b981;
+  }
+
+  .status-indicator.in-progress {
+    background: rgba(245, 158, 11, 0.2);
+    color: #f59e0b;
+  }
+
+  .timeline-skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem;
+  }
+
+  .skill-dot {
+    font-size: 0.65rem;
+    padding: 0.125rem 0.375rem;
+    background: rgba(168, 85, 247, 0.2);
+    color: #d8b4fe;
+    border: 1px solid rgba(168, 85, 247, 0.3);
+    border-radius: 0.25rem;
+  }
+
+  .timeline-connector {
+    position: absolute;
+    left: 1.5rem;
+    top: 3.5rem;
+    bottom: -1rem;
+    width: 2px;
+    z-index: 0;
+  }
+
+  .connector-line {
+    width: 100%;
+    height: 100%;
+    background: rgba(71, 85, 105, 0.5);
+  }
+
+  .connector-line.completed {
+    background: #10b981;
+  }
+</style>

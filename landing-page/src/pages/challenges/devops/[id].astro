@@ -1,0 +1,215 @@
+---
+import MainLayout from '../../../layouts/MainLayout.astro';
+import { parseFrontMatter } from '../../../utils/challenge-parser';
+import allChallenges from '../../../data/all-challenges.json';
+import fs from 'fs';
+import path from 'path';
+import { marked } from 'marked';
+
+export async function getStaticPaths() {
+  const challengesDir = path.join('/Users/statick/apps/cursos/challenges/devops/days');
+  const files = fs.readdirSync(challengesDir).filter(f => f.endsWith('.md'));
+  
+  return files.map(file => ({
+    params: { id: file.replace('.md', '') }
+  }));
+}
+
+const { id } = Astro.params as { id: string };
+const filePath = path.join(process.cwd(), 'challenges/devops/days', `${id}.md`);
+let content = '';
+let frontMatter: Record<string, any> = {};
+
+if (fs.existsSync(filePath)) {
+  content = fs.readFileSync(filePath, 'utf-8');
+  frontMatter = parseFrontMatter(content);
+} else {
+  frontMatter = { title: `Challenge not found: ${id}` };
+  content = '# Challenge Not Found';
+}
+
+const htmlContent = marked.parse(content.replace(/^---[\s\S]*?---/, ''));
+const title = frontMatter.title || `DevOps Day ${id}`;
+const dayNum = id.match(/\d+/)?.[0] || '?';
+
+const challenges = allChallenges.devops;
+const currentIndex = challenges.findIndex((c: any) => c.id === id);
+const prevChallenge = currentIndex > 0 ? challenges[currentIndex - 1] : null;
+const nextChallenge = currentIndex < challenges.length - 1 ? challenges[currentIndex + 1] : null;
+---
+
+<MainLayout title={`Day ${dayNum}: ${title} - DevOps 100 Days`}>
+  <style is:global>
+    .markdown-body { font-family: system-ui; line-height: 1.8; color: #e5e7eb; }
+    .markdown-body h1 { font-size: 2rem; font-weight: 700; color: #a855f7; margin: 2rem 0 1rem; border-bottom: 1px solid #374151; padding-bottom: 0.5rem; }
+    .markdown-body h2 { font-size: 1.5rem; font-weight: 600; color: #f472b6; margin: 1.75rem 0 1rem; }
+    .markdown-body h3 { font-size: 1.25rem; font-weight: 600; color: #f9a8d4; margin: 1.5rem 0 0.75rem; }
+    .markdown-body p { margin: 0.75rem 0; color: #d1d5db; }
+    .markdown-body strong { color: #fbbf24; font-weight: 600; }
+    .markdown-body code { background: rgba(168, 85, 247, 0.15); color: #c084fc; padding: 0.2rem 0.5rem; border-radius: 0.375rem; font-family: monospace; }
+    .markdown-body pre { background: #0f172a; padding: 1rem; border-radius: 0.75rem; overflow-x: auto; margin: 1rem 0; border: 1px solid #1e293b; }
+    .markdown-body pre code { background: transparent; padding: 0; color: #a5b4fc; }
+    .markdown-body ul, .markdown-body ol { margin: 0.75rem 0; padding-left: 1.5rem; color: #d1d5db; }
+    .markdown-body li { margin: 0.5rem 0; }
+    .markdown-body blockquote { border-left: 4px solid #a855f7; padding-left: 1rem; margin: 1rem 0; color: #9ca3af; }
+  </style>
+  
+  <main class="container mx-auto px-4 py-8">
+    <div class="max-w-4xl mx-auto">
+      <!-- Breadcrumb -->
+      <nav class="flex items-center gap-2 text-sm mb-6" style="color: var(--color-text-secondary);">
+        <a href="/" class="hover:underline" style="color: var(--color-accent);">Dashboard</a>
+        <span>/</span>
+        <a href="/challenges/devops" class="hover:underline" style="color: var(--color-accent);">DevOps</a>
+        <span>/</span>
+        <span>Day {dayNum}</span>
+      </nav>
+      
+      <article class="card p-8">
+        <header class="mb-6">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-purple-400 font-mono font-bold">⚙️ Day {String(dayNum).padStart(2, '0')}</span>
+          </div>
+          <h1 class="text-3xl font-bold mb-4" style="color: var(--color-text);">{title}</h1>
+          <div class="flex items-center gap-4 text-sm" style="color: var(--color-text-secondary);">
+            <span>Dificultad: {frontMatter.difficulty || 'N/A'}</span>
+            <span>Fecha: {frontMatter.date || 'N/A'}</span>
+          </div>
+        </header>
+        
+        <div class="markdown-body" set:html={htmlContent} />
+      </article>
+      
+      <!-- Navigation -->
+      <div class="nav-buttons">
+        {prevChallenge ? (
+          <a href={prevChallenge.path} class="nav-btn prev">
+            <span class="nav-icon">←</span>
+            <span class="nav-content">
+              <span class="nav-label">Anterior</span>
+              <span class="nav-title">Day {String(prevChallenge.day || prevChallenge.id.match(/\d+/)?.[0] || '?').padStart(2, '0')} {prevChallenge.title.length > 35 ? prevChallenge.title.slice(0, 35) + '...' : prevChallenge.title}</span>
+            </span>
+          </a>
+        ) : (
+          <span class="nav-btn disabled prev">
+            <span class="nav-icon">←</span>
+            <span class="nav-content">
+              <span class="nav-label">Anterior</span>
+              <span class="nav-title">No hay día anterior</span>
+            </span>
+          </span>
+        )}
+        
+        <a href="/challenges/devops" class="nav-btn home">
+          <span class="nav-icon">⚙️</span>
+          <span class="nav-content">
+            <span class="nav-label">Volver</span>
+            <span class="nav-title">Todos los Días</span>
+          </span>
+        </a>
+        
+        {nextChallenge ? (
+          <a href={nextChallenge.path} class="nav-btn next">
+            <span class="nav-content">
+              <span class="nav-label">Siguiente</span>
+              <span class="nav-title">Day {String(nextChallenge.day || nextChallenge.id.match(/\d+/)?.[0] || '?').padStart(2, '0')} {nextChallenge.title.length > 35 ? nextChallenge.title.slice(0, 35) + '...' : nextChallenge.title}</span>
+            </span>
+            <span class="nav-icon">→</span>
+          </a>
+        ) : (
+          <span class="nav-btn disabled next">
+            <span class="nav-content">
+              <span class="nav-label">Siguiente</span>
+              <span class="nav-title">No hay día siguiente</span>
+            </span>
+            <span class="nav-icon">→</span>
+          </span>
+        )}
+      </div>
+    </div>
+  </main>
+</MainLayout>
+
+<style>
+  .nav-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .nav-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1.25rem;
+    background: rgba(30, 41, 59, 0.8);
+    border: 1px solid rgba(71, 85, 105, 0.3);
+    border-radius: 0.75rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    flex: 1;
+    min-width: 200px;
+    max-width: 280px;
+  }
+
+  .nav-btn:hover:not(.disabled) {
+    background: rgba(168, 85, 247, 0.1);
+    border-color: rgba(168, 85, 247, 0.3);
+    transform: translateY(-2px);
+  }
+
+  .nav-btn.disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  .nav-btn.prev {
+    text-align: left;
+  }
+
+  .nav-btn.next {
+    text-align: right;
+    justify-content: flex-end;
+  }
+
+  .nav-btn.home {
+    justify-content: center;
+    max-width: 200px;
+  }
+
+  .nav-icon {
+    font-size: 1.25rem;
+    color: #a855f7;
+  }
+
+  .nav-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .nav-label {
+    font-size: 0.7rem;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .nav-title {
+    font-size: 0.875rem;
+    color: #e2e8f0;
+    font-weight: 500;
+  }
+
+  @media (max-width: 768px) {
+    .nav-buttons {
+      flex-direction: column;
+    }
+    .nav-btn {
+      max-width: 100%;
+    }
+  }
+</style>

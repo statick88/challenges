@@ -1,0 +1,614 @@
+---
+import MainLayout from '../../../layouts/MainLayout.astro';
+import allChallenges from '../../../data/all-challenges.json';
+
+const challenges = allChallenges.ctf || [];
+const htbChallenges = allChallenges.htb || [];
+const allCtfChallenges = [...challenges, ...htbChallenges];
+
+const categoryIcons: Record<string, string> = {
+  forensics: '🔍',
+  crypto: '🔐',
+  web: '🌐',
+  pwn: '💥',
+  reversing: '🔄',
+  misc: '📦',
+  academy: '🎓',
+  ctf: '🚩',
+  other: '📄',
+  network: '🌐',
+  'network-enum': '🌐'
+};
+
+const categoryDescriptions: Record<string, string> = {
+  forensics: 'Análisis digital y evidencia digital',
+  crypto: 'Criptografía y análisis criptográfico',
+  web: 'Seguridad web y aplicaciones',
+  pwn: 'Explotación binaria y memoria',
+  reversing: 'Ingeniería inversa',
+  misc: 'Desafíos misceláneos',
+  academy: 'Academia de aprendizaje',
+  ctf: 'Desafíos generales',
+  network: 'Enumeración de red',
+  'network-enum': 'Enumeración de red',
+  other: 'Otros desafíos'
+};
+
+const categoryColors: Record<string, string> = {
+  forensics: 'border-amber-500/50 hover:border-amber-400',
+  crypto: 'border-violet-500/50 hover:border-violet-400',
+  web: 'border-cyan-500/50 hover:border-cyan-400',
+  pwn: 'border-rose-500/50 hover:border-rose-400',
+  reversing: 'border-orange-500/50 hover:border-orange-400',
+  misc: 'border-gray-500/50 hover:border-gray-400',
+  academy: 'border-emerald-500/50 hover:border-emerald-400',
+  ctf: 'border-green-500/50 hover:border-green-400',
+  other: 'border-slate-500/50 hover:border-slate-400'
+};
+
+const completed = allCtfChallenges.filter(c => c.status === 'completed').length;
+const inProgress = allCtfChallenges.filter(c => c.status === 'in_progress').length;
+const blocked = allCtfChallenges.filter(c => c.status === 'blocked').length;
+const ready = allCtfChallenges.filter(c => c.status === 'ready').length;
+const total = allCtfChallenges.length;
+const percentage = total > 0 ? Math.round((completed / total) * 100) : 0;
+
+// Sistema de puntuación CTF
+type ChallengeStatus = 'completed' | 'in_progress' | 'ready' | 'blocked';
+type ChallengeDifficulty = 'easy' | 'medium' | 'hard';
+
+const calculateScore = (challenge: { status: ChallengeStatus; difficulty: ChallengeDifficulty }): number => {
+  const baseScore = {
+    easy: 100,
+    medium: 250,
+    hard: 500
+  }[challenge.difficulty] || 250;
+  
+  const statusMultiplier = {
+    completed: 1,
+    in_progress: 0.5,
+    ready: 0,
+    blocked: 0
+  }[challenge.status] || 0;
+  
+  return Math.round(baseScore * statusMultiplier);
+};
+
+const totalScore = allCtfChallenges.reduce((sum, challenge) => {
+  const challengeWithTypedStatus = {
+    ...challenge,
+    status: challenge.status as ChallengeStatus,
+    difficulty: challenge.difficulty as ChallengeDifficulty
+  };
+  return sum + calculateScore(challengeWithTypedStatus);
+}, 0);
+
+const maxPossibleScore = allCtfChallenges.reduce((sum, challenge) => {
+  const baseScore = {
+    easy: 100,
+    medium: 250,
+    hard: 500
+  }[challenge.difficulty as ChallengeDifficulty] || 250;
+  return sum + baseScore;
+}, 0);
+
+const byCategory = allCtfChallenges.reduce((acc: Record<string, any[]>, c: any) => {
+  const cat = c.category || 'other';
+  if (!acc[cat]) acc[cat] = [];
+  acc[cat].push(c);
+  return acc;
+}, {});
+
+// Sistema de logros e insignias
+const achievements = {
+  firstCapture: completed > 0,
+  cryptoMaster: (byCategory.crypto?.filter((c: any) => c.status === 'completed').length || 0) >= 3,
+  webExpert: (byCategory.web?.filter((c: any) => c.status === 'completed').length || 0) >= 3,
+  forensicsGuru: (byCategory.forensics?.filter((c: any) => c.status === 'completed').length || 0) >= 3,
+  speedRunner: allCtfChallenges.filter((c: any) => c.status === 'completed' && c.timeEstimate).length >= 5,
+  perfectionist: completed === total && total > 0,
+  explorer: Object.keys(byCategory).length >= 5
+};
+
+const achievementBadges = [
+  { id: 'firstCapture', name: 'Primera Captura', icon: '🏆', description: 'Completa tu primer desafío' },
+  { id: 'cryptoMaster', name: 'Maestro Cripto', icon: '🔐', description: 'Completa 3 desafíos de criptografía' },
+  { id: 'webExpert', name: 'Experto Web', icon: '🌐', description: 'Completa 3 desafíos web' },
+  { id: 'forensicsGuru', name: 'Gurú Forense', icon: '🔍', description: 'Completa 3 desafíos forenses' },
+  { id: 'speedRunner', name: 'Speed Runner', icon: '⚡', description: 'Completa 5 desafíos estimados' },
+  { id: 'perfectionist', name: 'Perfeccionista', icon: '💎', description: 'Completa todos los desafíos' },
+  { id: 'explorer', name: 'Explorador', icon: '🗺️', description: 'Completa desafíos en 5+ categorías' }
+];
+
+const statusColors: Record<string, string> = {
+  completed: 'bg-emerald-500/20 text-emerald-400 border-emerald-500/40',
+  in_progress: 'bg-amber-500/20 text-amber-400 border-amber-500/40',
+  blocked: 'bg-rose-500/20 text-rose-400 border-rose-500/40',
+  ready: 'bg-sky-500/20 text-sky-400 border-sky-500/40'
+};
+
+const hintLevels: Record<string, { color: string; label: string; icon: string }> = {
+  1: { color: 'bg-blue-500/20 text-blue-400 border-blue-500/40', label: 'Fácil', icon: '💡' },
+  2: { color: 'bg-yellow-500/20 text-yellow-400 border-yellow-500/40', label: 'Medio', icon: '🔍' },
+  3: { color: 'bg-red-500/20 text-red-400 border-red-500/40', label: 'Difícil', icon: '🎯' }
+};
+
+const timeStatuses: Record<string, { color: string; label: string; icon: string }> = {
+  fast: { color: 'bg-green-500/20 text-green-400 border-green-500/40', label: 'Rápido', icon: '⚡' },
+  normal: { color: 'bg-blue-500/20 text-blue-400 border-blue-500/40', label: 'Normal', icon: '⏱️' },
+  slow: { color: 'bg-orange-500/20 text-orange-400 border-orange-500/40', label: 'Lento', icon: '🐌' }
+};
+
+const statusLabels: Record<string, string> = {
+  completed: 'Capturado',
+  in_progress: 'En Progreso',
+  blocked: 'Bloqueado',
+  ready: 'Pendiente'
+};
+
+const statusIcons: Record<string, string> = {
+  completed: '🏁',
+  in_progress: '◐',
+  blocked: '⊘',
+  ready: '○'
+};
+
+const difficultyConfig: Record<string, { stars: string; color: string; label: string }> = {
+  easy: { stars: '⭐', color: 'text-emerald-400 bg-emerald-500/10', label: 'Fácil' },
+  medium: { stars: '⭐⭐', color: 'text-amber-400 bg-amber-500/10', label: 'Medio' },
+  hard: { stars: '⭐⭐⭐', color: 'text-rose-400 bg-rose-500/10', label: 'Difícil' }
+};
+
+const skillColors: string[] = [
+  'bg-green-500/20 text-green-300 border-green-500/30',
+  'bg-emerald-500/20 text-emerald-300 border-emerald-500/30',
+  'bg-teal-500/20 text-teal-300 border-teal-500/30',
+  'bg-lime-500/20 text-lime-300 border-lime-500/30',
+  'bg-cyan-500/20 text-cyan-300 border-cyan-500/30'
+];
+---
+
+<MainLayout title="CTF Challenges - Capture The Flag">
+  <div class="container mx-auto px-4 py-8">
+    
+    <!-- Header -->
+    <div class="mb-8">
+      <nav class="flex items-center gap-2 text-sm mb-4" style="color: var(--color-text-secondary);">
+        <a href="/" class="hover:underline" style="color: var(--color-accent);">Dashboard</a>
+        <span>/</span>
+        <span>CTF</span>
+      </nav>
+      
+      <div class="flex items-center gap-4 mb-4">
+        <span class="text-5xl">🚩</span>
+        <div>
+          <h1 class="text-3xl font-bold" style="color: var(--color-text);">CTF Challenges</h1>
+          <p style="color: var(--color-text-secondary);">Capture The Flag - Cripto, Web, Pwn, Reversing, Forensics</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Enhanced Stats Section -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      <!-- Progress Overview -->
+      <div class="card text-center py-6">
+        <div class="text-3xl font-bold mb-2" style="color: var(--color-accent);">{percentage}%</div>
+        <div class="text-sm text-gray-400 mb-4">Progreso General</div>
+        <div class="w-full bg-gray-700 rounded-full h-3 mb-2">
+          <div class="bg-gradient-to-r from-green-500 to-emerald-500 h-3 rounded-full transition-all duration-500 ease-out" style={`width: ${percentage}%`}></div>
+        </div>
+        <div class="text-xs text-gray-500">{completed} de {total} completados</div>
+      </div>
+
+      <!-- Score System -->
+      <div class="card text-center py-6">
+        <div class="text-3xl font-bold mb-2 text-amber-400">{totalScore}</div>
+        <div class="text-sm text-gray-400 mb-4">Puntuación CTF</div>
+        <div class="w-full bg-gray-700 rounded-full h-2 mb-2">
+          <div class="bg-gradient-to-r from-amber-500 to-yellow-500 h-2 rounded-full transition-all duration-500 ease-out" style={`width: ${(totalScore / maxPossibleScore) * 100}%`}></div>
+        </div>
+        <div class="text-xs text-gray-500">Max: {maxPossibleScore} puntos</div>
+      </div>
+
+      <!-- Active Challenges -->
+      <div class="card text-center py-6">
+        <div class="text-3xl font-bold mb-2 text-blue-400">{inProgress}</div>
+        <div class="text-sm text-gray-400 mb-4">Activos</div>
+        <div class="text-2xl mb-2">🎯</div>
+        <div class="text-xs text-gray-500">En progreso</div>
+      </div>
+
+      <!-- Recent Activity -->
+      <div class="card text-center py-6">
+        <div class="text-3xl font-bold mb-2 text-purple-400">{Object.values(achievements).filter(Boolean).length}</div>
+        <div class="text-sm text-gray-400 mb-4">Logros</div>
+        <div class="text-2xl mb-2">🏆</div>
+        <div class="text-xs text-gray-500">Desbloqueados</div>
+      </div>
+    </div>
+
+    <!-- Achievement Badges -->
+    <div class="mb-8">
+      <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
+        <span>🏆</span>
+        Logros e Insignias
+      </h3>
+      <div class="flex flex-wrap gap-3">
+        {achievementBadges.map((badge) => (
+          <div class={`badge ${achievements[badge.id as keyof typeof achievements] ? 'badge-unlocked' : 'badge-locked'}`}>
+            <span class="text-xl">{badge.icon}</span>
+            <span class="text-xs font-medium">{badge.name}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+    
+    <!-- Progress Bar -->
+    <div class="mb-6">
+      <div class="progress-bar" style="height: 10px;">
+        <div class="progress-bar-fill" style={`width: ${percentage}%; background: linear-gradient(90deg, #22c55e, #10b981);`}></div>
+      </div>
+    </div>
+    
+    <!-- Advanced Filter Section -->
+    <div class="mb-8 space-y-4">
+      <!-- Status Filters -->
+      <div class="flex flex-wrap items-center gap-2">
+        <span class="text-sm text-gray-400 mr-2">Filtrar por estado:</span>
+        <button 
+          class="filter-btn active" 
+          data-filter="all"
+          data-category="ctf"
+        >
+          Todos ({total})
+        </button>
+        <button 
+          class="filter-btn" 
+          data-filter="completed"
+          data-category="ctf"
+        >
+          Capturados 🏁 ({completed})
+        </button>
+        <button 
+          class="filter-btn" 
+          data-filter="in_progress"
+          data-category="ctf"
+        >
+          En Progreso ◐ ({inProgress})
+        </button>
+        <button 
+          class="filter-btn" 
+          data-filter="blocked"
+          data-category="ctf"
+        >
+          Bloqueados ⊘ ({blocked})
+        </button>
+        <button 
+          class="filter-btn" 
+          data-filter="ready"
+          data-category="ctf"
+        >
+          Pendientes ○ ({ready})
+        </button>
+      </div>
+
+      <!-- Advanced Filters -->
+      <div class="flex flex-wrap items-center gap-2">
+        <span class="text-sm text-gray-400 mr-2">Dificultad:</span>
+        <button class="difficulty-filter-btn" data-difficulty="all">Todas</button>
+        <button class="difficulty-filter-btn" data-difficulty="easy">Fácil</button>
+        <button class="difficulty-filter-btn" data-difficulty="medium">Medio</button>
+        <button class="difficulty-filter-btn" data-difficulty="hard">Difícil</button>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-2">
+        <span class="text-sm text-gray-400 mr-2">Categorías:</span>
+        {Object.entries(categoryIcons).map(([cat, icon]) => (
+          <button class="category-filter-btn" data-category={cat}>
+            {icon} {cat} ({(byCategory[cat as keyof typeof byCategory]?.length || 0)})
+          </button>
+        ))}
+      </div>
+    </div>
+    
+    <!-- Category Progress Overview -->
+    <div class="mb-8">
+      <h3 class="text-lg font-semibold mb-4">Progreso por Categoría</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {Object.entries(byCategory).map(([cat, items]: [string, any[]]) => {
+          const categoryCompleted = items.filter(c => c.status === 'completed').length;
+          const categoryTotal = items.length;
+          const categoryPercentage = categoryTotal > 0 ? Math.round((categoryCompleted / categoryTotal) * 100) : 0;
+          
+          return (
+            <div class="category-progress-card">
+              <div class="flex items-center justify-between mb-2">
+                <div class="flex items-center gap-2">
+                  <span class="text-xl">{categoryIcons[cat] || '📄'}</span>
+                  <span class="font-medium capitalize">{cat}</span>
+                </div>
+                <span class="text-sm text-gray-400">
+                  {categoryCompleted}/{categoryTotal} ({categoryPercentage}%)
+                </span>
+              </div>
+              <div class="w-full bg-gray-700 rounded-full h-2">
+                <div class="bg-gradient-to-r from-blue-500 to-cyan-500 h-2 rounded-full transition-all duration-500 ease-out" style={`width: ${categoryPercentage}%`}></div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+    
+    <!-- Challenges by Category -->
+    {Object.entries(byCategory).map(([category, categoryChallenges]: [string, any]) => (
+      <section class="mb-12 category-section" data-category={category}>
+        <div class="flex items-center gap-3 mb-4">
+          <span class="text-2xl">{categoryIcons[category] || '📄'}</span>
+          <h2 class="text-xl font-bold capitalize" style="color: var(--color-text);">
+            {category}
+          </h2>
+          <span class="text-sm px-2 py-1 rounded" style="color: var(--color-text-muted); background: var(--color-bg-hover);">
+            {(categoryChallenges as any[]).filter((c: any) => c.status === 'completed').length}/{(categoryChallenges as any[]).length}
+          </span>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {(categoryChallenges as any[]).map((challenge: any) => {
+            const diff = difficultyConfig[challenge.difficulty] || difficultyConfig.medium;
+            const statusColor = statusColors[challenge.status] || statusColors.ready;
+            const statusLabel = statusLabels[challenge.status] || 'Pendiente';
+            const statusIcon = statusIcons[challenge.status] || '○';
+            
+            return (
+              <div class="challenge-card group" data-status={challenge.status}>
+                <!-- Header with status -->
+                <div class="challenge-card-header">
+                  <span class={`difficulty-badge ${diff.color}`}>
+                    {diff.stars} {diff.label}
+                  </span>
+                  <span class={`status-badge ${statusColor}`}>
+                    <span class="status-icon">{statusIcon}</span>
+                    {statusLabel}
+                  </span>
+                </div>
+                
+                <!-- Title -->
+                <h3 class="challenge-title">
+                  {challenge.title}
+                </h3>
+                
+                <!-- Scenario -->
+                {challenge.scenario && (
+                  <p class="challenge-scenario">
+                    {challenge.scenario}
+                  </p>
+                )}
+                
+                <!-- Skills -->
+                {challenge.skills && challenge.skills.length > 0 && (
+                  <div class="challenge-skills">
+                    {challenge.skills.slice(0, 4).map((skill: string, idx: number) => (
+                      <span class={`skill-tag ${skillColors[idx % skillColors.length]}`}>
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                )}
+                
+                <!-- Footer -->
+                <div class="challenge-footer">
+                  <div class="flex items-center gap-3 text-xs" style="color: var(--color-text-muted);">
+                    {challenge.timeEstimate && (
+                      <span class="flex items-center gap-1">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        {challenge.timeEstimate}
+                      </span>
+                    )}
+                    <span>{challenge.date || 'Sin fecha'}</span>
+                  </div>
+                  
+                  <a href={challenge.path} class="view-solution-btn group-hover:scale-105">
+                    Ver Writeup
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+    ))}
+    
+    <!-- Empty state -->
+    {challenges.length === 0 && (
+      <div class="card text-center py-12">
+        <span class="text-4xl mb-4">📭</span>
+        <p style="color: var(--color-text-secondary);">No hay desafíos disponibles</p>
+      </div>
+    )}
+    
+  </div>
+</MainLayout>
+
+<style>
+  .challenge-card {
+    background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%);
+    border: 1px solid rgba(71, 85, 105, 0.3);
+    border-radius: 1rem;
+    padding: 1.25rem;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .challenge-card:hover {
+    border-color: rgba(34, 197, 94, 0.5);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px -12px rgba(34, 197, 94, 0.25);
+  }
+
+  .challenge-card.hidden {
+    display: none;
+  }
+
+  .challenge-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+
+  .difficulty-badge {
+    font-size: 0.7rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.375rem;
+    font-weight: 500;
+  }
+
+  .status-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.7rem;
+    padding: 0.25rem 0.625rem;
+    border-radius: 9999px;
+    border: 1px solid;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .status-icon {
+    font-size: 0.625rem;
+  }
+
+  .challenge-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #f1f5f9;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .challenge-scenario {
+    font-size: 0.8rem;
+    color: #94a3b8;
+    line-height: 1.6;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    flex-grow: 1;
+  }
+
+  .challenge-skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem;
+  }
+
+  .skill-tag {
+    font-size: 0.65rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.25rem;
+    border: 1px solid;
+    font-weight: 500;
+    text-transform: lowercase;
+  }
+
+  .challenge-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 0.75rem;
+    border-top: 1px solid rgba(71, 85, 105, 0.3);
+    margin-top: auto;
+  }
+
+  .view-solution-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #22c55e;
+    padding: 0.5rem 0.875rem;
+    background: rgba(34, 197, 94, 0.1);
+    border-radius: 0.5rem;
+    transition: all 0.2s ease;
+  }
+
+  .view-solution-btn:hover {
+    background: rgba(34, 197, 94, 0.2);
+  }
+
+  .category-section.hidden {
+    display: none;
+  }
+
+  .filter-btn {
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    background: rgba(30, 41, 59, 0.8);
+    color: #94a3b8;
+    border: 1px solid rgba(71, 85, 105, 0.3);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .filter-btn:hover {
+    background: rgba(51, 65, 85, 0.8);
+    color: #e2e8f0;
+  }
+
+  .filter-btn.active {
+    background: rgba(34, 197, 94, 0.2);
+    color: #22c55e;
+    border-color: rgba(34, 197, 94, 0.5);
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const cards = document.querySelectorAll('.challenge-card');
+    const sections = document.querySelectorAll('.category-section');
+    
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        
+        const filter = btn.getAttribute('data-filter');
+        
+        cards.forEach(card => {
+          const status = card.getAttribute('data-status');
+          if (filter === 'all' || status === filter) {
+            card.classList.remove('hidden');
+          } else {
+            card.classList.add('hidden');
+          }
+        });
+
+        sections.forEach(section => {
+          const sectionCards = section.querySelectorAll('.challenge-card:not(.hidden)');
+          if (sectionCards.length === 0 && filter !== 'all') {
+            section.classList.add('hidden');
+          } else {
+            section.classList.remove('hidden');
+          }
+        });
+      });
+    });
+  });
+</script>
