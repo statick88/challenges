@@ -21,13 +21,12 @@ export async function getStaticPaths() {
       if (entry.isDirectory()) {
         const subDir = path.join(dir, entry.name);
         const readmePath = path.join(subDir, 'README.md');
+        const slug = prefix ? `${prefix}/${entry.name}` : entry.name;
 
         if (fs.existsSync(readmePath)) {
-          const slug = prefix ? `${prefix}/${entry.name}` : entry.name;
           paths.push({ params: { slug } });
-        } else {
-          scanDirectory(subDir, prefix ? `${prefix}/${entry.name}` : entry.name);
         }
+        scanDirectory(subDir, slug);
       } else if (entry.isFile() && entry.name.endsWith('.md') && entry.name !== 'README.md') {
         const slug = prefix ? `${prefix}/${entry.name.replace('.md', '')}` : entry.name.replace('.md', '');
         paths.push({ params: { slug } });
