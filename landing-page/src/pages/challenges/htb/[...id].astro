@@ -6,7 +6,7 @@ import Breadcrumb from '../../../components/Breadcrumb.astro';
 import { marked } from 'marked';
 
 export async function getStaticPaths() {
-  const htbPath = path.join('/Users/statick/apps/cursos/challenges/htb');
+  const htbPath = path.join(process.cwd(), '..', 'challenges', 'htb');
   const paths: { params: { id: string } }[] = [];
   
   if (!fs.existsSync(htbPath)) return [];
@@ -124,7 +124,7 @@ let filePath = '';
 let content = '';
 let frontMatter: Record<string, any> = {};
 
-const htbPath = path.join('/Users/statick/apps/cursos/challenges/htb');
+const htbPath = path.join(process.cwd(), '..', 'challenges', 'htb');
 const mdPath = path.join(htbPath, `${id}.md`);
 
 if (fs.existsSync(mdPath)) {

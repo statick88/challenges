@@ -7,7 +7,8 @@ import path from 'path';
 import { marked } from 'marked';
 
 export async function getStaticPaths() {
-  const challengesDir = path.join('/Users/statick/apps/cursos/challenges/docker/challenges');
+  const challengesDir = path.join(process.cwd(), '..', 'challenges', 'docker', 'challenges');
+  if (!fs.existsSync(challengesDir)) return [];
   const files = fs.readdirSync(challengesDir).filter(f => f.endsWith('.md'));
   
   return files.map(file => ({
@@ -16,7 +17,7 @@ export async function getStaticPaths() {
 }
 
 const { id } = Astro.params as { id: string };
-const filePath = path.join(process.cwd(), 'challenges/docker/challenges', `${id}.md`);
+const filePath = path.join(process.cwd(), '..', 'challenges', 'docker', 'challenges', `${id}.md`);
 let content = '';
 let frontMatter: Record<string, any> = {};
 

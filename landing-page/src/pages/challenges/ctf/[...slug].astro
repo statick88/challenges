@@ -7,7 +7,7 @@ import fs from 'fs';
 import path from 'path';
 
 export async function getStaticPaths() {
-  const challengesDir = '/Users/statick/apps/cursos/challenges/ctf';
+  const challengesDir = path.join(process.cwd(), '..', 'challenges', 'ctf');
   const paths: { params: { slug: string } }[] = [];
 
   if (!fs.existsSync(challengesDir)) {
@@ -42,7 +42,7 @@ export async function getStaticPaths() {
 const { slug } = Astro.params as { slug: string };
 const slugParts = slug.split('/');
 const fileName = slugParts[slugParts.length - 1];
-const challengesDir = '/Users/statick/apps/cursos/challenges/ctf';
+const challengesDir = path.join(process.cwd(), '..', 'challenges', 'ctf');
 
 let filePath;
 if (slugParts.length === 1) {

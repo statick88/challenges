@@ -10,7 +10,8 @@ import { marked } from 'marked';
 import type { Step } from '../../../types/challenges';
 
 export async function getStaticPaths() {
-  const challengesDir = path.join('/Users/statick/apps/cursos/challenges/linux/retos');
+  const challengesDir = path.join(process.cwd(), '..', 'challenges', 'linux', 'retos');
+  if (!fs.existsSync(challengesDir)) return [];
   const entries = fs.readdirSync(challengesDir, { withFileTypes: true });
 
   const paths = entries
@@ -27,7 +28,7 @@ export async function getStaticPaths() {
 }
 
 const { id } = Astro.params as { id: string };
-const filePath = path.join(process.cwd(), 'challenges/linux/retos', id, 'README.md');
+const filePath = path.join(process.cwd(), '..', 'challenges', 'linux', 'retos', id, 'README.md');
 let content = '';
 let frontMatter: Record<string, any> = {};
 let steps: Step[] = [];
