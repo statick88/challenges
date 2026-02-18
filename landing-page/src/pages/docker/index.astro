@@ -106,7 +106,7 @@ const skillColors = [
     <!-- Header -->
     <div class="mb-8">
       <nav class="flex items-center gap-2 text-sm mb-4" style="color: var(--color-text-secondary);">
-        <a href="/" class="hover:underline" style="color: var(--color-accent);">Dashboard</a>
+        <a href="/challenges/" class="hover:underline" style="color: var(--color-accent);">Dashboard</a>
         <span>/</span>
         <span>Docker</span>
       </nav>
@@ -262,14 +262,22 @@ const skillColors = [
     <!-- Challenges Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="challenges-grid">
       {challenges.map((challenge: DockerChallenge) => {
-        const diff = difficultyConfig[challenge.difficulty] || difficultyConfig.medium;
-        const statusColor = statusColors[challenge.status] || statusColors.ready;
-        const statusLabel = statusLabels[challenge.status] || 'Pendiente';
-        const statusIcon = statusIcons[challenge.status] || '○';
+        const diff = difficultyConfig[challenge.difficulty as keyof typeof difficultyConfig] || difficultyConfig.medium;
+        const statusColor = statusColors[challenge.status as keyof typeof statusColors] || statusColors.ready;
+        const statusLabel = statusLabels[challenge.status as keyof typeof statusLabels] || 'Pendiente';
+        const statusIcon = statusIcons[challenge.status as keyof typeof statusIcons] || '○';
         const challengeNum = challenge.id.match(/\d+/)?.[0] || '?';
+        const isCompleted = challenge.status === 'completed';
         
         return (
-          <div class="challenge-card group" data-status={challenge.status}>
+          <div 
+            class="challenge-card group cursor-pointer" 
+            data-status={challenge.status}
+            data-challenge-path={challenge.path}
+            data-challenge-title={challenge.title}
+            data-challenge-completed={isCompleted ? 'true' : 'false'}
+            onclick="openChallengeModal(this)"
+          >
             <!-- Header with number and status -->
             <div class="challenge-card-header">
               <div class="flex items-center gap-2">
@@ -332,12 +340,12 @@ const skillColors = [
                 <span>{challenge.date || 'Sin fecha'}</span>
               </div>
               
-              <a href={challenge.path} class="view-solution-btn group-hover:scale-105">
-                Ver Solución
+              <span class="view-solution-btn group-hover:scale-105">
+                Ver Detalles
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                 </svg>
-              </a>
+              </span>
             </div>
           </div>
         );
@@ -353,10 +361,33 @@ const skillColors = [
     )}
     
   </div>
+  
+  <!-- Challenge Modal -->
+  <div id="challenge-modal" class="fixed inset-0 z-50 hidden">
+    <div class="absolute inset-0 bg-black/80" onclick="closeChallengeModal()"></div>
+    <div class="absolute inset-4 md:inset-8 lg:inset-12 bg-slate-900 rounded-xl overflow-hidden flex flex-col">
+      <div class="flex items-center justify-between p-4 border-b border-slate-700 bg-slate-800">
+        <h2 id="modal-title" class="text-xl font-bold text-white">Challenge</h2>
+        <button onclick="closeChallengeModal()" class="p-2 hover:bg-slate-700 rounded-lg transition-colors">
+          <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+      <div class="flex-1 overflow-hidden relative">
+        <iframe id="challenge-iframe" class="w-full h-full border-0" src=""></iframe>
+        <a id="solution-link" href="#" class="hidden absolute bottom-6 right-6 bg-emerald-600 hover:bg-emerald-500 text-white px-6 py-3 rounded-lg font-semibold shadow-lg transition-all hover:scale-105 flex items-center gap-2">
+          <span>Ver Solución Completa</span>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
 </MainLayout>
 
-<script>
-  // Función para exportar progreso Docker
+<script define:vars={{ total, completed, inProgress, blocked, ready, percentage, conceptProgress }}>
   function exportDockerProgress() {
     const data = {
       totalChallenges: total,
@@ -377,6 +408,70 @@ const skillColors = [
     a.click();
     URL.revokeObjectURL(url);
   }
+</script>
+
+<script>
+  function openChallengeModal(card) {
+    const modal = document.getElementById('challenge-modal');
+    const iframe = document.getElementById('challenge-iframe');
+    const title = document.getElementById('modal-title');
+    const solutionLink = document.getElementById('solution-link');
+    
+    const path = card.getAttribute('data-challenge-path');
+    const challengeTitle = card.getAttribute('data-challenge-title');
+    const isCompleted = card.getAttribute('data-challenge-completed') === 'true';
+    
+    title.textContent = challengeTitle;
+    iframe.src = path + '/';
+    
+    if (isCompleted) {
+      solutionLink.href = path + '/';
+      solutionLink.classList.remove('hidden');
+    } else {
+      solutionLink.classList.add('hidden');
+    }
+    
+    modal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeChallengeModal() {
+    const modal = document.getElementById('challenge-modal');
+    const iframe = document.getElementById('challenge-iframe');
+    
+    modal.classList.add('hidden');
+    iframe.src = '';
+    document.body.style.overflow = '';
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeChallengeModal();
+    }
+  });
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const cards = document.querySelectorAll('.challenge-card');
+    
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        
+        const filter = btn.getAttribute('data-filter');
+        
+        cards.forEach(card => {
+          const status = card.getAttribute('data-status');
+          if (filter === 'all' || status === filter) {
+            card.classList.remove('hidden');
+          } else {
+            card.classList.add('hidden');
+          }
+        });
+      });
+    });
+  });
 </script>
 
 <style>
