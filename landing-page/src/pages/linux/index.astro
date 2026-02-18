@@ -421,6 +421,9 @@ const skillColors: string[] = [
     document.body.style.overflow = '';
   }
 
+  window.openChallengeModal = openChallengeModal;
+  window.closeChallengeModal = closeChallengeModal;
+
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
       closeChallengeModal();
