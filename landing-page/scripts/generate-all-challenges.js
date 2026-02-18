@@ -94,7 +94,7 @@ function getLinuxChallenges() {
           difficulty: data.difficulty || "medium",
           date: data.date || "",
           excerpt: extractExcerpt(readmePath),
-          path: `/linux/${dir}`,
+          path: `/challenges/linux/${dir}`,
         });
       }
     }
@@ -127,7 +127,7 @@ function getDockerChallenges() {
         difficulty: data.difficulty || "2",
         date: data.date || "",
         excerpt: extractExcerpt(filePath),
-        path: `/docker/${id}`,
+        path: `/challenges/docker/${id}`,
       });
     }
   });
@@ -159,7 +159,7 @@ function getDevOpsChallenges() {
         difficulty: data.difficulty || "2",
         date: data.date || "",
         excerpt: extractExcerpt(filePath),
-        path: `/devops/${id}`,
+        path: `/challenges/devops/${id}`,
         day: parseInt(id.match(/\d+/)?.[0] || "0"),
       });
     }
@@ -194,7 +194,7 @@ function getCTFChallenges() {
             date: data.date || "",
             category: data.category || category || "other",
             excerpt: extractExcerpt(fullPath),
-            path: `/ctf/${slug.join("/")}`,
+            path: `/challenges/ctf/${slug.join("/")}`,
           });
         }
       }
@@ -232,7 +232,7 @@ function getHTBChallenges() {
             category: category || "other",
             platform: "HTB",
             excerpt: extractExcerpt(fullPath),
-            path: `/htb/${relativePath}`,
+            path: `/challenges/htb/${relativePath}`,
           });
         }
       }

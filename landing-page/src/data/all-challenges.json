@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-02-18T02:18:52.228Z",
+  "lastUpdated": "2026-02-18T02:37:22.349Z",
   "linux": [
     {
       "id": "01-creacion-usuarios",
@@ -8,7 +8,7 @@
       "difficulty": "easy",
       "date": "2025-01-25",
       "excerpt": "🎓 Clase 01: El Arte de la Gestión de Usuarios en Linux",
-      "path": "/linux/01-creacion-usuarios"
+      "path": "/challenges/linux/01-creacion-usuarios"
     },
     {
       "id": "02-gestion-grupos-xfusioncorp",
@@ -17,7 +17,7 @@
       "difficulty": "medium",
       "date": "2025-01-25",
       "excerpt": "Reto 02: Gestión de Grupos nautilus_noc - xFusionCorp Industries",
-      "path": "/linux/02-gestion-grupos-xfusioncorp"
+      "path": "/challenges/linux/02-gestion-grupos-xfusioncorp"
     },
     {
       "id": "03-usuario-no-interactivo-xfusioncorp",
@@ -26,7 +26,7 @@
       "difficulty": "easy",
       "date": "2025-01-25",
       "excerpt": "Reto 03: Usuario john con Shell No-Interactivo - xFusionCorp Industries",
-      "path": "/linux/03-usuario-no-interactivo-xfusioncorp"
+      "path": "/challenges/linux/03-usuario-no-interactivo-xfusioncorp"
     },
     {
       "id": "04-usuario-sin-home",
@@ -35,7 +35,7 @@
       "difficulty": "medium",
       "date": "2025-01-25",
       "excerpt": "Reto 04: Service User Creation without Home Directory - xFusionCorp Industries",
-      "path": "/linux/04-usuario-sin-home"
+      "path": "/challenges/linux/04-usuario-sin-home"
     },
     {
       "id": "05-usuario-temporal",
@@ -44,7 +44,7 @@
       "difficulty": "easy",
       "date": "2025-01-25",
       "excerpt": "Reto 05: Temporary User Setup with Expiry - xFusionCorp Industries",
-      "path": "/linux/05-usuario-temporal"
+      "path": "/challenges/linux/05-usuario-temporal"
     },
     {
       "id": "06-creacion-anita-temporal",
@@ -53,7 +53,7 @@
       "difficulty": "easy",
       "date": "2025-01-25",
       "excerpt": "Reto 06: Temporary User Setup with Expiry - Usuario anita",
-      "path": "/linux/06-creacion-anita-temporal"
+      "path": "/challenges/linux/06-creacion-anita-temporal"
     },
     {
       "id": "06-transferencia-datos",
@@ -62,7 +62,7 @@
       "difficulty": "easy",
       "date": "2025-01-25",
       "excerpt": "Reto 06: Linux User Data Transfer - xFusionCorp Industries",
-      "path": "/linux/06-transferencia-datos"
+      "path": "/challenges/linux/06-transferencia-datos"
     },
     {
       "id": "07-ssh-root-seguro",
@@ -71,7 +71,7 @@
       "difficulty": "easy",
       "date": "2025-01-25",
       "excerpt": "Reto 07: Secure Root SSH Access - xFusionCorp Industries",
-      "path": "/linux/07-ssh-root-seguro"
+      "path": "/challenges/linux/07-ssh-root-seguro"
     },
     {
       "id": "08-backup-desarrollador",
@@ -80,7 +80,7 @@
       "difficulty": "easy",
       "date": "2025-01-25",
       "excerpt": "Reto 08: Data Backup for Developer - xFusionCorp Industries",
-      "path": "/linux/08-backup-desarrollador"
+      "path": "/challenges/linux/08-backup-desarrollador"
     },
     {
       "id": "09-permisos-scripts",
@@ -89,7 +89,7 @@
       "difficulty": "easy",
       "date": "2025-01-25",
       "excerpt": "Reto 09: Script Execution Permissions - xFusionCorp Industries",
-      "path": "/linux/09-permisos-scripts"
+      "path": "/challenges/linux/09-permisos-scripts"
     },
     {
       "id": "10-correccion-permisos",
@@ -98,7 +98,7 @@
       "difficulty": "easy",
       "date": "2025-01-25",
       "excerpt": "Reto 10: File Permission Correction - xFusionCorp Industries",
-      "path": "/linux/10-correccion-permisos"
+      "path": "/challenges/linux/10-correccion-permisos"
     },
     {
       "id": "11-reemplazo-cadenas",
@@ -107,7 +107,7 @@
       "difficulty": "easy",
       "date": "2025-01-25",
       "excerpt": "Reto 11: String Replacement - xFusionCorp Industries",
-      "path": "/linux/11-reemplazo-cadenas"
+      "path": "/challenges/linux/11-reemplazo-cadenas"
     },
     {
       "id": "12-transferencia-segura",
@@ -116,7 +116,7 @@
       "difficulty": "easy",
       "date": "2025-01-25",
       "excerpt": "Reto 12: Secure Data Transfer - xFusionCorp Industries",
-      "path": "/linux/12-transferencia-segura"
+      "path": "/challenges/linux/12-transferencia-segura"
     },
     {
       "id": "13-restriccion-cron",
@@ -125,7 +125,7 @@
       "difficulty": "hard",
       "date": "2025-01-25",
       "excerpt": "Reto 13: Restrict Cron Access - xFusionCorp Industries",
-      "path": "/linux/13-restriccion-cron"
+      "path": "/challenges/linux/13-restriccion-cron"
     },
     {
       "id": "14-config-gui-default",
@@ -134,7 +134,7 @@
       "difficulty": "easy",
       "date": "2025-01-25",
       "excerpt": "Reto 14: Default GUI Boot Configuration - xFusionCorp Industries",
-      "path": "/linux/14-config-gui-default"
+      "path": "/challenges/linux/14-config-gui-default"
     },
     {
       "id": "15-configuracion-timezone",
@@ -143,7 +143,7 @@
       "difficulty": "easy",
       "date": "2025-01-25",
       "excerpt": "Reto 15: Timezone Alignment - xFusionCorp Industries",
-      "path": "/linux/15-configuracion-timezone"
+      "path": "/challenges/linux/15-configuracion-timezone"
     },
     {
       "id": "16-configuracion-firewall",
@@ -152,7 +152,7 @@
       "difficulty": "hard",
       "date": "2025-01-25",
       "excerpt": "Reto 16: Firewall Configuration - xFusionCorp Industries",
-      "path": "/linux/16-configuracion-firewall"
+      "path": "/challenges/linux/16-configuracion-firewall"
     },
     {
       "id": "17-ajuste-limites-procesos",
@@ -161,7 +161,7 @@
       "difficulty": "hard",
       "date": "2025-01-25",
       "excerpt": "Reto 17: Process Limit Adjustment - xFusionCorp Industries",
-      "path": "/linux/17-ajuste-limites-procesos"
+      "path": "/challenges/linux/17-ajuste-limites-procesos"
     },
     {
       "id": "18-instalacion-selinux",
@@ -170,7 +170,7 @@
       "difficulty": "hard",
       "date": "2025-01-25",
       "excerpt": "Reto 18: SELinux Installation and Configuration - xFusionCorp Industries",
-      "path": "/linux/18-instalacion-selinux"
+      "path": "/challenges/linux/18-instalacion-selinux"
     }
   ],
   "docker": [
@@ -181,7 +181,7 @@
       "difficulty": "3",
       "date": "25-01-2026",
       "excerpt": "🐳 Docker Challenge 1: Fundamentos de Contenedores en Producción",
-      "path": "/docker/reto-1-install-docker"
+      "path": "/challenges/docker/reto-1-install-docker"
     },
     {
       "id": "reto-2-deploy-nginx",
@@ -190,7 +190,7 @@
       "difficulty": "2",
       "date": "28-01-2026",
       "excerpt": "🐳 Docker Challenge Reto 2: Deploy Nginx Container",
-      "path": "/docker/reto-2-deploy-nginx"
+      "path": "/challenges/docker/reto-2-deploy-nginx"
     },
     {
       "id": "reto-3-delete-containers",
@@ -199,7 +199,7 @@
       "difficulty": "2",
       "date": "30-01-2026",
       "excerpt": "🐳 Docker Challenge Reto 3: Delete Docker Container",
-      "path": "/docker/reto-3-delete-containers"
+      "path": "/challenges/docker/reto-3-delete-containers"
     },
     {
       "id": "reto-4-copy-files",
@@ -208,7 +208,7 @@
       "difficulty": "3",
       "date": "30-01-2026",
       "excerpt": "🐳 Docker Challenge Reto 4: Copy File to Docker Container",
-      "path": "/docker/reto-4-copy-files"
+      "path": "/challenges/docker/reto-4-copy-files"
     },
     {
       "id": "reto-5-troubleshoot",
@@ -217,7 +217,7 @@
       "difficulty": "4",
       "date": "30-01-2026",
       "excerpt": "🐳 Docker Challenge Reto 5: Troubleshoot Docker Container Issue",
-      "path": "/docker/reto-5-troubleshoot"
+      "path": "/challenges/docker/reto-5-troubleshoot"
     }
   ],
   "devops": [
@@ -228,7 +228,7 @@
       "difficulty": "2",
       "date": "2026-01-25",
       "excerpt": "🎓 Día 1: Fundamentos de Usuarios de Sistema",
-      "path": "/devops/day-01-linux-user-setup",
+      "path": "/challenges/devops/day-01-linux-user-setup",
       "day": 1
     },
     {
@@ -238,7 +238,7 @@
       "difficulty": "2",
       "date": "2026-01-25",
       "excerpt": "🎓 Día 2: Gestión de Accesos Temporales y Lifecycle",
-      "path": "/devops/day-02-temporary-user",
+      "path": "/challenges/devops/day-02-temporary-user",
       "day": 2
     },
     {
@@ -248,7 +248,7 @@
       "difficulty": "2",
       "date": "2026-01-26",
       "excerpt": "🎓 Día 3: Hardening de SSH y Seguridad en Capas",
-      "path": "/devops/day-03-disable-root-ssh",
+      "path": "/challenges/devops/day-03-disable-root-ssh",
       "day": 3
     },
     {
@@ -258,7 +258,7 @@
       "difficulty": "2",
       "date": "2026-01-27",
       "excerpt": "🎓 Día 4: Gestión de Permisos y Deploy de Scripts",
-      "path": "/devops/day-04-script-permissions",
+      "path": "/challenges/devops/day-04-script-permissions",
       "day": 4
     },
     {
@@ -268,7 +268,7 @@
       "difficulty": "3",
       "date": "2026-01-29",
       "excerpt": "🎓 Día 5: Security-Enhanced Linux (SELinux)",
-      "path": "/devops/day-05-selinux-installation",
+      "path": "/challenges/devops/day-05-selinux-installation",
       "day": 5
     },
     {
@@ -278,7 +278,7 @@
       "difficulty": "3",
       "date": "2026-01-30",
       "excerpt": "🎓 Día 6: Automatización Programada con Cron",
-      "path": "/devops/day-06-cron-job-deployment",
+      "path": "/challenges/devops/day-06-cron-job-deployment",
       "day": 6
     },
     {
@@ -288,7 +288,7 @@
       "difficulty": "2",
       "date": "2026-02-04",
       "excerpt": "🎓 Día 7: Configuration Management con Ansible",
-      "path": "/devops/day-07-ansible-installation",
+      "path": "/challenges/devops/day-07-ansible-installation",
       "day": 7
     },
     {
@@ -298,7 +298,7 @@
       "difficulty": "2",
       "date": "2026-02-05",
       "excerpt": "🎓 Día 8: Permisos Sudo y Privilege Escalation",
-      "path": "/devops/day-08-sudo-deployment",
+      "path": "/challenges/devops/day-08-sudo-deployment",
       "day": 8
     },
     {
@@ -308,7 +308,7 @@
       "difficulty": "1",
       "date": "2026-02-05",
       "excerpt": "🎓 Día 9: Fundamentos de Git para DevOps",
-      "path": "/devops/day-09-git-configuration",
+      "path": "/challenges/devops/day-09-git-configuration",
       "day": 9
     },
     {
@@ -318,7 +318,7 @@
       "difficulty": "3",
       "date": "2026-02-05",
       "excerpt": "🎓 Día 10: Autenticación SSH sin Contraseña",
-      "path": "/devops/day-10-ssh-passwordless",
+      "path": "/challenges/devops/day-10-ssh-passwordless",
       "day": 10
     },
     {
@@ -328,7 +328,7 @@
       "difficulty": "1",
       "date": "2026-02-05",
       "excerpt": "🎓 Día 11: Variables de Entorno y Configuración de Aplicaciones",
-      "path": "/devops/day-11-environment-variables",
+      "path": "/challenges/devops/day-11-environment-variables",
       "day": 11
     },
     {
@@ -338,7 +338,7 @@
       "difficulty": "3",
       "date": "2026-02-05",
       "excerpt": "🎓 Día 12: Despliegue de Servicios con Nginx",
-      "path": "/devops/day-12-nginx-setup",
+      "path": "/challenges/devops/day-12-nginx-setup",
       "day": 12
     },
     {
@@ -348,7 +348,7 @@
       "difficulty": "2",
       "date": "2026-02-05",
       "excerpt": "🎓 Día 13: Troubleshooting y Debugging de Servicios",
-      "path": "/devops/day-13-service-troubleshooting",
+      "path": "/challenges/devops/day-13-service-troubleshooting",
       "day": 13
     },
     {
@@ -358,7 +358,7 @@
       "difficulty": "2",
       "date": "2026-02-05",
       "excerpt": "🎓 Día 14: Automatización de Backups",
-      "path": "/devops/day-14-backup-script",
+      "path": "/challenges/devops/day-14-backup-script",
       "day": 14
     },
     {
@@ -368,7 +368,7 @@
       "difficulty": "1",
       "date": "2026-02-05",
       "excerpt": "🎓 Día 15: Sincronización Temporal y Consistencia",
-      "path": "/devops/day-15-timezone-config",
+      "path": "/challenges/devops/day-15-timezone-config",
       "day": 15
     }
   ],
@@ -381,7 +381,7 @@
       "date": "2026-02-05",
       "category": "crypto",
       "excerpt": "Caesar Cipher - Cryptanalysis Basics",
-      "path": "/ctf/crypto/caesar-cipher"
+      "path": "/challenges/ctf/crypto/caesar-cipher"
     },
     {
       "id": "forensics/hidden-in-plainsight",
@@ -391,7 +391,7 @@
       "date": "2026-02-04",
       "category": "forensics",
       "excerpt": "Steganography - Data Hiding in Images",
-      "path": "/ctf/forensics/hidden-in-plainsight"
+      "path": "/challenges/ctf/forensics/hidden-in-plainsight"
     },
     {
       "id": "forensics/hidden-metadata-pdf",
@@ -401,7 +401,7 @@
       "date": "2025-02-03",
       "category": "forensics",
       "excerpt": "PDF Metadata Forensics - Document Analysis",
-      "path": "/ctf/forensics/hidden-metadata-pdf"
+      "path": "/challenges/ctf/forensics/hidden-metadata-pdf"
     },
     {
       "id": "forensics/log-hunt",
@@ -411,7 +411,7 @@
       "date": "2026-02-04",
       "category": "forensics",
       "excerpt": "Log Analysis - Digital Forensics Investigation",
-      "path": "/ctf/forensics/log-hunt"
+      "path": "/challenges/ctf/forensics/log-hunt"
     },
     {
       "id": "misc/information-disclosure",
@@ -421,7 +421,7 @@
       "date": "2026-02-05",
       "category": "misc",
       "excerpt": "Information Disclosure - OSINT & Reconnaissance",
-      "path": "/ctf/misc/information-disclosure"
+      "path": "/challenges/ctf/misc/information-disclosure"
     },
     {
       "id": "pwn/buffer-overflow",
@@ -431,7 +431,7 @@
       "date": "2026-02-05",
       "category": "pwn",
       "excerpt": "Buffer Overflow - Binary Exploitation",
-      "path": "/ctf/pwn/buffer-overflow"
+      "path": "/challenges/ctf/pwn/buffer-overflow"
     },
     {
       "id": "reto01/reto01-writeup",
@@ -441,7 +441,7 @@
       "date": "2025-02-03",
       "category": "forensics",
       "excerpt": "🕵️ Laboratorio de Forense Digital: Metadatos Ocultos",
-      "path": "/ctf/reto01/reto01-writeup"
+      "path": "/challenges/ctf/reto01/reto01-writeup"
     },
     {
       "id": "reto02-log-hunt",
@@ -451,7 +451,7 @@
       "date": "2025-02-04",
       "category": "forensics",
       "excerpt": "Server Log Analysis - Threat Hunting",
-      "path": "/ctf/reto02-log-hunt"
+      "path": "/challenges/ctf/reto02-log-hunt"
     },
     {
       "id": "reto03-steganography",
@@ -461,7 +461,7 @@
       "date": "2025-02-04",
       "category": "forensics",
       "excerpt": "Advanced Image Steganography",
-      "path": "/ctf/reto03-steganography"
+      "path": "/challenges/ctf/reto03-steganography"
     },
     {
       "id": "reversing/reversing-basics",
@@ -471,7 +471,7 @@
       "date": "2026-02-05",
       "category": "reversing",
       "excerpt": "Reverse Engineering - Análisis de Binarios",
-      "path": "/ctf/reversing/reversing-basics"
+      "path": "/challenges/ctf/reversing/reversing-basics"
     },
     {
       "id": "web/xss-basic",
@@ -481,7 +481,7 @@
       "date": "2026-02-05",
       "category": "web",
       "excerpt": "XSS Reflejado - Web Application Pentesting",
-      "path": "/ctf/web/xss-basic"
+      "path": "/challenges/ctf/web/xss-basic"
     }
   ],
   "htb": [
@@ -494,7 +494,7 @@
       "category": "active-directory",
       "platform": "HTB",
       "excerpt": "🎓 HTB Academy - LDAP Enumeration",
-      "path": "/htb/active-directory/ldap-enumeration"
+      "path": "/challenges/htb/active-directory/ldap-enumeration"
     },
     {
       "id": "crypto/caesar-cipher-htb",
@@ -505,7 +505,7 @@
       "category": "crypto",
       "platform": "HTB",
       "excerpt": "🎓 HTB Academy - Caesar Cipher Cryptanalysis",
-      "path": "/htb/crypto/caesar-cipher-htb"
+      "path": "/challenges/htb/crypto/caesar-cipher-htb"
     },
     {
       "id": "forensics/memory-forensics",
@@ -516,7 +516,7 @@
       "category": "forensics",
       "platform": "HTB",
       "excerpt": "🎓 HTB Academy - Memory Forensics Basics",
-      "path": "/htb/forensics/memory-forensics"
+      "path": "/challenges/htb/forensics/memory-forensics"
     },
     {
       "id": "network-enum/nmap-default",
@@ -527,7 +527,7 @@
       "category": "network-enum",
       "platform": "HTB",
       "excerpt": "🎓 HTB Academy - Nmap Default",
-      "path": "/htb/network-enum/nmap-default"
+      "path": "/challenges/htb/network-enum/nmap-default"
     },
     {
       "id": "privilege-escalation/linux-privesc",
@@ -538,7 +538,7 @@
       "category": "privilege-escalation",
       "platform": "HTB",
       "excerpt": "🎓 HTB Academy - Linux Privilege Escalation",
-      "path": "/htb/privilege-escalation/linux-privesc"
+      "path": "/challenges/htb/privilege-escalation/linux-privesc"
     },
     {
       "id": "web-security/sql-injection",
@@ -549,7 +549,7 @@
       "category": "web-security",
       "platform": "HTB",
       "excerpt": "🎓 HTB Academy - SQL Injection Fundamentals",
-      "path": "/htb/web-security/sql-injection"
+      "path": "/challenges/htb/web-security/sql-injection"
     }
   ]
 }
