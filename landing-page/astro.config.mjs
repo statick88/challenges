@@ -4,7 +4,8 @@ import tailwind from "@astrojs/tailwind";
 export default defineConfig({
   integrations: [tailwind()],
   output: "static",
-  site: "https://statick88.github.io/challenges",
+  site: "https://statick88.github.io",
+  base: "/challenges",
   build: {
     inlineStylesheets: "auto",
   },
