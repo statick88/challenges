@@ -352,6 +352,56 @@ const skillColors = [
       })}
     </div>
     
+    <!-- Certification Section -->
+    <div class="mb-8 certification-section">
+      <h2 class="text-xl font-bold mb-4" style="color: var(--color-text);">
+        🏆 KodeKloud Docker Certification
+      </h2>
+      <div class="certification-card">
+        <div class="cert-image-container">
+          <img 
+            src="/certificates/kodekloud-docker-certificate.png" 
+            alt="KodeKloud Docker Certificate" 
+            class="cert-image"
+            onclick="window.open('/certificates/kodekloud-docker-certificate.png', '_blank')"
+          />
+        </div>
+        <div class="cert-details">
+          <h3 class="cert-title">Docker Certification - KodeKloud Engineer</h3>
+          <div class="cert-stats">
+            <div class="cert-stat">
+              <span class="stat-value">9/9</span>
+              <span class="stat-label">Challenges</span>
+            </div>
+            <div class="cert-stat">
+              <span class="stat-value">100/100</span>
+              <span class="stat-label">Score</span>
+            </div>
+            <div class="cert-stat">
+              <span class="stat-value">18-02-2026</span>
+              <span class="stat-label">Completed</span>
+            </div>
+          </div>
+          <div class="cert-actions">
+            <a href="https://engineer.kodekloud.com/certificate-verification/86476a89-ea7b-4e3a-a901-85cec28a00ca" 
+               target="_blank" 
+               class="cert-btn primary">
+              🔍 Verify Certificate
+            </a>
+            <a href="/certificates/kodekloud-docker-certificate.pdf" 
+               target="_blank" 
+               class="cert-btn secondary">
+              📄 Download PDF
+            </a>
+          </div>
+          <div class="cert-id">
+            <span class="id-label">Certificate ID:</span>
+            <code class="id-value">86476a89-ea7b-4e3a-a901-85cec28a00ca</code>
+          </div>
+        </div>
+      </div>
+    </div>
+    
     <!-- Empty state -->
     {challenges.length === 0 && (
       <div class="card text-center py-12">
@@ -808,5 +858,148 @@ const skillColors = [
 
   .checklist-text {
     flex: 1;
+  }
+
+  /* Certification Section Styles */
+  .certification-section {
+    margin-top: 2rem;
+  }
+
+  .certification-card {
+    background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    align-items: center;
+  }
+
+  @media (max-width: 768px) {
+    .certification-card {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .cert-image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    overflow: hidden;
+  }
+
+  .cert-image {
+    max-width: 100%;
+    max-height: 300px;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+
+  .cert-image:hover {
+    transform: scale(1.02);
+  }
+
+  .cert-details {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .cert-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-text);
+  }
+
+  .cert-stats {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .cert-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background: rgba(59, 130, 246, 0.1);
+    border-radius: 0.5rem;
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    min-width: 80px;
+  }
+
+  .stat-value {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #3b82f6;
+  }
+
+  .stat-label {
+    font-size: 0.7rem;
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+  }
+
+  .cert-actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .cert-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.25rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .cert-btn.primary {
+    background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);
+    color: white;
+  }
+
+  .cert-btn.primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+  }
+
+  .cert-btn.secondary {
+    background: rgba(59, 130, 246, 0.1);
+    color: #3b82f6;
+    border: 1px solid rgba(59, 130, 246, 0.3);
+  }
+
+  .cert-btn.secondary:hover {
+    background: rgba(59, 130, 246, 0.2);
+  }
+
+  .cert-id {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    padding: 0.5rem;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 0.375rem;
+  }
+
+  .id-label {
+    color: var(--color-text-secondary);
+  }
+
+  .id-value {
+    color: #06b6d4;
+    font-family: SF Mono, Monaco, monospace;
   }
 </style>

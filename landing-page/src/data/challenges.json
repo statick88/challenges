@@ -1,11 +1,11 @@
 {
-  "lastUpdated": "2026-02-18T05:34:10.007Z",
-  "buildVersion": 1771392850008,
+  "lastUpdated": "2026-02-18T18:33:25.272Z",
+  "buildVersion": 1771439605273,
   "overview": {
-    "totalChallenges": 56,
-    "completed": 22,
+    "totalChallenges": 57,
+    "completed": 23,
     "ctfCompleted": 2,
-    "completionRate": 39
+    "completionRate": 40
   },
   "programs": {
     "linux": {
@@ -17,11 +17,11 @@
       "percentage": 32
     },
     "docker": {
-      "completed": 5,
+      "completed": 6,
       "inProgress": 0,
       "ready": 0,
       "blocked": 0,
-      "total": 5,
+      "total": 6,
       "percentage": 100
     },
     "devops": {
@@ -193,7 +193,7 @@
     },
     {
       "program": "docker",
-      "activity": "Docker: 5/5 completed",
+      "activity": "Docker: 6/6 completed",
       "icon": "🐳"
     },
     {

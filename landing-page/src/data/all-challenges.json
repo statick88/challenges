@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-02-18T05:34:10.027Z",
+  "lastUpdated": "2026-02-18T18:33:25.292Z",
   "linux": [
     {
       "id": "01-creacion-usuarios",
@@ -218,6 +218,15 @@
       "date": "30-01-2026",
       "excerpt": "🐳 Docker Challenge Reto 5: Troubleshoot Docker Container Issue",
       "path": "/challenges/docker/reto-5-troubleshoot"
+    },
+    {
+      "id": "reto-6-troubleshoot-volume-port",
+      "title": "Docker Challenge Reto 6: Troubleshoot Container Volume & Port Mapping",
+      "status": "completed",
+      "difficulty": "3",
+      "date": "18-02-2026",
+      "excerpt": "🐳 Docker Challenge Reto 6: Troubleshoot Container Volume & Port Mapping",
+      "path": "/challenges/docker/reto-6-troubleshoot-volume-port"
     }
   ],
   "devops": [

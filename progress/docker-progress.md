@@ -2,7 +2,7 @@
 
 ## 📊 Challenge Status Overview
 
-### ✅ Completed Challenges (4/5)
+### ✅ Completed Challenges (6/6)
 
 | #   | Challenge                                        | Completion Date | Duration     | Skills Mastered                                                            | Status       |
 | --- | ------------------------------------------------ | --------------- | ------------ | -------------------------------------------------------------------------- | ------------ |
@@ -10,12 +10,28 @@
 | 2   | Deploy Nginx Container on Application Server     | 28-01-2026      | 3 min 28 seg | Container deployment, nginx image management, container verification       | ✅ Completed |
 | 3   | Delete Docker Container                          | 30-01-2026      | 5 min        | Container lifecycle management, docker stop/rm commands, container cleanup | ✅ Completed |
 | 4   | Copy Encrypted File into Container               | 31-01-2026      | 5 min        | docker cp, checksum verification (sha256sum), container file validation    | ✅ Completed |
+| 5   | Troubleshoot Docker Container Issue              | 30-01-2026      | 10 min       | Container debugging, log analysis, state inspection                        | ✅ Completed |
+| 6   | Troubleshoot Container Volume & Port Mapping     | 18-02-2026      | 3 min        | Bind mounts, port mapping, container troubleshooting                      | ✅ Completed |
 
-### ⏳ Ready to Start (1/5)
+---
 
-| #   | Challenge                           | Difficulty | Priority | Estimated Duration | Preparation Status |
-| --- | ----------------------------------- | ---------- | -------- | ------------------ | ------------------ |
-| 5   | Troubleshoot Docker Container Issue | ⭐⭐⭐     | High     | 20 min             | Ready              |
+## 🏆 KodeKloud Docker Certification
+
+### ✅ Certification Completed (9/9) - Score: 100/100
+
+| # | Challenge | Weight | Skills Demonstrated |
+|---|-----------|--------|---------------------|
+| 1 | Deploy Nginx Container | 10 | `docker run -d`, container creation |
+| 2 | Create Debug Container (Custom CMD) | 10 | CMD override, container naming |
+| 3 | Copy File Container → Host | 10 | `docker cp` bidirectional |
+| 4 | Copy File Host → Container | 10 | `docker cp`, `docker exec mkdir` |
+| 5 | Pull Docker Images | 10 | `docker pull`, image management |
+| 6 | Save Image as Tar Archive | 20 | `docker save -o`, image export |
+| 7 | Delete Docker Network | 10 | `docker network rm` |
+| 8 | Create Custom Network | 10 | `docker network create`, subnet, gateway |
+| 9 | Troubleshoot Volume & Port | 10 | Full diagnostics, volume/port mapping |
+
+📄 **Full Certification**: [certification-docker-kodekloud.md](../challenges/docker/certification-docker-kodekloud.md)
 
 ---
 
@@ -30,13 +46,15 @@
 | **User Permission Management**     | Docker group assignment, session management                       | Challenge 1             | 🟢 Advanced       |
 | **Container Deployment**           | Image management, container creation, verification                | Challenge 2             | 🟢 Advanced       |
 | **Container Lifecycle Management** | docker stop, docker rm, container cleanup                         | Challenge 3             | 🟢 Advanced       |
-| **Container File Operations**      | docker cp to/from containers, integrity validation with sha256sum | Challenge 4             | 🟢 Intermediate   |
+| **Container File Operations**      | docker cp to/from containers, integrity validation with sha256sum | Challenge 4             | 🟢 Advanced       |
+| **Docker Bind Mounts**             | Volume mapping, host-container data synchronization               | Challenge 6             | 🟢 Advanced       |
+| **Docker Port Mapping**            | Port exposure, network connectivity, curl verification            | Challenge 6             | 🟢 Advanced       |
+| **Container Troubleshooting**      | Diagnostic methodology, configuration verification                | Challenge 5, 6          | 🟢 Advanced       |
+| **Image Management**               | docker pull, docker save, image export                           | KodeKloud Cert          | 🟢 Advanced       |
+| **Docker Networking**              | Network creation, deletion, custom subnet/gateway                 | KodeKloud Cert          | 🟢 Advanced       |
+| **CMD Override**                   | Overwriting default CMD, custom container commands               | KodeKloud Cert          | 🟢 Advanced       |
 
-### 🔄 Skills in Progress
-
-| Skill Category                | Current Level  | Target Level | Next Challenge | Development Plan         |
-| ----------------------------- | -------------- | ------------ | -------------- | ------------------------ |
-| **Container Troubleshooting** | 🔴 Not Started | 🟢 Advanced  | Challenge 5    | Develop debugging skills |
+### ✅ All Skills Mastered!
 
 ### ⏳ Future Skills Roadmap
 
@@ -190,12 +208,12 @@
 
 ## 🏆 Milestone Tracking
 
-### 🎯 Next Milestone: Docker Container Specialist
+### 🎯 Milestone Achieved: Docker Fundamentals Specialist ✅
 
-**Requirements**: Complete all 5 Docker challenges
-**Progress**: 4/5 completed
-**Estimated Completion**: 02-02-2026
-**Benefits**: Container deployment skills, Docker command mastery
+**Requirements**: Complete all 6 Docker challenges + KodeKloud Certification  
+**Progress**: 6/6 challenges + 9/9 certification ✅  
+**Completion Date**: 18-02-2026  
+**Benefits**: Container deployment skills, Docker command mastery, Certification achieved
 
 ### 🎯 Future Milestone: Docker Advanced User
 
@@ -210,12 +228,13 @@
 
 ### 🎯 Completion Targets
 
-| Metric                   | Current             | 30-Day Target | 90-Day Target         |
-| ------------------------ | ------------------- | ------------- | --------------------- |
-| **Challenges Completed** | 4/5 (80%)           | 5/5 (100%)    | 5/5 + advanced topics |
-| **Commands Mastered**    | 13/15 (87%)         | 15/15 (100%)  | 20/20 (advanced)      |
-| **Success Rate**         | 100% (3/3 attempts) | 100%          | 100%                  |
-| **Time per Challenge**   | 7 min 29 seg        | 7 min         | 6 min                 |
+| Metric                   | Current               | 30-Day Target | 90-Day Target         |
+| ------------------------ | --------------------- | ------------- | --------------------- |
+| **Challenges Completed** | 6/6 (100%) ✅         | 6/6 (100%)    | 6/6 + advanced topics |
+| **Commands Mastered**    | 22/22 (100%) ✅       | 22/22 (100%)  | 30/30 (advanced)      |
+| **Success Rate**         | 100% (6/6 attempts)   | 100%          | 100%                  |
+| **Time per Challenge**   | 5 min 30 seg          | 5 min         | 4 min                 |
+| **Certification Score**  | 100/100 ✅            | -             | -                     |
 
 ---
 
@@ -223,4 +242,4 @@
 
 ---
 
-_Docker Progress Tracker v1.0 | Last Updated: 31-01-2026 | Next Challenge: 5_
+_Docker Progress Tracker v1.0 | Last Updated: 18-02-2026 | Certification: 100/100 ✅ | Status: COMPLETE_
