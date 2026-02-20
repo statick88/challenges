@@ -6,9 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2026-02-19">
+<meta name="dcterms.date" content="2026-01-25">
+<meta name="description" content="Implementing group-based access control (RBAC) in enterprise Linux environments">
 
-<title>DevOps &amp; Security Learning Journey</title>
+<title>Group Management – DevOps &amp; Security Learning Journey</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,27 +22,62 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-7ac2f9da8c2617a4fdd15004b4601015.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-3dad1a9f078d91cda5f1887d21eb11b5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-7ac2f9da8c2617a4fdd15004b4601015.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-3dad1a9f078d91cda5f1887d21eb11b5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -80,7 +116,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">DevOps &amp; Security Learning Journey</span>
     </a>
   </div>
@@ -91,27 +127,27 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./foundations/index.html"> 
+    <a class="nav-link" href="../foundations/index.html"> 
 <span class="menu-text">Foundations</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./containers/index.html"> 
+    <a class="nav-link" href="../containers/index.html"> 
 <span class="menu-text">Containers</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./devops-practices/index.html"> 
+    <a class="nav-link" href="../devops-practices/index.html"> 
 <span class="menu-text">DevOps</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./security/index.html"> 
+    <a class="nav-link" href="../security/index.html"> 
 <span class="menu-text">Security</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./roadmap/index.html"> 
+    <a class="nav-link" href="../roadmap/index.html"> 
 <span class="menu-text">Roadmap</span></a>
   </li>  
 </ul>
@@ -122,11 +158,11 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-language">    
         <li>
-    <a class="dropdown-item" href="./es/index.html">
+    <a class="dropdown-item" href="../es/index.html">
  <span class="dropdown-text">Español</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./index.html">
+    <a class="dropdown-item" href="../index.html">
  <span class="dropdown-text">English</span></a>
   </li>  
     </ul>
@@ -152,19 +188,31 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#welcome-to-my-learning-journey" id="toc-welcome-to-my-learning-journey" class="nav-link active" data-scroll-target="#welcome-to-my-learning-journey">Welcome to My Learning Journey</a>
+  <li><a href="#group-management" id="toc-group-management" class="nav-link active" data-scroll-target="#group-management">Group Management</a>
   <ul class="collapse">
-  <li><a href="#purpose" id="toc-purpose" class="nav-link" data-scroll-target="#purpose">🎯 Purpose</a></li>
-  <li><a href="#structure" id="toc-structure" class="nav-link" data-scroll-target="#structure">📚 Structure</a>
+  <li><a href="#scenario-noc-team-access-standardization" id="toc-scenario-noc-team-access-standardization" class="nav-link" data-scroll-target="#scenario-noc-team-access-standardization">Scenario: NOC Team Access Standardization</a>
   <ul class="collapse">
-  <li><a href="#foundations" id="toc-foundations" class="nav-link" data-scroll-target="#foundations">Foundations 🐧</a></li>
-  <li><a href="#containers" id="toc-containers" class="nav-link" data-scroll-target="#containers">Containers 🐳</a></li>
-  <li><a href="#devops-practices" id="toc-devops-practices" class="nav-link" data-scroll-target="#devops-practices">DevOps Practices ⚙️</a></li>
-  <li><a href="#security" id="toc-security" class="nav-link" data-scroll-target="#security">Security 🔒</a></li>
+  <li><a href="#the-problem" id="toc-the-problem" class="nav-link" data-scroll-target="#the-problem">The Problem</a></li>
+  <li><a href="#your-mission" id="toc-your-mission" class="nav-link" data-scroll-target="#your-mission">Your Mission</a></li>
+  <li><a href="#target-infrastructure" id="toc-target-infrastructure" class="nav-link" data-scroll-target="#target-infrastructure">Target Infrastructure</a></li>
   </ul></li>
-  <li><a href="#progress" id="toc-progress" class="nav-link" data-scroll-target="#progress">📊 Progress</a></li>
-  <li><a href="#how-to-use-this-guide" id="toc-how-to-use-this-guide" class="nav-link" data-scroll-target="#how-to-use-this-guide">🚀 How to Use This Guide</a></li>
-  <li><a href="#navigation" id="toc-navigation" class="nav-link" data-scroll-target="#navigation">🔗 Navigation</a></li>
+  <li><a href="#understanding-group-architecture" id="toc-understanding-group-architecture" class="nav-link" data-scroll-target="#understanding-group-architecture">🧠 Understanding Group Architecture</a>
+  <ul class="collapse">
+  <li><a href="#why-use-groups" id="toc-why-use-groups" class="nav-link" data-scroll-target="#why-use-groups">Why Use Groups?</a></li>
+  <li><a href="#key-configuration-files" id="toc-key-configuration-files" class="nav-link" data-scroll-target="#key-configuration-files">Key Configuration Files</a></li>
+  <li><a href="#types-of-groups-in-linux" id="toc-types-of-groups-in-linux" class="nav-link" data-scroll-target="#types-of-groups-in-linux">Types of Groups in Linux</a></li>
+  </ul></li>
+  <li><a href="#implementation" id="toc-implementation" class="nav-link" data-scroll-target="#implementation">🛠️ Implementation</a>
+  <ul class="collapse">
+  <li><a href="#step-1-pre-implementation-verification" id="toc-step-1-pre-implementation-verification" class="nav-link" data-scroll-target="#step-1-pre-implementation-verification">Step 1: Pre-Implementation Verification</a></li>
+  <li><a href="#step-2-create-group-on-each-server" id="toc-step-2-create-group-on-each-server" class="nav-link" data-scroll-target="#step-2-create-group-on-each-server">Step 2: Create Group on Each Server</a></li>
+  <li><a href="#step-3-create-user-rajesh" id="toc-step-3-create-user-rajesh" class="nav-link" data-scroll-target="#step-3-create-user-rajesh">Step 3: Create User rajesh</a></li>
+  <li><a href="#step-4-set-password" id="toc-step-4-set-password" class="nav-link" data-scroll-target="#step-4-set-password">Step 4: Set Password</a></li>
+  </ul></li>
+  <li><a href="#verification-checklist" id="toc-verification-checklist" class="nav-link" data-scroll-target="#verification-checklist">✅ Verification Checklist</a></li>
+  <li><a href="#key-learnings" id="toc-key-learnings" class="nav-link" data-scroll-target="#key-learnings">🎯 Key Learnings</a></li>
+  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources">📚 Resources</a></li>
+  <li><a href="#status" id="toc-status" class="nav-link" data-scroll-target="#status">✅ Status</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -174,10 +222,19 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">DevOps &amp; Security Learning Journey</h1>
-<p class="subtitle lead">From Linux fundamentals to HTB Academy</p>
-</div>
+<h1 class="title">Group Management</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">linux</div>
+    <div class="quarto-category">foundations</div>
+    <div class="quarto-category">group-management</div>
+  </div>
+  </div>
 
+<div>
+  <div class="description">
+    Implementing group-based access control (RBAC) in enterprise Linux environments
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
@@ -186,7 +243,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">February 19, 2026</p>
+      <p class="date">January 25, 2026</p>
     </div>
   </div>
   
@@ -198,87 +255,203 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="welcome-to-my-learning-journey" class="level1">
-<h1>Welcome to My Learning Journey</h1>
-<p>This website documents my path through <strong>Linux system administration</strong>, <strong>Docker containerization</strong>, <strong>DevOps practices</strong>, and <strong>Cybersecurity/CTF challenges</strong>.</p>
-<section id="purpose" class="level2">
-<h2 class="anchored" data-anchor-id="purpose">🎯 Purpose</h2>
-<p>This journey serves two purposes:</p>
-<ol type="1">
-<li><strong>Personal Progress Tracking</strong> - A visual record of what I’ve learned and completed</li>
-<li><strong>Learning Guide for Others</strong> - A structured path that others can follow to build similar skills</li>
-</ol>
+<section id="group-management" class="level1">
+<h1>Group Management</h1>
+<section id="scenario-noc-team-access-standardization" class="level2">
+<h2 class="anchored" data-anchor-id="scenario-noc-team-access-standardization">Scenario: NOC Team Access Standardization</h2>
+<p><strong>Company</strong>: xFusionCorp Industries<br>
+<strong>Project</strong>: Nautilus - Infrastructure Monitoring Platform<br>
+<strong>Location</strong>: Stratos Datacenter<br>
+<strong>Your Role</strong>: Senior System Administrator</p>
+<section id="the-problem" class="level3">
+<h3 class="anchored" data-anchor-id="the-problem">The Problem</h3>
+<p>The Network Operations Center (NOC) team is growing. A new monitoring engineer, <strong>Rajesh</strong>, needs consistent access to all Nautilus application servers.</p>
+<p><strong>The Challenge</strong>: Current servers don’t have standardized access management: - Security inconsistencies - Audit difficulties - Operational problems</p>
 </section>
-<section id="structure" class="level2">
-<h2 class="anchored" data-anchor-id="structure">📚 Structure</h2>
-<p>The learning journey is organized into four main areas:</p>
-<section id="foundations" class="level3">
-<h3 class="anchored" data-anchor-id="foundations"><a href="./foundations/index.html">Foundations</a> 🐧</h3>
-<p>Linux system administration fundamentals: - User and group management - Permissions and access control - Scripting and automation - Networking basics</p>
+<section id="your-mission" class="level3">
+<h3 class="anchored" data-anchor-id="your-mission">Your Mission</h3>
+<p>Implement a standardized <code>nautilus_noc</code> group on 3 App servers and ensure Rajesh has consistent access through group membership.</p>
 </section>
-<section id="containers" class="level3">
-<h3 class="anchored" data-anchor-id="containers"><a href="./containers/index.html">Containers</a> 🐳</h3>
-<p>Docker and containerization: - Container fundamentals - Volume and network management - Deployment and troubleshooting</p>
-</section>
-<section id="devops-practices" class="level3">
-<h3 class="anchored" data-anchor-id="devops-practices"><a href="./devops-practices.html">DevOps Practices</a> ⚙️</h3>
-<p>DevOps tools and methodologies: - Configuration management with Ansible - Automation with Cron - Database services (MariaDB)</p>
-</section>
-<section id="security" class="level3">
-<h3 class="anchored" data-anchor-id="security"><a href="./security/index.html">Security</a> 🔒</h3>
-<p>Cybersecurity fundamentals: - CTF challenges and forensics - Web security basics - HTB Academy modules</p>
-</section>
-</section>
-<section id="progress" class="level2">
-<h2 class="anchored" data-anchor-id="progress">📊 Progress</h2>
+<section id="target-infrastructure" class="level3">
+<h3 class="anchored" data-anchor-id="target-infrastructure">Target Infrastructure</h3>
 <table class="caption-top table">
 <thead>
 <tr class="header">
-<th>Area</th>
-<th>Challenges</th>
-<th>Status</th>
+<th>Server</th>
+<th>IP</th>
+<th>Access User</th>
+<th>Password</th>
+<th>Purpose</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Foundations</td>
-<td>9</td>
-<td>🟢 In Progress</td>
+<td>stapp01</td>
+<td>172.16.238.10</td>
+<td>tony</td>
+<td>Ir0nM@n</td>
+<td>Nautilus App 1</td>
 </tr>
 <tr class="even">
-<td>Containers</td>
-<td>6</td>
-<td>🟢 In Progress</td>
+<td>stapp02</td>
+<td>172.16.238.11</td>
+<td>steve</td>
+<td>Am3ric@</td>
+<td>Nautilus App 2</td>
 </tr>
 <tr class="odd">
-<td>DevOps</td>
-<td>8</td>
-<td>🟢 In Progress</td>
-</tr>
-<tr class="even">
-<td>Security</td>
-<td>3</td>
-<td>🟢 In Progress</td>
+<td>stapp03</td>
+<td>172.16.238.12</td>
+<td>banner</td>
+<td>BigGr33n</td>
+<td>Nautilus App 3</td>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="how-to-use-this-guide" class="level2">
-<h2 class="anchored" data-anchor-id="how-to-use-this-guide">🚀 How to Use This Guide</h2>
-<p>Each chapter includes:</p>
-<ul>
-<li><strong>Scenario</strong>: Real-world context for the challenge</li>
-<li><strong>Step-by-step Solution</strong>: Commands and explanations</li>
-<li><strong>Verification</strong>: How to confirm success</li>
-<li><strong>Key Learnings</strong>: What skills were developed</li>
-<li><strong>Next Steps</strong>: Where to go from here</li>
-</ul>
-</section>
-<section id="navigation" class="level2">
-<h2 class="anchored" data-anchor-id="navigation">🔗 Navigation</h2>
-<p>Use the sidebar to navigate between sections, or click on the section links above.</p>
 <hr>
-<p><em>This journey is continuously updated as new challenges are completed.</em></p>
+</section>
+</section>
+<section id="understanding-group-architecture" class="level2">
+<h2 class="anchored" data-anchor-id="understanding-group-architecture">🧠 Understanding Group Architecture</h2>
+<section id="why-use-groups" class="level3">
+<h3 class="anchored" data-anchor-id="why-use-groups">Why Use Groups?</h3>
+<p>Imagine you have 50 servers and 20 NOC engineers. Managing permissions user-by-user would mean <strong>1,000 individual configurations</strong>. Groups reduce this to <strong>50 group configurations</strong> + <strong>20 membership assignments</strong>.</p>
+</section>
+<section id="key-configuration-files" class="level3">
+<h3 class="anchored" data-anchor-id="key-configuration-files">Key Configuration Files</h3>
+<pre><code>/etc/group       # Group definitions and members
+/etc/gshadow     # Group passwords (rarely used)
+/etc/passwd      # User info (includes primary group)
+/etc/login.defs  # Default group configuration</code></pre>
+</section>
+<section id="types-of-groups-in-linux" class="level3">
+<h3 class="anchored" data-anchor-id="types-of-groups-in-linux">Types of Groups in Linux</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 37%">
+<col style="width: 37%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Type</th>
+<th>Purpose</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Primary</strong></td>
+<td>User’s default group</td>
+<td><code>rajesh:x:1001:rajesh</code></td>
+</tr>
+<tr class="even">
+<td><strong>Secondary</strong></td>
+<td>Additional access groups</td>
+<td><code>nautilus_noc:x:1002:rajesh</code></td>
+</tr>
+<tr class="odd">
+<td><strong>System</strong></td>
+<td>Used by system processes</td>
+<td><code>wheel</code>, <code>ssh</code>, <code>mail</code></td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+</section>
+<section id="implementation" class="level2">
+<h2 class="anchored" data-anchor-id="implementation">🛠️ Implementation</h2>
+<section id="step-1-pre-implementation-verification" class="level3">
+<h3 class="anchored" data-anchor-id="step-1-pre-implementation-verification">Step 1: Pre-Implementation Verification</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Connect to each server</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> tony@172.16.238.10</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> su <span class="at">-</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Check if nautilus_noc group exists</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">getent</span> group nautilus_noc</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Check if user rajesh exists</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="fu">id</span> rajesh</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<blockquote class="blockquote">
+<p><strong>Warning</strong>: Never assume a group or user doesn’t exist. Always verify before creating.</p>
+</blockquote>
+</section>
+<section id="step-2-create-group-on-each-server" class="level3">
+<h3 class="anchored" data-anchor-id="step-2-create-group-on-each-server">Step 2: Create Group on Each Server</h3>
+<p><strong>stapp01:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> tony@172.16.238.10</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> su <span class="at">-</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">groupadd</span> <span class="at">-g</span> 2001 nautilus_noc</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">getent</span> group nautilus_noc</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>stapp02:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> steve@172.16.238.11</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> su <span class="at">-</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">groupadd</span> <span class="at">-g</span> 2001 nautilus_noc</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">getent</span> group nautilus_noc</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>stapp03:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> banner@172.16.238.12</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> su <span class="at">-</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="ex">groupadd</span> <span class="at">-g</span> 2001 nautilus_noc</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">getent</span> group nautilus_noc</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<blockquote class="blockquote">
+<p><strong>Key Point</strong>: Use the same GID (2001) across all servers for consistency!</p>
+</blockquote>
+</section>
+<section id="step-3-create-user-rajesh" class="level3">
+<h3 class="anchored" data-anchor-id="step-3-create-user-rajesh">Step 3: Create User rajesh</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># On each server</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">useradd</span> <span class="at">-G</span> nautilus_noc rajesh</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Verify</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">id</span> rajesh</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Expected: uid=1001(rajesh) gid=1001(rajesh) groups=1001(rajesh),2001(nautilus_noc)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="step-4-set-password" class="level3">
+<h3 class="anchored" data-anchor-id="step-4-set-password">Step 4: Set Password</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">passwd</span> rajesh</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+</section>
+<section id="verification-checklist" class="level2">
+<h2 class="anchored" data-anchor-id="verification-checklist">✅ Verification Checklist</h2>
+<ul class="task-list">
+<li><label><input type="checkbox">Group <code>nautilus_noc</code> exists on all 3 servers with GID 2001</label></li>
+<li><label><input type="checkbox">User <code>rajesh</code> exists on all 3 servers</label></li>
+<li><label><input type="checkbox">User is member of <code>nautilus_noc</code> group on all servers</label></li>
+<li><label><input type="checkbox">Password is set for rajesh</label></li>
+<li><label><input type="checkbox">Test SSH access: <code>ssh rajesh@172.16.238.10</code></label></li>
+</ul>
+<hr>
+</section>
+<section id="key-learnings" class="level2">
+<h2 class="anchored" data-anchor-id="key-learnings">🎯 Key Learnings</h2>
+<ul>
+<li><strong>Group-based access control (RBAC)</strong>: Managing permissions through groups, not individual users</li>
+<li><strong>Consistency</strong>: Using the same GID across servers</li>
+<li><strong>Audit trail</strong>: Documenting changes before making them</li>
+</ul>
+<hr>
+</section>
+<section id="resources" class="level2">
+<h2 class="anchored" data-anchor-id="resources">📚 Resources</h2>
+<ul>
+<li><code>man groupadd</code> - Group creation</li>
+<li><code>man usermod</code> - Modify user group membership</li>
+<li><code>getent group</code> - Query group database</li>
+</ul>
+<hr>
+</section>
+<section id="status" class="level2">
+<h2 class="anchored" data-anchor-id="status">✅ Status</h2>
+<p><strong>COMPLETED</strong> 🎉</p>
+<ul>
+<li>Date: 2026-01-25</li>
+<li>Difficulty: Medium</li>
+<li>Skills: Group Management, RBAC, Multi-server Administration</li>
+</ul>
+<hr>
+<p><em><a href="../foundations/index.html">← Back to Foundations</a></em></p>
 
 
 </section>

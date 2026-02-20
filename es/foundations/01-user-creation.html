@@ -6,9 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2026-02-19">
+<meta name="dcterms.date" content="2026-01-25">
+<meta name="description" content="Crear usuarios con UIDs específicos y directorios home personalizados en Linux">
 
-<title>DevOps &amp; Security Learning Journey</title>
+<title>Creación de Usuario con UID Personalizado – DevOps &amp; Security Learning Journey</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,27 +22,62 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-7ac2f9da8c2617a4fdd15004b4601015.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-3dad1a9f078d91cda5f1887d21eb11b5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-7ac2f9da8c2617a4fdd15004b4601015.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-3dad1a9f078d91cda5f1887d21eb11b5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -80,7 +116,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">DevOps &amp; Security Learning Journey</span>
     </a>
   </div>
@@ -91,27 +127,27 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./foundations/index.html"> 
+    <a class="nav-link" href="../../foundations/index.html"> 
 <span class="menu-text">Foundations</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./containers/index.html"> 
+    <a class="nav-link" href="../../containers/index.html"> 
 <span class="menu-text">Containers</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./devops-practices/index.html"> 
+    <a class="nav-link" href="../../devops-practices/index.html"> 
 <span class="menu-text">DevOps</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./security/index.html"> 
+    <a class="nav-link" href="../../security/index.html"> 
 <span class="menu-text">Security</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./roadmap/index.html"> 
+    <a class="nav-link" href="../../roadmap/index.html"> 
 <span class="menu-text">Roadmap</span></a>
   </li>  
 </ul>
@@ -122,11 +158,11 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-language">    
         <li>
-    <a class="dropdown-item" href="./es/index.html">
+    <a class="dropdown-item" href="../../es/index.html">
  <span class="dropdown-text">Español</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./index.html">
+    <a class="dropdown-item" href="../../index.html">
  <span class="dropdown-text">English</span></a>
   </li>  
     </ul>
@@ -152,19 +188,27 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#welcome-to-my-learning-journey" id="toc-welcome-to-my-learning-journey" class="nav-link active" data-scroll-target="#welcome-to-my-learning-journey">Welcome to My Learning Journey</a>
+  <li><a href="#creación-de-usuario-con-uid-personalizado" id="toc-creación-de-usuario-con-uid-personalizado" class="nav-link active" data-scroll-target="#creación-de-usuario-con-uid-personalizado">Creación de Usuario con UID Personalizado</a>
   <ul class="collapse">
-  <li><a href="#purpose" id="toc-purpose" class="nav-link" data-scroll-target="#purpose">🎯 Purpose</a></li>
-  <li><a href="#structure" id="toc-structure" class="nav-link" data-scroll-target="#structure">📚 Structure</a>
+  <li><a href="#escenario-primer-día-en-xfusioncorp" id="toc-escenario-primer-día-en-xfusioncorp" class="nav-link" data-scroll-target="#escenario-primer-día-en-xfusioncorp">Escenario: Primer Día en xFusionCorp</a></li>
+  <li><a href="#entendiendo-la-arquitectura" id="toc-entendiendo-la-arquitectura" class="nav-link" data-scroll-target="#entendiendo-la-arquitectura">🧠 Entendiendo la Arquitectura</a>
   <ul class="collapse">
-  <li><a href="#foundations" id="toc-foundations" class="nav-link" data-scroll-target="#foundations">Foundations 🐧</a></li>
-  <li><a href="#containers" id="toc-containers" class="nav-link" data-scroll-target="#containers">Containers 🐳</a></li>
-  <li><a href="#devops-practices" id="toc-devops-practices" class="nav-link" data-scroll-target="#devops-practices">DevOps Practices ⚙️</a></li>
-  <li><a href="#security" id="toc-security" class="nav-link" data-scroll-target="#security">Security 🔒</a></li>
+  <li><a href="#el-archivo-etcpasswd" id="toc-el-archivo-etcpasswd" class="nav-link" data-scroll-target="#el-archivo-etcpasswd">El Archivo /etc/passwd</a></li>
+  <li><a href="#por-qué-uid-1467" id="toc-por-qué-uid-1467" class="nav-link" data-scroll-target="#por-qué-uid-1467">¿Por Qué UID 1467?</a></li>
   </ul></li>
-  <li><a href="#progress" id="toc-progress" class="nav-link" data-scroll-target="#progress">📊 Progress</a></li>
-  <li><a href="#how-to-use-this-guide" id="toc-how-to-use-this-guide" class="nav-link" data-scroll-target="#how-to-use-this-guide">🚀 How to Use This Guide</a></li>
-  <li><a href="#navigation" id="toc-navigation" class="nav-link" data-scroll-target="#navigation">🔗 Navigation</a></li>
+  <li><a href="#implementación" id="toc-implementación" class="nav-link" data-scroll-target="#implementación">🛠️ Implementación</a>
+  <ul class="collapse">
+  <li><a href="#paso-1-acceder-al-servidor" id="toc-paso-1-acceder-al-servidor" class="nav-link" data-scroll-target="#paso-1-acceder-al-servidor">Paso 1: Acceder al Servidor</a></li>
+  <li><a href="#paso-2-verificación" id="toc-paso-2-verificación" class="nav-link" data-scroll-target="#paso-2-verificación">Paso 2: Verificación</a></li>
+  <li><a href="#paso-3-crear-el-usuario" id="toc-paso-3-crear-el-usuario" class="nav-link" data-scroll-target="#paso-3-crear-el-usuario">Paso 3: Crear el Usuario</a></li>
+  <li><a href="#paso-4-establecer-contraseña" id="toc-paso-4-establecer-contraseña" class="nav-link" data-scroll-target="#paso-4-establecer-contraseña">Paso 4: Establecer Contraseña</a></li>
+  <li><a href="#paso-5-verificación" id="toc-paso-5-verificación" class="nav-link" data-scroll-target="#paso-5-verificación">Paso 5: Verificación</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#verificar-que-podemos-cambiar-al-usuario" id="toc-verificar-que-podemos-cambiar-al-usuario" class="nav-link" data-scroll-target="#verificar-que-podemos-cambiar-al-usuario">Verificar que podemos cambiar al usuario</a>
+  <ul class="collapse">
+  <li><a href="#recursos" id="toc-recursos" class="nav-link" data-scroll-target="#recursos">📚 Recursos</a></li>
+  <li><a href="#estado" id="toc-estado" class="nav-link" data-scroll-target="#estado">✅ Estado</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -174,10 +218,19 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">DevOps &amp; Security Learning Journey</h1>
-<p class="subtitle lead">From Linux fundamentals to HTB Academy</p>
-</div>
+<h1 class="title">Creación de Usuario con UID Personalizado</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">linux</div>
+    <div class="quarto-category">foundations</div>
+    <div class="quarto-category">user-management</div>
+  </div>
+  </div>
 
+<div>
+  <div class="description">
+    Crear usuarios con UIDs específicos y directorios home personalizados en Linux
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
@@ -186,7 +239,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">February 19, 2026</p>
+      <p class="date">January 25, 2026</p>
     </div>
   </div>
   
@@ -198,87 +251,169 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="welcome-to-my-learning-journey" class="level1">
-<h1>Welcome to My Learning Journey</h1>
-<p>This website documents my path through <strong>Linux system administration</strong>, <strong>Docker containerization</strong>, <strong>DevOps practices</strong>, and <strong>Cybersecurity/CTF challenges</strong>.</p>
-<section id="purpose" class="level2">
-<h2 class="anchored" data-anchor-id="purpose">🎯 Purpose</h2>
-<p>This journey serves two purposes:</p>
-<ol type="1">
-<li><strong>Personal Progress Tracking</strong> - A visual record of what I’ve learned and completed</li>
-<li><strong>Learning Guide for Others</strong> - A structured path that others can follow to build similar skills</li>
-</ol>
+<section id="creación-de-usuario-con-uid-personalizado" class="level1">
+<h1>Creación de Usuario con UID Personalizado</h1>
+<section id="escenario-primer-día-en-xfusioncorp" class="level2">
+<h2 class="anchored" data-anchor-id="escenario-primer-día-en-xfusioncorp">Escenario: Primer Día en xFusionCorp</h2>
+<p>Acabas de comenzar como Administrador de Sistemas Junior en <strong>xFusionCorp Industries</strong>. En tu primer día, el Lead SysAdmin te asigna una tarea:</p>
+<blockquote class="blockquote">
+<p><em>“El equipo de desarrollo web necesita un usuario llamado <strong>javed</strong> para desplegar su aplicación en el servidor stapp02. Necesitan UID 1467 y el directorio home debe estar en <code>/var/www/javed</code>. El desarrollador líder está esperando. ¿Puedes hacerlo?”</em></p>
+</blockquote>
+<hr>
 </section>
-<section id="structure" class="level2">
-<h2 class="anchored" data-anchor-id="structure">📚 Structure</h2>
-<p>The learning journey is organized into four main areas:</p>
-<section id="foundations" class="level3">
-<h3 class="anchored" data-anchor-id="foundations"><a href="./foundations/index.html">Foundations</a> 🐧</h3>
-<p>Linux system administration fundamentals: - User and group management - Permissions and access control - Scripting and automation - Networking basics</p>
+<section id="entendiendo-la-arquitectura" class="level2">
+<h2 class="anchored" data-anchor-id="entendiendo-la-arquitectura">🧠 Entendiendo la Arquitectura</h2>
+<p>Antes de crear usuarios, debes entender cómo Linux los gestiona internamente.</p>
+<section id="el-archivo-etcpasswd" class="level3">
+<h3 class="anchored" data-anchor-id="el-archivo-etcpasswd">El Archivo /etc/passwd</h3>
+<p>Cada usuario en Linux está definido por una línea en <code>/etc/passwd</code>:</p>
+<pre><code>username:password:UID:GID:comment:home_directory:shell</code></pre>
+<p><strong>Ejemplo:</strong></p>
+<pre><code>javed:x:1467:1467::/var/www/javed:/bin/bash</code></pre>
+<blockquote class="blockquote">
+<p><strong>Insight Clave</strong>: El UID es el verdadero identificador del usuario. Linux no dice “el usuario javed accedió”; dice “el UID 1467 accedió”. Los nombres son solo etiquetas humanas.</p>
+</blockquote>
 </section>
-<section id="containers" class="level3">
-<h3 class="anchored" data-anchor-id="containers"><a href="./containers/index.html">Containers</a> 🐳</h3>
-<p>Docker and containerization: - Container fundamentals - Volume and network management - Deployment and troubleshooting</p>
+<section id="por-qué-uid-1467" class="level3">
+<h3 class="anchored" data-anchor-id="por-qué-uid-1467">¿Por Qué UID 1467?</h3>
+<p>En organizaciones grandes, los UIDs se asignan por rangos:</p>
+<ul>
+<li><strong>0-99</strong>: Usuarios del sistema (root, bin, daemon)</li>
+<li><strong>100-999</strong>: Cuentas de servicios (nginx, mysql, docker)</li>
+<li><strong>1000+</strong>: Usuarios humanos regulares</li>
+<li><strong>10000+</strong>: Aplicaciones específicas</li>
+</ul>
+<hr>
 </section>
-<section id="devops-practices" class="level3">
-<h3 class="anchored" data-anchor-id="devops-practices"><a href="./devops-practices.html">DevOps Practices</a> ⚙️</h3>
-<p>DevOps tools and methodologies: - Configuration management with Ansible - Automation with Cron - Database services (MariaDB)</p>
 </section>
-<section id="security" class="level3">
-<h3 class="anchored" data-anchor-id="security"><a href="./security/index.html">Security</a> 🔒</h3>
-<p>Cybersecurity fundamentals: - CTF challenges and forensics - Web security basics - HTB Academy modules</p>
+<section id="implementación" class="level2">
+<h2 class="anchored" data-anchor-id="implementación">🛠️ Implementación</h2>
+<section id="paso-1-acceder-al-servidor" class="level3">
+<h3 class="anchored" data-anchor-id="paso-1-acceder-al-servidor">Paso 1: Acceder al Servidor</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Conectar vía SSH</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> steve@172.16.238.11</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Escalar a root</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> su <span class="at">-</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
+<section id="paso-2-verificación" class="level3">
+<h3 class="anchored" data-anchor-id="paso-2-verificación">Paso 2: Verificación</h3>
+<p>Siempre verifica el estado actual antes de hacer cambios:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Verificar si el usuario ya existe</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">id</span> javed</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Verificar si el UID 1467 ya está en uso</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="st">"1467"</span> /etc/passwd</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Verificar que /var/www/ existe</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-ld</span> /var/www/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="progress" class="level2">
-<h2 class="anchored" data-anchor-id="progress">📊 Progress</h2>
+<section id="paso-3-crear-el-usuario" class="level3">
+<h3 class="anchored" data-anchor-id="paso-3-crear-el-usuario">Paso 3: Crear el Usuario</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">useradd</span> <span class="at">-u</span> 1467 <span class="at">-d</span> /var/www/javed <span class="at">-m</span> javed</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Desglose del comando:</strong></p>
 <table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 32%">
+<col style="width: 47%">
+</colgroup>
 <thead>
 <tr class="header">
-<th>Area</th>
-<th>Challenges</th>
-<th>Status</th>
+<th>Opción</th>
+<th>Significado</th>
+<th>Por Qué lo Usamos</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Foundations</td>
-<td>9</td>
-<td>🟢 In Progress</td>
+<td><code>-u 1467</code></td>
+<td>Especificar UID</td>
+<td>Requerimiento del equipo de desarrollo</td>
 </tr>
 <tr class="even">
-<td>Containers</td>
-<td>6</td>
-<td>🟢 In Progress</td>
+<td><code>-d /var/www/javed</code></td>
+<td>Home personalizado</td>
+<td>Estándar para aplicaciones web</td>
 </tr>
 <tr class="odd">
-<td>DevOps</td>
-<td>8</td>
-<td>🟢 In Progress</td>
+<td><code>-m</code></td>
+<td>Crear directorio home</td>
+<td>El usuario necesita un espacio de trabajo</td>
 </tr>
 <tr class="even">
-<td>Security</td>
-<td>3</td>
-<td>🟢 In Progress</td>
+<td><code>javed</code></td>
+<td>Nombre de usuario</td>
+<td>Identificador humano</td>
 </tr>
 </tbody>
 </table>
 </section>
-<section id="how-to-use-this-guide" class="level2">
-<h2 class="anchored" data-anchor-id="how-to-use-this-guide">🚀 How to Use This Guide</h2>
-<p>Each chapter includes:</p>
-<ul>
-<li><strong>Scenario</strong>: Real-world context for the challenge</li>
-<li><strong>Step-by-step Solution</strong>: Commands and explanations</li>
-<li><strong>Verification</strong>: How to confirm success</li>
-<li><strong>Key Learnings</strong>: What skills were developed</li>
-<li><strong>Next Steps</strong>: Where to go from here</li>
-</ul>
+<section id="paso-4-establecer-contraseña" class="level3">
+<h3 class="anchored" data-anchor-id="paso-4-establecer-contraseña">Paso 4: Establecer Contraseña</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">passwd</span> javed</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<blockquote class="blockquote">
+<p><strong>Mejor Práctica de Seguridad</strong>: En producción, configura autenticación por clave SSH y deshabilita el login por contraseña: <code>passwd -l javed</code></p>
+</blockquote>
 </section>
-<section id="navigation" class="level2">
-<h2 class="anchored" data-anchor-id="navigation">🔗 Navigation</h2>
-<p>Use the sidebar to navigate between sections, or click on the section links above.</p>
+<section id="paso-5-verificación" class="level3">
+<h3 class="anchored" data-anchor-id="paso-5-verificación">Paso 5: Verificación</h3>
+<p>```bash# Verificar que el usuario existe con el UID correcto id javed # Esperado: uid=1467(javed) gid=1467(javed) groups=1467(javed)# Verificar el directorio home ls -la /var/www/javed</p>
+</section>
+</section>
+</section>
+<section id="verificar-que-podemos-cambiar-al-usuario" class="level1">
+<h1>Verificar que podemos cambiar al usuario</h1>
+<p>su - javed pwd # Debe mostrar: /var/www/javed</p>
+<pre><code>
+---
+
+## ✅ Lista de Verificación
+
+- [ ] El usuario existe en /etc/passwd
+- [ ] El UID es exactamente 1467
+- [ ] El GID coincide con el UID
+- [ ] El directorio home existe en /var/www/javed
+- [ ] Los permisos son javed:javed
+- [ ] Archivos de configuración copiados (bashrc, etc.)
+- [ ] Puedo ejecutar `su - javed` sin errores
+
+---
+
+## 🚀 Próximos Pasos
+
+Explora variaciones de useradd:
+
+```bash
+# Cuenta de servicio (sin login)
+useradd -r -s /sbin/nologin mysql
+
+# Agregar a grupos secundarios
+useradd -G developers,deployers -m javed
+
+# Cuenta con fecha de expiración
+useradd -e 2025-12-31 -m contractor1</code></pre>
 <hr>
-<p><em>This journey is continuously updated as new challenges are completed.</em></p>
+<section id="recursos" class="level2">
+<h2 class="anchored" data-anchor-id="recursos">📚 Recursos</h2>
+<ul>
+<li><code>man useradd</code> - Documentación completa del comando</li>
+<li><code>man usermod</code> - Modificación de usuarios</li>
+<li><code>/etc/passwd format</code> - Entendiendo los 7 campos</li>
+</ul>
+<hr>
+</section>
+<section id="estado" class="level2">
+<h2 class="anchored" data-anchor-id="estado">✅ Estado</h2>
+<p><strong>COMPLETADO</strong> 🎉</p>
+<ul>
+<li>Fecha: 2026-01-25</li>
+<li>Tiempo: 10-15 minutos</li>
+<li>Nivel: Fundamentos de Administración Linux</li>
+<li>Habilidades: Gestión de Usuarios, SSH, Verificación</li>
+</ul>
+<hr>
+<p><em><a href="../../es/foundations/index.html">← Volver a Fundamentos</a></em></p>
 
 
 </section>

@@ -7,8 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="dcterms.date" content="2026-02-19">
+<meta name="description" content="Complete TCP port scanning with Nmap and HTML report generation">
 
-<title>DevOps &amp; Security Learning Journey</title>
+<title>HTB Academy - Network Enumeration – DevOps &amp; Security Learning Journey</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,27 +22,62 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-7ac2f9da8c2617a4fdd15004b4601015.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-3dad1a9f078d91cda5f1887d21eb11b5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-7ac2f9da8c2617a4fdd15004b4601015.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-3dad1a9f078d91cda5f1887d21eb11b5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -80,7 +116,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">DevOps &amp; Security Learning Journey</span>
     </a>
   </div>
@@ -91,27 +127,27 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./foundations/index.html"> 
+    <a class="nav-link" href="../foundations/index.html"> 
 <span class="menu-text">Foundations</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./containers/index.html"> 
+    <a class="nav-link" href="../containers/index.html"> 
 <span class="menu-text">Containers</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./devops-practices/index.html"> 
+    <a class="nav-link" href="../devops-practices/index.html"> 
 <span class="menu-text">DevOps</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./security/index.html"> 
+    <a class="nav-link" href="../security/index.html"> 
 <span class="menu-text">Security</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./roadmap/index.html"> 
+    <a class="nav-link" href="../roadmap/index.html"> 
 <span class="menu-text">Roadmap</span></a>
   </li>  
 </ul>
@@ -122,11 +158,11 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-language">    
         <li>
-    <a class="dropdown-item" href="./es/index.html">
+    <a class="dropdown-item" href="../es/index.html">
  <span class="dropdown-text">Español</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./index.html">
+    <a class="dropdown-item" href="../index.html">
  <span class="dropdown-text">English</span></a>
   </li>  
     </ul>
@@ -152,19 +188,20 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#welcome-to-my-learning-journey" id="toc-welcome-to-my-learning-journey" class="nav-link active" data-scroll-target="#welcome-to-my-learning-journey">Welcome to My Learning Journey</a>
+  <li><a href="#htb-academy---network-enumeration" id="toc-htb-academy---network-enumeration" class="nav-link active" data-scroll-target="#htb-academy---network-enumeration">HTB Academy - Network Enumeration</a>
   <ul class="collapse">
-  <li><a href="#purpose" id="toc-purpose" class="nav-link" data-scroll-target="#purpose">🎯 Purpose</a></li>
-  <li><a href="#structure" id="toc-structure" class="nav-link" data-scroll-target="#structure">📚 Structure</a>
+  <li><a href="#scenario-full-port-scan-challenge" id="toc-scenario-full-port-scan-challenge" class="nav-link" data-scroll-target="#scenario-full-port-scan-challenge">Scenario: Full Port Scan Challenge</a></li>
+  <li><a href="#full-port-scan-vs-quick-scan" id="toc-full-port-scan-vs-quick-scan" class="nav-link" data-scroll-target="#full-port-scan-vs-quick-scan">🧠 Full Port Scan vs Quick Scan</a></li>
+  <li><a href="#implementation" id="toc-implementation" class="nav-link" data-scroll-target="#implementation">🛠️ Implementation</a>
   <ul class="collapse">
-  <li><a href="#foundations" id="toc-foundations" class="nav-link" data-scroll-target="#foundations">Foundations 🐧</a></li>
-  <li><a href="#containers" id="toc-containers" class="nav-link" data-scroll-target="#containers">Containers 🐳</a></li>
-  <li><a href="#devops-practices" id="toc-devops-practices" class="nav-link" data-scroll-target="#devops-practices">DevOps Practices ⚙️</a></li>
-  <li><a href="#security" id="toc-security" class="nav-link" data-scroll-target="#security">Security 🔒</a></li>
+  <li><a href="#step-1-verify-connectivity" id="toc-step-1-verify-connectivity" class="nav-link" data-scroll-target="#step-1-verify-connectivity">Step 1: Verify Connectivity</a></li>
+  <li><a href="#step-2-full-tcp-port-scan" id="toc-step-2-full-tcp-port-scan" class="nav-link" data-scroll-target="#step-2-full-tcp-port-scan">Step 2: Full TCP Port Scan</a></li>
+  <li><a href="#step-3-generate-html-report" id="toc-step-3-generate-html-report" class="nav-link" data-scroll-target="#step-3-generate-html-report">Step 3: Generate HTML Report</a></li>
+  <li><a href="#step-4-extract-highest-port" id="toc-step-4-extract-highest-port" class="nav-link" data-scroll-target="#step-4-extract-highest-port">Step 4: Extract Highest Port</a></li>
   </ul></li>
-  <li><a href="#progress" id="toc-progress" class="nav-link" data-scroll-target="#progress">📊 Progress</a></li>
-  <li><a href="#how-to-use-this-guide" id="toc-how-to-use-this-guide" class="nav-link" data-scroll-target="#how-to-use-this-guide">🚀 How to Use This Guide</a></li>
-  <li><a href="#navigation" id="toc-navigation" class="nav-link" data-scroll-target="#navigation">🔗 Navigation</a></li>
+  <li><a href="#verification" id="toc-verification" class="nav-link" data-scroll-target="#verification">✅ Verification</a></li>
+  <li><a href="#key-learnings" id="toc-key-learnings" class="nav-link" data-scroll-target="#key-learnings">🎯 Key Learnings</a></li>
+  <li><a href="#status" id="toc-status" class="nav-link" data-scroll-target="#status">✅ Status</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -174,10 +211,20 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">DevOps &amp; Security Learning Journey</h1>
-<p class="subtitle lead">From Linux fundamentals to HTB Academy</p>
-</div>
+<h1 class="title">HTB Academy - Network Enumeration</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">security</div>
+    <div class="quarto-category">htb</div>
+    <div class="quarto-category">nmap</div>
+    <div class="quarto-category">enumeration</div>
+  </div>
+  </div>
 
+<div>
+  <div class="description">
+    Complete TCP port scanning with Nmap and HTML report generation
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
@@ -198,87 +245,108 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="welcome-to-my-learning-journey" class="level1">
-<h1>Welcome to My Learning Journey</h1>
-<p>This website documents my path through <strong>Linux system administration</strong>, <strong>Docker containerization</strong>, <strong>DevOps practices</strong>, and <strong>Cybersecurity/CTF challenges</strong>.</p>
-<section id="purpose" class="level2">
-<h2 class="anchored" data-anchor-id="purpose">🎯 Purpose</h2>
-<p>This journey serves two purposes:</p>
-<ol type="1">
-<li><strong>Personal Progress Tracking</strong> - A visual record of what I’ve learned and completed</li>
-<li><strong>Learning Guide for Others</strong> - A structured path that others can follow to build similar skills</li>
-</ol>
+<section id="htb-academy---network-enumeration" class="level1">
+<h1>HTB Academy - Network Enumeration</h1>
+<section id="scenario-full-port-scan-challenge" class="level2">
+<h2 class="anchored" data-anchor-id="scenario-full-port-scan-challenge">Scenario: Full Port Scan Challenge</h2>
+<p><strong>Platform</strong>: Hack The Box Academy<br>
+<strong>Module</strong>: Network Enumeration with Nmap<br>
+<strong>Target</strong>: 10.129.4.45<br>
+<strong>Task</strong>: Perform full TCP port scan and identify the highest port</p>
+<hr>
 </section>
-<section id="structure" class="level2">
-<h2 class="anchored" data-anchor-id="structure">📚 Structure</h2>
-<p>The learning journey is organized into four main areas:</p>
-<section id="foundations" class="level3">
-<h3 class="anchored" data-anchor-id="foundations"><a href="./foundations/index.html">Foundations</a> 🐧</h3>
-<p>Linux system administration fundamentals: - User and group management - Permissions and access control - Scripting and automation - Networking basics</p>
-</section>
-<section id="containers" class="level3">
-<h3 class="anchored" data-anchor-id="containers"><a href="./containers/index.html">Containers</a> 🐳</h3>
-<p>Docker and containerization: - Container fundamentals - Volume and network management - Deployment and troubleshooting</p>
-</section>
-<section id="devops-practices" class="level3">
-<h3 class="anchored" data-anchor-id="devops-practices"><a href="./devops-practices.html">DevOps Practices</a> ⚙️</h3>
-<p>DevOps tools and methodologies: - Configuration management with Ansible - Automation with Cron - Database services (MariaDB)</p>
-</section>
-<section id="security" class="level3">
-<h3 class="anchored" data-anchor-id="security"><a href="./security/index.html">Security</a> 🔒</h3>
-<p>Cybersecurity fundamentals: - CTF challenges and forensics - Web security basics - HTB Academy modules</p>
-</section>
-</section>
-<section id="progress" class="level2">
-<h2 class="anchored" data-anchor-id="progress">📊 Progress</h2>
+<section id="full-port-scan-vs-quick-scan" class="level2">
+<h2 class="anchored" data-anchor-id="full-port-scan-vs-quick-scan">🧠 Full Port Scan vs Quick Scan</h2>
+<p>Quick scans only check the 1000 most common ports, missing: - Administrative ports (2222, 9000, 10000) - Internal services (3306, 5432, 6379) - Backdoors and custom services (31337, 4444, 1337)</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
-<th>Area</th>
-<th>Challenges</th>
-<th>Status</th>
+<th>Option</th>
+<th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Foundations</td>
-<td>9</td>
-<td>🟢 In Progress</td>
+<td><code>-p-</code></td>
+<td>All TCP ports (1-65535)</td>
 </tr>
 <tr class="even">
-<td>Containers</td>
-<td>6</td>
-<td>🟢 In Progress</td>
+<td><code>-Pn</code></td>
+<td>No ping (skip host detection)</td>
 </tr>
 <tr class="odd">
-<td>DevOps</td>
-<td>8</td>
-<td>🟢 In Progress</td>
+<td><code>-T5</code></td>
+<td>Aggressive timing</td>
 </tr>
 <tr class="even">
-<td>Security</td>
-<td>3</td>
-<td>🟢 In Progress</td>
+<td><code>-oX</code></td>
+<td>XML output</td>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="how-to-use-this-guide" class="level2">
-<h2 class="anchored" data-anchor-id="how-to-use-this-guide">🚀 How to Use This Guide</h2>
-<p>Each chapter includes:</p>
-<ul>
-<li><strong>Scenario</strong>: Real-world context for the challenge</li>
-<li><strong>Step-by-step Solution</strong>: Commands and explanations</li>
-<li><strong>Verification</strong>: How to confirm success</li>
-<li><strong>Key Learnings</strong>: What skills were developed</li>
-<li><strong>Next Steps</strong>: Where to go from here</li>
-</ul>
-</section>
-<section id="navigation" class="level2">
-<h2 class="anchored" data-anchor-id="navigation">🔗 Navigation</h2>
-<p>Use the sidebar to navigate between sections, or click on the section links above.</p>
 <hr>
-<p><em>This journey is continuously updated as new challenges are completed.</em></p>
+</section>
+<section id="implementation" class="level2">
+<h2 class="anchored" data-anchor-id="implementation">🛠️ Implementation</h2>
+<section id="step-1-verify-connectivity" class="level3">
+<h3 class="anchored" data-anchor-id="step-1-verify-connectivity">Step 1: Verify Connectivity</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ping</span> <span class="at">-c</span> 3 10.129.4.45</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Result: 0% packet loss - host is up!</p>
+</section>
+<section id="step-2-full-tcp-port-scan" class="level3">
+<h3 class="anchored" data-anchor-id="step-2-full-tcp-port-scan">Step 2: Full TCP Port Scan</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> nmap <span class="at">-p-</span> <span class="at">-Pn</span> <span class="at">-T5</span> <span class="at">-oX</span> scan.xml 10.129.4.45</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Results:</strong></p>
+<pre><code>PORT      STATE SERVICE
+22/tcp    open  ssh
+80/tcp    open  http
+110/tcp   open  pop3
+139/tcp   open  netbios-ssn
+143/tcp   open  imap
+445/tcp   open  microsoft-ds
+31337/tcp open  Elite</code></pre>
+</section>
+<section id="step-3-generate-html-report" class="level3">
+<h3 class="anchored" data-anchor-id="step-3-generate-html-report">Step 3: Generate HTML Report</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">xsltproc</span> scan.xml <span class="at">-o</span> scan.html</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="step-4-extract-highest-port" class="level3">
+<h3 class="anchored" data-anchor-id="step-4-extract-highest-port">Step 4: Extract Highest Port</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-oP</span> <span class="st">'portid="\K[0-9]+'</span> scan.xml <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-n</span> <span class="kw">|</span> <span class="fu">tail</span> <span class="at">-1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Answer: 31337</strong></p>
+<hr>
+</section>
+</section>
+<section id="verification" class="level2">
+<h2 class="anchored" data-anchor-id="verification">✅ Verification</h2>
+<ul class="task-list">
+<li><label><input type="checkbox">Full TCP scan completed (<code>-p-</code>)</label></li>
+<li><label><input type="checkbox">All 7 ports identified</label></li>
+<li><label><input type="checkbox">Highest port found: 31337</label></li>
+<li><label><input type="checkbox">HTML report generated</label></li>
+</ul>
+<hr>
+</section>
+<section id="key-learnings" class="level2">
+<h2 class="anchored" data-anchor-id="key-learnings">🎯 Key Learnings</h2>
+<ul>
+<li>Complete port scanning methodology</li>
+<li>XML output processing</li>
+<li>HTML report generation with xsltproc</li>
+<li>Port enumeration best practices</li>
+</ul>
+<hr>
+</section>
+<section id="status" class="level2">
+<h2 class="anchored" data-anchor-id="status">✅ Status</h2>
+<p><strong>COMPLETED</strong> 🎉</p>
+<ul>
+<li>Date: 2026-02-19</li>
+<li>Answer Submitted: 31337</li>
+<li>Platform: HTB Academy</li>
+</ul>
+<hr>
+<p><em><a href="../security/index.html">← Back to Security</a></em></p>
 
 
 </section>

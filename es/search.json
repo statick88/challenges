@@ -1,0 +1,233 @@
+[
+  {
+    "objectID": "containers/index.html",
+    "href": "containers/index.html",
+    "title": "Contenedores",
+    "section": "",
+    "text": "Esta sección cubre Docker y contenerización - habilidades esenciales para ingenieros DevOps modernos.\n\n\n\n\n\nInstalación de Docker - Instalando Docker\nDespliegue de Nginx - Despliegue de contenedores web\nGestión de Contenedores - Gestionando contenedores\nGestión de Volúmenes - Trabajando con volúmenes\nTroubleshooting - Depurando problemas de contenedores\n\n\n\n\n\n\nFundamentos de contenedores\nGestión de imágenes\nConfiguración de volúmenes y redes\nTroubleshooting de contenedores\n\n\nUsa la barra lateral para navegar a capítulos específicos."
+  },
+  {
+    "objectID": "containers/index.html#capítulos",
+    "href": "containers/index.html#capítulos",
+    "title": "Contenedores",
+    "section": "",
+    "text": "Instalación de Docker - Instalando Docker\nDespliegue de Nginx - Despliegue de contenedores web\nGestión de Contenedores - Gestionando contenedores\nGestión de Volúmenes - Trabajando con volúmenes\nTroubleshooting - Depurando problemas de contenedores"
+  },
+  {
+    "objectID": "containers/index.html#habilidades-desarrolladas",
+    "href": "containers/index.html#habilidades-desarrolladas",
+    "title": "Contenedores",
+    "section": "",
+    "text": "Fundamentos de contenedores\nGestión de imágenes\nConfiguración de volúmenes y redes\nTroubleshooting de contenedores\n\n\nUsa la barra lateral para navegar a capítulos específicos."
+  },
+  {
+    "objectID": "foundations/01-user-creation.html",
+    "href": "foundations/01-user-creation.html",
+    "title": "Creación de Usuario con UID Personalizado",
+    "section": "",
+    "text": "Acabas de comenzar como Administrador de Sistemas Junior en xFusionCorp Industries. En tu primer día, el Lead SysAdmin te asigna una tarea:\n\n“El equipo de desarrollo web necesita un usuario llamado javed para desplegar su aplicación en el servidor stapp02. Necesitan UID 1467 y el directorio home debe estar en /var/www/javed. El desarrollador líder está esperando. ¿Puedes hacerlo?”\n\n\n\n\n\nAntes de crear usuarios, debes entender cómo Linux los gestiona internamente.\n\n\nCada usuario en Linux está definido por una línea en /etc/passwd:\nusername:password:UID:GID:comment:home_directory:shell\nEjemplo:\njaved:x:1467:1467::/var/www/javed:/bin/bash\n\nInsight Clave: El UID es el verdadero identificador del usuario. Linux no dice “el usuario javed accedió”; dice “el UID 1467 accedió”. Los nombres son solo etiquetas humanas.\n\n\n\n\nEn organizaciones grandes, los UIDs se asignan por rangos:\n\n0-99: Usuarios del sistema (root, bin, daemon)\n100-999: Cuentas de servicios (nginx, mysql, docker)\n1000+: Usuarios humanos regulares\n10000+: Aplicaciones específicas\n\n\n\n\n\n\n\n\n# Conectar vía SSH\nssh steve@172.16.238.11\n\n# Escalar a root\nsudo su -\n\n\n\nSiempre verifica el estado actual antes de hacer cambios:\n# Verificar si el usuario ya existe\nid javed\n\n# Verificar si el UID 1467 ya está en uso\ngrep \"1467\" /etc/passwd\n\n# Verificar que /var/www/ existe\nls -ld /var/www/\n\n\n\nuseradd -u 1467 -d /var/www/javed -m javed\nDesglose del comando:\n\n\n\n\n\n\n\n\nOpción\nSignificado\nPor Qué lo Usamos\n\n\n\n\n-u 1467\nEspecificar UID\nRequerimiento del equipo de desarrollo\n\n\n-d /var/www/javed\nHome personalizado\nEstándar para aplicaciones web\n\n\n-m\nCrear directorio home\nEl usuario necesita un espacio de trabajo\n\n\njaved\nNombre de usuario\nIdentificador humano\n\n\n\n\n\n\npasswd javed\n\nMejor Práctica de Seguridad: En producción, configura autenticación por clave SSH y deshabilita el login por contraseña: passwd -l javed\n\n\n\n\n```bash# Verificar que el usuario existe con el UID correcto id javed # Esperado: uid=1467(javed) gid=1467(javed) groups=1467(javed)# Verificar el directorio home ls -la /var/www/javed"
+  },
+  {
+    "objectID": "foundations/01-user-creation.html#escenario-primer-día-en-xfusioncorp",
+    "href": "foundations/01-user-creation.html#escenario-primer-día-en-xfusioncorp",
+    "title": "Creación de Usuario con UID Personalizado",
+    "section": "",
+    "text": "Acabas de comenzar como Administrador de Sistemas Junior en xFusionCorp Industries. En tu primer día, el Lead SysAdmin te asigna una tarea:\n\n“El equipo de desarrollo web necesita un usuario llamado javed para desplegar su aplicación en el servidor stapp02. Necesitan UID 1467 y el directorio home debe estar en /var/www/javed. El desarrollador líder está esperando. ¿Puedes hacerlo?”"
+  },
+  {
+    "objectID": "foundations/01-user-creation.html#entendiendo-la-arquitectura",
+    "href": "foundations/01-user-creation.html#entendiendo-la-arquitectura",
+    "title": "Creación de Usuario con UID Personalizado",
+    "section": "",
+    "text": "Antes de crear usuarios, debes entender cómo Linux los gestiona internamente.\n\n\nCada usuario en Linux está definido por una línea en /etc/passwd:\nusername:password:UID:GID:comment:home_directory:shell\nEjemplo:\njaved:x:1467:1467::/var/www/javed:/bin/bash\n\nInsight Clave: El UID es el verdadero identificador del usuario. Linux no dice “el usuario javed accedió”; dice “el UID 1467 accedió”. Los nombres son solo etiquetas humanas.\n\n\n\n\nEn organizaciones grandes, los UIDs se asignan por rangos:\n\n0-99: Usuarios del sistema (root, bin, daemon)\n100-999: Cuentas de servicios (nginx, mysql, docker)\n1000+: Usuarios humanos regulares\n10000+: Aplicaciones específicas"
+  },
+  {
+    "objectID": "foundations/01-user-creation.html#implementación",
+    "href": "foundations/01-user-creation.html#implementación",
+    "title": "Creación de Usuario con UID Personalizado",
+    "section": "",
+    "text": "# Conectar vía SSH\nssh steve@172.16.238.11\n\n# Escalar a root\nsudo su -\n\n\n\nSiempre verifica el estado actual antes de hacer cambios:\n# Verificar si el usuario ya existe\nid javed\n\n# Verificar si el UID 1467 ya está en uso\ngrep \"1467\" /etc/passwd\n\n# Verificar que /var/www/ existe\nls -ld /var/www/\n\n\n\nuseradd -u 1467 -d /var/www/javed -m javed\nDesglose del comando:\n\n\n\n\n\n\n\n\nOpción\nSignificado\nPor Qué lo Usamos\n\n\n\n\n-u 1467\nEspecificar UID\nRequerimiento del equipo de desarrollo\n\n\n-d /var/www/javed\nHome personalizado\nEstándar para aplicaciones web\n\n\n-m\nCrear directorio home\nEl usuario necesita un espacio de trabajo\n\n\njaved\nNombre de usuario\nIdentificador humano\n\n\n\n\n\n\npasswd javed\n\nMejor Práctica de Seguridad: En producción, configura autenticación por clave SSH y deshabilita el login por contraseña: passwd -l javed\n\n\n\n\n```bash# Verificar que el usuario existe con el UID correcto id javed # Esperado: uid=1467(javed) gid=1467(javed) groups=1467(javed)# Verificar el directorio home ls -la /var/www/javed"
+  },
+  {
+    "objectID": "foundations/01-user-creation.html#recursos",
+    "href": "foundations/01-user-creation.html#recursos",
+    "title": "Creación de Usuario con UID Personalizado",
+    "section": "📚 Recursos",
+    "text": "📚 Recursos\n\nman useradd - Documentación completa del comando\nman usermod - Modificación de usuarios\n/etc/passwd format - Entendiendo los 7 campos"
+  },
+  {
+    "objectID": "foundations/01-user-creation.html#estado",
+    "href": "foundations/01-user-creation.html#estado",
+    "title": "Creación de Usuario con UID Personalizado",
+    "section": "✅ Estado",
+    "text": "✅ Estado\nCOMPLETADO 🎉\n\nFecha: 2026-01-25\nTiempo: 10-15 minutos\nNivel: Fundamentos de Administración Linux\nHabilidades: Gestión de Usuarios, SSH, Verificación\n\n\n← Volver a Fundamentos"
+  },
+  {
+    "objectID": "roadmap/index.html",
+    "href": "roadmap/index.html",
+    "title": "Hoja de Ruta",
+    "section": "",
+    "text": "Fundamentos Linux: En Progreso (10 capítulos)\nContenerización: En Progreso (6 capítulos)\nPrácticas DevOps: En Progreso (8 capítulos)\nSeguridad: Comenzando (4 capítulos)\n\n\n\n\n\n\n\n\nCompletar Fundamentos Linux\n\nConfiguración SELinux\nGestión de firewall (iptables/firewalld)\nLímites de procesos y tuning\n\nAvanzar Habilidades Docker\n\nDocker Compose\nAplicaciones multi-contenedor\nSeguridad de contenedores\n\nProgreso en HTB Academy\n\nCompletar módulo de Enumeración de Red\nIniciar módulo de Inyección SQL\nComenzar Escalamiento de Privilegios Linux\n\n\n\n\n\n\nIntroducción a Kubernetes\n\nComandos básicos de kubectl\nGestión de Pods\nConfigMaps y Secrets\n\nPipelines CI/CD\n\nGitHub Actions\nFundamentos de Jenkins\nAutomatización de pipelines\n\nSeguridad Avanzada\n\nExplotación de buffer overflow\nFundamentos de ingeniería inversa\nTécnicas de escalamiento de privilegios\n\n\n\n\n\n\n\n\n\n\nCategoría\nNivel Objetivo\n\n\n\n\nAdministración Linux\nAvanzado\n\n\nDocker/Kubernetes\nIntermedio\n\n\nAnsible\nIntermedio\n\n\nSeguridad de Redes\nIntermedio\n\n\nPentesting\nBásico\n\n\nForense\nBásico\n\n\n\n\n\n\n\n\nHTB Academy\nDocumentación Docker\nDocumentación Ansible\nLinux Journey\n\n\n\n\n\nEste journey de aprendizaje está documentado para cualquiera que quiera seguir un camino similar. Si tienes sugerencias o quieres contribuir, no dudes en abrir un pull request en GitHub.\n\nÚltima actualización: 2026-02-19"
+  },
+  {
+    "objectID": "roadmap/index.html#posición-actual",
+    "href": "roadmap/index.html#posición-actual",
+    "title": "Hoja de Ruta",
+    "section": "",
+    "text": "Fundamentos Linux: En Progreso (10 capítulos)\nContenerización: En Progreso (6 capítulos)\nPrácticas DevOps: En Progreso (8 capítulos)\nSeguridad: Comenzando (4 capítulos)"
+  },
+  {
+    "objectID": "roadmap/index.html#próximos-pasos",
+    "href": "roadmap/index.html#próximos-pasos",
+    "title": "Hoja de Ruta",
+    "section": "",
+    "text": "Completar Fundamentos Linux\n\nConfiguración SELinux\nGestión de firewall (iptables/firewalld)\nLímites de procesos y tuning\n\nAvanzar Habilidades Docker\n\nDocker Compose\nAplicaciones multi-contenedor\nSeguridad de contenedores\n\nProgreso en HTB Academy\n\nCompletar módulo de Enumeración de Red\nIniciar módulo de Inyección SQL\nComenzar Escalamiento de Privilegios Linux\n\n\n\n\n\n\nIntroducción a Kubernetes\n\nComandos básicos de kubectl\nGestión de Pods\nConfigMaps y Secrets\n\nPipelines CI/CD\n\nGitHub Actions\nFundamentos de Jenkins\nAutomatización de pipelines\n\nSeguridad Avanzada\n\nExplotación de buffer overflow\nFundamentos de ingeniería inversa\nTécnicas de escalamiento de privilegios"
+  },
+  {
+    "objectID": "roadmap/index.html#habilidades-por-adquirir",
+    "href": "roadmap/index.html#habilidades-por-adquirir",
+    "title": "Hoja de Ruta",
+    "section": "",
+    "text": "Categoría\nNivel Objetivo\n\n\n\n\nAdministración Linux\nAvanzado\n\n\nDocker/Kubernetes\nIntermedio\n\n\nAnsible\nIntermedio\n\n\nSeguridad de Redes\nIntermedio\n\n\nPentesting\nBásico\n\n\nForense\nBásico"
+  },
+  {
+    "objectID": "roadmap/index.html#recursos",
+    "href": "roadmap/index.html#recursos",
+    "title": "Hoja de Ruta",
+    "section": "",
+    "text": "HTB Academy\nDocumentación Docker\nDocumentación Ansible\nLinux Journey"
+  },
+  {
+    "objectID": "roadmap/index.html#contribuyendo",
+    "href": "roadmap/index.html#contribuyendo",
+    "title": "Hoja de Ruta",
+    "section": "",
+    "text": "Este journey de aprendizaje está documentado para cualquiera que quiera seguir un camino similar. Si tienes sugerencias o quieres contribuir, no dudes en abrir un pull request en GitHub.\n\nÚltima actualización: 2026-02-19"
+  },
+  {
+    "objectID": "devops-practices/index.html",
+    "href": "devops-practices/index.html",
+    "title": "Prácticas DevOps",
+    "section": "",
+    "text": "Esta sección cubre herramientas y metodologías DevOps - gestión de configuración, automatización e infraestructura.\n\n\n\n\n\nFundamentos de Ansible - Primeros pasos con Ansible\n\n\n\n\n\nDespliegue de Jobs Cron - Automatización de tareas programadas\n\n\n\n\n\nTroubleshooting de MariaDB - Arreglar servicios de base de datos\n\n\n\n\n\n\nGestión de configuración con Ansible\nAutomatización con Cron\nGestión de servicios de bases de datos\nTroubleshooting de problemas de producción\n\n\nUsa la barra lateral para navegar a capítulos específicos."
+  },
+  {
+    "objectID": "devops-practices/index.html#capítulos",
+    "href": "devops-practices/index.html#capítulos",
+    "title": "Prácticas DevOps",
+    "section": "",
+    "text": "Fundamentos de Ansible - Primeros pasos con Ansible\n\n\n\n\n\nDespliegue de Jobs Cron - Automatización de tareas programadas\n\n\n\n\n\nTroubleshooting de MariaDB - Arreglar servicios de base de datos"
+  },
+  {
+    "objectID": "devops-practices/index.html#habilidades-desarrolladas",
+    "href": "devops-practices/index.html#habilidades-desarrolladas",
+    "title": "Prácticas DevOps",
+    "section": "",
+    "text": "Gestión de configuración con Ansible\nAutomatización con Cron\nGestión de servicios de bases de datos\nTroubleshooting de problemas de producción\n\n\nUsa la barra lateral para navegar a capítulos específicos."
+  },
+  {
+    "objectID": "security/index.html",
+    "href": "security/index.html",
+    "title": "Seguridad",
+    "section": "",
+    "text": "Esta sección cubre fundamentos de ciberseguridad - desde desafíos CTF hasta módulos de HTB Academy.\n\n\n\n\n\nIntroducción a CTF - Primeros pasos con Capture The Flag\n\n\n\n\n\nFundamentos de Forense - Fundamentos de forense digital\n\n\n\n\n\nFundamentos de Seguridad Web - Fundamentos de vulnerabilidades web\n\n\n\n\n\nCamino HTB Academy - Módulos de Hack The Box Academy\n\n\n\n\n\n\n\n\nDesafío\nRespuesta\nFecha\n\n\n\n\nNmap Default\nHTB{pr0F7pDv3r510nb4nn3r}\n2026-02-11\n\n\nCaesar Cipher\nResuelto\n2026-02-16\n\n\nNmap Full Scan\n31337\n2026-02-19\n\n\n\n\n\n\n\nResolución de problemas CTF\nForense digital\nFundamentos de seguridad web\nEnumeración de redes\n\n\nUsa la barra lateral para navegar a capítulos específicos."
+  },
+  {
+    "objectID": "security/index.html#capítulos",
+    "href": "security/index.html#capítulos",
+    "title": "Seguridad",
+    "section": "",
+    "text": "Introducción a CTF - Primeros pasos con Capture The Flag\n\n\n\n\n\nFundamentos de Forense - Fundamentos de forense digital\n\n\n\n\n\nFundamentos de Seguridad Web - Fundamentos de vulnerabilidades web\n\n\n\n\n\nCamino HTB Academy - Módulos de Hack The Box Academy"
+  },
+  {
+    "objectID": "security/index.html#desafíos-htb-completados",
+    "href": "security/index.html#desafíos-htb-completados",
+    "title": "Seguridad",
+    "section": "",
+    "text": "Desafío\nRespuesta\nFecha\n\n\n\n\nNmap Default\nHTB{pr0F7pDv3r510nb4nn3r}\n2026-02-11\n\n\nCaesar Cipher\nResuelto\n2026-02-16\n\n\nNmap Full Scan\n31337\n2026-02-19"
+  },
+  {
+    "objectID": "security/index.html#habilidades-desarrolladas",
+    "href": "security/index.html#habilidades-desarrolladas",
+    "title": "Seguridad",
+    "section": "",
+    "text": "Resolución de problemas CTF\nForense digital\nFundamentos de seguridad web\nEnumeración de redes\n\n\nUsa la barra lateral para navegar a capítulos específicos."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Journey de Aprendizaje DevOps & Security",
+    "section": "",
+    "text": "Este sitio documenta mi camino a través de administración de sistemas Linux, contenedores Docker, prácticas DevOps, y desafíos de ciberseguridad/CTF.\n\n\nEste journey sirve dos propósitos:\n\nSeguimiento de Progreso Personal - Un registro visual de lo que he aprendido y completado\nGuía de Aprendizaje para Otros - Un camino estructurado que otros pueden seguir para construir habilidades similares\n\n\n\n\nEl journey de aprendizaje está organizado en cuatro áreas principales:\n\n\nFundamentos de administración de sistemas Linux: - Gestión de usuarios y grupos - Permisos y control de acceso - Scripting y automatización - Fundamentos de networking\n\n\n\nDocker y contenerización: - Fundamentos de contenedores - Gestión de volúmenes y redes - Despliegue y troubleshooting\n\n\n\nHerramientas y metodologías DevOps: - Gestión de configuración con Ansible - Automatización con Cron - Servicios de bases de datos (MariaDB)\n\n\n\nFundamentos de ciberseguridad: - Desafíos CTF y forense - Fundamentos de seguridad web - Módulos de HTB Academy\n\n\n\n\n\n\n\nÁrea\nDesafíos\nEstado\n\n\n\n\nFundamentos\n9\n🟢 En Progreso\n\n\nContenedores\n6\n🟢 En Progreso\n\n\nDevOps\n8\n🟢 En Progreso\n\n\nSeguridad\n3\n🟢 En Progreso\n\n\n\n\n\n\nCada capítulo incluye:\n\nEscenario: Contexto real para el desafío\nSolución Paso a Paso: Comandos y explicaciones\nVerificación: Cómo confirmar el éxito\nAprendizajes Clave: Qué habilidades se desarrollaron\nPróximos Pasos: Dónde ir desde aquí\n\n\n\n\nUsa la barra lateral para navegar entre secciones, o haz clic en los enlaces de sección anteriores.\n\nEste journey se actualiza continuamente a medida que se completan nuevos desafíos."
+  },
+  {
+    "objectID": "index.html#propósito",
+    "href": "index.html#propósito",
+    "title": "Journey de Aprendizaje DevOps & Security",
+    "section": "",
+    "text": "Este journey sirve dos propósitos:\n\nSeguimiento de Progreso Personal - Un registro visual de lo que he aprendido y completado\nGuía de Aprendizaje para Otros - Un camino estructurado que otros pueden seguir para construir habilidades similares"
+  },
+  {
+    "objectID": "index.html#estructura",
+    "href": "index.html#estructura",
+    "title": "Journey de Aprendizaje DevOps & Security",
+    "section": "",
+    "text": "El journey de aprendizaje está organizado en cuatro áreas principales:\n\n\nFundamentos de administración de sistemas Linux: - Gestión de usuarios y grupos - Permisos y control de acceso - Scripting y automatización - Fundamentos de networking\n\n\n\nDocker y contenerización: - Fundamentos de contenedores - Gestión de volúmenes y redes - Despliegue y troubleshooting\n\n\n\nHerramientas y metodologías DevOps: - Gestión de configuración con Ansible - Automatización con Cron - Servicios de bases de datos (MariaDB)\n\n\n\nFundamentos de ciberseguridad: - Desafíos CTF y forense - Fundamentos de seguridad web - Módulos de HTB Academy"
+  },
+  {
+    "objectID": "index.html#progreso",
+    "href": "index.html#progreso",
+    "title": "Journey de Aprendizaje DevOps & Security",
+    "section": "",
+    "text": "Área\nDesafíos\nEstado\n\n\n\n\nFundamentos\n9\n🟢 En Progreso\n\n\nContenedores\n6\n🟢 En Progreso\n\n\nDevOps\n8\n🟢 En Progreso\n\n\nSeguridad\n3\n🟢 En Progreso"
+  },
+  {
+    "objectID": "index.html#cómo-usar-esta-guía",
+    "href": "index.html#cómo-usar-esta-guía",
+    "title": "Journey de Aprendizaje DevOps & Security",
+    "section": "",
+    "text": "Cada capítulo incluye:\n\nEscenario: Contexto real para el desafío\nSolución Paso a Paso: Comandos y explicaciones\nVerificación: Cómo confirmar el éxito\nAprendizajes Clave: Qué habilidades se desarrollaron\nPróximos Pasos: Dónde ir desde aquí"
+  },
+  {
+    "objectID": "index.html#navegación",
+    "href": "index.html#navegación",
+    "title": "Journey de Aprendizaje DevOps & Security",
+    "section": "",
+    "text": "Usa la barra lateral para navegar entre secciones, o haz clic en los enlaces de sección anteriores.\n\nEste journey se actualiza continuamente a medida que se completan nuevos desafíos."
+  },
+  {
+    "objectID": "foundations/index.html",
+    "href": "foundations/index.html",
+    "title": "Fundamentos Linux",
+    "section": "",
+    "text": "Esta sección cubre fundamentos de administración de sistemas Linux - las habilidades esenciales que todo ingeniero DevOps y profesional de seguridad necesita dominar.\n\n\n\n\n\nCertificado de Finalización del Curso Kodekloud\n\n\n\n\n\n\n\n\nCreación de Usuarios con UID Personalizado - Crear usuarios con UIDs específicos y directorios home personalizados\nGestión de Grupos - Gestionar grupos y membresías\n\n\n\n\n\nUsuarios Temporales - Usuarios con fechas de expiración\nTransferencia de Datos - Migración segura de datos entre usuarios\n\n\n\n\n\nAcceso SSH Root - Asegurar acceso SSH\nScripts de Backup - Procedimientos de backup automatizados\nPermisos de Archivos - Gestión correcta de permisos\n\n\n\n\n\nFiltrado de Archivos de Usuario - Operaciones avanzadas de archivos con filtrado de usuario\n\n\n\n\n\n\nAdministración de usuarios y grupos\nGestión de permisos\nSeguridad SSH\nAutomatización de backups\nConfiguración de cuentas de servicio\n\n\n\n\n\nConfiguración de red\nReglas de firewall (iptables/firewalld)\nGestión SELinux\nLímites de procesos y tuning\n\n\nUsa la barra lateral para navegar a capítulos específicos."
+  },
+  {
+    "objectID": "foundations/index.html#certificación",
+    "href": "foundations/index.html#certificación",
+    "title": "Fundamentos Linux",
+    "section": "",
+    "text": "Certificado de Finalización del Curso Kodekloud"
+  },
+  {
+    "objectID": "foundations/index.html#capítulos",
+    "href": "foundations/index.html#capítulos",
+    "title": "Fundamentos Linux",
+    "section": "",
+    "text": "Creación de Usuarios con UID Personalizado - Crear usuarios con UIDs específicos y directorios home personalizados\nGestión de Grupos - Gestionar grupos y membresías\n\n\n\n\n\nUsuarios Temporales - Usuarios con fechas de expiración\nTransferencia de Datos - Migración segura de datos entre usuarios\n\n\n\n\n\nAcceso SSH Root - Asegurar acceso SSH\nScripts de Backup - Procedimientos de backup automatizados\nPermisos de Archivos - Gestión correcta de permisos\n\n\n\n\n\nFiltrado de Archivos de Usuario - Operaciones avanzadas de archivos con filtrado de usuario"
+  },
+  {
+    "objectID": "foundations/index.html#habilidades-desarrolladas",
+    "href": "foundations/index.html#habilidades-desarrolladas",
+    "title": "Fundamentos Linux",
+    "section": "",
+    "text": "Administración de usuarios y grupos\nGestión de permisos\nSeguridad SSH\nAutomatización de backups\nConfiguración de cuentas de servicio"
+  },
+  {
+    "objectID": "foundations/index.html#próximamente",
+    "href": "foundations/index.html#próximamente",
+    "title": "Fundamentos Linux",
+    "section": "",
+    "text": "Configuración de red\nReglas de firewall (iptables/firewalld)\nGestión SELinux\nLímites de procesos y tuning\n\n\nUsa la barra lateral para navegar a capítulos específicos."
+  }
+]
