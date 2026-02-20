@@ -1,0 +1,251 @@
+---
+title: "User Management - Linux Fundamentals"
+author: "statick88"
+date: 2026-02-20
+categories: [linux, htb, security]
+format:
+  html:
+    toc: true
+    toc-depth: 3
+---
+
+## Objetivo
+
+Dominar la gestión de usuarios en Linux: crear, modificar y eliminar cuentas, gestionar grupos, y ejecutar comandos con diferentes privilegios.
+
+## Introducción
+
+La gestión de usuarios es fundamental para la administración de sistemas Linux. Cada usuario tiene un UID único, pertenece a grupos, y tiene permisos específicos sobre archivos y directorios.
+
+## Escenario
+
+Eres administrador de sistemas y necesitas:
+1. Crear cuentas para nuevos empleados
+2. Gestionar permisos y grupos
+3. Bloquear cuentas cuando sea necesario
+4. Ejecutar comandos con privilegios elevados
+
+## Ejercicios Prácticos
+
+### Ejercicio 1: Crear Home Directory
+
+**Pregunta:** Which option needs to be set to create a home directory for a new user using "useradd" command?
+
+```bash
+useradd --help | grep -i home
+```
+
+**Resultado:**
+```
+  -m, --create-home             create the user's home directory
+```
+
+**Respuesta:** `-m`
+
+**Explicación:**
+
+Por defecto, `useradd` crea el usuario pero NO el directorio home. La opción `-m` (o `--create-home`) crea automáticamente `/home/username`.
+
+### Ejercicio 2: Lock User Account
+
+**Pregunta:** Which option needs to be set to lock a user account using the "usermod" command?
+
+```bash
+usermod --help | grep -i lock
+```
+
+**Resultado:**
+```
+  -L, --lock                    lock the user account
+  -U, --unlock                  unlock the user account
+```
+
+**Respuesta:** `--lock`
+
+**Explicación:**
+
+`--lock` bloquea la cuenta añadiendo un `!` al inicio del hash de contraseña en `/etc/shadow`. El usuario no puede autenticarse pero la cuenta sigue existiendo.
+
+### Ejercicio 3: Execute Command as Different User
+
+**Pregunta:** Which option needs to be set to execute a command as a different user using the "su" command?
+
+```bash
+su --help | grep -i command
+```
+
+**Resultado:**
+```
+  -c, --command COMMAND         pass a single COMMAND to the shell with -c
+```
+
+**Respuesta:** `--command`
+
+**Explicación:**
+
+`--command` permite ejecutar un único comando como otro usuario sin abrir una shell interactiva.
+
+## Conceptos Teóricos
+
+### Comandos de Gestión de Usuarios
+
+| Comando | Propósito |
+|---------|-----------|
+| `useradd` | Crear usuario |
+| `userdel` | Eliminar usuario |
+| `usermod` | Modificar usuario |
+| `passwd` | Cambiar contraseña |
+| `groupadd` | Crear grupo |
+| `groupdel` | Eliminar grupo |
+| `groupmod` | Modificar grupo |
+| `su` | Cambiar usuario |
+| `sudo` | Ejecutar como superuser |
+
+### Opciones de useradd
+
+```bash
+useradd -m -s /bin/bash -G sudo,docker usuario
+```
+
+| Opción | Significado |
+|--------|-------------|
+| `-m` | Crear home directory |
+| `-d /ruta` | Directorio home específico |
+| `-s /bin/bash` | Shell por defecto |
+| `-G grupo1,grupo2` | Grupos secundarios |
+| `-g grupo` | Grupo principal |
+| `-u 1001` | UID específico |
+| `-c "Comentario"` | GECOS field |
+
+### Opciones de usermod
+
+```bash
+usermod -aG docker usuario    # Añadir a grupo
+usermod --lock usuario         # Bloquear
+usermod -l nuevo viejo         # Renombrar
+usermod -s /bin/zsh usuario    # Cambiar shell
+```
+
+### Opciones de su
+
+```bash
+su -                    # Cambiar a root con entorno completo
+su - usuario            # Cambiar a usuario específico
+su -c "comando" root    # Ejecutar comando como root
+```
+
+## Archivos del Sistema
+
+### /etc/passwd
+
+```
+username:x:uid:gid:GECOS:home:shell
+```
+
+| Campo | Contenido |
+|-------|-----------|
+| 1 | Username |
+| 2 | x (password en shadow) |
+| 3 | UID |
+| 4 | GID |
+| 5 | GECOS (comentarios) |
+| 6 | Directorio home |
+| 7 | Shell |
+
+### /etc/shadow
+
+```
+username:$6$hash:ultima_cambio:min:max:warn:inactive:expire:
+```
+
+Solo root puede leer este archivo. Contiene los hashes de contraseñas.
+
+### /etc/group
+
+```
+groupname:x:gid:members
+```
+
+## Ejemplos Prácticos
+
+### Crear Usuario Completo
+```bash
+# Crear usuario con home, shell y grupos
+sudo useradd -m -s /bin/bash -G sudo,docker desarrollador
+
+# Establecer contraseña
+sudo passwd desarrollador
+
+# Verificar
+id desarrollador
+grep desarrollador /etc/passwd
+```
+
+### Gestionar Membresía de Grupos
+```bash
+# Añadir a grupo existente
+sudo usermod -aG docker usuario
+
+# Ver grupos
+groups usuario
+id usuario
+
+# Cambiar grupo principal
+sudo usermod -g developers usuario
+```
+
+### Bloquear y Desbloquear
+```bash
+# Bloquear cuenta
+sudo usermod --lock usuario
+
+# Verificar (aparece ! en shadow)
+sudo grep usuario /etc/shadow
+
+# Desbloquear
+sudo usermod --unlock usuario
+```
+
+### Ejecutar como Otro Usuario
+```bash
+# Con su
+su -c "cat /etc/shadow" root
+
+# Con sudo
+sudo cat /etc/shadow
+
+# Como usuario específico
+sudo -u postgres psql -l
+```
+
+## sudo vs su
+
+| Aspecto | sudo | su |
+|---------|------|-----|
+| Auditoría | Registra comandos | No registra |
+| Configuración | /etc/sudoers | Por grupos |
+| Seguridad | Mejor (timestamp) | Requiere password root |
+| Uso típico | Comandos puntuales | Sesiones largas |
+
+## ¿Qué Aprendimos?
+
+1. **useradd -m:** Crea el directorio home automáticamente
+2. **usermod --lock:** Bloquea cuentas sin eliminarlas
+3. **su --command:** Ejecuta comandos como otro usuario
+4. **sudo:** Preferido para auditoría y seguridad
+5. **/etc/shadow:** Contiene hashes, solo legible por root
+
+## Autoevaluación
+
+1. ¿Qué hace `userdel -r usuario`?
+2. ¿Cuál es la diferencia entre `-g` y `-G` en useradd?
+3. ¿Cómo añadirías un usuario a múltiples grupos?
+4. ¿Qué archivo contiene los hashes de contraseñas?
+5. ¿Por qué es preferible sudo sobre su?
+
+## Referencias
+
+- [useradd(8) - Linux manual](https://man7.org/linux/man-pages/man8/useradd.8.html)
+- [usermod(8) - Linux manual](https://man7.org/linux/man-pages/man8/usermod.8.html)
+- [su(1) - Linux manual](https://man7.org/linux/man-pages/man1/su.1.html)
+- [sudo(8) - Linux manual](https://man7.org/linux/man-pages/man8/sudo.8.html)

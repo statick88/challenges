@@ -1,0 +1,332 @@
+---
+title: "Filter Contents - Linux Fundamentals"
+author: "statick88"
+date: 2026-02-20
+categories: [linux, htb, security]
+format:
+  html:
+    toc: true
+    toc-depth: 3
+---
+
+## Objetivo
+
+Dominar el filtrado y procesamiento de texto en Linux usando herramientas como grep, sed, awk, cut, y tr.
+
+## Introducción
+
+El filtrado de contenido es esencial para trabajar con archivos de configuración, logs, y resultados de comandos. Dominar estas herramientas permite manipular datos de manera eficiente.
+
+## Escenario
+
+Necesitas:
+1. Filtrar resultados de comandos
+2. Extraer información específica de archivos
+3. Procesar y transformar texto
+
+## Herramientas de Paginación
+
+### more
+
+```bash
+# Ver archivo página por página
+more /etc/passwd
+
+# Navegación:
+# [SPACE] - Siguiente página
+# [ENTER] - Siguiente línea
+# [q] - Salir
+```
+
+### less
+
+```bash
+# Paginador más avanzado
+less /etc/passwd
+
+# Ventajas sobre more:
+# - Navegación hacia atrás
+# - Búsqueda con /
+# - No limpia la terminal al salir
+```
+
+## head y tail
+
+```bash
+# Primeras 10 líneas
+head /etc/passwd
+
+# Primeras N líneas
+head -n 20 /etc/passwd
+
+# Últimas 10 líneas
+tail /etc/passwd
+
+# Últimas N líneas
+tail -n 20 /etc/passwd
+
+# Seguir archivo en tiempo real
+tail -f /var/log/syslog
+```
+
+## sort
+
+```bash
+# Ordenar alfabéticamente
+sort /etc/passwd
+
+# Ordenar numéricamente
+sort -n numeros.txt
+
+# Orden inverso
+sort -r /etc/passwd
+
+# Ordenar por columna específica
+sort -k 3 -n /etc/passwd
+
+# Eliminar duplicados
+sort -u archivo.txt
+```
+
+## grep - Filtrado por Patrones
+
+### Básico
+
+```bash
+# Buscar patrón
+grep "bash" /etc/passwd
+
+# Ignorar caso
+grep -i "error" /var/log/syslog
+
+# Mostrar números de línea
+grep -n "bash" /etc/passwd
+
+# Contar coincidencias
+grep -c "bash" /etc/passwd
+```
+
+### Avanzado
+
+```bash
+# Excluir patrón
+grep -v "nologin" /etc/passwd
+
+# Búsqueda recursiva
+grep -r "password" /etc/
+
+# Expresiones regulares extendidas
+grep -E "(bash|sh)" /etc/passwd
+
+# Mostrar contexto
+grep -C 3 "error" /var/log/syslog
+
+# Solo nombres de archivo
+grep -l "password" *.txt
+```
+
+## cut - Extraer Campos
+
+```bash
+# Por delimitador
+cut -d":" -f1 /etc/passwd
+
+# Múltiples campos
+cut -d":" -f1,3,7 /etc/passwd
+
+# Por posición de caracteres
+cut -c 1-10 /etc/passwd
+
+# Rango de campos
+cut -d":" -f1-3 /etc/passwd
+```
+
+## tr - Transformar Caracteres
+
+```bash
+# Reemplazar caracteres
+cat /etc/passwd | tr ":" " "
+
+# Convertir a minúsculas
+tr 'A-Z' 'a-z' < archivo.txt
+
+# Eliminar caracteres
+tr -d '0-9' < archivo.txt
+
+# Comprimir caracteres repetidos
+tr -s ' ' < archivo.txt
+```
+
+## column - Formato Tabular
+
+```bash
+# Formatear en columnas
+cat /etc/passwd | tr ":" " " | column -t
+```
+
+## awk - Procesamiento Avanzado
+
+### Básico
+
+```bash
+# Imprimir campos
+awk '{print $1}' archivo.txt
+
+# Imprimir múltiples campos
+awk '{print $1, $NF}' archivo.txt
+
+# Con delimitador
+awk -F":" '{print $1}' /etc/passwd
+```
+
+### Condiciones
+
+```bash
+# Filtrar por condición
+awk -F":" '$3 >= 1000 {print $1}' /etc/passwd
+
+# Múltiples condiciones
+awk -F":" '$3 >= 1000 && $7 ~ /bash/ {print $1}' /etc/passwd
+
+# IF-ELSE
+awk '{if($1 > 100) print "grande"; else print "pequeño"}' archivo.txt
+```
+
+### Cálculos
+
+```bash
+# Sumar columna
+awk '{sum+=$1} END {print sum}' numeros.txt
+
+# Promedio
+awk '{sum+=$1} END {print sum/NR}' numeros.txt
+
+# Contar líneas
+awk 'END {print NR}' archivo.txt
+```
+
+## sed - Editor de Streams
+
+### Reemplazo
+
+```bash
+# Primera ocurrencia por línea
+sed 's/old/new/' archivo.txt
+
+# Todas las ocurrencias
+sed 's/old/new/g' archivo.txt
+
+# En línea específica
+sed '2s/old/new/' archivo.txt
+
+# Editar archivo in-place
+sed -i 's/old/new/g' archivo.txt
+```
+
+### Eliminación
+
+```bash
+# Eliminar línea específica
+sed '5d' archivo.txt
+
+# Eliminar última línea
+sed '$d' archivo.txt
+
+# Eliminar líneas con patrón
+sed '/patron/d' archivo.txt
+
+# Eliminar líneas vacías
+sed '/^$/d' archivo.txt
+```
+
+## wc - Contar
+
+```bash
+# Contar líneas
+wc -l archivo.txt
+
+# Contar palabras
+wc -w archivo.txt
+
+# Contar caracteres
+wc -c archivo.txt
+
+# Todo junto
+wc archivo.txt
+```
+
+## Combinaciones Prácticas
+
+### Filtrar usuarios con bash
+
+```bash
+cat /etc/passwd | grep "/bin/bash" | cut -d":" -f1
+```
+
+### Formato tabular con awk
+
+```bash
+cat /etc/passwd | grep -v "nologin" | awk -F":" '{print $1, $7}' | column -t
+```
+
+### Reemplazar y ordenar
+
+```bash
+cat /etc/passwd | sed 's/:/ /g' | awk '{print $1}' | sort
+```
+
+### Análisis de logs
+
+```bash
+# Errores únicos en log
+grep -i "error" /var/log/syslog | awk '{print $5}' | sort | uniq -c | sort -rn
+```
+
+## Ejercicios Prácticos
+
+### Ejercicio 1: Usuarios activos
+
+Mostrar solo los usuarios que tienen shell real (no nologin/false):
+
+```bash
+cat /etc/passwd | grep -v -E "(nologin|false)" | cut -d":" -f1
+```
+
+### Ejercicio 2: Formato tabular
+
+Crear tabla con username, UID y shell:
+
+```bash
+cat /etc/passwd | grep -v -E "(nologin|false)" | awk -F":" '{print $1, $3, $7}' | column -t
+```
+
+### Ejercicio 3: Contar servicios
+
+Contar servicios escuchando en puertos:
+
+```bash
+ss -tlnp | grep LISTEN | wc -l
+```
+
+## ¿Qué Aprendimos?
+
+1. **grep**: Filtrado potente con regex
+2. **cut**: Extracción de campos
+3. **tr**: Transformación de caracteres
+4. **awk**: Procesamiento avanzado
+5. **sed**: Edición de streams
+6. **Pipes**: Combinación de herramientas
+
+## Autoevaluación
+
+1. ¿Cómo filtras líneas que NO contienen un patrón?
+2. ¿Cómo extraes el segundo campo de un CSV?
+3. ¿Cómo reemplazas todas las ocurrencias de una palabra?
+4. ¿Cómo cuentas líneas únicas en un archivo?
+5. ¿Qué hace `awk -F":" '{print $1,$NF}'`?
+
+## Referencias
+
+- [grep(1)](https://man7.org/linux/man-pages/man1/grep.1.html)
+- [sed(1)](https://man7.org/linux/man-pages/man1/sed.1.html)
+- [awk(1)](https://man7.org/linux/man-pages/man1/awk.1.html)

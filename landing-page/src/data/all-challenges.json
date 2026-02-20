@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-02-20T16:48:36.125Z",
+  "lastUpdated": "2026-02-20T18:59:47.299Z",
   "linux": [
     {
       "id": "01-creacion-usuarios",
@@ -547,6 +547,17 @@
       "path": "/challenges/htb/forensics/memory-forensics"
     },
     {
+      "id": "linux-fundamentals/containerization",
+      "title": "Linux Fundamentals - Containerization",
+      "status": "completed",
+      "difficulty": "easy",
+      "date": "2026-02-20",
+      "category": "linux-fundamentals",
+      "platform": "HTB",
+      "excerpt": "Linux Fundamentals - Containerization",
+      "path": "/challenges/htb/linux-fundamentals/containerization"
+    },
+    {
       "id": "linux-fundamentals/file-descriptors",
       "title": "Linux Fundamentals - File Descriptors and Redirections",
       "status": "completed",
@@ -556,6 +567,17 @@
       "platform": "HTB",
       "excerpt": "Linux Fundamentals - File Descriptors and Redirections",
       "path": "/challenges/htb/linux-fundamentals/file-descriptors"
+    },
+    {
+      "id": "linux-fundamentals/file-system-management",
+      "title": "Linux Fundamentals - File System Management",
+      "status": "completed",
+      "difficulty": "easy",
+      "date": "2026-02-20",
+      "category": "linux-fundamentals",
+      "platform": "HTB",
+      "excerpt": "Linux Fundamentals - File System Management",
+      "path": "/challenges/htb/linux-fundamentals/file-system-management"
     },
     {
       "id": "linux-fundamentals/files-directories",
@@ -569,6 +591,17 @@
       "path": "/challenges/htb/linux-fundamentals/files-directories"
     },
     {
+      "id": "linux-fundamentals/filter-contents",
+      "title": "Linux Fundamentals - Filter Contents",
+      "status": "completed",
+      "difficulty": "easy",
+      "date": "2026-02-20",
+      "category": "linux-fundamentals",
+      "platform": "HTB",
+      "excerpt": "Linux Fundamentals - Filter Contents",
+      "path": "/challenges/htb/linux-fundamentals/filter-contents"
+    },
+    {
       "id": "linux-fundamentals/find-files",
       "title": "Linux Fundamentals - Find Files and Directories",
       "status": "completed",
@@ -578,6 +611,28 @@
       "platform": "HTB",
       "excerpt": "Linux Fundamentals - Find Files and Directories",
       "path": "/challenges/htb/linux-fundamentals/find-files"
+    },
+    {
+      "id": "linux-fundamentals/firewall-setup",
+      "title": "Linux Fundamentals - Firewall Setup",
+      "status": "completed",
+      "difficulty": "easy",
+      "date": "2026-02-20",
+      "category": "linux-fundamentals",
+      "platform": "HTB",
+      "excerpt": "Linux Fundamentals - Firewall Setup",
+      "path": "/challenges/htb/linux-fundamentals/firewall-setup"
+    },
+    {
+      "id": "linux-fundamentals/linux-security",
+      "title": "Linux Fundamentals - Linux Security",
+      "status": "completed",
+      "difficulty": "easy",
+      "date": "2026-02-20",
+      "category": "linux-fundamentals",
+      "platform": "HTB",
+      "excerpt": "Linux Fundamentals - Linux Security",
+      "path": "/challenges/htb/linux-fundamentals/linux-security"
     },
     {
       "id": "linux-fundamentals/navigation",
@@ -591,6 +646,50 @@
       "path": "/challenges/htb/linux-fundamentals/navigation"
     },
     {
+      "id": "linux-fundamentals/network-configuration",
+      "title": "Linux Fundamentals - Network Configuration",
+      "status": "completed",
+      "difficulty": "easy",
+      "date": "2026-02-20",
+      "category": "linux-fundamentals",
+      "platform": "HTB",
+      "excerpt": "Linux Fundamentals - Network Configuration",
+      "path": "/challenges/htb/linux-fundamentals/network-configuration"
+    },
+    {
+      "id": "linux-fundamentals/remote-desktop",
+      "title": "Linux Fundamentals - Remote Desktop Protocols",
+      "status": "completed",
+      "difficulty": "easy",
+      "date": "2026-02-20",
+      "category": "linux-fundamentals",
+      "platform": "HTB",
+      "excerpt": "Linux Fundamentals - Remote Desktop Protocols",
+      "path": "/challenges/htb/linux-fundamentals/remote-desktop"
+    },
+    {
+      "id": "linux-fundamentals/shortcuts",
+      "title": "Linux Fundamentals - Shortcuts and Tips",
+      "status": "completed",
+      "difficulty": "easy",
+      "date": "2026-02-20",
+      "category": "linux-fundamentals",
+      "platform": "HTB",
+      "excerpt": "Linux Fundamentals - Shortcuts and Tips",
+      "path": "/challenges/htb/linux-fundamentals/shortcuts"
+    },
+    {
+      "id": "linux-fundamentals/solaris",
+      "title": "Linux Fundamentals - Linux Distributions vs Solaris",
+      "status": "completed",
+      "difficulty": "easy",
+      "date": "2026-02-20",
+      "category": "linux-fundamentals",
+      "platform": "HTB",
+      "excerpt": "Linux Fundamentals - Linux Distributions vs Solaris",
+      "path": "/challenges/htb/linux-fundamentals/solaris"
+    },
+    {
       "id": "linux-fundamentals/system-information",
       "title": "Linux Fundamentals - System Information",
       "status": "completed",
@@ -600,6 +699,50 @@
       "platform": "HTB",
       "excerpt": "Linux Fundamentals - System Information",
       "path": "/challenges/htb/linux-fundamentals/system-information"
+    },
+    {
+      "id": "linux-fundamentals/system-logs",
+      "title": "Linux Fundamentals - System Logs and Monitoring",
+      "status": "completed",
+      "difficulty": "easy",
+      "date": "2026-02-20",
+      "category": "linux-fundamentals",
+      "platform": "HTB",
+      "excerpt": "Linux Fundamentals - System Logs and Monitoring",
+      "path": "/challenges/htb/linux-fundamentals/system-logs"
+    },
+    {
+      "id": "linux-fundamentals/task-scheduling",
+      "title": "Linux Fundamentals - Task Scheduling",
+      "status": "completed",
+      "difficulty": "easy",
+      "date": "2026-02-20",
+      "category": "linux-fundamentals",
+      "platform": "HTB",
+      "excerpt": "Linux Fundamentals - Task Scheduling",
+      "path": "/challenges/htb/linux-fundamentals/task-scheduling"
+    },
+    {
+      "id": "linux-fundamentals/user-management",
+      "title": "Linux Fundamentals - User Management",
+      "status": "completed",
+      "difficulty": "easy",
+      "date": "2026-02-20",
+      "category": "linux-fundamentals",
+      "platform": "HTB",
+      "excerpt": "Linux Fundamentals - User Management",
+      "path": "/challenges/htb/linux-fundamentals/user-management"
+    },
+    {
+      "id": "linux-fundamentals/web-services",
+      "title": "Linux Fundamentals - Working with Web Services",
+      "status": "completed",
+      "difficulty": "easy",
+      "date": "2026-02-20",
+      "category": "linux-fundamentals",
+      "platform": "HTB",
+      "excerpt": "Linux Fundamentals - Working with Web Services",
+      "path": "/challenges/htb/linux-fundamentals/web-services"
     },
     {
       "id": "network-enum/firewall-ids-evasion-easy",

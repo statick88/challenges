@@ -50,6 +50,28 @@ Curso completo de pentesting automatizado con Inteligencia Artificial local, uti
 
 ---
 
+### Roadmap: De Junior a Pentester Employable
+
+Plan completo de 16 semanas para conseguir empleo en ciberseguridad, usando estrategias gratuitas con HTB Academy, PentAGI y Bug Bounty.
+
+[**Ver Roadmap Completo ->**](../roadmap-pentesting.html)
+
+**Contenido del roadmap:**
+
+- Fase 1: Fundamentos + Perfil (Semanas 1-3)
+- Fase 2: PentAGI + HTB Integration (Semanas 4-6)
+- Fase 3: Desbloquear Modulos (Semanas 7-10)
+- Fase 4: Labs + Portfolio (Semanas 11-14)
+- Fase 5: Bug Bounty + Job Search (Semanas 15-16)
+
+**Incluye:**
+- Tracker de cubos HTB
+- CV Template para Pentester Junior
+- Checklist semanal de progreso
+- Estrategia de acumulacion gratuita
+
+---
+
 ## Laboratorios Completados
 
 | Reto | Plataforma | Dificultad | Fecha |

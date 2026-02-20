@@ -1,0 +1,279 @@
+---
+title: "Service and Process Management - Linux Fundamentals"
+author: "statick88"
+date: 2026-02-20
+categories: [linux, htb, security]
+format:
+  html:
+    toc: true
+    toc-depth: 3
+---
+
+## Objetivo
+
+Dominar la gestión de servicios y procesos en Linux: systemd, procesos en background, y señales.
+
+## Introducción
+
+Los servicios (daemons) y procesos son fundamentales en Linux. Saber gestionarlos es esencial para administración y pentesting.
+
+## Escenario
+
+Necesitas:
+1. Gestionar servicios del sistema
+2. Controlar procesos en ejecución
+3. Ejecutar tareas en background
+
+## Systemd
+
+### Gestión de Servicios
+
+```bash
+# Iniciar servicio
+sudo systemctl start ssh
+
+# Detener servicio
+sudo systemctl stop ssh
+
+# Reiniciar servicio
+sudo systemctl restart ssh
+
+# Estado del servicio
+sudo systemctl status ssh
+
+# Habilitar al inicio
+sudo systemctl enable ssh
+
+# Deshabilitar al inicio
+sudo systemctl disable ssh
+```
+
+### Listar Servicios
+
+```bash
+# Todos los servicios
+systemctl list-units --type=service
+
+# Servicios activos
+systemctl list-units --type=service --state=active
+
+# Servicios habilitados
+systemctl list-unit-files --type=service | grep enabled
+```
+
+### Journalctl - Logs
+
+```bash
+# Logs de un servicio
+journalctl -u ssh.service
+
+# Logs recientes
+journalctl -u ssh.service -n 50
+
+# Seguir en tiempo real
+journalctl -u ssh.service -f
+
+# Desde un momento específico
+journalctl -u ssh.service --since "2023-02-20 10:00:00"
+```
+
+## Gestión de Procesos
+
+### ps - Estado de Procesos
+
+```bash
+# Procesos del usuario actual
+ps
+
+# Todos los procesos
+ps aux
+
+# Procesos con formato personalizado
+ps -eo pid,ppid,user,cmd
+
+# Buscar proceso
+ps aux | grep sshd
+```
+
+### top / htop
+
+```bash
+# Monitor en tiempo real
+top
+
+# htop (más visual)
+htop
+
+# Ordenar por CPU (en top)
+# Presionar P
+
+# Ordenar por memoria
+# Presionar M
+```
+
+## Señales
+
+### Lista de Señales
+
+```bash
+kill -l
+```
+
+| Señal | Nombre | Descripción |
+|-------|--------|-------------|
+| 1 | SIGHUP | Hangup (recargar configuración) |
+| 2 | SIGINT | Interrupción (Ctrl+C) |
+| 9 | SIGKILL | Matar inmediatamente |
+| 15 | SIGTERM | Terminar gracefulmente |
+| 19 | SIGSTOP | Detener proceso |
+| 20 | SIGTSTP | Detener terminal (Ctrl+Z) |
+
+### kill / pkill / killall
+
+```bash
+# Enviar señal por PID
+kill 1234
+kill -9 1234
+
+# Matar por nombre
+pkill firefox
+
+# Matar todos los procesos por nombre
+killall firefox
+
+# Matar proceso de usuario específico
+pkill -u usuario firefox
+```
+
+## Background y Foreground
+
+### Enviar a Background
+
+```bash
+# Ejecutar en background
+ping google.com &
+
+# Suspender proceso actual
+# Ctrl+Z
+
+# Ver jobs
+jobs
+
+# Enviar job a background
+bg %1
+```
+
+### Traer a Foreground
+
+```bash
+# Traer último job
+fg
+
+# Traer job específico
+fg %1
+```
+
+### nohup - Persistir Procesos
+
+```bash
+# Ejecutar después de cerrar sesión
+nohup ./script.sh &
+
+# Ver output
+cat nohup.out
+```
+
+## Múltiples Comandos
+
+### Ejecución Secuencial
+
+```bash
+# Ejecutar todos (;)
+comando1 ; comando2 ; comando3
+
+# Solo si anterior exitoso (&&)
+comando1 && comando2 && comando3
+
+# Solo si anterior falla (||)
+comando1 || comando2
+```
+
+### Pipes
+
+```bash
+# Pasar output a otro comando
+ps aux | grep ssh
+cat archivo | grep patron | wc -l
+```
+
+## Prioridad de Procesos
+
+### nice y renice
+
+```bash
+# Iniciar con prioridad baja
+nice -n 10 ./script.sh
+
+# Cambiar prioridad
+renice -n 5 -p 1234
+
+# Ver prioridades
+ps -eo pid,ni,cmd
+```
+
+## Casos de Uso en Pentesting
+
+### Identificar Procesos Sensibles
+
+```bash
+# Procesos corriendo como root
+ps aux | grep root
+
+# Procesos con SUID
+find / -perm -4000 -type f 2>/dev/null
+
+# Servicios expuestos
+ss -tlnp
+```
+
+### Persistencia
+
+```bash
+# Crear servicio malicioso
+sudo systemctl enable malicious.service
+```
+
+### Análisis de Procesos
+
+```bash
+# Archivos abiertos por proceso
+lsof -p PID
+
+# Conexiones de red
+lsof -i
+
+# Verificar proceso sospechoso
+ls -la /proc/PID/exe
+```
+
+## ¿Qué Aprendimos?
+
+1. **systemctl**: Gestión de servicios
+2. **ps/top**: Monitoreo de procesos
+3. **kill/pkill**: Enviar señales
+4. **bg/fg**: Background y foreground
+5. **journalctl**: Logs de servicios
+
+## Autoevaluación
+
+1. ¿Cómo verificas si un servicio está activo?
+2. ¿Qué señal envía Ctrl+C?
+3. ¿Cómo pones un proceso en background?
+4. ¿Cómo ves los logs de un servicio?
+5. ¿Qué hace `kill -9`?
+
+## Referencias
+
+- [systemctl(1)](https://man7.org/linux/man-pages/man1/systemctl.1.html)
+- [ps(1)](https://man7.org/linux/man-pages/man1/ps.1.html)
+- [kill(1)](https://man7.org/linux/man-pages/man1/kill.1.html)

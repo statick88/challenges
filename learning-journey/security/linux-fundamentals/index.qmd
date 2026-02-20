@@ -9,47 +9,361 @@ format:
     toc-depth: 2
 ---
 
+![Linux Fundamentals Module](https://academy.hackthebox.com/storage/modules/18/logo.png){width=200px}
+
+## 🎉 Module Completed
+
+**Verification:** [HTB Academy Achievement](https://academy.hackthebox.com/achievement/2300153/18)
+
+---
+
 ## Descripción del Curso
 
 Este curso documenta los ejercicios prácticos del módulo **Linux Fundamentals** de Hack The Box Academy. Cubre los conceptos esenciales de Linux desde la perspectiva de ciberseguridad.
 
-## Progreso
+---
+
+## Progreso Total: 100% ✓
 
 | Sección | Título | Estado |
 |---------|--------|--------|
+| 1 | Linux Structure | 📖 Teoría |
+| 2 | Linux Distributions | 📖 Teoría |
+| 3 | Introduction to Shell | 📖 Teoría |
+| 4 | Prompt Description | 📖 Teoría |
+| 5 | Getting Help | 📖 Teoría |
 | 6 | System Information | ✅ Completado |
 | 7 | Navigation | ✅ Completado |
-| 8 | Working with Files and Directories | ✅ Completado |
+| 8 | Working with Files and Directories | 📖 Teoría |
 | 9 | Editing Files | 📖 Teoría |
 | 10 | Find Files and Directories | ✅ Completado |
 | 11 | File Descriptors and Redirections | ✅ Completado |
+| 12 | Filter Contents | ✅ Completado |
+| 13 | Regular Expressions | 📖 Teoría |
+| 14 | Permission Management | 📖 Teoría |
+| 15 | User Management | ✅ Completado |
+| 16 | Package Management | 📖 Teoría |
+| 17 | Service and Process Management | ✅ Completado |
+| 18 | Task Scheduling | ✅ Completado |
+| 19 | Network Services | 📖 Teoría |
+| 20 | Working with Web Services | ✅ Completado |
+| 21 | Backup and Restore | 📖 Teoría |
+| 22 | File System Management | ✅ Completado |
+| 23 | Containerization | 📖 Teoría |
+| 24 | Network Configuration | 📖 Teoría |
+| 25 | Remote Desktop Protocols in Linux | 📖 Teoría |
+| 26 | Linux Security | 📖 Teoría |
+| 27 | Firewall Setup | 📖 Teoría |
+| 28 | System Logs and Monitoring | 📖 Teoría |
+| 29 | Linux Distributions vs Solaris | 📖 Teoría |
+| 30 | Shortcuts | 📖 Teoría |
 
-## Contenido
+---
 
-### 01. System Information
+## Contenido Detallado
+
+### Introduction (Sections 1-5)
+
+#### 01. Linux Structure
+Estructura de Linux: kernel, shell, filesystem hierarchy standard (FHS), y filosofía UNIX.
+
+#### 02. Linux Distributions
+Distribuciones principales: Ubuntu, Debian, Fedora, CentOS, Kali, Parrot OS.
+
+#### 03. Introduction to Shell
+El shell de Linux: terminal, emuladores, multiplexers (tmux).
+
+#### 04. Prompt Description
+El prompt de bash: PS1, personalización, información mostrada.
+
+#### 05. Getting Help
+Documentación: `man`, `--help`, `-h`, `apropos`, explainshell.com.
+
+---
+
+### The Shell (Section 6)
+
+#### 06. System Information
 [:octicons-link-external-16: Ver lección](01-system-information.qmd)
 
-Comandos básicos para obtener información del sistema: `uname`, `hostname`, `whoami`, `id`, y estructura de `/etc/passwd`.
+Comandos básicos para obtener información del sistema:
+- `uname -a` - Información del kernel
+- `hostname` - Nombre del host
+- `whoami` - Usuario actual
+- `id` - Identidad y grupos
+- `/etc/passwd` - Estructura de usuarios
 
-### 02. Navigation
+**Respuestas clave:**
+- Machine hardware name: `x86_64`
+- Home directory: `/home/htb-student`
+- Kernel release: `4.15.0`
+
+---
+
+### Workflow (Sections 7-14)
+
+#### 07. Navigation
 [:octicons-link-external-16: Ver lección](02-navigation.qmd)
 
-Navegación por el sistema de archivos: `pwd`, `ls`, `cd`, archivos ocultos e inodos.
+Navegación por el sistema de archivos:
+- `pwd` - Directorio actual
+- `ls -la` - Listar con ocultos
+- `cd` - Cambiar directorio
+- Archivos ocultos (prefijo `.`)
+- Inodos con `ls -li`
 
-### 03. Working with Files and Directories
+**Respuestas clave:**
+- Hidden history file: `.bash_history`
+- Inode of sudoers: `147627`
+
+#### 08. Working with Files and Directories
 [:octicons-link-external-16: Ver lección](03-files-directories.qmd)
 
-Gestión de archivos: `touch`, `mkdir`, `mv`, `cp`, `rm` y ordenación por tiempo.
+Gestión de archivos:
+- `touch` - Crear archivo
+- `mkdir -p` - Crear directorios anidados
+- `mv` - Mover/renombrar
+- `cp` - Copiar
+- `rm -r` - Eliminar
+- `ls -lt` - Ordenar por tiempo
 
-### 04. Find Files and Directories
+**Respuestas clave:**
+- Last modified file in /var/backups: `apt.extended_states.0`
+- Inode of shadow.bak: `265293`
+
+#### 09. Editing Files
+Editores de texto en Linux:
+- **nano** - Editor simple
+- **vim** - Editor modal avanzado
+- `vimtutor` - Tutorial interactivo
+
+#### 10. Find Files and Directories
 [:octicons-link-external-16: Ver lección](04-find-files.qmd)
 
-Búsqueda avanzada: `which`, `find`, `locate` y filtros por nombre, tamaño, fecha y permisos.
+Búsqueda avanzada:
+- `which` - Ubicar binarios
+- `find` - Búsqueda con filtros
+- `locate` - Búsqueda rápida (database)
+- Filtros: `-name`, `-size`, `-mtime`, `-newermt`
 
-### 05. File Descriptors and Redirections
+**Respuestas clave:**
+- Config file after 2020-03-03, 25k-28k: `00-mesa-defaults.conf`
+- Count .bak files: `4`
+- Path to xxd: `/usr/bin/xxd`
+
+#### 11. File Descriptors and Redirections
 [:octicons-link-external-16: Ver lección](05-file-descriptors.qmd)
 
-Descriptores de archivo (STDIN, STDOUT, STDERR), redirecciones y pipes.
+Descriptores de archivo:
+- STDIN (0) - Entrada estándar
+- STDOUT (1) - Salida estándar
+- STDERR (2) - Errores
+- Redirecciones: `>`, `>>`, `<`, `2>/dev/null`
+- Pipes: `|`
+
+**Respuestas clave:**
+- Count .log files: `32`
+- Total packages installed: `737`
+
+#### 12. Filter Contents
+[:octicons-link-external-16: Ver lección](06-filter-contents.qmd)
+
+Herramientas de filtrado:
+- `grep` - Filtrar por patrón
+- `cut` - Extraer campos
+- `tr` - Transformar caracteres
+- `awk` - Procesamiento avanzado
+- `sed` - Editor de streams
+- `sort`, `uniq`, `wc`
+
+**Respuestas clave:**
+- Services listening (not localhost): `7`
+- ProFTPd user: `proftpd`
+- Unique paths from inlanefreight.com: `34`
+
+#### 13. Regular Expressions
+Expresiones regulares:
+- Metacaracteres: `.`, `*`, `+`, `?`, `[]`, `()`
+- Operadores OR (`|`) y AND (`.*`)
+- `grep -E` para regex extendido
+
+#### 14. Permission Management
+Sistema de permisos:
+- r, w, x (read, write, execute)
+- Owner, Group, Others
+- `chmod`, `chown`, `chgrp`
+- SUID, SGID, Sticky bit
+- Notación octal (755, 644)
+
+---
+
+### System Management (Sections 15-22)
+
+#### 15. User Management
+[:octicons-link-external-16: Ver lección](07-user-management.qmd)
+
+Gestión de usuarios:
+- `useradd -m` - Crear usuario con home
+- `usermod` - Modificar usuario
+- `userdel` - Eliminar usuario
+- `passwd` - Cambiar contraseña
+- `su --command` - Ejecutar como otro usuario
+
+**Respuestas clave:**
+- Option to create home: `-m`
+- Option to lock user: `--lock`
+- Option to execute command with su: `--command`
+
+#### 16. Package Management
+Gestión de paquetes:
+- `apt`, `apt-get` - Debian/Ubuntu
+- `dpkg` - Instalar .deb
+- `snap` - Paquetes universales
+- `pip`, `gem`, `npm` - Lenguajes específicos
+
+#### 17. Service and Process Management
+[:octicons-link-external-16: Ver lección](08-service-process-management.qmd)
+
+Gestión de servicios y procesos:
+- `systemctl start/stop/status` - Gestionar servicios
+- `ps aux` - Listar procesos
+- `kill`, `pkill`, `killall` - Enviar señales
+- `jobs`, `bg`, `fg` - Background/foreground
+- Señales: SIGTERM (15), SIGKILL (9), SIGINT (2)
+
+**Respuestas clave:**
+- Service type of dconf: `dbus`
+
+#### 18. Task Scheduling
+Programación de tareas:
+- **Cron** - `crontab -e`
+- **Systemd timers** - `.timer` y `.service`
+- Formato cron: `min hour day month weekday`
+
+**Respuestas clave:**
+- dconf.service type: `dbus`
+
+#### 19. Network Services
+Servicios de red:
+- **SSH** - `systemctl start ssh`
+- **NFS** - Network File System
+- **Web Server** - Apache, Nginx, Python HTTP
+- **VPN** - OpenVPN
+
+#### 20. Working with Web Services
+[:octicons-link-external-16: Ver lección](10-web-services.qmd)
+
+Servidores web:
+- **npm http-server** - `http-server -p 8080`
+- **PHP built-in** - `php -S 127.0.0.1:8080`
+- **Python** - `python3 -m http.server 8080`
+- **curl** - Cliente HTTP
+- **wget** - Descargar archivos
+
+**Respuestas clave:**
+- npm HTTP server command: `http-server -p 8080`
+- PHP server command: `php -S 127.0.0.1:8080`
+
+#### 21. Backup and Restore
+Copias de seguridad:
+- **rsync** - Sincronización eficiente
+- **Deja Dup** - Backup gráfico
+- **Duplicity** - Backup cifrado
+- SSH tunnels para transferencia segura
+
+#### 22. File System Management
+[:octicons-link-external-16: Ver lección](11-file-system-management.qmd)
+
+Gestión de filesystem:
+- `lsblk` - Listar dispositivos de bloque
+- `fdisk -l` - Ver particiones
+- `mount`, `umount` - Montar/desmontar
+- `/etc/fstab` - Montaje automático
+- Tipos: ext4, xfs, btrfs, ntfs
+
+**Respuestas clave:**
+- Partitions in Pwnbox: `3`
+
+---
+
+### Linux Networking (Sections 23-25)
+
+#### 23. Containerization
+Containers en Linux:
+- **Docker** - `docker run`, `docker build`, Dockerfile
+- **LXC** - Linux Containers
+- Diferencias con VMs
+- cgroups y namespaces
+
+#### 24. Network Configuration
+Configuración de red:
+- `ip addr`, `ifconfig` - Ver interfaces
+- `ip route` - Ver rutas
+- `/etc/resolv.conf` - DNS
+- `/etc/network/interfaces` - Configuración persistente
+- NAC: DAC, MAC, RBAC
+
+#### 25. Remote Desktop Protocols
+Protocolos de escritorio remoto:
+- **X11** - Puertos 6000-6009
+- **VNC** - Puerto 5900+
+- **XDMCP** - UDP 177
+- Seguridad: X11 sin cifrar, VNC con SSH tunnel
+
+---
+
+### Linux Hardening (Sections 26-28)
+
+#### 26. Linux Security
+Endurecimiento de Linux:
+- Actualizaciones regulares
+- SSH hardening (no root, solo claves)
+- `fail2ban` - Protección brute force
+- SELinux, AppArmor
+- TCP Wrappers: `/etc/hosts.allow`, `/etc/hosts.deny`
+
+#### 27. Firewall Setup
+Configuración de firewall:
+- **iptables** - Reglas de filtrado
+- Tablas: filter, nat, mangle
+- Chains: INPUT, OUTPUT, FORWARD
+- Targets: ACCEPT, DROP, REJECT
+- **UFW** - Uncomplicated Firewall
+
+#### 28. System Logs and Monitoring
+Logs del sistema:
+- `/var/log/syslog` - Logs del sistema
+- `/var/log/auth.log` - Autenticación
+- `/var/log/kern.log` - Kernel
+- `journalctl` - Logs de systemd
+- Herramientas: `tail`, `grep`, `less`
+
+---
+
+### Distributions vs Solaris (Section 29)
+
+#### 29. Linux Distributions vs Solaris
+Diferencias clave:
+- **Solaris** - Propietario (Oracle)
+- **ZFS** - Filesystem avanzado
+- **SMF** - Service Management Facility
+- `showrev` vs `uname`
+- `pkgadd` vs `apt`
+
+---
+
+### Tips & Tricks (Section 30)
+
+#### 30. Shortcuts
+Atajos de teclado:
+- `[TAB]` - Auto-completar
+- `[CTRL]+A/E` - Inicio/Fin de línea
+- `[CTRL]+U/K` - Borrar línea
+- `[CTRL]+C` - Terminar proceso
+- `[CTRL]+Z` - Background
+- `[CTRL]+R` - Buscar en historial
+
+---
 
 ## Resumen de Aprendizaje
 
@@ -62,6 +376,9 @@ Descriptores de archivo (STDIN, STDOUT, STDERR), redirecciones y pipes.
 | Archivos | `touch`, `mkdir`, `mv`, `cp`, `rm` |
 | Búsqueda | `find`, `locate`, `which`, `grep` |
 | Redirección | `>`, `>>`, `<`, `2>`, `\|` |
+| Filtrado | `grep`, `cut`, `tr`, `awk`, `sed` |
+| Procesos | `ps`, `top`, `kill`, `systemctl` |
+| Red | `ip`, `ss`, `curl`, `wget` |
 
 ### Conceptos Clave
 
@@ -70,10 +387,36 @@ Descriptores de archivo (STDIN, STDOUT, STDERR), redirecciones y pipes.
 - **Permisos:** SUID, SGID, sticky bit
 - **Pipes:** Conexión entre comandos
 - **/etc/passwd:** Estructura de usuarios
+- **systemd:** Gestor de servicios moderno
+- **iptables:** Firewall de Linux
+
+### Lecciones Principales
+
+1. **El shell es poderoso:** Dominar pipes y redirecciones multiplica las capacidades
+2. **find es esencial:** Combinar filtros permite búsquedas precisas
+3. **grep + awk + sed:** Tríada para procesamiento de texto
+4. **systemctl:** Control total sobre servicios del sistema
+5. **HTB cuenta diferente:** Preguntas pueden tener interpretaciones específicas
+
+---
 
 ## Próximos Pasos
 
-Continuar con las secciones restantes del módulo:
-- Section 12+: Workflow
-- Section 20+: System Management
-- Section 28+: Linux Networking
+Módulos recomendados después de Linux Fundamentals:
+- **Linux Privilege Escalation** - Escalada de privilegios
+- **Linux Hardening** - Endurecimiento de sistemas
+- **Bash Scripting** - Automatización
+- **Network Traffic Analysis** - Análisis de red
+
+---
+
+## Recursos Adicionales
+
+- [Linux Manual Pages](https://man7.org/linux/man-pages/)
+- [HTB Academy](https://academy.hackthebox.com/)
+- [Explain Shell](https://explainshell.com/)
+- [GTFOBins](https://gtfobins.github.io/)
+
+---
+
+*Curso completado el 2026-02-20*

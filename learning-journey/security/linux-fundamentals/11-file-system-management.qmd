@@ -1,0 +1,373 @@
+---
+title: "File System Management - Linux Fundamentals"
+author: "statick88"
+date: 2026-02-20
+categories: [linux, htb, security]
+format:
+  html:
+    toc: true
+    toc-depth: 3
+---
+
+## Objetivo
+
+Dominar la gestión de sistemas de archivos en Linux: entender particiones, dispositivos de bloque, y herramientas para administrar discos y storage.
+
+## Introducción
+
+La gestión de filesystem es esencial para administradores y pentesters. Saber identificar particiones, montar recursos, y detectar storage oculto son habilidades críticas.
+
+## Escenario
+
+Necesitas:
+1. Identificar todos los discos y particiones en un sistema
+2. Detectar particiones ocultas o no montadas
+3. Gestionar el storage del sistema
+
+## Ejercicios Prácticos
+
+### Ejercicio 1: Contar Particiones
+
+**Pregunta:** How many partitions exist in our Pwnbox?
+
+```bash
+lsblk
+```
+
+```text
+NAME   MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+sda      8:0    0    8G  0 disk 
+├─sda1   8:1    0    7G  0 part /
+└─sda2   8:2    0    1G  0 part [SWAP]
+```
+
+**Respuesta:** `3`
+
+HTB cuenta: el disco `sda` + las 2 particiones (`sda1`, `sda2`)
+
+## Dispositivos de Bloque
+
+### Nomenclatura
+
+| Tipo | Prefijo | Ejemplo |
+|------|---------|---------|
+| SATA/SCSI | sd | sda, sdb, sdc |
+| NVMe | nvme | nvme0n1, nvme1n1 |
+| Virtio | vd | vda, vdb |
+| Loop | loop | loop0, loop1 |
+
+### Particiones
+
+| Tipo | Formato | Ejemplo |
+|------|---------|---------|
+| SATA/SCSI | sdXN | sda1, sda2, sdb1 |
+| NVMe | nvmeXnYpZ | nvme0n1p1, nvme0n1p2 |
+| Virtio | vdXN | vda1, vda2 |
+
+## Herramientas Principales
+
+### lsblk - Listar Dispositivos
+
+```bash
+# Vista básica
+lsblk
+
+# Con filesystem y UUID
+lsblk -f
+
+# Output personalizado
+lsblk -o NAME,SIZE,TYPE,FSTYPE,MOUNTPOINT,UUID
+
+# Solo discos (sin particiones)
+lsblk -d
+
+# Tamaño en bytes
+lsblk -b
+
+# Formato JSON
+lsblk -J
+```
+
+### fdisk - Gestión de Particiones
+
+```bash
+# Listar todas las particiones (sudo)
+sudo fdisk -l
+
+# Disco específico
+sudo fdisk -l /dev/sda
+
+# Modo interactivo - crear particiones
+sudo fdisk /dev/sda
+  n - nueva partición
+  p - primaria
+  1 - número
+  ENTER - inicio default
+  ENTER - fin default
+  w - escribir cambios
+```
+
+### parted - Editor Moderno
+
+```bash
+# Listar particiones
+sudo parted -l
+
+# Modo interactivo
+sudo parted /dev/sda
+
+# Crear tabla GPT
+sudo parted /dev/sda mklabel gpt
+
+# Crear partición
+sudo parted /dev/sda mkpart primary ext4 0% 100%
+```
+
+### /proc/partitions
+
+```bash
+# Info del kernel (sin sudo)
+cat /proc/partitions
+
+major minor  #blocks  name
+   8        0    8388608 sda
+   8        1    7339008 sda1
+   8        2    1048576 sda2
+```
+
+### blkid - Identificar Filesystems
+
+```bash
+# Ver todos los UUID y tipos
+sudo blkid
+
+# Dispositivo específico
+sudo blkid /dev/sda1
+
+# Sin sudo (limitado)
+lsblk -f
+```
+
+## Tipos de Filesystem
+
+| FS | Uso | Crear | Verificar |
+|----|-----|-------|-----------|
+| ext4 | Linux estándar | `mkfs.ext4` | `e2fsck` |
+| xfs | Alto rendimiento | `mkfs.xfs` | `xfs_repair` |
+| btrfs | Snapshots, compresión | `mkfs.btrfs` | `btrfs check` |
+| ntfs | Windows | `mkfs.ntfs` | `ntfsfix` |
+| vfat | USB, EFI | `mkfs.vfat` | `fsck.vfat` |
+
+## Gestión de Montaje
+
+### Montar Manualmente
+
+```bash
+# Montar partición
+sudo mount /dev/sda1 /mnt
+
+# Con tipo específico
+sudo mount -t ext4 /dev/sda1 /mnt
+
+# Con opciones
+sudo mount -o ro /dev/sda1 /mnt
+
+# Montar ISO
+sudo mount -o loop imagen.iso /mnt/iso
+
+# Montar por UUID
+sudo mount UUID="xxx-xxx-xxx" /mnt
+
+# Montar SMB/CIFS
+sudo mount -t cifs //server/share /mnt -o user=usuario
+
+# Montar NFS
+sudo mount -t nfs server:/share /mnt
+
+# Desmontar
+sudo umount /mnt
+# Forzar
+sudo umount -l /mnt
+```
+
+### Ver Espacio en Disco
+
+```bash
+# Uso de filesystems montados
+df -h
+
+# Con tipo de filesystem
+df -Th
+
+# Inodos
+df -i
+
+# Tamaño de directorio
+du -sh /home
+
+# Top 10 directorios más grandes
+du -h / | sort -rh | head -10
+```
+
+## /etc/fstab - Montaje Automático
+
+```bash
+# Estructura
+# <device>  <mount>  <type>  <options>     <dump>  <pass>
+UUID=xxx      /       ext4    defaults      0       1
+UUID=yyy      /home   ext4    defaults      0       2
+/dev/sda2     none    swap    sw            0       0
+
+# Opciones comunes
+defaults - rw, suid, dev, exec, auto, nouser, async
+noexec   - No permitir ejecutables
+nosuid   - Ignorar SUID bits
+ro       - Solo lectura
+user     - Usuario puede montar
+```
+
+```bash
+# Montar todo desde fstab
+sudo mount -a
+
+# Verificar fstab
+sudo findmnt --verify
+
+# Ver montajes actuales
+findmnt
+mount | column -t
+```
+
+## Crear y Formatear Particiones
+
+```bash
+# Crear partición (fdisk)
+sudo fdisk /dev/sdb
+  n - nueva
+  p - primaria
+  1 - número
+  ENTER - inicio
+  ENTER - fin
+  w - guardar
+
+# Formatear
+sudo mkfs.ext4 /dev/sdb1
+sudo mkfs.ext4 -L "datos" /dev/sdb1
+
+# Crear swap
+sudo mkswap /dev/sdb2
+sudo swapon /dev/sdb2
+```
+
+## Casos de Uso en Pentesting
+
+### Detectar Storage Oculto
+
+```bash
+# Particiones no montadas
+lsblk -f | grep -v "/"
+
+# Todos los discos
+sudo fdisk -l 2>/dev/null
+
+# Buscar LVM
+sudo lvdisplay
+sudo vgdisplay
+sudo pvdisplay
+
+# Discos encryptados
+sudo cryptsetup luksDump /dev/sda3
+```
+
+### USB y Dispositivos Extraíbles
+
+```bash
+# Monitorear eventos de dispositivos
+udevadm monitor
+
+# Ver dispositivos USB
+lsusb
+
+# Montar USB automáticamente
+udisksctl mount -b /dev/sdb1
+```
+
+### Exfiltración por Montaje
+
+```bash
+# Montar recurso remoto
+sudo mount -t cifs //target/share /mnt -o user=domain\\user
+
+# O SSHFS
+sshfs user@target:/data /mnt
+
+# Copiar datos
+cp -r /mnt/sensible /local/backup
+```
+
+## Troubleshooting
+
+### Filesystem Corrupto
+
+```bash
+# Verificar y reparar ext4
+sudo e2fsck -f -y /dev/sda1
+
+# Forzar verificación al reinicio
+sudo touch /forcefsck
+
+# Ver xfs
+sudo xfs_repair /dev/sda1
+```
+
+### Disco Lleno
+
+```bash
+# Encontrar archivos grandes
+find / -xdev -type f -size +100M
+
+# Encontrar archivos eliminados pero ocupando espacio
+sudo lsof | grep deleted
+
+# Limpiar journal
+sudo journalctl --vacuum-size=100M
+
+# Limpiar paquetes cache
+sudo apt clean
+```
+
+### Montaje Ocupado
+
+```bash
+# Ver qué usa el mount
+lsof /mnt
+fuser -v /mnt
+
+# Forzar desmontaje
+sudo umount -l /mnt
+sudo umount -f /mnt  # NFS
+```
+
+## ¿Qué Aprendimos?
+
+1. **lsblk:** Herramienta principal para ver dispositivos de bloque
+2. **fdisk/parted:** Gestión de particiones (requieren sudo)
+3. **/proc/partitions:** Info del kernel sin sudo
+4. **UUID:** Identificadores únicos para montaje confiable
+5. **fstab:** Configuración de montaje automático
+6. **HTB:** Cuenta disco + particiones como "particiones"
+
+## Autoevaluación
+
+1. ¿Cuál es la diferencia entre `sda` y `sda1`?
+2. ¿Qué comando muestra UUIDs de particiones?
+3. ¿Cómo montas una imagen ISO?
+4. ¿Qué hace `df -h`?
+5. ¿Cómo verificas un filesystem ext4 corrupto?
+
+## Referencias
+
+- [lsblk(8)](https://man7.org/linux/man-pages/man8/lsblk.8.html)
+- [fdisk(8)](https://man7.org/linux/man-pages/man8/fdisk.8.html)
+- [fstab(5)](https://man7.org/linux/man-pages/man5/fstab.5.html)
+- [Filesystem Hierarchy Standard](https://refspecs.linuxfoundation.org/FHS_3.0/fhs-3.0.html)
