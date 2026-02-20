@@ -6,9 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Cursos y laboratorios de ciberseguridad">
+<meta name="author" content="Diego Saavedra">
+<meta name="dcterms.date" content="2026-02-20">
+<meta name="description" content="Detección de versiones y banner grabbing">
 
-<title>Security – DevOps &amp; Security Learning Journey</title>
+<title>Laboratorio 2: Service Enumeration – DevOps &amp; Security Learning Journey</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,27 +23,62 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-7ac2f9da8c2617a4fdd15004b4601015.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-3dad1a9f078d91cda5f1887d21eb11b5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-7ac2f9da8c2617a4fdd15004b4601015.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-3dad1a9f078d91cda5f1887d21eb11b5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -80,7 +117,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">DevOps &amp; Security Learning Journey</span>
     </a>
   </div>
@@ -91,27 +128,27 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../index.html"> 
+    <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../foundations/index.html"> 
+    <a class="nav-link" href="../../foundations/index.html"> 
 <span class="menu-text">Foundations</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../containers/index.html"> 
+    <a class="nav-link" href="../../containers/index.html"> 
 <span class="menu-text">Containers</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../devops-practices/index.html"> 
+    <a class="nav-link" href="../../devops-practices/index.html"> 
 <span class="menu-text">DevOps</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../security/index.html" aria-current="page"> 
+    <a class="nav-link" href="../../security/index.html"> 
 <span class="menu-text">Security</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../roadmap/index.html"> 
+    <a class="nav-link" href="../../roadmap/index.html"> 
 <span class="menu-text">Roadmap</span></a>
   </li>  
 </ul>
@@ -122,11 +159,11 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-language">    
         <li>
-    <a class="dropdown-item" href="../es/index.html">
+    <a class="dropdown-item" href="../../es/index.html">
  <span class="dropdown-text">Español</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../index.html">
+    <a class="dropdown-item" href="../../index.html">
  <span class="dropdown-text">English</span></a>
   </li>  
     </ul>
@@ -152,19 +189,27 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#security" id="toc-security" class="nav-link active" data-scroll-target="#security">Security 🔒</a>
+  <li><a href="#laboratorio-2-service-enumeration" id="toc-laboratorio-2-service-enumeration" class="nav-link active" data-scroll-target="#laboratorio-2-service-enumeration">Laboratorio 2: Service Enumeration</a>
   <ul class="collapse">
-  <li><a href="#cursos-disponibles" id="toc-cursos-disponibles" class="nav-link" data-scroll-target="#cursos-disponibles">📚 Cursos Disponibles</a>
+  <li><a href="#contenido" id="toc-contenido" class="nav-link" data-scroll-target="#contenido">Contenido</a></li>
+  <li><a href="#objetivo" id="toc-objetivo" class="nav-link" data-scroll-target="#objetivo">Objetivo</a></li>
+  <li><a href="#introducción" id="toc-introducción" class="nav-link" data-scroll-target="#introducción">Introducción</a></li>
+  <li><a href="#ejercicio-1-service-detection" id="toc-ejercicio-1-service-detection" class="nav-link" data-scroll-target="#ejercicio-1-service-detection">Ejercicio 1: Service Detection</a>
   <ul class="collapse">
-  <li><a href="#network-enumeration-with-nmap" id="toc-network-enumeration-with-nmap" class="nav-link" data-scroll-target="#network-enumeration-with-nmap">Network Enumeration with Nmap</a></li>
+  <li><a href="#paso-1-escaneo-con-detección-de-versiones" id="toc-paso-1-escaneo-con-detección-de-versiones" class="nav-link" data-scroll-target="#paso-1-escaneo-con-detección-de-versiones">Paso 1: Escaneo con Detección de Versiones</a></li>
+  <li><a href="#paso-2-interpretar-resultados" id="toc-paso-2-interpretar-resultados" class="nav-link" data-scroll-target="#paso-2-interpretar-resultados">Paso 2: Interpretar Resultados</a></li>
   </ul></li>
-  <li><a href="#laboratorios-completados" id="toc-laboratorios-completados" class="nav-link" data-scroll-target="#laboratorios-completados">📊 Laboratorios Completados</a></li>
-  <li><a href="#habilidades-desarrolladas" id="toc-habilidades-desarrolladas" class="nav-link" data-scroll-target="#habilidades-desarrolladas">🎯 Habilidades Desarrolladas</a></li>
-  <li><a href="#otros-recursos-de-seguridad" id="toc-otros-recursos-de-seguridad" class="nav-link" data-scroll-target="#otros-recursos-de-seguridad">🔗 Otros Recursos de Seguridad</a>
+  <li><a href="#ejercicio-2-banner-grabbing" id="toc-ejercicio-2-banner-grabbing" class="nav-link" data-scroll-target="#ejercicio-2-banner-grabbing">Ejercicio 2: Banner Grabbing</a>
   <ul class="collapse">
-  <li><a href="#openvpn-setup" id="toc-openvpn-setup" class="nav-link" data-scroll-target="#openvpn-setup">OpenVPN Setup</a></li>
+  <li><a href="#verificar-banner-manualmente" id="toc-verificar-banner-manualmente" class="nav-link" data-scroll-target="#verificar-banner-manualmente">Verificar Banner Manualmente</a></li>
   </ul></li>
-  <li><a href="#estadísticas-del-módulo" id="toc-estadísticas-del-módulo" class="nav-link" data-scroll-target="#estadísticas-del-módulo">📈 Estadísticas del Módulo</a></li>
+  <li><a href="#solución-final" id="toc-solución-final" class="nav-link" data-scroll-target="#solución-final">Solución Final</a>
+  <ul class="collapse">
+  <li><a href="#lección-importante" id="toc-lección-importante" class="nav-link" data-scroll-target="#lección-importante">Lección Importante</a></li>
+  </ul></li>
+  <li><a href="#qué-aprendimos" id="toc-qué-aprendimos" class="nav-link" data-scroll-target="#qué-aprendimos">¿Qué Aprendimos?</a></li>
+  <li><a href="#comandos-de-banner-grabbing" id="toc-comandos-de-banner-grabbing" class="nav-link" data-scroll-target="#comandos-de-banner-grabbing">Comandos de Banner Grabbing</a></li>
+  <li><a href="#autoevaluación" id="toc-autoevaluación" class="nav-link" data-scroll-target="#autoevaluación">Autoevaluación</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -174,19 +219,36 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Security</h1>
-</div>
+<h1 class="title">Laboratorio 2: Service Enumeration</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">security</div>
+    <div class="quarto-category">nmap</div>
+    <div class="quarto-category">htb</div>
+  </div>
+  </div>
 
 <div>
   <div class="description">
-    Cursos y laboratorios de ciberseguridad
+    Detección de versiones y banner grabbing
   </div>
 </div>
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Diego Saavedra </p>
+          </div>
+  </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">February 20, 2026</p>
+    </div>
+  </div>
   
     
   </div>
@@ -196,176 +258,153 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="security" class="level1">
-<h1>Security 🔒</h1>
-<p>Bienvenido a la sección de <strong>Ciberseguridad</strong>. Aquí encontrarás cursos completos desde fundamentos hasta técnicas avanzadas de pentesting.</p>
-<section id="cursos-disponibles" class="level2">
-<h2 class="anchored" data-anchor-id="cursos-disponibles">📚 Cursos Disponibles</h2>
-<section id="network-enumeration-with-nmap" class="level3">
-<h3 class="anchored" data-anchor-id="network-enumeration-with-nmap">Network Enumeration with Nmap</h3>
-<p>Curso completo de enumeración de redes con Nmap, desde conceptos básicos hasta técnicas avanzadas de evasión de firewalls e IDS/IPS.</p>
-<p><a href="nmap-course/index.html"><strong>Acceder al Curso de Nmap →</strong></a></p>
-<p><strong>Contenido del curso:</strong></p>
+<section id="laboratorio-2-service-enumeration" class="level1">
+<h1>Laboratorio 2: Service Enumeration</h1>
+<section id="contenido" class="level2">
+<h2 class="anchored" data-anchor-id="contenido">Contenido</h2>
 <ul>
-<li>Introducción a Nmap y arquitectura</li>
-<li>Host Discovery y Port Scanning</li>
-<li>Service Enumeration y NSE Scripts</li>
-<li>Firewall &amp; IDS/IPS Evasion (3 laboratorios HTB)</li>
-<li>6 laboratorios prácticos completados</li>
+<li><a href="#objetivo">Objetivo</a></li>
+<li><a href="#introducción">Introducción</a></li>
+<li><a href="#ejercicio-1-service-detection">Ejercicio 1: Service Detection</a></li>
+<li><a href="#ejercicio-2-banner-grabbing">Ejercicio 2: Banner Grabbing</a></li>
+<li><a href="#solución-final">Solución Final</a></li>
+<li><a href="#qué-aprendimos">¿Qué Aprendimos?</a></li>
+<li><a href="#autoevaluación">Autoevaluación</a></li>
 </ul>
-<p><strong>Progreso del curso: 100%</strong> ✓</p>
-<hr>
 </section>
+<section id="objetivo" class="level2">
+<h2 class="anchored" data-anchor-id="objetivo">Objetivo</h2>
+<p>Enumerar servicios y sus versiones para encontrar la flag oculta.</p>
+<p><strong>Target</strong>: Spawn nuevo target en HTB Academy<br>
+<strong>Dificultad</strong>: Easy</p>
 </section>
-<section id="laboratorios-completados" class="level2">
-<h2 class="anchored" data-anchor-id="laboratorios-completados">📊 Laboratorios Completados</h2>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Reto</th>
-<th>Plataforma</th>
-<th>Dificultad</th>
-<th>Fecha</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Nmap Default Scan</td>
-<td>HTB Academy</td>
-<td>Easy</td>
-<td>2026-02-11</td>
-</tr>
-<tr class="even">
-<td>Full Port Scan</td>
-<td>HTB Academy</td>
-<td>Easy</td>
-<td>2026-02-19</td>
-</tr>
-<tr class="odd">
-<td>Service Enumeration</td>
-<td>HTB Academy</td>
-<td>Easy</td>
-<td>2026-02-20</td>
-</tr>
-<tr class="even">
-<td>NSE Scripts</td>
-<td>HTB Academy</td>
-<td>Easy</td>
-<td>2026-02-20</td>
-</tr>
-<tr class="odd">
-<td>Firewall Evasion Easy</td>
-<td>HTB Academy</td>
-<td>Easy</td>
-<td>2026-02-20</td>
-</tr>
-<tr class="even">
-<td>Firewall Evasion Medium</td>
-<td>HTB Academy</td>
-<td>Medium</td>
-<td>2026-02-20</td>
-</tr>
-<tr class="odd">
-<td>Firewall Evasion Hard</td>
-<td>HTB Academy</td>
-<td>Hard</td>
-<td>2026-02-20</td>
-</tr>
-</tbody>
-</table>
-<hr>
-</section>
-<section id="habilidades-desarrolladas" class="level2">
-<h2 class="anchored" data-anchor-id="habilidades-desarrolladas">🎯 Habilidades Desarrolladas</h2>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Habilidad</th>
-<th>Nivel</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Host Discovery</td>
-<td>Avanzado</td>
-</tr>
-<tr class="even">
-<td>Port Scanning</td>
-<td>Avanzado</td>
-</tr>
-<tr class="odd">
-<td>Service Enumeration</td>
-<td>Avanzado</td>
-</tr>
-<tr class="even">
-<td>NSE Scripts</td>
-<td>Intermedio</td>
-</tr>
-<tr class="odd">
-<td>Firewall Evasion</td>
-<td>Avanzado</td>
-</tr>
-<tr class="even">
-<td>IDS/IPS Bypass</td>
-<td>Intermedio</td>
-</tr>
-</tbody>
-</table>
-<hr>
-</section>
-<section id="otros-recursos-de-seguridad" class="level2">
-<h2 class="anchored" data-anchor-id="otros-recursos-de-seguridad">🔗 Otros Recursos de Seguridad</h2>
-<section id="openvpn-setup" class="level3">
-<h3 class="anchored" data-anchor-id="openvpn-setup">OpenVPN Setup</h3>
-<p>Guía completa de configuración de OpenVPN para conectar a HTB Academy desde Linux, macOS y Windows.</p>
-<p><a href="openvpn-setup.html">Ver guía de OpenVPN →</a></p>
-<hr>
-</section>
-</section>
-<section id="estadísticas-del-módulo" class="level2">
-<h2 class="anchored" data-anchor-id="estadísticas-del-módulo">📈 Estadísticas del Módulo</h2>
-<div class="stats-summary">
-  <div class="stat-item">
-    <span class="stat-number">7</span>
-    <span class="stat-label">Laboratorios Completados</span>
-  </div>
-  <div class="stat-item">
-    <span class="stat-number">3</span>
-    <span class="stat-label">Flags Obtenidas</span>
-  </div>
-  <div class="stat-item">
-    <span class="stat-number">100%</span>
-    <span class="stat-label">Progreso Nmap</span>
-  </div>
+<section id="introducción" class="level2">
+<h2 class="anchored" data-anchor-id="introducción">Introducción</h2>
+<p>El Service Enumeration detecta:</p>
+<ul>
+<li>Nombre del servicio</li>
+<li>Versión específica</li>
+<li>Información adicional del banner</li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-
-<style>
-.stats-summary {
-  display: flex;
-  justify-content: space-around;
-  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-  border: 1px solid #334155;
-  border-radius: 12px;
-  padding: 1.5rem;
-  margin: 1.5rem 0;
-}
-
-.stat-item {
-  text-align: center;
-}
-
-.stat-number {
-  display: block;
-  font-size: 2rem;
-  font-weight: 700;
-  color: #22c55e;
-}
-
-.stat-label {
-  font-size: 0.85rem;
-  color: #94a3b8;
-}
-</style>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>La detección de versiones es crucial para identificar vulnerabilidades conocidas (CVEs) asociadas a versiones específicas.</p>
+</div>
+</div>
+</section>
+<section id="ejercicio-1-service-detection" class="level2">
+<h2 class="anchored" data-anchor-id="ejercicio-1-service-detection">Ejercicio 1: Service Detection</h2>
+<section id="paso-1-escaneo-con-detección-de-versiones" class="level3">
+<h3 class="anchored" data-anchor-id="paso-1-escaneo-con-detección-de-versiones">Paso 1: Escaneo con Detección de Versiones</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> nmap <span class="at">-sV</span> <span class="op">&lt;</span>target<span class="op">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="paso-2-interpretar-resultados" class="level3">
+<h3 class="anchored" data-anchor-id="paso-2-interpretar-resultados">Paso 2: Interpretar Resultados</h3>
+<pre><code>PORT   STATE SERVICE VERSION
+21/tcp open  ftp     ProFTPD 1.3.5
+22/tcp open  ssh     OpenSSH 7.6p1
+80/tcp open  http    Apache 2.4.29</code></pre>
+</section>
+</section>
+<section id="ejercicio-2-banner-grabbing" class="level2">
+<h2 class="anchored" data-anchor-id="ejercicio-2-banner-grabbing">Ejercicio 2: Banner Grabbing</h2>
+<section id="verificar-banner-manualmente" class="level3">
+<h3 class="anchored" data-anchor-id="verificar-banner-manualmente">Verificar Banner Manualmente</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">nc</span> <span class="at">-nv</span> <span class="op">&lt;</span>target<span class="op">&gt;</span> 21</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Resultado:</p>
+<pre><code>220 ProFTPD 1.3.5 Server (Debian) [::ffff:10.10.10.10]
+HTB{pr0F7pDv3r510nb4nn3r}</code></pre>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Nmap puede no mostrar el banner completo
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Siempre verifica con banner grabbing manual. Nmap <code>-sV</code> puede no mostrar toda la información.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="solución-final" class="level2">
+<h2 class="anchored" data-anchor-id="solución-final">Solución Final</h2>
+<p><strong>Flag</strong>: <code>HTB{pr0F7pDv3r510nb4nn3r}</code></p>
+<section id="lección-importante" class="level3">
+<h3 class="anchored" data-anchor-id="lección-importante">Lección Importante</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Herramienta</th>
+<th>Información</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Nmap -sV</td>
+<td>Versión del servicio</td>
+</tr>
+<tr class="even">
+<td>nc manual</td>
+<td>Banner completo + flag</td>
+</tr>
+<tr class="odd">
+<td>curl</td>
+<td>Headers HTTP</td>
+</tr>
+<tr class="even">
+<td>dig</td>
+<td>Información DNS</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="qué-aprendimos" class="level2">
+<h2 class="anchored" data-anchor-id="qué-aprendimos">¿Qué Aprendimos?</h2>
+<ol type="1">
+<li><strong>Siempre verificar manualmente</strong>: Nmap puede no mostrar toda la información</li>
+<li><strong>Banner grabbing</strong>: Método simple pero efectivo</li>
+<li><strong>Información expuesta</strong>: Los servicios suelen revelar más de lo necesario</li>
+<li><strong>Múltiples herramientas</strong>: Combinar diferentes técnicas de enumeración</li>
+</ol>
+</section>
+<section id="comandos-de-banner-grabbing" class="level2">
+<h2 class="anchored" data-anchor-id="comandos-de-banner-grabbing">Comandos de Banner Grabbing</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># FTP</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">nc</span> <span class="at">-nv</span> <span class="op">&lt;</span>target<span class="op">&gt;</span> 21</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># SSH</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="ex">nc</span> <span class="at">-nv</span> <span class="op">&lt;</span>target<span class="op">&gt;</span> 22</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># HTTP</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-I</span> http://<span class="op">&lt;</span>target<span class="op">&gt;</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co"># SMTP</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="ex">nc</span> <span class="at">-nv</span> <span class="op">&lt;</span>target<span class="op">&gt;</span> 25</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="autoevaluación" class="level2">
+<h2 class="anchored" data-anchor-id="autoevaluación">Autoevaluación</h2>
+<ol type="1">
+<li>¿Qué hace <code>-sV</code> en Nmap?</li>
+<li>¿Por qué verificar manualmente los banners?</li>
+<li>¿Qué información puede contener un banner?</li>
+<li>¿Cómo obtendrías el banner de un servidor HTTP?</li>
+<li>¿Por qué los administradores deberían ocultar versiones?</li>
+<li>¿Qué es banner grabbing y por qué es útil?</li>
+</ol>
+<hr>
+<p><a href="../../security/nmap-course/lab1-full-scan.html">← Lab 1: Full Scan</a> | <a href="../../security/nmap-course/lab3-nse.html">Lab 3: NSE Scripts →</a></p>
 
 
 </section>
