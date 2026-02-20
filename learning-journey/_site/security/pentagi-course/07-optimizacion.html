@@ -6,8 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Diego Saavedra">
+<meta name="dcterms.date" content="2026-02-20">
+<meta name="description" content="Mejorando el rendimiento del sistema - Configuracion para maxima eficiencia">
 
-<title>DevOps Practices – DevOps &amp; Security Learning Journey</title>
+<title>Optimizacion de PentAGI – DevOps &amp; Security Learning Journey</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,27 +23,62 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-7ac2f9da8c2617a4fdd15004b4601015.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-3dad1a9f078d91cda5f1887d21eb11b5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-7ac2f9da8c2617a4fdd15004b4601015.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-3dad1a9f078d91cda5f1887d21eb11b5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -79,7 +117,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">DevOps &amp; Security Learning Journey</span>
     </a>
   </div>
@@ -90,27 +128,27 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html"> 
+    <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./foundations/index.html"> 
+    <a class="nav-link" href="../../foundations/index.html"> 
 <span class="menu-text">Foundations</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./containers/index.html"> 
+    <a class="nav-link" href="../../containers/index.html"> 
 <span class="menu-text">Containers</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./devops-practices/index.html"> 
+    <a class="nav-link" href="../../devops-practices/index.html"> 
 <span class="menu-text">DevOps</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./security/index.html"> 
+    <a class="nav-link" href="../../security/index.html"> 
 <span class="menu-text">Security</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./roadmap/index.html"> 
+    <a class="nav-link" href="../../roadmap/index.html"> 
 <span class="menu-text">Roadmap</span></a>
   </li>  
 </ul>
@@ -121,11 +159,11 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-language">    
         <li>
-    <a class="dropdown-item" href="./es/index.html">
+    <a class="dropdown-item" href="../../es/index.html">
  <span class="dropdown-text">Español</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./index.html">
+    <a class="dropdown-item" href="../../index.html">
  <span class="dropdown-text">English</span></a>
   </li>  
     </ul>
@@ -151,15 +189,26 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#devops-practices" id="toc-devops-practices" class="nav-link active" data-scroll-target="#devops-practices">DevOps Practices ⚙️</a>
+  <li><a href="#optimizacion-de-pentagi" id="toc-optimizacion-de-pentagi" class="nav-link active" data-scroll-target="#optimizacion-de-pentagi">Optimizacion de PentAGI</a>
   <ul class="collapse">
-  <li><a href="#chapters" id="toc-chapters" class="nav-link" data-scroll-target="#chapters">📋 Chapters</a>
+  <li><a href="#rendimiento-de-ollama" id="toc-rendimiento-de-ollama" class="nav-link" data-scroll-target="#rendimiento-de-ollama">Rendimiento de Ollama</a>
   <ul class="collapse">
-  <li><a href="#configuration-management" id="toc-configuration-management" class="nav-link" data-scroll-target="#configuration-management">Configuration Management</a></li>
-  <li><a href="#automation" id="toc-automation" class="nav-link" data-scroll-target="#automation">Automation</a></li>
-  <li><a href="#database-services" id="toc-database-services" class="nav-link" data-scroll-target="#database-services">Database Services</a></li>
+  <li><a href="#seleccion-de-modelo" id="toc-seleccion-de-modelo" class="nav-link" data-scroll-target="#seleccion-de-modelo">Seleccion de Modelo</a></li>
+  <li><a href="#parametros-optimizados" id="toc-parametros-optimizados" class="nav-link" data-scroll-target="#parametros-optimizados">Parametros Optimizados</a></li>
+  <li><a href="#monitor-de-gpu" id="toc-monitor-de-gpu" class="nav-link" data-scroll-target="#monitor-de-gpu">Monitor de GPU</a></li>
   </ul></li>
-  <li><a href="#skills-developed" id="toc-skills-developed" class="nav-link" data-scroll-target="#skills-developed">🎯 Skills Developed</a></li>
+  <li><a href="#rendimiento-de-docker" id="toc-rendimiento-de-docker" class="nav-link" data-scroll-target="#rendimiento-de-docker">Rendimiento de Docker</a>
+  <ul class="collapse">
+  <li><a href="#limpiar-recursos" id="toc-limpiar-recursos" class="nav-link" data-scroll-target="#limpiar-recursos">Limpiar Recursos</a></li>
+  <li><a href="#monitoreo" id="toc-monitoreo" class="nav-link" data-scroll-target="#monitoreo">Monitoreo</a></li>
+  </ul></li>
+  <li><a href="#solucion-de-problemas" id="toc-solucion-de-problemas" class="nav-link" data-scroll-target="#solucion-de-problemas">Solucion de Problemas</a>
+  <ul class="collapse">
+  <li><a href="#ollama-lento" id="toc-ollama-lento" class="nav-link" data-scroll-target="#ollama-lento">Ollama Lento</a></li>
+  <li><a href="#contenedores-lentos" id="toc-contenedores-lentos" class="nav-link" data-scroll-target="#contenedores-lentos">Contenedores Lentos</a></li>
+  <li><a href="#conexion-perdida" id="toc-conexion-perdida" class="nav-link" data-scroll-target="#conexion-perdida">Conexion Perdida</a></li>
+  </ul></li>
+  <li><a href="#que-aprendimos" id="toc-que-aprendimos" class="nav-link" data-scroll-target="#que-aprendimos">Que Aprendimos</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -169,14 +218,36 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">DevOps Practices</h1>
-</div>
+<h1 class="title">Optimizacion de PentAGI</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">security</div>
+    <div class="quarto-category">optimization</div>
+    <div class="quarto-category">performance</div>
+  </div>
+  </div>
 
+<div>
+  <div class="description">
+    Mejorando el rendimiento del sistema - Configuracion para maxima eficiencia
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Diego Saavedra </p>
+          </div>
+  </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">February 20, 2026</p>
+    </div>
+  </div>
   
     
   </div>
@@ -186,40 +257,135 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="devops-practices" class="level1">
-<h1>DevOps Practices ⚙️</h1>
-<p>This section covers <strong>DevOps tools and methodologies</strong> - configuration management, automation, and infrastructure practices.</p>
-<section id="chapters" class="level2">
-<h2 class="anchored" data-anchor-id="chapters">📋 Chapters</h2>
-<section id="configuration-management" class="level3">
-<h3 class="anchored" data-anchor-id="configuration-management">Configuration Management</h3>
-<ul>
-<li><a href="devops-practices/01-ansible-basics.html">Ansible Basics</a> - Getting started with Ansible</li>
-</ul>
+<section id="optimizacion-de-pentagi" class="level1">
+<h1>Optimizacion de PentAGI</h1>
+<section id="rendimiento-de-ollama" class="level2">
+<h2 class="anchored" data-anchor-id="rendimiento-de-ollama">Rendimiento de Ollama</h2>
+<section id="seleccion-de-modelo" class="level3">
+<h3 class="anchored" data-anchor-id="seleccion-de-modelo">Seleccion de Modelo</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Modelo</th>
+<th>VRAM</th>
+<th>Velocidad</th>
+<th>Calidad</th>
+<th>Uso Recomendado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>qwen2.5:32b-tc</td>
+<td>20GB</td>
+<td>Lento</td>
+<td>Excelente</td>
+<td>Analisis complejo</td>
+</tr>
+<tr class="even">
+<td>qwen2.5:14b-tc</td>
+<td>10GB</td>
+<td>Rapido</td>
+<td>Buena</td>
+<td>Tareas diarias</td>
+</tr>
+<tr class="odd">
+<td>gemma2:27b</td>
+<td>16GB</td>
+<td>Medio</td>
+<td>Buena</td>
+<td>Alternativo</td>
+</tr>
+</tbody>
+</table>
 </section>
-<section id="automation" class="level3">
-<h3 class="anchored" data-anchor-id="automation">Automation</h3>
-<ul>
-<li><a href="devops-practices/02-cron-automation.html">Cron Job Deployment</a> - Scheduled task automation</li>
-</ul>
+<section id="parametros-optimizados" class="level3">
+<h3 class="anchored" data-anchor-id="parametros-optimizados">Parametros Optimizados</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Modelfile optimizado</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">FROM</span> qwen2.5:32b</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">PARAMETER</span> num_ctx 110000    <span class="co"># Contexto extendido</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ex">PARAMETER</span> temperature 0.3   <span class="co"># Preciso</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ex">PARAMETER</span> top_p 0.8         <span class="co"># Diversidad controlada</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="ex">PARAMETER</span> num_gpu 1         <span class="co"># Usar GPU</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="ex">PARAMETER</span> num_thread 8      <span class="co"># Hilos CPU</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="database-services" class="level3">
-<h3 class="anchored" data-anchor-id="database-services">Database Services</h3>
-<ul>
-<li><a href="devops-practices/03-mariadb-troubleshooting.html">MariaDB Troubleshooting</a> - Fixing database services</li>
-</ul>
+<section id="monitor-de-gpu" class="level3">
+<h3 class="anchored" data-anchor-id="monitor-de-gpu">Monitor de GPU</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ver uso de GPU (macOS)</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> powermetrics <span class="at">--samplers</span> gpu_power</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Ver uso de VRAM</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="ex">ollama</span> ps</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 </section>
-<section id="skills-developed" class="level2">
-<h2 class="anchored" data-anchor-id="skills-developed">🎯 Skills Developed</h2>
+<section id="rendimiento-de-docker" class="level2">
+<h2 class="anchored" data-anchor-id="rendimiento-de-docker">Rendimiento de Docker</h2>
+<section id="limpiar-recursos" class="level3">
+<h3 class="anchored" data-anchor-id="limpiar-recursos">Limpiar Recursos</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Limpiar contenedores parados</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> container prune</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Limpiar imagenes no usadas</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> image prune <span class="at">-a</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Limpiar todo</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> system prune <span class="at">-a</span> <span class="at">--volumes</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="monitoreo" class="level3">
+<h3 class="anchored" data-anchor-id="monitoreo">Monitoreo</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ver uso de recursos</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> stats</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Ver uso de disco</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> system df</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="solucion-de-problemas" class="level2">
+<h2 class="anchored" data-anchor-id="solucion-de-problemas">Solucion de Problemas</h2>
+<section id="ollama-lento" class="level3">
+<h3 class="anchored" data-anchor-id="ollama-lento">Ollama Lento</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Verificar que esta usando GPU</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">ollama</span> ps</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Si no usa GPU, reiniciar</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="ex">pkill</span> ollama</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="ex">ollama</span> serve <span class="kw">&amp;</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Usar modelo mas pequeno</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="va">OLLAMA_SERVER_MODEL</span><span class="op">=</span>qwen2.5:14b-tc</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="contenedores-lentos" class="level3">
+<h3 class="anchored" data-anchor-id="contenedores-lentos">Contenedores Lentos</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Verificar recursos disponibles</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> stats</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Reiniciar servicios</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> compose restart</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Verificar logs de errores</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> compose logs pentagi <span class="kw">|</span> <span class="fu">grep</span> <span class="at">-i</span> error</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="conexion-perdida" class="level3">
+<h3 class="anchored" data-anchor-id="conexion-perdida">Conexion Perdida</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Verificar Tailscale</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">tailscale</span> status</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Verificar Ollama</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> http://100.x.x.x:11434/api/tags</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Reiniciar todo</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> compose down <span class="kw">&amp;&amp;</span> <span class="ex">docker</span> compose up <span class="at">-d</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="que-aprendimos" class="level2">
+<h2 class="anchored" data-anchor-id="que-aprendimos">Que Aprendimos</h2>
 <ul>
-<li>Ansible configuration management</li>
-<li>Cron job automation</li>
-<li>Database service management</li>
-<li>Troubleshooting production issues</li>
+<li>La seleccion de modelo afecta velocidad y calidad</li>
+<li>La limpieza regular mejora el rendimiento</li>
+<li>El monitoreo ayuda a identificar cuellos de botella</li>
+<li>Los modelos mas pequenos son mas rapidos</li>
 </ul>
 <hr>
-<p><em>Use the sidebar to navigate to specific chapters.</em></p>
+<p><a href="index.html">Volver al Curso</a> | <a href="06-seguridad.html">Seguridad &lt;-</a> | <a href="lab1-laboratorio-local.html">Laboratorio -&gt;</a></p>
 
 
 </section>

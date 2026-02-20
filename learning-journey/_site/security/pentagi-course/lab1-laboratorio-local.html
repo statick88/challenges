@@ -6,8 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Diego Saavedra">
+<meta name="dcterms.date" content="2026-02-20">
+<meta name="description" content="Configuracion practica de un laboratorio de pentesting con PentAGI - Ejercicio integrador">
 
-<title>DevOps Practices – DevOps &amp; Security Learning Journey</title>
+<title>Laboratorio Local Completo – DevOps &amp; Security Learning Journey</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,27 +23,62 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-7ac2f9da8c2617a4fdd15004b4601015.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-3dad1a9f078d91cda5f1887d21eb11b5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-7ac2f9da8c2617a4fdd15004b4601015.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-3dad1a9f078d91cda5f1887d21eb11b5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -79,7 +117,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">DevOps &amp; Security Learning Journey</span>
     </a>
   </div>
@@ -90,27 +128,27 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html"> 
+    <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./foundations/index.html"> 
+    <a class="nav-link" href="../../foundations/index.html"> 
 <span class="menu-text">Foundations</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./containers/index.html"> 
+    <a class="nav-link" href="../../containers/index.html"> 
 <span class="menu-text">Containers</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./devops-practices/index.html"> 
+    <a class="nav-link" href="../../devops-practices/index.html"> 
 <span class="menu-text">DevOps</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./security/index.html"> 
+    <a class="nav-link" href="../../security/index.html"> 
 <span class="menu-text">Security</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./roadmap/index.html"> 
+    <a class="nav-link" href="../../roadmap/index.html"> 
 <span class="menu-text">Roadmap</span></a>
   </li>  
 </ul>
@@ -121,11 +159,11 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-language">    
         <li>
-    <a class="dropdown-item" href="./es/index.html">
+    <a class="dropdown-item" href="../../es/index.html">
  <span class="dropdown-text">Español</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./index.html">
+    <a class="dropdown-item" href="../../index.html">
  <span class="dropdown-text">English</span></a>
   </li>  
     </ul>
@@ -151,15 +189,31 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#devops-practices" id="toc-devops-practices" class="nav-link active" data-scroll-target="#devops-practices">DevOps Practices ⚙️</a>
+  <li><a href="#laboratorio-local-completo" id="toc-laboratorio-local-completo" class="nav-link active" data-scroll-target="#laboratorio-local-completo">Laboratorio Local Completo</a>
   <ul class="collapse">
-  <li><a href="#chapters" id="toc-chapters" class="nav-link" data-scroll-target="#chapters">📋 Chapters</a>
+  <li><a href="#objetivo" id="toc-objetivo" class="nav-link" data-scroll-target="#objetivo">Objetivo</a></li>
+  <li><a href="#arquitectura-del-laboratorio" id="toc-arquitectura-del-laboratorio" class="nav-link" data-scroll-target="#arquitectura-del-laboratorio">Arquitectura del Laboratorio</a></li>
+  <li><a href="#paso-1-preparar-el-target" id="toc-paso-1-preparar-el-target" class="nav-link" data-scroll-target="#paso-1-preparar-el-target">Paso 1: Preparar el Target</a>
   <ul class="collapse">
-  <li><a href="#configuration-management" id="toc-configuration-management" class="nav-link" data-scroll-target="#configuration-management">Configuration Management</a></li>
-  <li><a href="#automation" id="toc-automation" class="nav-link" data-scroll-target="#automation">Automation</a></li>
-  <li><a href="#database-services" id="toc-database-services" class="nav-link" data-scroll-target="#database-services">Database Services</a></li>
+  <li><a href="#opcion-a-dvwa-en-docker" id="toc-opcion-a-dvwa-en-docker" class="nav-link" data-scroll-target="#opcion-a-dvwa-en-docker">Opcion A: DVWA en Docker</a></li>
+  <li><a href="#opcion-b-metasploitable-vm-separada" id="toc-opcion-b-metasploitable-vm-separada" class="nav-link" data-scroll-target="#opcion-b-metasploitable-vm-separada">Opcion B: Metasploitable (VM separada)</a></li>
   </ul></li>
-  <li><a href="#skills-developed" id="toc-skills-developed" class="nav-link" data-scroll-target="#skills-developed">🎯 Skills Developed</a></li>
+  <li><a href="#paso-2-verificar-conectividad" id="toc-paso-2-verificar-conectividad" class="nav-link" data-scroll-target="#paso-2-verificar-conectividad">Paso 2: Verificar Conectividad</a></li>
+  <li><a href="#paso-3-ejecutar-primer-pentest" id="toc-paso-3-ejecutar-primer-pentest" class="nav-link" data-scroll-target="#paso-3-ejecutar-primer-pentest">Paso 3: Ejecutar Primer Pentest</a>
+  <ul class="collapse">
+  <li><a href="#crear-flow" id="toc-crear-flow" class="nav-link" data-scroll-target="#crear-flow">Crear Flow</a></li>
+  <li><a href="#definir-objetivo" id="toc-definir-objetivo" class="nav-link" data-scroll-target="#definir-objetivo">Definir Objetivo</a></li>
+  <li><a href="#ejecutar-y-monitorear" id="toc-ejecutar-y-monitorear" class="nav-link" data-scroll-target="#ejecutar-y-monitorear">Ejecutar y Monitorear</a></li>
+  </ul></li>
+  <li><a href="#paso-4-analizar-resultados" id="toc-paso-4-analizar-resultados" class="nav-link" data-scroll-target="#paso-4-analizar-resultados">Paso 4: Analizar Resultados</a></li>
+  <li><a href="#ejercicios-practicos" id="toc-ejercicios-practicos" class="nav-link" data-scroll-target="#ejercicios-practicos">Ejercicios Practicos</a>
+  <ul class="collapse">
+  <li><a href="#ejercicio-1-escaneo-de-puertos" id="toc-ejercicio-1-escaneo-de-puertos" class="nav-link" data-scroll-target="#ejercicio-1-escaneo-de-puertos">Ejercicio 1: Escaneo de Puertos</a></li>
+  <li><a href="#ejercicio-2-enumeracion-web" id="toc-ejercicio-2-enumeracion-web" class="nav-link" data-scroll-target="#ejercicio-2-enumeracion-web">Ejercicio 2: Enumeracion Web</a></li>
+  <li><a href="#ejercicio-3-busqueda-de-vulnerabilidades" id="toc-ejercicio-3-busqueda-de-vulnerabilidades" class="nav-link" data-scroll-target="#ejercicio-3-busqueda-de-vulnerabilidades">Ejercicio 3: Busqueda de Vulnerabilidades</a></li>
+  </ul></li>
+  <li><a href="#checklist-de-completacion" id="toc-checklist-de-completacion" class="nav-link" data-scroll-target="#checklist-de-completacion">Checklist de Completacion</a></li>
+  <li><a href="#que-aprendimos" id="toc-que-aprendimos" class="nav-link" data-scroll-target="#que-aprendimos">Que Aprendimos</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -169,14 +223,36 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">DevOps Practices</h1>
-</div>
+<h1 class="title">Laboratorio Local Completo</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">security</div>
+    <div class="quarto-category">lab</div>
+    <div class="quarto-category">hands-on</div>
+  </div>
+  </div>
 
+<div>
+  <div class="description">
+    Configuracion practica de un laboratorio de pentesting con PentAGI - Ejercicio integrador
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Diego Saavedra </p>
+          </div>
+  </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">February 20, 2026</p>
+    </div>
+  </div>
   
     
   </div>
@@ -186,40 +262,135 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="devops-practices" class="level1">
-<h1>DevOps Practices ⚙️</h1>
-<p>This section covers <strong>DevOps tools and methodologies</strong> - configuration management, automation, and infrastructure practices.</p>
-<section id="chapters" class="level2">
-<h2 class="anchored" data-anchor-id="chapters">📋 Chapters</h2>
-<section id="configuration-management" class="level3">
-<h3 class="anchored" data-anchor-id="configuration-management">Configuration Management</h3>
+<section id="laboratorio-local-completo" class="level1">
+<h1>Laboratorio Local Completo</h1>
+<section id="objetivo" class="level2">
+<h2 class="anchored" data-anchor-id="objetivo">Objetivo</h2>
+<p>Configurar un laboratorio de pentesting completo y funcional con:</p>
 <ul>
-<li><a href="devops-practices/01-ansible-basics.html">Ansible Basics</a> - Getting started with Ansible</li>
+<li>PentAGI corriendo en VM Kali</li>
+<li>Ollama en el Host (Mac/PC)</li>
+<li>Tailscale para conexion segura</li>
+<li>Target vulnerable (DVWA o similar)</li>
 </ul>
 </section>
-<section id="automation" class="level3">
-<h3 class="anchored" data-anchor-id="automation">Automation</h3>
+<section id="arquitectura-del-laboratorio" class="level2">
+<h2 class="anchored" data-anchor-id="arquitectura-del-laboratorio">Arquitectura del Laboratorio</h2>
+<pre><code>+-----------------------------------------------------------+
+|                    LABORATORIO PENTAGI                     |
++-----------------------------------------------------------+
+|                                                           |
+|  +---------------------+       +---------------------+    |
+|  | Mac/PC Host         |       | VM Kali Linux       |    |
+|  |                     |       |                     |    |
+|  | - Ollama (:11434)   |       | - PentAGI (:8443)   |    |
+|  | - Tailscale         |&lt;-----&gt;| - Docker            |    |
+|  | - IP: 100.x.x.x     |       | - Tailscale         |    |
+|  +---------------------+       | - IP: 100.x.x.x     |    |
+|                                +---------------------+    |
+|                                           |               |
+|                                           | Red Virtual   |
+|                                           v               |
+|                                +---------------------+    |
+|                                | Target Vulnerable   |    |
+|                                | - DVWA              |    |
+|                                | - Metasploitable    |    |
+|                                | - IP: 192.168.x.x   |    |
+|                                +---------------------+    |
+|                                                           |
++-----------------------------------------------------------+</code></pre>
+</section>
+<section id="paso-1-preparar-el-target" class="level2">
+<h2 class="anchored" data-anchor-id="paso-1-preparar-el-target">Paso 1: Preparar el Target</h2>
+<section id="opcion-a-dvwa-en-docker" class="level3">
+<h3 class="anchored" data-anchor-id="opcion-a-dvwa-en-docker">Opcion A: DVWA en Docker</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># En la VM Kali</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-d</span> <span class="at">-p</span> 80:80 vulnerables/web-dvwa</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="opcion-b-metasploitable-vm-separada" class="level3">
+<h3 class="anchored" data-anchor-id="opcion-b-metasploitable-vm-separada">Opcion B: Metasploitable (VM separada)</h3>
+<p>Descarga Metasploitable2 y configuralo en la misma red que Kali.</p>
+</section>
+</section>
+<section id="paso-2-verificar-conectividad" class="level2">
+<h2 class="anchored" data-anchor-id="paso-2-verificar-conectividad">Paso 2: Verificar Conectividad</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Desde Kali, verificar que el target es accesible</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ping</span> 192.168.x.x</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Verificar servicio web</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> http://192.168.x.x</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="paso-3-ejecutar-primer-pentest" class="level2">
+<h2 class="anchored" data-anchor-id="paso-3-ejecutar-primer-pentest">Paso 3: Ejecutar Primer Pentest</h2>
+<section id="crear-flow" class="level3">
+<h3 class="anchored" data-anchor-id="crear-flow">Crear Flow</h3>
+<ol type="1">
+<li>Accede a PentAGI UI</li>
+<li>Clic en “New Flow”</li>
+<li>Nombre: “Reconocimiento DVWA”</li>
+</ol>
+</section>
+<section id="definir-objetivo" class="level3">
+<h3 class="anchored" data-anchor-id="definir-objetivo">Definir Objetivo</h3>
+<pre><code>Realizar reconocimiento basico del objetivo 192.168.x.x
+iniciando con descubrimiento de puertos y servicios</code></pre>
+</section>
+<section id="ejecutar-y-monitorear" class="level3">
+<h3 class="anchored" data-anchor-id="ejecutar-y-monitorear">Ejecutar y Monitorear</h3>
+<ol type="1">
+<li>Revisar el plan generado</li>
+<li>Aprobar cada paso</li>
+<li>Observar resultados en tiempo real</li>
+</ol>
+</section>
+</section>
+<section id="paso-4-analizar-resultados" class="level2">
+<h2 class="anchored" data-anchor-id="paso-4-analizar-resultados">Paso 4: Analizar Resultados</h2>
+<p>El agente generara:</p>
 <ul>
-<li><a href="devops-practices/02-cron-automation.html">Cron Job Deployment</a> - Scheduled task automation</li>
+<li>Lista de puertos abiertos</li>
+<li>Servicios identificados</li>
+<li>Posibles vulnerabilidades</li>
+<li>Recomendaciones</li>
 </ul>
 </section>
-<section id="database-services" class="level3">
-<h3 class="anchored" data-anchor-id="database-services">Database Services</h3>
-<ul>
-<li><a href="devops-practices/03-mariadb-troubleshooting.html">MariaDB Troubleshooting</a> - Fixing database services</li>
+<section id="ejercicios-practicos" class="level2">
+<h2 class="anchored" data-anchor-id="ejercicios-practicos">Ejercicios Practicos</h2>
+<section id="ejercicio-1-escaneo-de-puertos" class="level3">
+<h3 class="anchored" data-anchor-id="ejercicio-1-escaneo-de-puertos">Ejercicio 1: Escaneo de Puertos</h3>
+<pre><code>Objetivo: Enumerar todos los puertos TCP abiertos en 192.168.x.x</code></pre>
+</section>
+<section id="ejercicio-2-enumeracion-web" class="level3">
+<h3 class="anchored" data-anchor-id="ejercicio-2-enumeracion-web">Ejercicio 2: Enumeracion Web</h3>
+<pre><code>Objetivo: Analizar el servidor web en el puerto 80 de 192.168.x.x
+y determinar que aplicacion corre</code></pre>
+</section>
+<section id="ejercicio-3-busqueda-de-vulnerabilidades" class="level3">
+<h3 class="anchored" data-anchor-id="ejercicio-3-busqueda-de-vulnerabilidades">Ejercicio 3: Busqueda de Vulnerabilidades</h3>
+<pre><code>Objetivo: Identificar vulnerabilidades conocidas en los servicios detectados</code></pre>
+</section>
+</section>
+<section id="checklist-de-completacion" class="level2">
+<h2 class="anchored" data-anchor-id="checklist-de-completacion">Checklist de Completacion</h2>
+<ul class="task-list">
+<li><label><input type="checkbox">Ollama funcionando en el Host</label></li>
+<li><label><input type="checkbox">PentAGI funcionando en Kali VM</label></li>
+<li><label><input type="checkbox">Tailscale conectado en ambos</label></li>
+<li><label><input type="checkbox">Target vulnerable accesible</label></li>
+<li><label><input type="checkbox">Primer Flow creado y ejecutado</label></li>
+<li><label><input type="checkbox">Resultados analizados</label></li>
 </ul>
 </section>
-</section>
-<section id="skills-developed" class="level2">
-<h2 class="anchored" data-anchor-id="skills-developed">🎯 Skills Developed</h2>
+<section id="que-aprendimos" class="level2">
+<h2 class="anchored" data-anchor-id="que-aprendimos">Que Aprendimos</h2>
 <ul>
-<li>Ansible configuration management</li>
-<li>Cron job automation</li>
-<li>Database service management</li>
-<li>Troubleshooting production issues</li>
+<li>Integrar todos los componentes en un laboratorio funcional</li>
+<li>Ejecutar pentests basicos con asistencia de IA</li>
+<li>Analizar resultados generados automaticamente</li>
+<li>La importancia de tener targets de practica autorizados</li>
 </ul>
 <hr>
-<p><em>Use the sidebar to navigate to specific chapters.</em></p>
+<p><a href="index.html">Volver al Curso</a> | <a href="07-optimizacion.html">Optimizacion &lt;-</a></p>
 
 
 </section>

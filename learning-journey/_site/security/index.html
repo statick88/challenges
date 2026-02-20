@@ -157,8 +157,9 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#cursos-disponibles" id="toc-cursos-disponibles" class="nav-link" data-scroll-target="#cursos-disponibles">📚 Cursos Disponibles</a>
   <ul class="collapse">
   <li><a href="#network-enumeration-with-nmap" id="toc-network-enumeration-with-nmap" class="nav-link" data-scroll-target="#network-enumeration-with-nmap">Network Enumeration with Nmap</a></li>
+  <li><a href="#pentagi---pentesting-con-ia" id="toc-pentagi---pentesting-con-ia" class="nav-link" data-scroll-target="#pentagi---pentesting-con-ia">PentAGI - Pentesting con IA</a></li>
   </ul></li>
-  <li><a href="#laboratorios-completados" id="toc-laboratorios-completados" class="nav-link" data-scroll-target="#laboratorios-completados">📊 Laboratorios Completados</a></li>
+  <li><a href="#laboratorios-completados" id="toc-laboratorios-completados" class="nav-link" data-scroll-target="#laboratorios-completados">Laboratorios Completados</a></li>
   <li><a href="#habilidades-desarrolladas" id="toc-habilidades-desarrolladas" class="nav-link" data-scroll-target="#habilidades-desarrolladas">🎯 Habilidades Desarrolladas</a></li>
   <li><a href="#otros-recursos-de-seguridad" id="toc-otros-recursos-de-seguridad" class="nav-link" data-scroll-target="#otros-recursos-de-seguridad">🔗 Otros Recursos de Seguridad</a>
   <ul class="collapse">
@@ -216,9 +217,25 @@ ul.task-list li input[type="checkbox"] {
 <p><strong>Progreso del curso: 100%</strong> ✓</p>
 <hr>
 </section>
+<section id="pentagi---pentesting-con-ia" class="level3">
+<h3 class="anchored" data-anchor-id="pentagi---pentesting-con-ia">PentAGI - Pentesting con IA</h3>
+<p>Curso completo de pentesting automatizado con Inteligencia Artificial local, utilizando Ollama y Docker para maxima privacidad.</p>
+<p><a href="pentagi-course/index.html"><strong>Acceder al Curso de PentAGI -&gt;</strong></a></p>
+<p><strong>Contenido del curso:</strong></p>
+<ul>
+<li>Introduccion a PentAGI y arquitectura</li>
+<li>Instalacion y configuracion con Ollama local</li>
+<li>Primeros pasos y mejores practicas</li>
+<li>Seguridad y optimizacion</li>
+<li>Laboratorio practico completo</li>
+</ul>
+<p><strong>Progreso del curso: 100%</strong></p>
+<p><strong>Filosofia: Seguridad por defecto</strong> - Sin APIs externas (todo local con Ollama) - Sin credenciales expuestas - Aislamiento completo con Docker</p>
+<hr>
+</section>
 </section>
 <section id="laboratorios-completados" class="level2">
-<h2 class="anchored" data-anchor-id="laboratorios-completados">📊 Laboratorios Completados</h2>
+<h2 class="anchored" data-anchor-id="laboratorios-completados">Laboratorios Completados</h2>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -445,7 +462,7 @@ ul.task-list li input[type="checkbox"] {
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/statick88\.github\.io\/challenges\/");
+        var filterRegex = new RegExp('/' + window.location.host + '/');
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }

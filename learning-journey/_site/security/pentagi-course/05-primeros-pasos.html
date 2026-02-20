@@ -6,8 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Diego Saavedra">
+<meta name="dcterms.date" content="2026-02-20">
+<meta name="description" content="Creando tu primer flujo de pentesting - Uso practico de la plataforma">
 
-<title>DevOps Practices – DevOps &amp; Security Learning Journey</title>
+<title>Primeros Pasos con PentAGI – DevOps &amp; Security Learning Journey</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,24 +26,24 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-7ac2f9da8c2617a4fdd15004b4601015.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-3dad1a9f078d91cda5f1887d21eb11b5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-7ac2f9da8c2617a4fdd15004b4601015.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-3dad1a9f078d91cda5f1887d21eb11b5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -79,7 +82,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">DevOps &amp; Security Learning Journey</span>
     </a>
   </div>
@@ -90,27 +93,27 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html"> 
+    <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./foundations/index.html"> 
+    <a class="nav-link" href="../../foundations/index.html"> 
 <span class="menu-text">Foundations</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./containers/index.html"> 
+    <a class="nav-link" href="../../containers/index.html"> 
 <span class="menu-text">Containers</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./devops-practices/index.html"> 
+    <a class="nav-link" href="../../devops-practices/index.html"> 
 <span class="menu-text">DevOps</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./security/index.html"> 
+    <a class="nav-link" href="../../security/index.html"> 
 <span class="menu-text">Security</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./roadmap/index.html"> 
+    <a class="nav-link" href="../../roadmap/index.html"> 
 <span class="menu-text">Roadmap</span></a>
   </li>  
 </ul>
@@ -121,11 +124,11 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-language">    
         <li>
-    <a class="dropdown-item" href="./es/index.html">
+    <a class="dropdown-item" href="../../es/index.html">
  <span class="dropdown-text">Español</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./index.html">
+    <a class="dropdown-item" href="../../index.html">
  <span class="dropdown-text">English</span></a>
   </li>  
     </ul>
@@ -151,15 +154,34 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#devops-practices" id="toc-devops-practices" class="nav-link active" data-scroll-target="#devops-practices">DevOps Practices ⚙️</a>
+  <li><a href="#primeros-pasos-con-pentagi" id="toc-primeros-pasos-con-pentagi" class="nav-link active" data-scroll-target="#primeros-pasos-con-pentagi">Primeros Pasos con PentAGI</a>
   <ul class="collapse">
-  <li><a href="#chapters" id="toc-chapters" class="nav-link" data-scroll-target="#chapters">📋 Chapters</a>
+  <li><a href="#acceso-a-la-interfaz" id="toc-acceso-a-la-interfaz" class="nav-link" data-scroll-target="#acceso-a-la-interfaz">Acceso a la Interfaz</a></li>
+  <li><a href="#crear-tu-primer-flow" id="toc-crear-tu-primer-flow" class="nav-link" data-scroll-target="#crear-tu-primer-flow">Crear tu Primer Flow</a>
   <ul class="collapse">
-  <li><a href="#configuration-management" id="toc-configuration-management" class="nav-link" data-scroll-target="#configuration-management">Configuration Management</a></li>
-  <li><a href="#automation" id="toc-automation" class="nav-link" data-scroll-target="#automation">Automation</a></li>
-  <li><a href="#database-services" id="toc-database-services" class="nav-link" data-scroll-target="#database-services">Database Services</a></li>
+  <li><a href="#paso-1-nuevo-flow" id="toc-paso-1-nuevo-flow" class="nav-link" data-scroll-target="#paso-1-nuevo-flow">Paso 1: Nuevo Flow</a></li>
+  <li><a href="#paso-2-definir-objetivo" id="toc-paso-2-definir-objetivo" class="nav-link" data-scroll-target="#paso-2-definir-objetivo">Paso 2: Definir Objetivo</a></li>
+  <li><a href="#paso-3-revisar-plan" id="toc-paso-3-revisar-plan" class="nav-link" data-scroll-target="#paso-3-revisar-plan">Paso 3: Revisar Plan</a></li>
+  <li><a href="#paso-4-ejecutar" id="toc-paso-4-ejecutar" class="nav-link" data-scroll-target="#paso-4-ejecutar">Paso 4: Ejecutar</a></li>
   </ul></li>
-  <li><a href="#skills-developed" id="toc-skills-developed" class="nav-link" data-scroll-target="#skills-developed">🎯 Skills Developed</a></li>
+  <li><a href="#ejemplo-escaneo-basico" id="toc-ejemplo-escaneo-basico" class="nav-link" data-scroll-target="#ejemplo-escaneo-basico">Ejemplo: Escaneo Basico</a>
+  <ul class="collapse">
+  <li><a href="#objetivo" id="toc-objetivo" class="nav-link" data-scroll-target="#objetivo">Objetivo</a></li>
+  <li><a href="#resultado-esperado" id="toc-resultado-esperado" class="nav-link" data-scroll-target="#resultado-esperado">Resultado Esperado</a></li>
+  <li><a href="#flujo-de-trabajo" id="toc-flujo-de-trabajo" class="nav-link" data-scroll-target="#flujo-de-trabajo">Flujo de Trabajo</a></li>
+  </ul></li>
+  <li><a href="#interaccion-con-el-agente" id="toc-interaccion-con-el-agente" class="nav-link" data-scroll-target="#interaccion-con-el-agente">Interaccion con el Agente</a>
+  <ul class="collapse">
+  <li><a href="#chat" id="toc-chat" class="nav-link" data-scroll-target="#chat">Chat</a></li>
+  <li><a href="#ejemplos-de-comandos" id="toc-ejemplos-de-comandos" class="nav-link" data-scroll-target="#ejemplos-de-comandos">Ejemplos de Comandos</a></li>
+  </ul></li>
+  <li><a href="#mejores-practicas" id="toc-mejores-practicas" class="nav-link" data-scroll-target="#mejores-practicas">Mejores Practicas</a>
+  <ul class="collapse">
+  <li><a href="#objetivos-claros" id="toc-objetivos-claros" class="nav-link" data-scroll-target="#objetivos-claros">Objetivos Claros</a></li>
+  <li><a href="#alcance-definido" id="toc-alcance-definido" class="nav-link" data-scroll-target="#alcance-definido">Alcance Definido</a></li>
+  <li><a href="#supervision-activa" id="toc-supervision-activa" class="nav-link" data-scroll-target="#supervision-activa">Supervision Activa</a></li>
+  </ul></li>
+  <li><a href="#que-aprendimos" id="toc-que-aprendimos" class="nav-link" data-scroll-target="#que-aprendimos">Que Aprendimos</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -169,14 +191,36 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">DevOps Practices</h1>
-</div>
+<h1 class="title">Primeros Pasos con PentAGI</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">security</div>
+    <div class="quarto-category">pentesting</div>
+    <div class="quarto-category">tutorial</div>
+  </div>
+  </div>
 
+<div>
+  <div class="description">
+    Creando tu primer flujo de pentesting - Uso practico de la plataforma
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Diego Saavedra </p>
+          </div>
+  </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">February 20, 2026</p>
+    </div>
+  </div>
   
     
   </div>
@@ -186,40 +230,172 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="devops-practices" class="level1">
-<h1>DevOps Practices ⚙️</h1>
-<p>This section covers <strong>DevOps tools and methodologies</strong> - configuration management, automation, and infrastructure practices.</p>
-<section id="chapters" class="level2">
-<h2 class="anchored" data-anchor-id="chapters">📋 Chapters</h2>
-<section id="configuration-management" class="level3">
-<h3 class="anchored" data-anchor-id="configuration-management">Configuration Management</h3>
+<section id="primeros-pasos-con-pentagi" class="level1">
+<h1>Primeros Pasos con PentAGI</h1>
+<section id="acceso-a-la-interfaz" class="level2">
+<h2 class="anchored" data-anchor-id="acceso-a-la-interfaz">Acceso a la Interfaz</h2>
+<ol type="1">
+<li>Abre tu navegador</li>
+<li>Ve a: <code>https://TU_IP_TAILSCALE:8443</code></li>
+<li>Acepta el certificado auto-firmado</li>
+<li>Inicia sesion:
 <ul>
-<li><a href="devops-practices/01-ansible-basics.html">Ansible Basics</a> - Getting started with Ansible</li>
+<li>Usuario: <code>admin@pentagi.com</code></li>
+<li>Contrasena: <code>admin</code></li>
+</ul></li>
+</ol>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Cambia las credenciales inmediatamente despues del primer login en Settings &gt; Profile.</p>
+</div>
+</div>
+</section>
+<section id="crear-tu-primer-flow" class="level2">
+<h2 class="anchored" data-anchor-id="crear-tu-primer-flow">Crear tu Primer Flow</h2>
+<section id="paso-1-nuevo-flow" class="level3">
+<h3 class="anchored" data-anchor-id="paso-1-nuevo-flow">Paso 1: Nuevo Flow</h3>
+<ol type="1">
+<li>Clic en <strong>“New Flow”</strong></li>
+<li>Asigna un nombre descriptivo</li>
+<li>Selecciona el modelo: <code>qwen2.5:32b-tc</code></li>
+</ol>
+</section>
+<section id="paso-2-definir-objetivo" class="level3">
+<h3 class="anchored" data-anchor-id="paso-2-definir-objetivo">Paso 2: Definir Objetivo</h3>
+<p>Ejemplos de objetivos validos:</p>
+<pre><code>Realizar un escaneo de puertos basico a 192.168.1.1</code></pre>
+<pre><code>Enumerar servicios web en el rango 192.168.1.0/24</code></pre>
+<pre><code>Analizar vulnerabilidades del servidor web 10.0.0.5</code></pre>
+</section>
+<section id="paso-3-revisar-plan" class="level3">
+<h3 class="anchored" data-anchor-id="paso-3-revisar-plan">Paso 3: Revisar Plan</h3>
+<p>El agente generara un plan de accion que incluye:</p>
+<ol type="1">
+<li>Herramientas a utilizar</li>
+<li>Pasos de ejecucion</li>
+<li>Resultados esperados</li>
+</ol>
+</section>
+<section id="paso-4-ejecutar" class="level3">
+<h3 class="anchored" data-anchor-id="paso-4-ejecutar">Paso 4: Ejecutar</h3>
+<ol type="1">
+<li>Revisa el plan propuesto</li>
+<li>Aprueba la ejecucion</li>
+<li>Monitorea el progreso en tiempo real</li>
+</ol>
+</section>
+</section>
+<section id="ejemplo-escaneo-basico" class="level2">
+<h2 class="anchored" data-anchor-id="ejemplo-escaneo-basico">Ejemplo: Escaneo Basico</h2>
+<section id="objetivo" class="level3">
+<h3 class="anchored" data-anchor-id="objetivo">Objetivo</h3>
+<pre><code>Realizar reconocimiento basico del objetivo 192.168.1.100</code></pre>
+</section>
+<section id="resultado-esperado" class="level3">
+<h3 class="anchored" data-anchor-id="resultado-esperado">Resultado Esperado</h3>
+<p>El agente ejecutara:</p>
+<ol type="1">
+<li>Host discovery (nmap -sn)</li>
+<li>Port scanning (nmap -sV)</li>
+<li>Service enumeration</li>
+<li>Generacion de reporte</li>
+</ol>
+</section>
+<section id="flujo-de-trabajo" class="level3">
+<h3 class="anchored" data-anchor-id="flujo-de-trabajo">Flujo de Trabajo</h3>
+<pre><code>+----------------+     +----------------+     +----------------+
+|  Objetivo      |----&gt;|  Planificacion |----&gt;|  Ejecucion     |
+|  Definido      |     |  del Agente    |     |  Herramientas  |
++----------------+     +----------------+     +----------------+
+                                                     |
+                                                     v
+                                              +----------------+
+                                              |  Reporte       |
+                                              |  Automatico    |
+                                              +----------------+</code></pre>
+</section>
+</section>
+<section id="interaccion-con-el-agente" class="level2">
+<h2 class="anchored" data-anchor-id="interaccion-con-el-agente">Interaccion con el Agente</h2>
+<section id="chat" class="level3">
+<h3 class="anchored" data-anchor-id="chat">Chat</h3>
+<p>Usa el chat para:</p>
+<ul>
+<li>Refinar objetivos</li>
+<li>Solicitar mas detalles</li>
+<li>Cambiar direccion del analisis</li>
 </ul>
 </section>
-<section id="automation" class="level3">
-<h3 class="anchored" data-anchor-id="automation">Automation</h3>
+<section id="ejemplos-de-comandos" class="level3">
+<h3 class="anchored" data-anchor-id="ejemplos-de-comandos">Ejemplos de Comandos</h3>
+<pre><code>Que puertos abiertos encontraste?</code></pre>
+<pre><code>Enumera los servicios detectados en el puerto 80</code></pre>
+<pre><code>Genera un resumen de las vulnerabilidades encontradas</code></pre>
+</section>
+</section>
+<section id="mejores-practicas" class="level2">
+<h2 class="anchored" data-anchor-id="mejores-practicas">Mejores Practicas</h2>
+<section id="objetivos-claros" class="level3">
+<h3 class="anchored" data-anchor-id="objetivos-claros">Objetivos Claros</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Mal</th>
+<th>Bien</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>“Hackea esto”</td>
+<td>“Enumera servicios en 192.168.1.1”</td>
+</tr>
+<tr class="even">
+<td>“Busca todo”</td>
+<td>“Identifica puertos abiertos en el rango X”</td>
+</tr>
+<tr class="odd">
+<td>“Ataca”</td>
+<td>“Realiza escaneo de vulnerabilidades en puerto 80”</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="alcance-definido" class="level3">
+<h3 class="anchored" data-anchor-id="alcance-definido">Alcance Definido</h3>
+<p>Siempre especifica:</p>
 <ul>
-<li><a href="devops-practices/02-cron-automation.html">Cron Job Deployment</a> - Scheduled task automation</li>
+<li>IP o rango objetivo</li>
+<li>Tipo de analisis</li>
+<li>Profundidad deseada</li>
 </ul>
 </section>
-<section id="database-services" class="level3">
-<h3 class="anchored" data-anchor-id="database-services">Database Services</h3>
+<section id="supervision-activa" class="level3">
+<h3 class="anchored" data-anchor-id="supervision-activa">Supervision Activa</h3>
 <ul>
-<li><a href="devops-practices/03-mariadb-troubleshooting.html">MariaDB Troubleshooting</a> - Fixing database services</li>
+<li>Revisa cada paso antes de aprobar</li>
+<li>Valida resultados importantes</li>
+<li>No ejecutes sin entender las acciones</li>
 </ul>
 </section>
 </section>
-<section id="skills-developed" class="level2">
-<h2 class="anchored" data-anchor-id="skills-developed">🎯 Skills Developed</h2>
+<section id="que-aprendimos" class="level2">
+<h2 class="anchored" data-anchor-id="que-aprendimos">Que Aprendimos</h2>
 <ul>
-<li>Ansible configuration management</li>
-<li>Cron job automation</li>
-<li>Database service management</li>
-<li>Troubleshooting production issues</li>
+<li>Los Flows son la unidad de trabajo principal</li>
+<li>Los objetivos deben ser claros y especificos</li>
+<li>La supervision activa es fundamental</li>
+<li>El agente genera reportes automaticos</li>
 </ul>
 <hr>
-<p><em>Use the sidebar to navigate to specific chapters.</em></p>
+<p><a href="index.html">Volver al Curso</a> | <a href="04-configuracion.html">Configuracion &lt;-</a> | <a href="06-seguridad.html">Seguridad -&gt;</a></p>
 
 
 </section>

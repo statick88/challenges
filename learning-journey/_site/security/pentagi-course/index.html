@@ -6,8 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Diego Saavedra">
+<meta name="dcterms.date" content="2026-02-20">
+<meta name="description" content="Curso completo de Pentesting Automatizado con Inteligencia Artificial Local - Arquitectura segura con Ollama y Docker">
 
-<title>DevOps Practices – DevOps &amp; Security Learning Journey</title>
+<title>PentAGI - Pentesting con IA – DevOps &amp; Security Learning Journey</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,24 +26,24 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-7ac2f9da8c2617a4fdd15004b4601015.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-3dad1a9f078d91cda5f1887d21eb11b5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-7ac2f9da8c2617a4fdd15004b4601015.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-3dad1a9f078d91cda5f1887d21eb11b5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -79,7 +82,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">DevOps &amp; Security Learning Journey</span>
     </a>
   </div>
@@ -90,27 +93,27 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html"> 
+    <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./foundations/index.html"> 
+    <a class="nav-link" href="../../foundations/index.html"> 
 <span class="menu-text">Foundations</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./containers/index.html"> 
+    <a class="nav-link" href="../../containers/index.html"> 
 <span class="menu-text">Containers</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./devops-practices/index.html"> 
+    <a class="nav-link" href="../../devops-practices/index.html"> 
 <span class="menu-text">DevOps</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./security/index.html"> 
+    <a class="nav-link" href="../../security/index.html"> 
 <span class="menu-text">Security</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./roadmap/index.html"> 
+    <a class="nav-link" href="../../roadmap/index.html"> 
 <span class="menu-text">Roadmap</span></a>
   </li>  
 </ul>
@@ -121,11 +124,11 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-language">    
         <li>
-    <a class="dropdown-item" href="./es/index.html">
+    <a class="dropdown-item" href="../../es/index.html">
  <span class="dropdown-text">Español</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./index.html">
+    <a class="dropdown-item" href="../../index.html">
  <span class="dropdown-text">English</span></a>
   </li>  
     </ul>
@@ -151,15 +154,25 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#devops-practices" id="toc-devops-practices" class="nav-link active" data-scroll-target="#devops-practices">DevOps Practices ⚙️</a>
+  <li><a href="#pentagi---pentesting-con-ia" id="toc-pentagi---pentesting-con-ia" class="nav-link active" data-scroll-target="#pentagi---pentesting-con-ia">PentAGI - Pentesting con IA</a>
   <ul class="collapse">
-  <li><a href="#chapters" id="toc-chapters" class="nav-link" data-scroll-target="#chapters">📋 Chapters</a>
+  <li><a href="#que-es-este-curso" id="toc-que-es-este-curso" class="nav-link" data-scroll-target="#que-es-este-curso">Que es este Curso?</a></li>
+  <li><a href="#a-quien-esta-dirigido" id="toc-a-quien-esta-dirigido" class="nav-link" data-scroll-target="#a-quien-esta-dirigido">A quien esta dirigido?</a></li>
+  <li><a href="#requisitos" id="toc-requisitos" class="nav-link" data-scroll-target="#requisitos">Requisitos</a></li>
+  <li><a href="#filosofia-del-curso-seguridad-por-defecto" id="toc-filosofia-del-curso-seguridad-por-defecto" class="nav-link" data-scroll-target="#filosofia-del-curso-seguridad-por-defecto">Filosofia del Curso: Seguridad por Defecto</a></li>
+  <li><a href="#contenido-del-curso" id="toc-contenido-del-curso" class="nav-link" data-scroll-target="#contenido-del-curso">Contenido del Curso</a>
   <ul class="collapse">
-  <li><a href="#configuration-management" id="toc-configuration-management" class="nav-link" data-scroll-target="#configuration-management">Configuration Management</a></li>
-  <li><a href="#automation" id="toc-automation" class="nav-link" data-scroll-target="#automation">Automation</a></li>
-  <li><a href="#database-services" id="toc-database-services" class="nav-link" data-scroll-target="#database-services">Database Services</a></li>
+  <li><a href="#unidad-1-introduccion" id="toc-unidad-1-introduccion" class="nav-link" data-scroll-target="#unidad-1-introduccion">Unidad 1: Introduccion</a></li>
+  <li><a href="#unidad-2-instalacion-y-configuracion" id="toc-unidad-2-instalacion-y-configuracion" class="nav-link" data-scroll-target="#unidad-2-instalacion-y-configuracion">Unidad 2: Instalacion y Configuracion</a></li>
+  <li><a href="#unidad-3-mejores-practicas" id="toc-unidad-3-mejores-practicas" class="nav-link" data-scroll-target="#unidad-3-mejores-practicas">Unidad 3: Mejores Practicas</a></li>
+  <li><a href="#laboratorio-practico" id="toc-laboratorio-practico" class="nav-link" data-scroll-target="#laboratorio-practico">Laboratorio Practico</a></li>
   </ul></li>
-  <li><a href="#skills-developed" id="toc-skills-developed" class="nav-link" data-scroll-target="#skills-developed">🎯 Skills Developed</a></li>
+  <li><a href="#progreso-del-curso" id="toc-progreso-del-curso" class="nav-link" data-scroll-target="#progreso-del-curso">Progreso del Curso</a></li>
+  <li><a href="#arquitectura-objetivo" id="toc-arquitectura-objetivo" class="nav-link" data-scroll-target="#arquitectura-objetivo">Arquitectura Objetivo</a></li>
+  <li><a href="#habilidades-que-desarrollaras" id="toc-habilidades-que-desarrollaras" class="nav-link" data-scroll-target="#habilidades-que-desarrollaras">Habilidades que Desarrollaras</a></li>
+  <li><a href="#stack-tecnologico" id="toc-stack-tecnologico" class="nav-link" data-scroll-target="#stack-tecnologico">Stack Tecnologico</a></li>
+  <li><a href="#importante-antes-de-empezar" id="toc-importante-antes-de-empezar" class="nav-link" data-scroll-target="#importante-antes-de-empezar">Importante: Antes de Empezar</a></li>
+  <li><a href="#recursos-adicionales" id="toc-recursos-adicionales" class="nav-link" data-scroll-target="#recursos-adicionales">Recursos Adicionales</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -169,14 +182,38 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">DevOps Practices</h1>
-</div>
+<h1 class="title">PentAGI - Pentesting con IA</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">security</div>
+    <div class="quarto-category">pentesting</div>
+    <div class="quarto-category">ai</div>
+    <div class="quarto-category">ollama</div>
+    <div class="quarto-category">docker</div>
+  </div>
+  </div>
 
+<div>
+  <div class="description">
+    Curso completo de Pentesting Automatizado con Inteligencia Artificial Local - Arquitectura segura con Ollama y Docker
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Diego Saavedra </p>
+          </div>
+  </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">February 20, 2026</p>
+    </div>
+  </div>
   
     
   </div>
@@ -186,40 +223,253 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="devops-practices" class="level1">
-<h1>DevOps Practices ⚙️</h1>
-<p>This section covers <strong>DevOps tools and methodologies</strong> - configuration management, automation, and infrastructure practices.</p>
-<section id="chapters" class="level2">
-<h2 class="anchored" data-anchor-id="chapters">📋 Chapters</h2>
-<section id="configuration-management" class="level3">
-<h3 class="anchored" data-anchor-id="configuration-management">Configuration Management</h3>
+<section id="pentagi---pentesting-con-ia" class="level1">
+<h1>PentAGI - Pentesting con IA</h1>
+<section id="que-es-este-curso" class="level2">
+<h2 class="anchored" data-anchor-id="que-es-este-curso">Que es este Curso?</h2>
+<p>Este curso te ensenara a configurar y utilizar PentAGI, una plataforma de pentesting automatizado impulsada por Inteligencia Artificial local. Aprenderas a construir un laboratorio de pentesting completamente privado, sin dependencia de APIs externas.</p>
+</section>
+<section id="a-quien-esta-dirigido" class="level2">
+<h2 class="anchored" data-anchor-id="a-quien-esta-dirigido">A quien esta dirigido?</h2>
+<p>Este curso esta disenado para:</p>
 <ul>
-<li><a href="devops-practices/01-ansible-basics.html">Ansible Basics</a> - Getting started with Ansible</li>
+<li><strong>Profesionales de seguridad informatica</strong> que desean automatizar tareas de pentesting</li>
+<li><strong>Investigadores de seguridad</strong> que buscan integrar IA en sus flujos de trabajo</li>
+<li><strong>Estudiantes de ciberseguridad</strong> que quieren explorar el futuro del pentesting</li>
+<li><strong>Equipos Red Team</strong> que necesitan escalabilidad en sus auditorias</li>
 </ul>
 </section>
-<section id="automation" class="level3">
-<h3 class="anchored" data-anchor-id="automation">Automation</h3>
+<section id="requisitos" class="level2">
+<h2 class="anchored" data-anchor-id="requisitos">Requisitos</h2>
 <ul>
-<li><a href="devops-practices/02-cron-automation.html">Cron Job Deployment</a> - Scheduled task automation</li>
+<li>Conocimientos basicos de Docker y Docker Compose</li>
+<li>Familiaridad con conceptos de pentesting</li>
+<li>Hardware: Minimo 8GB RAM (16GB recomendado)</li>
+<li>GPU opcional para mejor rendimiento de LLMs</li>
 </ul>
 </section>
-<section id="database-services" class="level3">
-<h3 class="anchored" data-anchor-id="database-services">Database Services</h3>
+<section id="filosofia-del-curso-seguridad-por-defecto" class="level2">
+<h2 class="anchored" data-anchor-id="filosofia-del-curso-seguridad-por-defecto">Filosofia del Curso: Seguridad por Defecto</h2>
+<p>Este curso sigue el principio de <strong>seguridad por defecto</strong>:</p>
 <ul>
-<li><a href="devops-practices/03-mariadb-troubleshooting.html">MariaDB Troubleshooting</a> - Fixing database services</li>
+<li><strong>Sin APIs externas</strong>: Todo el procesamiento de IA se realiza localmente con Ollama</li>
+<li><strong>Sin credenciales expuestas</strong>: Nunca compartiremos keys, passwords o secrets</li>
+<li><strong>Aislamiento completo</strong>: Todo corre en contenedores Docker aislados</li>
+<li><strong>Red privada</strong>: Usamos Tailscale para acceso seguro sin exponer puertos</li>
+</ul>
+</section>
+<section id="contenido-del-curso" class="level2">
+<h2 class="anchored" data-anchor-id="contenido-del-curso">Contenido del Curso</h2>
+<section id="unidad-1-introduccion" class="level3">
+<h3 class="anchored" data-anchor-id="unidad-1-introduccion">Unidad 1: Introduccion</h3>
+<ul>
+<li><a href="01-introduccion.html">Que es PentAGI</a> - Fundamentos y filosofia</li>
+<li><a href="02-arquitectura.html">Arquitectura</a> - Componentes y diseno</li>
+</ul>
+</section>
+<section id="unidad-2-instalacion-y-configuracion" class="level3">
+<h3 class="anchored" data-anchor-id="unidad-2-instalacion-y-configuracion">Unidad 2: Instalacion y Configuracion</h3>
+<ul>
+<li><a href="03-instalacion.html">Instalacion</a> - Paso a paso completo</li>
+<li><a href="04-configuracion.html">Configuracion</a> - Variables de entorno y seguridad</li>
+<li><a href="05-primeros-pasos.html">Primeros Pasos</a> - Creando tu primer flujo</li>
+</ul>
+</section>
+<section id="unidad-3-mejores-practicas" class="level3">
+<h3 class="anchored" data-anchor-id="unidad-3-mejores-practicas">Unidad 3: Mejores Practicas</h3>
+<ul>
+<li><a href="06-seguridad.html">Seguridad</a> - Protegiendo tu laboratorio</li>
+<li><a href="07-optimizacion.html">Optimizacion</a> - Mejorando el rendimiento</li>
+</ul>
+</section>
+<section id="laboratorio-practico" class="level3">
+<h3 class="anchored" data-anchor-id="laboratorio-practico">Laboratorio Practico</h3>
+<ul>
+<li><a href="lab1-laboratorio-local.html">Laboratorio Local</a> - Configuracion completa</li>
 </ul>
 </section>
 </section>
-<section id="skills-developed" class="level2">
-<h2 class="anchored" data-anchor-id="skills-developed">🎯 Skills Developed</h2>
+<section id="progreso-del-curso" class="level2">
+<h2 class="anchored" data-anchor-id="progreso-del-curso">Progreso del Curso</h2>
+<div class="progress-summary">
+  <div class="progress-item">
+    <span class="progress-number">8</span>
+    <span class="progress-label">Modulos</span>
+  </div>
+  <div class="progress-item">
+    <span class="progress-number">1</span>
+    <span class="progress-label">Laboratorio</span>
+  </div>
+  <div class="progress-item">
+    <span class="progress-number">100%</span>
+    <span class="progress-label">Progreso</span>
+  </div>
+</div>
+</section>
+<section id="arquitectura-objetivo" class="level2">
+<h2 class="anchored" data-anchor-id="arquitectura-objetivo">Arquitectura Objetivo</h2>
+<p>Al finalizar este curso, tendras la siguiente arquitectura funcionando:</p>
+<pre><code>+-----------------------------------------------------------+
+|                    RED TAILSCALE                          |
++-----------------------------------------------------------+
+|                                                           |
+|  +---------------------+       +---------------------+    |
+|  | Mac/PC Host         |       | VM Kali Linux       |    |
+|  |                     |       |                     |    |
+|  | +-----------------+ |       | +-----------------+ |    |
+|  | | Ollama Server   | |       | | PentAGI         | |    |
+|  | | - qwen2.5:32b   |&lt;----------| | - UI Web       | |    |
+|  | | - gemma2:27b    | |  :11434| | - Workers      | |    |
+|  | +-----------------+ |       | | - PostgreSQL   | |    |
+|  |                     |       | +-----------------+ |    |
+|  | IP: 100.x.x.x       |       | IP: 100.x.x.x       |    |
+|  +---------------------+       +---------------------+    |
+|                                                           |
+|  100% PRIVACIDAD - Sin datos que salgan a internet       |
++-----------------------------------------------------------+</code></pre>
+</section>
+<section id="habilidades-que-desarrollaras" class="level2">
+<h2 class="anchored" data-anchor-id="habilidades-que-desarrollaras">Habilidades que Desarrollaras</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Habilidad</th>
+<th>Nivel</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Configuracion de Ollama</td>
+<td>Avanzado</td>
+</tr>
+<tr class="even">
+<td>Docker Compose</td>
+<td>Avanzado</td>
+</tr>
+<tr class="odd">
+<td>Pentesting con IA</td>
+<td>Intermedio</td>
+</tr>
+<tr class="even">
+<td>Seguridad de Contenedores</td>
+<td>Avanzado</td>
+</tr>
+<tr class="odd">
+<td>Redes Privadas (Tailscale)</td>
+<td>Intermedio</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="stack-tecnologico" class="level2">
+<h2 class="anchored" data-anchor-id="stack-tecnologico">Stack Tecnologico</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Componente</th>
+<th>Tecnologia</th>
+<th>Proposito</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>LLM Server</td>
+<td>Ollama</td>
+<td>Inferencia de modelos local</td>
+</tr>
+<tr class="even">
+<td>Orquestacion</td>
+<td>Docker Compose</td>
+<td>Gestion de contenedores</td>
+</tr>
+<tr class="odd">
+<td>Frontend</td>
+<td>React + TypeScript</td>
+<td>Interfaz web</td>
+</tr>
+<tr class="even">
+<td>Backend</td>
+<td>Go</td>
+<td>API REST y GraphQL</td>
+</tr>
+<tr class="odd">
+<td>Vector Store</td>
+<td>PostgreSQL + pgvector</td>
+<td>Busqueda semantica</td>
+</tr>
+<tr class="even">
+<td>Knowledge Graph</td>
+<td>Neo4j</td>
+<td>Memoria del agente</td>
+</tr>
+<tr class="odd">
+<td>VPN</td>
+<td>Tailscale</td>
+<td>Acceso seguro</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="importante-antes-de-empezar" class="level2">
+<h2 class="anchored" data-anchor-id="importante-antes-de-empezar">Importante: Antes de Empezar</h2>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Uso Etico
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>PentAGI es una herramienta de <strong>pentesting etico</strong>. Solo debe utilizarse en:</p>
 <ul>
-<li>Ansible configuration management</li>
-<li>Cron job automation</li>
-<li>Database service management</li>
-<li>Troubleshooting production issues</li>
+<li>Sistemas de tu propiedad</li>
+<li>Sistemas con autorizacion explicita por escrito</li>
+<li>Entornos de laboratorio controlados</li>
+<li>Auditorias de seguridad autorizadas</li>
+</ul>
+<p>El uso no autorizado puede constituir un delito.</p>
+</div>
+</div>
+</section>
+<section id="recursos-adicionales" class="level2">
+<h2 class="anchored" data-anchor-id="recursos-adicionales">Recursos Adicionales</h2>
+<ul>
+<li><a href="https://pentagi.com">Documentacion Oficial de PentAGI</a></li>
+<li><a href="https://github.com/vxcontrol/pentagi">Repositorio GitHub</a></li>
+<li><a href="https://ollama.ai">Ollama</a></li>
+<li><a href="https://tailscale.com">Tailscale</a></li>
 </ul>
 <hr>
-<p><em>Use the sidebar to navigate to specific chapters.</em></p>
+<p><em>Este curso ha sido creado con el objetivo de proporcionar acceso gratuito y universal al conocimiento de pentesting con IA.</em></p>
+<style>
+.progress-summary {
+  display: flex;
+  justify-content: space-around;
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  border: 1px solid #334155;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.progress-item {
+  text-align: center;
+}
+
+.progress-number {
+  display: block;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #22c55e;
+}
+
+.progress-label {
+  font-size: 0.85rem;
+  color: #94a3b8;
+}
+</style>
 
 
 </section>

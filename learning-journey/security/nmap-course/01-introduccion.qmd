@@ -234,4 +234,4 @@ sudo nmap -A localhost
 
 ---
 
-[← Volver al Curso](index.qmd) | [Host Discovery →](02-host-discovery.qmd)
+[Volver al Curso](index.html) | [Lab 1: Full Port Scan ->](lab1-full-scan.html)

@@ -538,7 +538,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><a href="https://nmap.org/book/">Nmap Network Scanning Book</a></li>
 </ul>
 <hr>
-<p><a href="../../security/nmap-course/index.html">← Volver al Curso</a> | <a href="02-host-discovery.qmd">Host Discovery →</a></p>
+<p><a href="index.html">Volver al Curso</a> | <a href="lab1-full-scan.html">Lab 1: Full Port Scan -&gt;</a></p>
 
 
 </section>
@@ -618,7 +618,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/statick88\.github\.io\/challenges\/");
+        var filterRegex = new RegExp('/' + window.location.host + '/');
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
