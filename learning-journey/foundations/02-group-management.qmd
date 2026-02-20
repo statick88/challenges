@@ -1,0 +1,166 @@
+---
+title: "Group Management"
+description: "Implementing group-based access control (RBAC) in enterprise Linux environments"
+date: "2026-01-25"
+categories: [linux, foundations, group-management]
+---
+
+# Group Management
+
+## Scenario: NOC Team Access Standardization
+
+**Company**: xFusionCorp Industries  
+**Project**: Nautilus - Infrastructure Monitoring Platform  
+**Location**: Stratos Datacenter  
+**Your Role**: Senior System Administrator
+
+### The Problem
+
+The Network Operations Center (NOC) team is growing. A new monitoring engineer, **Rajesh**, needs consistent access to all Nautilus application servers.
+
+**The Challenge**: Current servers don't have standardized access management:
+- Security inconsistencies
+- Audit difficulties
+- Operational problems
+
+### Your Mission
+
+Implement a standardized `nautilus_noc` group on 3 App servers and ensure Rajesh has consistent access through group membership.
+
+### Target Infrastructure
+
+| Server | IP | Access User | Password | Purpose |
+|--------|-----|-------------|----------|---------|
+| stapp01 | 172.16.238.10 | tony | Ir0nM@n | Nautilus App 1 |
+| stapp02 | 172.16.238.11 | steve | Am3ric@ | Nautilus App 2 |
+| stapp03 | 172.16.238.12 | banner | BigGr33n | Nautilus App 3 |
+
+---
+
+## 🧠 Understanding Group Architecture
+
+### Why Use Groups?
+
+Imagine you have 50 servers and 20 NOC engineers. Managing permissions user-by-user would mean **1,000 individual configurations**. Groups reduce this to **50 group configurations** + **20 membership assignments**.
+
+### Key Configuration Files
+
+```
+/etc/group       # Group definitions and members
+/etc/gshadow     # Group passwords (rarely used)
+/etc/passwd      # User info (includes primary group)
+/etc/login.defs  # Default group configuration
+```
+
+### Types of Groups in Linux
+
+| Type | Purpose | Example |
+|------|---------|---------|
+| **Primary** | User's default group | `rajesh:x:1001:rajesh` |
+| **Secondary** | Additional access groups | `nautilus_noc:x:1002:rajesh` |
+| **System** | Used by system processes | `wheel`, `ssh`, `mail` |
+
+---
+
+## 🛠️ Implementation
+
+### Step 1: Pre-Implementation Verification
+
+```bash
+# Connect to each server
+ssh tony@172.16.238.10
+sudo su -
+
+# Check if nautilus_noc group exists
+getent group nautilus_noc
+
+# Check if user rajesh exists
+id rajesh
+```
+
+> **Warning**: Never assume a group or user doesn't exist. Always verify before creating.
+
+### Step 2: Create Group on Each Server
+
+**stapp01:**
+```bash
+ssh tony@172.16.238.10
+sudo su -
+groupadd -g 2001 nautilus_noc
+getent group nautilus_noc
+```
+
+**stapp02:**
+```bash
+ssh steve@172.16.238.11
+sudo su -
+groupadd -g 2001 nautilus_noc
+getent group nautilus_noc
+```
+
+**stapp03:**
+```bash
+ssh banner@172.16.238.12
+sudo su -
+groupadd -g 2001 nautilus_noc
+getent group nautilus_noc
+```
+
+> **Key Point**: Use the same GID (2001) across all servers for consistency!
+
+### Step 3: Create User rajesh
+
+```bash
+# On each server
+useradd -G nautilus_noc rajesh
+
+# Verify
+id rajesh
+# Expected: uid=1001(rajesh) gid=1001(rajesh) groups=1001(rajesh),2001(nautilus_noc)
+```
+
+### Step 4: Set Password
+
+```bash
+passwd rajesh
+```
+
+---
+
+## ✅ Verification Checklist
+
+- [ ] Group `nautilus_noc` exists on all 3 servers with GID 2001
+- [ ] User `rajesh` exists on all 3 servers
+- [ ] User is member of `nautilus_noc` group on all servers
+- [ ] Password is set for rajesh
+- [ ] Test SSH access: `ssh rajesh@172.16.238.10`
+
+---
+
+## 🎯 Key Learnings
+
+- **Group-based access control (RBAC)**: Managing permissions through groups, not individual users
+- **Consistency**: Using the same GID across servers
+- **Audit trail**: Documenting changes before making them
+
+---
+
+## 📚 Resources
+
+- `man groupadd` - Group creation
+- `man usermod` - Modify user group membership
+- `getent group` - Query group database
+
+---
+
+## ✅ Status
+
+**COMPLETED** 🎉
+
+- Date: 2026-01-25
+- Difficulty: Medium
+- Skills: Group Management, RBAC, Multi-server Administration
+
+---
+
+*[← Back to Foundations](index.qmd)*

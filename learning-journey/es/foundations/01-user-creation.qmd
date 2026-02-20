@@ -1,0 +1,160 @@
+---
+title: "Creación de Usuario con UID Personalizado"
+description: "Crear usuarios con UIDs específicos y directorios home personalizados en Linux"
+date: "2026-01-25"
+categories: [linux, foundations, user-management]
+---
+
+# Creación de Usuario con UID Personalizado
+
+## Escenario: Primer Día en xFusionCorp
+
+Acabas de comenzar como Administrador de Sistemas Junior en **xFusionCorp Industries**. En tu primer día, el Lead SysAdmin te asigna una tarea:
+
+> *"El equipo de desarrollo web necesita un usuario llamado **javed** para desplegar su aplicación en el servidor stapp02. Necesitan UID 1467 y el directorio home debe estar en `/var/www/javed`. El desarrollador líder está esperando. ¿Puedes hacerlo?"*
+
+---
+
+## 🧠 Entendiendo la Arquitectura
+
+Antes de crear usuarios, debes entender cómo Linux los gestiona internamente.
+
+### El Archivo /etc/passwd
+
+Cada usuario en Linux está definido por una línea en `/etc/passwd`:
+
+```
+username:password:UID:GID:comment:home_directory:shell
+```
+
+**Ejemplo:**
+```
+javed:x:1467:1467::/var/www/javed:/bin/bash
+```
+
+> **Insight Clave**: El UID es el verdadero identificador del usuario. Linux no dice "el usuario javed accedió"; dice "el UID 1467 accedió". Los nombres son solo etiquetas humanas.
+
+### ¿Por Qué UID 1467?
+
+En organizaciones grandes, los UIDs se asignan por rangos:
+
+- **0-99**: Usuarios del sistema (root, bin, daemon)
+- **100-999**: Cuentas de servicios (nginx, mysql, docker)
+- **1000+**: Usuarios humanos regulares
+- **10000+**: Aplicaciones específicas
+
+---
+
+## 🛠️ Implementación
+
+### Paso 1: Acceder al Servidor
+
+```bash
+# Conectar vía SSH
+ssh steve@172.16.238.11
+
+# Escalar a root
+sudo su -
+```
+
+### Paso 2: Verificación
+
+Siempre verifica el estado actual antes de hacer cambios:
+
+```bash
+# Verificar si el usuario ya existe
+id javed
+
+# Verificar si el UID 1467 ya está en uso
+grep "1467" /etc/passwd
+
+# Verificar que /var/www/ existe
+ls -ld /var/www/
+```
+
+### Paso 3: Crear el Usuario
+
+```bash
+useradd -u 1467 -d /var/www/javed -m javed
+```
+
+**Desglose del comando:**
+
+| Opción | Significado | Por Qué lo Usamos |
+|--------|-------------|-------------------|
+| `-u 1467` | Especificar UID | Requerimiento del equipo de desarrollo |
+| `-d /var/www/javed` | Home personalizado | Estándar para aplicaciones web |
+| `-m` | Crear directorio home | El usuario necesita un espacio de trabajo |
+| `javed` | Nombre de usuario | Identificador humano |
+
+### Paso 4: Establecer Contraseña
+
+```bash
+passwd javed
+```
+
+> **Mejor Práctica de Seguridad**: En producción, configura autenticación por clave SSH y deshabilita el login por contraseña: `passwd -l javed`
+
+### Paso 5: Verificación
+
+```bash# Verificar que el usuario existe con el UID correcto
+id javed
+# Esperado: uid=1467(javed) gid=1467(javed) groups=1467(javed)# Verificar el directorio home
+ls -la /var/www/javed
+
+# Verificar que podemos cambiar al usuario
+su - javed
+pwd  # Debe mostrar: /var/www/javed
+```
+
+---
+
+## ✅ Lista de Verificación
+
+- [ ] El usuario existe en /etc/passwd
+- [ ] El UID es exactamente 1467
+- [ ] El GID coincide con el UID
+- [ ] El directorio home existe en /var/www/javed
+- [ ] Los permisos son javed:javed
+- [ ] Archivos de configuración copiados (bashrc, etc.)
+- [ ] Puedo ejecutar `su - javed` sin errores
+
+---
+
+## 🚀 Próximos Pasos
+
+Explora variaciones de useradd:
+
+```bash
+# Cuenta de servicio (sin login)
+useradd -r -s /sbin/nologin mysql
+
+# Agregar a grupos secundarios
+useradd -G developers,deployers -m javed
+
+# Cuenta con fecha de expiración
+useradd -e 2025-12-31 -m contractor1
+```
+
+---
+
+## 📚 Recursos
+
+- `man useradd` - Documentación completa del comando
+- `man usermod` - Modificación de usuarios
+- `/etc/passwd format` - Entendiendo los 7 campos
+
+---
+
+## ✅ Estado
+
+**COMPLETADO** 🎉
+
+- Fecha: 2026-01-25
+- Tiempo: 10-15 minutos
+- Nivel: Fundamentos de Administración Linux
+- Habilidades: Gestión de Usuarios, SSH, Verificación
+
+---
+
+*[← Volver a Fundamentos](../foundations/index.qmd)*

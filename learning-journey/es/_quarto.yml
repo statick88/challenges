@@ -1,0 +1,40 @@
+project:
+  type: website
+  output-dir: ../_site/es
+
+website:
+  title: "Journey de Aprendizaje DevOps & Security"
+  description: "Mi camino a través de Linux, Docker, DevOps, CTF y HTB Academy"
+  navbar:
+    left:
+      - text: "Inicio"
+        href: index.qmd
+      - text: "Fundamentos"
+        href: foundations/index.qmd
+      - text: "Contenedores"  
+        href: containers/index.qmd
+      - text: "DevOps"
+        href: devops-practices/index.qmd
+      - text: "Seguridad"
+        href: security/index.qmd
+      - text: "Hoja de Ruta"
+        href: roadmap/index.qmd
+    right:
+      - text: "Idioma"
+        menu:
+          - text: "Español"
+            href: index.qmd
+          - text: "English"
+            href: ../index.qmd
+      - text: "GitHub"
+        href: https://github.com/statick88/challenges
+        icon: github
+
+format:
+  html:
+    theme: solar
+    toc: true
+    code-fold: true
+    
+execute:
+  freeze: auto

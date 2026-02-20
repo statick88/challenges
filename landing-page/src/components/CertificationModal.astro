@@ -1,0 +1,242 @@
+---
+import type { Certification } from '../types/challenges';
+
+interface Props {
+  certifications: Certification[];
+}
+
+const { certifications } = Astro.props;
+---
+
+<div id="cert-modal" class="cert-modal">
+  <div class="cert-modal-overlay" data-close-modal></div>
+  <div class="cert-modal-content">
+    <div class="cert-modal-header">
+      <h3 id="cert-modal-title" class="cert-modal-title">Certificado</h3>
+      <button class="cert-modal-close" data-close-modal title="Cerrar">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+    <div class="cert-modal-body">
+      <div class="cert-watermark">CERTIFICADO VERIFICADO</div>
+      <img id="cert-modal-image" src="" alt="Certificate" class="cert-modal-image" />
+    </div>
+    <div class="cert-modal-footer">
+      <a id="cert-modal-verify" href="#" target="_blank" class="cert-modal-btn primary">
+        🔍 Verificar Autenticidad
+      </a>
+      <div class="cert-modal-id">
+        <span>ID: </span>
+        <code id="cert-modal-id-value"></code>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script define:vars={{ certifications }}>
+  const certs = certifications.reduce((acc, cert) => {
+    acc[cert.id] = cert;
+    return acc;
+  }, {});
+
+  function openCertModal(certId) {
+    const cert = certs[certId];
+    if (!cert) return;
+    
+    const modal = document.getElementById('cert-modal');
+    const title = document.getElementById('cert-modal-title');
+    const image = document.getElementById('cert-modal-image');
+    const verifyLink = document.getElementById('cert-modal-verify');
+    const idValue = document.getElementById('cert-modal-id-value');
+    
+    if (title) title.textContent = cert.title;
+    if (image) image.src = cert.image;
+    if (verifyLink) verifyLink.href = cert.verifyUrl;
+    if (idValue) idValue.textContent = cert.id;
+    
+    if (modal) {
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+  }
+
+  function closeCertModal() {
+    const modal = document.getElementById('cert-modal');
+    if (modal) {
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+  }
+
+  document.querySelectorAll('[data-close-modal]').forEach(el => {
+    el.addEventListener('click', closeCertModal);
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeCertModal();
+    }
+  });
+
+  window.openCertModal = openCertModal;
+  window.closeCertModal = closeCertModal;
+</script>
+
+<style>
+  .cert-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+  
+  .cert-modal.active {
+    display: flex;
+  }
+  
+  .cert-modal-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(8px);
+  }
+  
+  .cert-modal-content {
+    position: relative;
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    border: 1px solid rgba(59, 130, 246, 0.4);
+    border-radius: 1rem;
+    max-width: 900px;
+    width: 100%;
+    max-height: 90vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  }
+  
+  .cert-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid rgba(71, 85, 105, 0.3);
+    background: rgba(30, 41, 59, 0.5);
+  }
+  
+  .cert-modal-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--color-text);
+    margin: 0;
+  }
+  
+  .cert-modal-close {
+    background: rgba(239, 68, 68, 0.2);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .cert-modal-close:hover {
+    background: rgba(239, 68, 68, 0.3);
+  }
+  
+  .cert-modal-close svg {
+    width: 1.25rem;
+    height: 1.25rem;
+    color: #ef4444;
+  }
+  
+  .cert-modal-body {
+    flex: 1;
+    overflow: auto;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    user-select: none;
+  }
+  
+  .cert-watermark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-30deg);
+    font-size: 3rem;
+    font-weight: 900;
+    color: rgba(59, 130, 246, 0.1);
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: 1;
+    letter-spacing: 0.5rem;
+  }
+  
+  .cert-modal-image {
+    max-width: 100%;
+    max-height: 60vh;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    pointer-events: none;
+    position: relative;
+    z-index: 2;
+  }
+  
+  .cert-modal-footer {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid rgba(71, 85, 105, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    background: rgba(30, 41, 59, 0.5);
+  }
+  
+  .cert-modal-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.25rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+  
+  .cert-modal-btn.primary {
+    background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);
+    color: white;
+  }
+  
+  .cert-modal-btn.primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+  }
+  
+  .cert-modal-id {
+    font-size: 0.75rem;
+    color: var(--color-text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+  
+  .cert-modal-id code {
+    font-family: SF Mono, Monaco, monospace;
+    color: #06b6d4;
+    background: rgba(6, 182, 212, 0.1);
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.7rem;
+  }
+</style>

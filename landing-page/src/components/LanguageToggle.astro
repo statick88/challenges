@@ -1,0 +1,92 @@
+---
+// src/components/LanguageToggle.astro
+// Componente para cambiar entre inglés y español
+---
+
+<button
+  id="lang-toggle"
+  class="lang-toggle"
+  type="button"
+  aria-label="Cambiar idioma"
+  title="Cambiar idioma"
+>
+  <span class="lang-text">EN</span>
+</button>
+
+<style>
+  .lang-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    color: var(--color-text);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .lang-toggle:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+    box-shadow: var(--shadow-accent);
+  }
+
+  .lang-toggle:focus {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  .lang-text {
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+</style>
+
+<script>
+  const langToggle = document.getElementById('lang-toggle');
+  const langText = langToggle?.querySelector('.lang-text');
+  
+  // Get current language from URL or localStorage
+  function getCurrentLang() {
+    const path = window.location.pathname;
+    if (path.startsWith('/challenges/es/') || path.includes('/es/')) {
+      return 'es';
+    }
+    return 'en';
+  }
+  
+  // Update button text based on current language
+  function updateButtonText() {
+    const currentLang = getCurrentLang();
+    if (langText) {
+      langText.textContent = currentLang === 'es' ? 'ES' : 'EN';
+    }
+  }
+  
+  // Initialize button text
+  updateButtonText();
+  
+  langToggle?.addEventListener('click', () => {
+    const currentLang = getCurrentLang();
+    const newLang = currentLang === 'es' ? 'en' : 'es';
+    
+    // Get current path
+    let currentPath = window.location.pathname;
+    
+    // Remove language prefix if present
+    currentPath = currentPath.replace('/challenges/es/', '/challenges/');
+    currentPath = currentPath.replace('/es/', '/');
+    
+    // Add new language prefix
+    const newPath = newLang === 'es' 
+      ? `/challenges/es${currentPath}` 
+      : `/challenges${currentPath}`;
+    
+    // Navigate to new path
+    window.location.href = newPath;
+  });
+</script>

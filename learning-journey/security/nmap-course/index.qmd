@@ -1,0 +1,147 @@
+---
+title: "Network Enumeration with Nmap"
+description: "Curso completo de enumeración de redes con Nmap - Desde conceptos básicos hasta técnicas avanzadas de evasión"
+author: "Diego Saavedra"
+date: "2026-02-20"
+categories: [security, nmap, enumeration, htb]
+---
+
+# Network Enumeration with Nmap
+
+![](https://nmap.org/images/nmap-logo-256x256.png)
+
+## ¿Qué es este Curso?
+
+Este curso te llevará desde los fundamentos de Nmap hasta técnicas avanzadas de enumeración de redes y evasión de firewalls e IDS/IPS. A través de una combinación de teoría y laboratorios prácticos en Hack The Box Academy, explorarás cada aspecto de la enumeración de redes.
+
+## ¿A quién está dirigido?
+
+Este curso está diseñado para:
+
+- **Estudiantes de seguridad informática** que desean dominar Nmap
+- **Profesionales de pentesting** que buscan mejorar sus habilidades de enumeración
+- **Administradores de sistemas** que quieren auditar sus redes
+- **Entusiastas de CTF** que participan en competencias de seguridad
+
+## Requisitos
+
+- Conocimientos básicos de redes TCP/IP
+- Familiaridad con línea de comandos Linux
+- Cuenta activa en Hack The Box Academy
+- Kali Linux o distribución con Nmap instalado
+
+## Contenido del Curso
+
+### Unidad 1: Introducción a Nmap
+
+- [Introducción a Nmap](nmap-course/01-introduccion.html) - Fundamentos y arquitectura
+- [Host Discovery](nmap-course/02-host-discovery.html) - Descubrimiento de hosts activos
+- [Port Scanning](nmap-course/03-port-scanning.html) - Técnicas de escaneo de puertos
+
+### Unidad 2: Service Enumeration
+
+- [Service Enumeration](nmap-course/04-service-enum.html) - Detección de versiones y servicios
+- [Nmap Scripting Engine](nmap-course/05-nse.html) - Scripts personalizados
+
+### Unidad 3: Firewall and IDS/IPS Evasion
+
+- [Teoría de Evasión](nmap-course/06-evasion-theory.html) - Conceptos y técnicas
+- [Laboratorio Easy](nmap-course/07-lab-easy.html) - OS Fingerprinting pasivo
+- [Laboratorio Medium](nmap-course/08-lab-medium.html) - DNS version enumeration
+- [Laboratorio Hard](nmap-course/09-lab-hard.html) - Source port manipulation
+
+### Laboratorios Prácticos
+
+- [Lab 1: Full Port Scan](nmap-course/lab1-full-scan.html)
+- [Lab 2: Service Enumeration](nmap-course/lab2-service-enum.html)
+- [Lab 3: NSE Scripts](nmap-course/lab3-nse.html)
+- [Lab 4: Firewall Evasion Easy](nmap-course/lab4-evasion-easy.html)
+- [Lab 5: Firewall Evasion Medium](nmap-course/lab5-evasion-medium.html)
+- [Lab 6: Firewall Evasion Hard](nmap-course/lab6-evasion-hard.html)
+
+## Progreso del Curso
+
+```{=html}
+<div class="progress-summary">
+  <div class="progress-item">
+    <span class="progress-number">6</span>
+    <span class="progress-label">Laboratorios Completados</span>
+  </div>
+  <div class="progress-item">
+    <span class="progress-number">0</span>
+    <span class="progress-label">Laboratorios Restantes</span>
+  </div>
+  <div class="progress-item">
+    <span class="progress-number">100%</span>
+    <span class="progress-label">Progreso</span>
+  </div>
+</div>
+```
+
+## Habilidades Desarrolladas
+
+| Habilidad | Nivel |
+|-----------|-------|
+| Host Discovery | Avanzado |
+| Port Scanning | Avanzado |
+| Service Enumeration | Avanzado |
+| NSE Scripts | Intermedio |
+| Firewall Evasion | Avanzado |
+| IDS/IPS Bypass | Intermedio |
+
+## Tabla de Retos Completados
+
+| Reto | Respuesta | Fecha |
+|------|-----------|-------|
+| Nmap Default | HTB{pr0F7pDv3r510nb4nn3r} | 2026-02-11 |
+| Full Port Scan | 31337 | 2026-02-19 |
+| Service Enumeration | HTB{pr0F7pDv3r510nb4nn3r} | 2026-02-20 |
+| NSE Scripts | HTB{873nniuc71bu6usbs1i96as6dsv26} | 2026-02-20 |
+| Firewall Evasion Easy | Ubuntu | 2026-02-20 |
+| Firewall Evasion Medium | HTB{GoTtgUnyze9Psw4vGjcuMpHRp} | 2026-02-20 |
+| Firewall Evasion Hard | HTB{kjnsdf2n982n1827eh76238s98di1w6} | 2026-02-20 |
+
+## Recursos Adicionales
+
+- [Documentación Oficial de Nmap](https://nmap.org/docs.html)
+- [Nmap Network Scanning Book](https://nmap.org/book/)
+- [Nmap Scripting Engine](https://nmap.org/nsedoc/)
+- [Hack The Box Academy](https://academy.hackthebox.com/)
+
+## ¿Cómo contribuir?
+
+Si encuentras errores, deseas sugerir mejoras o agregar contenido adicional, puedes contribuir a través del repositorio de GitHub. Juntos podemos mejorar continuamente este recurso educativo.
+
+---
+
+*Este curso ha sido creado con el objetivo de proporcionar acceso gratuito y universal al conocimiento de Nmap y la enumeración de redes.*
+
+```{=html}
+<style>
+.progress-summary {
+  display: flex;
+  justify-content: space-around;
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  border: 1px solid #334155;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.progress-item {
+  text-align: center;
+}
+
+.progress-number {
+  display: block;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #22c55e;
+}
+
+.progress-label {
+  font-size: 0.85rem;
+  color: #94a3b8;
+}
+</style>
+```

@@ -1,12 +1,12 @@
 {
-  "lastUpdated": "2026-02-18T18:33:25.292Z",
+  "lastUpdated": "2026-02-20T10:28:06.494Z",
   "linux": [
     {
       "id": "01-creacion-usuarios",
       "title": "Reto 01: Creación de Usuario javed - xFusionCorp Industries",
       "status": "completed",
       "difficulty": "easy",
-      "date": "2025-01-25",
+      "date": "2026-01-25",
       "excerpt": "🎓 Clase 01: El Arte de la Gestión de Usuarios en Linux",
       "path": "/challenges/linux/01-creacion-usuarios"
     },
@@ -15,7 +15,7 @@
       "title": "Reto 02: Gestión de Grupos nautilus_noc - xFusionCorp Industries",
       "status": "completed",
       "difficulty": "medium",
-      "date": "2025-01-25",
+      "date": "2026-01-25",
       "excerpt": "Reto 02: Gestión de Grupos nautilus_noc - xFusionCorp Industries",
       "path": "/challenges/linux/02-gestion-grupos-xfusioncorp"
     },
@@ -24,7 +24,7 @@
       "title": "Reto 03: Usuario john con Shell No-Interactivo - xFusionCorp Industries",
       "status": "completed",
       "difficulty": "easy",
-      "date": "2025-01-25",
+      "date": "2026-01-25",
       "excerpt": "Reto 03: Usuario john con Shell No-Interactivo - xFusionCorp Industries",
       "path": "/challenges/linux/03-usuario-no-interactivo-xfusioncorp"
     },
@@ -33,16 +33,16 @@
       "title": "Reto 04: Service User Creation without Home Directory - xFusionCorp Industries",
       "status": "completed",
       "difficulty": "medium",
-      "date": "2025-01-25",
+      "date": "2026-01-26",
       "excerpt": "Reto 04: Service User Creation without Home Directory - xFusionCorp Industries",
       "path": "/challenges/linux/04-usuario-sin-home"
     },
     {
       "id": "05-usuario-temporal",
       "title": "Reto 05: Temporary User Setup with Expiry - xFusionCorp Industries",
-      "status": "in_progress",
+      "status": "completed",
       "difficulty": "easy",
-      "date": "2025-01-25",
+      "date": "2026-01-29",
       "excerpt": "Reto 05: Temporary User Setup with Expiry - xFusionCorp Industries",
       "path": "/challenges/linux/05-usuario-temporal"
     },
@@ -58,9 +58,9 @@
     {
       "id": "06-transferencia-datos",
       "title": "Reto 06: Linux User Data Transfer - xFusionCorp Industries",
-      "status": "in_progress",
+      "status": "completed",
       "difficulty": "easy",
-      "date": "2025-01-25",
+      "date": "2026-02-20",
       "excerpt": "Reto 06: Linux User Data Transfer - xFusionCorp Industries",
       "path": "/challenges/linux/06-transferencia-datos"
     },
@@ -171,6 +171,15 @@
       "date": "2025-01-25",
       "excerpt": "Reto 18: SELinux Installation and Configuration - xFusionCorp Industries",
       "path": "/challenges/linux/18-instalacion-selinux"
+    },
+    {
+      "id": "19-filtrado-archivos-usuario",
+      "title": "Reto 19: Filtrado y Copia de Archivos de Usuario - Nautilus App Server 2",
+      "status": "completed",
+      "difficulty": "medium",
+      "date": "2026-02-20",
+      "excerpt": "Reto 19: Filtrado y Copia de Archivos de Usuario - Nautilus App Server 2",
+      "path": "/challenges/linux/19-filtrado-archivos-usuario"
     }
   ],
   "docker": [
@@ -299,6 +308,16 @@
       "excerpt": "🎓 Día 7: Configuration Management con Ansible",
       "path": "/challenges/devops/day-07-ansible-installation",
       "day": 7
+    },
+    {
+      "id": "day-08-mariadb-troubleshooting",
+      "title": "Reto: Arreglar Servicio MariaDB - Nautilus App",
+      "status": "completed",
+      "difficulty": "2",
+      "date": "2026-02-20",
+      "excerpt": "Reto: Arreglar Servicio MariaDB - Nautilus App",
+      "path": "/challenges/devops/day-08-mariadb-troubleshooting",
+      "day": 8
     },
     {
       "id": "day-08-sudo-deployment",
@@ -528,6 +547,39 @@
       "path": "/challenges/htb/forensics/memory-forensics"
     },
     {
+      "id": "network-enum/firewall-ids-evasion-easy",
+      "title": "Firewall and IDS/IPS Evasion - Easy Lab",
+      "status": "completed",
+      "difficulty": "easy",
+      "date": "2026-02-20",
+      "category": "network-enum",
+      "platform": "HTB",
+      "excerpt": "Firewall and IDS/IPS Evasion - Easy Lab",
+      "path": "/challenges/htb/network-enum/firewall-ids-evasion-easy"
+    },
+    {
+      "id": "network-enum/firewall-ids-evasion-hard",
+      "title": "Firewall and IDS/IPS Evasion - Hard Lab",
+      "status": "completed",
+      "difficulty": "hard",
+      "date": "2026-02-20",
+      "category": "network-enum",
+      "platform": "HTB",
+      "excerpt": "Firewall and IDS/IPS Evasion - Hard Lab",
+      "path": "/challenges/htb/network-enum/firewall-ids-evasion-hard"
+    },
+    {
+      "id": "network-enum/firewall-ids-evasion-medium",
+      "title": "Firewall and IDS/IPS Evasion - Medium Lab",
+      "status": "completed",
+      "difficulty": "medium",
+      "date": "2026-02-20",
+      "category": "network-enum",
+      "platform": "HTB",
+      "excerpt": "Firewall and IDS/IPS Evasion - Medium Lab",
+      "path": "/challenges/htb/network-enum/firewall-ids-evasion-medium"
+    },
+    {
       "id": "network-enum/nmap-default",
       "title": "HTB Academy - Nmap Default",
       "status": "completed",
@@ -537,6 +589,39 @@
       "platform": "HTB",
       "excerpt": "🎓 HTB Academy - Nmap Default",
       "path": "/challenges/htb/network-enum/nmap-default"
+    },
+    {
+      "id": "network-enum/nmap-full-scan",
+      "title": "HTB Academy - Nmap Full Port Scan",
+      "status": "completed",
+      "difficulty": "easy",
+      "date": "2026-02-19",
+      "category": "network-enum",
+      "platform": "HTB",
+      "excerpt": "🎓 HTB Academy - Nmap Full Port Scan",
+      "path": "/challenges/htb/network-enum/nmap-full-scan"
+    },
+    {
+      "id": "network-enum/nmap-nse",
+      "title": "HTB Academy - Nmap Scripting Engine (NSE)",
+      "status": "completed",
+      "difficulty": "easy",
+      "date": "2026-02-20",
+      "category": "network-enum",
+      "platform": "HTB",
+      "excerpt": "HTB Academy - Nmap Scripting Engine (NSE)",
+      "path": "/challenges/htb/network-enum/nmap-nse"
+    },
+    {
+      "id": "network-enum/nmap-service-enum",
+      "title": "HTB Academy - Service Enumeration with Nmap",
+      "status": "completed",
+      "difficulty": "easy",
+      "date": "2026-02-20",
+      "category": "network-enum",
+      "platform": "HTB",
+      "excerpt": "HTB Academy - Service Enumeration with Nmap",
+      "path": "/challenges/htb/network-enum/nmap-service-enum"
     },
     {
       "id": "privilege-escalation/linux-privesc",

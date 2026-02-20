@@ -1,0 +1,95 @@
+---
+title: "Firewall & IDS/IPS Evasion - Easy Lab"
+---
+
+## Objective
+
+Identify the operating system of a target machine protected by IDS/IPS without triggering too many alerts.
+
+## Scenario
+
+The target has IDS/IPS protection that monitors network traffic. A status page shows alert count - exceeding 100 alerts will fail the challenge.
+
+## Initial Reconnaissance
+
+### Status Page Check
+
+```bash
+curl http://10.129.4.94/status.php
+```
+
+```
+Recorded alerts:	50
+/ 100 alerts
+```
+
+**Analysis**: 50 alerts already recorded. Must use passive/low-profile techniques.
+
+## Passive OS Fingerprinting
+
+### Method 1: HTTP Server Header
+
+```bash
+curl -I http://10.129.4.94
+```
+
+```
+HTTP/1.1 200 OK
+Server: Apache/2.4.29 (Ubuntu)
+```
+
+**Finding**: Server explicitly identifies as Ubuntu.
+
+### Method 2: SSH Banner Grabbing
+
+```bash
+nc -nv 10.129.4.94 22
+```
+
+```
+SSH-2.0-OpenSSH_7.6p1 Ubuntu-4ubuntu0.7
+```
+
+**Finding**: SSH daemon confirms Ubuntu.
+
+### Method 3: TTL Analysis
+
+```bash
+ping -c 1 10.129.4.94
+```
+
+```
+64 bytes from 10.129.4.94: icmp_seq=0 ttl=63
+```
+
+**Finding**: TTL=63 indicates Linux (default 64, -1 for hop).
+
+## Answer
+
+**Ubuntu** - All three passive methods confirmed the target OS.
+
+## Key Learnings
+
+| Technique | Indicator | Result |
+|-----------|-----------|--------|
+| HTTP Header | `Apache/2.4.29 (Ubuntu)` | Ubuntu |
+| SSH Banner | `Ubuntu-4ubuntu0.7` | Ubuntu |
+| TTL Value | 63 (Linux: 64) | Linux |
+
+### Evasion Techniques Reference
+
+| Technique | Purpose | IDS Impact |
+|-----------|---------|------------|
+| Passive banner grabbing | OS/service info | None |
+| `curl -I` | HTTP headers | Minimal |
+| `nc` connection | Service banners | Minimal |
+| `--source-port 53` | Appear as DNS | Low |
+| `-D RND:5` | Decoys | Spread across IPs |
+| `-sA` | ACK scan | Harder to detect |
+
+## Takeaways
+
+1. **Passive > Active**: Service banners often reveal OS without triggering alerts
+2. **HTTP Server Header**: Apache often includes OS in version string
+3. **SSH Banner**: OpenSSH packages typically include distribution info
+4. **TTL Fingerprinting**: Linux ≈ 64, Windows ≈ 128, Network devices ≈ 255

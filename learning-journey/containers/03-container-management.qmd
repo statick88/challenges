@@ -1,0 +1,91 @@
+---
+title: "Container Management"
+description: "Managing running containers: start, stop, logs, and inspection"
+date: "2026-01-29"
+categories: [docker, containers, management]
+---
+
+# Container Management
+
+## Scenario: Managing Production Containers
+
+**Task**: Learn essential container management commands
+
+---
+
+## 🛠️ Essential Commands
+
+### Container Lifecycle
+
+```bash
+# Start/Stop/Restart
+docker start mycontainer
+docker stop mycontainer
+docker restart mycontainer
+
+# Remove container
+docker rm mycontainer
+
+# Remove stopped containers
+docker container prune
+```
+
+### Inspecting Containers
+
+```bash
+# View logs
+docker logs mycontainer
+docker logs -f mycontainer  # Follow
+docker logs --tail 100 mycontainer
+
+# Inspect details
+docker inspect mycontainer
+
+# Execute command in running container
+docker exec -it mycontainer /bin/bash
+
+# Check resource usage
+docker stats mycontainer
+```
+
+### Listing Containers
+
+```bash
+# Running containers
+docker ps
+
+# All containers (including stopped)
+docker ps -a
+
+# Format output
+docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
+```
+
+---
+
+## ✅ Verification
+
+- [ ] Can start/stop containers
+- [ ] Can view and follow logs
+- [ ] Can exec into containers
+- [ ] Can inspect container details
+
+---
+
+## 🎯 Key Learnings
+
+- Container lifecycle management
+- Log analysis
+- Debugging running containers
+
+---
+
+## ✅ Status
+
+**COMPLETED** 🎉
+
+- Date: 2026-01-29
+
+---
+
+*[← Back to Containers](index.qmd)*

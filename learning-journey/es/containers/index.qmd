@@ -1,0 +1,27 @@
+---
+title: "Contenedores"
+---
+
+# Contenedores 🐳
+
+Esta sección cubre **Docker y contenerización** - habilidades esenciales para ingenieros DevOps modernos.
+
+## 📋 Capítulos
+
+### Fundamentos de Docker
+- [Instalación de Docker](01-docker-fundamentals.html) - Instalando Docker
+- [Despliegue de Nginx](02-nginx-deployment.html) - Despliegue de contenedores web
+- [Gestión de Contenedores](03-container-management.html) - Gestionando contenedores
+- [Gestión de Volúmenes](04-volume-management.html) - Trabajando con volúmenes
+- [Troubleshooting](05-troubleshooting.html) - Depurando problemas de contenedores
+
+## 🎯 Habilidades Desarrolladas
+
+- Fundamentos de contenedores
+- Gestión de imágenes
+- Configuración de volúmenes y redes
+- Troubleshooting de contenedores
+
+---
+
+*Usa la barra lateral para navegar a capítulos específicos.*

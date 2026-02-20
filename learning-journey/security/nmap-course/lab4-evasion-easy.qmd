@@ -1,0 +1,138 @@
+---
+title: "Laboratorio: Firewall & IDS/IPS Evasion - Easy"
+description: "OS Fingerprinting pasivo mediante análisis de servicios"
+author: "Diego Saavedra"
+date: "2026-02-20"
+categories: [security, nmap, os-fingerprinting, htb]
+---
+
+# Laboratorio: Firewall & IDS/IPS Evasion - Easy
+
+## Contenido
+
+- [Objetivo](#objetivo)
+- [Introducción](#introducción)
+- [Escenario](#escenario)
+- [Ejercicio 1: OS Fingerprinting Pasivo](#ejercicio-1-os-fingerprinting-pasivo)
+- [Solución Final](#solución-final)
+- [¿Qué Aprendimos?](#qué-aprendimos)
+- [Autoevaluación](#autoevaluación)
+- [Referencias](#referencias)
+
+## Objetivo
+
+Identificar el sistema operativo del objetivo sin activar el sistema de alertas IDS/IPS.
+
+**Target**: 10.129.4.94  
+**Dificultad**: Easy  
+**Alertas máximas**: 75
+
+## Introducción
+
+El OS Fingerprinting pasivo obtiene información del sistema operativo sin realizar escaneos activos. Esto es crucial cuando:
+
+- Hay sistemas IDS/IPS activos
+- No se pueden usar escaneos agresivos
+- Se necesita sigilo
+
+## Escenario
+
+El target tiene un contador de alertas visible en:
+```
+http://10.129.4.94/status.php
+```
+
+Debemos identificar el OS sin exceder las alertas permitidas.
+
+## Ejercicio 1: OS Fingerprinting Pasivo
+
+### Método 1: HTTP Server Header
+
+```bash
+curl -I http://10.129.4.94
+```
+
+Resultado:
+```
+HTTP/1.1 200 OK
+Server: Apache/2.4.29 (Ubuntu)
+```
+
+**Hallazgo**: `Apache/2.4.29 (Ubuntu)` - El servidor HTTP revela Ubuntu.
+
+### Método 2: SSH Banner Grabbing
+
+```bash
+nc -nv 10.129.4.94 22
+```
+
+Resultado:
+```
+SSH-2.0-OpenSSH_7.6p1 Ubuntu-4ubuntu0.7
+```
+
+**Hallazgo**: `Ubuntu-4ubuntu0.7` - SSH confirma Ubuntu.
+
+### Método 3: TTL Analysis
+
+```bash
+ping -c 1 10.129.4.94
+```
+
+Resultado:
+```
+64 bytes from 10.129.4.94: icmp_seq=0 ttl=63
+```
+
+**Hallazgo**: TTL=63 indica Linux (default 64, decrementado por 1 hop).
+
+## Solución Final
+
+**Respuesta**: Ubuntu
+
+### Tabla de Indicadores
+
+| Método | Indicador | OS |
+|--------|-----------|-----|
+| HTTP Header | `Apache/2.4.29 (Ubuntu)` | Ubuntu |
+| SSH Banner | `Ubuntu-4ubuntu0.7` | Ubuntu |
+| TTL Value | 63 (Linux default: 64) | Linux |
+
+## ¿Qué Aprendimos?
+
+1. **Passive > Active**: Los banners de servicios revelan información sin activar alertas
+2. **HTTP Server Header**: Apache frecuentemente incluye el OS en su versión
+3. **SSH Banner**: OpenSSH incluye información de distribución
+4. **TTL Fingerprinting**:
+   - Linux: TTL ≈ 64
+   - Windows: TTL ≈ 128
+   - Network devices: TTL ≈ 255
+
+## Valores TTL por Sistema Operativo
+
+| Sistema Operativo | TTL Default |
+|-------------------|-------------|
+| Linux | 64 |
+| Windows | 128 |
+| macOS | 64 |
+| Cisco IOS | 255 |
+| Solaris | 255 |
+
+## Autoevaluación
+
+1. ¿Qué es OS Fingerprinting pasivo?
+2. ¿Por qué TTL 63 indica Linux y no 64?
+3. ¿Qué información revela el banner SSH?
+4. ¿Cómo prevenir la exposición del OS en Apache?
+5. ¿Qué técnicas activas NO deberíamos usar en este lab?
+6. ¿Por qué nc no activa alertas pero nmap -O sí?
+
+## Referencias
+
+- [OS Fingerprinting Techniques](https://nmap.org/book/osdetect.html)
+- [TTL Values Reference](https://subinsb.com/default-device-ttl-values/)
+- [Apache Security Configuration](https://httpd.apache.org/docs/2.4/misc/security_tips.html)
+
+---
+
+[← Lab 3: NSE Scripts](lab3-nse.html) | [Lab Medium →](lab5-evasion-medium.qmd)

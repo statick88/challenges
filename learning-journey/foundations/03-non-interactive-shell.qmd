@@ -1,0 +1,86 @@
+---
+title: "Non-Interactive Shell Users"
+description: "Creating service accounts with non-interactive shells for automated processes"
+date: "2026-01-25"
+categories: [linux, foundations, security]
+---
+
+# Non-Interactive Shell Users
+
+## Scenario: Backup Agent Service Account
+
+**Company**: xFusionCorp Industries  
+**Project**: Nautilus Automated Backup System  
+**Task**: Create a service account for automated backup processes
+
+---
+
+## 🧠 Understanding Service Accounts
+
+Service accounts are system accounts used by processes and services, not human users. They should never have interactive shell access.
+
+### Why Non-Interactive Shells?
+
+- **Security**: Prevents unauthorized access
+- **Compliance**: Follows least privilege principle
+- **Automation**: Works with cron, systemd services
+
+### Key Difference
+
+| User Type | Shell | Login Allowed |
+|-----------|-------|---------------|
+| Human | /bin/bash | Yes |
+| Service | /sbin/nologin or /usr/sbin/nologin | No |
+
+---
+
+## 🛠️ Implementation
+
+### Step 1: Create User with Non-Interactive Shell
+
+```bash
+# Create user with non-interactive shell
+useradd -s /sbin/nologin -M john
+
+# Verify
+id john
+# Expected: uid=1001(john) gid=1001(john) groups=1001(john) shell=/sbin/nologin
+```
+
+### Step 2: Verify Login Prevention
+
+```bash
+# Attempting to login should fail
+su - john
+# Should show: This account is not available
+```
+
+---
+
+## ✅ Verification
+
+- [ ] User created with UID
+- [ ] Shell is /sbin/nologin
+- [ ] Home directory created or absent as needed
+- [ ] Login attempt denied
+
+---
+
+## 🎯 Key Learnings
+
+- Service account best practices
+- Principle of least privilege
+- System security hardening
+
+---
+
+## ✅ Status
+
+**COMPLETED** 🎉
+
+- Date: 2026-01-25
+- Challenge: xFusionCorp Industries
+
+---
+
+*[← Back to Foundations](index.qmd)*

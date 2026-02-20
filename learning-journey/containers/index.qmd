@@ -1,0 +1,75 @@
+---
+title: "Containers"
+---
+
+# Containerization 🐳
+
+This section covers **Docker and containerization** fundamentals - essential skills for modern DevOps engineers.
+
+## 📊 Progress
+
+```{=html}
+<div class="progress-summary">
+  <div class="progress-item">
+    <span class="progress-number">6</span>
+    <span class="progress-label">Completed</span>
+  </div>
+  <div class="progress-item">
+    <span class="progress-number">0</span>
+    <span class="progress-label">Remaining</span>
+  </div>
+  <div class="progress-item">
+    <span class="progress-number">100%</span>
+    <span class="progress-label">Progress</span>
+  </div>
+</div>
+```
+
+## 📋 Chapters
+
+### Docker Fundamentals
+- [Docker Installation](01-docker-fundamentals.html) - Installing Docker ✓
+- [Nginx Deployment](02-nginx-deployment.html) - Deploying web containers ✓
+- [Container Management](03-container-management.html) - Managing containers ✓
+- [Volume Management](04-volume-management.html) - Working with volumes ✓
+
+## 🎯 Skills Developed
+
+- Container basics
+- Image management
+- Volume and network configuration
+- Container troubleshooting
+
+---
+
+*Use the sidebar to navigate to specific chapters.*
+
+```{=html}
+<style>
+.progress-summary {
+  display: flex;
+  justify-content: space-around;
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  border: 1px solid #334155;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.progress-item {
+  text-align: center;
+}
+
+.progress-number {
+  display: block;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #3b82f6;
+}
+
+.progress-label {
+  font-size: 0.85rem;
+  color: #94a3b8;
+}
+</style>
+```

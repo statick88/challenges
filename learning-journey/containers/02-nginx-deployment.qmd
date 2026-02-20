@@ -1,0 +1,103 @@
+---
+title: "Deploy Nginx Container"
+description: "Deploying Nginx web server container for production workloads"
+date: "2026-01-28"
+categories: [docker, containers, nginx, deployment]
+---
+
+# Deploy Nginx Container
+
+## Scenario: Production Nginx Deployment
+
+**Company**: Nautilus (Startup scaling for Series A)  
+**Task**: Deploy Nginx container as load balancer proof of concept
+
+---
+
+## 🧠 Why Nginx in Docker?
+
+Nginx in Docker provides:
+- **Scalability**: Easy horizontal scaling
+- **Isolation**: Containerized from host system
+- **Reproducibility**: Same environment everywhere
+- **Resource Efficiency**: Lower footprint than VMs
+
+---
+
+## 🛠️ Implementation
+
+### Step 1: Pull Nginx Image
+
+```bash
+# Pull latest Nginx image
+docker pull nginx:latest
+
+# Verify
+docker images nginx
+```
+
+### Step 2: Run Nginx Container
+
+```bash
+# Run Nginx on port 80
+docker run -d --name nginx-prod -p 80:80 nginx:latest
+
+# Verify running
+docker ps
+```
+
+### Step 3: Custom Configuration (Optional)
+
+```bash
+# Mount custom config
+docker run -d \
+  --name nginx-prod \
+  -p 80:80 \
+  -v /path/nginx.conf:/etc/nginx/nginx.conf:ro \
+  nginx:latest
+```
+
+### Step 4: Logs and Management
+
+```bash
+# View logs
+docker logs nginx-prod
+
+# Follow logs in real-time
+docker logs -f nginx-prod
+
+# Restart container
+docker restart nginx-prod
+```
+
+---
+
+## ✅ Verification
+
+- [ ] Nginx image pulled successfully
+- [ ] Container running in detached mode
+- [ ] Port 80 accessible
+- [ ] Default page loads
+- [ ] Logs accessible
+
+---
+
+## 🎯 Key Learnings
+
+- Docker container deployment
+- Port mapping fundamentals
+- Log management
+- Production considerations
+
+---
+
+## ✅ Status
+
+**COMPLETED** 🎉
+
+- Date: 2026-01-28
+- Difficulty: 2/5
+
+---
+
+*[← Back to Containers](index.qmd)*

@@ -2,6 +2,7 @@
 // src/layouts/MainLayout.astro
 import '../styles/global.css';
 import ThemeToggle from '../components/ThemeToggle.astro';
+import LanguageToggle from '../components/LanguageToggle.astro';
 
 export interface Props {
   title: string;
@@ -94,6 +95,7 @@ const { title, description = "Plataforma interactiva de desafíos técnicos - Li
         
         <!-- Theme Toggle -->
         <div class="flex items-center gap-4">
+          <LanguageToggle />
           <ThemeToggle />
           
           <!-- Mobile Menu Button -->

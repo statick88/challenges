@@ -1,653 +1,828 @@
 ---
-// src/pages/index.astro
 import MainLayout from '../layouts/MainLayout.astro';
 import challengesData from '../data/challenges.json';
+import { formatDate, calculateProgramStats } from '../utils/dashboard-utils';
 
-const { overview, programs, recentActivity, ctfCategories } = challengesData;
-
-// Configuración de colores por programa
-const programColors: Record<string, { bg: string; border: string; icon: string }> = {
-  linux: { bg: 'bg-gradient-to-br from-orange-500/20 to-red-600/20', border: 'border-orange-500/30', icon: 'text-orange-400' },
-  docker: { bg: 'bg-gradient-to-br from-blue-500/20 to-cyan-600/20', border: 'border-blue-500/30', icon: 'text-blue-400' },
-  devops: { bg: 'bg-gradient-to-br from-purple-500/20 to-pink-600/20', border: 'border-purple-500/30', icon: 'text-purple-400' },
-  ctf: { bg: 'bg-gradient-to-br from-green-500/20 to-emerald-600/20', border: 'border-green-500/30', icon: 'text-green-400' },
-  htb: { bg: 'bg-gradient-to-br from-teal-500/20 to-cyan-600/20', border: 'border-teal-500/30', icon: 'text-teal-400' },
-};
-
-// Formatear fecha
-function formatDate(dateStr: string): string {
-  const date = new Date(dateStr);
-  return date.toLocaleDateString('es-ES', { 
-    day: 'numeric', 
-    month: 'short', 
-    year: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit'
-  });
-}
-
-// Calcular estadísticas adicionales
-const blockedCount = Object.values(programs).reduce((acc: number, p: any) => acc + (p.blocked || 0), 0);
-const inProgressCount = Object.values(programs).reduce((acc: number, p: any) => acc + (p.inProgress || 0), 0);
-const readyCount = Object.values(programs).reduce((acc: number, p: any) => acc + (p.ready || 0), 0);
+const { overview, programs, recentActivity } = challengesData;
+const { blockedCount, inProgressCount, readyCount } = calculateProgramStats(programs);
 ---
 
-<MainLayout title="Dashboard de Desafíos Técnicos">
-  <div class="container mx-auto px-4 py-8">
-    
+<MainLayout title="Tech Challenges Dashboard">
+  <div class="dashboard">
     <!-- Hero Section -->
-    <section class="text-center mb-12">
-      <h1 class="text-4xl md:text-5xl font-bold mb-4" style="color: var(--color-text);">
-        🚀 Dashboard de Desafíos Técnicos
-      </h1>
-      <p class="text-lg max-w-2xl mx-auto" style="color: var(--color-text-secondary);">
-        Plataforma interactiva de aprendizaje: Linux, Docker, DevOps y CTF. 
-        Última actualización: {formatDate(challengesData.lastUpdated)}
-      </p>
+    <section class="hero">
+      <div class="hero-content">
+        <div class="hero-badge">🎯 Learning Platform</div>
+        <h1 class="hero-title">
+          Domina Linux, Docker,<br />
+          <span class="gradient-text">DevOps & Security</span>
+        </h1>
+        <p class="hero-subtitle">
+          Plataforma interactiva con 70+ desafíos prácticos. 
+          Aprende haciendo, no solo leyendo.
+        </p>
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <span class="hero-stat-number">{overview.completed}</span>
+            <span class="hero-stat-label">Completados</span>
+          </div>
+          <div class="hero-stat-divider"></div>
+          <div class="hero-stat">
+            <span class="hero-stat-number">{overview.completionRate}%</span>
+            <span class="hero-stat-label">Progreso</span>
+          </div>
+          <div class="hero-stat-divider"></div>
+          <div class="hero-stat">
+            <span class="hero-stat-number">{overview.totalChallenges}</span>
+            <span class="hero-stat-label">Desafíos</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="floating-card card-1">
+          <span class="floating-icon">🐧</span>
+          <span class="floating-label">Linux</span>
+        </div>
+        <div class="floating-card card-2">
+          <span class="floating-icon">🐳</span>
+          <span="floating-label">Docker</span>
+        </div>
+        <div class="floating-card card-3">
+          <span class="floating-icon">🚀</span>
+          <span class="floating-label">DevOps</span>
+        </div>
+        <div class="floating-card card-4">
+          <span class="floating-icon">🔒</span>
+          <span class="floating-label">Security</span>
+        </div>
+      </div>
     </section>
-    
-    <!-- Stats Overview -->
-    <section class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
-      <div class="card stat-card">
-        <div class="stat-value">{overview.totalChallenges}</div>
-        <div class="stat-label">Desafíos Totales</div>
+
+    <!-- Progress Overview -->
+    <section class="progress-section">
+      <div class="progress-header">
+        <h2>Progreso General</h2>
+        <span class="progress-percentage">{overview.completionRate}%</span>
       </div>
-      <div class="card stat-card">
-        <div class="stat-value" style="color: #1a7f37;">{overview.completed}</div>
-        <div class="stat-label">Completados</div>
+      <div class="progress-track">
+        <div class="progress-fill" style={`width: ${overview.completionRate}%`}></div>
+        <div class="progress-glow" style={`width: ${overview.completionRate}%`}></div>
       </div>
-      <div class="card stat-card">
-        <div class="stat-value" style="color: #f59e0b;">{inProgressCount + readyCount}</div>
-        <div class="stat-label">En Progreso</div>
-      </div>
-      <div class="card stat-card">
-        <div class="stat-value" style="color: #dc2626;">{blockedCount}</div>
-        <div class="stat-label">Bloqueados</div>
-      </div>
-    </section>
-    
-    <!-- Progress Bar -->
-    <section class="mb-12">
-      <div class="flex items-center justify-between mb-2">
-        <span class="text-sm font-medium" style="color: var(--color-text-secondary);">Progreso Total</span>
-        <span class="text-sm font-bold" style="color: var(--color-accent);">{overview.completionRate}%</span>
-      </div>
-      <div class="progress-bar">
-        <div class="progress-bar-fill" style={`width: ${overview.completionRate}%`}></div>
+      <div class="progress-stats">
+        <div class="progress-stat completed">
+          <span class="dot"></span>
+          <span>{overview.completed} completados</span>
+        </div>
+        <div class="progress-stat in-progress">
+          <span class="dot"></span>
+          <span>{inProgressCount + readyCount} en progreso</span>
+        </div>
+        <div class="progress-stat blocked">
+          <span class="dot"></span>
+          <span>{blockedCount} bloqueados</span>
+        </div>
       </div>
     </section>
-    
+
     <!-- Programs Grid -->
-    <section class="mb-12">
-      <h2 class="text-2xl font-bold mb-6" style="color: var(--color-text);">
-        📊 Programas de Aprendizaje
-      </h2>
+    <section class="programs-section">
+      <div class="section-header">
+        <h2>Programas de Aprendizaje</h2>
+        <p>Selecciona un programa para ver sus desafíos</p>
+      </div>
       
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+      <div class="programs-grid">
         {Object.entries(programs).map(([key, program]) => (
-          <a 
-            href={(program as any).path}
-            class="card group relative overflow-hidden"
-          >
-            <!-- Gradient Background -->
-            <div class={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${programColors[key]?.bg || ''}`}></div>
-            
-            <!-- Content -->
-            <div class="relative z-10">
-              <!-- Header -->
-              <div class="flex items-center justify-between mb-4">
-                <span class="text-3xl">{(program as any).icon}</span>
-                <span class={`badge badge-${key}`}>
-                  {(program as any).percentage}%
-                </span>
-              </div>
-              
-              <!-- Title -->
-              <h3 class="text-xl font-bold mb-2" style="color: var(--color-text);">
-                {(program as any).name}
-              </h3>
-              
-              <!-- Description -->
-              <p class="text-sm mb-4 line-clamp-2" style="color: var(--color-text-secondary);">
-                {(program as any).description}
-              </p>
-              
-              <!-- Progress -->
-              <div class="mb-3">
-                <div class="flex items-center justify-between text-xs mb-1" style="color: var(--color-text-muted);">
-                  <span>{(program as any).completed} / {(program as any).total} completados</span>
-                </div>
-                <div class="progress-bar" style="height: 6px;">
-                  <div 
-                    class="progress-bar-fill" 
-                    style={`width: ${(program as any).percentage}%;`}
-                  ></div>
-                </div>
-              </div>
-              
-              <!-- Status badges -->
-              {((program as any).blocked > 0 || (program as any).inProgress > 0 || (program as any).ready > 0) && (
-                <div class="flex flex-wrap gap-1 mb-3">
-                  {(program as any).blocked > 0 && (
-                    <span class="text-xs px-2 py-0.5 rounded bg-red-500/20 text-red-400">
-                      {(program as any).blocked} bloqueados
-                    </span>
-                  )}
-                  {(program as any).inProgress > 0 && (
-                    <span class="text-xs px-2 py-0.5 rounded bg-yellow-500/20 text-yellow-400">
-                      {(program as any).inProgress} en progreso
-                    </span>
-                  )}
-                  {(program as any).ready > 0 && (
-                    <span class="text-xs px-2 py-0.5 rounded bg-blue-500/20 text-blue-400">
-                      {(program as any).ready} listos
-                    </span>
-                  )}
-                </div>
-              )}
-              
-              <!-- Link -->
-              <div class="flex items-center gap-2 text-sm font-medium" style="color: var(--color-accent);">
-                <span>Ver desafíos</span>
-                <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          <a href={(program as any).path} class="program-card" data-program={key}>
+            <div class="program-header">
+              <span class="program-icon">{(program as any).icon}</span>
+              <div class="program-progress">
+                <svg viewBox="0 0 36 36" class="progress-ring">
+                  <path class="progress-ring-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                  <path class="progress-ring-fill" stroke-dasharray={`${(program as any).percentage}, 100`} d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
                 </svg>
+                <span class="progress-text">{(program as any).percentage}%</span>
               </div>
+            </div>
+            
+            <h3 class="program-title">{(program as any).name}</h3>
+            <p class="program-description">{(program as any).description}</p>
+            
+            <div class="program-stats">
+              <div class="program-stat">
+                <span class="program-stat-value">{(program as any).completed}</span>
+                <span class="program-stat-label">Completados</span>
+              </div>
+              <div class="program-stat-divider"></div>
+              <div class="program-stat">
+                <span class="program-stat-value">{(program as any).total}</span>
+                <span class="program-stat-label">Total</span>
+              </div>
+            </div>
+            
+            <div class="program-footer">
+              <span>Ver desafíos</span>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
             </div>
           </a>
         ))}
       </div>
     </section>
-    
-    <!-- CTF Categories -->
-    {ctfCategories && ctfCategories.length > 0 && (
-      <section class="mb-12">
-        <h2 class="text-2xl font-bold mb-6" style="color: var(--color-text);">
-          🚩 Categorías CTF
-        </h2>
-        
-        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
-          {ctfCategories.map((cat: any) => (
-            <div class="card text-center py-4">
-              <div class="text-2xl mb-2">
-                {cat.name === 'forensics' ? '🔍' : 
-                 cat.name === 'crypto' ? '🔐' :
-                 cat.name === 'web' ? '🌐' :
-                 cat.name === 'pwn' ? '💥' :
-                 cat.name === 'reversing' ? '🔄' :
-                 cat.name === 'misc' ? '📦' :
-                 cat.name === 'academy' ? '🎓' :
-                 cat.name === 'ctf' ? '🚩' : '📄'}
-              </div>
-              <div class="text-sm font-bold capitalize" style="color: var(--color-text);">{cat.name}</div>
-              <div class="text-xs" style="color: var(--color-text-secondary);">
-                {cat.completed}/{cat.total}
-              </div>
-              <div class="progress-bar mt-2" style="height: 4px;">
-                <div 
-                  class="progress-bar-fill" 
-                  style={`width: ${cat.total > 0 ? Math.round((cat.completed / cat.total) * 100) : 0}%;`}
-                ></div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-    )}
-    
-    <!-- Recent Activity -->
-    <section class="mb-12">
-      <h2 class="text-2xl font-bold mb-6" style="color: var(--color-text);">
-        📋 Actividad Reciente
-      </h2>
+
+    <!-- Certifications Section -->
+    <section class="cert-section">
+      <div class="section-header">
+        <h2>Certificaciones Obtenidas</h2>
+        <p>Reconocimientos oficiales de tu progreso</p>
+      </div>
       
-      <div class="card">
-        <div class="space-y-2">
-          {recentActivity.map((activity: any, index: number) => (
-            <div class="activity-item" class:list={[{ 'border-b border-solid': index < recentActivity.length - 1 }]} style={index < recentActivity.length - 1 ? 'border-color: var(--color-border);' : ''}>
-              <div class="activity-icon">
-                {activity.icon}
-              </div>
-              <div class="flex-1">
-                <p class="text-sm font-medium" style="color: var(--color-text);">
-                  {activity.activity}
-                </p>
-                <p class="text-xs capitalize" style="color: var(--color-text-muted);">
-                  {activity.program}
-                </p>
-              </div>
+      <div class="cert-card">
+        <div class="cert-badge">100%</div>
+        <div class="cert-content">
+          <div class="cert-icon">🐳</div>
+          <div class="cert-info">
+            <h3>Docker Certification</h3>
+            <p class="cert-platform">KodeKloud Engineer</p>
+            <div class="cert-meta">
+              <span class="cert-date">📅 18 Feb 2026</span>
+              <span class="cert-challenges">✓ 9/9 Challenges</span>
             </div>
-          ))}
-        </div>
-      </div>
-    </section>
-    
-    <!-- Quick Stats Grid -->
-    <section class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-12">
-      <div class="card text-center py-6">
-        <div class="text-3xl mb-2">🐧</div>
-        <div class="text-2xl font-bold" style="color: var(--color-accent);">{(programs as any).linux?.completed ?? 0}</div>
-        <div class="text-xs" style="color: var(--color-text-secondary);">Linux Retos</div>
-      </div>
-      <div class="card text-center py-6">
-        <div class="text-3xl mb-2">🐳</div>
-        <div class="text-2xl font-bold" style="color: var(--color-accent);">{(programs as any).docker?.completed ?? 0}</div>
-        <div class="text-xs" style="color: var(--color-text-secondary);">Docker Retos</div>
-      </div>
-      <div class="card text-center py-6">
-        <div class="text-3xl mb-2">⚙️</div>
-        <div class="text-2xl font-bold" style="color: var(--color-accent);">{(programs as any).devops?.completed ?? 0}</div>
-        <div class="text-xs" style="color: var(--color-text-secondary);">DevOps Días</div>
-      </div>
-      <div class="card text-center py-6">
-        <div class="text-3xl mb-2">🚩</div>
-        <div class="text-2xl font-bold" style="color: var(--color-accent);">{(programs as any).ctf?.completed ?? overview.ctfCompleted}</div>
-        <div class="text-xs" style="color: var(--color-text-secondary);">CTF Flags</div>
-      </div>
-      <div class="card text-center py-6">
-        <div class="text-3xl mb-2">🎯</div>
-        <div class="text-2xl font-bold" style="color: var(--color-accent);">{(programs as any).htb?.completed ?? 0}</div>
-        <div class="text-xs" style="color: var(--color-text-secondary);">HTB Retos</div>
-      </div>
-    </section>
-    
-    <!-- Certifications Section - Cards -->
-    <section class="mb-12">
-      <h2 class="text-2xl font-bold mb-6" style="color: var(--color-text);">
-        🏆 Certificaciones Obtenidas
-      </h2>
-      
-      <div class="cert-cards-grid">
-        <!-- Docker Certification Card -->
-        <div class="cert-card" onclick="openCertModal('docker')">
-          <div class="cert-card-badge">100/100</div>
-          <div class="cert-card-icon">🐳</div>
-          <h3 class="cert-card-title">Docker Certification</h3>
-          <p class="cert-card-platform">KodeKloud Engineer</p>
-          <div class="cert-card-meta">
-            <span class="cert-card-date">📅 18-02-2026</span>
-            <span class="cert-card-challenges">✅ 9/9 Challenges</span>
-          </div>
-          <div class="cert-card-verify">
-            <span class="verify-icon">🔍</span>
-            <span>Click para ver certificado</span>
           </div>
         </div>
-      </div>
-    </section>
-    
-  </div>
-  
-  <!-- Certificate Modal -->
-  <div id="cert-modal" class="cert-modal">
-    <div class="cert-modal-overlay" onclick="closeCertModal()"></div>
-    <div class="cert-modal-content">
-      <div class="cert-modal-header">
-        <h3 id="cert-modal-title" class="cert-modal-title">Certificado</h3>
-        <button class="cert-modal-close" onclick="closeCertModal()" title="Cerrar">
-          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        <a href="https://engineer.kodekloud.com/certificate-verification/86476a89-ea7b-4e3a-a901-85cec28a00ca" 
+           target="_blank" 
+           rel="noopener noreferrer" 
+           class="cert-verify-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+            <polyline points="15 3 21 3 21 9"/>
+            <line x1="10" y1="14" x2="21" y2="3"/>
           </svg>
-        </button>
-      </div>
-      <div class="cert-modal-body">
-        <div class="cert-watermark">CERTIFICADO VERIFICADO</div>
-        <img id="cert-modal-image" src="" alt="Certificate" class="cert-modal-image" />
-      </div>
-      <div class="cert-modal-footer">
-        <a id="cert-modal-verify" href="#" target="_blank" class="cert-modal-btn primary">
-          🔍 Verificar Autenticidad
+          Verificar Certificado
         </a>
-        <div class="cert-modal-id">
-          <span>ID: </span>
-          <code id="cert-modal-id-value"></code>
-        </div>
       </div>
-    </div>
+    </section>
+
+    <!-- Recent Activity -->
+    <section class="activity-section">
+      <div class="section-header">
+        <h2>Actividad Reciente</h2>
+        <p>Últimos desafíos completados</p>
+      </div>
+      
+      <div class="activity-list">
+        {recentActivity.slice(0, 5).map((activity: any) => (
+          <div class="activity-item">
+            <div class="activity-icon">{activity.icon}</div>
+            <div class="activity-content">
+              <span class="activity-title">{activity.activity}</span>
+              <span class="activity-program">{activity.program}</span>
+            </div>
+            <div class="activity-badge completed">✓</div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Quick Stats -->
+    <section class="quick-stats">
+      <div class="quick-stat">
+        <div class="quick-stat-icon">🐧</div>
+        <div class="quick-stat-value">{(programs as any).linux?.completed ?? 0}</div>
+        <div class="quick-stat-label">Linux</div>
+      </div>
+      <div class="quick-stat">
+        <div class="quick-stat-icon">🐳</div>
+        <div class="quick-stat-value">{(programs as any).docker?.completed ?? 0}</div>
+        <div class="quick-stat-label">Docker</div>
+      </div>
+      <div class="quick-stat">
+        <div class="quick-stat-icon">⚙️</div>
+        <div class="quick-stat-value">{(programs as any).devops?.completed ?? 0}</div>
+        <div class="quick-stat-label">DevOps</div>
+      </div>
+      <div class="quick-stat">
+        <div class="quick-stat-icon">🚩</div>
+        <div class="quick-stat-value">{(programs as any).ctf?.completed ?? 0}</div>
+        <div class="quick-stat-label">CTF</div>
+      </div>
+      <div class="quick-stat">
+        <div class="quick-stat-icon">🎯</div>
+        <div class="quick-stat-value">{(programs as any).htb?.completed ?? 0}</div>
+        <div class="quick-stat-label">HTB</div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="dashboard-footer">
+      <p>
+        Última actualización: {formatDate(challengesData.lastUpdated)} • 
+        <a href="https://github.com/statick88" target="_blank" rel="noopener noreferrer">@statick88</a>
+      </p>
+    </footer>
   </div>
 </MainLayout>
 
-<script>
-  const certifications = {
-    docker: {
-      title: 'Docker Certification - KodeKloud Engineer',
-      image: '/certificates/kodekloud-docker-certificate.png',
-      verifyUrl: 'https://engineer.kodekloud.com/certificate-verification/86476a89-ea7b-4e3a-a901-85cec28a00ca',
-      id: '86476a89-ea7b-4e3a-a901-85cec28a00ca'
-    }
-  };
-
-  function openCertModal(certKey) {
-    const cert = certifications[certKey];
-    if (!cert) return;
-    
-    const modal = document.getElementById('cert-modal');
-    const title = document.getElementById('cert-modal-title');
-    const image = document.getElementById('cert-modal-image');
-    const verifyLink = document.getElementById('cert-modal-verify');
-    const idValue = document.getElementById('cert-modal-id-value');
-    
-    if (title) title.textContent = cert.title;
-    if (image) image.src = cert.image;
-    if (verifyLink) verifyLink.href = cert.verifyUrl;
-    if (idValue) idValue.textContent = cert.id;
-    
-    if (modal) {
-      modal.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-  }
-
-  function closeCertModal() {
-    const modal = document.getElementById('cert-modal');
-    if (modal) {
-      modal.classList.remove('active');
-      document.body.style.overflow = '';
-    }
-  }
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      closeCertModal();
-    }
-  });
-
-  window.openCertModal = openCertModal;
-  window.closeCertModal = closeCertModal;
-</script>
-
 <style>
-  /* Animación para las cards */
-  .card {
-    animation: fadeIn 0.3s ease-out;
+  .dashboard {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
   }
-  
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+
+  /* Hero Section */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    margin-bottom: 4rem;
+    padding: 2rem 0;
   }
-  
-  /* Line clamp for description */
-  .line-clamp-2 {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
+
+  .hero-badge {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: linear-gradient(135deg, rgba(76, 128, 204, 0.2), rgba(59, 130, 246, 0.1));
+    border: 1px solid rgba(76, 128, 204, 0.3);
+    border-radius: 2rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-accent);
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    line-height: 1.1;
+    margin: 0 0 1.5rem 0;
+    color: var(--color-text);
+  }
+
+  .gradient-text {
+    background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #06b6d4 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-subtitle {
+    font-size: 1.25rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 2rem;
+    line-height: 1.6;
+  }
+
+  .hero-stats {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .hero-stat {
+    text-align: center;
+  }
+
+  .hero-stat-number {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--color-accent);
+  }
+
+  .hero-stat-label {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+  }
+
+  .hero-stat-divider {
+    width: 1px;
+    height: 3rem;
+    background: var(--color-border);
+  }
+
+  .hero-visual {
+    position: relative;
+    height: 400px;
+  }
+
+  .floating-card {
+    position: absolute;
+    padding: 1.5rem;
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    animation: float 6s ease-in-out infinite;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  }
+
+  .floating-icon {
+    font-size: 1.5rem;
+  }
+
+  .floating-label {
+    font-weight: 600;
+    color: var(--color-text);
+  }
+
+  .card-1 { top: 10%; left: 10%; animation-delay: 0s; }
+  .card-2 { top: 30%; right: 5%; animation-delay: 1s; }
+  .card-3 { bottom: 30%; left: 5%; animation-delay: 2s; }
+  .card-4 { bottom: 10%; right: 15%; animation-delay: 3s; }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+  }
+
+  /* Progress Section */
+  .progress-section {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: 1rem;
+    padding: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .progress-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .progress-header h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin: 0;
+  }
+
+  .progress-percentage {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-accent);
+  }
+
+  .progress-track {
+    position: relative;
+    height: 12px;
+    background: var(--color-border);
+    border-radius: 6px;
     overflow: hidden;
+    margin-bottom: 1.5rem;
   }
-  
-  /* Badge colors por programa */
-  :global(.badge-linux) {
-    background-color: rgba(249, 115, 22, 0.2);
-    color: #f97316;
+
+  .progress-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+    border-radius: 6px;
+    transition: width 1s ease;
   }
-  
-  :global(.badge-docker) {
-    background-color: rgba(59, 130, 246, 0.2);
-    color: #3b82f6;
+
+  .progress-glow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    border-radius: 6px;
+    animation: shimmer 2s infinite;
   }
-  
-  :global(.badge-devops) {
-    background-color: rgba(168, 85, 247, 0.2);
-    color: #a855f7;
+
+  @keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
   }
-  
-  :global(.badge-htb) {
-    background-color: rgba(16, 185, 129, 0.2);
-    color: #10b981;
+
+  .progress-stats {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
   }
-  
-  :global(.badge-ctf) {
-    background-color: rgba(34, 197, 94, 0.2);
-    color: #22c55e;
+
+  .progress-stat {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
   }
-  
-  /* Certification Cards Grid */
-  .cert-cards-grid {
+
+  .progress-stat .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+
+  .progress-stat.completed .dot { background: #22c55e; }
+  .progress-stat.in-progress .dot { background: #f59e0b; }
+  .progress-stat.blocked .dot { background: #ef4444; }
+
+  /* Section Header */
+  .section-header {
+    margin-bottom: 2rem;
+  }
+
+  .section-header h2 {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin: 0 0 0.5rem 0;
+  }
+
+  .section-header p {
+    color: var(--color-text-secondary);
+    margin: 0;
+  }
+
+  /* Programs Grid */
+  .programs-section {
+    margin-bottom: 3rem;
+  }
+
+  .programs-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 1.5rem;
   }
-  
-  .cert-card {
-    background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%);
-    border: 1px solid rgba(59, 130, 246, 0.3);
+
+  .program-card {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
     border-radius: 1rem;
     padding: 1.5rem;
-    cursor: pointer;
+    text-decoration: none;
     transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
+    display: flex;
+    flex-direction: column;
   }
-  
-  .cert-card:hover {
-    border-color: rgba(59, 130, 246, 0.6);
+
+  .program-card:hover {
+    border-color: var(--color-accent);
     transform: translateY(-4px);
-    box-shadow: 0 12px 40px -12px rgba(59, 130, 246, 0.3);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
   }
-  
-  .cert-card-badge {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-    color: white;
-    font-size: 0.75rem;
-    font-weight: 700;
-    padding: 0.35rem 0.75rem;
-    border-radius: 2rem;
-  }
-  
-  .cert-card-icon {
-    font-size: 3rem;
-    margin-bottom: 0.75rem;
-  }
-  
-  .cert-card-title {
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--color-text);
-    margin: 0 0 0.25rem 0;
-  }
-  
-  .cert-card-platform {
-    font-size: 0.85rem;
-    color: var(--color-text-secondary);
-    margin: 0 0 1rem 0;
-  }
-  
-  .cert-card-meta {
+
+  .program-header {
     display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
-    margin-bottom: 1rem;
-    font-size: 0.75rem;
-    color: var(--color-text-muted);
-  }
-  
-  .cert-card-verify {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.8rem;
-    color: #3b82f6;
-    padding-top: 0.75rem;
-    border-top: 1px solid rgba(71, 85, 105, 0.3);
-  }
-  
-  .verify-icon {
-    font-size: 1rem;
-  }
-  
-  /* Certificate Modal */
-  .cert-modal {
-    position: fixed;
-    inset: 0;
-    z-index: 9999;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    padding: 1rem;
-  }
-  
-  .cert-modal.active {
-    display: flex;
-  }
-  
-  .cert-modal-overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.85);
-    backdrop-filter: blur(8px);
-  }
-  
-  .cert-modal-content {
-    position: relative;
-    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-    border: 1px solid rgba(59, 130, 246, 0.4);
-    border-radius: 1rem;
-    max-width: 900px;
-    width: 100%;
-    max-height: 90vh;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-  }
-  
-  .cert-modal-header {
-    display: flex;
-    align-items: center;
     justify-content: space-between;
-    padding: 1rem 1.5rem;
-    border-bottom: 1px solid rgba(71, 85, 105, 0.3);
-    background: rgba(30, 41, 59, 0.5);
-  }
-  
-  .cert-modal-title {
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--color-text);
-    margin: 0;
-  }
-  
-  .cert-modal-close {
-    background: rgba(239, 68, 68, 0.2);
-    border: 1px solid rgba(239, 68, 68, 0.3);
-    border-radius: 0.5rem;
-    padding: 0.5rem;
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-  
-  .cert-modal-close:hover {
-    background: rgba(239, 68, 68, 0.3);
-  }
-  
-  .cert-modal-close svg {
-    width: 1.25rem;
-    height: 1.25rem;
-    color: #ef4444;
-  }
-  
-  .cert-modal-body {
-    flex: 1;
-    overflow: auto;
-    padding: 1.5rem;
-    display: flex;
     align-items: center;
-    justify-content: center;
-    position: relative;
-    user-select: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
+    margin-bottom: 1rem;
   }
-  
-  .cert-watermark {
+
+  .program-icon {
+    font-size: 2.5rem;
+  }
+
+  .program-progress {
+    position: relative;
+    width: 50px;
+    height: 50px;
+  }
+
+  .progress-ring {
+    transform: rotate(-90deg);
+    width: 100%;
+    height: 100%;
+  }
+
+  .progress-ring-bg {
+    fill: none;
+    stroke: var(--color-border);
+    stroke-width: 3;
+  }
+
+  .progress-ring-fill {
+    fill: none;
+    stroke: var(--color-accent);
+    stroke-width: 3;
+    stroke-linecap: round;
+    transition: stroke-dasharray 0.5s ease;
+  }
+
+  .progress-text {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) rotate(-30deg);
-    font-size: 3rem;
-    font-weight: 900;
-    color: rgba(59, 130, 246, 0.1);
-    white-space: nowrap;
-    pointer-events: none;
-    z-index: 1;
-    letter-spacing: 0.5rem;
+    transform: translate(-50%, -50%);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-text);
   }
-  
-  .cert-modal-image {
-    max-width: 100%;
-    max-height: 60vh;
-    border-radius: 0.5rem;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-    pointer-events: none;
-    position: relative;
-    z-index: 2;
+
+  .program-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin: 0 0 0.5rem 0;
   }
-  
-  .cert-modal-footer {
-    padding: 1rem 1.5rem;
-    border-top: 1px solid rgba(71, 85, 105, 0.3);
+
+  .program-description {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    margin: 0 0 1.5rem 0;
+    flex-grow: 1;
+  }
+
+  .program-stats {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .program-stat {
+    flex: 1;
+    text-align: center;
+  }
+
+  .program-stat-value {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-accent);
+  }
+
+  .program-stat-label {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+  }
+
+  .program-stat-divider {
+    width: 1px;
+    height: 2rem;
+    background: var(--color-border);
+  }
+
+  .program-footer {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 1rem;
-    flex-wrap: wrap;
-    background: rgba(30, 41, 59, 0.5);
+    color: var(--color-accent);
+    font-weight: 500;
+    font-size: 0.875rem;
   }
-  
-  .cert-modal-btn {
+
+  .program-footer svg {
+    transition: transform 0.2s ease;
+  }
+
+  .program-card:hover .program-footer svg {
+    transform: translateX(4px);
+  }
+
+  /* Certification Section */
+  .cert-section {
+    margin-bottom: 3rem;
+  }
+
+  .cert-card {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    border-radius: 1rem;
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .cert-badge {
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    color: white;
+    padding: 0.5rem 1.5rem;
+    border-radius: 2rem;
+    font-weight: 700;
+    font-size: 0.875rem;
+  }
+
+  .cert-content {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex: 1;
+    min-width: 250px;
+  }
+
+  .cert-icon {
+    font-size: 3rem;
+  }
+
+  .cert-info h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin: 0 0 0.25rem 0;
+  }
+
+  .cert-platform {
+    color: var(--color-text-secondary);
+    margin: 0 0 0.75rem 0;
+  }
+
+  .cert-meta {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+  }
+
+  .cert-verify-btn {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.75rem 1.25rem;
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    color: white;
     border-radius: 0.5rem;
-    font-size: 0.875rem;
-    font-weight: 600;
     text-decoration: none;
+    font-weight: 500;
     transition: all 0.2s ease;
   }
-  
-  .cert-modal-btn.primary {
-    background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);
-    color: white;
-  }
-  
-  .cert-modal-btn.primary:hover {
+
+  .cert-verify-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+    box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
   }
-  
-  .cert-modal-id {
-    font-size: 0.75rem;
-    color: var(--color-text-secondary);
+
+  /* Activity Section */
+  .activity-section {
+    margin-bottom: 3rem;
+  }
+
+  .activity-list {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: 1rem;
+    overflow: hidden;
+  }
+
+  .activity-item {
     display: flex;
     align-items: center;
-    gap: 0.35rem;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--color-border);
+    transition: background-color 0.2s ease;
   }
-  
-  .cert-modal-id code {
-    font-family: SF Mono, Monaco, monospace;
-    color: #06b6d4;
-    background: rgba(6, 182, 212, 0.1);
-    padding: 0.25rem 0.5rem;
-    border-radius: 0.25rem;
-    font-size: 0.7rem;
+
+  .activity-item:last-child {
+    border-bottom: none;
   }
-  
-  /* Disable right-click on modal */
-  .cert-modal-body::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    z-index: 10;
+
+  .activity-item:hover {
+    background: var(--color-bg-hover);
+  }
+
+  .activity-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(76, 128, 204, 0.2);
+    border-radius: 50%;
+    font-size: 1.25rem;
+  }
+
+  .activity-content {
+    flex: 1;
+  }
+
+  .activity-title {
+    display: block;
+    font-weight: 500;
+    color: var(--color-text);
+    margin-bottom: 0.25rem;
+  }
+
+  .activity-program {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    text-transform: capitalize;
+  }
+
+  .activity-badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+
+  .activity-badge.completed {
+    background: rgba(34, 197, 94, 0.2);
+    color: #22c55e;
+  }
+
+  /* Quick Stats */
+  .quick-stats {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
+    margin-bottom: 3rem;
+  }
+
+  .quick-stat {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: 0.75rem;
+    padding: 1.5rem 1rem;
+    text-align: center;
+    transition: all 0.2s ease;
+  }
+
+  .quick-stat:hover {
+    border-color: var(--color-accent);
+    transform: translateY(-2px);
+  }
+
+  .quick-stat-icon {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .quick-stat-value {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+
+  .quick-stat-label {
+    font-size: 0.75rem;
+    color: var(--color-text-secondary);
+  }
+
+  /* Footer */
+  .dashboard-footer {
+    text-align: center;
+    padding: 2rem 0;
+    color: var(--color-text-muted);
+    font-size: 0.875rem;
+  }
+
+  .dashboard-footer a {
+    color: var(--color-accent);
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .hero {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+
+    .hero-visual {
+      display: none;
+    }
+
+    .hero-stats {
+      justify-content: center;
+    }
+
+    .quick-stats {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hero-title {
+      font-size: 2.5rem;
+    }
+
+    .hero-stats {
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .hero-stat-divider {
+      display: none;
+    }
+
+    .quick-stats {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .cert-card {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .cert-content {
+      flex-direction: column;
+    }
   }
 </style>

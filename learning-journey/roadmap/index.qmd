@@ -1,0 +1,260 @@
+---
+title: "Roadmap"
+---
+
+# Learning Roadmap 🚀
+
+## 🎯 Current Position
+
+- **Linux Foundations**: 🟡 45% Complete (9/20)
+- **Containerization**: 🟢 100% Complete (6/6) - Certified
+- **DevOps Practices**: 🟡 50% Complete (8/16)
+- **Security**: 🟡 43% Complete (5/12)
+
+---
+
+## 📈 Visual Progress
+
+```{=html}
+<div class="roadmap-grid">
+
+<div class="roadmap-phase">
+  <div class="phase-header completed">
+    <span class="phase-number">1</span>
+    <span class="phase-title">Linux Foundations</span>
+    <span class="phase-badge">✓ Complete</span>
+  </div>
+  <ul class="phase-items">
+    <li>✓ User Management</li>
+    <li>✓ Group Management</li>
+    <li>✓ Permissions</li>
+    <li>✓ SSH Security</li>
+    <li>✓ Scripting Basics</li>
+  </ul>
+</div>
+
+<div class="roadmap-phase">
+  <div class="phase-header completed">
+    <span class="phase-number">2</span>
+    <span class="phase-title">Containerization</span>
+    <span class="phase-badge">✓ Complete</span>
+  </div>
+  <ul class="phase-items">
+    <li>✓ Docker Installation</li>
+    <li>✓ Container Management</li>
+    <li>✓ Volumes & Networks</li>
+    <li>✓ Troubleshooting</li>
+    <li>✓ Docker Compose</li>
+  </ul>
+</div>
+
+<div class="roadmap-phase">
+  <div class="phase-header in-progress">
+    <span class="phase-number">3</span>
+    <span class="phase-title">DevOps Practices</span>
+    <span class="phase-badge">◐ 50%</span>
+  </div>
+  <ul class="phase-items">
+    <li>✓ Ansible Basics</li>
+    <li>✓ Cron Automation</li>
+    <li>✓ MariaDB</li>
+    <li>○ CI/CD Pipelines</li>
+    <li>○ Monitoring</li>
+  </ul>
+</div>
+
+<div class="roadmap-phase">
+  <div class="phase-header">
+    <span class="phase-number">4</span>
+    <span class="phase-title">Security</span>
+    <span class="phase-badge">○ Not Started</span>
+  </div>
+  <ul class="phase-items">
+    <li>✓ CTF Introduction</li>
+    <li>○ Forensics</li>
+    <li>○ Web Security</li>
+    <li>○ Network Security</li>
+    <li>○ Privilege Escalation</li>
+  </ul>
+</div>
+
+</div>
+```
+
+## 🎯 Next Steps
+
+### Short Term (1-3 months)
+
+1. **Complete Linux Fundamentals**
+   - [ ] SELinux configuration
+   - [ ] Firewall management (iptables/firewalld)
+   - [ ] Process limits and tuning
+
+2. **Advance Docker Skills**
+   - [ ] Docker Compose advanced
+   - [ ] Multi-container applications
+   - [ ] Container security
+
+3. **HTB Academy Progress**
+   - [x] Network Enumeration (Nmap) ✓
+   - [ ] SQL Injection
+   - [ ] Linux Privilege Escalation
+   - [ ] Web Attacks
+
+### Medium Term (3-6 months)
+
+1. **Kubernetes Introduction**
+   - Basic kubectl commands
+   - Pod management
+   - ConfigMaps and Secrets
+
+2. **CI/CD Pipelines**
+   - GitHub Actions
+   - Jenkins basics
+   - Pipeline automation
+
+3. **Advanced Security**
+   - Buffer overflow exploitation
+   - Reverse engineering basics
+   - Privilege escalation techniques
+
+---
+
+## 🛠️ Skills to Acquire
+
+| Skill Category | Current | Target |
+|----------------|---------|--------|
+| Linux Administration | 🟢 Intermediate | Advanced |
+| Docker/Kubernetes | 🟢 Intermediate | Advanced |
+| Ansible | 🔵 Basic | Intermediate |
+| Network Security | 🔵 Basic | Intermediate |
+| Penetration Testing | 🔵 Basic | Intermediate |
+| Forensics | 🔵 Basic | Intermediate |
+
+---
+
+## 📚 Resources
+
+- [HTB Academy](https://academy.hackthebox.com)
+- [Docker Documentation](https://docs.docker.com)
+- [Ansible Documentation](https://docs.ansible.com)
+- [Linux Journey](https://linuxjourney.com)
+- [Roadmap.sh](https://roadmap.sh)
+
+---
+
+## 🤝 Contributing
+
+This learning journey is documented for anyone who wants to follow a similar path. If you have suggestions or want to contribute, feel free to open a pull request on GitHub.
+
+---
+
+*Last updated: 2026-02-19*
+
+```{=html}
+<style>
+.roadmap-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.roadmap-phase {
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  border: 1px solid #334155;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.phase-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem;
+  background: #0f172a;
+}
+
+.phase-header.completed {
+  border-bottom: 3px solid #22c55e;
+}
+
+.phase-header.in-progress {
+  border-bottom: 3px solid #f59e0b;
+}
+
+.phase-number {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #334155;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.phase-header.completed .phase-number {
+  background: #22c55e;
+  color: white;
+}
+
+.phase-header.in-progress .phase-number {
+  background: #f59e0b;
+  color: white;
+}
+
+.phase-title {
+  flex: 1;
+  font-weight: 600;
+  color: #e2e8f0;
+}
+
+.phase-badge {
+  font-size: 0.7rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 999px;
+  background: #334155;
+  color: #94a3b8;
+}
+
+.phase-header.completed .phase-badge {
+  background: rgba(34, 197, 94, 0.2);
+  color: #22c55e;
+}
+
+.phase-header.in-progress .phase-badge {
+  background: rgba(245, 158, 11, 0.2);
+  color: #f59e0b;
+}
+
+.phase-items {
+  list-style: none;
+  padding: 1rem;
+  margin: 0;
+}
+
+.phase-items li {
+  padding: 0.5rem 0;
+  color: #94a3b8;
+  font-size: 0.9rem;
+  border-bottom: 1px solid #1e293b;
+}
+
+.phase-items li:last-child {
+  border-bottom: none;
+}
+
+.phase-items li::before {
+  content: "○ ";
+  color: #64748b;
+  margin-right: 0.5rem;
+}
+
+.phase-items li:has(✓)::before {
+  content: "✓ ";
+  color: #22c55e;
+}
+</style>
+```

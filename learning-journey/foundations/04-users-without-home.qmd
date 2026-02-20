@@ -1,0 +1,78 @@
+---
+title: "Users Without Home Directory"
+description: "Creating service accounts without home directories for minimal attack surface"
+date: "2026-01-26"
+categories: [linux, foundations, security]
+---
+
+# Users Without Home Directory
+
+## Scenario: Application Service Account
+
+**Company**: xFusionCorp Industries  
+**Task**: Create service user without home directory for microservices application
+
+---
+
+## 🧠 Why No Home Directory?
+
+Service accounts that don't need to store personal files, configuration, or logs shouldn't have home directories.
+
+### Benefits
+
+- **Reduced Attack Surface**: No writable directories
+- **Disk Space**: No unnecessary space allocation
+- **Compliance**: Follows minimal footprint principle
+- **Security**: Limits file-based vulnerabilities
+
+---
+
+## 🛠️ Implementation
+
+### Create User Without Home
+
+```bash
+# Create user without home directory
+useradd -M -s /sbin/nologin appuser
+
+# Verify
+id appuser
+ls -la /home/  # Should not contain appuser
+```
+
+### Options Explained
+
+| Option | Purpose |
+|--------|---------|
+| `-M` | Don't create home directory |
+| `-s /sbin/nologin` | Non-interactive shell |
+| `appuser` | Username |
+
+---
+
+## ✅ Verification
+
+- [ ] User created successfully
+- [ ] No /home/appuser directory
+- [ ] Shell is /sbin/nologin
+- [ ] User cannot login
+
+---
+
+## 🎯 Key Learnings
+
+- Minimal service account configuration
+- Home directory security
+- Container-ready user management
+
+---
+
+## ✅ Status
+
+**COMPLETED** 🎉
+
+- Date: 2026-01-26
+
+---
+
+*[← Back to Foundations](index.qmd)*

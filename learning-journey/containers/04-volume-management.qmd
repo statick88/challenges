@@ -1,0 +1,99 @@
+---
+title: "Volume Management"
+description: "Managing Docker volumes for persistent data storage"
+date: "2026-01-30"
+categories: [docker, containers, volumes, storage]
+---
+
+# Volume Management
+
+## Scenario: Persistent Data for Database Container
+
+**Task**: Mount persistent storage for container data
+
+---
+
+## 🧠 Understanding Docker Volumes
+
+Volumes persist data outside the container's filesystem, ensuring data survives container restarts and removals.
+
+### Volume Types
+
+| Type | Description | Use Case |
+|------|-------------|----------|
+| Named volumes | Managed by Docker | Production databases |
+| Bind mounts | Host directory | Development |
+| tmpfs | In-memory | Sensitive data |
+
+---
+
+## 🛠️ Implementation
+
+### Create Named Volume
+
+```bash
+# Create volume
+docker volume create mydata
+
+# List volumes
+docker volume ls
+
+# Inspect volume
+docker volume inspect mydata
+```
+
+### Mount Volume to Container
+
+```bash
+# Run container with volume
+docker run -d \
+  --name mydb \
+  -v mydata:/var/lib/mysql \
+  mysql:latest
+
+# Using --mount
+docker run -d \
+  --name mydb \
+  --mount source=mydata,target=/var/lib/mysql \
+  mysql:latest
+```
+
+### Bind Mount (Development)
+
+```bash
+# Mount current directory
+docker run -d \
+  --name dev-app \
+  -v $(pwd):/app \
+  -p 3000:3000 \
+  node:18
+```
+
+---
+
+## ✅ Verification
+
+- [ ] Volume created successfully
+- [ ] Data persists after container restart
+- [ ] Data persists after container removal
+- [ ] Correct permissions
+
+---
+
+## 🎯 Key Learnings
+
+- Persistent storage in containers
+- Volume lifecycle
+- Data backup strategies
+
+---
+
+## ✅ Status
+
+**COMPLETED** 🎉
+
+- Date: 2026-01-30
+
+---
+
+*[← Back to Containers](index.qmd)*

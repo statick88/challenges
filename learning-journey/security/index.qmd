@@ -1,0 +1,112 @@
+---
+title: "Security"
+description: "Cursos y laboratorios de ciberseguridad"
+---
+
+# Security 🔒
+
+Bienvenido a la sección de **Ciberseguridad**. Aquí encontrarás cursos completos desde fundamentos hasta técnicas avanzadas de pentesting.
+
+## 📚 Cursos Disponibles
+
+### Network Enumeration with Nmap
+
+Curso completo de enumeración de redes con Nmap, desde conceptos básicos hasta técnicas avanzadas de evasión de firewalls e IDS/IPS.
+
+[**Acceder al Curso de Nmap →**](nmap-course/index.html)
+
+**Contenido del curso:**
+
+- Introducción a Nmap y arquitectura
+- Host Discovery y Port Scanning
+- Service Enumeration y NSE Scripts
+- Firewall & IDS/IPS Evasion (3 laboratorios HTB)
+- 6 laboratorios prácticos completados
+
+**Progreso del curso: 100%** ✓
+
+---
+
+## 📊 Laboratorios Completados
+
+| Reto | Plataforma | Dificultad | Fecha |
+|------|------------|------------|-------|
+| Nmap Default Scan | HTB Academy | Easy | 2026-02-11 |
+| Full Port Scan | HTB Academy | Easy | 2026-02-19 |
+| Service Enumeration | HTB Academy | Easy | 2026-02-20 |
+| NSE Scripts | HTB Academy | Easy | 2026-02-20 |
+| Firewall Evasion Easy | HTB Academy | Easy | 2026-02-20 |
+| Firewall Evasion Medium | HTB Academy | Medium | 2026-02-20 |
+| Firewall Evasion Hard | HTB Academy | Hard | 2026-02-20 |
+
+---
+
+## 🎯 Habilidades Desarrolladas
+
+| Habilidad | Nivel |
+|-----------|-------|
+| Host Discovery | Avanzado |
+| Port Scanning | Avanzado |
+| Service Enumeration | Avanzado |
+| NSE Scripts | Intermedio |
+| Firewall Evasion | Avanzado |
+| IDS/IPS Bypass | Intermedio |
+
+---
+
+## 🔗 Otros Recursos de Seguridad
+
+### OpenVPN Setup
+
+Guía completa de configuración de OpenVPN para conectar a HTB Academy desde Linux, macOS y Windows.
+
+[Ver guía de OpenVPN →](openvpn-setup.html)
+
+---
+
+## 📈 Estadísticas del Módulo
+
+```{=html}
+<div class="stats-summary">
+  <div class="stat-item">
+    <span class="stat-number">7</span>
+    <span class="stat-label">Laboratorios Completados</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-number">3</span>
+    <span class="stat-label">Flags Obtenidas</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-number">100%</span>
+    <span class="stat-label">Progreso Nmap</span>
+  </div>
+</div>
+
+<style>
+.stats-summary {
+  display: flex;
+  justify-content: space-around;
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  border: 1px solid #334155;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-number {
+  display: block;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #22c55e;
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  color: #94a3b8;
+}
+</style>
+```

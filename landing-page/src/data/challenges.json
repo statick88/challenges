@@ -1,20 +1,20 @@
 {
-  "lastUpdated": "2026-02-18T18:33:25.272Z",
-  "buildVersion": 1771439605273,
+  "lastUpdated": "2026-02-20T10:28:06.474Z",
+  "buildVersion": 1771583286475,
   "overview": {
-    "totalChallenges": 57,
-    "completed": 23,
+    "totalChallenges": 65,
+    "completed": 33,
     "ctfCompleted": 2,
-    "completionRate": 40
+    "completionRate": 51
   },
   "programs": {
     "linux": {
-      "completed": 6,
-      "inProgress": 2,
+      "completed": 9,
+      "inProgress": 0,
       "ready": 0,
       "blocked": 11,
-      "total": 19,
-      "percentage": 32
+      "total": 20,
+      "percentage": 45
     },
     "docker": {
       "completed": 6,
@@ -25,12 +25,12 @@
       "percentage": 100
     },
     "devops": {
-      "completed": 7,
+      "completed": 8,
       "inProgress": 0,
       "ready": 8,
       "blocked": 0,
-      "total": 15,
-      "percentage": 47
+      "total": 16,
+      "percentage": 50
     },
     "ctf": {
       "completed": 2,
@@ -73,12 +73,12 @@
       ]
     },
     "htb": {
-      "completed": 2,
+      "completed": 8,
       "inProgress": 0,
       "ready": 4,
       "blocked": 0,
-      "total": 6,
-      "percentage": 33,
+      "total": 12,
+      "percentage": 67,
       "challenges": [
         {
           "id": "active-directory/ldap-enumeration",
@@ -111,6 +111,36 @@
           "path": "/challenges/htb/forensics/memory-forensics"
         },
         {
+          "id": "network-enum/firewall-ids-evasion-easy",
+          "title": "Firewall and IDS/IPS Evasion - Easy Lab",
+          "status": "completed",
+          "difficulty": "easy",
+          "date": "2026-02-20",
+          "category": "network-enum",
+          "platform": "HTB",
+          "path": "/challenges/htb/network-enum/firewall-ids-evasion-easy"
+        },
+        {
+          "id": "network-enum/firewall-ids-evasion-hard",
+          "title": "Firewall and IDS/IPS Evasion - Hard Lab",
+          "status": "completed",
+          "difficulty": "hard",
+          "date": "2026-02-20",
+          "category": "network-enum",
+          "platform": "HTB",
+          "path": "/challenges/htb/network-enum/firewall-ids-evasion-hard"
+        },
+        {
+          "id": "network-enum/firewall-ids-evasion-medium",
+          "title": "Firewall and IDS/IPS Evasion - Medium Lab",
+          "status": "completed",
+          "difficulty": "medium",
+          "date": "2026-02-20",
+          "category": "network-enum",
+          "platform": "HTB",
+          "path": "/challenges/htb/network-enum/firewall-ids-evasion-medium"
+        },
+        {
           "id": "network-enum/nmap-default",
           "title": "HTB Academy - Nmap Default",
           "status": "completed",
@@ -119,6 +149,36 @@
           "category": "network-enum",
           "platform": "HTB",
           "path": "/challenges/htb/network-enum/nmap-default"
+        },
+        {
+          "id": "network-enum/nmap-full-scan",
+          "title": "HTB Academy - Nmap Full Port Scan",
+          "status": "completed",
+          "difficulty": "easy",
+          "date": "2026-02-19",
+          "category": "network-enum",
+          "platform": "HTB",
+          "path": "/challenges/htb/network-enum/nmap-full-scan"
+        },
+        {
+          "id": "network-enum/nmap-nse",
+          "title": "HTB Academy - Nmap Scripting Engine (NSE)",
+          "status": "completed",
+          "difficulty": "easy",
+          "date": "2026-02-20",
+          "category": "network-enum",
+          "platform": "HTB",
+          "path": "/challenges/htb/network-enum/nmap-nse"
+        },
+        {
+          "id": "network-enum/nmap-service-enum",
+          "title": "HTB Academy - Service Enumeration with Nmap",
+          "status": "completed",
+          "difficulty": "easy",
+          "date": "2026-02-20",
+          "category": "network-enum",
+          "platform": "HTB",
+          "path": "/challenges/htb/network-enum/nmap-service-enum"
         },
         {
           "id": "privilege-escalation/linux-privesc",
@@ -188,7 +248,7 @@
     },
     {
       "program": "linux",
-      "activity": "Linux: 6/19 completed (11 blocked)",
+      "activity": "Linux: 9/20 completed (11 blocked)",
       "icon": "🐧"
     },
     {
@@ -198,12 +258,12 @@
     },
     {
       "program": "devops",
-      "activity": "DevOps: 7/15 days completed",
+      "activity": "DevOps: 8/16 days completed",
       "icon": "⚙️"
     },
     {
       "program": "htb",
-      "activity": "HTB: 2/6 challenges",
+      "activity": "HTB: 8/12 challenges",
       "icon": "🎯"
     }
   ]

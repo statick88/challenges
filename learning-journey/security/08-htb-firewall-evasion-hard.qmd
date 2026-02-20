@@ -1,0 +1,103 @@
+---
+title: "Firewall & IDS/IPS Evasion - Hard Lab"
+---
+
+## Objective
+
+Identify the version of a service running on a target with strict IDS/IPS and firewall configurations.
+
+## Challenge
+
+After previous tests, administrators improved their security. The hint: "service that plays a vital role for their customer because they require large amounts of data."
+
+## Discovery
+
+### Port Found: 50000
+
+```bash
+sudo nmap --source-port 53 -sV -p 50000-50010 10.129.2.47
+```
+
+```
+PORT      STATE  SERVICE    VERSION
+50000/tcp open   tcpwrapped
+```
+
+### Problem
+
+- Service protected by TCP Wrappers
+- IDS blocked Nmap scripts
+- Standard connections timed out
+- Metasploit returned no results
+
+## Solution: Netcat with Source Port Binding
+
+### The Key Insight
+
+Firewalls trust traffic **from** port 53 (DNS). By binding our local port to 53, we bypass firewall rules.
+
+### Command
+
+```bash
+sudo nc -p 53 10.129.2.47 50000
+```
+
+### Result
+
+```
+220 HTB{kjnsdf2n982n1827eh76238s98di1w6}
+```
+
+## Answer
+
+**Flag**: `HTB{kjnsdf2n982n1827eh76238s98di1w6}`
+
+## Technical Explanation
+
+### Source Port Bypass
+
+```
+┌─────────────────┐                    ┌─────────────────┐
+│   Kali Linux    │                    │    Target       │
+│ Port: 53 (DNS)  │ ─────────────────► │ Port: 50000     │
+│ (bound locally) │                    │ (IBM DB2)       │
+└─────────────────┘                    └─────────────────┘
+         │                                    │
+         │    Firewall Rule:                  │
+         │    "Allow traffic FROM port 53"    │
+         └────────────────────────────────────┘
+```
+
+### Why It Works
+
+| Factor | Explanation |
+|--------|-------------|
+| Port 53 | DNS traffic is trusted |
+| sudo required | Ports < 1024 are privileged |
+| Netcat | Simple TCP, no IDS pattern |
+
+## Failed Attempts
+
+| Technique | Result |
+|-----------|--------|
+| Direct nc connection | Timeout |
+| Nmap -sV with source-port | `tcpwrapped` |
+| Nmap db2-das-info script | `filtered` |
+| Metasploit db2_version | No results |
+| Fragmentation (-f) | `tcpwrapped` |
+
+## Key Learnings
+
+1. **Simple tools bypass complex defenses**: Netcat worked where Nmap failed
+2. **Source port manipulation**: Binding to trusted ports bypasses firewalls
+3. **Privileged ports**: Ports < 1024 require root but are trusted
+4. **Passive techniques**: No IDS alerts with simple connection
+
+## Evasion Techniques Comparison
+
+| Technique | Effectiveness | Alerts |
+|-----------|---------------|--------|
+| Source Port 53 | ✅ Very High | 0 |
+| Decoys (-D) | Medium | Some |
+| Fragmentation | Low | Some |
+| Netcat passive | ✅ Very High | 0 |

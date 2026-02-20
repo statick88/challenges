@@ -1,0 +1,163 @@
+---
+title: "User Creation with Custom UID"
+description: "Creating users with specific UIDs and custom home directories in Linux"
+date: "2026-01-25"
+categories: [linux, foundations, user-management]
+---
+
+# User Creation with Custom UID
+
+## Scenario: First Day at xFusionCorp
+
+You just started as a Junior System Administrator at **xFusionCorp Industries**. On your first day, the Lead SysAdmin assigns you a task:
+
+> *"The web development team needs a user named **javed** to deploy their application on server stapp02. They need UID 1467 and the home directory must be at `/var/www/javed`. The lead developer is waiting. Can you do it?"*
+
+---
+
+## 🧠 Understanding the Architecture
+
+Before creating users, you must understand how Linux manages them internally.
+
+### The /etc/passwd File
+
+Every user in Linux is defined by a line in `/etc/passwd`:
+
+```
+username:password:UID:GID:comment:home_directory:shell
+```
+
+**Example:**
+```
+javed:x:1467:1467::/var/www/javed:/bin/bash
+```
+
+> **Key Insight**: The UID is the user's true identifier. Linux doesn't say "user javed accessed"; it says "UID 1467 accessed". Names are just human labels.
+
+### Why UID 1467?
+
+In large organizations, UIDs are assigned by ranges:
+
+- **0-99**: System users (root, bin, daemon)
+- **100-999**: Service accounts (nginx, mysql, docker)
+- **1000+**: Regular human users
+- **10000+**: Specific applications
+
+---
+
+## 🛠️ Implementation
+
+### Step 1: Access the Server
+
+```bash
+# Connect via SSH
+ssh steve@172.16.238.11
+
+# Escalate to root
+sudo su -
+```
+
+### Step 2: Verification
+
+Always verify the current state before making changes:
+
+```bash
+# Check if user already exists
+id javed
+
+# Check if UID 1467 is already in use
+grep "1467" /etc/passwd
+
+# Verify /var/www/ exists
+ls -ld /var/www/
+```
+
+### Step 3: Create the User
+
+```bash
+useradd -u 1467 -d /var/www/javed -m javed
+```
+
+**Command breakdown:**
+
+| Option | Meaning | Why We Use It |
+|--------|---------|---------------|
+| `-u 1467` | Specify UID | Development team requirement |
+| `-d /var/www/javed` | Custom home | Web application standard |
+| `-m` | Create home directory | User needs a workspace |
+| `javed` | Username | Human identifier |
+
+### Step 4: Set Password
+
+```bash
+passwd javed
+```
+
+> **Security Best Practice**: In production, configure SSH key authentication and disable password login: `passwd -l javed`
+
+### Step 5: Verification
+
+```bash
+# Verify user exists with correct UID
+id javed
+# Expected: uid=1467(javed) gid=1467(javed) groups=1467(javed)
+
+# Verify home directory
+ls -la /var/www/javed
+
+# Verify we can switch to user
+su - javed
+pwd  # Should show: /var/www/javed
+```
+
+---
+
+## ✅ Verification Checklist
+
+- [ ] User exists in /etc/passwd
+- [ ] UID is exactly 1467
+- [ ] GID matches UID
+- [ ] Home directory exists at /var/www/javed
+- [ ] Permissions are javed:javed
+- [ ] Configuration files copied (bashrc, etc.)
+- [ ] Can execute `su - javed` without errors
+
+---
+
+## 🚀 Next Steps
+
+Explore variations of useradd:
+
+```bash
+# Service account (no login)
+useradd -r -s /sbin/nologin mysql
+
+# Add to secondary groups
+useradd -G developers,deployers -m javed
+
+# Account with expiration date
+useradd -e 2025-12-31 -m contractor1
+```
+
+---
+
+## 📚 Resources
+
+- `man useradd` - Complete command documentation
+- `man usermod` - User modification
+- `/etc/passwd format` - Understanding the 7 fields
+
+---
+
+## ✅ Status
+
+**COMPLETED** 🎉
+
+- Date: 2026-01-25
+- Time: 10-15 minutes
+- Level: Linux Administration Fundamentals
+- Skills: User Management, SSH, Verification
+
+---
+
+*[← Back to Foundations](index.qmd)*

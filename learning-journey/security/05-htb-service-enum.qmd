@@ -1,0 +1,80 @@
+---
+title: "HTB Academy - Service Enumeration"
+description: "Service version detection and banner grabbing with Nmap"
+date: "2026-02-20"
+categories: [security, htb, nmap, enumeration]
+---
+
+# Service Enumeration with Nmap
+
+## Scenario: Find Hidden Flag in Service Banner
+
+**Platform**: Hack The Box Academy  
+**Module**: Network Enumeration with Nmap  
+**Target**: 10.129.4.45
+
+---
+
+## 🧠 The Problem with Automated Scans
+
+Nmap's `-sV` option detects service versions, but it doesn't always show the complete banner. This is where manual banner grabbing becomes essential.
+
+---
+
+## 🛠️ Implementation
+
+### Step 1: Full Port Scan with Version Detection
+
+```bash
+sudo nmap 10.129.4.45 -p 22,80,110,139,143,445,31337 -sV
+```
+
+### Step 2: Results from Nmap
+
+```
+PORT      STATE SERVICE     VERSION
+22/tcp    open  ssh         OpenSSH 7.6p1 Ubuntu
+80/tcp    open  http        Apache httpd 2.4.29
+110/tcp   open  pop3        Dovecot pop3d
+139/tcp   open  netbios-ssn Samba smbd 3.X - 4.X
+143/tcp   open  imap        Dovecot imapd
+445/tcp   open  netbios-ssn Samba smbd 3.X - 4.X
+31337/tcp open  ftp         ProFTPD
+```
+
+### Step 3: Manual Banner Grabbing
+
+```bash
+# Grab FTP banner manually
+nc -nv 10.129.4.45 31337
+```
+
+**Output:**
+```
+220 HTB{pr0F7pDv3r510nb4nn3r}
+```
+
+---
+
+## 🎯 Key Learning
+
+**Nmap showed "ProFTPD" but missed the flag in the banner!**
+
+Always verify with manual banner grabbing:
+- `nc -nv <IP> <PORT>`
+- `curl -I http://<IP>`
+- `telnet <IP> <PORT>`
+
+---
+
+## ✅ Status
+
+**COMPLETED** 🎉
+
+- Date: 2026-02-20
+- Flag: `HTB{pr0F7pDv3r510nb4nn3r}`
+- Port: 31337/tcp (FTP)
+
+---
+
+*[← Back to Security](index.qmd)*

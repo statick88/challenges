@@ -1,0 +1,108 @@
+---
+title: "Docker Installation"
+description: "Installing and configuring Docker in production environments"
+date: "2026-01-25"
+categories: [docker, containers, fundamentals]
+---
+
+# Docker Installation
+
+## Scenario: Preparing for Containerized Applications
+
+**Company**: Stratos Datacenter  
+**Role**: Platform Engineer  
+**Task**: Install and configure Docker on stapp01 for the development team
+
+---
+
+## 🧠 Why Docker?
+
+Docker standardizes application packaging:
+
+- **Package**: Your app + dependencies
+- **Standardize**: Docker image format
+- **Isolate**: From the host system
+- **Transport**: Easily between environments
+
+> **Platform Engineer Insight**: Docker enables:
+> - Microservices architecture
+> - Fast CI/CD pipelines
+> - Horizontal scaling
+> - Cloud portability
+
+---
+
+## 🛠️ Implementation
+
+### Step 1: Access the Server
+
+```bash
+ssh tony@172.16.238.10
+sudo su -
+```
+
+### Step 2: Install Docker
+
+```bash
+# Update package index
+apt-get update
+
+# Install dependencies
+apt-get install -y apt-transport-https ca-certificates curl gnupg lsb-release
+
+# Add Docker GPG key
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+
+# Add Docker repository
+echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+# Install Docker
+apt-get update
+apt-get install -y docker-ce docker-ce-cli containerd.io
+```
+
+### Step 3: Configure Docker
+
+```bash
+# Enable and start Docker
+systemctl enable docker
+systemctl start docker
+
+# Add user to docker group
+usermod -aG docker tony
+
+# Verify installation
+docker --version
+docker run hello-world
+```
+
+---
+
+## ✅ Verification
+
+- [ ] Docker daemon is running: `systemctl status docker`
+- [ ] Docker version displayed: `docker --version`
+- [ ] Hello-world container runs: `docker run hello-world`
+- [ ] User can run Docker without sudo (after logout/login)
+
+---
+
+## 🎯 Key Learnings
+
+- Docker architecture (daemon, client, registry)
+- Package installation from official repositories
+- Systemd service management
+- User group permissions
+
+---
+
+## ✅ Status
+
+**COMPLETED** 🎉
+
+- Date: 2026-01-25
+- Difficulty: 3/5
+
+---
+
+*[← Back to Containers](index.qmd)*

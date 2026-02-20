@@ -1,0 +1,124 @@
+---
+title: "Laboratorio 2: Service Enumeration"
+description: "Detección de versiones y banner grabbing"
+author: "Diego Saavedra"
+date: "2026-02-20"
+categories: [security, nmap, htb]
+---
+
+# Laboratorio 2: Service Enumeration
+
+## Contenido
+
+- [Objetivo](#objetivo)
+- [Introducción](#introducción)
+- [Ejercicio 1: Service Detection](#ejercicio-1-service-detection)
+- [Ejercicio 2: Banner Grabbing](#ejercicio-2-banner-grabbing)
+- [Solución Final](#solución-final)
+- [¿Qué Aprendimos?](#qué-aprendimos)
+- [Autoevaluación](#autoevaluación)
+
+## Objetivo
+
+Enumerar servicios y sus versiones para encontrar la flag oculta.
+
+**Target**: Spawn nuevo target en HTB Academy  
+**Dificultad**: Easy
+
+## Introducción
+
+El Service Enumeration detecta:
+
+- Nombre del servicio
+- Versión específica
+- Información adicional del banner
+
+::: {.callout-tip}
+## Importante
+La detección de versiones es crucial para identificar vulnerabilidades conocidas (CVEs) asociadas a versiones específicas.
+:::
+
+## Ejercicio 1: Service Detection
+
+### Paso 1: Escaneo con Detección de Versiones
+
+```bash
+sudo nmap -sV <target>
+```
+
+### Paso 2: Interpretar Resultados
+
+```
+PORT   STATE SERVICE VERSION
+21/tcp open  ftp     ProFTPD 1.3.5
+22/tcp open  ssh     OpenSSH 7.6p1
+80/tcp open  http    Apache 2.4.29
+```
+
+## Ejercicio 2: Banner Grabbing
+
+### Verificar Banner Manualmente
+
+```bash
+nc -nv <target> 21
+```
+
+Resultado:
+```
+220 ProFTPD 1.3.5 Server (Debian) [::ffff:10.10.10.10]
+HTB{pr0F7pDv3r510nb4nn3r}
+```
+
+::: {.callout-warning}
+## Nmap puede no mostrar el banner completo
+Siempre verifica con banner grabbing manual. Nmap `-sV` puede no mostrar toda la información.
+:::
+
+## Solución Final
+
+**Flag**: `HTB{pr0F7pDv3r510nb4nn3r}`
+
+### Lección Importante
+
+| Herramienta | Información |
+|-------------|-------------|
+| Nmap -sV | Versión del servicio |
+| nc manual | Banner completo + flag |
+| curl | Headers HTTP |
+| dig | Información DNS |
+
+## ¿Qué Aprendimos?
+
+1. **Siempre verificar manualmente**: Nmap puede no mostrar toda la información
+2. **Banner grabbing**: Método simple pero efectivo
+3. **Información expuesta**: Los servicios suelen revelar más de lo necesario
+4. **Múltiples herramientas**: Combinar diferentes técnicas de enumeración
+
+## Comandos de Banner Grabbing
+
+```bash
+# FTP
+nc -nv <target> 21
+
+# SSH
+nc -nv <target> 22
+
+# HTTP
+curl -I http://<target>
+
+# SMTP
+nc -nv <target> 25
+```
+
+## Autoevaluación
+
+1. ¿Qué hace `-sV` en Nmap?
+2. ¿Por qué verificar manualmente los banners?
+3. ¿Qué información puede contener un banner?
+4. ¿Cómo obtendrías el banner de un servidor HTTP?
+5. ¿Por qué los administradores deberían ocultar versiones?
+6. ¿Qué es banner grabbing y por qué es útil?
+
+---
+
+[← Lab 1: Full Scan](lab1-full-scan.qmd) | [Lab 3: NSE Scripts →](lab3-nse.qmd)

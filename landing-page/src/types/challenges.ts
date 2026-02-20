@@ -47,3 +47,66 @@ export interface ChallengeModalProps {
   tools?: string[];
   troubleshooting?: string;
 }
+
+// Dashboard Types
+export interface ProgramStats {
+  completed: number;
+  inProgress: number;
+  ready: number;
+  blocked: number;
+  total: number;
+  percentage: number;
+  name?: string;
+  icon?: string;
+  description?: string;
+  path?: string;
+}
+
+export interface CTFCategory {
+  name: string;
+  total: number;
+  completed: number;
+}
+
+export interface Overview {
+  totalChallenges: number;
+  completed: number;
+  ctfCompleted: number;
+  completionRate: number;
+}
+
+export interface RecentActivity {
+  icon: string;
+  activity: string;
+  program: string;
+}
+
+export interface Programs {
+  linux: ProgramStats;
+  docker: ProgramStats;
+  devops: ProgramStats;
+  ctf: ProgramStats & { categories?: CTFCategory[] };
+  htb: ProgramStats;
+}
+
+export interface ChallengesData {
+  lastUpdated: string;
+  buildVersion: number;
+  overview: Overview;
+  programs: Programs;
+  recentActivity: RecentActivity[];
+  ctfCategories?: CTFCategory[];
+}
+
+export interface Certification {
+  id: string;
+  title: string;
+  platform: string;
+  image: string;
+  verifyUrl: string;
+  date: string;
+  challengesCompleted: number;
+  totalChallenges: number;
+}
+
+export type ProgramKey = 'linux' | 'docker' | 'devops' | 'ctf' | 'htb';

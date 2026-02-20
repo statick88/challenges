@@ -1,0 +1,237 @@
+---
+title: "Introducción a Nmap"
+description: "Fundamentos de Network Mapper - La herramienta de enumeración de redes más utilizada"
+author: "Diego Saavedra"
+date: "2026-02-20"
+categories: [security, nmap, enumeration]
+---
+
+# Introducción a Nmap
+
+![](https://nmap.org/images/nmap-logo-256x256.png)
+
+## Contenido
+
+- [Objetivo](#objetivo)
+- [Introducción](#introducción)
+- [¿Qué es Nmap?](#qué-es-nmap)
+- [Casos de Uso](#casos-de-uso)
+- [Arquitectura de Nmap](#arquitectura-de-nmap)
+- [Sintaxis Básica](#sintaxis-básica)
+- [Técnicas de Escaneo](#técnicas-de-escaneo)
+- [Ejercicios Prácticos](#ejercicios-prácticos)
+- [¿Qué Aprendimos?](#qué-aprendimos)
+- [Autoevaluación](#autoevaluación)
+- [Referencias](#referencias)
+
+## Objetivo
+
+Al finalizar esta unidad, serás capaz de:
+
+- Comprender qué es Nmap y sus casos de uso
+- Ejecutar escaneos básicos de puertos
+- Interpretar los resultados de un escaneo
+- Conocer las diferentes técnicas de escaneo disponibles
+
+## Introducción
+
+Nmap (Network Mapper) es una herramienta de código abierto para exploración de redes y auditoría de seguridad. Escribir en C, C++, Python y Lua, está diseñado para escanear redes grandes rápidamente, pero funciona bien con hosts individuales.
+
+## ¿Qué es Nmap?
+
+Nmap es una herramienta que utiliza paquetes IP crudos (raw packets) para determinar:
+
+- **Qué hosts están disponibles** en la red
+- **Qué servicios** están ejecutándose
+- **Qué sistema operativo** utilizan
+- **Qué tipo de filtros/firewalls** están en uso
+
+::: {.callout-tip}
+## Importante
+Nmap es una de las herramientas más utilizadas por administradores de red y especialistas en seguridad. Su flexibilidad y potencia la convierten en estándar de la industria.
+:::
+
+## Casos de Uso
+
+| Caso de Uso | Descripción |
+|-------------|-------------|
+| Auditoría de seguridad | Identificar puertos y servicios expuestos |
+| Inventario de red | Descubrir hosts y dispositivos activos |
+| Monitoreo de servicios | Verificar disponibilidad de puertos |
+| Pentesting | Fase de reconocimiento y enumeración |
+| Análisis de firewall | Determinar reglas y configuraciones |
+
+## Arquitectura de Nmap
+
+Nmap ofrece diferentes técnicas de escaneo:
+
+```
+┌─────────────────────────────────────────────────┐
+│                 Nmap Architecture               │
+├─────────────────────────────────────────────────┤
+│                                                 │
+│  ┌─────────────┐  ┌─────────────┐              │
+│  │ Host        │  │ Port        │              │
+│  │ Discovery   │  │ Scanning    │              │
+│  └─────────────┘  └─────────────┘              │
+│                                                 │
+│  ┌─────────────┐  ┌─────────────┐              │
+│  │ Service     │  │ OS          │              │
+│  │ Detection   │  │ Detection   │              │
+│  └─────────────┘  └─────────────┘              │
+│                                                 │
+│  ┌─────────────────────────────────┐           │
+│  │ Nmap Scripting Engine (NSE)     │           │
+│  └─────────────────────────────────┘           │
+│                                                 │
+└─────────────────────────────────────────────────┘
+```
+
+## Sintaxis Básica
+
+La sintaxis general de Nmap es:
+
+```bash
+nmap <tipos_de_escaneo> <opciones> <objetivo>
+```
+
+### Ejemplos Básicos
+
+```bash
+# Escaneo básico (top 1000 puertos)
+nmap 192.168.1.1
+
+# Escaneo con detección de servicios
+nmap -sV 192.168.1.1
+
+# Escaneo completo de puertos
+nmap -p- 192.168.1.1
+
+# Escaneo agresivo
+nmap -A 192.168.1.1
+```
+
+## Técnicas de Escaneo
+
+### Escaneo SYN (-sS)
+
+El escaneo SYN es el más popular y rápido:
+
+```bash
+sudo nmap -sS 192.168.1.1
+```
+
+**Ventajas:**
+
+- Rápido (miles de puertos por segundo)
+- Menos detectable que escaneo connect
+- No completa la conexión TCP
+
+::: {.callout-warning}
+## Requiere Privilegios
+El escaneo SYN requiere privilegios de root/administrador para crear paquetes raw.
+:::
+
+### Escaneo Connect (-sT)
+
+Escaneo completo TCP (three-way handshake):
+
+```bash
+nmap -sT 192.168.1.1
+```
+
+**Características:**
+
+- No requiere privilegios de root
+- Más lento que SYN scan
+- Más fácil de detectar
+
+### Escaneo UDP (-sU)
+
+Para servicios UDP:
+
+```bash
+sudo nmap -sU 192.168.1.1
+```
+
+**Servicios comunes UDP:**
+
+- DNS (53)
+- DHCP (67/68)
+- SNMP (161)
+- NTP (123)
+
+## Estados de Puertos
+
+Nmap puede reportar 6 estados diferentes:
+
+| Estado | Descripción |
+|--------|-------------|
+| open | Conexión establecida exitosamente |
+| closed | Puerto accesible pero sin servicio |
+| filtered | Firewall bloqueando el acceso |
+| unfiltered | Accesible pero estado desconocido |
+| open\|filtered | No se pudo determinar si está abierto o filtrado |
+| closed\|filtered | No se pudo determinar si está cerrado o filtrado |
+
+## Ejercicios Prácticos
+
+### Ejercicio 1: Escaneo Básico
+
+Realiza un escaneo básico a tu máquina local:
+
+```bash
+nmap localhost
+```
+
+### Ejercicio 2: Escaneo de Puertos Específicos
+
+Escanea solo los puertos web comunes:
+
+```bash
+nmap -p 80,443,8080,8443 localhost
+```
+
+### Ejercicio 3: Detección de Sistema Operativo
+
+Detecta el sistema operativo del objetivo:
+
+```bash
+sudo nmap -O localhost
+```
+
+### Ejercicio 4: Escaneo Agresivo
+
+Realiza un escaneo agresivo con detección de servicios y OS:
+
+```bash
+sudo nmap -A localhost
+```
+
+## ¿Qué Aprendimos?
+
+- Nmap es la herramienta estándar para enumeración de redes
+- Existen múltiples técnicas de escaneo según el objetivo
+- Los estados de puertos indican la accesibilidad de los servicios
+- Los escaneos SYN son los más eficientes pero requieren privilegios
+
+## Autoevaluación
+
+1. ¿Qué significa Nmap?
+2. ¿Cuál es la diferencia entre escaneo SYN y Connect?
+3. ¿Qué indica un puerto en estado "filtered"?
+4. ¿Por qué el escaneo SYN requiere privilegios de root?
+5. ¿Qué opciones usarías para un escaneo agresivo?
+6. Nombra 3 casos de uso de Nmap
+7. ¿Qué servicios utilizan comúnmente UDP?
+8. ¿Cómo escanearías solo los puertos 22, 80 y 443?
+
+## Referencias
+
+- [Nmap Official Documentation](https://nmap.org/docs.html)
+- [Nmap Reference Guide](https://nmap.org/book/man.html)
+- [Nmap Network Scanning Book](https://nmap.org/book/)
+
+---
+
+[← Volver al Curso](index.qmd) | [Host Discovery →](02-host-discovery.qmd)

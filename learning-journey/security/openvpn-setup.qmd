@@ -1,0 +1,355 @@
+---
+title: "OpenVPN Setup Guide"
+description: "Complete guide for connecting to HTB Academy VPN on Linux, macOS, and Windows"
+date: "2026-02-20"
+categories: [htb, vpn, setup, guide]
+---
+
+# OpenVPN Setup Guide for HTB Academy
+
+## 🎓 Del Instructor: La Importancia de la Conexión VPN
+
+Antes de empezar cualquier desafío en HTB Academy, necesitas una conexión VPN estable. Sin ella, no podrás acceder a los targets. Esta guía te ayudará a configurar OpenVPN en todos los sistemas operativos.
+
+> 🎯 **Mentalidad de Hacker**: "Tu conexión VPN es tu puente al mundo del pentesting. Una conexión inestable significa escaneos fallidos, timeouts, y oportunidades perdidas. Invierte tiempo en configurarla correctamente."
+
+---
+
+## 📊 Comparación: OpenVPN Terminal vs OpenVPN Connect
+
+| Característica | Terminal (CLI) | OpenVPN Connect (GUI) |
+|---------------|----------------|----------------------|
+| Control total | ✅ Sí | ❌ Limitado |
+| Logs detallados | ✅ Sí | ❌ Limitado |
+| Facilidad de uso | ❌ Requiere conocimientos | ✅ Fácil |
+| Automatización | ✅ Scripts | ❌ Manual |
+| Debugging | ✅ Verboso | ❌ Básico |
+| Recomendado para | Pentesters | Principiantes |
+
+---
+
+## 🐧 Linux (Kali, Ubuntu, Debian)
+
+### Instalación
+
+```bash
+# Debian/Ubuntu/Kali
+sudo apt update
+sudo apt install openvpn
+
+# Verificar instalación
+openvpn --version
+```
+
+### Conexión Básica
+
+```bash
+# Descargar archivo .ovpn de HTB Academy
+# Ir a: https://academy.hackthebox.com/vpn
+
+# Conectar
+sudo openvpn academy-regular.ovpn
+```
+
+### Conexión con Logs Mejorados
+
+```bash
+# Con verbosity para debugging
+sudo openvpn academy-regular.ovpn --verb 4
+
+# Silenciar warnings de replay
+sudo openvpn academy-regular.ovpn --mute-replay-warnings
+```
+
+### Verificar Conexión
+
+```bash
+# Verificar interfaz tun0
+ip addr show tun0
+
+# Verificar IP asignada
+ip addr show tun0 | grep inet
+
+# Ping al target
+ping -c 3 10.129.4.45
+```
+
+### Troubleshooting Linux
+
+```bash
+# Error: "Permission denied"
+sudo chmod 600 academy-regular.ovpn
+
+# Error: "TUN/TAP device failed"
+sudo modprobe tun
+
+# Reiniciar conexión
+sudo killall openvpn
+sudo openvpn academy-regular.ovpn
+```
+
+---
+
+## 🍎 macOS
+
+### Opción 1: OpenVPN Connect (Recomendado para principiantes)
+
+1. **Descargar OpenVPN Connect**:
+   - https://openvpn.net/client-connect-vpn-for-openvpn-openvpn-protocol/
+
+2. **Instalar la aplicación**:
+   - Abrir el `.dmg` descargado
+   - Arrastrar OpenVPN Connect a Applications
+
+3. **Importar el perfil**:
+   - Descargar `academy-regular.ovpn` de HTB Academy
+   - Abrir OpenVPN Connect
+   - Arrastrar el archivo `.ovpn` a la ventana
+   - Click en "Connect"
+
+### Opción 2: Terminal con Homebrew
+
+```bash
+# Instalar OpenVPN
+brew install openvpn
+
+# Crear symlink para acceso fácil
+sudo ln -s /opt/homebrew/sbin/openvpn /usr/local/bin/openvpn
+
+# Conectar
+sudo openvpn academy-regular.ovpn
+```
+
+### Verificar Conexión en macOS
+
+```bash
+# Ver interfaces de red
+ifconfig | grep tun
+
+# Verificar IP
+ifconfig tun0
+
+# Ping al target
+ping -c 3 10.129.4.45
+```
+
+### Troubleshooting macOS
+
+```bash
+# Error: "Cannot open TUN/TAP dev"
+sudo kextload /Library/Extensions/tun.kext
+
+# Si no existe el kext, instalar Tunnelblick
+brew install --cask tunnelblick
+```
+
+---
+
+## 🪟 Windows
+
+### Opción 1: OpenVPN Connect (Recomendado)
+
+1. **Descargar OpenVPN Connect**:
+   - https://openvpn.net/client-connect-vpn-for-openvpn-openvpn-protocol/
+
+2. **Instalar**:
+   - Ejecutar el instalador
+   - Permitir instalación del driver TAP
+
+3. **Importar perfil**:
+   - Descargar `academy-regular.ovpn`
+   - Click derecho → "Import file"
+   - Click en "Connect"
+
+### Opción 2: OpenVPN GUI (Alternativa)
+
+1. **Descargar OpenVPN GUI**:
+   - https://openvpn.net/community-downloads/
+
+2. **Instalar**:
+   - Ejecutar instalador
+   - Completar instalación con permisos de administrador
+
+3. **Configurar**:
+   - Copiar `academy-regular.ovpn` a:
+     ```
+     C:\Program Files\OpenVPN\config\
+     ```
+   - Click derecho en el icono de OpenVPN en la bandeja
+   - Click en "Connect"
+
+### Verificar Conexión en Windows
+
+```powershell
+# PowerShell
+ipconfig /all
+
+# Buscar adaptador TAP
+# Verificar IP 10.10.x.x o 10.129.x.x
+
+# Ping al target
+ping 10.129.4.45
+```
+
+### Troubleshooting Windows
+
+```powershell
+# Reiniciar adaptador TAP
+netsh interface set interface "TAP-Windows Adapter V9" disable
+netsh interface set interface "TAP-Windows Adapter V9" enable
+
+# Verificar driver
+Get-NetAdapter -Name "*TAP*"
+```
+
+---
+
+## 🔧 Configuración Avanzada
+
+### Archivo de Configuración Optimizado
+
+```bash
+# academy-regular-optimized.ovpn
+client
+dev tun
+proto udp
+remote 38.46.226.32 1337
+resolv-retry infinite
+nobind
+user nobody
+group nogroup
+persist-key
+persist-tun
+remote-cert-tls server
+cipher AES-256-CBC
+auth SHA256
+comp-lzo no
+verb 3
+key-direction 1
+
+# Mejoras para conexiones lentas
+keepalive 10 120
+tun-mtu 1500
+mssfix
+
+# Evitar warnings de replay
+mute-replay-warnings
+```
+
+### Automatización con Scripts
+
+```bash
+#!/bin/bash
+# htb-vpn.sh
+
+OVPN_FILE="academy-regular.ovpn"
+
+echo "🔌 Connecting to HTB Academy VPN..."
+sudo openvpn $OVPN_FILE --mute-replay-warnings --verb 3 &
+
+sleep 5
+
+# Verificar conexión
+if ip addr show tun0 &>/dev/null; then
+    echo "✅ Connected successfully!"
+    echo "📡 IP: $(ip addr show tun0 | grep 'inet ' | awk '{print $2}')"
+else
+    echo "❌ Connection failed"
+    exit 1
+fi
+```
+
+---
+
+## 🚨 Problemas Comunes y Soluciones
+
+### 1. "Authenticate/Decrypt packet error: bad packet ID"
+
+**Causa**: Tráfico intenso o conexión inestable
+
+**Solución**:
+```bash
+sudo openvpn academy-regular.ovpn --mute-replay-warnings
+```
+
+### 2. "Host seems down" o Timeouts
+
+**Causa**: Conexión VPN no establecida o interrumpida
+
+**Solución**:
+```bash
+# Verificar conexión
+ping 10.129.4.45
+
+# Si no funciona, reconectar VPN
+sudo killall openvpn
+sudo openvpn academy-regular.ovpn
+```
+
+### 3. Velocidad Lenta
+
+**Causa**: Configuración de timing muy agresiva
+
+**Solución**:
+```bash
+# Usar timing conservador en nmap
+sudo nmap -T3 target
+
+# O cambiar servidor VPN en HTB Academy
+```
+
+---
+
+## 📊 Mejores Prácticas
+
+1. **Siempre verificar la conexión VPN antes de escanear**
+   ```bash
+   ping -c 3 10.129.4.45
+   ```
+
+2. **Usar `--mute-replay-warnings` para evitar ruido en logs**
+
+3. **Tener múltiples archivos .ovpn** para diferentes servidores
+
+4. **Cerrar conexión al terminar**:
+   ```bash
+   sudo killall openvpn
+   ```
+
+5. **Verificar IP antes de ataques**:
+   ```bash
+   ip addr show tun0 | grep inet
+   ```
+
+---
+
+## 🎯 Checklist de Verificación
+
+- [ ] OpenVPN instalado
+- [ ] Archivo .ovpn descargado de HTB Academy
+- [ ] Conexión VPN activa
+- [ ] Interfaz tun0/tun presente
+- [ ] IP en rango 10.10.x.x o 10.129.x.x
+- [ ] Ping exitoso al target
+
+---
+
+## 📚 Recursos
+
+- [HTB Academy VPN Guide](https://academy.hackthebox.com/guide)
+- [OpenVPN Manual](https://openvpn.net/community-resources/reference-manual-for-openvpn-2-4/)
+- [OpenVPN Connect Download](https://openvpn.net/client-connect-vpn-for-openvpn-openvpn-protocol/)
+
+---
+
+## ✅ Estado
+
+**GUÍA COMPLETADA** 🎉
+
+- 📅 Fecha: 2026-02-20
+- 🎯 Sistemas: Linux, macOS, Windows
+- 🛠️ Herramientas: OpenVPN CLI, OpenVPN Connect
+
+---
+
+*[← Back to Security](../security/index.qmd)*

@@ -1,0 +1,27 @@
+---
+title: "Containers"
+---
+
+# Containerization 🐳
+
+This section covers **Docker and containerization** fundamentals - essential skills for modern DevOps engineers.
+
+## 📋 Chapters
+
+### Docker Fundamentals
+- [Docker Installation](containers/01-docker-fundamentals.html) - Installing Docker
+- [Nginx Deployment](containers/02-nginx-deployment.html) - Deploying web containers
+- [Container Management](containers/03-container-management.html) - Managing containers
+- [Volume Management](containers/04-volume-management.html) - Working with volumes
+- [Troubleshooting](containers/05-troubleshooting.html) - Debugging container issues
+
+## 🎯 Skills Developed
+
+- Container basics
+- Image management
+- Volume and network configuration
+- Container troubleshooting
+
+---
+
+*Use the sidebar to navigate to specific chapters.*

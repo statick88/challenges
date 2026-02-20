@@ -1,0 +1,80 @@
+---
+title: "Firewall & IDS/IPS Evasion - Medium Lab"
+---
+
+## Objective
+
+Find the DNS server version of a target with stricter IDS/IPS and firewall configurations.
+
+## Key Requirement
+
+Must use **UDP protocol** - DNS uses UDP 53 by default.
+
+## Solution: DNS Version Query
+
+### Using nslookup (No Root Required)
+
+```bash
+nslookup -type=txt -class=chaos version.bind 10.129.4.95
+```
+
+```
+Server:		10.129.4.95
+Address:	10.129.4.95#53
+
+version.bind	text = "HTB{GoTtgUnyze9Psw4vGjcuMpHRp}"
+```
+
+### Alternative: dig
+
+```bash
+dig @10.129.4.95 version.bind chaos txt
+```
+
+## Answer
+
+**DNS Server Version**: `HTB{GoTtgUnyze9Psw4vGjcuMpHRp}`
+
+## Technical Details
+
+### What is version.bind?
+
+| Component | Description |
+|-----------|-------------|
+| CHAOS class | Special DNS class (not Internet class) |
+| version.bind | Special record exposing BIND version |
+| TXT record | Returns version string |
+
+### Why This Works
+
+1. **UDP Protocol**: DNS queries use UDP by default
+2. **Passive**: No port scanning, legitimate DNS query
+3. **CHAOS Class**: BIND servers still respond to these queries
+4. **Public Server**: Must allow DNS queries for public access
+
+## Security Recommendation
+
+Disable version disclosure in BIND:
+
+```bash
+# In named.conf.options
+options {
+    version "not disclosed";
+}
+```
+
+## Evasion Techniques
+
+| Technique | Purpose | Result |
+|-----------|---------|--------|
+| DNS query | Legitimate traffic | No IDS alert |
+| UDP protocol | Required | Standard DNS |
+| CHAOS class | Version disclosure | Flag obtained |
+| nslookup/dig | No port scan | Completely passive |
+
+## Key Learnings
+
+1. Passive DNS queries bypass IDS focused on port scanning
+2. `version.bind` should be disabled on production servers
+3. `nslookup`/`dig` are quieter than Nmap for DNS enumeration
+4. UDP scans require root on most systems

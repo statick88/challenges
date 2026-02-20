@@ -1,0 +1,48 @@
+---
+title: "Fundamentos Linux"
+---
+
+# Fundamentos Linux 🐧
+
+Esta sección cubre **fundamentos de administración de sistemas Linux** - las habilidades esenciales que todo ingeniero DevOps y profesional de seguridad necesita dominar.
+
+## 🏆 Certificación
+
+![Certificado de Finalización del Curso Kodekloud](../assets/kodekloud-course-completion-certificate.png)
+
+## 📋 Capítulos
+
+### Capítulo 1: Gestión de Usuarios
+- [Creación de Usuarios con UID Personalizado](01-user-creation.html) - Crear usuarios con UIDs específicos y directorios home personalizados
+- [Gestión de Grupos](02-group-management.html) - Gestionar grupos y membresías
+
+### Capítulo 2: Acceso Temporal
+- [Usuarios Temporales](05-temporary-users.html) - Usuarios con fechas de expiración
+- [Transferencia de Datos](06-data-transfer.html) - Migración segura de datos entre usuarios
+
+### Capítulo 3: Hardening de Seguridad
+- [Acceso SSH Root](07-ssh-hardening.html) - Asegurar acceso SSH
+- [Scripts de Backup](08-backup-scripts.html) - Procedimientos de backup automatizados
+- [Permisos de Archivos](09-script-permissions.html) - Gestión correcta de permisos
+
+### Capítulo 4: Temas Avanzados
+- [Filtrado de Archivos de Usuario](10-user-file-filtering.html) - Operaciones avanzadas de archivos con filtrado de usuario
+
+## 🎯 Habilidades Desarrolladas
+
+- Administración de usuarios y grupos
+- Gestión de permisos
+- Seguridad SSH
+- Automatización de backups
+- Configuración de cuentas de servicio
+
+## 🔄 Próximamente
+
+- Configuración de red
+- Reglas de firewall (iptables/firewalld)
+- Gestión SELinux
+- Límites de procesos y tuning
+
+---
+
+*Usa la barra lateral para navegar a capítulos específicos.*

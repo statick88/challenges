@@ -1,0 +1,104 @@
+---
+title: "Backup Scripts"
+description: "Creating automated backup procedures for critical data"
+date: "2026-01-31"
+categories: [linux, foundations, automation, backup]
+---
+
+# Backup Scripts
+
+## Scenario: Developer Data Backup Automation
+
+**Company**: xFusionCorp Industries  
+**Task**: Create automated backup for developer data
+
+---
+
+## 🧠 Backup Strategy Fundamentals
+
+Every system needs reliable backups. A good backup strategy includes:
+
+### The 3-2-1 Rule
+
+- **3** copies of data
+- **2** different storage types
+- **1** offsite location
+
+### Backup Types
+
+| Type | Description | Frequency |
+|------|-------------|-----------|
+| Full | Complete backup | Weekly |
+| Incremental | Changes since last backup | Daily |
+| Differential | Changes since last full | Daily |
+
+---
+
+## 🛠️ Implementation
+
+### Step 1: Create Backup Directory
+
+```bash
+mkdir -p /backup
+chmod 700 /backup
+```
+
+### Step 2: Create Backup Script
+
+```bash
+#!/bin/bash
+# backup.sh
+
+DATE=$(date +%Y%m%d_%H%M%S)
+SOURCE="/home/developer"
+DEST="/backup/developer_$DATE.tar.gz"
+
+# Create backup
+tar -czf $DEST $SOURCE
+
+# Verify
+if [ $? -eq 0 ]; then
+    echo "Backup successful: $DEST"
+else
+    echo "Backup failed"
+    exit 1
+fi
+```
+
+### Step 3: Make Executable and Test
+
+```bash
+chmod +x backup.sh
+./backup.sh
+```
+
+---
+
+## ✅ Verification
+
+- [ ] Backup script created
+- [ ] Script is executable
+- [ ] Backup file created
+- [ ] Backup contains expected files
+- [ ] Restoration test passes
+
+---
+
+## 🎯 Key Learnings
+
+- Backup automation
+- Tar compression
+- Error handling
+- Cron integration
+
+---
+
+## ✅ Status
+
+**COMPLETED** 🎉
+
+- Date: 2026-01-31
+
+---
+
+*[← Back to Foundations](index.qmd)*

@@ -1,0 +1,145 @@
+---
+title: "Laboratorio 1: Full Port Scan"
+description: "Escaneo completo de puertos TCP y generación de reportes HTML"
+author: "Diego Saavedra"
+date: "2026-02-19"
+categories: [security, nmap, htb]
+---
+
+# Laboratorio 1: Full Port Scan
+
+## Contenido
+
+- [Objetivo](#objetivo)
+- [Introducción](#introducción)
+- [Escenario](#escenario)
+- [Ejercicio 1: Escaneo Rápido](#ejercicio-1-escaneo-rápido)
+- [Ejercicio 2: Escaneo Completo](#ejercicio-2-escaneo-completo)
+- [Ejercicio 3: Generación de Reporte](#ejercicio-3-generación-de-reporte)
+- [Solución Final](#solución-final)
+- [¿Qué Aprendimos?](#qué-aprendimos)
+- [Autoevaluación](#autoevaluación)
+
+## Objetivo
+
+Realizar un escaneo completo de puertos TCP y encontrar el número de puerto más alto.
+
+**Target**: 10.129.4.45  
+**Dificultad**: Easy
+
+## Introducción
+
+Los escaneos rápidos solo verifican los 1000 puertos más comunes. Los servicios críticos pueden estar en puertos no estándar.
+
+### Diferencia: Quick Scan vs Full Scan
+
+| Tipo | Puertos | Tiempo | Uso |
+|------|---------|--------|-----|
+| Quick (-F) | Top 100 | Segundos | Verificación rápida |
+| Default | Top 1000 | Minutos | Escaneo estándar |
+| Full (-p-) | 1-65535 | 10+ min | Auditoría completa |
+
+## Escenario
+
+Debemos identificar todos los puertos abiertos en el objetivo y reportar el número de puerto más alto.
+
+## Ejercicio 1: Escaneo Rápido
+
+### Paso 1: Verificar Conectividad
+
+```bash
+ping -c 3 10.129.4.45
+```
+
+### Paso 2: Escaneo Rápido
+
+```bash
+nmap -F 10.129.4.45
+```
+
+::: {.callout-tip}
+## Limitación
+El escaneo rápido solo encuentra puertos comunes. Puertos como 31337 (backdoor común) no serán detectados.
+:::
+
+## Ejercicio 2: Escaneo Completo
+
+### Paso 1: Full Port Scan con Output XML
+
+```bash
+sudo nmap -p- -Pn -T5 -oX scan.xml 10.129.4.45
+```
+
+**Opciones utilizadas:**
+
+| Opción | Descripción |
+|--------|-------------|
+| `-p-` | Todos los puertos (1-65535) |
+| `-Pn` | Saltar detección de host |
+| `-T5` | Timing agresivo |
+| `-oX scan.xml` | Output en formato XML |
+
+### Paso 2: Resultados del Escaneo
+
+```
+PORT      STATE SERVICE
+22/tcp    open  ssh
+80/tcp    open  http
+110/tcp   open  pop3
+139/tcp   open  netbios-ssn
+143/tcp   open  imap
+445/tcp   open  microsoft-ds
+31337/tcp open  Elite
+```
+
+## Ejercicio 3: Generación de Reporte
+
+### Paso 1: Convertir XML a HTML
+
+```bash
+xsltproc scan.xml -o scan.html
+```
+
+### Paso 2: Extraer Puerto Más Alto
+
+```bash
+grep -oP 'portid="\K[0-9]+' scan.xml | sort -n | tail -1
+```
+
+Resultado: `31337`
+
+## Solución Final
+
+**Respuesta**: 31337
+
+### Puertos Encontrados
+
+| Puerto | Servicio | Descripción |
+|--------|----------|-------------|
+| 22 | SSH | Secure Shell |
+| 80 | HTTP | Web Server |
+| 110 | POP3 | Email Protocol |
+| 139 | NetBIOS | Windows File Sharing |
+| 143 | IMAP | Email Protocol |
+| 445 | SMB | Windows File Sharing |
+| 31337 | Elite | Puerto no estándar (posible backdoor) |
+
+## ¿Qué Aprendimos?
+
+1. **Full port scan**: Necesario para auditorías completas
+2. **Output XML**: Permite procesamiento automatizado
+3. **xsltproc**: Genera reportes HTML legibles
+4. **Puertos no estándar**: Siempre verificar puertos altos
+
+## Autoevaluación
+
+1. ¿Qué hace la opción `-p-`?
+2. ¿Por qué es importante escanear todos los puertos?
+3. ¿Qué puerto no estándar encontramos?
+4. ¿Cómo generarías un reporte HTML desde XML?
+5. ¿Qué significa el puerto 31337?
+6. ¿Cuándo usarías `-T5` vs `-T1`?
+
+---
+
+[← Introducción a Nmap](01-introduccion.qmd) | [Lab 2: Service Enumeration →](lab2-service-enum.qmd)

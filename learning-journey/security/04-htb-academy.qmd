@@ -1,0 +1,108 @@
+---
+title: "HTB Academy - Network Enumeration"
+description: "Complete TCP port scanning with Nmap and HTML report generation"
+date: "2026-02-19"
+categories: [security, htb, nmap, enumeration]
+---
+
+# HTB Academy - Network Enumeration
+
+## Scenario: Full Port Scan Challenge
+
+**Platform**: Hack The Box Academy  
+**Module**: Network Enumeration with Nmap  
+**Target**: 10.129.4.45  
+**Task**: Perform full TCP port scan and identify the highest port
+
+---
+
+## 🧠 Full Port Scan vs Quick Scan
+
+Quick scans only check the 1000 most common ports, missing:
+- Administrative ports (2222, 9000, 10000)
+- Internal services (3306, 5432, 6379)
+- Backdoors and custom services (31337, 4444, 1337)
+
+| Option | Description |
+|--------|-------------|
+| `-p-` | All TCP ports (1-65535) |
+| `-Pn` | No ping (skip host detection) |
+| `-T5` | Aggressive timing |
+| `-oX` | XML output |
+
+---
+
+## 🛠️ Implementation
+
+### Step 1: Verify Connectivity
+
+```bash
+ping -c 3 10.129.4.45
+```
+
+Result: 0% packet loss - host is up!
+
+### Step 2: Full TCP Port Scan
+
+```bash
+sudo nmap -p- -Pn -T5 -oX scan.xml 10.129.4.45
+```
+
+**Results:**
+
+```
+PORT      STATE SERVICE
+22/tcp    open  ssh
+80/tcp    open  http
+110/tcp   open  pop3
+139/tcp   open  netbios-ssn
+143/tcp   open  imap
+445/tcp   open  microsoft-ds
+31337/tcp open  Elite
+```
+
+### Step 3: Generate HTML Report
+
+```bash
+xsltproc scan.xml -o scan.html
+```
+
+### Step 4: Extract Highest Port
+
+```bash
+grep -oP 'portid="\K[0-9]+' scan.xml | sort -n | tail -1
+```
+
+**Answer: 31337**
+
+---
+
+## ✅ Verification
+
+- [ ] Full TCP scan completed (`-p-`)
+- [ ] All 7 ports identified
+- [ ] Highest port found: 31337
+- [ ] HTML report generated
+
+---
+
+## 🎯 Key Learnings
+
+- Complete port scanning methodology
+- XML output processing
+- HTML report generation with xsltproc
+- Port enumeration best practices
+
+---
+
+## ✅ Status
+
+**COMPLETED** 🎉
+
+- Date: 2026-02-19
+- Answer Submitted: 31337
+- Platform: HTB Academy
+
+---
+
+*[← Back to Security](index.qmd)*

@@ -1,0 +1,88 @@
+---
+title: "Temporary Users"
+description: "Creating users with expiration dates for time-limited access"
+date: "2026-01-29"
+categories: [linux, foundations, security]
+---
+
+# Temporary Users
+
+## Scenario: Contractor Access with Expiration
+
+**Company**: xFusionCorp Industries  
+**Task**: Create temporary access for contractor with automatic expiration
+
+---
+
+## 🧠 Understanding Account Expiration
+
+Temporary users need automatic expiration to maintain security. Linux provides built-in account expiration.
+
+### When to Use Expiring Accounts
+
+- **Contractors**: Time-limited project access
+- **Interns**: Fixed-term employment
+- **Emergency Access**: Temporary break-glass accounts
+- **Trials**: Free trial periods
+
+---
+
+## 🛠️ Implementation
+
+### Create User with Expiration
+
+```bash
+# Create user with expiration date (30 days from now)
+useradd -e 2026-02-28 contractor1
+
+# Verify expiration
+chage -l contractor1
+# Expected: Account expires: Feb 28, 2026
+```
+
+### Set Password Expiration Too
+
+```bash
+# Force password change on first login
+passwd -e contractor1
+
+# Or set max days between password changes
+chage -M 30 contractor1
+```
+
+### Common Expiration Options
+
+| Option | Purpose |
+|--------|---------|
+| `-e YYYY-MM-DD` | Account expiration date |
+| `-f DAYS` | Days after password expiry until lockout |
+| `-M DAYS` | Maximum password validity |
+
+---
+
+## ✅ Verification
+
+- [ ] User created with expiration date
+- [ ] Account expires on correct date
+- [ ] Login works before expiration
+- [ ] Account locked after expiration
+
+---
+
+## 🎯 Key Learnings
+
+- Automatic access revocation
+- Account lifecycle management
+- Security compliance
+
+---
+
+## ✅ Status
+
+**COMPLETED** 🎉
+
+- Date: 2026-01-29
+
+---
+
+*[← Back to Foundations](index.qmd)*

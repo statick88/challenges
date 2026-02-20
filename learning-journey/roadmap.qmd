@@ -1,0 +1,82 @@
+---
+title: "Roadmap"
+---
+
+# Learning Roadmap 🚀
+
+## 🎯 Current Position
+
+- **Linux Foundations**: In Progress (10 chapters)
+- **Containerization**: In Progress (6 chapters)
+- **DevOps Practices**: In Progress (8 chapters)
+- **Security**: Starting (4 chapters)
+
+---
+
+## 📈 Next Steps
+
+### Short Term (1-3 months)
+
+1. **Complete Linux Fundamentals**
+   - [ ] SELinux configuration
+   - [ ] Firewall management (iptables/firewalld)
+   - [ ] Process limits and tuning
+
+2. **Advance Docker Skills**
+   - [ ] Docker Compose
+   - [ ] Multi-container applications
+   - [ ] Container security
+
+3. **HTB Academy Progress**
+   - [ ] Complete Network Enumeration module
+   - [ ] Start SQL Injection module
+   - [ ] Begin Linux Privilege Escalation
+
+### Medium Term (3-6 months)
+
+1. **Kubernetes Introduction**
+   - Basic kubectl commands
+   - Pod management
+   - ConfigMaps and Secrets
+
+2. **CI/CD Pipelines**
+   - GitHub Actions
+   - Jenkins basics
+   - Pipeline automation
+
+3. **Advanced Security**
+   - Buffer overflow exploitation
+   - Reverse engineering basics
+   - Privilege escalation techniques
+
+---
+
+## 🛠️ Skills to Acquire
+
+| Skill Category | Target Level |
+|----------------|--------------|
+| Linux Administration | Advanced |
+| Docker/Kubernetes | Intermediate |
+| Ansible | Intermediate |
+| Network Security | Intermediate |
+| Penetration Testing | Basic |
+| Forensics | Basic |
+
+---
+
+## 📚 Resources
+
+- [HTB Academy](https://academy.hackthebox.com)
+- [Docker Documentation](https://docs.docker.com)
+- [Ansible Documentation](https://docs.ansible.com)
+- [Linux Journey](https://linuxjourney.com)
+
+---
+
+## 🤝 Contributing
+
+This learning journey is documented for anyone who wants to follow a similar path. If you have suggestions or want to contribute, feel free to open a pull request on GitHub.
+
+---
+
+*Last updated: 2026-02-19*

@@ -70,11 +70,11 @@ technical-challenges/
 
 | Programa  | Total Retos | Completados | En Progreso | Por Completar | Progreso |
 | --------- | ----------- | ----------- | ----------- | ------------- | -------- |
-| 🐧 Linux  | 18          | 4 ✅        | 2 🔓        | 12 🔒         | 22.2%    |
+| 🐧 Linux  | 20          | 9 ✅        | 0 🔓        | 11 🔒         | 45%      |
 | 🐳 Docker | 5           | 1 ✅        | 0 ⏳        | 4 ⏳          | 20%      |
-| ⚙️ DevOps | 100         | 5 ✅        | 0 ⏳        | 95 ⏳         | 5%       |
-| 🚩 CTF    | 1           | 1 ✅        | 0 ⏳        | 0 ⏳          | 100%     |
-| **TOTAL** | **124**     | **11** ✅   | **2** 🔓    | **111** ⏳    | **8.9%** |
+| ⚙️ DevOps | 100         | 8 ✅        | 0 ⏳        | 92 ⏳         | 8%       |
+| 🚩 CTF    | 3           | 3 ✅        | 0 ⏳        | 0 ⏳          | 100%     |
+| **TOTAL** | **128**     | **21** ✅   | **0** 🔓    | **107** ⏳    | **16%**  |
 
 ### 📈 Habilidades Desarrolladas
 
@@ -84,10 +84,11 @@ technical-challenges/
 - **Permisos y Seguridad** - Configuración de shells no interactivas, SSH seguro
 - **Gestión de Servicios** - Systemd, servicios Linux
 - **Instalación Docker** - Configuración en entornos CentOS/RHEL
+- **Transferencia de Datos** - rsync, scp, backups automatizados
+- **Gestión de Archivos** - find, filtrado por usuario, copia con estructura
 
 #### 🚀 Habilidades en Desarrollo
 
-- **Transferencia de Datos** - rsync, scp, backups automatizados
 - **Contenerización Avanzada** - Docker Compose, redes Docker
 - **CI/CD** - Pipelines, automatización
 - **Infraestructura como Código** - Ansible, Terraform
@@ -102,6 +103,11 @@ technical-challenges/
 - ✅ **Reto 02**: Gestión de grupos nautilus_noc
 - ✅ **Reto 03**: Usuario john con shell no-interactivo
 - ✅ **Reto 04**: Service user sin home directory
+- ✅ **Reto 05**: Usuario temporal con expiración
+- ✅ **Reto 06**: Transferencia de datos entre servidores
+- ✅ **Reto 06b**: Usuario anita temporal con expiración
+- ✅ **Reto 08**: Backup automatizado para desarrollador
+- ✅ **Reto 19**: Filtrado y copia de archivos de usuario mariyam
 
 ### 🐳 Docker Challenge Memories
 
@@ -114,6 +120,9 @@ technical-challenges/
 - ✅ **Día 3**: Deshabilitar acceso SSH root
 - ✅ **Día 4**: Permisos de ejecución scripts
 - ✅ **Día 5**: Instalación y configuración SELinux
+- ✅ **Día 6**: Despliegue de Cron Jobs
+- ✅ **Día 7**: Instalación Ansible
+- ✅ **Día 8**: Troubleshooting servicio MariaDB
 
 ### 🚩 CTF Writeups
 
@@ -125,9 +134,9 @@ technical-challenges/
 
 ### 🐧 Linux Challenges (Inmediato)
 
-- 🔓 **Reto 05**: Configurar usuario temporal con expiración
-- 🔓 **Reto 06**: Transferencia de datos entre servidores
 - 🔒 **Reto 07**: Acceso SSH root seguro
+- 🔒 **Reto 09**: Permisos de ejecución scripts
+- 🔒 **Reto 10**: Corrección de permisos de archivos
 
 ### 🐳 Docker Challenge (Corto Plazo)
 
@@ -354,7 +363,7 @@ Este repositorio demuestra un compromiso continuo con el aprendizaje técnico y 
 
 ---
 
-_Última actualización: 27-01-2026 | Compromiso con el aprendizaje técnico continuo_ 🚀
+_Última actualización: 20-02-2026 | Compromiso con el aprendizaje técnico continuo_ 🚀
 
 ---
 

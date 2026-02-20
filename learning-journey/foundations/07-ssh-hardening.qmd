@@ -1,0 +1,93 @@
+---
+title: "SSH Root Access Hardening"
+description: "Securing SSH access with key-based authentication and root login restrictions"
+date: "2026-01-30"
+categories: [linux, foundations, security, ssh]
+---
+
+# SSH Root Access Hardening
+
+## Scenario: Secure SSH Configuration
+
+**Company**: xFusionCorp Industries  
+**Task**: Configure secure SSH access for system administrators
+
+---
+
+## 🧠 SSH Security Best Practices
+
+SSH is the primary entry point to Linux servers. Hardening SSH is critical for security.
+
+### Key Security Measures
+
+1. **Disable Root Login**: Never allow direct root SSH
+2. **Key-based Authentication**: Disable password auth
+3. **Port Change**: Use non-standard port (optional)
+4. **Limit Users**: Allow only specific users
+5. **Two-Factor Authentication**: Add extra layer
+
+---
+
+## 🛠️ Implementation
+
+### Step 1: Configure SSH for Key Authentication
+
+```bash
+# Edit SSH config
+vim /etc/ssh/sshd_config
+
+# Add or modify:
+PermitRootLogin no
+PasswordAuthentication no
+PubkeyAuthentication yes
+AllowUsers admin developer
+```
+
+### Step 2: Restart SSH Service
+
+```bash
+# Test config first
+sshd -t
+
+# Restart service
+systemctl restart sshd
+```
+
+### Step 3: Generate SSH Keys (if needed)
+
+```bash
+# On client
+ssh-keygen -t ed25519 -C "admin@workstation"
+
+# Copy to server
+ssh-copy-id admin@server
+```
+
+---
+
+## ✅ Verification
+
+- [ ] Root login disabled
+- [ ] Password authentication disabled
+- [ ] Key-based login works
+- [ ] Non-allowed users cannot connect
+
+---
+
+## 🎯 Key Learnings
+
+- SSH hardening fundamentals
+- Key-based authentication
+- Service configuration
+
+---
+
+## ✅ Status
+
+**COMPLETED** 🎉
+
+- Date: 2026-01-30
+
+---
+
+*[← Back to Foundations](index.qmd)*

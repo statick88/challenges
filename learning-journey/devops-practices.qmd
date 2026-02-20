@@ -1,0 +1,29 @@
+---
+title: "DevOps Practices"
+---
+
+# DevOps Practices ⚙️
+
+This section covers **DevOps tools and methodologies** - configuration management, automation, and infrastructure practices.
+
+## 📋 Chapters
+
+### Configuration Management
+- [Ansible Basics](devops-practices/01-ansible-basics.html) - Getting started with Ansible
+
+### Automation
+- [Cron Job Deployment](devops-practices/02-cron-automation.html) - Scheduled task automation
+
+### Database Services
+- [MariaDB Troubleshooting](devops-practices/03-mariadb-troubleshooting.html) - Fixing database services
+
+## 🎯 Skills Developed
+
+- Ansible configuration management
+- Cron job automation
+- Database service management
+- Troubleshooting production issues
+
+---
+
+*Use the sidebar to navigate to specific chapters.*

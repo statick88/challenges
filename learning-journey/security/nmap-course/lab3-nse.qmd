@@ -1,0 +1,147 @@
+---
+title: "Laboratorio 3: Nmap Scripting Engine (NSE)"
+description: "Uso de scripts NSE para enumeración avanzada"
+author: "Diego Saavedra"
+date: "2026-02-20"
+categories: [security, nmap, nse, htb]
+---
+
+# Laboratorio 3: Nmap Scripting Engine (NSE)
+
+## Contenido
+
+- [Objetivo](#objetivo)
+- [Introducción](#introducción)
+- [Categorías de Scripts](#categorías-de-scripts)
+- [Ejercicio 1: Scripts por Defecto](#ejercicio-1-scripts-por-defecto)
+- [Ejercicio 2: Scripts Específicos](#ejercicio-2-scripts-específicos)
+- [Solución Final](#solución-final)
+- [¿Qué Aprendimos?](#qué-aprendimos)
+- [Autoevaluación](#autoevaluación)
+
+## Objetivo
+
+Utilizar NSE para encontrar información oculta en servicios web.
+
+**Target**: Spawn nuevo target en HTB Academy  
+**Dificultad**: Easy
+
+## Introducción
+
+Nmap Scripting Engine (NSE) extiende las capacidades de Nmap con scripts Lua que pueden:
+
+- Detectar vulnerabilidades
+- Enumerar información
+- Realizar brute force
+- Verificar configuraciones
+
+## Categorías de Scripts
+
+| Categoría | Descripción |
+|-----------|-------------|
+| auth | Credenciales de autenticación |
+| broadcast | Descubrimiento de hosts |
+| brute | Ataques de fuerza bruta |
+| default | Scripts por defecto (-sC) |
+| discovery | Enumeración de servicios |
+| vuln | Detección de vulnerabilidades |
+| safe | Scripts no intrusivos |
+
+## Ejercicio 1: Scripts por Defecto
+
+### Escaneo con Scripts Default
+
+```bash
+sudo nmap -sC <target>
+```
+
+### Scripts más Útiles
+
+```bash
+# Detección de vulnerabilidades
+sudo nmap --script vuln <target>
+
+# Enumeración HTTP
+sudo nmap --script http-enum -p 80 <target>
+
+# Banner grabbing
+sudo nmap --script banner -p 21,22,80 <target>
+```
+
+## Ejercicio 2: Scripts Específicos
+
+### http-enum Script
+
+```bash
+sudo nmap --script http-enum -p 80 <target>
+```
+
+Resultado:
+```
+| http-enum:
+|   /robots.txt: Robots file
+|   /admin/: Admin page
+|   /robots.txt: Found interesting file
+```
+
+### Verificar robots.txt
+
+```bash
+curl http://<target>/robots.txt
+```
+
+::: {.callout-tip}
+## Importante
+NSE detecta archivos pero no siempre muestra su contenido. Siempre verifica manualmente con curl o nc.
+:::
+
+## Solución Final
+
+**Flag**: `HTB{873nniuc71bu6usbs1i96as6dsv26}`
+
+### Proceso de Descubrimiento
+
+1. NSE detectó `/robots.txt`
+2. Verificamos con `curl`
+3. Encontramos la flag en el contenido
+
+## Scripts NSE Comunes
+
+```bash
+# Enumeración SMB
+nmap --script smb-enum-shares -p 445 <target>
+
+# Enumeración SSH
+nmap --script ssh-auth-methods -p 22 <target>
+
+# Información DNS
+nmap --script dns-brute <domain>
+
+# Vulnerabilidades HTTP
+nmap --script http-vuln* -p 80 <target>
+```
+
+## ¿Qué Aprendimos?
+
+1. **NSE extiende Nmap**: Scripts Lua añaden funcionalidades
+2. **Categorías organizadas**: Facilitan encontrar el script correcto
+3. **Verificar manualmente**: Scripts detectan, pero hay que confirmar
+4. **Combinar técnicas**: Scripts + verificación manual = mejores resultados
+
+## Autoevaluación
+
+1. ¿Qué es NSE y qué lenguaje usa?
+2. ¿Qué categorías de scripts existen?
+3. ¿Cómo ejecutarías todos los scripts de vulnerabilidades?
+4. ¿Qué hace el script http-enum?
+5. ¿Por qué verificar manualmente los resultados de NSE?
+6. ¿Cómo listarías todos los scripts disponibles?
+
+## Referencias
+
+- [NSE Documentation](https://nmap.org/nsedoc/)
+- [NSE Guide](https://nmap.org/book/nse.html)
+
+---
+
+[← Lab 2: Service Enum](lab2-service-enum.qmd) | [Lab 4: Firewall Evasion Easy →](lab4-evasion-easy.qmd)

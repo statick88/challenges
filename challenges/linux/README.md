@@ -8,7 +8,7 @@ Repository containing solved Linux administration challenges for xFusionCorp Ind
 
 ## 📚 Challenges Index
 
-### ✅ Completed Challenges (5/18)
+### ✅ Completed Challenges (9/20)
 
 | # | Challenge | Status | Server | Skills | Documentation |
 |---|-----------|--------|---------|-------|---------------|
@@ -16,31 +16,27 @@ Repository containing solved Linux administration challenges for xFusionCorp Ind
 | 02 | [Gestión de Grupos nautilus_noc](retos/02-gestion-grupos-xfusioncorp/README.md) | ✅ | All Servers | Group Management | [Multi-server](retos/02-gestion-grupos-xfusioncorp/) |
 | 03 | [Usuario john con Shell No-Interactivo](retos/03-usuario-no-interactivo-xfusioncorp/README.md) | ✅ | stapp02 | Shell Configuration | [Implementation](retos/03-usuario-no-interactivo-xfusioncorp/stapp02-john-implementacion.md) |
 | 04 | [Service User Creation without Home Directory](retos/04-usuario-sin-home/README.md) | ✅ | stapp01 | Service Users | [Implementation](retos/04-usuario-sin-home/stapp01-implementacion.md) |
-| 06 | [Temporary User Setup with Expiry - anita](retos/06-creacion-anita-temporal/README.md) | ✅ | stapp02 | User Expiry | [Implementation](retos/06-creacion-anita-temporal/stapp02-implementacion.md) |
+| 05 | [Temporary User Setup with Expiry](retos/05-usuario-temporal/README.md) | ✅ | stapp02 | User Expiry | [Implementation](retos/05-usuario-temporal/stapp02-implementacion.md) |
+| 06 | [Linux User Data Transfer](retos/06-transferencia-datos/README.md) | ✅ | stapp01→stapp03 | Data Migration | [Implementation](retos/06-transferencia-datos/stapp01-stapp03-implementacion.md) |
+| 06b | [Temporary User Setup with Expiry - anita](retos/06-creacion-anita-temporal/README.md) | ✅ | stapp02 | User Expiry | [Implementation](retos/06-creacion-anita-temporal/stapp02-implementacion.md) |
+| 08 | [Data Backup for Developer](retos/08-backup-desarrollador/README.md) | ✅ | stapp02 | Backup Automation | [Implementation](retos/08-backup-desarrollador/) |
+| 19 | [Filtrado y Copia de Archivos de Usuario](retos/19-filtrado-archivos-usuario/README.md) | ✅ | stapp02 | File Management | [Implementation](retos/19-filtrado-archivos-usuario/) |
 
-### 🔓 Unlocked Challenges (2/18)
-
-| # | Challenge | Status | Server | Skills | Documentation |
-|---|-----------|--------|---------|-------|---------------|
-| 05 | [Temporary User Setup with Expiry](retos/05-usuario-temporal/README.md) | 🔓 | stapp02 | User Expiry | [Implementation](retos/05-usuario-temporal/stapp02-implementacion.md) |
-| 07 | [Linux User Data Transfer](retos/06-transferencia-datos/README.md) | 🔓 | stapp01→stapp03 | Data Migration | [Implementation](retos/06-transferencia-datos/stapp01-stapp03-implementacion.md) |
-
-### 🔒 Locked Challenges (12/18)
+### 🔒 Locked Challenges (11/20)
 
 | # | Challenge | Status | Server | Skills |
 |---|-----------|--------|---------|-------|
-| 08 | [Secure Root SSH Access](retos/07-ssh-root-seguro/README.md) | 🔒 | stapp01 | SSH Security |
-| 09 | [Data Backup for Developer](retos/08-backup-desarrollador/README.md) | 🔒 | stapp02 | Backup Automation |
-| 10 | [Script Execution Permissions](retos/09-permisos-scripts/README.md) | 🔒 | stapp03 | Script Management |
-| 11 | [File Permission Correction](retos/10-correccion-permisos/README.md) | 🔒 | stapp01 | Permission Management |
-| 12 | [String Replacement](retos/11-reemplazo-cadenas/README.md) | 🔒 | stapp02 | Text Processing |
-| 13 | [Secure Data Transfer](retos/12-transferencia-segura/README.md) | 🔒 | stapp01→stapp03 | Secure Copy |
-| 14 | [Restrict Cron Access](retos/13-restriccion-cron/README.md) | 🔒 | stapp03 | Cron Management |
-| 15 | [Default GUI Boot Configuration](retos/14-config-gui-default/README.md) | 🔒 | stapp01 | System Configuration |
-| 16 | [Timezone Alignment](retos/15-configuracion-timezone/README.md) | 🔒 | All Servers | Time Management |
-| 17 | [Firewall Configuration](retos/16-configuracion-firewall/README.md) | 🔒 | stapp01 | Security Hardening |
-| 18 | [Process Limit Adjustment](retos/17-ajuste-limites-procesos/README.md) | 🔒 | stapp02 | System Tuning |
-| 19 | [SELinux Installation and Configuration](retos/18-instalacion-selinux/README.md) | 🔒 | stapp03 | Security Framework |
+| 07 | [Secure Root SSH Access](retos/07-ssh-root-seguro/README.md) | 🔒 | stapp01 | SSH Security |
+| 09 | [Script Execution Permissions](retos/09-permisos-scripts/README.md) | 🔒 | stapp03 | Script Management |
+| 10 | [File Permission Correction](retos/10-correccion-permisos/README.md) | 🔒 | stapp01 | Permission Management |
+| 11 | [String Replacement](retos/11-reemplazo-cadenas/README.md) | 🔒 | stapp02 | Text Processing |
+| 12 | [Secure Data Transfer](retos/12-transferencia-segura/README.md) | 🔒 | stapp01→stapp03 | Secure Copy |
+| 13 | [Restrict Cron Access](retos/13-restriccion-cron/README.md) | 🔒 | stapp03 | Cron Management |
+| 14 | [Default GUI Boot Configuration](retos/14-config-gui-default/README.md) | 🔒 | stapp01 | System Configuration |
+| 15 | [Timezone Alignment](retos/15-configuracion-timezone/README.md) | 🔒 | All Servers | Time Management |
+| 16 | [Firewall Configuration](retos/16-configuracion-firewall/README.md) | 🔒 | stapp01 | Security Hardening |
+| 17 | [Process Limit Adjustment](retos/17-ajuste-limites-procesos/README.md) | 🔒 | stapp02 | System Tuning |
+| 18 | [SELinux Installation and Configuration](retos/18-instalacion-selinux/README.md) | 🔒 | stapp03 | Security Framework |
 
 ---
 
@@ -53,12 +49,14 @@ Repository containing solved Linux administration challenges for xFusionCorp Ind
 - **Service User Management** - System accounts without home directories
 - **Account Expiry Management** - Temporary user configurations
 - **Multi-server Administration** - Coordinated changes across infrastructure
+- **Data Migration** - Secure transfers between systems
+- **Backup Automation** - Scheduled backup operations
+- **File Management** - Find, filter, copy with structure preservation
 
 ### 🚀 Skills in Development
-- **Data Migration** - Secure transfers between systems
 - **SSH Security** - Key-based authentication, port configuration
-- **Backup Automation** - Scheduled backup operations
 - **Permission Management** - Advanced file system permissions
+- **System Hardening** - SELinux, Firewall, Process Limits
 
 ---
 
@@ -82,19 +80,20 @@ Repository containing solved Linux administration challenges for xFusionCorp Ind
 ## 📊 Progress Statistics
 
 ### 🎯 Completion Metrics
-- **Total Challenges**: 18
-- **Completed**: 5 ✅ (27.8%)
-- **Unlocked**: 2 🔓 (11.1%)
-- **Locked**: 11 🔒 (61.1%)
-- **Success Rate**: 100% (5/5 completed)
+- **Total Challenges**: 20
+- **Completed**: 9 ✅ (45%)
+- **Locked**: 11 🔒 (55%)
+- **Success Rate**: 100% (9/9 completed)
 
 ### 📈 Skill Coverage
 - **User Administration**: 100% ✅
 - **Group Management**: 100% ✅
 - **Account Expiry Management**: 100% ✅
-- **Security Configuration**: 25% 🔄
+- **Data Migration**: 100% ✅
+- **Backup Automation**: 100% ✅
+- **File Management**: 100% ✅
+- **Security Configuration**: 18% 🔄
 - **System Administration**: 15% 🔄
-- **Network Services**: 0% ⏳
 
 ---
 
@@ -165,13 +164,16 @@ cat /etc/passwd | grep username
 
 ### 🎯 Completed Milestones
 - 🏅 **Linux User Management** - Challenges 01-04
-- 🏅 **Account Expiry Specialist** - Challenge 06
+- 🏅 **Account Expiry Specialist** - Challenges 05-06
 - 🏅 **Multi-server Administration** - Challenge 02
 - 🏅 **Security Fundamentals** - Challenge 03
+- 🏅 **Data Migration Expert** - Challenge 06
+- 🏅 **Backup Automation Specialist** - Challenge 08
+- 🏅 **File Management Expert** - Challenge 19
 
 ### 🚀 Upcoming Milestones
 - 🎖️ **SSH Security Expert** - Challenge 07
-- 🎖️ **Backup Specialist** - Challenge 08
+- 🎖️ **Script Permissions Master** - Challenge 09
 - 🎖️ **System Hardening** - Challenges 16-18
 
 ---
@@ -194,4 +196,4 @@ cat /etc/passwd | grep username
 
 ---
 
-*Linux Challenges Index v1.0 | Last Updated: 29-01-2026*
+*Linux Challenges Index v1.1 | Last Updated: 20-02-2026*

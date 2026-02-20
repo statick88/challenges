@@ -8,8 +8,8 @@ tags:
   - user-management
   - system-config
   - security
-date: 2025-01-25
-status: in-progress
+date: 2026-01-29
+status: completed
 ---
 
 # Reto 05: Temporary User Setup with Expiry - xFusionCorp Industries

@@ -8,7 +8,7 @@ Comprehensive 100-day DevOps learning journey covering Linux administration, Doc
 
 ## 📅 Daily Progress
 
-### ✅ Completed Days (7/100)
+### ✅ Completed Days (8/100)
 
 | Day | Challenge                                                   | Status | Category                     | Skills                   | Date       |
 | --- | ----------------------------------------------------------- | ------ | ---------------------------- | ------------------------ | ---------- |
@@ -19,15 +19,16 @@ Comprehensive 100-day DevOps learning journey covering Linux administration, Doc
 | 5   | [SELinux Installation](days/day-05-selinux-installation.md) | ✅     | #linux #seguridad #selinux   | Security Framework       | 29-01-2026 |
 | 6   | [Cron Job Deployment](days/day-06-cron-job-deployment.md)   | ✅     | #linux #automatizacion #cron | Task Scheduling          | 30-01-2026 |
 | 7   | [Ansible Installation](days/day-07-ansible-installation.md) | ✅     | #devops #ansible #automation | Configuration Management | 04-02-2026 |
+| 8   | [MariaDB Service Troubleshooting](days/day-08-mariadb-troubleshooting.md) | ✅ | #devops #database #troubleshooting | Database Service | 20-02-2026 |
 
-### 📅 Upcoming Challenges (8-100)
+### 📅 Upcoming Challenges (9-100)
 
 | Day | Planned Challenge        | Category               | Focus Area        |
 | --- | ------------------------ | ---------------------- | ----------------- |
-| 8   | Linux SSH Authentication | #linux #ssh #seguridad | SSH Keys          |
-| 9   | File System Management   | #linux #filesystem     | Disk Management   |
-| 10  | Process Management       | #linux #procesos       | System Monitoring |
-| 11  | Network Configuration    | #linux #redes          | Network Services  |
+| 9   | Linux SSH Authentication | #linux #ssh #seguridad | SSH Keys          |
+| 10  | File System Management   | #linux #filesystem     | Disk Management   |
+| 11  | Process Management       | #linux #procesos       | System Monitoring |
+| 12  | Network Configuration    | #linux #redes          | Network Services  |
 | ... | ...                      | ...                    | ...               |
 
 ---
@@ -37,17 +38,18 @@ Comprehensive 100-day DevOps learning journey covering Linux administration, Doc
 ### 🎯 Completion Metrics
 
 - **Total Days**: 100
-- **Completed**: 7 ✅ (7%)
+- **Completed**: 8 ✅ (8%)
 - **In Progress**: 0 🔄 (0%)
-- **Remaining**: 93 ⏳ (93%)
-- **Success Rate**: 100% (7/7 completed)
-- **Streak**: 7 days 🔥
+- **Remaining**: 92 ⏳ (92%)
+- **Success Rate**: 100% (8/8 completed)
+- **Streak**: 8 days 🔥
 
 ### 📈 Skill Coverage
 
-- **Linux Administration**: 60% (6/10 planned days)
+- **Linux Administration**: 70% (7/10 planned days)
 - **SSH & Security**: 40% (4/10 planned days)
 - **Scripting & Automation**: 20% (2/10 planned days)
+- **Database Troubleshooting**: 100% ✅
 - **Docker & Containers**: 0% ⏳ (0/15 planned days)
 - **CI/CD & Jenkins**: 0% ⏳ (0/20 planned days)
 - **Infrastructure as Code**: 4% (1/25 planned days)

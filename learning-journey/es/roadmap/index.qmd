@@ -1,0 +1,82 @@
+---
+title: "Hoja de Ruta"
+---
+
+# Hoja de Ruta de Aprendizaje 🚀
+
+## 🎯 Posición Actual
+
+- **Fundamentos Linux**: En Progreso (10 capítulos)
+- **Contenerización**: En Progreso (6 capítulos)
+- **Prácticas DevOps**: En Progreso (8 capítulos)
+- **Seguridad**: Comenzando (4 capítulos)
+
+---
+
+## 📈 Próximos Pasos
+
+### Corto Plazo (1-3 meses)
+
+1. **Completar Fundamentos Linux**
+   - [ ] Configuración SELinux
+   - [ ] Gestión de firewall (iptables/firewalld)
+   - [ ] Límites de procesos y tuning
+
+2. **Avanzar Habilidades Docker**
+   - [ ] Docker Compose
+   - [ ] Aplicaciones multi-contenedor
+   - [ ] Seguridad de contenedores
+
+3. **Progreso en HTB Academy**
+   - [ ] Completar módulo de Enumeración de Red
+   - [ ] Iniciar módulo de Inyección SQL
+   - [ ] Comenzar Escalamiento de Privilegios Linux
+
+### Mediano Plazo (3-6 meses)
+
+1. **Introducción a Kubernetes**
+   - Comandos básicos de kubectl
+   - Gestión de Pods
+   - ConfigMaps y Secrets
+
+2. **Pipelines CI/CD**
+   - GitHub Actions
+   - Fundamentos de Jenkins
+   - Automatización de pipelines
+
+3. **Seguridad Avanzada**
+   - Explotación de buffer overflow
+   - Fundamentos de ingeniería inversa
+   - Técnicas de escalamiento de privilegios
+
+---
+
+## 🛠️ Habilidades por Adquirir
+
+| Categoría | Nivel Objetivo |
+|----------------|--------------|
+| Administración Linux | Avanzado |
+| Docker/Kubernetes | Intermedio |
+| Ansible | Intermedio |
+| Seguridad de Redes | Intermedio |
+| Pentesting | Básico |
+| Forense | Básico |
+
+---
+
+## 📚 Recursos
+
+- [HTB Academy](https://academy.hackthebox.com)
+- [Documentación Docker](https://docs.docker.com)
+- [Documentación Ansible](https://docs.ansible.com)
+- [Linux Journey](https://linuxjourney.com)
+
+---
+
+## 🤝 Contribuyendo
+
+Este journey de aprendizaje está documentado para cualquiera que quiera seguir un camino similar. Si tienes sugerencias o quieres contribuir, no dudes en abrir un pull request en GitHub.
+
+---
+
+*Última actualización: 2026-02-19*

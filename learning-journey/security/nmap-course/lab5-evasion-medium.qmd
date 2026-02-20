@@ -1,0 +1,118 @@
+---
+title: "Laboratorio: Firewall & IDS/IPS Evasion - Medium"
+description: "Enumeración de versión DNS mediante consultas CHAOS"
+author: "Diego Saavedra"
+date: "2026-02-20"
+categories: [security, nmap, dns, htb]
+---
+
+# Laboratorio: Firewall & IDS/IPS Evasion - Medium
+
+## Contenido
+
+- [Objetivo](#objetivo)
+- [Introducción](#introducción)
+- [Escenario](#escenario)
+- [Ejercicio 1: DNS Version Enumeration](#ejercicio-1-dns-version-enumeration)
+- [Solución Final](#solución-final)
+- [¿Qué Aprendimos?](#qué-aprendimos)
+- [Autoevaluación](#autoevaluación)
+- [Referencias](#referencias)
+
+## Objetivo
+
+Descubrir la versión del servidor DNS de un objetivo con configuraciones de seguridad mejoradas.
+
+**Target**: 10.129.4.95  
+**Dificultad**: Medium  
+**Nota**: Debe usarse el protocolo UDP en la VPN
+
+## Introducción
+
+Los servidores DNS suelen exponer información sensible a través de:
+
+- Consultas de versión (`version.bind`)
+- Transferencias de zona (AXFR)
+- Consultas DNSSEC
+
+La clase **CHAOS** de DNS permite consultar información especial del servidor.
+
+## Escenario
+
+Después del primer test, los administradores mejoraron la configuración del IDS/IPS y firewall. El servidor es descrito como "publicly accessible server" - sugiriendo servicios públicos como DNS.
+
+## Ejercicio 1: DNS Version Enumeration
+
+### Concepto: version.bind
+
+El registro `version.bind` en la clase CHAOS permite obtener la versión del servidor DNS BIND.
+
+### Paso 1: Consulta con nslookup
+
+```bash
+nslookup -type=txt -class=chaos version.bind 10.129.4.95
+```
+
+Resultado:
+```
+Server:		10.129.4.95
+Address:	10.129.4.95#53
+
+version.bind	text = "HTB{GoTtgUnyze9Psw4vGjcuMpHRp}"
+```
+
+### Paso 2: Alternativa con dig
+
+```bash
+dig @10.129.4.95 version.bind chaos txt
+```
+
+## Solución Final
+
+**Flag**: `HTB{GoTtgUnyze9Psw4vGjcuMpHRp}`
+
+### Análisis
+
+| Componente | Descripción |
+|------------|-------------|
+| `-type=txt` | Solicita registro TXT |
+| `-class=chaos` | Usa clase CHAOS (no Internet) |
+| `version.bind` | Registro especial de versión |
+| Resultado | Flag en el campo de texto |
+
+## ¿Qué Aprendimos?
+
+1. **Consultas CHAOS**: Clase especial para información del servidor
+2. **version.bind**: Expone versión del servidor DNS
+3. **Técnicas pasivas**: No activan alertas IDS/IPS
+4. **Información sensible**: Los administradores deben deshabilitar esta funcionalidad
+
+## Cómo Prevenir
+
+En BIND, deshabilitar la exposición de versión:
+
+```bash
+# En named.conf.options
+options {
+    version "not disclosed";
+}
+```
+
+## Autoevaluación
+
+1. ¿Qué es la clase CHAOS en DNS?
+2. ¿Qué información revela version.bind?
+3. ¿Por qué nslookup no activó el IDS?
+4. ¿Cómo se deshabilita la versión en BIND?
+5. ¿Qué otros registros especiales existen en CHAOS?
+6. ¿Por qué es un riesgo de seguridad exponer la versión?
+
+## Referencias
+
+- [BIND DNS Configuration](https://bind9.readthedocs.io/)
+- [DNS CHAOS Class](https://datatracker.ietf.org/doc/html/rfc1035)
+- [DNS Security Best Practices](https://www.cloudflare.com/learning/dns/dns-security/)
+
+---
+
+[← Lab Easy](lab4-evasion-easy.qmd) | [Lab Hard →](lab6-evasion-hard.qmd)

@@ -1,0 +1,43 @@
+project:
+  type: website
+  output-dir: _site
+  resources:
+    - assets/*.png
+
+website:
+  title: "DevOps & Security Learning Journey"
+  description: "My path through Linux, Docker, DevOps, CTF and Hack The Box Academy"
+  navbar:
+    left:
+      - text: "Home"
+        href: index.qmd
+      - text: "Foundations"
+        href: foundations/index.qmd
+      - text: "Containers"  
+        href: containers/index.qmd
+      - text: "DevOps"
+        href: devops-practices/index.qmd
+      - text: "Security"
+        href: security/index.qmd
+      - text: "Roadmap"
+        href: roadmap/index.qmd
+    right:
+      - text: "Language"
+        menu:
+          - text: "Español"
+            href: es/index.qmd
+          - text: "English"
+            href: index.qmd
+      - text: "GitHub"
+        href: https://github.com/statick88/challenges
+        icon: github
+
+format:
+  html:
+    theme: solar
+    toc: true
+    code-fold: true
+    highlight-style: github
+    
+execute:
+  freeze: auto

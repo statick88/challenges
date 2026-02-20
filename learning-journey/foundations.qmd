@@ -1,0 +1,46 @@
+---
+title: "Foundations"
+---
+
+# Linux Foundations 🐧
+
+This section covers **Linux system administration fundamentals** - the essential skills every DevOps engineer and security professional needs to master.
+
+## 📋 Chapters
+
+### Chapter 1: User Management
+- [User Creation with Custom UID](foundations/01-user-creation.html) - Creating users with specific UIDs and home directories
+- [Group Management](foundations/02-group-management.html) - Managing groups and group memberships
+- [Non-Interactive Shells](foundations/03-non-interactive-shell.html) - Service accounts without login access
+- [Users Without Home](foundations/04-users-without-home.html) - Service users without home directories
+
+### Chapter 2: Temporary Access
+- [Temporary Users](foundations/05-temporary-users.html) - Users with expiration dates
+- [Data Transfer](foundations/06-data-transfer.html) - Secure data migration between users
+
+### Chapter 3: Security Hardening
+- [SSH Root Access](foundations/07-ssh-hardening.html) - Securing SSH access
+- [Backup Scripts](foundations/08-backup-scripts.html) - Automated backup procedures
+- [File Permissions](foundations/09-script-permissions.html) - Proper permission management
+
+### Chapter 4: Advanced Topics
+- [User File Filtering](foundations/10-user-file-filtering.html) - Advanced file operations with user filtering
+
+## 🎯 Skills Developed
+
+- User and group administration
+- Permission management
+- SSH security
+- Backup automation
+- Service account configuration
+
+## 🔄 Coming Soon
+
+- Network configuration
+- Firewall rules (iptables/firewalld)
+- SELinux management
+- Process limits and tuning
+
+---
+
+*Use the sidebar to navigate to specific chapters.*

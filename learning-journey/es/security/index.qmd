@@ -1,0 +1,40 @@
+---
+title: "Seguridad"
+---
+
+# Seguridad 🔒
+
+Esta sección cubre **fundamentos de ciberseguridad** - desde desafíos CTF hasta módulos de HTB Academy.
+
+## 📋 Capítulos
+
+### Desafíos CTF
+- [Introducción a CTF](security/01-ctf-intro.html) - Primeros pasos con Capture The Flag
+
+### Forense
+- [Fundamentos de Forense](security/02-forensics-basics.html) - Fundamentos de forense digital
+
+### Seguridad Web
+- [Fundamentos de Seguridad Web](security/03-web-security.html) - Fundamentos de vulnerabilidades web
+
+### HTB Academy
+- [Camino HTB Academy](security/04-htb-academy.html) - Módulos de Hack The Box Academy
+
+## 📊 Desafíos HTB Completados
+
+| Desafío | Respuesta | Fecha |
+|---------|-----------|-------|
+| Nmap Default | HTB{pr0F7pDv3r510nb4nn3r} | 2026-02-11 |
+| Caesar Cipher | Resuelto | 2026-02-16 |
+| Nmap Full Scan | 31337 | 2026-02-19 |
+
+## 🎯 Habilidades Desarrolladas
+
+- Resolución de problemas CTF
+- Forense digital
+- Fundamentos de seguridad web
+- Enumeración de redes
+
+---
+
+*Usa la barra lateral para navegar a capítulos específicos.*

@@ -1,0 +1,220 @@
+---
+title: "Laboratorio: Firewall & IDS/IPS Evasion - Hard"
+description: "Bypass de firewall e IDS/IPS mediante manipulación de source port"
+author: "Diego Saavedra"
+date: "2026-02-20"
+categories: [security, nmap, firewall-evasion, htb]
+---
+
+# Laboratorio: Firewall & IDS/IPS Evasion - Hard
+
+## Contenido
+
+- [Objetivo](#objetivo)
+- [Introducción](#introducción)
+- [Escenario](#escenario)
+- [Requisitos](#requisitos)
+- [Análisis del Problema](#análisis-del-problema)
+- [Ejercicio 1: Reconocimiento Inicial](#ejercicio-1-reconocimiento-inicial)
+- [Ejercicio 2: Identificación del Puerto](#ejercicio-2-identificación-del-puerto)
+- [Ejercicio 3: Evasión con Source Port](#ejercicio-3-evasión-con-source-port)
+- [Solución Final](#solución-final)
+- [¿Qué Aprendimos?](#qué-aprendimos)
+- [Autoevaluación](#autoevaluación)
+- [Referencias](#referencias)
+
+## Objetivo
+
+Identificar la versión de un servicio ejecutándose en un objetivo protegido por firewall e IDS/IPS estrictos.
+
+**Target**: 10.129.2.47  
+**Dificultad**: Hard  
+**Pistas**: 
+- "Servicio que requiere grandes cantidades de datos"
+- Los administradores mejoraron la seguridad después de pruebas anteriores
+
+## Introducción
+
+En este laboratorio nos enfrentamos a:
+
+- **Firewall estricto**: Bloquea conexiones no autorizadas
+- **IDS/IPS activo**: Detecta y bloquea patrones de escaneo
+- **TCP Wrappers**: Protege los servicios con control de acceso
+
+La clave para resolver este laboratorio es comprender cómo los firewalls confían en ciertos puertos origen.
+
+## Escenario
+
+Una empresa ha mejorado su infraestructura de seguridad después de nuestras pruebas anteriores. Ahora necesitamos:
+
+1. Identificar puertos abiertos sin activar alertas
+2. Determinar qué servicio se ejecuta en puertos no estándar
+3. Obtener la versión del servicio sin ser bloqueados
+
+::: {.callout-warning}
+## Sistema de Alertas
+El target tiene un contador de alertas en `http://<target>/status.php`. Si superamos 75 alertas, seremos bloqueados.
+:::
+
+## Requisitos
+
+- Kali Linux o distribución con Nmap
+- Netcat (nc) instalado
+- Acceso VPN a HTB Academy
+- Conocimientos de TCP/IP y puertos privilegiados
+
+## Análisis del Problema
+
+### Puertos Confiables
+
+Los firewalls suelen confiar en tráfico de ciertos puertos origen:
+
+| Puerto | Servicio | Nivel de Confianza |
+|--------|----------|-------------------|
+| 20 | FTP Data | Alto |
+| 53 | DNS | Muy Alto |
+| 80 | HTTP | Medio |
+| 443 | HTTPS | Alto |
+
+### Por qué funciona Source Port 53
+
+```
+┌─────────────────┐                    ┌─────────────────┐
+│   Kali Linux    │                    │    Target       │
+│ Puerto: 53      │ ─────────────────► │ Puerto: 50000   │
+│ (DNS simulado)  │                    │ (IBM DB2)       │
+└─────────────────┘                    └─────────────────┘
+         │                                    │
+         │    Firewall:                       │
+         │    "Tráfico DNS = Permitir"        │
+         └────────────────────────────────────┘
+```
+
+## Ejercicio 1: Reconocimiento Inicial
+
+### Paso 1: Verificar Conectividad
+
+```bash
+# Verificar estado de alertas
+curl http://10.129.2.47/status.php
+```
+
+Resultado:
+```
+Recorded alerts: 0
+/ 75 alerts
+```
+
+### Paso 2: Escaneo con Source Port Bypass
+
+```bash
+# Escanear puertos altos con source-port 53
+sudo nmap --source-port 53 -sV -p 50000-50010 10.129.2.47
+```
+
+Resultado:
+```
+PORT      STATE  SERVICE    VERSION
+50000/tcp open   tcpwrapped
+```
+
+::: {.callout-tip}
+## Importante
+`tcpwrapped` indica que el servicio está protegido por TCP Wrappers. No significa que no podamos acceder, solo que hay control de acceso.
+:::
+
+## Ejercicio 2: Identificación del Puerto
+
+### Intentos Fallidos
+
+Probamos varias técnicas que fueron bloqueadas:
+
+| Técnica | Resultado |
+|---------|-----------|
+| Conexión directa con nc | Timeout |
+| Nmap con scripts NSE | `filtered` |
+| Metasploit db2_version | Sin resultados |
+| Fragmentación | `tcpwrapped` |
+
+### La Solución: Netcat con Source Port
+
+El key insight: **Netcat permite especificar el puerto origen**
+
+## Ejercicio 3: Evasión con Source Port
+
+### Paso 1: Verificar Alertas
+
+```bash
+curl http://10.129.2.47/status.php
+```
+
+### Paso 2: Conectar con Source Port 53
+
+```bash
+# Requiere sudo porque el puerto 53 es privilegiado
+sudo nc -p 53 10.129.2.47 50000
+```
+
+Resultado:
+```
+220 HTB{kjnsdf2n982n1827eh76238s98di1w6}
+```
+
+¡El servicio respondió con su banner!
+
+## Solución Final
+
+**Flag**: `HTB{kjnsdf2n982n1827eh76238s98di1w6}`
+
+### Comando Exitoso
+
+```bash
+sudo nc -p 53 10.129.2.47 50000
+```
+
+### Análisis del Resultado
+
+| Campo | Valor |
+|-------|-------|
+| Puerto destino | 50000 |
+| Servicio | IBM DB2 |
+| Banner | `220 HTB{kjnsdf2n982n1827eh76238s98di1w6}` |
+| Alertas usadas | 0 (técnica pasiva) |
+
+## ¿Qué Aprendimos?
+
+1. **Source Port Manipulation**: Los firewalls confían en tráfico de puertos privilegiados
+2. **Herramientas simples bypassan defensas complejas**: Netcat funcionó donde Nmap falló
+3. **Puertos privilegiados**: Requieren root pero son confiables para firewalls
+4. **Técnicas pasivas**: No generan alertas en IDS/IPS
+
+## Comparación de Técnicas
+
+| Técnica | Efectividad | Alertas |
+|---------|-------------|---------|
+| Source Port 53 | ✅ Muy Alta | 0 |
+| Decoys (-D RND:5) | Media | Algunas |
+| Fragmentation (-f) | Baja-Media | Algunas |
+| Bad Checksum | Baja | Algunas |
+| Netcat pasivo | ✅ Muy Alta | 0 |
+
+## Autoevaluación
+
+1. ¿Por qué el puerto 53 es confiable para los firewalls?
+2. ¿Qué significa el estado `tcpwrapped` en Nmap?
+3. ¿Por qué se requiere `sudo` para usar el puerto 53?
+4. ¿Qué ventaja tiene netcat sobre Nmap en este escenario?
+5. ¿Cómo verificarías si un firewall permite tráfico DNS?
+6. ¿Qué otros puertos origen podrían funcionar?
+7. ¿Por qué el IDS no detectó la conexión de netcat?
+8. ¿Qué información reveló el banner del servicio?
+
+## Referencias
+
+- [Nmap Source Port Manipulation](https://nmap.org/book/man-bypass-firewalls-ids.html)
+- [TCP Wrappers Explained](https://wiki.archlinux.org/title/Tcp_wrappers)
+- [Privileged Ports RFC](https://datatracker.ietf.org/doc/html/rfc6335)
+
+---
+
+[← Lab Medium](lab5-evasion-medium.qmd) | [Volver al Curso](index.qmd)

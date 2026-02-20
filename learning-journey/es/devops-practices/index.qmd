@@ -1,0 +1,29 @@
+---
+title: "Prácticas DevOps"
+---
+
+# Prácticas DevOps ⚙️
+
+Esta sección cubre **herramientas y metodologías DevOps** - gestión de configuración, automatización e infraestructura.
+
+## 📋 Capítulos
+
+### Gestión de Configuración
+- [Fundamentos de Ansible](devops-practices/01-ansible-basics.html) - Primeros pasos con Ansible
+
+### Automatización
+- [Despliegue de Jobs Cron](devops-practices/02-cron-automation.html) - Automatización de tareas programadas
+
+### Servicios de Bases de Datos
+- [Troubleshooting de MariaDB](devops-practices/03-mariadb-troubleshooting.html) - Arreglar servicios de base de datos
+
+## 🎯 Habilidades Desarrolladas
+
+- Gestión de configuración con Ansible
+- Automatización con Cron
+- Gestión de servicios de bases de datos
+- Troubleshooting de problemas de producción
+
+---
+
+*Usa la barra lateral para navegar a capítulos específicos.*
