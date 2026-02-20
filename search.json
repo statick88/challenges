@@ -567,151 +567,102 @@
     "text": "COMPLETED 🎉\n\nDate: 2026-02-20\nFlag: HTB{pr0F7pDv3r510nb4nn3r}\nPort: 31337/tcp (FTP)\n\n\n← Back to Security"
   },
   {
-    "objectID": "security/06-htb-firewall-evasion.html",
-    "href": "security/06-htb-firewall-evasion.html",
-    "title": "Firewall & IDS/IPS Evasion - Easy Lab",
+    "objectID": "security/index.html",
+    "href": "security/index.html",
+    "title": "Security",
     "section": "",
-    "text": "Identify the operating system of a target machine protected by IDS/IPS without triggering too many alerts."
+    "text": "This section covers cybersecurity fundamentals - from CTF challenges to HTB Academy modules.\n\n\n\n  \n    9\n    Completed\n  \n  \n    3\n    Remaining\n  \n  \n    75%\n    Progress\n  \n\n\n\n\n\n\n\nNmap Full Port Scan - Complete TCP port enumeration ✓\nService Enumeration - Banner grabbing and version detection ✓\nFirewall & IDS/IPS Evasion (Easy) - Passive OS fingerprinting ✓\nFirewall & IDS/IPS Evasion (Medium) - DNS version enumeration ✓\nFirewall & IDS/IPS Evasion (Hard) - Source port manipulation ✓\n\n\n\n\n\nCTF Introduction - Getting started with Capture The Flag\n\n\n\n\n\nForensics Basics - Digital forensics fundamentals\n\n\n\n\n\nWeb Security Basics - Web vulnerability fundamentals\n\n\n\n\n\n\n\n\n\n\n\n\n\nChallenge\nAnswer\nDate\n\n\n\n\nNmap Default\nHTB{pr0F7pDv3r510nb4nn3r}\n2026-02-11\n\n\nCaesar Cipher\nSolved\n2026-02-16\n\n\nNmap Full Scan\n31337\n2026-02-19\n\n\nService Enumeration\nHTB{pr0F7pDv3r510nb4nn3r}\n2026-02-20\n\n\nFirewall/IDS Evasion (Easy)\nUbuntu\n2026-02-20\n\n\nFirewall/IDS Evasion (Medium)\nHTB{GoTtgUnyze9Psw4vGjcuMpHRp}\n2026-02-20\n\n\nFirewall/IDS Evasion (Hard)\nHTB{kjnsdf2n982n1827eh76238s98di1w6}\n2026-02-20\n\n\n\n\n\n\n\nCTF problem solving\nDigital forensics\nWeb security basics\nNetwork enumeration\nBanner grabbing\n\n\nUse the sidebar to navigate to specific chapters."
   },
   {
-    "objectID": "security/06-htb-firewall-evasion.html#objective",
-    "href": "security/06-htb-firewall-evasion.html#objective",
-    "title": "Firewall & IDS/IPS Evasion - Easy Lab",
+    "objectID": "security/index.html#progress",
+    "href": "security/index.html#progress",
+    "title": "Security",
     "section": "",
-    "text": "Identify the operating system of a target machine protected by IDS/IPS without triggering too many alerts."
+    "text": "9\n    Completed\n  \n  \n    3\n    Remaining\n  \n  \n    75%\n    Progress"
   },
   {
-    "objectID": "security/06-htb-firewall-evasion.html#scenario",
-    "href": "security/06-htb-firewall-evasion.html#scenario",
-    "title": "Firewall & IDS/IPS Evasion - Easy Lab",
-    "section": "Scenario",
-    "text": "Scenario\nThe target has IDS/IPS protection that monitors network traffic. A status page shows alert count - exceeding 100 alerts will fail the challenge."
+    "objectID": "security/index.html#chapters",
+    "href": "security/index.html#chapters",
+    "title": "Security",
+    "section": "",
+    "text": "Nmap Full Port Scan - Complete TCP port enumeration ✓\nService Enumeration - Banner grabbing and version detection ✓\nFirewall & IDS/IPS Evasion (Easy) - Passive OS fingerprinting ✓\nFirewall & IDS/IPS Evasion (Medium) - DNS version enumeration ✓\nFirewall & IDS/IPS Evasion (Hard) - Source port manipulation ✓\n\n\n\n\n\nCTF Introduction - Getting started with Capture The Flag\n\n\n\n\n\nForensics Basics - Digital forensics fundamentals\n\n\n\n\n\nWeb Security Basics - Web vulnerability fundamentals"
   },
   {
-    "objectID": "security/06-htb-firewall-evasion.html#initial-reconnaissance",
-    "href": "security/06-htb-firewall-evasion.html#initial-reconnaissance",
-    "title": "Firewall & IDS/IPS Evasion - Easy Lab",
-    "section": "Initial Reconnaissance",
-    "text": "Initial Reconnaissance\n\nStatus Page Check\ncurl http://10.129.4.94/status.php\nRecorded alerts:    50\n/ 100 alerts\nAnalysis: 50 alerts already recorded. Must use passive/low-profile techniques."
+    "objectID": "security/index.html#completed-htb-challenges",
+    "href": "security/index.html#completed-htb-challenges",
+    "title": "Security",
+    "section": "",
+    "text": "Challenge\nAnswer\nDate\n\n\n\n\nNmap Default\nHTB{pr0F7pDv3r510nb4nn3r}\n2026-02-11\n\n\nCaesar Cipher\nSolved\n2026-02-16\n\n\nNmap Full Scan\n31337\n2026-02-19\n\n\nService Enumeration\nHTB{pr0F7pDv3r510nb4nn3r}\n2026-02-20\n\n\nFirewall/IDS Evasion (Easy)\nUbuntu\n2026-02-20\n\n\nFirewall/IDS Evasion (Medium)\nHTB{GoTtgUnyze9Psw4vGjcuMpHRp}\n2026-02-20\n\n\nFirewall/IDS Evasion (Hard)\nHTB{kjnsdf2n982n1827eh76238s98di1w6}\n2026-02-20"
   },
   {
-    "objectID": "security/06-htb-firewall-evasion.html#passive-os-fingerprinting",
-    "href": "security/06-htb-firewall-evasion.html#passive-os-fingerprinting",
-    "title": "Firewall & IDS/IPS Evasion - Easy Lab",
-    "section": "Passive OS Fingerprinting",
-    "text": "Passive OS Fingerprinting\n\nMethod 1: HTTP Server Header\ncurl -I http://10.129.4.94\nHTTP/1.1 200 OK\nServer: Apache/2.4.29 (Ubuntu)\nFinding: Server explicitly identifies as Ubuntu.\n\n\nMethod 2: SSH Banner Grabbing\nnc -nv 10.129.4.94 22\nSSH-2.0-OpenSSH_7.6p1 Ubuntu-4ubuntu0.7\nFinding: SSH daemon confirms Ubuntu.\n\n\nMethod 3: TTL Analysis\nping -c 1 10.129.4.94\n64 bytes from 10.129.4.94: icmp_seq=0 ttl=63\nFinding: TTL=63 indicates Linux (default 64, -1 for hop)."
+    "objectID": "security/index.html#skills-developed",
+    "href": "security/index.html#skills-developed",
+    "title": "Security",
+    "section": "",
+    "text": "CTF problem solving\nDigital forensics\nWeb security basics\nNetwork enumeration\nBanner grabbing\n\n\nUse the sidebar to navigate to specific chapters."
   },
   {
-    "objectID": "security/06-htb-firewall-evasion.html#answer",
-    "href": "security/06-htb-firewall-evasion.html#answer",
-    "title": "Firewall & IDS/IPS Evasion - Easy Lab",
+    "objectID": "security/07-htb-firewall-evasion-medium.html",
+    "href": "security/07-htb-firewall-evasion-medium.html",
+    "title": "Firewall & IDS/IPS Evasion - Medium Lab",
+    "section": "",
+    "text": "Find the DNS server version of a target with stricter IDS/IPS and firewall configurations."
+  },
+  {
+    "objectID": "security/07-htb-firewall-evasion-medium.html#objective",
+    "href": "security/07-htb-firewall-evasion-medium.html#objective",
+    "title": "Firewall & IDS/IPS Evasion - Medium Lab",
+    "section": "",
+    "text": "Find the DNS server version of a target with stricter IDS/IPS and firewall configurations."
+  },
+  {
+    "objectID": "security/07-htb-firewall-evasion-medium.html#key-requirement",
+    "href": "security/07-htb-firewall-evasion-medium.html#key-requirement",
+    "title": "Firewall & IDS/IPS Evasion - Medium Lab",
+    "section": "Key Requirement",
+    "text": "Key Requirement\nMust use UDP protocol - DNS uses UDP 53 by default."
+  },
+  {
+    "objectID": "security/07-htb-firewall-evasion-medium.html#solution-dns-version-query",
+    "href": "security/07-htb-firewall-evasion-medium.html#solution-dns-version-query",
+    "title": "Firewall & IDS/IPS Evasion - Medium Lab",
+    "section": "Solution: DNS Version Query",
+    "text": "Solution: DNS Version Query\n\nUsing nslookup (No Root Required)\nnslookup -type=txt -class=chaos version.bind 10.129.4.95\nServer:     10.129.4.95\nAddress:    10.129.4.95#53\n\nversion.bind    text = \"HTB{GoTtgUnyze9Psw4vGjcuMpHRp}\"\n\n\nAlternative: dig\ndig @10.129.4.95 version.bind chaos txt"
+  },
+  {
+    "objectID": "security/07-htb-firewall-evasion-medium.html#answer",
+    "href": "security/07-htb-firewall-evasion-medium.html#answer",
+    "title": "Firewall & IDS/IPS Evasion - Medium Lab",
     "section": "Answer",
-    "text": "Answer\nUbuntu - All three passive methods confirmed the target OS."
+    "text": "Answer\nDNS Server Version: HTB{GoTtgUnyze9Psw4vGjcuMpHRp}"
   },
   {
-    "objectID": "security/06-htb-firewall-evasion.html#key-learnings",
-    "href": "security/06-htb-firewall-evasion.html#key-learnings",
-    "title": "Firewall & IDS/IPS Evasion - Easy Lab",
+    "objectID": "security/07-htb-firewall-evasion-medium.html#technical-details",
+    "href": "security/07-htb-firewall-evasion-medium.html#technical-details",
+    "title": "Firewall & IDS/IPS Evasion - Medium Lab",
+    "section": "Technical Details",
+    "text": "Technical Details\n\nWhat is version.bind?\n\n\n\nComponent\nDescription\n\n\n\n\nCHAOS class\nSpecial DNS class (not Internet class)\n\n\nversion.bind\nSpecial record exposing BIND version\n\n\nTXT record\nReturns version string\n\n\n\n\n\nWhy This Works\n\nUDP Protocol: DNS queries use UDP by default\nPassive: No port scanning, legitimate DNS query\nCHAOS Class: BIND servers still respond to these queries\nPublic Server: Must allow DNS queries for public access"
+  },
+  {
+    "objectID": "security/07-htb-firewall-evasion-medium.html#security-recommendation",
+    "href": "security/07-htb-firewall-evasion-medium.html#security-recommendation",
+    "title": "Firewall & IDS/IPS Evasion - Medium Lab",
+    "section": "Security Recommendation",
+    "text": "Security Recommendation\nDisable version disclosure in BIND:\n# In named.conf.options\noptions {\n    version \"not disclosed\";\n}"
+  },
+  {
+    "objectID": "security/07-htb-firewall-evasion-medium.html#evasion-techniques",
+    "href": "security/07-htb-firewall-evasion-medium.html#evasion-techniques",
+    "title": "Firewall & IDS/IPS Evasion - Medium Lab",
+    "section": "Evasion Techniques",
+    "text": "Evasion Techniques\n\n\n\nTechnique\nPurpose\nResult\n\n\n\n\nDNS query\nLegitimate traffic\nNo IDS alert\n\n\nUDP protocol\nRequired\nStandard DNS\n\n\nCHAOS class\nVersion disclosure\nFlag obtained\n\n\nnslookup/dig\nNo port scan\nCompletely passive"
+  },
+  {
+    "objectID": "security/07-htb-firewall-evasion-medium.html#key-learnings",
+    "href": "security/07-htb-firewall-evasion-medium.html#key-learnings",
+    "title": "Firewall & IDS/IPS Evasion - Medium Lab",
     "section": "Key Learnings",
-    "text": "Key Learnings\n\n\n\nTechnique\nIndicator\nResult\n\n\n\n\nHTTP Header\nApache/2.4.29 (Ubuntu)\nUbuntu\n\n\nSSH Banner\nUbuntu-4ubuntu0.7\nUbuntu\n\n\nTTL Value\n63 (Linux: 64)\nLinux\n\n\n\n\nEvasion Techniques Reference\n\n\n\nTechnique\nPurpose\nIDS Impact\n\n\n\n\nPassive banner grabbing\nOS/service info\nNone\n\n\ncurl -I\nHTTP headers\nMinimal\n\n\nnc connection\nService banners\nMinimal\n\n\n--source-port 53\nAppear as DNS\nLow\n\n\n-D RND:5\nDecoys\nSpread across IPs\n\n\n-sA\nACK scan\nHarder to detect"
-  },
-  {
-    "objectID": "security/06-htb-firewall-evasion.html#takeaways",
-    "href": "security/06-htb-firewall-evasion.html#takeaways",
-    "title": "Firewall & IDS/IPS Evasion - Easy Lab",
-    "section": "Takeaways",
-    "text": "Takeaways\n\nPassive &gt; Active: Service banners often reveal OS without triggering alerts\nHTTP Server Header: Apache often includes OS in version string\nSSH Banner: OpenSSH packages typically include distribution info\nTTL Fingerprinting: Linux ≈ 64, Windows ≈ 128, Network devices ≈ 255"
-  },
-  {
-    "objectID": "security/04-htb-academy.html",
-    "href": "security/04-htb-academy.html",
-    "title": "HTB Academy - Network Enumeration",
-    "section": "",
-    "text": "Platform: Hack The Box Academy\nModule: Network Enumeration with Nmap\nTarget: 10.129.4.45\nTask: Perform full TCP port scan and identify the highest port\n\n\n\n\nQuick scans only check the 1000 most common ports, missing: - Administrative ports (2222, 9000, 10000) - Internal services (3306, 5432, 6379) - Backdoors and custom services (31337, 4444, 1337)\n\n\n\nOption\nDescription\n\n\n\n\n-p-\nAll TCP ports (1-65535)\n\n\n-Pn\nNo ping (skip host detection)\n\n\n-T5\nAggressive timing\n\n\n-oX\nXML output\n\n\n\n\n\n\n\n\n\nping -c 3 10.129.4.45\nResult: 0% packet loss - host is up!\n\n\n\nsudo nmap -p- -Pn -T5 -oX scan.xml 10.129.4.45\nResults:\nPORT      STATE SERVICE\n22/tcp    open  ssh\n80/tcp    open  http\n110/tcp   open  pop3\n139/tcp   open  netbios-ssn\n143/tcp   open  imap\n445/tcp   open  microsoft-ds\n31337/tcp open  Elite\n\n\n\nxsltproc scan.xml -o scan.html\n\n\n\ngrep -oP 'portid=\"\\K[0-9]+' scan.xml | sort -n | tail -1\nAnswer: 31337\n\n\n\n\n\n\nFull TCP scan completed (-p-)\nAll 7 ports identified\nHighest port found: 31337\nHTML report generated\n\n\n\n\n\n\nComplete port scanning methodology\nXML output processing\nHTML report generation with xsltproc\nPort enumeration best practices\n\n\n\n\n\nCOMPLETED 🎉\n\nDate: 2026-02-19\nAnswer Submitted: 31337\nPlatform: HTB Academy\n\n\n← Back to Security"
-  },
-  {
-    "objectID": "security/04-htb-academy.html#scenario-full-port-scan-challenge",
-    "href": "security/04-htb-academy.html#scenario-full-port-scan-challenge",
-    "title": "HTB Academy - Network Enumeration",
-    "section": "",
-    "text": "Platform: Hack The Box Academy\nModule: Network Enumeration with Nmap\nTarget: 10.129.4.45\nTask: Perform full TCP port scan and identify the highest port"
-  },
-  {
-    "objectID": "security/04-htb-academy.html#full-port-scan-vs-quick-scan",
-    "href": "security/04-htb-academy.html#full-port-scan-vs-quick-scan",
-    "title": "HTB Academy - Network Enumeration",
-    "section": "",
-    "text": "Quick scans only check the 1000 most common ports, missing: - Administrative ports (2222, 9000, 10000) - Internal services (3306, 5432, 6379) - Backdoors and custom services (31337, 4444, 1337)\n\n\n\nOption\nDescription\n\n\n\n\n-p-\nAll TCP ports (1-65535)\n\n\n-Pn\nNo ping (skip host detection)\n\n\n-T5\nAggressive timing\n\n\n-oX\nXML output"
-  },
-  {
-    "objectID": "security/04-htb-academy.html#implementation",
-    "href": "security/04-htb-academy.html#implementation",
-    "title": "HTB Academy - Network Enumeration",
-    "section": "",
-    "text": "ping -c 3 10.129.4.45\nResult: 0% packet loss - host is up!\n\n\n\nsudo nmap -p- -Pn -T5 -oX scan.xml 10.129.4.45\nResults:\nPORT      STATE SERVICE\n22/tcp    open  ssh\n80/tcp    open  http\n110/tcp   open  pop3\n139/tcp   open  netbios-ssn\n143/tcp   open  imap\n445/tcp   open  microsoft-ds\n31337/tcp open  Elite\n\n\n\nxsltproc scan.xml -o scan.html\n\n\n\ngrep -oP 'portid=\"\\K[0-9]+' scan.xml | sort -n | tail -1\nAnswer: 31337"
-  },
-  {
-    "objectID": "security/04-htb-academy.html#verification",
-    "href": "security/04-htb-academy.html#verification",
-    "title": "HTB Academy - Network Enumeration",
-    "section": "",
-    "text": "Full TCP scan completed (-p-)\nAll 7 ports identified\nHighest port found: 31337\nHTML report generated"
-  },
-  {
-    "objectID": "security/04-htb-academy.html#key-learnings",
-    "href": "security/04-htb-academy.html#key-learnings",
-    "title": "HTB Academy - Network Enumeration",
-    "section": "",
-    "text": "Complete port scanning methodology\nXML output processing\nHTML report generation with xsltproc\nPort enumeration best practices"
-  },
-  {
-    "objectID": "security/04-htb-academy.html#status",
-    "href": "security/04-htb-academy.html#status",
-    "title": "HTB Academy - Network Enumeration",
-    "section": "",
-    "text": "COMPLETED 🎉\n\nDate: 2026-02-19\nAnswer Submitted: 31337\nPlatform: HTB Academy\n\n\n← Back to Security"
-  },
-  {
-    "objectID": "devops-practices.html",
-    "href": "devops-practices.html",
-    "title": "DevOps Practices",
-    "section": "",
-    "text": "This section covers DevOps tools and methodologies - configuration management, automation, and infrastructure practices.\n\n\n\n\n\nAnsible Basics - Getting started with Ansible\n\n\n\n\n\nCron Job Deployment - Scheduled task automation\n\n\n\n\n\nMariaDB Troubleshooting - Fixing database services\n\n\n\n\n\n\nAnsible configuration management\nCron job automation\nDatabase service management\nTroubleshooting production issues\n\n\nUse the sidebar to navigate to specific chapters."
-  },
-  {
-    "objectID": "devops-practices.html#chapters",
-    "href": "devops-practices.html#chapters",
-    "title": "DevOps Practices",
-    "section": "",
-    "text": "Ansible Basics - Getting started with Ansible\n\n\n\n\n\nCron Job Deployment - Scheduled task automation\n\n\n\n\n\nMariaDB Troubleshooting - Fixing database services"
-  },
-  {
-    "objectID": "devops-practices.html#skills-developed",
-    "href": "devops-practices.html#skills-developed",
-    "title": "DevOps Practices",
-    "section": "",
-    "text": "Ansible configuration management\nCron job automation\nDatabase service management\nTroubleshooting production issues\n\n\nUse the sidebar to navigate to specific chapters."
-  },
-  {
-    "objectID": "devops-practices/index.html",
-    "href": "devops-practices/index.html",
-    "title": "DevOps Practices",
-    "section": "",
-    "text": "This section covers DevOps tools and methodologies - configuration management, automation, and infrastructure practices.\n\n\n\n\n\nAnsible Basics - Getting started with Ansible\n\n\n\n\n\nCron Job Deployment - Scheduled task automation\n\n\n\n\n\nMariaDB Troubleshooting - Fixing database services\n\n\n\n\n\n\nAnsible configuration management\nCron job automation\nDatabase service management\nTroubleshooting production issues\n\n\nUse the sidebar to navigate to specific chapters."
-  },
-  {
-    "objectID": "devops-practices/index.html#chapters",
-    "href": "devops-practices/index.html#chapters",
-    "title": "DevOps Practices",
-    "section": "",
-    "text": "Ansible Basics - Getting started with Ansible\n\n\n\n\n\nCron Job Deployment - Scheduled task automation\n\n\n\n\n\nMariaDB Troubleshooting - Fixing database services"
-  },
-  {
-    "objectID": "devops-practices/index.html#skills-developed",
-    "href": "devops-practices/index.html#skills-developed",
-    "title": "DevOps Practices",
-    "section": "",
-    "text": "Ansible configuration management\nCron job automation\nDatabase service management\nTroubleshooting production issues\n\n\nUse the sidebar to navigate to specific chapters."
+    "text": "Key Learnings\n\nPassive DNS queries bypass IDS focused on port scanning\nversion.bind should be disabled on production servers\nnslookup/dig are quieter than Nmap for DNS enumeration\nUDP scans require root on most systems"
   },
   {
     "objectID": "security/openvpn-setup.html",
@@ -798,102 +749,221 @@
     "text": "GUÍA COMPLETADA 🎉\n\n📅 Fecha: 2026-02-20\n🎯 Sistemas: Linux, macOS, Windows\n🛠️ Herramientas: OpenVPN CLI, OpenVPN Connect\n\n\n← Back to Security"
   },
   {
-    "objectID": "security/07-htb-firewall-evasion-medium.html",
-    "href": "security/07-htb-firewall-evasion-medium.html",
-    "title": "Firewall & IDS/IPS Evasion - Medium Lab",
+    "objectID": "devops-practices/index.html",
+    "href": "devops-practices/index.html",
+    "title": "DevOps Practices",
     "section": "",
-    "text": "Find the DNS server version of a target with stricter IDS/IPS and firewall configurations."
+    "text": "This section covers DevOps tools and methodologies - configuration management, automation, and infrastructure practices.\n\n\n\n\n\nAnsible Basics - Getting started with Ansible\n\n\n\n\n\nCron Job Deployment - Scheduled task automation\n\n\n\n\n\nMariaDB Troubleshooting - Fixing database services\n\n\n\n\n\n\nAnsible configuration management\nCron job automation\nDatabase service management\nTroubleshooting production issues\n\n\nUse the sidebar to navigate to specific chapters."
   },
   {
-    "objectID": "security/07-htb-firewall-evasion-medium.html#objective",
-    "href": "security/07-htb-firewall-evasion-medium.html#objective",
-    "title": "Firewall & IDS/IPS Evasion - Medium Lab",
+    "objectID": "devops-practices/index.html#chapters",
+    "href": "devops-practices/index.html#chapters",
+    "title": "DevOps Practices",
     "section": "",
-    "text": "Find the DNS server version of a target with stricter IDS/IPS and firewall configurations."
+    "text": "Ansible Basics - Getting started with Ansible\n\n\n\n\n\nCron Job Deployment - Scheduled task automation\n\n\n\n\n\nMariaDB Troubleshooting - Fixing database services"
   },
   {
-    "objectID": "security/07-htb-firewall-evasion-medium.html#key-requirement",
-    "href": "security/07-htb-firewall-evasion-medium.html#key-requirement",
-    "title": "Firewall & IDS/IPS Evasion - Medium Lab",
-    "section": "Key Requirement",
-    "text": "Key Requirement\nMust use UDP protocol - DNS uses UDP 53 by default."
+    "objectID": "devops-practices/index.html#skills-developed",
+    "href": "devops-practices/index.html#skills-developed",
+    "title": "DevOps Practices",
+    "section": "",
+    "text": "Ansible configuration management\nCron job automation\nDatabase service management\nTroubleshooting production issues\n\n\nUse the sidebar to navigate to specific chapters."
   },
   {
-    "objectID": "security/07-htb-firewall-evasion-medium.html#solution-dns-version-query",
-    "href": "security/07-htb-firewall-evasion-medium.html#solution-dns-version-query",
-    "title": "Firewall & IDS/IPS Evasion - Medium Lab",
-    "section": "Solution: DNS Version Query",
-    "text": "Solution: DNS Version Query\n\nUsing nslookup (No Root Required)\nnslookup -type=txt -class=chaos version.bind 10.129.4.95\nServer:     10.129.4.95\nAddress:    10.129.4.95#53\n\nversion.bind    text = \"HTB{GoTtgUnyze9Psw4vGjcuMpHRp}\"\n\n\nAlternative: dig\ndig @10.129.4.95 version.bind chaos txt"
+    "objectID": "devops-practices.html",
+    "href": "devops-practices.html",
+    "title": "DevOps Practices",
+    "section": "",
+    "text": "This section covers DevOps tools and methodologies - configuration management, automation, and infrastructure practices.\n\n\n\n\n\nAnsible Basics - Getting started with Ansible\n\n\n\n\n\nCron Job Deployment - Scheduled task automation\n\n\n\n\n\nMariaDB Troubleshooting - Fixing database services\n\n\n\n\n\n\nAnsible configuration management\nCron job automation\nDatabase service management\nTroubleshooting production issues\n\n\nUse the sidebar to navigate to specific chapters."
   },
   {
-    "objectID": "security/07-htb-firewall-evasion-medium.html#answer",
-    "href": "security/07-htb-firewall-evasion-medium.html#answer",
-    "title": "Firewall & IDS/IPS Evasion - Medium Lab",
+    "objectID": "devops-practices.html#chapters",
+    "href": "devops-practices.html#chapters",
+    "title": "DevOps Practices",
+    "section": "",
+    "text": "Ansible Basics - Getting started with Ansible\n\n\n\n\n\nCron Job Deployment - Scheduled task automation\n\n\n\n\n\nMariaDB Troubleshooting - Fixing database services"
+  },
+  {
+    "objectID": "devops-practices.html#skills-developed",
+    "href": "devops-practices.html#skills-developed",
+    "title": "DevOps Practices",
+    "section": "",
+    "text": "Ansible configuration management\nCron job automation\nDatabase service management\nTroubleshooting production issues\n\n\nUse the sidebar to navigate to specific chapters."
+  },
+  {
+    "objectID": "security/04-htb-academy.html",
+    "href": "security/04-htb-academy.html",
+    "title": "HTB Academy - Network Enumeration",
+    "section": "",
+    "text": "Platform: Hack The Box Academy\nModule: Network Enumeration with Nmap\nTarget: 10.129.4.45\nTask: Perform full TCP port scan and identify the highest port\n\n\n\n\nQuick scans only check the 1000 most common ports, missing: - Administrative ports (2222, 9000, 10000) - Internal services (3306, 5432, 6379) - Backdoors and custom services (31337, 4444, 1337)\n\n\n\nOption\nDescription\n\n\n\n\n-p-\nAll TCP ports (1-65535)\n\n\n-Pn\nNo ping (skip host detection)\n\n\n-T5\nAggressive timing\n\n\n-oX\nXML output\n\n\n\n\n\n\n\n\n\nping -c 3 10.129.4.45\nResult: 0% packet loss - host is up!\n\n\n\nsudo nmap -p- -Pn -T5 -oX scan.xml 10.129.4.45\nResults:\nPORT      STATE SERVICE\n22/tcp    open  ssh\n80/tcp    open  http\n110/tcp   open  pop3\n139/tcp   open  netbios-ssn\n143/tcp   open  imap\n445/tcp   open  microsoft-ds\n31337/tcp open  Elite\n\n\n\nxsltproc scan.xml -o scan.html\n\n\n\ngrep -oP 'portid=\"\\K[0-9]+' scan.xml | sort -n | tail -1\nAnswer: 31337\n\n\n\n\n\n\nFull TCP scan completed (-p-)\nAll 7 ports identified\nHighest port found: 31337\nHTML report generated\n\n\n\n\n\n\nComplete port scanning methodology\nXML output processing\nHTML report generation with xsltproc\nPort enumeration best practices\n\n\n\n\n\nCOMPLETED 🎉\n\nDate: 2026-02-19\nAnswer Submitted: 31337\nPlatform: HTB Academy\n\n\n← Back to Security"
+  },
+  {
+    "objectID": "security/04-htb-academy.html#scenario-full-port-scan-challenge",
+    "href": "security/04-htb-academy.html#scenario-full-port-scan-challenge",
+    "title": "HTB Academy - Network Enumeration",
+    "section": "",
+    "text": "Platform: Hack The Box Academy\nModule: Network Enumeration with Nmap\nTarget: 10.129.4.45\nTask: Perform full TCP port scan and identify the highest port"
+  },
+  {
+    "objectID": "security/04-htb-academy.html#full-port-scan-vs-quick-scan",
+    "href": "security/04-htb-academy.html#full-port-scan-vs-quick-scan",
+    "title": "HTB Academy - Network Enumeration",
+    "section": "",
+    "text": "Quick scans only check the 1000 most common ports, missing: - Administrative ports (2222, 9000, 10000) - Internal services (3306, 5432, 6379) - Backdoors and custom services (31337, 4444, 1337)\n\n\n\nOption\nDescription\n\n\n\n\n-p-\nAll TCP ports (1-65535)\n\n\n-Pn\nNo ping (skip host detection)\n\n\n-T5\nAggressive timing\n\n\n-oX\nXML output"
+  },
+  {
+    "objectID": "security/04-htb-academy.html#implementation",
+    "href": "security/04-htb-academy.html#implementation",
+    "title": "HTB Academy - Network Enumeration",
+    "section": "",
+    "text": "ping -c 3 10.129.4.45\nResult: 0% packet loss - host is up!\n\n\n\nsudo nmap -p- -Pn -T5 -oX scan.xml 10.129.4.45\nResults:\nPORT      STATE SERVICE\n22/tcp    open  ssh\n80/tcp    open  http\n110/tcp   open  pop3\n139/tcp   open  netbios-ssn\n143/tcp   open  imap\n445/tcp   open  microsoft-ds\n31337/tcp open  Elite\n\n\n\nxsltproc scan.xml -o scan.html\n\n\n\ngrep -oP 'portid=\"\\K[0-9]+' scan.xml | sort -n | tail -1\nAnswer: 31337"
+  },
+  {
+    "objectID": "security/04-htb-academy.html#verification",
+    "href": "security/04-htb-academy.html#verification",
+    "title": "HTB Academy - Network Enumeration",
+    "section": "",
+    "text": "Full TCP scan completed (-p-)\nAll 7 ports identified\nHighest port found: 31337\nHTML report generated"
+  },
+  {
+    "objectID": "security/04-htb-academy.html#key-learnings",
+    "href": "security/04-htb-academy.html#key-learnings",
+    "title": "HTB Academy - Network Enumeration",
+    "section": "",
+    "text": "Complete port scanning methodology\nXML output processing\nHTML report generation with xsltproc\nPort enumeration best practices"
+  },
+  {
+    "objectID": "security/04-htb-academy.html#status",
+    "href": "security/04-htb-academy.html#status",
+    "title": "HTB Academy - Network Enumeration",
+    "section": "",
+    "text": "COMPLETED 🎉\n\nDate: 2026-02-19\nAnswer Submitted: 31337\nPlatform: HTB Academy\n\n\n← Back to Security"
+  },
+  {
+    "objectID": "security/06-htb-firewall-evasion.html",
+    "href": "security/06-htb-firewall-evasion.html",
+    "title": "Firewall & IDS/IPS Evasion - Easy Lab",
+    "section": "",
+    "text": "Identify the operating system of a target machine protected by IDS/IPS without triggering too many alerts."
+  },
+  {
+    "objectID": "security/06-htb-firewall-evasion.html#objective",
+    "href": "security/06-htb-firewall-evasion.html#objective",
+    "title": "Firewall & IDS/IPS Evasion - Easy Lab",
+    "section": "",
+    "text": "Identify the operating system of a target machine protected by IDS/IPS without triggering too many alerts."
+  },
+  {
+    "objectID": "security/06-htb-firewall-evasion.html#scenario",
+    "href": "security/06-htb-firewall-evasion.html#scenario",
+    "title": "Firewall & IDS/IPS Evasion - Easy Lab",
+    "section": "Scenario",
+    "text": "Scenario\nThe target has IDS/IPS protection that monitors network traffic. A status page shows alert count - exceeding 100 alerts will fail the challenge."
+  },
+  {
+    "objectID": "security/06-htb-firewall-evasion.html#initial-reconnaissance",
+    "href": "security/06-htb-firewall-evasion.html#initial-reconnaissance",
+    "title": "Firewall & IDS/IPS Evasion - Easy Lab",
+    "section": "Initial Reconnaissance",
+    "text": "Initial Reconnaissance\n\nStatus Page Check\ncurl http://10.129.4.94/status.php\nRecorded alerts:    50\n/ 100 alerts\nAnalysis: 50 alerts already recorded. Must use passive/low-profile techniques."
+  },
+  {
+    "objectID": "security/06-htb-firewall-evasion.html#passive-os-fingerprinting",
+    "href": "security/06-htb-firewall-evasion.html#passive-os-fingerprinting",
+    "title": "Firewall & IDS/IPS Evasion - Easy Lab",
+    "section": "Passive OS Fingerprinting",
+    "text": "Passive OS Fingerprinting\n\nMethod 1: HTTP Server Header\ncurl -I http://10.129.4.94\nHTTP/1.1 200 OK\nServer: Apache/2.4.29 (Ubuntu)\nFinding: Server explicitly identifies as Ubuntu.\n\n\nMethod 2: SSH Banner Grabbing\nnc -nv 10.129.4.94 22\nSSH-2.0-OpenSSH_7.6p1 Ubuntu-4ubuntu0.7\nFinding: SSH daemon confirms Ubuntu.\n\n\nMethod 3: TTL Analysis\nping -c 1 10.129.4.94\n64 bytes from 10.129.4.94: icmp_seq=0 ttl=63\nFinding: TTL=63 indicates Linux (default 64, -1 for hop)."
+  },
+  {
+    "objectID": "security/06-htb-firewall-evasion.html#answer",
+    "href": "security/06-htb-firewall-evasion.html#answer",
+    "title": "Firewall & IDS/IPS Evasion - Easy Lab",
     "section": "Answer",
-    "text": "Answer\nDNS Server Version: HTB{GoTtgUnyze9Psw4vGjcuMpHRp}"
+    "text": "Answer\nUbuntu - All three passive methods confirmed the target OS."
   },
   {
-    "objectID": "security/07-htb-firewall-evasion-medium.html#technical-details",
-    "href": "security/07-htb-firewall-evasion-medium.html#technical-details",
-    "title": "Firewall & IDS/IPS Evasion - Medium Lab",
-    "section": "Technical Details",
-    "text": "Technical Details\n\nWhat is version.bind?\n\n\n\nComponent\nDescription\n\n\n\n\nCHAOS class\nSpecial DNS class (not Internet class)\n\n\nversion.bind\nSpecial record exposing BIND version\n\n\nTXT record\nReturns version string\n\n\n\n\n\nWhy This Works\n\nUDP Protocol: DNS queries use UDP by default\nPassive: No port scanning, legitimate DNS query\nCHAOS Class: BIND servers still respond to these queries\nPublic Server: Must allow DNS queries for public access"
-  },
-  {
-    "objectID": "security/07-htb-firewall-evasion-medium.html#security-recommendation",
-    "href": "security/07-htb-firewall-evasion-medium.html#security-recommendation",
-    "title": "Firewall & IDS/IPS Evasion - Medium Lab",
-    "section": "Security Recommendation",
-    "text": "Security Recommendation\nDisable version disclosure in BIND:\n# In named.conf.options\noptions {\n    version \"not disclosed\";\n}"
-  },
-  {
-    "objectID": "security/07-htb-firewall-evasion-medium.html#evasion-techniques",
-    "href": "security/07-htb-firewall-evasion-medium.html#evasion-techniques",
-    "title": "Firewall & IDS/IPS Evasion - Medium Lab",
-    "section": "Evasion Techniques",
-    "text": "Evasion Techniques\n\n\n\nTechnique\nPurpose\nResult\n\n\n\n\nDNS query\nLegitimate traffic\nNo IDS alert\n\n\nUDP protocol\nRequired\nStandard DNS\n\n\nCHAOS class\nVersion disclosure\nFlag obtained\n\n\nnslookup/dig\nNo port scan\nCompletely passive"
-  },
-  {
-    "objectID": "security/07-htb-firewall-evasion-medium.html#key-learnings",
-    "href": "security/07-htb-firewall-evasion-medium.html#key-learnings",
-    "title": "Firewall & IDS/IPS Evasion - Medium Lab",
+    "objectID": "security/06-htb-firewall-evasion.html#key-learnings",
+    "href": "security/06-htb-firewall-evasion.html#key-learnings",
+    "title": "Firewall & IDS/IPS Evasion - Easy Lab",
     "section": "Key Learnings",
-    "text": "Key Learnings\n\nPassive DNS queries bypass IDS focused on port scanning\nversion.bind should be disabled on production servers\nnslookup/dig are quieter than Nmap for DNS enumeration\nUDP scans require root on most systems"
+    "text": "Key Learnings\n\n\n\nTechnique\nIndicator\nResult\n\n\n\n\nHTTP Header\nApache/2.4.29 (Ubuntu)\nUbuntu\n\n\nSSH Banner\nUbuntu-4ubuntu0.7\nUbuntu\n\n\nTTL Value\n63 (Linux: 64)\nLinux\n\n\n\n\nEvasion Techniques Reference\n\n\n\nTechnique\nPurpose\nIDS Impact\n\n\n\n\nPassive banner grabbing\nOS/service info\nNone\n\n\ncurl -I\nHTTP headers\nMinimal\n\n\nnc connection\nService banners\nMinimal\n\n\n--source-port 53\nAppear as DNS\nLow\n\n\n-D RND:5\nDecoys\nSpread across IPs\n\n\n-sA\nACK scan\nHarder to detect"
   },
   {
-    "objectID": "security/index.html",
-    "href": "security/index.html",
-    "title": "Security",
-    "section": "",
-    "text": "This section covers cybersecurity fundamentals - from CTF challenges to HTB Academy modules.\n\n\n\n  \n    8\n    Completed\n  \n  \n    4\n    Remaining\n  \n  \n    67%\n    Progress\n  \n\n\n\n\n\n\n\nNmap Full Port Scan - Complete TCP port enumeration ✓\nService Enumeration - Banner grabbing and version detection ✓\nFirewall & IDS/IPS Evasion (Easy) - Passive OS fingerprinting ✓\nFirewall & IDS/IPS Evasion (Medium) - DNS version enumeration ✓\n\n\n\n\n\nCTF Introduction - Getting started with Capture The Flag\n\n\n\n\n\nForensics Basics - Digital forensics fundamentals\n\n\n\n\n\nWeb Security Basics - Web vulnerability fundamentals\n\n\n\n\n\n\n\n\n\n\n\n\n\nChallenge\nAnswer\nDate\n\n\n\n\nNmap Default\nHTB{pr0F7pDv3r510nb4nn3r}\n2026-02-11\n\n\nCaesar Cipher\nSolved\n2026-02-16\n\n\nNmap Full Scan\n31337\n2026-02-19\n\n\nService Enumeration\nHTB{pr0F7pDv3r510nb4nn3r}\n2026-02-20\n\n\nFirewall/IDS Evasion (Easy)\nUbuntu\n2026-02-20\n\n\nFirewall/IDS Evasion (Medium)\nHTB{GoTtgUnyze9Psw4vGjcuMpHRp}\n2026-02-20\n\n\n\n\n\n\n\nCTF problem solving\nDigital forensics\nWeb security basics\nNetwork enumeration\nBanner grabbing\n\n\nUse the sidebar to navigate to specific chapters."
+    "objectID": "security/06-htb-firewall-evasion.html#takeaways",
+    "href": "security/06-htb-firewall-evasion.html#takeaways",
+    "title": "Firewall & IDS/IPS Evasion - Easy Lab",
+    "section": "Takeaways",
+    "text": "Takeaways\n\nPassive &gt; Active: Service banners often reveal OS without triggering alerts\nHTTP Server Header: Apache often includes OS in version string\nSSH Banner: OpenSSH packages typically include distribution info\nTTL Fingerprinting: Linux ≈ 64, Windows ≈ 128, Network devices ≈ 255"
   },
   {
-    "objectID": "security/index.html#progress",
-    "href": "security/index.html#progress",
-    "title": "Security",
+    "objectID": "security/08-htb-firewall-evasion-hard.html",
+    "href": "security/08-htb-firewall-evasion-hard.html",
+    "title": "Firewall & IDS/IPS Evasion - Hard Lab",
     "section": "",
-    "text": "8\n    Completed\n  \n  \n    4\n    Remaining\n  \n  \n    67%\n    Progress"
+    "text": "Identify the version of a service running on a target with strict IDS/IPS and firewall configurations."
   },
   {
-    "objectID": "security/index.html#chapters",
-    "href": "security/index.html#chapters",
-    "title": "Security",
+    "objectID": "security/08-htb-firewall-evasion-hard.html#objective",
+    "href": "security/08-htb-firewall-evasion-hard.html#objective",
+    "title": "Firewall & IDS/IPS Evasion - Hard Lab",
     "section": "",
-    "text": "Nmap Full Port Scan - Complete TCP port enumeration ✓\nService Enumeration - Banner grabbing and version detection ✓\nFirewall & IDS/IPS Evasion (Easy) - Passive OS fingerprinting ✓\nFirewall & IDS/IPS Evasion (Medium) - DNS version enumeration ✓\n\n\n\n\n\nCTF Introduction - Getting started with Capture The Flag\n\n\n\n\n\nForensics Basics - Digital forensics fundamentals\n\n\n\n\n\nWeb Security Basics - Web vulnerability fundamentals"
+    "text": "Identify the version of a service running on a target with strict IDS/IPS and firewall configurations."
   },
   {
-    "objectID": "security/index.html#completed-htb-challenges",
-    "href": "security/index.html#completed-htb-challenges",
-    "title": "Security",
-    "section": "",
-    "text": "Challenge\nAnswer\nDate\n\n\n\n\nNmap Default\nHTB{pr0F7pDv3r510nb4nn3r}\n2026-02-11\n\n\nCaesar Cipher\nSolved\n2026-02-16\n\n\nNmap Full Scan\n31337\n2026-02-19\n\n\nService Enumeration\nHTB{pr0F7pDv3r510nb4nn3r}\n2026-02-20\n\n\nFirewall/IDS Evasion (Easy)\nUbuntu\n2026-02-20\n\n\nFirewall/IDS Evasion (Medium)\nHTB{GoTtgUnyze9Psw4vGjcuMpHRp}\n2026-02-20"
+    "objectID": "security/08-htb-firewall-evasion-hard.html#challenge",
+    "href": "security/08-htb-firewall-evasion-hard.html#challenge",
+    "title": "Firewall & IDS/IPS Evasion - Hard Lab",
+    "section": "Challenge",
+    "text": "Challenge\nAfter previous tests, administrators improved their security. The hint: “service that plays a vital role for their customer because they require large amounts of data.”"
   },
   {
-    "objectID": "security/index.html#skills-developed",
-    "href": "security/index.html#skills-developed",
-    "title": "Security",
-    "section": "",
-    "text": "CTF problem solving\nDigital forensics\nWeb security basics\nNetwork enumeration\nBanner grabbing\n\n\nUse the sidebar to navigate to specific chapters."
+    "objectID": "security/08-htb-firewall-evasion-hard.html#discovery",
+    "href": "security/08-htb-firewall-evasion-hard.html#discovery",
+    "title": "Firewall & IDS/IPS Evasion - Hard Lab",
+    "section": "Discovery",
+    "text": "Discovery\n\nPort Found: 50000\nsudo nmap --source-port 53 -sV -p 50000-50010 10.129.2.47\nPORT      STATE  SERVICE    VERSION\n50000/tcp open   tcpwrapped\n\n\nProblem\n\nService protected by TCP Wrappers\nIDS blocked Nmap scripts\nStandard connections timed out\nMetasploit returned no results"
+  },
+  {
+    "objectID": "security/08-htb-firewall-evasion-hard.html#solution-netcat-with-source-port-binding",
+    "href": "security/08-htb-firewall-evasion-hard.html#solution-netcat-with-source-port-binding",
+    "title": "Firewall & IDS/IPS Evasion - Hard Lab",
+    "section": "Solution: Netcat with Source Port Binding",
+    "text": "Solution: Netcat with Source Port Binding\n\nThe Key Insight\nFirewalls trust traffic from port 53 (DNS). By binding our local port to 53, we bypass firewall rules.\n\n\nCommand\nsudo nc -p 53 10.129.2.47 50000\n\n\nResult\n220 HTB{kjnsdf2n982n1827eh76238s98di1w6}"
+  },
+  {
+    "objectID": "security/08-htb-firewall-evasion-hard.html#answer",
+    "href": "security/08-htb-firewall-evasion-hard.html#answer",
+    "title": "Firewall & IDS/IPS Evasion - Hard Lab",
+    "section": "Answer",
+    "text": "Answer\nFlag: HTB{kjnsdf2n982n1827eh76238s98di1w6}"
+  },
+  {
+    "objectID": "security/08-htb-firewall-evasion-hard.html#technical-explanation",
+    "href": "security/08-htb-firewall-evasion-hard.html#technical-explanation",
+    "title": "Firewall & IDS/IPS Evasion - Hard Lab",
+    "section": "Technical Explanation",
+    "text": "Technical Explanation\n\nSource Port Bypass\n┌─────────────────┐                    ┌─────────────────┐\n│   Kali Linux    │                    │    Target       │\n│ Port: 53 (DNS)  │ ─────────────────► │ Port: 50000     │\n│ (bound locally) │                    │ (IBM DB2)       │\n└─────────────────┘                    └─────────────────┘\n         │                                    │\n         │    Firewall Rule:                  │\n         │    \"Allow traffic FROM port 53\"    │\n         └────────────────────────────────────┘\n\n\nWhy It Works\n\n\n\nFactor\nExplanation\n\n\n\n\nPort 53\nDNS traffic is trusted\n\n\nsudo required\nPorts &lt; 1024 are privileged\n\n\nNetcat\nSimple TCP, no IDS pattern"
+  },
+  {
+    "objectID": "security/08-htb-firewall-evasion-hard.html#failed-attempts",
+    "href": "security/08-htb-firewall-evasion-hard.html#failed-attempts",
+    "title": "Firewall & IDS/IPS Evasion - Hard Lab",
+    "section": "Failed Attempts",
+    "text": "Failed Attempts\n\n\n\nTechnique\nResult\n\n\n\n\nDirect nc connection\nTimeout\n\n\nNmap -sV with source-port\ntcpwrapped\n\n\nNmap db2-das-info script\nfiltered\n\n\nMetasploit db2_version\nNo results\n\n\nFragmentation (-f)\ntcpwrapped"
+  },
+  {
+    "objectID": "security/08-htb-firewall-evasion-hard.html#key-learnings",
+    "href": "security/08-htb-firewall-evasion-hard.html#key-learnings",
+    "title": "Firewall & IDS/IPS Evasion - Hard Lab",
+    "section": "Key Learnings",
+    "text": "Key Learnings\n\nSimple tools bypass complex defenses: Netcat worked where Nmap failed\nSource port manipulation: Binding to trusted ports bypasses firewalls\nPrivileged ports: Ports &lt; 1024 require root but are trusted\nPassive techniques: No IDS alerts with simple connection"
+  },
+  {
+    "objectID": "security/08-htb-firewall-evasion-hard.html#evasion-techniques-comparison",
+    "href": "security/08-htb-firewall-evasion-hard.html#evasion-techniques-comparison",
+    "title": "Firewall & IDS/IPS Evasion - Hard Lab",
+    "section": "Evasion Techniques Comparison",
+    "text": "Evasion Techniques Comparison\n\n\n\nTechnique\nEffectiveness\nAlerts\n\n\n\n\nSource Port 53\n✅ Very High\n0\n\n\nDecoys (-D)\nMedium\nSome\n\n\nFragmentation\nLow\nSome\n\n\nNetcat passive\n✅ Very High\n0"
   },
   {
     "objectID": "roadmap/index.html",
