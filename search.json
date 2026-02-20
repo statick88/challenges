@@ -525,74 +525,46 @@
     "text": "This learning journey is documented for anyone who wants to follow a similar path. If you have suggestions or want to contribute, feel free to open a pull request on GitHub.\n\nLast updated: 2026-02-19"
   },
   {
-    "objectID": "security/index.html",
-    "href": "security/index.html",
-    "title": "Security",
+    "objectID": "security/05-htb-service-enum.html",
+    "href": "security/05-htb-service-enum.html",
+    "title": "HTB Academy - Service Enumeration",
     "section": "",
-    "text": "This section covers cybersecurity fundamentals - from CTF challenges to HTB Academy modules.\n\n\n\n\n\nCTF Introduction - Getting started with Capture The Flag\n\n\n\n\n\nForensics Basics - Digital forensics fundamentals\n\n\n\n\n\nWeb Security Basics - Web vulnerability fundamentals\n\n\n\n\n\nHTB Academy Path - Hack The Box Academy modules\n\n\n\n\n\n\n\n\nChallenge\nAnswer\nDate\n\n\n\n\nNmap Default\nHTB{pr0F7pDv3r510nb4nn3r}\n2026-02-11\n\n\nCaesar Cipher\nSolved\n2026-02-16\n\n\nNmap Full Scan\n31337\n2026-02-19\n\n\n\n\n\n\n\nCTF problem solving\nDigital forensics\nWeb security basics\nNetwork enumeration\n\n\nUse the sidebar to navigate to specific chapters."
+    "text": "Platform: Hack The Box Academy\nModule: Network Enumeration with Nmap\nTarget: 10.129.4.45\n\n\n\n\nNmap’s -sV option detects service versions, but it doesn’t always show the complete banner. This is where manual banner grabbing becomes essential.\n\n\n\n\n\n\nsudo nmap 10.129.4.45 -p 22,80,110,139,143,445,31337 -sV\n\n\n\nPORT      STATE SERVICE     VERSION\n22/tcp    open  ssh         OpenSSH 7.6p1 Ubuntu\n80/tcp    open  http        Apache httpd 2.4.29\n110/tcp   open  pop3        Dovecot pop3d\n139/tcp   open  netbios-ssn Samba smbd 3.X - 4.X\n143/tcp   open  imap        Dovecot imapd\n445/tcp   open  netbios-ssn Samba smbd 3.X - 4.X\n31337/tcp open  ftp         ProFTPD\n\n\n\n# Grab FTP banner manually\nnc -nv 10.129.4.45 31337\nOutput:\n220 HTB{pr0F7pDv3r510nb4nn3r}\n\n\n\n\n\nNmap showed “ProFTPD” but missed the flag in the banner!\nAlways verify with manual banner grabbing: - nc -nv &lt;IP&gt; &lt;PORT&gt; - curl -I http://&lt;IP&gt; - telnet &lt;IP&gt; &lt;PORT&gt;\n\n\n\n\nCOMPLETED 🎉\n\nDate: 2026-02-20\nFlag: HTB{pr0F7pDv3r510nb4nn3r}\nPort: 31337/tcp (FTP)\n\n\n← Back to Security"
   },
   {
-    "objectID": "security/index.html#chapters",
-    "href": "security/index.html#chapters",
-    "title": "Security",
+    "objectID": "security/05-htb-service-enum.html#scenario-find-hidden-flag-in-service-banner",
+    "href": "security/05-htb-service-enum.html#scenario-find-hidden-flag-in-service-banner",
+    "title": "HTB Academy - Service Enumeration",
     "section": "",
-    "text": "CTF Introduction - Getting started with Capture The Flag\n\n\n\n\n\nForensics Basics - Digital forensics fundamentals\n\n\n\n\n\nWeb Security Basics - Web vulnerability fundamentals\n\n\n\n\n\nHTB Academy Path - Hack The Box Academy modules"
+    "text": "Platform: Hack The Box Academy\nModule: Network Enumeration with Nmap\nTarget: 10.129.4.45"
   },
   {
-    "objectID": "security/index.html#completed-htb-challenges",
-    "href": "security/index.html#completed-htb-challenges",
-    "title": "Security",
+    "objectID": "security/05-htb-service-enum.html#the-problem-with-automated-scans",
+    "href": "security/05-htb-service-enum.html#the-problem-with-automated-scans",
+    "title": "HTB Academy - Service Enumeration",
     "section": "",
-    "text": "Challenge\nAnswer\nDate\n\n\n\n\nNmap Default\nHTB{pr0F7pDv3r510nb4nn3r}\n2026-02-11\n\n\nCaesar Cipher\nSolved\n2026-02-16\n\n\nNmap Full Scan\n31337\n2026-02-19"
+    "text": "Nmap’s -sV option detects service versions, but it doesn’t always show the complete banner. This is where manual banner grabbing becomes essential."
   },
   {
-    "objectID": "security/index.html#skills-developed",
-    "href": "security/index.html#skills-developed",
-    "title": "Security",
+    "objectID": "security/05-htb-service-enum.html#implementation",
+    "href": "security/05-htb-service-enum.html#implementation",
+    "title": "HTB Academy - Service Enumeration",
     "section": "",
-    "text": "CTF problem solving\nDigital forensics\nWeb security basics\nNetwork enumeration\n\n\nUse the sidebar to navigate to specific chapters."
+    "text": "sudo nmap 10.129.4.45 -p 22,80,110,139,143,445,31337 -sV\n\n\n\nPORT      STATE SERVICE     VERSION\n22/tcp    open  ssh         OpenSSH 7.6p1 Ubuntu\n80/tcp    open  http        Apache httpd 2.4.29\n110/tcp   open  pop3        Dovecot pop3d\n139/tcp   open  netbios-ssn Samba smbd 3.X - 4.X\n143/tcp   open  imap        Dovecot imapd\n445/tcp   open  netbios-ssn Samba smbd 3.X - 4.X\n31337/tcp open  ftp         ProFTPD\n\n\n\n# Grab FTP banner manually\nnc -nv 10.129.4.45 31337\nOutput:\n220 HTB{pr0F7pDv3r510nb4nn3r}"
   },
   {
-    "objectID": "devops-practices.html",
-    "href": "devops-practices.html",
-    "title": "DevOps Practices",
+    "objectID": "security/05-htb-service-enum.html#key-learning",
+    "href": "security/05-htb-service-enum.html#key-learning",
+    "title": "HTB Academy - Service Enumeration",
     "section": "",
-    "text": "This section covers DevOps tools and methodologies - configuration management, automation, and infrastructure practices.\n\n\n\n\n\nAnsible Basics - Getting started with Ansible\n\n\n\n\n\nCron Job Deployment - Scheduled task automation\n\n\n\n\n\nMariaDB Troubleshooting - Fixing database services\n\n\n\n\n\n\nAnsible configuration management\nCron job automation\nDatabase service management\nTroubleshooting production issues\n\n\nUse the sidebar to navigate to specific chapters."
+    "text": "Nmap showed “ProFTPD” but missed the flag in the banner!\nAlways verify with manual banner grabbing: - nc -nv &lt;IP&gt; &lt;PORT&gt; - curl -I http://&lt;IP&gt; - telnet &lt;IP&gt; &lt;PORT&gt;"
   },
   {
-    "objectID": "devops-practices.html#chapters",
-    "href": "devops-practices.html#chapters",
-    "title": "DevOps Practices",
+    "objectID": "security/05-htb-service-enum.html#status",
+    "href": "security/05-htb-service-enum.html#status",
+    "title": "HTB Academy - Service Enumeration",
     "section": "",
-    "text": "Ansible Basics - Getting started with Ansible\n\n\n\n\n\nCron Job Deployment - Scheduled task automation\n\n\n\n\n\nMariaDB Troubleshooting - Fixing database services"
-  },
-  {
-    "objectID": "devops-practices.html#skills-developed",
-    "href": "devops-practices.html#skills-developed",
-    "title": "DevOps Practices",
-    "section": "",
-    "text": "Ansible configuration management\nCron job automation\nDatabase service management\nTroubleshooting production issues\n\n\nUse the sidebar to navigate to specific chapters."
-  },
-  {
-    "objectID": "devops-practices/index.html",
-    "href": "devops-practices/index.html",
-    "title": "DevOps Practices",
-    "section": "",
-    "text": "This section covers DevOps tools and methodologies - configuration management, automation, and infrastructure practices.\n\n\n\n\n\nAnsible Basics - Getting started with Ansible\n\n\n\n\n\nCron Job Deployment - Scheduled task automation\n\n\n\n\n\nMariaDB Troubleshooting - Fixing database services\n\n\n\n\n\n\nAnsible configuration management\nCron job automation\nDatabase service management\nTroubleshooting production issues\n\n\nUse the sidebar to navigate to specific chapters."
-  },
-  {
-    "objectID": "devops-practices/index.html#chapters",
-    "href": "devops-practices/index.html#chapters",
-    "title": "DevOps Practices",
-    "section": "",
-    "text": "Ansible Basics - Getting started with Ansible\n\n\n\n\n\nCron Job Deployment - Scheduled task automation\n\n\n\n\n\nMariaDB Troubleshooting - Fixing database services"
-  },
-  {
-    "objectID": "devops-practices/index.html#skills-developed",
-    "href": "devops-practices/index.html#skills-developed",
-    "title": "DevOps Practices",
-    "section": "",
-    "text": "Ansible configuration management\nCron job automation\nDatabase service management\nTroubleshooting production issues\n\n\nUse the sidebar to navigate to specific chapters."
+    "text": "COMPLETED 🎉\n\nDate: 2026-02-20\nFlag: HTB{pr0F7pDv3r510nb4nn3r}\nPort: 31337/tcp (FTP)\n\n\n← Back to Security"
   },
   {
     "objectID": "security/04-htb-academy.html",
@@ -642,6 +614,83 @@
     "title": "HTB Academy - Network Enumeration",
     "section": "",
     "text": "COMPLETED 🎉\n\nDate: 2026-02-19\nAnswer Submitted: 31337\nPlatform: HTB Academy\n\n\n← Back to Security"
+  },
+  {
+    "objectID": "devops-practices/index.html",
+    "href": "devops-practices/index.html",
+    "title": "DevOps Practices",
+    "section": "",
+    "text": "This section covers DevOps tools and methodologies - configuration management, automation, and infrastructure practices.\n\n\n\n\n\nAnsible Basics - Getting started with Ansible\n\n\n\n\n\nCron Job Deployment - Scheduled task automation\n\n\n\n\n\nMariaDB Troubleshooting - Fixing database services\n\n\n\n\n\n\nAnsible configuration management\nCron job automation\nDatabase service management\nTroubleshooting production issues\n\n\nUse the sidebar to navigate to specific chapters."
+  },
+  {
+    "objectID": "devops-practices/index.html#chapters",
+    "href": "devops-practices/index.html#chapters",
+    "title": "DevOps Practices",
+    "section": "",
+    "text": "Ansible Basics - Getting started with Ansible\n\n\n\n\n\nCron Job Deployment - Scheduled task automation\n\n\n\n\n\nMariaDB Troubleshooting - Fixing database services"
+  },
+  {
+    "objectID": "devops-practices/index.html#skills-developed",
+    "href": "devops-practices/index.html#skills-developed",
+    "title": "DevOps Practices",
+    "section": "",
+    "text": "Ansible configuration management\nCron job automation\nDatabase service management\nTroubleshooting production issues\n\n\nUse the sidebar to navigate to specific chapters."
+  },
+  {
+    "objectID": "devops-practices.html",
+    "href": "devops-practices.html",
+    "title": "DevOps Practices",
+    "section": "",
+    "text": "This section covers DevOps tools and methodologies - configuration management, automation, and infrastructure practices.\n\n\n\n\n\nAnsible Basics - Getting started with Ansible\n\n\n\n\n\nCron Job Deployment - Scheduled task automation\n\n\n\n\n\nMariaDB Troubleshooting - Fixing database services\n\n\n\n\n\n\nAnsible configuration management\nCron job automation\nDatabase service management\nTroubleshooting production issues\n\n\nUse the sidebar to navigate to specific chapters."
+  },
+  {
+    "objectID": "devops-practices.html#chapters",
+    "href": "devops-practices.html#chapters",
+    "title": "DevOps Practices",
+    "section": "",
+    "text": "Ansible Basics - Getting started with Ansible\n\n\n\n\n\nCron Job Deployment - Scheduled task automation\n\n\n\n\n\nMariaDB Troubleshooting - Fixing database services"
+  },
+  {
+    "objectID": "devops-practices.html#skills-developed",
+    "href": "devops-practices.html#skills-developed",
+    "title": "DevOps Practices",
+    "section": "",
+    "text": "Ansible configuration management\nCron job automation\nDatabase service management\nTroubleshooting production issues\n\n\nUse the sidebar to navigate to specific chapters."
+  },
+  {
+    "objectID": "security/index.html",
+    "href": "security/index.html",
+    "title": "Security",
+    "section": "",
+    "text": "This section covers cybersecurity fundamentals - from CTF challenges to HTB Academy modules.\n\n\n\n  \n    6\n    Completed\n  \n  \n    6\n    Remaining\n  \n  \n    50%\n    Progress\n  \n\n\n\n\n\n\n\nNmap Full Port Scan - Complete TCP port enumeration ✓\nService Enumeration - Banner grabbing and version detection ✓\n\n\n\n\n\nCTF Introduction - Getting started with Capture The Flag\n\n\n\n\n\nForensics Basics - Digital forensics fundamentals\n\n\n\n\n\nWeb Security Basics - Web vulnerability fundamentals\n\n\n\n\n\n\n\n\nChallenge\nAnswer\nDate\n\n\n\n\nNmap Default\nHTB{pr0F7pDv3r510nb4nn3r}\n2026-02-11\n\n\nCaesar Cipher\nSolved\n2026-02-16\n\n\nNmap Full Scan\n31337\n2026-02-19\n\n\nService Enumeration\nHTB{pr0F7pDv3r510nb4nn3r}\n2026-02-20\n\n\n\n\n\n\n\nCTF problem solving\nDigital forensics\nWeb security basics\nNetwork enumeration\nBanner grabbing\n\n\nUse the sidebar to navigate to specific chapters."
+  },
+  {
+    "objectID": "security/index.html#progress",
+    "href": "security/index.html#progress",
+    "title": "Security",
+    "section": "",
+    "text": "6\n    Completed\n  \n  \n    6\n    Remaining\n  \n  \n    50%\n    Progress"
+  },
+  {
+    "objectID": "security/index.html#chapters",
+    "href": "security/index.html#chapters",
+    "title": "Security",
+    "section": "",
+    "text": "Nmap Full Port Scan - Complete TCP port enumeration ✓\nService Enumeration - Banner grabbing and version detection ✓\n\n\n\n\n\nCTF Introduction - Getting started with Capture The Flag\n\n\n\n\n\nForensics Basics - Digital forensics fundamentals\n\n\n\n\n\nWeb Security Basics - Web vulnerability fundamentals"
+  },
+  {
+    "objectID": "security/index.html#completed-htb-challenges",
+    "href": "security/index.html#completed-htb-challenges",
+    "title": "Security",
+    "section": "",
+    "text": "Challenge\nAnswer\nDate\n\n\n\n\nNmap Default\nHTB{pr0F7pDv3r510nb4nn3r}\n2026-02-11\n\n\nCaesar Cipher\nSolved\n2026-02-16\n\n\nNmap Full Scan\n31337\n2026-02-19\n\n\nService Enumeration\nHTB{pr0F7pDv3r510nb4nn3r}\n2026-02-20"
+  },
+  {
+    "objectID": "security/index.html#skills-developed",
+    "href": "security/index.html#skills-developed",
+    "title": "Security",
+    "section": "",
+    "text": "CTF problem solving\nDigital forensics\nWeb security basics\nNetwork enumeration\nBanner grabbing\n\n\nUse the sidebar to navigate to specific chapters."
   },
   {
     "objectID": "roadmap/index.html",
@@ -697,7 +746,7 @@
     "href": "index.html",
     "title": "DevOps & Security Learning Journey",
     "section": "",
-    "text": "This website documents my path through Linux system administration, Docker containerization, DevOps practices, and Cybersecurity/CTF challenges.\n\n\nThis journey serves two purposes:\n\nPersonal Progress Tracking - A visual record of what I’ve learned and completed\nLearning Guide for Others - A structured path that others can follow to build similar skills\n\n\n\n\n\n  \n    Total Completion\n    47%\n  \n  \n    \n  \n  \n    ✅ 28 completed\n    📋 32 remaining\n    🎯 60 total\n  \n\n\n\n\n\n\n\n  \n    🐧\n    Linux Foundations\n    45%\n  \n  \n    \n  \n  9/20 challenges completed\n\n\n\n  \n    🐳\n    Docker\n    100%\n  \n  \n    \n  \n  6/6 challenges completed\n\n\n\n  \n    ⚙️\n    DevOps\n    50%\n  \n  \n    \n  \n  8/16 challenges completed\n\n\n\n  \n    🔒\n    Security\n    43%\n  \n  \n    \n  \n  5/12 challenges completed\n\n\n\n\n\n\n\n\n\n  ✓\n  \n    \n    User management, permissions, networking, shell scripting\n    Completed\n  \n\n\n\n  ✓\n  \n    \n    Docker basics, volumes, networks, troubleshooting\n    Completed\n  \n\n\n\n  ◐\n  \n    \n    Ansible, Cron, MariaDB, CI/CD basics\n    In Progress - 50%\n  \n\n\n\n  ○\n  \n    \n    CTF basics, forensics, web security, HTB Academy\n    Not Started\n  \n\n\n\n  ○\n  \n    \n    Kubernetes, advanced networking, penetration testing\n    Not Started\n  \n\n\n\n\n\n\nThe learning journey is organized into four main areas:\n\n\nLinux system administration fundamentals\n\n\n\nDocker and containerization\n\n\n\nDevOps tools and methodologies\n\n\n\nCybersecurity fundamentals\n\n\n\n\n\n\n\nSkill\nLevel\nStatus\n\n\n\n\nLinux System Administration\n🟢 Intermediate\nIn Progress\n\n\nDocker & Containers\n🟢 Intermediate\nCertified\n\n\nAnsible\n🔵 Basic\nLearning\n\n\nBash Scripting\n🟢 Intermediate\nCompleted\n\n\nNetwork Security\n🔵 Basic\nLearning\n\n\nCTF Problem Solving\n🔵 Basic\nStarted\n\n\nHTB Academy\n🔵 Basic\nStarted\n\n\n\n\n\n\nUse the sidebar to navigate between sections, or click on the section links above.\n\nThis journey is continuously updated as new challenges are completed."
+    "text": "This website documents my path through Linux system administration, Docker containerization, DevOps practices, and Cybersecurity/CTF challenges.\n\n\nThis journey serves two purposes:\n\nPersonal Progress Tracking - A visual record of what I’ve learned and completed\nLearning Guide for Others - A structured path that others can follow to build similar skills\n\n\n\n\n\n  \n    Total Completion\n    48%\n  \n  \n    \n  \n  \n    ✅ 29 completed\n    📋 31 remaining\n    🎯 60 total\n  \n\n\n\n\n\n\n\n  \n    🐧\n    Linux Foundations\n    45%\n  \n  \n    \n  \n  9/20 challenges completed\n\n\n\n  \n    🐳\n    Docker\n    100%\n  \n  \n    \n  \n  6/6 challenges completed\n\n\n\n  \n    ⚙️\n    DevOps\n    50%\n  \n  \n    \n  \n  8/16 challenges completed\n\n\n\n  \n    🔒\n    Security\n    50%\n  \n  \n    \n  \n  6/12 challenges completed\n\n\n\n\n\n\n\n\n\n  ✓\n  \n    \n    User management, permissions, networking, shell scripting\n    Completed\n  \n\n\n\n  ✓\n  \n    \n    Docker basics, volumes, networks, troubleshooting\n    Completed\n  \n\n\n\n  ◐\n  \n    \n    Ansible, Cron, MariaDB, CI/CD basics\n    In Progress - 50%\n  \n\n\n\n  ○\n  \n    \n    CTF basics, forensics, web security, HTB Academy\n    Not Started\n  \n\n\n\n  ○\n  \n    \n    Kubernetes, advanced networking, penetration testing\n    Not Started\n  \n\n\n\n\n\n\nThe learning journey is organized into four main areas:\n\n\nLinux system administration fundamentals\n\n\n\nDocker and containerization\n\n\n\nDevOps tools and methodologies\n\n\n\nCybersecurity fundamentals\n\n\n\n\n\n\n\nSkill\nLevel\nStatus\n\n\n\n\nLinux System Administration\n🟢 Intermediate\nIn Progress\n\n\nDocker & Containers\n🟢 Intermediate\nCertified\n\n\nAnsible\n🔵 Basic\nLearning\n\n\nBash Scripting\n🟢 Intermediate\nCompleted\n\n\nNetwork Security\n🔵 Basic\nLearning\n\n\nCTF Problem Solving\n🔵 Basic\nStarted\n\n\nHTB Academy\n🔵 Basic\nStarted\n\n\n\n\n\n\nUse the sidebar to navigate between sections, or click on the section links above.\n\nThis journey is continuously updated as new challenges are completed."
   },
   {
     "objectID": "index.html#purpose",
@@ -711,14 +760,14 @@
     "href": "index.html#overall-progress",
     "title": "DevOps & Security Learning Journey",
     "section": "",
-    "text": "Total Completion\n    47%\n  \n  \n    \n  \n  \n    ✅ 28 completed\n    📋 32 remaining\n    🎯 60 total"
+    "text": "Total Completion\n    48%\n  \n  \n    \n  \n  \n    ✅ 29 completed\n    📋 31 remaining\n    🎯 60 total"
   },
   {
     "objectID": "index.html#progress-by-area",
     "href": "index.html#progress-by-area",
     "title": "DevOps & Security Learning Journey",
     "section": "",
-    "text": "🐧\n    Linux Foundations\n    45%\n  \n  \n    \n  \n  9/20 challenges completed\n\n\n\n  \n    🐳\n    Docker\n    100%\n  \n  \n    \n  \n  6/6 challenges completed\n\n\n\n  \n    ⚙️\n    DevOps\n    50%\n  \n  \n    \n  \n  8/16 challenges completed\n\n\n\n  \n    🔒\n    Security\n    43%\n  \n  \n    \n  \n  5/12 challenges completed"
+    "text": "🐧\n    Linux Foundations\n    45%\n  \n  \n    \n  \n  9/20 challenges completed\n\n\n\n  \n    🐳\n    Docker\n    100%\n  \n  \n    \n  \n  6/6 challenges completed\n\n\n\n  \n    ⚙️\n    DevOps\n    50%\n  \n  \n    \n  \n  8/16 challenges completed\n\n\n\n  \n    🔒\n    Security\n    50%\n  \n  \n    \n  \n  6/12 challenges completed"
   },
   {
     "objectID": "index.html#learning-path",

@@ -153,12 +153,13 @@ ul.task-list li input[type="checkbox"] {
   <ul>
   <li><a href="#security" id="toc-security" class="nav-link active" data-scroll-target="#security">Security 🔒</a>
   <ul class="collapse">
+  <li><a href="#progress" id="toc-progress" class="nav-link" data-scroll-target="#progress">📊 Progress</a></li>
   <li><a href="#chapters" id="toc-chapters" class="nav-link" data-scroll-target="#chapters">📋 Chapters</a>
   <ul class="collapse">
+  <li><a href="#htb-academy---network-enumeration" id="toc-htb-academy---network-enumeration" class="nav-link" data-scroll-target="#htb-academy---network-enumeration">HTB Academy - Network Enumeration</a></li>
   <li><a href="#ctf-challenges" id="toc-ctf-challenges" class="nav-link" data-scroll-target="#ctf-challenges">CTF Challenges</a></li>
   <li><a href="#forensics" id="toc-forensics" class="nav-link" data-scroll-target="#forensics">Forensics</a></li>
   <li><a href="#web-security" id="toc-web-security" class="nav-link" data-scroll-target="#web-security">Web Security</a></li>
-  <li><a href="#htb-academy" id="toc-htb-academy" class="nav-link" data-scroll-target="#htb-academy">HTB Academy</a></li>
   </ul></li>
   <li><a href="#completed-htb-challenges" id="toc-completed-htb-challenges" class="nav-link" data-scroll-target="#completed-htb-challenges">📊 Completed HTB Challenges</a></li>
   <li><a href="#skills-developed" id="toc-skills-developed" class="nav-link" data-scroll-target="#skills-developed">🎯 Skills Developed</a></li>
@@ -191,8 +192,32 @@ ul.task-list li input[type="checkbox"] {
 <section id="security" class="level1">
 <h1>Security 🔒</h1>
 <p>This section covers <strong>cybersecurity fundamentals</strong> - from CTF challenges to HTB Academy modules.</p>
+<section id="progress" class="level2">
+<h2 class="anchored" data-anchor-id="progress">📊 Progress</h2>
+<div class="progress-summary">
+  <div class="progress-item">
+    <span class="progress-number">6</span>
+    <span class="progress-label">Completed</span>
+  </div>
+  <div class="progress-item">
+    <span class="progress-number">6</span>
+    <span class="progress-label">Remaining</span>
+  </div>
+  <div class="progress-item">
+    <span class="progress-number">50%</span>
+    <span class="progress-label">Progress</span>
+  </div>
+</div>
+</section>
 <section id="chapters" class="level2">
 <h2 class="anchored" data-anchor-id="chapters">📋 Chapters</h2>
+<section id="htb-academy---network-enumeration" class="level3">
+<h3 class="anchored" data-anchor-id="htb-academy---network-enumeration">HTB Academy - Network Enumeration</h3>
+<ul>
+<li><a href="04-htb-academy.html">Nmap Full Port Scan</a> - Complete TCP port enumeration ✓</li>
+<li><a href="05-htb-service-enum.html">Service Enumeration</a> - Banner grabbing and version detection ✓</li>
+</ul>
+</section>
 <section id="ctf-challenges" class="level3">
 <h3 class="anchored" data-anchor-id="ctf-challenges">CTF Challenges</h3>
 <ul>
@@ -209,12 +234,6 @@ ul.task-list li input[type="checkbox"] {
 <h3 class="anchored" data-anchor-id="web-security">Web Security</h3>
 <ul>
 <li><a href="03-web-security.html">Web Security Basics</a> - Web vulnerability fundamentals</li>
-</ul>
-</section>
-<section id="htb-academy" class="level3">
-<h3 class="anchored" data-anchor-id="htb-academy">HTB Academy</h3>
-<ul>
-<li><a href="04-htb-academy.html">HTB Academy Path</a> - Hack The Box Academy modules</li>
 </ul>
 </section>
 </section>
@@ -244,6 +263,11 @@ ul.task-list li input[type="checkbox"] {
 <td>31337</td>
 <td>2026-02-19</td>
 </tr>
+<tr class="even">
+<td>Service Enumeration</td>
+<td>HTB{pr0F7pDv3r510nb4nn3r}</td>
+<td>2026-02-20</td>
+</tr>
 </tbody>
 </table>
 </section>
@@ -254,9 +278,37 @@ ul.task-list li input[type="checkbox"] {
 <li>Digital forensics</li>
 <li>Web security basics</li>
 <li>Network enumeration</li>
+<li>Banner grabbing</li>
 </ul>
 <hr>
 <p><em>Use the sidebar to navigate to specific chapters.</em></p>
+<style>
+.progress-summary {
+  display: flex;
+  justify-content: space-around;
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  border: 1px solid #334155;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.progress-item {
+  text-align: center;
+}
+
+.progress-number {
+  display: block;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #22c55e;
+}
+
+.progress-label {
+  font-size: 0.85rem;
+  color: #94a3b8;
+}
+</style>
 
 
 </section>

@@ -6,9 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2026-02-19">
+<meta name="dcterms.date" content="2026-02-20">
+<meta name="description" content="Service version detection and banner grabbing with Nmap">
 
-<title>DevOps &amp; Security Learning Journey</title>
+<title>HTB Academy - Service Enumeration – DevOps &amp; Security Learning Journey</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,27 +22,62 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-7ac2f9da8c2617a4fdd15004b4601015.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-3dad1a9f078d91cda5f1887d21eb11b5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-7ac2f9da8c2617a4fdd15004b4601015.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-3dad1a9f078d91cda5f1887d21eb11b5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -80,7 +116,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">DevOps &amp; Security Learning Journey</span>
     </a>
   </div>
@@ -91,27 +127,27 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./foundations/index.html"> 
+    <a class="nav-link" href="../foundations/index.html"> 
 <span class="menu-text">Foundations</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./containers/index.html"> 
+    <a class="nav-link" href="../containers/index.html"> 
 <span class="menu-text">Containers</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./devops-practices/index.html"> 
+    <a class="nav-link" href="../devops-practices/index.html"> 
 <span class="menu-text">DevOps</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./security/index.html"> 
+    <a class="nav-link" href="../security/index.html"> 
 <span class="menu-text">Security</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./roadmap/index.html"> 
+    <a class="nav-link" href="../roadmap/index.html"> 
 <span class="menu-text">Roadmap</span></a>
   </li>  
 </ul>
@@ -122,11 +158,11 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-language">    
         <li>
-    <a class="dropdown-item" href="./es/index.html">
+    <a class="dropdown-item" href="../es/index.html">
  <span class="dropdown-text">Español</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./index.html">
+    <a class="dropdown-item" href="../index.html">
  <span class="dropdown-text">English</span></a>
   </li>  
     </ul>
@@ -152,21 +188,18 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#welcome-to-my-learning-journey" id="toc-welcome-to-my-learning-journey" class="nav-link active" data-scroll-target="#welcome-to-my-learning-journey">Welcome to My Learning Journey</a>
+  <li><a href="#service-enumeration-with-nmap" id="toc-service-enumeration-with-nmap" class="nav-link active" data-scroll-target="#service-enumeration-with-nmap">Service Enumeration with Nmap</a>
   <ul class="collapse">
-  <li><a href="#purpose" id="toc-purpose" class="nav-link" data-scroll-target="#purpose">🎯 Purpose</a></li>
-  <li><a href="#overall-progress" id="toc-overall-progress" class="nav-link" data-scroll-target="#overall-progress">📊 Overall Progress</a></li>
-  <li><a href="#progress-by-area" id="toc-progress-by-area" class="nav-link" data-scroll-target="#progress-by-area">📈 Progress by Area</a></li>
-  <li><a href="#learning-path" id="toc-learning-path" class="nav-link" data-scroll-target="#learning-path">🗺️ Learning Path</a></li>
-  <li><a href="#structure" id="toc-structure" class="nav-link" data-scroll-target="#structure">📚 Structure</a>
+  <li><a href="#scenario-find-hidden-flag-in-service-banner" id="toc-scenario-find-hidden-flag-in-service-banner" class="nav-link" data-scroll-target="#scenario-find-hidden-flag-in-service-banner">Scenario: Find Hidden Flag in Service Banner</a></li>
+  <li><a href="#the-problem-with-automated-scans" id="toc-the-problem-with-automated-scans" class="nav-link" data-scroll-target="#the-problem-with-automated-scans">🧠 The Problem with Automated Scans</a></li>
+  <li><a href="#implementation" id="toc-implementation" class="nav-link" data-scroll-target="#implementation">🛠️ Implementation</a>
   <ul class="collapse">
-  <li><a href="#foundations" id="toc-foundations" class="nav-link" data-scroll-target="#foundations">Foundations 🐧</a></li>
-  <li><a href="#containers" id="toc-containers" class="nav-link" data-scroll-target="#containers">Containers 🐳</a></li>
-  <li><a href="#devops-practices" id="toc-devops-practices" class="nav-link" data-scroll-target="#devops-practices">DevOps Practices ⚙️</a></li>
-  <li><a href="#security" id="toc-security" class="nav-link" data-scroll-target="#security">Security 🔒</a></li>
+  <li><a href="#step-1-full-port-scan-with-version-detection" id="toc-step-1-full-port-scan-with-version-detection" class="nav-link" data-scroll-target="#step-1-full-port-scan-with-version-detection">Step 1: Full Port Scan with Version Detection</a></li>
+  <li><a href="#step-2-results-from-nmap" id="toc-step-2-results-from-nmap" class="nav-link" data-scroll-target="#step-2-results-from-nmap">Step 2: Results from Nmap</a></li>
+  <li><a href="#step-3-manual-banner-grabbing" id="toc-step-3-manual-banner-grabbing" class="nav-link" data-scroll-target="#step-3-manual-banner-grabbing">Step 3: Manual Banner Grabbing</a></li>
   </ul></li>
-  <li><a href="#skills-matrix" id="toc-skills-matrix" class="nav-link" data-scroll-target="#skills-matrix">🛠️ Skills Matrix</a></li>
-  <li><a href="#navigation" id="toc-navigation" class="nav-link" data-scroll-target="#navigation">🔗 Navigation</a></li>
+  <li><a href="#key-learning" id="toc-key-learning" class="nav-link" data-scroll-target="#key-learning">🎯 Key Learning</a></li>
+  <li><a href="#status" id="toc-status" class="nav-link" data-scroll-target="#status">✅ Status</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -176,10 +209,20 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">DevOps &amp; Security Learning Journey</h1>
-<p class="subtitle lead">From Linux fundamentals to HTB Academy</p>
-</div>
+<h1 class="title">HTB Academy - Service Enumeration</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">security</div>
+    <div class="quarto-category">htb</div>
+    <div class="quarto-category">nmap</div>
+    <div class="quarto-category">enumeration</div>
+  </div>
+  </div>
 
+<div>
+  <div class="description">
+    Service version detection and banner grabbing with Nmap
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
@@ -188,7 +231,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">February 19, 2026</p>
+      <p class="date">February 20, 2026</p>
     </div>
   </div>
   
@@ -200,386 +243,62 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="welcome-to-my-learning-journey" class="level1">
-<h1>Welcome to My Learning Journey</h1>
-<p>This website documents my path through <strong>Linux system administration</strong>, <strong>Docker containerization</strong>, <strong>DevOps practices</strong>, and <strong>Cybersecurity/CTF challenges</strong>.</p>
-<section id="purpose" class="level2">
-<h2 class="anchored" data-anchor-id="purpose">🎯 Purpose</h2>
-<p>This journey serves two purposes:</p>
-<ol type="1">
-<li><strong>Personal Progress Tracking</strong> - A visual record of what I’ve learned and completed</li>
-<li><strong>Learning Guide for Others</strong> - A structured path that others can follow to build similar skills</li>
-</ol>
-</section>
-<section id="overall-progress" class="level2">
-<h2 class="anchored" data-anchor-id="overall-progress">📊 Overall Progress</h2>
-<div class="progress-container">
-  <div class="progress-header">
-    <span class="progress-label">Total Completion</span>
-    <span class="progress-value">48%</span>
-  </div>
-  <div class="progress-bar-bg">
-    <div class="progress-bar-fill" style="width: 48%;"></div>
-  </div>
-  <div class="progress-stats">
-    <span>✅ 29 completed</span>
-    <span>📋 31 remaining</span>
-    <span>🎯 60 total</span>
-  </div>
-</div>
-</section>
-<section id="progress-by-area" class="level2">
-<h2 class="anchored" data-anchor-id="progress-by-area">📈 Progress by Area</h2>
-<div class="skills-grid">
-
-<div class="skill-card">
-  <div class="skill-header">
-    <span class="skill-icon">🐧</span>
-    <span class="skill-name">Linux Foundations</span>
-    <span class="skill-percent">45%</span>
-  </div>
-  <div class="progress-bar-bg">
-    <div class="progress-bar-fill linux" style="width: 45%;"></div>
-  </div>
-  <div class="skill-details">9/20 challenges completed</div>
-</div>
-
-<div class="skill-card">
-  <div class="skill-header">
-    <span class="skill-icon">🐳</span>
-    <span class="skill-name">Docker</span>
-    <span class="skill-percent">100%</span>
-  </div>
-  <div class="progress-bar-bg">
-    <div class="progress-bar-fill docker" style="width: 100%;"></div>
-  </div>
-  <div class="skill-details">6/6 challenges completed</div>
-</div>
-
-<div class="skill-card">
-  <div class="skill-header">
-    <span class="skill-icon">⚙️</span>
-    <span class="skill-name">DevOps</span>
-    <span class="skill-percent">50%</span>
-  </div>
-  <div class="progress-bar-bg">
-    <div class="progress-bar-fill devops" style="width: 50%;"></div>
-  </div>
-  <div class="skill-details">8/16 challenges completed</div>
-</div>
-
-<div class="skill-card">
-  <div class="skill-header">
-    <span class="skill-icon">🔒</span>
-    <span class="skill-name">Security</span>
-    <span class="skill-percent">50%</span>
-  </div>
-  <div class="progress-bar-bg">
-    <div class="progress-bar-fill security" style="width: 50%;"></div>
-  </div>
-  <div class="skill-details">6/12 challenges completed</div>
-</div>
-
-</div>
-</section>
-<section id="learning-path" class="level2">
-<h2 class="anchored" data-anchor-id="learning-path">🗺️ Learning Path</h2>
-<div class="path-timeline">
-
-<div class="path-item completed">
-  <div class="path-marker">✓</div>
-  <div class="path-content">
-    <h4 class="anchored">Phase 1: Linux Fundamentals</h4>
-    <p>User management, permissions, networking, shell scripting</p>
-    <span class="path-status completed">Completed</span>
-  </div>
-</div>
-
-<div class="path-item completed">
-  <div class="path-marker">✓</div>
-  <div class="path-content">
-    <h4 class="anchored">Phase 2: Containerization</h4>
-    <p>Docker basics, volumes, networks, troubleshooting</p>
-    <span class="path-status completed">Completed</span>
-  </div>
-</div>
-
-<div class="path-item in-progress">
-  <div class="path-marker">◐</div>
-  <div class="path-content">
-    <h4 class="anchored">Phase 3: DevOps Practices</h4>
-    <p>Ansible, Cron, MariaDB, CI/CD basics</p>
-    <span class="path-status in-progress">In Progress - 50%</span>
-  </div>
-</div>
-
-<div class="path-item">
-  <div class="path-marker">○</div>
-  <div class="path-content">
-    <h4 class="anchored">Phase 4: Security Fundamentals</h4>
-    <p>CTF basics, forensics, web security, HTB Academy</p>
-    <span class="path-status">Not Started</span>
-  </div>
-</div>
-
-<div class="path-item">
-  <div class="path-marker">○</div>
-  <div class="path-content">
-    <h4 class="anchored">Phase 5: Advanced Topics</h4>
-    <p>Kubernetes, advanced networking, penetration testing</p>
-    <span class="path-status">Not Started</span>
-  </div>
-</div>
-
-</div>
-</section>
-<section id="structure" class="level2">
-<h2 class="anchored" data-anchor-id="structure">📚 Structure</h2>
-<p>The learning journey is organized into four main areas:</p>
-<section id="foundations" class="level3">
-<h3 class="anchored" data-anchor-id="foundations"><a href="./foundations/index.html">Foundations</a> 🐧</h3>
-<p>Linux system administration fundamentals</p>
-</section>
-<section id="containers" class="level3">
-<h3 class="anchored" data-anchor-id="containers"><a href="./containers/index.html">Containers</a> 🐳</h3>
-<p>Docker and containerization</p>
-</section>
-<section id="devops-practices" class="level3">
-<h3 class="anchored" data-anchor-id="devops-practices"><a href="./devops-practices/index.html">DevOps Practices</a> ⚙️</h3>
-<p>DevOps tools and methodologies</p>
-</section>
-<section id="security" class="level3">
-<h3 class="anchored" data-anchor-id="security"><a href="./security/index.html">Security</a> 🔒</h3>
-<p>Cybersecurity fundamentals</p>
-</section>
-</section>
-<section id="skills-matrix" class="level2">
-<h2 class="anchored" data-anchor-id="skills-matrix">🛠️ Skills Matrix</h2>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Skill</th>
-<th>Level</th>
-<th>Status</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Linux System Administration</td>
-<td>🟢 Intermediate</td>
-<td>In Progress</td>
-</tr>
-<tr class="even">
-<td>Docker &amp; Containers</td>
-<td>🟢 Intermediate</td>
-<td>Certified</td>
-</tr>
-<tr class="odd">
-<td>Ansible</td>
-<td>🔵 Basic</td>
-<td>Learning</td>
-</tr>
-<tr class="even">
-<td>Bash Scripting</td>
-<td>🟢 Intermediate</td>
-<td>Completed</td>
-</tr>
-<tr class="odd">
-<td>Network Security</td>
-<td>🔵 Basic</td>
-<td>Learning</td>
-</tr>
-<tr class="even">
-<td>CTF Problem Solving</td>
-<td>🔵 Basic</td>
-<td>Started</td>
-</tr>
-<tr class="odd">
-<td>HTB Academy</td>
-<td>🔵 Basic</td>
-<td>Started</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="navigation" class="level2">
-<h2 class="anchored" data-anchor-id="navigation">🔗 Navigation</h2>
-<p>Use the sidebar to navigate between sections, or click on the section links above.</p>
+<section id="service-enumeration-with-nmap" class="level1">
+<h1>Service Enumeration with Nmap</h1>
+<section id="scenario-find-hidden-flag-in-service-banner" class="level2">
+<h2 class="anchored" data-anchor-id="scenario-find-hidden-flag-in-service-banner">Scenario: Find Hidden Flag in Service Banner</h2>
+<p><strong>Platform</strong>: Hack The Box Academy<br>
+<strong>Module</strong>: Network Enumeration with Nmap<br>
+<strong>Target</strong>: 10.129.4.45</p>
 <hr>
-<p><em>This journey is continuously updated as new challenges are completed.</em></p>
-<style>
-.progress-container {
-  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-  border: 1px solid #334155;
-  border-radius: 12px;
-  padding: 1.5rem;
-  margin: 1.5rem 0;
-}
-
-.progress-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 0.75rem;
-}
-
-.progress-label {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #e2e8f0;
-}
-
-.progress-value {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #22d3ee;
-}
-
-.progress-bar-bg {
-  background: #334155;
-  border-radius: 999px;
-  height: 12px;
-  overflow: hidden;
-}
-
-.progress-bar-fill {
-  background: linear-gradient(90deg, #22d3ee 0%, #06b6d4 100%);
-  height: 100%;
-  border-radius: 999px;
-  transition: width 0.5s ease;
-}
-
-.progress-stats {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 0.75rem;
-  font-size: 0.85rem;
-  color: #94a3b8;
-}
-
-.skills-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1rem;
-  margin: 1.5rem 0;
-}
-
-.skill-card {
-  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-  border: 1px solid #334155;
-  border-radius: 12px;
-  padding: 1rem;
-}
-
-.skill-header {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 0.5rem;
-}
-
-.skill-icon {
-  font-size: 1.5rem;
-}
-
-.skill-name {
-  flex: 1;
-  font-weight: 600;
-  color: #e2e8f0;
-}
-
-.skill-percent {
-  font-weight: 700;
-  color: #22d3ee;
-}
-
-.skill-card .progress-bar-fill.linux {
-  background: linear-gradient(90deg, #f97316 0%, #ea580c 100%);
-}
-
-.skill-card .progress-bar-fill.docker {
-  background: linear-gradient(90deg, #3b82f6 0%, #2563eb 100%);
-}
-
-.skill-card .progress-bar-fill.devops {
-  background: linear-gradient(90deg, #a855f7 0%, #9333ea 100%);
-}
-
-.skill-card .progress-bar-fill.security {
-  background: linear-gradient(90deg, #22c55e 0%, #16a34a 100%);
-}
-
-.skill-details {
-  font-size: 0.8rem;
-  color: #94a3b8;
-  margin-top: 0.5rem;
-}
-
-.path-timeline {
-  margin: 2rem 0;
-  padding-left: 2rem;
-  border-left: 2px solid #334155;
-}
-
-.path-item {
-  position: relative;
-  margin-bottom: 1.5rem;
-  padding-left: 1.5rem;
-}
-
-.path-marker {
-  position: absolute;
-  left: -2.4rem;
-  width: 1.2rem;
-  height: 1.2rem;
-  border-radius: 50%;
-  background: #334155;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.7rem;
-  color: #64748b;
-}
-
-.path-item.completed .path-marker {
-  background: #22c55e;
-  color: white;
-}
-
-.path-item.in-progress .path-marker {
-  background: #f59e0b;
-  color: white;
-}
-
-.path-content h4 {
-  margin: 0 0 0.25rem 0;
-  color: #e2e8f0;
-}
-
-.path-content p {
-  margin: 0 0 0.5rem 0;
-  color: #94a3b8;
-  font-size: 0.9rem;
-}
-
-.path-status {
-  font-size: 0.75rem;
-  padding: 0.25rem 0.75rem;
-  border-radius: 999px;
-  background: #334155;
-  color: #64748b;
-}
-
-.path-status.completed {
-  background: rgba(34, 197, 94, 0.2);
-  color: #22c55e;
-}
-
-.path-status.in-progress {
-  background: rgba(245, 158, 11, 0.2);
-  color: #f59e0b;
-}
-</style>
+</section>
+<section id="the-problem-with-automated-scans" class="level2">
+<h2 class="anchored" data-anchor-id="the-problem-with-automated-scans">🧠 The Problem with Automated Scans</h2>
+<p>Nmap’s <code>-sV</code> option detects service versions, but it doesn’t always show the complete banner. This is where manual banner grabbing becomes essential.</p>
+<hr>
+</section>
+<section id="implementation" class="level2">
+<h2 class="anchored" data-anchor-id="implementation">🛠️ Implementation</h2>
+<section id="step-1-full-port-scan-with-version-detection" class="level3">
+<h3 class="anchored" data-anchor-id="step-1-full-port-scan-with-version-detection">Step 1: Full Port Scan with Version Detection</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> nmap 10.129.4.45 <span class="at">-p</span> 22,80,110,139,143,445,31337 <span class="at">-sV</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="step-2-results-from-nmap" class="level3">
+<h3 class="anchored" data-anchor-id="step-2-results-from-nmap">Step 2: Results from Nmap</h3>
+<pre><code>PORT      STATE SERVICE     VERSION
+22/tcp    open  ssh         OpenSSH 7.6p1 Ubuntu
+80/tcp    open  http        Apache httpd 2.4.29
+110/tcp   open  pop3        Dovecot pop3d
+139/tcp   open  netbios-ssn Samba smbd 3.X - 4.X
+143/tcp   open  imap        Dovecot imapd
+445/tcp   open  netbios-ssn Samba smbd 3.X - 4.X
+31337/tcp open  ftp         ProFTPD</code></pre>
+</section>
+<section id="step-3-manual-banner-grabbing" class="level3">
+<h3 class="anchored" data-anchor-id="step-3-manual-banner-grabbing">Step 3: Manual Banner Grabbing</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Grab FTP banner manually</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">nc</span> <span class="at">-nv</span> 10.129.4.45 31337</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Output:</strong></p>
+<pre><code>220 HTB{pr0F7pDv3r510nb4nn3r}</code></pre>
+<hr>
+</section>
+</section>
+<section id="key-learning" class="level2">
+<h2 class="anchored" data-anchor-id="key-learning">🎯 Key Learning</h2>
+<p><strong>Nmap showed “ProFTPD” but missed the flag in the banner!</strong></p>
+<p>Always verify with manual banner grabbing: - <code>nc -nv &lt;IP&gt; &lt;PORT&gt;</code> - <code>curl -I http://&lt;IP&gt;</code> - <code>telnet &lt;IP&gt; &lt;PORT&gt;</code></p>
+<hr>
+</section>
+<section id="status" class="level2">
+<h2 class="anchored" data-anchor-id="status">✅ Status</h2>
+<p><strong>COMPLETED</strong> 🎉</p>
+<ul>
+<li>Date: 2026-02-20</li>
+<li>Flag: <code>HTB{pr0F7pDv3r510nb4nn3r}</code></li>
+<li>Port: 31337/tcp (FTP)</li>
+</ul>
+<hr>
+<p><em><a href="../security/index.html">← Back to Security</a></em></p>
 
 
 </section>
