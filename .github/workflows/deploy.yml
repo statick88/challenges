@@ -10,6 +10,7 @@ on:
       - "landing-page/src/**"
       - "landing-page/scripts/**"
       - "landing-page/package.json"
+      - "learning-journey/**"
       - ".github/workflows/deploy.yml"
   workflow_dispatch:
 
@@ -29,12 +30,15 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # Necesario para obtener historial completo
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "20"
+
+      - name: Setup Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
 
       - name: Install dependencies
         working-directory: ./landing-page
@@ -52,6 +56,13 @@ jobs:
         env:
           TZ: America/Guayaquil
           GITHUB_PAGES: "true"
+
+      - name: Build Quarto ebook
+        working-directory: ./learning-journey
+        run: quarto render
+
+      - name: Merge Quarto output with Astro dist
+        run: cp -r learning-journey/_site landing-page/dist/learning-journey
 
       - name: Upload build artifacts
         uses: actions/upload-pages-artifact@v3
