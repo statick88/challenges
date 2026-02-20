@@ -153,6 +153,7 @@ ul.task-list li input[type="checkbox"] {
   <ul>
   <li><a href="#containerization" id="toc-containerization" class="nav-link active" data-scroll-target="#containerization">Containerization 🐳</a>
   <ul class="collapse">
+  <li><a href="#progress" id="toc-progress" class="nav-link" data-scroll-target="#progress">📊 Progress</a></li>
   <li><a href="#chapters" id="toc-chapters" class="nav-link" data-scroll-target="#chapters">📋 Chapters</a>
   <ul class="collapse">
   <li><a href="#docker-fundamentals" id="toc-docker-fundamentals" class="nav-link" data-scroll-target="#docker-fundamentals">Docker Fundamentals</a></li>
@@ -187,16 +188,32 @@ ul.task-list li input[type="checkbox"] {
 <section id="containerization" class="level1">
 <h1>Containerization 🐳</h1>
 <p>This section covers <strong>Docker and containerization</strong> fundamentals - essential skills for modern DevOps engineers.</p>
+<section id="progress" class="level2">
+<h2 class="anchored" data-anchor-id="progress">📊 Progress</h2>
+<div class="progress-summary">
+  <div class="progress-item">
+    <span class="progress-number">6</span>
+    <span class="progress-label">Completed</span>
+  </div>
+  <div class="progress-item">
+    <span class="progress-number">0</span>
+    <span class="progress-label">Remaining</span>
+  </div>
+  <div class="progress-item">
+    <span class="progress-number">100%</span>
+    <span class="progress-label">Progress</span>
+  </div>
+</div>
+</section>
 <section id="chapters" class="level2">
 <h2 class="anchored" data-anchor-id="chapters">📋 Chapters</h2>
 <section id="docker-fundamentals" class="level3">
 <h3 class="anchored" data-anchor-id="docker-fundamentals">Docker Fundamentals</h3>
 <ul>
-<li><a href="01-docker-fundamentals.html">Docker Installation</a> - Installing Docker</li>
-<li><a href="02-nginx-deployment.html">Nginx Deployment</a> - Deploying web containers</li>
-<li><a href="03-container-management.html">Container Management</a> - Managing containers</li>
-<li><a href="04-volume-management.html">Volume Management</a> - Working with volumes</li>
-<li><a href="05-troubleshooting.html">Troubleshooting</a> - Debugging container issues</li>
+<li><a href="01-docker-fundamentals.html">Docker Installation</a> - Installing Docker ✓</li>
+<li><a href="02-nginx-deployment.html">Nginx Deployment</a> - Deploying web containers ✓</li>
+<li><a href="03-container-management.html">Container Management</a> - Managing containers ✓</li>
+<li><a href="04-volume-management.html">Volume Management</a> - Working with volumes ✓</li>
 </ul>
 </section>
 </section>
@@ -210,6 +227,33 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 <hr>
 <p><em>Use the sidebar to navigate to specific chapters.</em></p>
+<style>
+.progress-summary {
+  display: flex;
+  justify-content: space-around;
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  border: 1px solid #334155;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.progress-item {
+  text-align: center;
+}
+
+.progress-number {
+  display: block;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #3b82f6;
+}
+
+.progress-label {
+  font-size: 0.85rem;
+  color: #94a3b8;
+}
+</style>
 
 
 </section>

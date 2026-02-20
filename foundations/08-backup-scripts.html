@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="dcterms.date" content="2026-01-31">
+<meta name="description" content="Creating automated backup procedures for critical data">
 
-<title>Linux Foundations – DevOps &amp; Security Learning Journey</title>
+<title>Backup Scripts – DevOps &amp; Security Learning Journey</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +21,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -94,7 +131,7 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../foundations/index.html" aria-current="page"> 
+    <a class="nav-link" href="../foundations/index.html"> 
 <span class="menu-text">Foundations</span></a>
   </li>  
   <li class="nav-item">
@@ -151,27 +188,23 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#linux-foundations" id="toc-linux-foundations" class="nav-link active" data-scroll-target="#linux-foundations">Linux Foundations 🐧</a>
+  <li><a href="#backup-scripts" id="toc-backup-scripts" class="nav-link active" data-scroll-target="#backup-scripts">Backup Scripts</a>
   <ul class="collapse">
-  <li><a href="#certification" id="toc-certification" class="nav-link" data-scroll-target="#certification">🏆 Certification</a></li>
-  <li><a href="#progress" id="toc-progress" class="nav-link" data-scroll-target="#progress">📊 Progress</a></li>
-  <li><a href="#chapters" id="toc-chapters" class="nav-link" data-scroll-target="#chapters">📋 Chapters</a></li>
-  <li><a href="#detailed-chapters" id="toc-detailed-chapters" class="nav-link" data-scroll-target="#detailed-chapters">📚 Detailed Chapters</a>
+  <li><a href="#scenario-developer-data-backup-automation" id="toc-scenario-developer-data-backup-automation" class="nav-link" data-scroll-target="#scenario-developer-data-backup-automation">Scenario: Developer Data Backup Automation</a></li>
+  <li><a href="#backup-strategy-fundamentals" id="toc-backup-strategy-fundamentals" class="nav-link" data-scroll-target="#backup-strategy-fundamentals">🧠 Backup Strategy Fundamentals</a>
   <ul class="collapse">
-  <li><a href="#chapter-1-user-management" id="toc-chapter-1-user-management" class="nav-link" data-scroll-target="#chapter-1-user-management">Chapter 1: User Management</a></li>
-  <li><a href="#chapter-2-service-accounts" id="toc-chapter-2-service-accounts" class="nav-link" data-scroll-target="#chapter-2-service-accounts">Chapter 2: Service Accounts</a></li>
-  <li><a href="#chapter-3-temporary-secure-access" id="toc-chapter-3-temporary-secure-access" class="nav-link" data-scroll-target="#chapter-3-temporary-secure-access">Chapter 3: Temporary &amp; Secure Access</a></li>
+  <li><a href="#the-3-2-1-rule" id="toc-the-3-2-1-rule" class="nav-link" data-scroll-target="#the-3-2-1-rule">The 3-2-1 Rule</a></li>
+  <li><a href="#backup-types" id="toc-backup-types" class="nav-link" data-scroll-target="#backup-types">Backup Types</a></li>
   </ul></li>
-  <li><a href="#skills-developed" id="toc-skills-developed" class="nav-link" data-scroll-target="#skills-developed">🎯 Skills Developed</a></li>
-  <li><a href="#coming-soon" id="toc-coming-soon" class="nav-link" data-scroll-target="#coming-soon">🔄 Coming Soon</a>
+  <li><a href="#implementation" id="toc-implementation" class="nav-link" data-scroll-target="#implementation">🛠️ Implementation</a>
   <ul class="collapse">
-  <li><a href="#chapter-1-user-management-1" id="toc-chapter-1-user-management-1" class="nav-link" data-scroll-target="#chapter-1-user-management-1">Chapter 1: User Management</a></li>
-  <li><a href="#chapter-2-temporary-access" id="toc-chapter-2-temporary-access" class="nav-link" data-scroll-target="#chapter-2-temporary-access">Chapter 2: Temporary Access</a></li>
-  <li><a href="#chapter-3-security-hardening" id="toc-chapter-3-security-hardening" class="nav-link" data-scroll-target="#chapter-3-security-hardening">Chapter 3: Security Hardening</a></li>
-  <li><a href="#chapter-4-advanced-topics" id="toc-chapter-4-advanced-topics" class="nav-link" data-scroll-target="#chapter-4-advanced-topics">Chapter 4: Advanced Topics</a></li>
+  <li><a href="#step-1-create-backup-directory" id="toc-step-1-create-backup-directory" class="nav-link" data-scroll-target="#step-1-create-backup-directory">Step 1: Create Backup Directory</a></li>
+  <li><a href="#step-2-create-backup-script" id="toc-step-2-create-backup-script" class="nav-link" data-scroll-target="#step-2-create-backup-script">Step 2: Create Backup Script</a></li>
+  <li><a href="#step-3-make-executable-and-test" id="toc-step-3-make-executable-and-test" class="nav-link" data-scroll-target="#step-3-make-executable-and-test">Step 3: Make Executable and Test</a></li>
   </ul></li>
-  <li><a href="#skills-developed-1" id="toc-skills-developed-1" class="nav-link" data-scroll-target="#skills-developed-1">🎯 Skills Developed</a></li>
-  <li><a href="#coming-soon-1" id="toc-coming-soon-1" class="nav-link" data-scroll-target="#coming-soon-1">🔄 Coming Soon</a></li>
+  <li><a href="#verification" id="toc-verification" class="nav-link" data-scroll-target="#verification">✅ Verification</a></li>
+  <li><a href="#key-learnings" id="toc-key-learnings" class="nav-link" data-scroll-target="#key-learnings">🎯 Key Learnings</a></li>
+  <li><a href="#status" id="toc-status" class="nav-link" data-scroll-target="#status">✅ Status</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -181,14 +214,31 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Linux Foundations</h1>
-</div>
+<h1 class="title">Backup Scripts</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">linux</div>
+    <div class="quarto-category">foundations</div>
+    <div class="quarto-category">automation</div>
+    <div class="quarto-category">backup</div>
+  </div>
+  </div>
 
+<div>
+  <div class="description">
+    Creating automated backup procedures for critical data
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
 
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">January 31, 2026</p>
+    </div>
+  </div>
   
     
   </div>
@@ -198,239 +248,119 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="linux-foundations" class="level1">
-<h1>Linux Foundations 🐧</h1>
-<p>This section covers <strong>Linux system administration fundamentals</strong> - the essential skills every DevOps engineer and security professional needs to master.</p>
-<section id="certification" class="level2">
-<h2 class="anchored" data-anchor-id="certification">🏆 Certification</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="../assets/kodekloud-course-completion-certificate.png" class="img-fluid figure-img"></p>
-<figcaption>Kodekloud Course Completion Certificate</figcaption>
-</figure>
-</div>
+<section id="backup-scripts" class="level1">
+<h1>Backup Scripts</h1>
+<section id="scenario-developer-data-backup-automation" class="level2">
+<h2 class="anchored" data-anchor-id="scenario-developer-data-backup-automation">Scenario: Developer Data Backup Automation</h2>
+<p><strong>Company</strong>: xFusionCorp Industries<br>
+<strong>Task</strong>: Create automated backup for developer data</p>
+<hr>
 </section>
-<section id="progress" class="level2">
-<h2 class="anchored" data-anchor-id="progress">📊 Progress</h2>
-<div class="progress-summary">
-  <div class="progress-item">
-    <span class="progress-number">9</span>
-    <span class="progress-label">Completed</span>
-  </div>
-  <div class="progress-item">
-    <span class="progress-number">11</span>
-    <span class="progress-label">Remaining</span>
-  </div>
-  <div class="progress-item">
-    <span class="progress-number">45%</span>
-    <span class="progress-label">Progress</span>
-  </div>
-</div>
-</section>
-<section id="chapters" class="level2">
-<h2 class="anchored" data-anchor-id="chapters">📋 Chapters</h2>
-<div class="chapters-grid">
-  <a href="01-user-creation.html" class="chapter-card">
-    <span class="chapter-icon">👤</span>
-    <span class="chapter-title">User Creation</span>
-    <span class="chapter-status completed">✓</span>
-  </a>
-  <a href="02-group-management.html" class="chapter-card">
-    <span class="chapter-icon">👥</span>
-    <span class="chapter-title">Group Management</span>
-    <span class="chapter-status completed">✓</span>
-  </a>
-  <a href="03-non-interactive-shell.html" class="chapter-card">
-    <span class="chapter-icon">🔐</span>
-    <span class="chapter-title">Non-Interactive Shell</span>
-    <span class="chapter-status completed">✓</span>
-  </a>
-  <a href="04-users-without-home.html" class="chapter-card">
-    <span class="chapter-icon">🏠</span>
-    <span class="chapter-title">Users Without Home</span>
-    <span class="chapter-status completed">✓</span>
-  </a>
-  <a href="05-temporary-users.html" class="chapter-card">
-    <span class="chapter-icon">⏰</span>
-    <span class="chapter-title">Temporary Users</span>
-    <span class="chapter-status completed">✓</span>
-  </a>
-  <a href="07-ssh-hardening.html" class="chapter-card">
-    <span class="chapter-icon">🔒</span>
-    <span class="chapter-title">SSH Hardening</span>
-    <span class="chapter-status completed">✓</span>
-  </a>
-  <a href="08-backup-scripts.html" class="chapter-card">
-    <span class="chapter-icon">💾</span>
-    <span class="chapter-title">Backup Scripts</span>
-    <span class="chapter-status completed">✓</span>
-  </a>
-</div>
-</section>
-<section id="detailed-chapters" class="level2">
-<h2 class="anchored" data-anchor-id="detailed-chapters">📚 Detailed Chapters</h2>
-<section id="chapter-1-user-management" class="level3">
-<h3 class="anchored" data-anchor-id="chapter-1-user-management">Chapter 1: User Management</h3>
+<section id="backup-strategy-fundamentals" class="level2">
+<h2 class="anchored" data-anchor-id="backup-strategy-fundamentals">🧠 Backup Strategy Fundamentals</h2>
+<p>Every system needs reliable backups. A good backup strategy includes:</p>
+<section id="the-3-2-1-rule" class="level3">
+<h3 class="anchored" data-anchor-id="the-3-2-1-rule">The 3-2-1 Rule</h3>
 <ul>
-<li><a href="01-user-creation.html">User Creation with Custom UID</a> - Creating users with specific UIDs</li>
-<li><a href="02-group-management.html">Group Management</a> - Managing groups</li>
+<li><strong>3</strong> copies of data</li>
+<li><strong>2</strong> different storage types</li>
+<li><strong>1</strong> offsite location</li>
 </ul>
 </section>
-<section id="chapter-2-service-accounts" class="level3">
-<h3 class="anchored" data-anchor-id="chapter-2-service-accounts">Chapter 2: Service Accounts</h3>
-<ul>
-<li><a href="03-non-interactive-shell.html">Non-Interactive Shell</a> - Service accounts without shell access</li>
-<li><a href="04-users-without-home.html">Users Without Home</a> - Minimal service accounts</li>
-</ul>
+<section id="backup-types" class="level3">
+<h3 class="anchored" data-anchor-id="backup-types">Backup Types</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Type</th>
+<th>Description</th>
+<th>Frequency</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Full</td>
+<td>Complete backup</td>
+<td>Weekly</td>
+</tr>
+<tr class="even">
+<td>Incremental</td>
+<td>Changes since last backup</td>
+<td>Daily</td>
+</tr>
+<tr class="odd">
+<td>Differential</td>
+<td>Changes since last full</td>
+<td>Daily</td>
+</tr>
+</tbody>
+</table>
+<hr>
 </section>
-<section id="chapter-3-temporary-secure-access" class="level3">
-<h3 class="anchored" data-anchor-id="chapter-3-temporary-secure-access">Chapter 3: Temporary &amp; Secure Access</h3>
-<ul>
-<li><a href="05-temporary-users.html">Temporary Users</a> - Users with expiration dates</li>
-<li><a href="07-ssh-hardening.html">SSH Hardening</a> - Secure SSH configuration</li>
-<li><a href="08-backup-scripts.html">Backup Scripts</a> - Automated backups</li>
-</ul>
+</section>
+<section id="implementation" class="level2">
+<h2 class="anchored" data-anchor-id="implementation">🛠️ Implementation</h2>
+<section id="step-1-create-backup-directory" class="level3">
+<h3 class="anchored" data-anchor-id="step-1-create-backup-directory">Step 1: Create Backup Directory</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> /backup</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> 700 /backup</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="step-2-create-backup-script" class="level3">
+<h3 class="anchored" data-anchor-id="step-2-create-backup-script">Step 2: Create Backup Script</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># backup.sh</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="va">DATE</span><span class="op">=</span><span class="va">$(</span><span class="fu">date</span> +%Y%m%d_%H%M%S<span class="va">)</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="va">SOURCE</span><span class="op">=</span><span class="st">"/home/developer"</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="va">DEST</span><span class="op">=</span><span class="st">"/backup/developer_</span><span class="va">$DATE</span><span class="st">.tar.gz"</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Create backup</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> <span class="at">-czf</span> <span class="va">$DEST</span> <span class="va">$SOURCE</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Verify</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">[</span> <span class="va">$?</span> <span class="ot">-eq</span> 0 <span class="bu">]</span><span class="kw">;</span> <span class="cf">then</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"Backup successful: </span><span class="va">$DEST</span><span class="st">"</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"Backup failed"</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    <span class="bu">exit</span> 1</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="cf">fi</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="step-3-make-executable-and-test" class="level3">
+<h3 class="anchored" data-anchor-id="step-3-make-executable-and-test">Step 3: Make Executable and Test</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> +x backup.sh</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">./backup.sh</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
 </section>
 </section>
-<section id="skills-developed" class="level2">
-<h2 class="anchored" data-anchor-id="skills-developed">🎯 Skills Developed</h2>
-<ul>
-<li>User and group administration</li>
-<li>Permission management</li>
-<li>SSH security</li>
-<li>Backup automation</li>
-<li>Service account configuration</li>
-</ul>
-</section>
-<section id="coming-soon" class="level2">
-<h2 class="anchored" data-anchor-id="coming-soon">🔄 Coming Soon</h2>
-<ul>
-<li>Network configuration</li>
-<li>Firewall rules (iptables/firewalld)</li>
-<li>SELinux management</li>
-<li>Process limits and tuning</li>
+<section id="verification" class="level2">
+<h2 class="anchored" data-anchor-id="verification">✅ Verification</h2>
+<ul class="task-list">
+<li><label><input type="checkbox">Backup script created</label></li>
+<li><label><input type="checkbox">Script is executable</label></li>
+<li><label><input type="checkbox">Backup file created</label></li>
+<li><label><input type="checkbox">Backup contains expected files</label></li>
+<li><label><input type="checkbox">Restoration test passes</label></li>
 </ul>
 <hr>
-<p><em>Use the sidebar to navigate to specific chapters.</em></p>
-<style>
-.progress-summary {
-  display: flex;
-  justify-content: space-around;
-  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-  border: 1px solid #334155;
-  border-radius: 12px;
-  padding: 1.5rem;
-  margin: 1.5rem 0;
-}
-
-.progress-item {
-  text-align: center;
-}
-
-.progress-number {
-  display: block;
-  font-size: 2rem;
-  font-weight: 700;
-  color: #f97316;
-}
-
-.progress-label {
-  font-size: 0.85rem;
-  color: #94a3b8;
-}
-
-.chapters-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 1rem;
-  margin: 1.5rem 0;
-}
-
-.chapter-card {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 1rem;
-  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-  border: 1px solid #334155;
-  border-radius: 8px;
-  text-decoration: none;
-  transition: all 0.2s ease;
-}
-
-.chapter-card:hover {
-  border-color: #f97316;
-  transform: translateY(-2px);
-}
-
-.chapter-icon {
-  font-size: 1.5rem;
-}
-
-.chapter-title {
-  flex: 1;
-  color: #e2e8f0;
-  font-size: 0.9rem;
-}
-
-.chapter-status {
-  font-size: 0.85rem;
-  color: #64748b;
-}
-
-.chapter-status.completed {
-  color: #22c55e;
-}
-</style>
-<section id="chapter-1-user-management-1" class="level3">
-<h3 class="anchored" data-anchor-id="chapter-1-user-management-1">Chapter 1: User Management</h3>
-<ul>
-<li><a href="01-user-creation.html">User Creation with Custom UID</a> - Creating users with specific UIDs and custom home directories</li>
-<li><a href="02-group-management.html">Group Management</a> - Managing groups and group memberships</li>
-</ul>
 </section>
-<section id="chapter-2-temporary-access" class="level3">
-<h3 class="anchored" data-anchor-id="chapter-2-temporary-access">Chapter 2: Temporary Access</h3>
+<section id="key-learnings" class="level2">
+<h2 class="anchored" data-anchor-id="key-learnings">🎯 Key Learnings</h2>
 <ul>
-<li><a href="05-temporary-users.html">Temporary Users</a> - Users with expiration dates</li>
-<li><a href="06-data-transfer.html">Data Transfer</a> - Secure data migration between users</li>
-</ul>
-</section>
-<section id="chapter-3-security-hardening" class="level3">
-<h3 class="anchored" data-anchor-id="chapter-3-security-hardening">Chapter 3: Security Hardening</h3>
-<ul>
-<li><a href="07-ssh-hardening.html">SSH Root Access</a> - Securing SSH access</li>
-<li><a href="08-backup-scripts.html">Backup Scripts</a> - Automated backup procedures</li>
-<li><a href="09-script-permissions.html">File Permissions</a> - Proper permission management</li>
-</ul>
-</section>
-<section id="chapter-4-advanced-topics" class="level3">
-<h3 class="anchored" data-anchor-id="chapter-4-advanced-topics">Chapter 4: Advanced Topics</h3>
-<ul>
-<li><a href="10-user-file-filtering.html">User File Filtering</a> - Advanced file operations with user filtering</li>
-</ul>
-</section>
-</section>
-<section id="skills-developed-1" class="level2">
-<h2 class="anchored" data-anchor-id="skills-developed-1">🎯 Skills Developed</h2>
-<ul>
-<li>User and group administration</li>
-<li>Permission management</li>
-<li>SSH security</li>
 <li>Backup automation</li>
-<li>Service account configuration</li>
-</ul>
-</section>
-<section id="coming-soon-1" class="level2">
-<h2 class="anchored" data-anchor-id="coming-soon-1">🔄 Coming Soon</h2>
-<ul>
-<li>Network configuration</li>
-<li>Firewall rules (iptables/firewalld)</li>
-<li>SELinux management</li>
-<li>Process limits and tuning</li>
+<li>Tar compression</li>
+<li>Error handling</li>
+<li>Cron integration</li>
 </ul>
 <hr>
-<p><em>Use the sidebar to navigate to specific chapters.</em></p>
+</section>
+<section id="status" class="level2">
+<h2 class="anchored" data-anchor-id="status">✅ Status</h2>
+<p><strong>COMPLETED</strong> 🎉</p>
+<ul>
+<li>Date: 2026-01-31</li>
+</ul>
+<hr>
+<p><em><a href="../foundations/index.html">← Back to Foundations</a></em></p>
 
 
 </section>

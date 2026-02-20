@@ -17,20 +17,36 @@
     <lastmod>2026-02-20T03:26:49.899Z</lastmod>
   </url>
   <url>
+    <loc>https://statick88.github.io/challenges/containers/02-nginx-deployment.html</loc>
+    <lastmod>2026-02-20T04:14:10.353Z</lastmod>
+  </url>
+  <url>
     <loc>https://statick88.github.io/challenges/containers/index.html</loc>
-    <lastmod>2026-02-20T03:32:38.785Z</lastmod>
+    <lastmod>2026-02-20T04:15:38.340Z</lastmod>
   </url>
   <url>
-    <loc>https://statick88.github.io/challenges/foundations.html</loc>
-    <lastmod>2026-02-20T03:17:02.355Z</lastmod>
+    <loc>https://statick88.github.io/challenges/containers/03-container-management.html</loc>
+    <lastmod>2026-02-20T04:14:21.696Z</lastmod>
   </url>
   <url>
-    <loc>https://statick88.github.io/challenges/foundations/02-group-management.html</loc>
-    <lastmod>2026-02-20T03:48:01.915Z</lastmod>
+    <loc>https://statick88.github.io/challenges/security.html</loc>
+    <lastmod>2026-02-20T03:18:14.705Z</lastmod>
   </url>
   <url>
-    <loc>https://statick88.github.io/challenges/foundations/01-user-creation.html</loc>
-    <lastmod>2026-02-20T03:47:56.960Z</lastmod>
+    <loc>https://statick88.github.io/challenges/foundations/08-backup-scripts.html</loc>
+    <lastmod>2026-02-20T04:13:16.956Z</lastmod>
+  </url>
+  <url>
+    <loc>https://statick88.github.io/challenges/foundations/index.html</loc>
+    <lastmod>2026-02-20T04:15:20.714Z</lastmod>
+  </url>
+  <url>
+    <loc>https://statick88.github.io/challenges/foundations/07-ssh-hardening.html</loc>
+    <lastmod>2026-02-20T04:12:59.775Z</lastmod>
+  </url>
+  <url>
+    <loc>https://statick88.github.io/challenges/foundations/05-temporary-users.html</loc>
+    <lastmod>2026-02-20T04:12:46.235Z</lastmod>
   </url>
   <url>
     <loc>https://statick88.github.io/challenges/roadmap.html</loc>
@@ -61,16 +77,32 @@
     <lastmod>2026-02-20T04:07:53.276Z</lastmod>
   </url>
   <url>
-    <loc>https://statick88.github.io/challenges/foundations/index.html</loc>
-    <lastmod>2026-02-20T04:09:43.122Z</lastmod>
+    <loc>https://statick88.github.io/challenges/foundations/01-user-creation.html</loc>
+    <lastmod>2026-02-20T03:47:56.960Z</lastmod>
   </url>
   <url>
-    <loc>https://statick88.github.io/challenges/security.html</loc>
-    <lastmod>2026-02-20T03:18:14.705Z</lastmod>
+    <loc>https://statick88.github.io/challenges/foundations/03-non-interactive-shell.html</loc>
+    <lastmod>2026-02-20T04:12:05.781Z</lastmod>
+  </url>
+  <url>
+    <loc>https://statick88.github.io/challenges/foundations/04-users-without-home.html</loc>
+    <lastmod>2026-02-20T04:12:31.504Z</lastmod>
+  </url>
+  <url>
+    <loc>https://statick88.github.io/challenges/foundations/02-group-management.html</loc>
+    <lastmod>2026-02-20T03:48:01.915Z</lastmod>
+  </url>
+  <url>
+    <loc>https://statick88.github.io/challenges/foundations.html</loc>
+    <lastmod>2026-02-20T03:17:02.355Z</lastmod>
   </url>
   <url>
     <loc>https://statick88.github.io/challenges/containers/01-docker-fundamentals.html</loc>
     <lastmod>2026-02-20T03:48:07.078Z</lastmod>
+  </url>
+  <url>
+    <loc>https://statick88.github.io/challenges/containers/04-volume-management.html</loc>
+    <lastmod>2026-02-20T04:14:53.512Z</lastmod>
   </url>
   <url>
     <loc>https://statick88.github.io/challenges/containers.html</loc>

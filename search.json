@@ -126,18 +126,74 @@
     "text": "Gestión de configuración con Ansible\nAutomatización con Cron\nGestión de servicios de bases de datos\nTroubleshooting de problemas de producción\n\n\nUsa la barra lateral para navegar a capítulos específicos."
   },
   {
+    "objectID": "containers/02-nginx-deployment.html",
+    "href": "containers/02-nginx-deployment.html",
+    "title": "Deploy Nginx Container",
+    "section": "",
+    "text": "Company: Nautilus (Startup scaling for Series A)\nTask: Deploy Nginx container as load balancer proof of concept\n\n\n\n\nNginx in Docker provides: - Scalability: Easy horizontal scaling - Isolation: Containerized from host system - Reproducibility: Same environment everywhere - Resource Efficiency: Lower footprint than VMs\n\n\n\n\n\n\n# Pull latest Nginx image\ndocker pull nginx:latest\n\n# Verify\ndocker images nginx\n\n\n\n# Run Nginx on port 80\ndocker run -d --name nginx-prod -p 80:80 nginx:latest\n\n# Verify running\ndocker ps\n\n\n\n# Mount custom config\ndocker run -d \\\n  --name nginx-prod \\\n  -p 80:80 \\\n  -v /path/nginx.conf:/etc/nginx/nginx.conf:ro \\\n  nginx:latest\n\n\n\n# View logs\ndocker logs nginx-prod\n\n# Follow logs in real-time\ndocker logs -f nginx-prod\n\n# Restart container\ndocker restart nginx-prod\n\n\n\n\n\n\nNginx image pulled successfully\nContainer running in detached mode\nPort 80 accessible\nDefault page loads\nLogs accessible\n\n\n\n\n\n\nDocker container deployment\nPort mapping fundamentals\nLog management\nProduction considerations\n\n\n\n\n\nCOMPLETED 🎉\n\nDate: 2026-01-28\nDifficulty: 2/5\n\n\n← Back to Containers"
+  },
+  {
+    "objectID": "containers/02-nginx-deployment.html#scenario-production-nginx-deployment",
+    "href": "containers/02-nginx-deployment.html#scenario-production-nginx-deployment",
+    "title": "Deploy Nginx Container",
+    "section": "",
+    "text": "Company: Nautilus (Startup scaling for Series A)\nTask: Deploy Nginx container as load balancer proof of concept"
+  },
+  {
+    "objectID": "containers/02-nginx-deployment.html#why-nginx-in-docker",
+    "href": "containers/02-nginx-deployment.html#why-nginx-in-docker",
+    "title": "Deploy Nginx Container",
+    "section": "",
+    "text": "Nginx in Docker provides: - Scalability: Easy horizontal scaling - Isolation: Containerized from host system - Reproducibility: Same environment everywhere - Resource Efficiency: Lower footprint than VMs"
+  },
+  {
+    "objectID": "containers/02-nginx-deployment.html#implementation",
+    "href": "containers/02-nginx-deployment.html#implementation",
+    "title": "Deploy Nginx Container",
+    "section": "",
+    "text": "# Pull latest Nginx image\ndocker pull nginx:latest\n\n# Verify\ndocker images nginx\n\n\n\n# Run Nginx on port 80\ndocker run -d --name nginx-prod -p 80:80 nginx:latest\n\n# Verify running\ndocker ps\n\n\n\n# Mount custom config\ndocker run -d \\\n  --name nginx-prod \\\n  -p 80:80 \\\n  -v /path/nginx.conf:/etc/nginx/nginx.conf:ro \\\n  nginx:latest\n\n\n\n# View logs\ndocker logs nginx-prod\n\n# Follow logs in real-time\ndocker logs -f nginx-prod\n\n# Restart container\ndocker restart nginx-prod"
+  },
+  {
+    "objectID": "containers/02-nginx-deployment.html#verification",
+    "href": "containers/02-nginx-deployment.html#verification",
+    "title": "Deploy Nginx Container",
+    "section": "",
+    "text": "Nginx image pulled successfully\nContainer running in detached mode\nPort 80 accessible\nDefault page loads\nLogs accessible"
+  },
+  {
+    "objectID": "containers/02-nginx-deployment.html#key-learnings",
+    "href": "containers/02-nginx-deployment.html#key-learnings",
+    "title": "Deploy Nginx Container",
+    "section": "",
+    "text": "Docker container deployment\nPort mapping fundamentals\nLog management\nProduction considerations"
+  },
+  {
+    "objectID": "containers/02-nginx-deployment.html#status",
+    "href": "containers/02-nginx-deployment.html#status",
+    "title": "Deploy Nginx Container",
+    "section": "",
+    "text": "COMPLETED 🎉\n\nDate: 2026-01-28\nDifficulty: 2/5\n\n\n← Back to Containers"
+  },
+  {
     "objectID": "containers/index.html",
     "href": "containers/index.html",
     "title": "Containers",
     "section": "",
-    "text": "This section covers Docker and containerization fundamentals - essential skills for modern DevOps engineers.\n\n\n\n\n\nDocker Installation - Installing Docker\nNginx Deployment - Deploying web containers\nContainer Management - Managing containers\nVolume Management - Working with volumes\nTroubleshooting - Debugging container issues\n\n\n\n\n\n\nContainer basics\nImage management\nVolume and network configuration\nContainer troubleshooting\n\n\nUse the sidebar to navigate to specific chapters."
+    "text": "This section covers Docker and containerization fundamentals - essential skills for modern DevOps engineers.\n\n\n\n  \n    6\n    Completed\n  \n  \n    0\n    Remaining\n  \n  \n    100%\n    Progress\n  \n\n\n\n\n\n\n\nDocker Installation - Installing Docker ✓\nNginx Deployment - Deploying web containers ✓\nContainer Management - Managing containers ✓\nVolume Management - Working with volumes ✓\n\n\n\n\n\n\nContainer basics\nImage management\nVolume and network configuration\nContainer troubleshooting\n\n\nUse the sidebar to navigate to specific chapters."
+  },
+  {
+    "objectID": "containers/index.html#progress",
+    "href": "containers/index.html#progress",
+    "title": "Containers",
+    "section": "",
+    "text": "6\n    Completed\n  \n  \n    0\n    Remaining\n  \n  \n    100%\n    Progress"
   },
   {
     "objectID": "containers/index.html#chapters",
     "href": "containers/index.html#chapters",
     "title": "Containers",
     "section": "",
-    "text": "Docker Installation - Installing Docker\nNginx Deployment - Deploying web containers\nContainer Management - Managing containers\nVolume Management - Working with volumes\nTroubleshooting - Debugging container issues"
+    "text": "Docker Installation - Installing Docker ✓\nNginx Deployment - Deploying web containers ✓\nContainer Management - Managing containers ✓\nVolume Management - Working with volumes ✓"
   },
   {
     "objectID": "containers/index.html#skills-developed",
@@ -147,144 +203,284 @@
     "text": "Container basics\nImage management\nVolume and network configuration\nContainer troubleshooting\n\n\nUse the sidebar to navigate to specific chapters."
   },
   {
-    "objectID": "foundations.html",
-    "href": "foundations.html",
-    "title": "Foundations",
+    "objectID": "containers/03-container-management.html",
+    "href": "containers/03-container-management.html",
+    "title": "Container Management",
     "section": "",
-    "text": "This section covers Linux system administration fundamentals - the essential skills every DevOps engineer and security professional needs to master.\n\n\n\n\n\nUser Creation with Custom UID - Creating users with specific UIDs and home directories\nGroup Management - Managing groups and group memberships\nNon-Interactive Shells - Service accounts without login access\nUsers Without Home - Service users without home directories\n\n\n\n\n\nTemporary Users - Users with expiration dates\nData Transfer - Secure data migration between users\n\n\n\n\n\nSSH Root Access - Securing SSH access\nBackup Scripts - Automated backup procedures\nFile Permissions - Proper permission management\n\n\n\n\n\nUser File Filtering - Advanced file operations with user filtering\n\n\n\n\n\n\nUser and group administration\nPermission management\nSSH security\nBackup automation\nService account configuration\n\n\n\n\n\nNetwork configuration\nFirewall rules (iptables/firewalld)\nSELinux management\nProcess limits and tuning\n\n\nUse the sidebar to navigate to specific chapters."
+    "text": "Task: Learn essential container management commands\n\n\n\n\n\n\n# Start/Stop/Restart\ndocker start mycontainer\ndocker stop mycontainer\ndocker restart mycontainer\n\n# Remove container\ndocker rm mycontainer\n\n# Remove stopped containers\ndocker container prune\n\n\n\n# View logs\ndocker logs mycontainer\ndocker logs -f mycontainer  # Follow\ndocker logs --tail 100 mycontainer\n\n# Inspect details\ndocker inspect mycontainer\n\n# Execute command in running container\ndocker exec -it mycontainer /bin/bash\n\n# Check resource usage\ndocker stats mycontainer\n\n\n\n# Running containers\ndocker ps\n\n# All containers (including stopped)\ndocker ps -a\n\n# Format output\ndocker ps --format \"table {{.Names}}\\t{{.Status}}\\t{{.Ports}}\"\n\n\n\n\n\n\nCan start/stop containers\nCan view and follow logs\nCan exec into containers\nCan inspect container details\n\n\n\n\n\n\nContainer lifecycle management\nLog analysis\nDebugging running containers\n\n\n\n\n\nCOMPLETED 🎉\n\nDate: 2026-01-29\n\n\n← Back to Containers"
   },
   {
-    "objectID": "foundations.html#chapters",
-    "href": "foundations.html#chapters",
-    "title": "Foundations",
+    "objectID": "containers/03-container-management.html#scenario-managing-production-containers",
+    "href": "containers/03-container-management.html#scenario-managing-production-containers",
+    "title": "Container Management",
     "section": "",
-    "text": "User Creation with Custom UID - Creating users with specific UIDs and home directories\nGroup Management - Managing groups and group memberships\nNon-Interactive Shells - Service accounts without login access\nUsers Without Home - Service users without home directories\n\n\n\n\n\nTemporary Users - Users with expiration dates\nData Transfer - Secure data migration between users\n\n\n\n\n\nSSH Root Access - Securing SSH access\nBackup Scripts - Automated backup procedures\nFile Permissions - Proper permission management\n\n\n\n\n\nUser File Filtering - Advanced file operations with user filtering"
+    "text": "Task: Learn essential container management commands"
   },
   {
-    "objectID": "foundations.html#skills-developed",
-    "href": "foundations.html#skills-developed",
-    "title": "Foundations",
+    "objectID": "containers/03-container-management.html#essential-commands",
+    "href": "containers/03-container-management.html#essential-commands",
+    "title": "Container Management",
+    "section": "",
+    "text": "# Start/Stop/Restart\ndocker start mycontainer\ndocker stop mycontainer\ndocker restart mycontainer\n\n# Remove container\ndocker rm mycontainer\n\n# Remove stopped containers\ndocker container prune\n\n\n\n# View logs\ndocker logs mycontainer\ndocker logs -f mycontainer  # Follow\ndocker logs --tail 100 mycontainer\n\n# Inspect details\ndocker inspect mycontainer\n\n# Execute command in running container\ndocker exec -it mycontainer /bin/bash\n\n# Check resource usage\ndocker stats mycontainer\n\n\n\n# Running containers\ndocker ps\n\n# All containers (including stopped)\ndocker ps -a\n\n# Format output\ndocker ps --format \"table {{.Names}}\\t{{.Status}}\\t{{.Ports}}\""
+  },
+  {
+    "objectID": "containers/03-container-management.html#verification",
+    "href": "containers/03-container-management.html#verification",
+    "title": "Container Management",
+    "section": "",
+    "text": "Can start/stop containers\nCan view and follow logs\nCan exec into containers\nCan inspect container details"
+  },
+  {
+    "objectID": "containers/03-container-management.html#key-learnings",
+    "href": "containers/03-container-management.html#key-learnings",
+    "title": "Container Management",
+    "section": "",
+    "text": "Container lifecycle management\nLog analysis\nDebugging running containers"
+  },
+  {
+    "objectID": "containers/03-container-management.html#status",
+    "href": "containers/03-container-management.html#status",
+    "title": "Container Management",
+    "section": "",
+    "text": "COMPLETED 🎉\n\nDate: 2026-01-29\n\n\n← Back to Containers"
+  },
+  {
+    "objectID": "security.html",
+    "href": "security.html",
+    "title": "Security",
+    "section": "",
+    "text": "This section covers cybersecurity fundamentals - from CTF challenges to HTB Academy modules.\n\n\n\n\n\nCTF Introduction - Getting started with Capture The Flag\n\n\n\n\n\nForensics Basics - Digital forensics fundamentals\n\n\n\n\n\nWeb Security Basics - Web vulnerability fundamentals\n\n\n\n\n\nHTB Academy Path - Hack The Box Academy modules\n\n\n\n\n\n\n\n\nChallenge\nAnswer\nDate\n\n\n\n\nNmap Default\nHTB{pr0F7pDv3r510nb4nn3r}\n2026-02-11\n\n\nCaesar Cipher\nSolved\n2026-02-16\n\n\nNmap Full Scan\n31337\n2026-02-19\n\n\n\n\n\n\n\nCTF problem solving\nDigital forensics\nWeb security basics\nNetwork enumeration\n\n\nUse the sidebar to navigate to specific chapters."
+  },
+  {
+    "objectID": "security.html#chapters",
+    "href": "security.html#chapters",
+    "title": "Security",
+    "section": "",
+    "text": "CTF Introduction - Getting started with Capture The Flag\n\n\n\n\n\nForensics Basics - Digital forensics fundamentals\n\n\n\n\n\nWeb Security Basics - Web vulnerability fundamentals\n\n\n\n\n\nHTB Academy Path - Hack The Box Academy modules"
+  },
+  {
+    "objectID": "security.html#completed-htb-challenges",
+    "href": "security.html#completed-htb-challenges",
+    "title": "Security",
+    "section": "",
+    "text": "Challenge\nAnswer\nDate\n\n\n\n\nNmap Default\nHTB{pr0F7pDv3r510nb4nn3r}\n2026-02-11\n\n\nCaesar Cipher\nSolved\n2026-02-16\n\n\nNmap Full Scan\n31337\n2026-02-19"
+  },
+  {
+    "objectID": "security.html#skills-developed",
+    "href": "security.html#skills-developed",
+    "title": "Security",
+    "section": "",
+    "text": "CTF problem solving\nDigital forensics\nWeb security basics\nNetwork enumeration\n\n\nUse the sidebar to navigate to specific chapters."
+  },
+  {
+    "objectID": "foundations/08-backup-scripts.html",
+    "href": "foundations/08-backup-scripts.html",
+    "title": "Backup Scripts",
+    "section": "",
+    "text": "Company: xFusionCorp Industries\nTask: Create automated backup for developer data\n\n\n\n\nEvery system needs reliable backups. A good backup strategy includes:\n\n\n\n3 copies of data\n2 different storage types\n1 offsite location\n\n\n\n\n\n\n\nType\nDescription\nFrequency\n\n\n\n\nFull\nComplete backup\nWeekly\n\n\nIncremental\nChanges since last backup\nDaily\n\n\nDifferential\nChanges since last full\nDaily\n\n\n\n\n\n\n\n\n\n\nmkdir -p /backup\nchmod 700 /backup\n\n\n\n#!/bin/bash\n# backup.sh\n\nDATE=$(date +%Y%m%d_%H%M%S)\nSOURCE=\"/home/developer\"\nDEST=\"/backup/developer_$DATE.tar.gz\"\n\n# Create backup\ntar -czf $DEST $SOURCE\n\n# Verify\nif [ $? -eq 0 ]; then\n    echo \"Backup successful: $DEST\"\nelse\n    echo \"Backup failed\"\n    exit 1\nfi\n\n\n\nchmod +x backup.sh\n./backup.sh\n\n\n\n\n\n\nBackup script created\nScript is executable\nBackup file created\nBackup contains expected files\nRestoration test passes\n\n\n\n\n\n\nBackup automation\nTar compression\nError handling\nCron integration\n\n\n\n\n\nCOMPLETED 🎉\n\nDate: 2026-01-31\n\n\n← Back to Foundations"
+  },
+  {
+    "objectID": "foundations/08-backup-scripts.html#scenario-developer-data-backup-automation",
+    "href": "foundations/08-backup-scripts.html#scenario-developer-data-backup-automation",
+    "title": "Backup Scripts",
+    "section": "",
+    "text": "Company: xFusionCorp Industries\nTask: Create automated backup for developer data"
+  },
+  {
+    "objectID": "foundations/08-backup-scripts.html#backup-strategy-fundamentals",
+    "href": "foundations/08-backup-scripts.html#backup-strategy-fundamentals",
+    "title": "Backup Scripts",
+    "section": "",
+    "text": "Every system needs reliable backups. A good backup strategy includes:\n\n\n\n3 copies of data\n2 different storage types\n1 offsite location\n\n\n\n\n\n\n\nType\nDescription\nFrequency\n\n\n\n\nFull\nComplete backup\nWeekly\n\n\nIncremental\nChanges since last backup\nDaily\n\n\nDifferential\nChanges since last full\nDaily"
+  },
+  {
+    "objectID": "foundations/08-backup-scripts.html#implementation",
+    "href": "foundations/08-backup-scripts.html#implementation",
+    "title": "Backup Scripts",
+    "section": "",
+    "text": "mkdir -p /backup\nchmod 700 /backup\n\n\n\n#!/bin/bash\n# backup.sh\n\nDATE=$(date +%Y%m%d_%H%M%S)\nSOURCE=\"/home/developer\"\nDEST=\"/backup/developer_$DATE.tar.gz\"\n\n# Create backup\ntar -czf $DEST $SOURCE\n\n# Verify\nif [ $? -eq 0 ]; then\n    echo \"Backup successful: $DEST\"\nelse\n    echo \"Backup failed\"\n    exit 1\nfi\n\n\n\nchmod +x backup.sh\n./backup.sh"
+  },
+  {
+    "objectID": "foundations/08-backup-scripts.html#verification",
+    "href": "foundations/08-backup-scripts.html#verification",
+    "title": "Backup Scripts",
+    "section": "",
+    "text": "Backup script created\nScript is executable\nBackup file created\nBackup contains expected files\nRestoration test passes"
+  },
+  {
+    "objectID": "foundations/08-backup-scripts.html#key-learnings",
+    "href": "foundations/08-backup-scripts.html#key-learnings",
+    "title": "Backup Scripts",
+    "section": "",
+    "text": "Backup automation\nTar compression\nError handling\nCron integration"
+  },
+  {
+    "objectID": "foundations/08-backup-scripts.html#status",
+    "href": "foundations/08-backup-scripts.html#status",
+    "title": "Backup Scripts",
+    "section": "",
+    "text": "COMPLETED 🎉\n\nDate: 2026-01-31\n\n\n← Back to Foundations"
+  },
+  {
+    "objectID": "foundations/index.html",
+    "href": "foundations/index.html",
+    "title": "Linux Foundations",
+    "section": "",
+    "text": "This section covers Linux system administration fundamentals - the essential skills every DevOps engineer and security professional needs to master.\n\n\n\n\n\nKodekloud Course Completion Certificate\n\n\n\n\n\n\n  \n    9\n    Completed\n  \n  \n    11\n    Remaining\n  \n  \n    45%\n    Progress\n  \n\n\n\n\n\n  \n    👤\n    User Creation\n    ✓\n  \n  \n    👥\n    Group Management\n    ✓\n  \n  \n    🔐\n    Non-Interactive Shell\n    ✓\n  \n  \n    🏠\n    Users Without Home\n    ✓\n  \n  \n    ⏰\n    Temporary Users\n    ✓\n  \n  \n    🔒\n    SSH Hardening\n    ✓\n  \n  \n    💾\n    Backup Scripts\n    ✓\n  \n\n\n\n\n\n\n\nUser Creation with Custom UID - Creating users with specific UIDs\nGroup Management - Managing groups\n\n\n\n\n\nNon-Interactive Shell - Service accounts without shell access\nUsers Without Home - Minimal service accounts\n\n\n\n\n\nTemporary Users - Users with expiration dates\nSSH Hardening - Secure SSH configuration\nBackup Scripts - Automated backups\n\n\n\n\n\n\nUser and group administration\nPermission management\nSSH security\nBackup automation\nService account configuration\n\n\n\n\n\nNetwork configuration\nFirewall rules (iptables/firewalld)\nSELinux management\nProcess limits and tuning\n\n\nUse the sidebar to navigate to specific chapters.\n\n\n\n\nUser Creation with Custom UID - Creating users with specific UIDs and custom home directories\nGroup Management - Managing groups and group memberships\n\n\n\n\n\nTemporary Users - Users with expiration dates\nData Transfer - Secure data migration between users\n\n\n\n\n\nSSH Root Access - Securing SSH access\nBackup Scripts - Automated backup procedures\nFile Permissions - Proper permission management\n\n\n\n\n\nUser File Filtering - Advanced file operations with user filtering\n\n\n\n\n\n\nUser and group administration\nPermission management\nSSH security\nBackup automation\nService account configuration\n\n\n\n\n\nNetwork configuration\nFirewall rules (iptables/firewalld)\nSELinux management\nProcess limits and tuning\n\n\nUse the sidebar to navigate to specific chapters."
+  },
+  {
+    "objectID": "foundations/index.html#certification",
+    "href": "foundations/index.html#certification",
+    "title": "Linux Foundations",
+    "section": "",
+    "text": "Kodekloud Course Completion Certificate"
+  },
+  {
+    "objectID": "foundations/index.html#progress",
+    "href": "foundations/index.html#progress",
+    "title": "Linux Foundations",
+    "section": "",
+    "text": "9\n    Completed\n  \n  \n    11\n    Remaining\n  \n  \n    45%\n    Progress"
+  },
+  {
+    "objectID": "foundations/index.html#chapters",
+    "href": "foundations/index.html#chapters",
+    "title": "Linux Foundations",
+    "section": "",
+    "text": "👤\n    User Creation\n    ✓\n  \n  \n    👥\n    Group Management\n    ✓\n  \n  \n    🔐\n    Non-Interactive Shell\n    ✓\n  \n  \n    🏠\n    Users Without Home\n    ✓\n  \n  \n    ⏰\n    Temporary Users\n    ✓\n  \n  \n    🔒\n    SSH Hardening\n    ✓\n  \n  \n    💾\n    Backup Scripts\n    ✓"
+  },
+  {
+    "objectID": "foundations/index.html#detailed-chapters",
+    "href": "foundations/index.html#detailed-chapters",
+    "title": "Linux Foundations",
+    "section": "",
+    "text": "User Creation with Custom UID - Creating users with specific UIDs\nGroup Management - Managing groups\n\n\n\n\n\nNon-Interactive Shell - Service accounts without shell access\nUsers Without Home - Minimal service accounts\n\n\n\n\n\nTemporary Users - Users with expiration dates\nSSH Hardening - Secure SSH configuration\nBackup Scripts - Automated backups"
+  },
+  {
+    "objectID": "foundations/index.html#skills-developed",
+    "href": "foundations/index.html#skills-developed",
+    "title": "Linux Foundations",
     "section": "",
     "text": "User and group administration\nPermission management\nSSH security\nBackup automation\nService account configuration"
   },
   {
-    "objectID": "foundations.html#coming-soon",
-    "href": "foundations.html#coming-soon",
-    "title": "Foundations",
+    "objectID": "foundations/index.html#coming-soon",
+    "href": "foundations/index.html#coming-soon",
+    "title": "Linux Foundations",
+    "section": "",
+    "text": "Network configuration\nFirewall rules (iptables/firewalld)\nSELinux management\nProcess limits and tuning\n\n\nUse the sidebar to navigate to specific chapters.\n\n\n\n\nUser Creation with Custom UID - Creating users with specific UIDs and custom home directories\nGroup Management - Managing groups and group memberships\n\n\n\n\n\nTemporary Users - Users with expiration dates\nData Transfer - Secure data migration between users\n\n\n\n\n\nSSH Root Access - Securing SSH access\nBackup Scripts - Automated backup procedures\nFile Permissions - Proper permission management\n\n\n\n\n\nUser File Filtering - Advanced file operations with user filtering"
+  },
+  {
+    "objectID": "foundations/index.html#skills-developed-1",
+    "href": "foundations/index.html#skills-developed-1",
+    "title": "Linux Foundations",
+    "section": "",
+    "text": "User and group administration\nPermission management\nSSH security\nBackup automation\nService account configuration"
+  },
+  {
+    "objectID": "foundations/index.html#coming-soon-1",
+    "href": "foundations/index.html#coming-soon-1",
+    "title": "Linux Foundations",
     "section": "",
     "text": "Network configuration\nFirewall rules (iptables/firewalld)\nSELinux management\nProcess limits and tuning\n\n\nUse the sidebar to navigate to specific chapters."
   },
   {
-    "objectID": "foundations/02-group-management.html",
-    "href": "foundations/02-group-management.html",
-    "title": "Group Management",
+    "objectID": "foundations/07-ssh-hardening.html",
+    "href": "foundations/07-ssh-hardening.html",
+    "title": "SSH Root Access Hardening",
     "section": "",
-    "text": "Company: xFusionCorp Industries\nProject: Nautilus - Infrastructure Monitoring Platform\nLocation: Stratos Datacenter\nYour Role: Senior System Administrator\n\n\nThe Network Operations Center (NOC) team is growing. A new monitoring engineer, Rajesh, needs consistent access to all Nautilus application servers.\nThe Challenge: Current servers don’t have standardized access management: - Security inconsistencies - Audit difficulties - Operational problems\n\n\n\nImplement a standardized nautilus_noc group on 3 App servers and ensure Rajesh has consistent access through group membership.\n\n\n\n\n\n\nServer\nIP\nAccess User\nPassword\nPurpose\n\n\n\n\nstapp01\n172.16.238.10\ntony\nIr0nM@n\nNautilus App 1\n\n\nstapp02\n172.16.238.11\nsteve\nAm3ric@\nNautilus App 2\n\n\nstapp03\n172.16.238.12\nbanner\nBigGr33n\nNautilus App 3\n\n\n\n\n\n\n\n\n\n\nImagine you have 50 servers and 20 NOC engineers. Managing permissions user-by-user would mean 1,000 individual configurations. Groups reduce this to 50 group configurations + 20 membership assignments.\n\n\n\n/etc/group       # Group definitions and members\n/etc/gshadow     # Group passwords (rarely used)\n/etc/passwd      # User info (includes primary group)\n/etc/login.defs  # Default group configuration\n\n\n\n\n\n\n\n\n\n\n\nType\nPurpose\nExample\n\n\n\n\nPrimary\nUser’s default group\nrajesh:x:1001:rajesh\n\n\nSecondary\nAdditional access groups\nnautilus_noc:x:1002:rajesh\n\n\nSystem\nUsed by system processes\nwheel, ssh, mail\n\n\n\n\n\n\n\n\n\n\n# Connect to each server\nssh tony@172.16.238.10\nsudo su -\n\n# Check if nautilus_noc group exists\ngetent group nautilus_noc\n\n# Check if user rajesh exists\nid rajesh\n\nWarning: Never assume a group or user doesn’t exist. Always verify before creating.\n\n\n\n\nstapp01:\nssh tony@172.16.238.10\nsudo su -\ngroupadd -g 2001 nautilus_noc\ngetent group nautilus_noc\nstapp02:\nssh steve@172.16.238.11\nsudo su -\ngroupadd -g 2001 nautilus_noc\ngetent group nautilus_noc\nstapp03:\nssh banner@172.16.238.12\nsudo su -\ngroupadd -g 2001 nautilus_noc\ngetent group nautilus_noc\n\nKey Point: Use the same GID (2001) across all servers for consistency!\n\n\n\n\n# On each server\nuseradd -G nautilus_noc rajesh\n\n# Verify\nid rajesh\n# Expected: uid=1001(rajesh) gid=1001(rajesh) groups=1001(rajesh),2001(nautilus_noc)\n\n\n\npasswd rajesh\n\n\n\n\n\n\nGroup nautilus_noc exists on all 3 servers with GID 2001\nUser rajesh exists on all 3 servers\nUser is member of nautilus_noc group on all servers\nPassword is set for rajesh\nTest SSH access: ssh rajesh@172.16.238.10\n\n\n\n\n\n\nGroup-based access control (RBAC): Managing permissions through groups, not individual users\nConsistency: Using the same GID across servers\nAudit trail: Documenting changes before making them\n\n\n\n\n\n\nman groupadd - Group creation\nman usermod - Modify user group membership\ngetent group - Query group database\n\n\n\n\n\nCOMPLETED 🎉\n\nDate: 2026-01-25\nDifficulty: Medium\nSkills: Group Management, RBAC, Multi-server Administration\n\n\n← Back to Foundations"
+    "text": "Company: xFusionCorp Industries\nTask: Configure secure SSH access for system administrators\n\n\n\n\nSSH is the primary entry point to Linux servers. Hardening SSH is critical for security.\n\n\n\nDisable Root Login: Never allow direct root SSH\nKey-based Authentication: Disable password auth\nPort Change: Use non-standard port (optional)\nLimit Users: Allow only specific users\nTwo-Factor Authentication: Add extra layer\n\n\n\n\n\n\n\n\n# Edit SSH config\nvim /etc/ssh/sshd_config\n\n# Add or modify:\nPermitRootLogin no\nPasswordAuthentication no\nPubkeyAuthentication yes\nAllowUsers admin developer\n\n\n\n# Test config first\nsshd -t\n\n# Restart service\nsystemctl restart sshd\n\n\n\n# On client\nssh-keygen -t ed25519 -C \"admin@workstation\"\n\n# Copy to server\nssh-copy-id admin@server\n\n\n\n\n\n\nRoot login disabled\nPassword authentication disabled\nKey-based login works\nNon-allowed users cannot connect\n\n\n\n\n\n\nSSH hardening fundamentals\nKey-based authentication\nService configuration\n\n\n\n\n\nCOMPLETED 🎉\n\nDate: 2026-01-30\n\n\n← Back to Foundations"
   },
   {
-    "objectID": "foundations/02-group-management.html#scenario-noc-team-access-standardization",
-    "href": "foundations/02-group-management.html#scenario-noc-team-access-standardization",
-    "title": "Group Management",
+    "objectID": "foundations/07-ssh-hardening.html#scenario-secure-ssh-configuration",
+    "href": "foundations/07-ssh-hardening.html#scenario-secure-ssh-configuration",
+    "title": "SSH Root Access Hardening",
     "section": "",
-    "text": "Company: xFusionCorp Industries\nProject: Nautilus - Infrastructure Monitoring Platform\nLocation: Stratos Datacenter\nYour Role: Senior System Administrator\n\n\nThe Network Operations Center (NOC) team is growing. A new monitoring engineer, Rajesh, needs consistent access to all Nautilus application servers.\nThe Challenge: Current servers don’t have standardized access management: - Security inconsistencies - Audit difficulties - Operational problems\n\n\n\nImplement a standardized nautilus_noc group on 3 App servers and ensure Rajesh has consistent access through group membership.\n\n\n\n\n\n\nServer\nIP\nAccess User\nPassword\nPurpose\n\n\n\n\nstapp01\n172.16.238.10\ntony\nIr0nM@n\nNautilus App 1\n\n\nstapp02\n172.16.238.11\nsteve\nAm3ric@\nNautilus App 2\n\n\nstapp03\n172.16.238.12\nbanner\nBigGr33n\nNautilus App 3"
+    "text": "Company: xFusionCorp Industries\nTask: Configure secure SSH access for system administrators"
   },
   {
-    "objectID": "foundations/02-group-management.html#understanding-group-architecture",
-    "href": "foundations/02-group-management.html#understanding-group-architecture",
-    "title": "Group Management",
+    "objectID": "foundations/07-ssh-hardening.html#ssh-security-best-practices",
+    "href": "foundations/07-ssh-hardening.html#ssh-security-best-practices",
+    "title": "SSH Root Access Hardening",
     "section": "",
-    "text": "Imagine you have 50 servers and 20 NOC engineers. Managing permissions user-by-user would mean 1,000 individual configurations. Groups reduce this to 50 group configurations + 20 membership assignments.\n\n\n\n/etc/group       # Group definitions and members\n/etc/gshadow     # Group passwords (rarely used)\n/etc/passwd      # User info (includes primary group)\n/etc/login.defs  # Default group configuration\n\n\n\n\n\n\n\n\n\n\n\nType\nPurpose\nExample\n\n\n\n\nPrimary\nUser’s default group\nrajesh:x:1001:rajesh\n\n\nSecondary\nAdditional access groups\nnautilus_noc:x:1002:rajesh\n\n\nSystem\nUsed by system processes\nwheel, ssh, mail"
+    "text": "SSH is the primary entry point to Linux servers. Hardening SSH is critical for security.\n\n\n\nDisable Root Login: Never allow direct root SSH\nKey-based Authentication: Disable password auth\nPort Change: Use non-standard port (optional)\nLimit Users: Allow only specific users\nTwo-Factor Authentication: Add extra layer"
   },
   {
-    "objectID": "foundations/02-group-management.html#implementation",
-    "href": "foundations/02-group-management.html#implementation",
-    "title": "Group Management",
+    "objectID": "foundations/07-ssh-hardening.html#implementation",
+    "href": "foundations/07-ssh-hardening.html#implementation",
+    "title": "SSH Root Access Hardening",
     "section": "",
-    "text": "# Connect to each server\nssh tony@172.16.238.10\nsudo su -\n\n# Check if nautilus_noc group exists\ngetent group nautilus_noc\n\n# Check if user rajesh exists\nid rajesh\n\nWarning: Never assume a group or user doesn’t exist. Always verify before creating.\n\n\n\n\nstapp01:\nssh tony@172.16.238.10\nsudo su -\ngroupadd -g 2001 nautilus_noc\ngetent group nautilus_noc\nstapp02:\nssh steve@172.16.238.11\nsudo su -\ngroupadd -g 2001 nautilus_noc\ngetent group nautilus_noc\nstapp03:\nssh banner@172.16.238.12\nsudo su -\ngroupadd -g 2001 nautilus_noc\ngetent group nautilus_noc\n\nKey Point: Use the same GID (2001) across all servers for consistency!\n\n\n\n\n# On each server\nuseradd -G nautilus_noc rajesh\n\n# Verify\nid rajesh\n# Expected: uid=1001(rajesh) gid=1001(rajesh) groups=1001(rajesh),2001(nautilus_noc)\n\n\n\npasswd rajesh"
+    "text": "# Edit SSH config\nvim /etc/ssh/sshd_config\n\n# Add or modify:\nPermitRootLogin no\nPasswordAuthentication no\nPubkeyAuthentication yes\nAllowUsers admin developer\n\n\n\n# Test config first\nsshd -t\n\n# Restart service\nsystemctl restart sshd\n\n\n\n# On client\nssh-keygen -t ed25519 -C \"admin@workstation\"\n\n# Copy to server\nssh-copy-id admin@server"
   },
   {
-    "objectID": "foundations/02-group-management.html#verification-checklist",
-    "href": "foundations/02-group-management.html#verification-checklist",
-    "title": "Group Management",
+    "objectID": "foundations/07-ssh-hardening.html#verification",
+    "href": "foundations/07-ssh-hardening.html#verification",
+    "title": "SSH Root Access Hardening",
     "section": "",
-    "text": "Group nautilus_noc exists on all 3 servers with GID 2001\nUser rajesh exists on all 3 servers\nUser is member of nautilus_noc group on all servers\nPassword is set for rajesh\nTest SSH access: ssh rajesh@172.16.238.10"
+    "text": "Root login disabled\nPassword authentication disabled\nKey-based login works\nNon-allowed users cannot connect"
   },
   {
-    "objectID": "foundations/02-group-management.html#key-learnings",
-    "href": "foundations/02-group-management.html#key-learnings",
-    "title": "Group Management",
+    "objectID": "foundations/07-ssh-hardening.html#key-learnings",
+    "href": "foundations/07-ssh-hardening.html#key-learnings",
+    "title": "SSH Root Access Hardening",
     "section": "",
-    "text": "Group-based access control (RBAC): Managing permissions through groups, not individual users\nConsistency: Using the same GID across servers\nAudit trail: Documenting changes before making them"
+    "text": "SSH hardening fundamentals\nKey-based authentication\nService configuration"
   },
   {
-    "objectID": "foundations/02-group-management.html#resources",
-    "href": "foundations/02-group-management.html#resources",
-    "title": "Group Management",
+    "objectID": "foundations/07-ssh-hardening.html#status",
+    "href": "foundations/07-ssh-hardening.html#status",
+    "title": "SSH Root Access Hardening",
     "section": "",
-    "text": "man groupadd - Group creation\nman usermod - Modify user group membership\ngetent group - Query group database"
+    "text": "COMPLETED 🎉\n\nDate: 2026-01-30\n\n\n← Back to Foundations"
   },
   {
-    "objectID": "foundations/02-group-management.html#status",
-    "href": "foundations/02-group-management.html#status",
-    "title": "Group Management",
+    "objectID": "foundations/05-temporary-users.html",
+    "href": "foundations/05-temporary-users.html",
+    "title": "Temporary Users",
     "section": "",
-    "text": "COMPLETED 🎉\n\nDate: 2026-01-25\nDifficulty: Medium\nSkills: Group Management, RBAC, Multi-server Administration\n\n\n← Back to Foundations"
+    "text": "Company: xFusionCorp Industries\nTask: Create temporary access for contractor with automatic expiration\n\n\n\n\nTemporary users need automatic expiration to maintain security. Linux provides built-in account expiration.\n\n\n\nContractors: Time-limited project access\nInterns: Fixed-term employment\nEmergency Access: Temporary break-glass accounts\nTrials: Free trial periods\n\n\n\n\n\n\n\n\n# Create user with expiration date (30 days from now)\nuseradd -e 2026-02-28 contractor1\n\n# Verify expiration\nchage -l contractor1\n# Expected: Account expires: Feb 28, 2026\n\n\n\n# Force password change on first login\npasswd -e contractor1\n\n# Or set max days between password changes\nchage -M 30 contractor1\n\n\n\n\n\n\nOption\nPurpose\n\n\n\n\n-e YYYY-MM-DD\nAccount expiration date\n\n\n-f DAYS\nDays after password expiry until lockout\n\n\n-M DAYS\nMaximum password validity\n\n\n\n\n\n\n\n\n\nUser created with expiration date\nAccount expires on correct date\nLogin works before expiration\nAccount locked after expiration\n\n\n\n\n\n\nAutomatic access revocation\nAccount lifecycle management\nSecurity compliance\n\n\n\n\n\nCOMPLETED 🎉\n\nDate: 2026-01-29\n\n\n← Back to Foundations"
   },
   {
-    "objectID": "foundations/01-user-creation.html",
-    "href": "foundations/01-user-creation.html",
-    "title": "User Creation with Custom UID",
+    "objectID": "foundations/05-temporary-users.html#scenario-contractor-access-with-expiration",
+    "href": "foundations/05-temporary-users.html#scenario-contractor-access-with-expiration",
+    "title": "Temporary Users",
     "section": "",
-    "text": "You just started as a Junior System Administrator at xFusionCorp Industries. On your first day, the Lead SysAdmin assigns you a task:\n\n“The web development team needs a user named javed to deploy their application on server stapp02. They need UID 1467 and the home directory must be at /var/www/javed. The lead developer is waiting. Can you do it?”\n\n\n\n\n\nBefore creating users, you must understand how Linux manages them internally.\n\n\nEvery user in Linux is defined by a line in /etc/passwd:\nusername:password:UID:GID:comment:home_directory:shell\nExample:\njaved:x:1467:1467::/var/www/javed:/bin/bash\n\nKey Insight: The UID is the user’s true identifier. Linux doesn’t say “user javed accessed”; it says “UID 1467 accessed”. Names are just human labels.\n\n\n\n\nIn large organizations, UIDs are assigned by ranges:\n\n0-99: System users (root, bin, daemon)\n100-999: Service accounts (nginx, mysql, docker)\n1000+: Regular human users\n10000+: Specific applications\n\n\n\n\n\n\n\n\n# Connect via SSH\nssh steve@172.16.238.11\n\n# Escalate to root\nsudo su -\n\n\n\nAlways verify the current state before making changes:\n# Check if user already exists\nid javed\n\n# Check if UID 1467 is already in use\ngrep \"1467\" /etc/passwd\n\n# Verify /var/www/ exists\nls -ld /var/www/\n\n\n\nuseradd -u 1467 -d /var/www/javed -m javed\nCommand breakdown:\n\n\n\nOption\nMeaning\nWhy We Use It\n\n\n\n\n-u 1467\nSpecify UID\nDevelopment team requirement\n\n\n-d /var/www/javed\nCustom home\nWeb application standard\n\n\n-m\nCreate home directory\nUser needs a workspace\n\n\njaved\nUsername\nHuman identifier\n\n\n\n\n\n\npasswd javed\n\nSecurity Best Practice: In production, configure SSH key authentication and disable password login: passwd -l javed\n\n\n\n\n# Verify user exists with correct UID\nid javed\n# Expected: uid=1467(javed) gid=1467(javed) groups=1467(javed)\n\n# Verify home directory\nls -la /var/www/javed\n\n# Verify we can switch to user\nsu - javed\npwd  # Should show: /var/www/javed\n\n\n\n\n\n\nUser exists in /etc/passwd\nUID is exactly 1467\nGID matches UID\nHome directory exists at /var/www/javed\nPermissions are javed:javed\nConfiguration files copied (bashrc, etc.)\nCan execute su - javed without errors\n\n\n\n\n\nExplore variations of useradd:\n# Service account (no login)\nuseradd -r -s /sbin/nologin mysql\n\n# Add to secondary groups\nuseradd -G developers,deployers -m javed\n\n# Account with expiration date\nuseradd -e 2025-12-31 -m contractor1\n\n\n\n\n\nman useradd - Complete command documentation\nman usermod - User modification\n/etc/passwd format - Understanding the 7 fields\n\n\n\n\n\nCOMPLETED 🎉\n\nDate: 2026-01-25\nTime: 10-15 minutes\nLevel: Linux Administration Fundamentals\nSkills: User Management, SSH, Verification\n\n\n← Back to Foundations"
+    "text": "Company: xFusionCorp Industries\nTask: Create temporary access for contractor with automatic expiration"
   },
   {
-    "objectID": "foundations/01-user-creation.html#scenario-first-day-at-xfusioncorp",
-    "href": "foundations/01-user-creation.html#scenario-first-day-at-xfusioncorp",
-    "title": "User Creation with Custom UID",
+    "objectID": "foundations/05-temporary-users.html#understanding-account-expiration",
+    "href": "foundations/05-temporary-users.html#understanding-account-expiration",
+    "title": "Temporary Users",
     "section": "",
-    "text": "You just started as a Junior System Administrator at xFusionCorp Industries. On your first day, the Lead SysAdmin assigns you a task:\n\n“The web development team needs a user named javed to deploy their application on server stapp02. They need UID 1467 and the home directory must be at /var/www/javed. The lead developer is waiting. Can you do it?”"
+    "text": "Temporary users need automatic expiration to maintain security. Linux provides built-in account expiration.\n\n\n\nContractors: Time-limited project access\nInterns: Fixed-term employment\nEmergency Access: Temporary break-glass accounts\nTrials: Free trial periods"
   },
   {
-    "objectID": "foundations/01-user-creation.html#understanding-the-architecture",
-    "href": "foundations/01-user-creation.html#understanding-the-architecture",
-    "title": "User Creation with Custom UID",
+    "objectID": "foundations/05-temporary-users.html#implementation",
+    "href": "foundations/05-temporary-users.html#implementation",
+    "title": "Temporary Users",
     "section": "",
-    "text": "Before creating users, you must understand how Linux manages them internally.\n\n\nEvery user in Linux is defined by a line in /etc/passwd:\nusername:password:UID:GID:comment:home_directory:shell\nExample:\njaved:x:1467:1467::/var/www/javed:/bin/bash\n\nKey Insight: The UID is the user’s true identifier. Linux doesn’t say “user javed accessed”; it says “UID 1467 accessed”. Names are just human labels.\n\n\n\n\nIn large organizations, UIDs are assigned by ranges:\n\n0-99: System users (root, bin, daemon)\n100-999: Service accounts (nginx, mysql, docker)\n1000+: Regular human users\n10000+: Specific applications"
+    "text": "# Create user with expiration date (30 days from now)\nuseradd -e 2026-02-28 contractor1\n\n# Verify expiration\nchage -l contractor1\n# Expected: Account expires: Feb 28, 2026\n\n\n\n# Force password change on first login\npasswd -e contractor1\n\n# Or set max days between password changes\nchage -M 30 contractor1\n\n\n\n\n\n\nOption\nPurpose\n\n\n\n\n-e YYYY-MM-DD\nAccount expiration date\n\n\n-f DAYS\nDays after password expiry until lockout\n\n\n-M DAYS\nMaximum password validity"
   },
   {
-    "objectID": "foundations/01-user-creation.html#implementation",
-    "href": "foundations/01-user-creation.html#implementation",
-    "title": "User Creation with Custom UID",
+    "objectID": "foundations/05-temporary-users.html#verification",
+    "href": "foundations/05-temporary-users.html#verification",
+    "title": "Temporary Users",
     "section": "",
-    "text": "# Connect via SSH\nssh steve@172.16.238.11\n\n# Escalate to root\nsudo su -\n\n\n\nAlways verify the current state before making changes:\n# Check if user already exists\nid javed\n\n# Check if UID 1467 is already in use\ngrep \"1467\" /etc/passwd\n\n# Verify /var/www/ exists\nls -ld /var/www/\n\n\n\nuseradd -u 1467 -d /var/www/javed -m javed\nCommand breakdown:\n\n\n\nOption\nMeaning\nWhy We Use It\n\n\n\n\n-u 1467\nSpecify UID\nDevelopment team requirement\n\n\n-d /var/www/javed\nCustom home\nWeb application standard\n\n\n-m\nCreate home directory\nUser needs a workspace\n\n\njaved\nUsername\nHuman identifier\n\n\n\n\n\n\npasswd javed\n\nSecurity Best Practice: In production, configure SSH key authentication and disable password login: passwd -l javed\n\n\n\n\n# Verify user exists with correct UID\nid javed\n# Expected: uid=1467(javed) gid=1467(javed) groups=1467(javed)\n\n# Verify home directory\nls -la /var/www/javed\n\n# Verify we can switch to user\nsu - javed\npwd  # Should show: /var/www/javed"
+    "text": "User created with expiration date\nAccount expires on correct date\nLogin works before expiration\nAccount locked after expiration"
   },
   {
-    "objectID": "foundations/01-user-creation.html#verification-checklist",
-    "href": "foundations/01-user-creation.html#verification-checklist",
-    "title": "User Creation with Custom UID",
+    "objectID": "foundations/05-temporary-users.html#key-learnings",
+    "href": "foundations/05-temporary-users.html#key-learnings",
+    "title": "Temporary Users",
     "section": "",
-    "text": "User exists in /etc/passwd\nUID is exactly 1467\nGID matches UID\nHome directory exists at /var/www/javed\nPermissions are javed:javed\nConfiguration files copied (bashrc, etc.)\nCan execute su - javed without errors"
+    "text": "Automatic access revocation\nAccount lifecycle management\nSecurity compliance"
   },
   {
-    "objectID": "foundations/01-user-creation.html#next-steps",
-    "href": "foundations/01-user-creation.html#next-steps",
-    "title": "User Creation with Custom UID",
+    "objectID": "foundations/05-temporary-users.html#status",
+    "href": "foundations/05-temporary-users.html#status",
+    "title": "Temporary Users",
     "section": "",
-    "text": "Explore variations of useradd:\n# Service account (no login)\nuseradd -r -s /sbin/nologin mysql\n\n# Add to secondary groups\nuseradd -G developers,deployers -m javed\n\n# Account with expiration date\nuseradd -e 2025-12-31 -m contractor1"
-  },
-  {
-    "objectID": "foundations/01-user-creation.html#resources",
-    "href": "foundations/01-user-creation.html#resources",
-    "title": "User Creation with Custom UID",
-    "section": "",
-    "text": "man useradd - Complete command documentation\nman usermod - User modification\n/etc/passwd format - Understanding the 7 fields"
-  },
-  {
-    "objectID": "foundations/01-user-creation.html#status",
-    "href": "foundations/01-user-creation.html#status",
-    "title": "User Creation with Custom UID",
-    "section": "",
-    "text": "COMPLETED 🎉\n\nDate: 2026-01-25\nTime: 10-15 minutes\nLevel: Linux Administration Fundamentals\nSkills: User Management, SSH, Verification\n\n\n← Back to Foundations"
+    "text": "COMPLETED 🎉\n\nDate: 2026-01-29\n\n\n← Back to Foundations"
   },
   {
     "objectID": "roadmap.html",
@@ -553,88 +749,242 @@
     "text": "Use the sidebar to navigate between sections, or click on the section links above.\n\nThis journey is continuously updated as new challenges are completed."
   },
   {
-    "objectID": "foundations/index.html",
-    "href": "foundations/index.html",
-    "title": "Linux Foundations",
+    "objectID": "foundations/01-user-creation.html",
+    "href": "foundations/01-user-creation.html",
+    "title": "User Creation with Custom UID",
     "section": "",
-    "text": "This section covers Linux system administration fundamentals - the essential skills every DevOps engineer and security professional needs to master.\n\n\n\n\n\nKodekloud Course Completion Certificate\n\n\n\n\n\n\n  \n    9\n    Completed\n  \n  \n    11\n    Remaining\n  \n  \n    45%\n    Progress\n  \n\n\n\n\n\n  \n    👤\n    User Creation\n    ✓\n  \n  \n    👥\n    Group Management\n    ✓\n  \n  \n    🔐\n    Non-Interactive Shell\n    ○\n  \n  \n    🏠\n    Users Without Home\n    ○\n  \n\n\n\n\n\nUser and group administration\nPermission management\nSSH security\nBackup automation\nService account configuration\n\n\n\n\n\nNetwork configuration\nFirewall rules (iptables/firewalld)\nSELinux management\nProcess limits and tuning\n\n\nUse the sidebar to navigate to specific chapters.\n\n\n\n\nUser Creation with Custom UID - Creating users with specific UIDs and custom home directories\nGroup Management - Managing groups and group memberships\n\n\n\n\n\nTemporary Users - Users with expiration dates\nData Transfer - Secure data migration between users\n\n\n\n\n\nSSH Root Access - Securing SSH access\nBackup Scripts - Automated backup procedures\nFile Permissions - Proper permission management\n\n\n\n\n\nUser File Filtering - Advanced file operations with user filtering\n\n\n\n\n\n\nUser and group administration\nPermission management\nSSH security\nBackup automation\nService account configuration\n\n\n\n\n\nNetwork configuration\nFirewall rules (iptables/firewalld)\nSELinux management\nProcess limits and tuning\n\n\nUse the sidebar to navigate to specific chapters."
+    "text": "You just started as a Junior System Administrator at xFusionCorp Industries. On your first day, the Lead SysAdmin assigns you a task:\n\n“The web development team needs a user named javed to deploy their application on server stapp02. They need UID 1467 and the home directory must be at /var/www/javed. The lead developer is waiting. Can you do it?”\n\n\n\n\n\nBefore creating users, you must understand how Linux manages them internally.\n\n\nEvery user in Linux is defined by a line in /etc/passwd:\nusername:password:UID:GID:comment:home_directory:shell\nExample:\njaved:x:1467:1467::/var/www/javed:/bin/bash\n\nKey Insight: The UID is the user’s true identifier. Linux doesn’t say “user javed accessed”; it says “UID 1467 accessed”. Names are just human labels.\n\n\n\n\nIn large organizations, UIDs are assigned by ranges:\n\n0-99: System users (root, bin, daemon)\n100-999: Service accounts (nginx, mysql, docker)\n1000+: Regular human users\n10000+: Specific applications\n\n\n\n\n\n\n\n\n# Connect via SSH\nssh steve@172.16.238.11\n\n# Escalate to root\nsudo su -\n\n\n\nAlways verify the current state before making changes:\n# Check if user already exists\nid javed\n\n# Check if UID 1467 is already in use\ngrep \"1467\" /etc/passwd\n\n# Verify /var/www/ exists\nls -ld /var/www/\n\n\n\nuseradd -u 1467 -d /var/www/javed -m javed\nCommand breakdown:\n\n\n\nOption\nMeaning\nWhy We Use It\n\n\n\n\n-u 1467\nSpecify UID\nDevelopment team requirement\n\n\n-d /var/www/javed\nCustom home\nWeb application standard\n\n\n-m\nCreate home directory\nUser needs a workspace\n\n\njaved\nUsername\nHuman identifier\n\n\n\n\n\n\npasswd javed\n\nSecurity Best Practice: In production, configure SSH key authentication and disable password login: passwd -l javed\n\n\n\n\n# Verify user exists with correct UID\nid javed\n# Expected: uid=1467(javed) gid=1467(javed) groups=1467(javed)\n\n# Verify home directory\nls -la /var/www/javed\n\n# Verify we can switch to user\nsu - javed\npwd  # Should show: /var/www/javed\n\n\n\n\n\n\nUser exists in /etc/passwd\nUID is exactly 1467\nGID matches UID\nHome directory exists at /var/www/javed\nPermissions are javed:javed\nConfiguration files copied (bashrc, etc.)\nCan execute su - javed without errors\n\n\n\n\n\nExplore variations of useradd:\n# Service account (no login)\nuseradd -r -s /sbin/nologin mysql\n\n# Add to secondary groups\nuseradd -G developers,deployers -m javed\n\n# Account with expiration date\nuseradd -e 2025-12-31 -m contractor1\n\n\n\n\n\nman useradd - Complete command documentation\nman usermod - User modification\n/etc/passwd format - Understanding the 7 fields\n\n\n\n\n\nCOMPLETED 🎉\n\nDate: 2026-01-25\nTime: 10-15 minutes\nLevel: Linux Administration Fundamentals\nSkills: User Management, SSH, Verification\n\n\n← Back to Foundations"
   },
   {
-    "objectID": "foundations/index.html#certification",
-    "href": "foundations/index.html#certification",
-    "title": "Linux Foundations",
+    "objectID": "foundations/01-user-creation.html#scenario-first-day-at-xfusioncorp",
+    "href": "foundations/01-user-creation.html#scenario-first-day-at-xfusioncorp",
+    "title": "User Creation with Custom UID",
     "section": "",
-    "text": "Kodekloud Course Completion Certificate"
+    "text": "You just started as a Junior System Administrator at xFusionCorp Industries. On your first day, the Lead SysAdmin assigns you a task:\n\n“The web development team needs a user named javed to deploy their application on server stapp02. They need UID 1467 and the home directory must be at /var/www/javed. The lead developer is waiting. Can you do it?”"
   },
   {
-    "objectID": "foundations/index.html#progress",
-    "href": "foundations/index.html#progress",
-    "title": "Linux Foundations",
+    "objectID": "foundations/01-user-creation.html#understanding-the-architecture",
+    "href": "foundations/01-user-creation.html#understanding-the-architecture",
+    "title": "User Creation with Custom UID",
     "section": "",
-    "text": "9\n    Completed\n  \n  \n    11\n    Remaining\n  \n  \n    45%\n    Progress"
+    "text": "Before creating users, you must understand how Linux manages them internally.\n\n\nEvery user in Linux is defined by a line in /etc/passwd:\nusername:password:UID:GID:comment:home_directory:shell\nExample:\njaved:x:1467:1467::/var/www/javed:/bin/bash\n\nKey Insight: The UID is the user’s true identifier. Linux doesn’t say “user javed accessed”; it says “UID 1467 accessed”. Names are just human labels.\n\n\n\n\nIn large organizations, UIDs are assigned by ranges:\n\n0-99: System users (root, bin, daemon)\n100-999: Service accounts (nginx, mysql, docker)\n1000+: Regular human users\n10000+: Specific applications"
   },
   {
-    "objectID": "foundations/index.html#chapters",
-    "href": "foundations/index.html#chapters",
-    "title": "Linux Foundations",
+    "objectID": "foundations/01-user-creation.html#implementation",
+    "href": "foundations/01-user-creation.html#implementation",
+    "title": "User Creation with Custom UID",
     "section": "",
-    "text": "👤\n    User Creation\n    ✓\n  \n  \n    👥\n    Group Management\n    ✓\n  \n  \n    🔐\n    Non-Interactive Shell\n    ○\n  \n  \n    🏠\n    Users Without Home\n    ○"
+    "text": "# Connect via SSH\nssh steve@172.16.238.11\n\n# Escalate to root\nsudo su -\n\n\n\nAlways verify the current state before making changes:\n# Check if user already exists\nid javed\n\n# Check if UID 1467 is already in use\ngrep \"1467\" /etc/passwd\n\n# Verify /var/www/ exists\nls -ld /var/www/\n\n\n\nuseradd -u 1467 -d /var/www/javed -m javed\nCommand breakdown:\n\n\n\nOption\nMeaning\nWhy We Use It\n\n\n\n\n-u 1467\nSpecify UID\nDevelopment team requirement\n\n\n-d /var/www/javed\nCustom home\nWeb application standard\n\n\n-m\nCreate home directory\nUser needs a workspace\n\n\njaved\nUsername\nHuman identifier\n\n\n\n\n\n\npasswd javed\n\nSecurity Best Practice: In production, configure SSH key authentication and disable password login: passwd -l javed\n\n\n\n\n# Verify user exists with correct UID\nid javed\n# Expected: uid=1467(javed) gid=1467(javed) groups=1467(javed)\n\n# Verify home directory\nls -la /var/www/javed\n\n# Verify we can switch to user\nsu - javed\npwd  # Should show: /var/www/javed"
   },
   {
-    "objectID": "foundations/index.html#skills-developed",
-    "href": "foundations/index.html#skills-developed",
-    "title": "Linux Foundations",
+    "objectID": "foundations/01-user-creation.html#verification-checklist",
+    "href": "foundations/01-user-creation.html#verification-checklist",
+    "title": "User Creation with Custom UID",
+    "section": "",
+    "text": "User exists in /etc/passwd\nUID is exactly 1467\nGID matches UID\nHome directory exists at /var/www/javed\nPermissions are javed:javed\nConfiguration files copied (bashrc, etc.)\nCan execute su - javed without errors"
+  },
+  {
+    "objectID": "foundations/01-user-creation.html#next-steps",
+    "href": "foundations/01-user-creation.html#next-steps",
+    "title": "User Creation with Custom UID",
+    "section": "",
+    "text": "Explore variations of useradd:\n# Service account (no login)\nuseradd -r -s /sbin/nologin mysql\n\n# Add to secondary groups\nuseradd -G developers,deployers -m javed\n\n# Account with expiration date\nuseradd -e 2025-12-31 -m contractor1"
+  },
+  {
+    "objectID": "foundations/01-user-creation.html#resources",
+    "href": "foundations/01-user-creation.html#resources",
+    "title": "User Creation with Custom UID",
+    "section": "",
+    "text": "man useradd - Complete command documentation\nman usermod - User modification\n/etc/passwd format - Understanding the 7 fields"
+  },
+  {
+    "objectID": "foundations/01-user-creation.html#status",
+    "href": "foundations/01-user-creation.html#status",
+    "title": "User Creation with Custom UID",
+    "section": "",
+    "text": "COMPLETED 🎉\n\nDate: 2026-01-25\nTime: 10-15 minutes\nLevel: Linux Administration Fundamentals\nSkills: User Management, SSH, Verification\n\n\n← Back to Foundations"
+  },
+  {
+    "objectID": "foundations/03-non-interactive-shell.html",
+    "href": "foundations/03-non-interactive-shell.html",
+    "title": "Non-Interactive Shell Users",
+    "section": "",
+    "text": "Company: xFusionCorp Industries\nProject: Nautilus Automated Backup System\nTask: Create a service account for automated backup processes\n\n\n\n\nService accounts are system accounts used by processes and services, not human users. They should never have interactive shell access.\n\n\n\nSecurity: Prevents unauthorized access\nCompliance: Follows least privilege principle\nAutomation: Works with cron, systemd services\n\n\n\n\n\n\n\nUser Type\nShell\nLogin Allowed\n\n\n\n\nHuman\n/bin/bash\nYes\n\n\nService\n/sbin/nologin or /usr/sbin/nologin\nNo\n\n\n\n\n\n\n\n\n\n\n# Create user with non-interactive shell\nuseradd -s /sbin/nologin -M john\n\n# Verify\nid john\n# Expected: uid=1001(john) gid=1001(john) groups=1001(john) shell=/sbin/nologin\n\n\n\n# Attempting to login should fail\nsu - john\n# Should show: This account is not available\n\n\n\n\n\n\nUser created with UID\nShell is /sbin/nologin\nHome directory created or absent as needed\nLogin attempt denied\n\n\n\n\n\n\nService account best practices\nPrinciple of least privilege\nSystem security hardening\n\n\n\n\n\nCOMPLETED 🎉\n\nDate: 2026-01-25\nChallenge: xFusionCorp Industries\n\n\n← Back to Foundations"
+  },
+  {
+    "objectID": "foundations/03-non-interactive-shell.html#scenario-backup-agent-service-account",
+    "href": "foundations/03-non-interactive-shell.html#scenario-backup-agent-service-account",
+    "title": "Non-Interactive Shell Users",
+    "section": "",
+    "text": "Company: xFusionCorp Industries\nProject: Nautilus Automated Backup System\nTask: Create a service account for automated backup processes"
+  },
+  {
+    "objectID": "foundations/03-non-interactive-shell.html#understanding-service-accounts",
+    "href": "foundations/03-non-interactive-shell.html#understanding-service-accounts",
+    "title": "Non-Interactive Shell Users",
+    "section": "",
+    "text": "Service accounts are system accounts used by processes and services, not human users. They should never have interactive shell access.\n\n\n\nSecurity: Prevents unauthorized access\nCompliance: Follows least privilege principle\nAutomation: Works with cron, systemd services\n\n\n\n\n\n\n\nUser Type\nShell\nLogin Allowed\n\n\n\n\nHuman\n/bin/bash\nYes\n\n\nService\n/sbin/nologin or /usr/sbin/nologin\nNo"
+  },
+  {
+    "objectID": "foundations/03-non-interactive-shell.html#implementation",
+    "href": "foundations/03-non-interactive-shell.html#implementation",
+    "title": "Non-Interactive Shell Users",
+    "section": "",
+    "text": "# Create user with non-interactive shell\nuseradd -s /sbin/nologin -M john\n\n# Verify\nid john\n# Expected: uid=1001(john) gid=1001(john) groups=1001(john) shell=/sbin/nologin\n\n\n\n# Attempting to login should fail\nsu - john\n# Should show: This account is not available"
+  },
+  {
+    "objectID": "foundations/03-non-interactive-shell.html#verification",
+    "href": "foundations/03-non-interactive-shell.html#verification",
+    "title": "Non-Interactive Shell Users",
+    "section": "",
+    "text": "User created with UID\nShell is /sbin/nologin\nHome directory created or absent as needed\nLogin attempt denied"
+  },
+  {
+    "objectID": "foundations/03-non-interactive-shell.html#key-learnings",
+    "href": "foundations/03-non-interactive-shell.html#key-learnings",
+    "title": "Non-Interactive Shell Users",
+    "section": "",
+    "text": "Service account best practices\nPrinciple of least privilege\nSystem security hardening"
+  },
+  {
+    "objectID": "foundations/03-non-interactive-shell.html#status",
+    "href": "foundations/03-non-interactive-shell.html#status",
+    "title": "Non-Interactive Shell Users",
+    "section": "",
+    "text": "COMPLETED 🎉\n\nDate: 2026-01-25\nChallenge: xFusionCorp Industries\n\n\n← Back to Foundations"
+  },
+  {
+    "objectID": "foundations/04-users-without-home.html",
+    "href": "foundations/04-users-without-home.html",
+    "title": "Users Without Home Directory",
+    "section": "",
+    "text": "Company: xFusionCorp Industries\nTask: Create service user without home directory for microservices application\n\n\n\n\nService accounts that don’t need to store personal files, configuration, or logs shouldn’t have home directories.\n\n\n\nReduced Attack Surface: No writable directories\nDisk Space: No unnecessary space allocation\nCompliance: Follows minimal footprint principle\nSecurity: Limits file-based vulnerabilities\n\n\n\n\n\n\n\n\n# Create user without home directory\nuseradd -M -s /sbin/nologin appuser\n\n# Verify\nid appuser\nls -la /home/  # Should not contain appuser\n\n\n\n\n\n\nOption\nPurpose\n\n\n\n\n-M\nDon’t create home directory\n\n\n-s /sbin/nologin\nNon-interactive shell\n\n\nappuser\nUsername\n\n\n\n\n\n\n\n\n\nUser created successfully\nNo /home/appuser directory\nShell is /sbin/nologin\nUser cannot login\n\n\n\n\n\n\nMinimal service account configuration\nHome directory security\nContainer-ready user management\n\n\n\n\n\nCOMPLETED 🎉\n\nDate: 2026-01-26\n\n\n← Back to Foundations"
+  },
+  {
+    "objectID": "foundations/04-users-without-home.html#scenario-application-service-account",
+    "href": "foundations/04-users-without-home.html#scenario-application-service-account",
+    "title": "Users Without Home Directory",
+    "section": "",
+    "text": "Company: xFusionCorp Industries\nTask: Create service user without home directory for microservices application"
+  },
+  {
+    "objectID": "foundations/04-users-without-home.html#why-no-home-directory",
+    "href": "foundations/04-users-without-home.html#why-no-home-directory",
+    "title": "Users Without Home Directory",
+    "section": "",
+    "text": "Service accounts that don’t need to store personal files, configuration, or logs shouldn’t have home directories.\n\n\n\nReduced Attack Surface: No writable directories\nDisk Space: No unnecessary space allocation\nCompliance: Follows minimal footprint principle\nSecurity: Limits file-based vulnerabilities"
+  },
+  {
+    "objectID": "foundations/04-users-without-home.html#implementation",
+    "href": "foundations/04-users-without-home.html#implementation",
+    "title": "Users Without Home Directory",
+    "section": "",
+    "text": "# Create user without home directory\nuseradd -M -s /sbin/nologin appuser\n\n# Verify\nid appuser\nls -la /home/  # Should not contain appuser\n\n\n\n\n\n\nOption\nPurpose\n\n\n\n\n-M\nDon’t create home directory\n\n\n-s /sbin/nologin\nNon-interactive shell\n\n\nappuser\nUsername"
+  },
+  {
+    "objectID": "foundations/04-users-without-home.html#verification",
+    "href": "foundations/04-users-without-home.html#verification",
+    "title": "Users Without Home Directory",
+    "section": "",
+    "text": "User created successfully\nNo /home/appuser directory\nShell is /sbin/nologin\nUser cannot login"
+  },
+  {
+    "objectID": "foundations/04-users-without-home.html#key-learnings",
+    "href": "foundations/04-users-without-home.html#key-learnings",
+    "title": "Users Without Home Directory",
+    "section": "",
+    "text": "Minimal service account configuration\nHome directory security\nContainer-ready user management"
+  },
+  {
+    "objectID": "foundations/04-users-without-home.html#status",
+    "href": "foundations/04-users-without-home.html#status",
+    "title": "Users Without Home Directory",
+    "section": "",
+    "text": "COMPLETED 🎉\n\nDate: 2026-01-26\n\n\n← Back to Foundations"
+  },
+  {
+    "objectID": "foundations/02-group-management.html",
+    "href": "foundations/02-group-management.html",
+    "title": "Group Management",
+    "section": "",
+    "text": "Company: xFusionCorp Industries\nProject: Nautilus - Infrastructure Monitoring Platform\nLocation: Stratos Datacenter\nYour Role: Senior System Administrator\n\n\nThe Network Operations Center (NOC) team is growing. A new monitoring engineer, Rajesh, needs consistent access to all Nautilus application servers.\nThe Challenge: Current servers don’t have standardized access management: - Security inconsistencies - Audit difficulties - Operational problems\n\n\n\nImplement a standardized nautilus_noc group on 3 App servers and ensure Rajesh has consistent access through group membership.\n\n\n\n\n\n\nServer\nIP\nAccess User\nPassword\nPurpose\n\n\n\n\nstapp01\n172.16.238.10\ntony\nIr0nM@n\nNautilus App 1\n\n\nstapp02\n172.16.238.11\nsteve\nAm3ric@\nNautilus App 2\n\n\nstapp03\n172.16.238.12\nbanner\nBigGr33n\nNautilus App 3\n\n\n\n\n\n\n\n\n\n\nImagine you have 50 servers and 20 NOC engineers. Managing permissions user-by-user would mean 1,000 individual configurations. Groups reduce this to 50 group configurations + 20 membership assignments.\n\n\n\n/etc/group       # Group definitions and members\n/etc/gshadow     # Group passwords (rarely used)\n/etc/passwd      # User info (includes primary group)\n/etc/login.defs  # Default group configuration\n\n\n\n\n\n\n\n\n\n\n\nType\nPurpose\nExample\n\n\n\n\nPrimary\nUser’s default group\nrajesh:x:1001:rajesh\n\n\nSecondary\nAdditional access groups\nnautilus_noc:x:1002:rajesh\n\n\nSystem\nUsed by system processes\nwheel, ssh, mail\n\n\n\n\n\n\n\n\n\n\n# Connect to each server\nssh tony@172.16.238.10\nsudo su -\n\n# Check if nautilus_noc group exists\ngetent group nautilus_noc\n\n# Check if user rajesh exists\nid rajesh\n\nWarning: Never assume a group or user doesn’t exist. Always verify before creating.\n\n\n\n\nstapp01:\nssh tony@172.16.238.10\nsudo su -\ngroupadd -g 2001 nautilus_noc\ngetent group nautilus_noc\nstapp02:\nssh steve@172.16.238.11\nsudo su -\ngroupadd -g 2001 nautilus_noc\ngetent group nautilus_noc\nstapp03:\nssh banner@172.16.238.12\nsudo su -\ngroupadd -g 2001 nautilus_noc\ngetent group nautilus_noc\n\nKey Point: Use the same GID (2001) across all servers for consistency!\n\n\n\n\n# On each server\nuseradd -G nautilus_noc rajesh\n\n# Verify\nid rajesh\n# Expected: uid=1001(rajesh) gid=1001(rajesh) groups=1001(rajesh),2001(nautilus_noc)\n\n\n\npasswd rajesh\n\n\n\n\n\n\nGroup nautilus_noc exists on all 3 servers with GID 2001\nUser rajesh exists on all 3 servers\nUser is member of nautilus_noc group on all servers\nPassword is set for rajesh\nTest SSH access: ssh rajesh@172.16.238.10\n\n\n\n\n\n\nGroup-based access control (RBAC): Managing permissions through groups, not individual users\nConsistency: Using the same GID across servers\nAudit trail: Documenting changes before making them\n\n\n\n\n\n\nman groupadd - Group creation\nman usermod - Modify user group membership\ngetent group - Query group database\n\n\n\n\n\nCOMPLETED 🎉\n\nDate: 2026-01-25\nDifficulty: Medium\nSkills: Group Management, RBAC, Multi-server Administration\n\n\n← Back to Foundations"
+  },
+  {
+    "objectID": "foundations/02-group-management.html#scenario-noc-team-access-standardization",
+    "href": "foundations/02-group-management.html#scenario-noc-team-access-standardization",
+    "title": "Group Management",
+    "section": "",
+    "text": "Company: xFusionCorp Industries\nProject: Nautilus - Infrastructure Monitoring Platform\nLocation: Stratos Datacenter\nYour Role: Senior System Administrator\n\n\nThe Network Operations Center (NOC) team is growing. A new monitoring engineer, Rajesh, needs consistent access to all Nautilus application servers.\nThe Challenge: Current servers don’t have standardized access management: - Security inconsistencies - Audit difficulties - Operational problems\n\n\n\nImplement a standardized nautilus_noc group on 3 App servers and ensure Rajesh has consistent access through group membership.\n\n\n\n\n\n\nServer\nIP\nAccess User\nPassword\nPurpose\n\n\n\n\nstapp01\n172.16.238.10\ntony\nIr0nM@n\nNautilus App 1\n\n\nstapp02\n172.16.238.11\nsteve\nAm3ric@\nNautilus App 2\n\n\nstapp03\n172.16.238.12\nbanner\nBigGr33n\nNautilus App 3"
+  },
+  {
+    "objectID": "foundations/02-group-management.html#understanding-group-architecture",
+    "href": "foundations/02-group-management.html#understanding-group-architecture",
+    "title": "Group Management",
+    "section": "",
+    "text": "Imagine you have 50 servers and 20 NOC engineers. Managing permissions user-by-user would mean 1,000 individual configurations. Groups reduce this to 50 group configurations + 20 membership assignments.\n\n\n\n/etc/group       # Group definitions and members\n/etc/gshadow     # Group passwords (rarely used)\n/etc/passwd      # User info (includes primary group)\n/etc/login.defs  # Default group configuration\n\n\n\n\n\n\n\n\n\n\n\nType\nPurpose\nExample\n\n\n\n\nPrimary\nUser’s default group\nrajesh:x:1001:rajesh\n\n\nSecondary\nAdditional access groups\nnautilus_noc:x:1002:rajesh\n\n\nSystem\nUsed by system processes\nwheel, ssh, mail"
+  },
+  {
+    "objectID": "foundations/02-group-management.html#implementation",
+    "href": "foundations/02-group-management.html#implementation",
+    "title": "Group Management",
+    "section": "",
+    "text": "# Connect to each server\nssh tony@172.16.238.10\nsudo su -\n\n# Check if nautilus_noc group exists\ngetent group nautilus_noc\n\n# Check if user rajesh exists\nid rajesh\n\nWarning: Never assume a group or user doesn’t exist. Always verify before creating.\n\n\n\n\nstapp01:\nssh tony@172.16.238.10\nsudo su -\ngroupadd -g 2001 nautilus_noc\ngetent group nautilus_noc\nstapp02:\nssh steve@172.16.238.11\nsudo su -\ngroupadd -g 2001 nautilus_noc\ngetent group nautilus_noc\nstapp03:\nssh banner@172.16.238.12\nsudo su -\ngroupadd -g 2001 nautilus_noc\ngetent group nautilus_noc\n\nKey Point: Use the same GID (2001) across all servers for consistency!\n\n\n\n\n# On each server\nuseradd -G nautilus_noc rajesh\n\n# Verify\nid rajesh\n# Expected: uid=1001(rajesh) gid=1001(rajesh) groups=1001(rajesh),2001(nautilus_noc)\n\n\n\npasswd rajesh"
+  },
+  {
+    "objectID": "foundations/02-group-management.html#verification-checklist",
+    "href": "foundations/02-group-management.html#verification-checklist",
+    "title": "Group Management",
+    "section": "",
+    "text": "Group nautilus_noc exists on all 3 servers with GID 2001\nUser rajesh exists on all 3 servers\nUser is member of nautilus_noc group on all servers\nPassword is set for rajesh\nTest SSH access: ssh rajesh@172.16.238.10"
+  },
+  {
+    "objectID": "foundations/02-group-management.html#key-learnings",
+    "href": "foundations/02-group-management.html#key-learnings",
+    "title": "Group Management",
+    "section": "",
+    "text": "Group-based access control (RBAC): Managing permissions through groups, not individual users\nConsistency: Using the same GID across servers\nAudit trail: Documenting changes before making them"
+  },
+  {
+    "objectID": "foundations/02-group-management.html#resources",
+    "href": "foundations/02-group-management.html#resources",
+    "title": "Group Management",
+    "section": "",
+    "text": "man groupadd - Group creation\nman usermod - Modify user group membership\ngetent group - Query group database"
+  },
+  {
+    "objectID": "foundations/02-group-management.html#status",
+    "href": "foundations/02-group-management.html#status",
+    "title": "Group Management",
+    "section": "",
+    "text": "COMPLETED 🎉\n\nDate: 2026-01-25\nDifficulty: Medium\nSkills: Group Management, RBAC, Multi-server Administration\n\n\n← Back to Foundations"
+  },
+  {
+    "objectID": "foundations.html",
+    "href": "foundations.html",
+    "title": "Foundations",
+    "section": "",
+    "text": "This section covers Linux system administration fundamentals - the essential skills every DevOps engineer and security professional needs to master.\n\n\n\n\n\nUser Creation with Custom UID - Creating users with specific UIDs and home directories\nGroup Management - Managing groups and group memberships\nNon-Interactive Shells - Service accounts without login access\nUsers Without Home - Service users without home directories\n\n\n\n\n\nTemporary Users - Users with expiration dates\nData Transfer - Secure data migration between users\n\n\n\n\n\nSSH Root Access - Securing SSH access\nBackup Scripts - Automated backup procedures\nFile Permissions - Proper permission management\n\n\n\n\n\nUser File Filtering - Advanced file operations with user filtering\n\n\n\n\n\n\nUser and group administration\nPermission management\nSSH security\nBackup automation\nService account configuration\n\n\n\n\n\nNetwork configuration\nFirewall rules (iptables/firewalld)\nSELinux management\nProcess limits and tuning\n\n\nUse the sidebar to navigate to specific chapters."
+  },
+  {
+    "objectID": "foundations.html#chapters",
+    "href": "foundations.html#chapters",
+    "title": "Foundations",
+    "section": "",
+    "text": "User Creation with Custom UID - Creating users with specific UIDs and home directories\nGroup Management - Managing groups and group memberships\nNon-Interactive Shells - Service accounts without login access\nUsers Without Home - Service users without home directories\n\n\n\n\n\nTemporary Users - Users with expiration dates\nData Transfer - Secure data migration between users\n\n\n\n\n\nSSH Root Access - Securing SSH access\nBackup Scripts - Automated backup procedures\nFile Permissions - Proper permission management\n\n\n\n\n\nUser File Filtering - Advanced file operations with user filtering"
+  },
+  {
+    "objectID": "foundations.html#skills-developed",
+    "href": "foundations.html#skills-developed",
+    "title": "Foundations",
     "section": "",
     "text": "User and group administration\nPermission management\nSSH security\nBackup automation\nService account configuration"
   },
   {
-    "objectID": "foundations/index.html#coming-soon",
-    "href": "foundations/index.html#coming-soon",
-    "title": "Linux Foundations",
-    "section": "",
-    "text": "Network configuration\nFirewall rules (iptables/firewalld)\nSELinux management\nProcess limits and tuning\n\n\nUse the sidebar to navigate to specific chapters.\n\n\n\n\nUser Creation with Custom UID - Creating users with specific UIDs and custom home directories\nGroup Management - Managing groups and group memberships\n\n\n\n\n\nTemporary Users - Users with expiration dates\nData Transfer - Secure data migration between users\n\n\n\n\n\nSSH Root Access - Securing SSH access\nBackup Scripts - Automated backup procedures\nFile Permissions - Proper permission management\n\n\n\n\n\nUser File Filtering - Advanced file operations with user filtering"
-  },
-  {
-    "objectID": "foundations/index.html#skills-developed-1",
-    "href": "foundations/index.html#skills-developed-1",
-    "title": "Linux Foundations",
-    "section": "",
-    "text": "User and group administration\nPermission management\nSSH security\nBackup automation\nService account configuration"
-  },
-  {
-    "objectID": "foundations/index.html#coming-soon-1",
-    "href": "foundations/index.html#coming-soon-1",
-    "title": "Linux Foundations",
+    "objectID": "foundations.html#coming-soon",
+    "href": "foundations.html#coming-soon",
+    "title": "Foundations",
     "section": "",
     "text": "Network configuration\nFirewall rules (iptables/firewalld)\nSELinux management\nProcess limits and tuning\n\n\nUse the sidebar to navigate to specific chapters."
-  },
-  {
-    "objectID": "security.html",
-    "href": "security.html",
-    "title": "Security",
-    "section": "",
-    "text": "This section covers cybersecurity fundamentals - from CTF challenges to HTB Academy modules.\n\n\n\n\n\nCTF Introduction - Getting started with Capture The Flag\n\n\n\n\n\nForensics Basics - Digital forensics fundamentals\n\n\n\n\n\nWeb Security Basics - Web vulnerability fundamentals\n\n\n\n\n\nHTB Academy Path - Hack The Box Academy modules\n\n\n\n\n\n\n\n\nChallenge\nAnswer\nDate\n\n\n\n\nNmap Default\nHTB{pr0F7pDv3r510nb4nn3r}\n2026-02-11\n\n\nCaesar Cipher\nSolved\n2026-02-16\n\n\nNmap Full Scan\n31337\n2026-02-19\n\n\n\n\n\n\n\nCTF problem solving\nDigital forensics\nWeb security basics\nNetwork enumeration\n\n\nUse the sidebar to navigate to specific chapters."
-  },
-  {
-    "objectID": "security.html#chapters",
-    "href": "security.html#chapters",
-    "title": "Security",
-    "section": "",
-    "text": "CTF Introduction - Getting started with Capture The Flag\n\n\n\n\n\nForensics Basics - Digital forensics fundamentals\n\n\n\n\n\nWeb Security Basics - Web vulnerability fundamentals\n\n\n\n\n\nHTB Academy Path - Hack The Box Academy modules"
-  },
-  {
-    "objectID": "security.html#completed-htb-challenges",
-    "href": "security.html#completed-htb-challenges",
-    "title": "Security",
-    "section": "",
-    "text": "Challenge\nAnswer\nDate\n\n\n\n\nNmap Default\nHTB{pr0F7pDv3r510nb4nn3r}\n2026-02-11\n\n\nCaesar Cipher\nSolved\n2026-02-16\n\n\nNmap Full Scan\n31337\n2026-02-19"
-  },
-  {
-    "objectID": "security.html#skills-developed",
-    "href": "security.html#skills-developed",
-    "title": "Security",
-    "section": "",
-    "text": "CTF problem solving\nDigital forensics\nWeb security basics\nNetwork enumeration\n\n\nUse the sidebar to navigate to specific chapters."
   },
   {
     "objectID": "containers/01-docker-fundamentals.html",
@@ -684,6 +1034,55 @@
     "title": "Docker Installation",
     "section": "",
     "text": "COMPLETED 🎉\n\nDate: 2026-01-25\nDifficulty: 3/5\n\n\n← Back to Containers"
+  },
+  {
+    "objectID": "containers/04-volume-management.html",
+    "href": "containers/04-volume-management.html",
+    "title": "Volume Management",
+    "section": "",
+    "text": "Task: Mount persistent storage for container data\n\n\n\n\nVolumes persist data outside the container’s filesystem, ensuring data survives container restarts and removals.\n\n\n\n\n\nType\nDescription\nUse Case\n\n\n\n\nNamed volumes\nManaged by Docker\nProduction databases\n\n\nBind mounts\nHost directory\nDevelopment\n\n\ntmpfs\nIn-memory\nSensitive data\n\n\n\n\n\n\n\n\n\n\n# Create volume\ndocker volume create mydata\n\n# List volumes\ndocker volume ls\n\n# Inspect volume\ndocker volume inspect mydata\n\n\n\n# Run container with volume\ndocker run -d \\\n  --name mydb \\\n  -v mydata:/var/lib/mysql \\\n  mysql:latest\n\n# Using --mount\ndocker run -d \\\n  --name mydb \\\n  --mount source=mydata,target=/var/lib/mysql \\\n  mysql:latest\n\n\n\n# Mount current directory\ndocker run -d \\\n  --name dev-app \\\n  -v $(pwd):/app \\\n  -p 3000:3000 \\\n  node:18\n\n\n\n\n\n\nVolume created successfully\nData persists after container restart\nData persists after container removal\nCorrect permissions\n\n\n\n\n\n\nPersistent storage in containers\nVolume lifecycle\nData backup strategies\n\n\n\n\n\nCOMPLETED 🎉\n\nDate: 2026-01-30\n\n\n← Back to Containers"
+  },
+  {
+    "objectID": "containers/04-volume-management.html#scenario-persistent-data-for-database-container",
+    "href": "containers/04-volume-management.html#scenario-persistent-data-for-database-container",
+    "title": "Volume Management",
+    "section": "",
+    "text": "Task: Mount persistent storage for container data"
+  },
+  {
+    "objectID": "containers/04-volume-management.html#understanding-docker-volumes",
+    "href": "containers/04-volume-management.html#understanding-docker-volumes",
+    "title": "Volume Management",
+    "section": "",
+    "text": "Volumes persist data outside the container’s filesystem, ensuring data survives container restarts and removals.\n\n\n\n\n\nType\nDescription\nUse Case\n\n\n\n\nNamed volumes\nManaged by Docker\nProduction databases\n\n\nBind mounts\nHost directory\nDevelopment\n\n\ntmpfs\nIn-memory\nSensitive data"
+  },
+  {
+    "objectID": "containers/04-volume-management.html#implementation",
+    "href": "containers/04-volume-management.html#implementation",
+    "title": "Volume Management",
+    "section": "",
+    "text": "# Create volume\ndocker volume create mydata\n\n# List volumes\ndocker volume ls\n\n# Inspect volume\ndocker volume inspect mydata\n\n\n\n# Run container with volume\ndocker run -d \\\n  --name mydb \\\n  -v mydata:/var/lib/mysql \\\n  mysql:latest\n\n# Using --mount\ndocker run -d \\\n  --name mydb \\\n  --mount source=mydata,target=/var/lib/mysql \\\n  mysql:latest\n\n\n\n# Mount current directory\ndocker run -d \\\n  --name dev-app \\\n  -v $(pwd):/app \\\n  -p 3000:3000 \\\n  node:18"
+  },
+  {
+    "objectID": "containers/04-volume-management.html#verification",
+    "href": "containers/04-volume-management.html#verification",
+    "title": "Volume Management",
+    "section": "",
+    "text": "Volume created successfully\nData persists after container restart\nData persists after container removal\nCorrect permissions"
+  },
+  {
+    "objectID": "containers/04-volume-management.html#key-learnings",
+    "href": "containers/04-volume-management.html#key-learnings",
+    "title": "Volume Management",
+    "section": "",
+    "text": "Persistent storage in containers\nVolume lifecycle\nData backup strategies"
+  },
+  {
+    "objectID": "containers/04-volume-management.html#status",
+    "href": "containers/04-volume-management.html#status",
+    "title": "Volume Management",
+    "section": "",
+    "text": "COMPLETED 🎉\n\nDate: 2026-01-30\n\n\n← Back to Containers"
   },
   {
     "objectID": "containers.html",

@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="dcterms.date" content="2026-01-26">
+<meta name="description" content="Creating service accounts without home directories for minimal attack surface">
 
-<title>Linux Foundations – DevOps &amp; Security Learning Journey</title>
+<title>Users Without Home Directory – DevOps &amp; Security Learning Journey</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +21,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -94,7 +131,7 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../foundations/index.html" aria-current="page"> 
+    <a class="nav-link" href="../foundations/index.html"> 
 <span class="menu-text">Foundations</span></a>
   </li>  
   <li class="nav-item">
@@ -151,27 +188,21 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#linux-foundations" id="toc-linux-foundations" class="nav-link active" data-scroll-target="#linux-foundations">Linux Foundations 🐧</a>
+  <li><a href="#users-without-home-directory" id="toc-users-without-home-directory" class="nav-link active" data-scroll-target="#users-without-home-directory">Users Without Home Directory</a>
   <ul class="collapse">
-  <li><a href="#certification" id="toc-certification" class="nav-link" data-scroll-target="#certification">🏆 Certification</a></li>
-  <li><a href="#progress" id="toc-progress" class="nav-link" data-scroll-target="#progress">📊 Progress</a></li>
-  <li><a href="#chapters" id="toc-chapters" class="nav-link" data-scroll-target="#chapters">📋 Chapters</a></li>
-  <li><a href="#detailed-chapters" id="toc-detailed-chapters" class="nav-link" data-scroll-target="#detailed-chapters">📚 Detailed Chapters</a>
+  <li><a href="#scenario-application-service-account" id="toc-scenario-application-service-account" class="nav-link" data-scroll-target="#scenario-application-service-account">Scenario: Application Service Account</a></li>
+  <li><a href="#why-no-home-directory" id="toc-why-no-home-directory" class="nav-link" data-scroll-target="#why-no-home-directory">🧠 Why No Home Directory?</a>
   <ul class="collapse">
-  <li><a href="#chapter-1-user-management" id="toc-chapter-1-user-management" class="nav-link" data-scroll-target="#chapter-1-user-management">Chapter 1: User Management</a></li>
-  <li><a href="#chapter-2-service-accounts" id="toc-chapter-2-service-accounts" class="nav-link" data-scroll-target="#chapter-2-service-accounts">Chapter 2: Service Accounts</a></li>
-  <li><a href="#chapter-3-temporary-secure-access" id="toc-chapter-3-temporary-secure-access" class="nav-link" data-scroll-target="#chapter-3-temporary-secure-access">Chapter 3: Temporary &amp; Secure Access</a></li>
+  <li><a href="#benefits" id="toc-benefits" class="nav-link" data-scroll-target="#benefits">Benefits</a></li>
   </ul></li>
-  <li><a href="#skills-developed" id="toc-skills-developed" class="nav-link" data-scroll-target="#skills-developed">🎯 Skills Developed</a></li>
-  <li><a href="#coming-soon" id="toc-coming-soon" class="nav-link" data-scroll-target="#coming-soon">🔄 Coming Soon</a>
+  <li><a href="#implementation" id="toc-implementation" class="nav-link" data-scroll-target="#implementation">🛠️ Implementation</a>
   <ul class="collapse">
-  <li><a href="#chapter-1-user-management-1" id="toc-chapter-1-user-management-1" class="nav-link" data-scroll-target="#chapter-1-user-management-1">Chapter 1: User Management</a></li>
-  <li><a href="#chapter-2-temporary-access" id="toc-chapter-2-temporary-access" class="nav-link" data-scroll-target="#chapter-2-temporary-access">Chapter 2: Temporary Access</a></li>
-  <li><a href="#chapter-3-security-hardening" id="toc-chapter-3-security-hardening" class="nav-link" data-scroll-target="#chapter-3-security-hardening">Chapter 3: Security Hardening</a></li>
-  <li><a href="#chapter-4-advanced-topics" id="toc-chapter-4-advanced-topics" class="nav-link" data-scroll-target="#chapter-4-advanced-topics">Chapter 4: Advanced Topics</a></li>
+  <li><a href="#create-user-without-home" id="toc-create-user-without-home" class="nav-link" data-scroll-target="#create-user-without-home">Create User Without Home</a></li>
+  <li><a href="#options-explained" id="toc-options-explained" class="nav-link" data-scroll-target="#options-explained">Options Explained</a></li>
   </ul></li>
-  <li><a href="#skills-developed-1" id="toc-skills-developed-1" class="nav-link" data-scroll-target="#skills-developed-1">🎯 Skills Developed</a></li>
-  <li><a href="#coming-soon-1" id="toc-coming-soon-1" class="nav-link" data-scroll-target="#coming-soon-1">🔄 Coming Soon</a></li>
+  <li><a href="#verification" id="toc-verification" class="nav-link" data-scroll-target="#verification">✅ Verification</a></li>
+  <li><a href="#key-learnings" id="toc-key-learnings" class="nav-link" data-scroll-target="#key-learnings">🎯 Key Learnings</a></li>
+  <li><a href="#status" id="toc-status" class="nav-link" data-scroll-target="#status">✅ Status</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -181,14 +212,30 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Linux Foundations</h1>
-</div>
+<h1 class="title">Users Without Home Directory</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">linux</div>
+    <div class="quarto-category">foundations</div>
+    <div class="quarto-category">security</div>
+  </div>
+  </div>
 
+<div>
+  <div class="description">
+    Creating service accounts without home directories for minimal attack surface
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
 
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">January 26, 2026</p>
+    </div>
+  </div>
   
     
   </div>
@@ -198,239 +245,93 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="linux-foundations" class="level1">
-<h1>Linux Foundations 🐧</h1>
-<p>This section covers <strong>Linux system administration fundamentals</strong> - the essential skills every DevOps engineer and security professional needs to master.</p>
-<section id="certification" class="level2">
-<h2 class="anchored" data-anchor-id="certification">🏆 Certification</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="../assets/kodekloud-course-completion-certificate.png" class="img-fluid figure-img"></p>
-<figcaption>Kodekloud Course Completion Certificate</figcaption>
-</figure>
-</div>
+<section id="users-without-home-directory" class="level1">
+<h1>Users Without Home Directory</h1>
+<section id="scenario-application-service-account" class="level2">
+<h2 class="anchored" data-anchor-id="scenario-application-service-account">Scenario: Application Service Account</h2>
+<p><strong>Company</strong>: xFusionCorp Industries<br>
+<strong>Task</strong>: Create service user without home directory for microservices application</p>
+<hr>
 </section>
-<section id="progress" class="level2">
-<h2 class="anchored" data-anchor-id="progress">📊 Progress</h2>
-<div class="progress-summary">
-  <div class="progress-item">
-    <span class="progress-number">9</span>
-    <span class="progress-label">Completed</span>
-  </div>
-  <div class="progress-item">
-    <span class="progress-number">11</span>
-    <span class="progress-label">Remaining</span>
-  </div>
-  <div class="progress-item">
-    <span class="progress-number">45%</span>
-    <span class="progress-label">Progress</span>
-  </div>
-</div>
-</section>
-<section id="chapters" class="level2">
-<h2 class="anchored" data-anchor-id="chapters">📋 Chapters</h2>
-<div class="chapters-grid">
-  <a href="01-user-creation.html" class="chapter-card">
-    <span class="chapter-icon">👤</span>
-    <span class="chapter-title">User Creation</span>
-    <span class="chapter-status completed">✓</span>
-  </a>
-  <a href="02-group-management.html" class="chapter-card">
-    <span class="chapter-icon">👥</span>
-    <span class="chapter-title">Group Management</span>
-    <span class="chapter-status completed">✓</span>
-  </a>
-  <a href="03-non-interactive-shell.html" class="chapter-card">
-    <span class="chapter-icon">🔐</span>
-    <span class="chapter-title">Non-Interactive Shell</span>
-    <span class="chapter-status completed">✓</span>
-  </a>
-  <a href="04-users-without-home.html" class="chapter-card">
-    <span class="chapter-icon">🏠</span>
-    <span class="chapter-title">Users Without Home</span>
-    <span class="chapter-status completed">✓</span>
-  </a>
-  <a href="05-temporary-users.html" class="chapter-card">
-    <span class="chapter-icon">⏰</span>
-    <span class="chapter-title">Temporary Users</span>
-    <span class="chapter-status completed">✓</span>
-  </a>
-  <a href="07-ssh-hardening.html" class="chapter-card">
-    <span class="chapter-icon">🔒</span>
-    <span class="chapter-title">SSH Hardening</span>
-    <span class="chapter-status completed">✓</span>
-  </a>
-  <a href="08-backup-scripts.html" class="chapter-card">
-    <span class="chapter-icon">💾</span>
-    <span class="chapter-title">Backup Scripts</span>
-    <span class="chapter-status completed">✓</span>
-  </a>
-</div>
-</section>
-<section id="detailed-chapters" class="level2">
-<h2 class="anchored" data-anchor-id="detailed-chapters">📚 Detailed Chapters</h2>
-<section id="chapter-1-user-management" class="level3">
-<h3 class="anchored" data-anchor-id="chapter-1-user-management">Chapter 1: User Management</h3>
+<section id="why-no-home-directory" class="level2">
+<h2 class="anchored" data-anchor-id="why-no-home-directory">🧠 Why No Home Directory?</h2>
+<p>Service accounts that don’t need to store personal files, configuration, or logs shouldn’t have home directories.</p>
+<section id="benefits" class="level3">
+<h3 class="anchored" data-anchor-id="benefits">Benefits</h3>
 <ul>
-<li><a href="01-user-creation.html">User Creation with Custom UID</a> - Creating users with specific UIDs</li>
-<li><a href="02-group-management.html">Group Management</a> - Managing groups</li>
-</ul>
-</section>
-<section id="chapter-2-service-accounts" class="level3">
-<h3 class="anchored" data-anchor-id="chapter-2-service-accounts">Chapter 2: Service Accounts</h3>
-<ul>
-<li><a href="03-non-interactive-shell.html">Non-Interactive Shell</a> - Service accounts without shell access</li>
-<li><a href="04-users-without-home.html">Users Without Home</a> - Minimal service accounts</li>
-</ul>
-</section>
-<section id="chapter-3-temporary-secure-access" class="level3">
-<h3 class="anchored" data-anchor-id="chapter-3-temporary-secure-access">Chapter 3: Temporary &amp; Secure Access</h3>
-<ul>
-<li><a href="05-temporary-users.html">Temporary Users</a> - Users with expiration dates</li>
-<li><a href="07-ssh-hardening.html">SSH Hardening</a> - Secure SSH configuration</li>
-<li><a href="08-backup-scripts.html">Backup Scripts</a> - Automated backups</li>
-</ul>
-</section>
-</section>
-<section id="skills-developed" class="level2">
-<h2 class="anchored" data-anchor-id="skills-developed">🎯 Skills Developed</h2>
-<ul>
-<li>User and group administration</li>
-<li>Permission management</li>
-<li>SSH security</li>
-<li>Backup automation</li>
-<li>Service account configuration</li>
-</ul>
-</section>
-<section id="coming-soon" class="level2">
-<h2 class="anchored" data-anchor-id="coming-soon">🔄 Coming Soon</h2>
-<ul>
-<li>Network configuration</li>
-<li>Firewall rules (iptables/firewalld)</li>
-<li>SELinux management</li>
-<li>Process limits and tuning</li>
+<li><strong>Reduced Attack Surface</strong>: No writable directories</li>
+<li><strong>Disk Space</strong>: No unnecessary space allocation</li>
+<li><strong>Compliance</strong>: Follows minimal footprint principle</li>
+<li><strong>Security</strong>: Limits file-based vulnerabilities</li>
 </ul>
 <hr>
-<p><em>Use the sidebar to navigate to specific chapters.</em></p>
-<style>
-.progress-summary {
-  display: flex;
-  justify-content: space-around;
-  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-  border: 1px solid #334155;
-  border-radius: 12px;
-  padding: 1.5rem;
-  margin: 1.5rem 0;
-}
-
-.progress-item {
-  text-align: center;
-}
-
-.progress-number {
-  display: block;
-  font-size: 2rem;
-  font-weight: 700;
-  color: #f97316;
-}
-
-.progress-label {
-  font-size: 0.85rem;
-  color: #94a3b8;
-}
-
-.chapters-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 1rem;
-  margin: 1.5rem 0;
-}
-
-.chapter-card {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 1rem;
-  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-  border: 1px solid #334155;
-  border-radius: 8px;
-  text-decoration: none;
-  transition: all 0.2s ease;
-}
-
-.chapter-card:hover {
-  border-color: #f97316;
-  transform: translateY(-2px);
-}
-
-.chapter-icon {
-  font-size: 1.5rem;
-}
-
-.chapter-title {
-  flex: 1;
-  color: #e2e8f0;
-  font-size: 0.9rem;
-}
-
-.chapter-status {
-  font-size: 0.85rem;
-  color: #64748b;
-}
-
-.chapter-status.completed {
-  color: #22c55e;
-}
-</style>
-<section id="chapter-1-user-management-1" class="level3">
-<h3 class="anchored" data-anchor-id="chapter-1-user-management-1">Chapter 1: User Management</h3>
-<ul>
-<li><a href="01-user-creation.html">User Creation with Custom UID</a> - Creating users with specific UIDs and custom home directories</li>
-<li><a href="02-group-management.html">Group Management</a> - Managing groups and group memberships</li>
-</ul>
-</section>
-<section id="chapter-2-temporary-access" class="level3">
-<h3 class="anchored" data-anchor-id="chapter-2-temporary-access">Chapter 2: Temporary Access</h3>
-<ul>
-<li><a href="05-temporary-users.html">Temporary Users</a> - Users with expiration dates</li>
-<li><a href="06-data-transfer.html">Data Transfer</a> - Secure data migration between users</li>
-</ul>
-</section>
-<section id="chapter-3-security-hardening" class="level3">
-<h3 class="anchored" data-anchor-id="chapter-3-security-hardening">Chapter 3: Security Hardening</h3>
-<ul>
-<li><a href="07-ssh-hardening.html">SSH Root Access</a> - Securing SSH access</li>
-<li><a href="08-backup-scripts.html">Backup Scripts</a> - Automated backup procedures</li>
-<li><a href="09-script-permissions.html">File Permissions</a> - Proper permission management</li>
-</ul>
-</section>
-<section id="chapter-4-advanced-topics" class="level3">
-<h3 class="anchored" data-anchor-id="chapter-4-advanced-topics">Chapter 4: Advanced Topics</h3>
-<ul>
-<li><a href="10-user-file-filtering.html">User File Filtering</a> - Advanced file operations with user filtering</li>
-</ul>
 </section>
 </section>
-<section id="skills-developed-1" class="level2">
-<h2 class="anchored" data-anchor-id="skills-developed-1">🎯 Skills Developed</h2>
-<ul>
-<li>User and group administration</li>
-<li>Permission management</li>
-<li>SSH security</li>
-<li>Backup automation</li>
-<li>Service account configuration</li>
-</ul>
+<section id="implementation" class="level2">
+<h2 class="anchored" data-anchor-id="implementation">🛠️ Implementation</h2>
+<section id="create-user-without-home" class="level3">
+<h3 class="anchored" data-anchor-id="create-user-without-home">Create User Without Home</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create user without home directory</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">useradd</span> <span class="at">-M</span> <span class="at">-s</span> /sbin/nologin appuser</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Verify</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">id</span> appuser</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-la</span> /home/  <span class="co"># Should not contain appuser</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="coming-soon-1" class="level2">
-<h2 class="anchored" data-anchor-id="coming-soon-1">🔄 Coming Soon</h2>
-<ul>
-<li>Network configuration</li>
-<li>Firewall rules (iptables/firewalld)</li>
-<li>SELinux management</li>
-<li>Process limits and tuning</li>
+<section id="options-explained" class="level3">
+<h3 class="anchored" data-anchor-id="options-explained">Options Explained</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Option</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>-M</code></td>
+<td>Don’t create home directory</td>
+</tr>
+<tr class="even">
+<td><code>-s /sbin/nologin</code></td>
+<td>Non-interactive shell</td>
+</tr>
+<tr class="odd">
+<td><code>appuser</code></td>
+<td>Username</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+</section>
+<section id="verification" class="level2">
+<h2 class="anchored" data-anchor-id="verification">✅ Verification</h2>
+<ul class="task-list">
+<li><label><input type="checkbox">User created successfully</label></li>
+<li><label><input type="checkbox">No /home/appuser directory</label></li>
+<li><label><input type="checkbox">Shell is /sbin/nologin</label></li>
+<li><label><input type="checkbox">User cannot login</label></li>
 </ul>
 <hr>
-<p><em>Use the sidebar to navigate to specific chapters.</em></p>
+</section>
+<section id="key-learnings" class="level2">
+<h2 class="anchored" data-anchor-id="key-learnings">🎯 Key Learnings</h2>
+<ul>
+<li>Minimal service account configuration</li>
+<li>Home directory security</li>
+<li>Container-ready user management</li>
+</ul>
+<hr>
+</section>
+<section id="status" class="level2">
+<h2 class="anchored" data-anchor-id="status">✅ Status</h2>
+<p><strong>COMPLETED</strong> 🎉</p>
+<ul>
+<li>Date: 2026-01-26</li>
+</ul>
+<hr>
+<p><em><a href="../foundations/index.html">← Back to Foundations</a></em></p>
 
 
 </section>
