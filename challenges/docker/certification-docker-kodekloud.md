@@ -22,7 +22,7 @@ certificate_id: 86476a89-ea7b-4e3a-a901-85cec28a00ca
 
 ## 🏆 Certificate Verification
 
-![KodeKloud Docker Certificate](/certificates/kodekloud-docker-certificate.png)
+![KodeKloud Docker Certificate](certificates/kodekloud-docker-certificate.png)
 
 | Campo | Valor |
 |-------|-------|
