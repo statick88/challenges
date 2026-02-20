@@ -8,6 +8,7 @@ status: completed
 platform: HTB Academy
 module: Linux Fundamentals
 section: 7
+quarto: /learning-journey/security/linux-fundamentals/02-navigation.qmd
 ---
 
 # Linux Fundamentals - Navigation

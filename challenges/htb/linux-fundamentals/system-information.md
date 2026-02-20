@@ -8,6 +8,7 @@ status: completed
 platform: HTB Academy
 module: Linux Fundamentals
 section: 6
+quarto: /learning-journey/security/linux-fundamentals/01-system-information.qmd
 ---
 
 # Linux Fundamentals - System Information

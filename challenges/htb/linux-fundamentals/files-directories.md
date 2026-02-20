@@ -8,6 +8,7 @@ status: completed
 platform: HTB Academy
 module: Linux Fundamentals
 section: 8
+quarto: /learning-journey/security/linux-fundamentals/03-files-directories.qmd
 ---
 
 # Linux Fundamentals - Working with Files and Directories

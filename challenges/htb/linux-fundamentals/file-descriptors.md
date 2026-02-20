@@ -8,6 +8,7 @@ status: completed
 platform: HTB Academy
 module: Linux Fundamentals
 section: 11
+quarto: /learning-journey/security/linux-fundamentals/05-file-descriptors.qmd
 ---
 
 # Linux Fundamentals - File Descriptors and Redirections

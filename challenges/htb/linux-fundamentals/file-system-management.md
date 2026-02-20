@@ -8,6 +8,7 @@ status: completed
 platform: HTB Academy
 module: Linux Fundamentals
 section: 22
+quarto: /learning-journey/security/linux-fundamentals/11-file-system-management.qmd
 ---
 
 # Linux Fundamentals - File System Management

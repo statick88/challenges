@@ -8,6 +8,7 @@ status: completed
 platform: HTB Academy
 module: Linux Fundamentals
 section: 18
+quarto: /learning-journey/security/linux-fundamentals/09-task-scheduling.qmd
 ---
 
 # Linux Fundamentals - Task Scheduling

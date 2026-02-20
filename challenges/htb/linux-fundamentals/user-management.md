@@ -8,6 +8,7 @@ status: completed
 platform: HTB Academy
 module: Linux Fundamentals
 section: 15
+quarto: /learning-journey/security/linux-fundamentals/07-user-management.qmd
 ---
 
 # Linux Fundamentals - User Management

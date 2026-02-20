@@ -8,6 +8,7 @@ status: completed
 platform: HTB Academy
 module: Linux Fundamentals
 section: 12
+quarto: /learning-journey/security/linux-fundamentals/06-filter-contents.qmd
 ---
 
 # Linux Fundamentals - Filter Contents

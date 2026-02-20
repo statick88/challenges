@@ -8,6 +8,7 @@ status: completed
 platform: HTB Academy
 module: Linux Fundamentals
 section: 10
+quarto: /learning-journey/security/linux-fundamentals/04-find-files.qmd
 ---
 
 # Linux Fundamentals - Find Files and Directories

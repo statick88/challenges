@@ -8,6 +8,7 @@ status: completed
 platform: HTB Academy
 module: Linux Fundamentals
 section: 20
+quarto: /learning-journey/security/linux-fundamentals/10-web-services.qmd
 ---
 
 # Linux Fundamentals - Working with Web Services
