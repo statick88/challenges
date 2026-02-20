@@ -567,6 +567,188 @@
     "text": "COMPLETED 🎉\n\nDate: 2026-02-20\nFlag: HTB{pr0F7pDv3r510nb4nn3r}\nPort: 31337/tcp (FTP)\n\n\n← Back to Security"
   },
   {
+    "objectID": "security/06-htb-firewall-evasion.html",
+    "href": "security/06-htb-firewall-evasion.html",
+    "title": "Firewall & IDS/IPS Evasion - Easy Lab",
+    "section": "",
+    "text": "Identify the operating system of a target machine protected by IDS/IPS without triggering too many alerts."
+  },
+  {
+    "objectID": "security/06-htb-firewall-evasion.html#objective",
+    "href": "security/06-htb-firewall-evasion.html#objective",
+    "title": "Firewall & IDS/IPS Evasion - Easy Lab",
+    "section": "",
+    "text": "Identify the operating system of a target machine protected by IDS/IPS without triggering too many alerts."
+  },
+  {
+    "objectID": "security/06-htb-firewall-evasion.html#scenario",
+    "href": "security/06-htb-firewall-evasion.html#scenario",
+    "title": "Firewall & IDS/IPS Evasion - Easy Lab",
+    "section": "Scenario",
+    "text": "Scenario\nThe target has IDS/IPS protection that monitors network traffic. A status page shows alert count - exceeding 100 alerts will fail the challenge."
+  },
+  {
+    "objectID": "security/06-htb-firewall-evasion.html#initial-reconnaissance",
+    "href": "security/06-htb-firewall-evasion.html#initial-reconnaissance",
+    "title": "Firewall & IDS/IPS Evasion - Easy Lab",
+    "section": "Initial Reconnaissance",
+    "text": "Initial Reconnaissance\n\nStatus Page Check\ncurl http://10.129.4.94/status.php\nRecorded alerts:    50\n/ 100 alerts\nAnalysis: 50 alerts already recorded. Must use passive/low-profile techniques."
+  },
+  {
+    "objectID": "security/06-htb-firewall-evasion.html#passive-os-fingerprinting",
+    "href": "security/06-htb-firewall-evasion.html#passive-os-fingerprinting",
+    "title": "Firewall & IDS/IPS Evasion - Easy Lab",
+    "section": "Passive OS Fingerprinting",
+    "text": "Passive OS Fingerprinting\n\nMethod 1: HTTP Server Header\ncurl -I http://10.129.4.94\nHTTP/1.1 200 OK\nServer: Apache/2.4.29 (Ubuntu)\nFinding: Server explicitly identifies as Ubuntu.\n\n\nMethod 2: SSH Banner Grabbing\nnc -nv 10.129.4.94 22\nSSH-2.0-OpenSSH_7.6p1 Ubuntu-4ubuntu0.7\nFinding: SSH daemon confirms Ubuntu.\n\n\nMethod 3: TTL Analysis\nping -c 1 10.129.4.94\n64 bytes from 10.129.4.94: icmp_seq=0 ttl=63\nFinding: TTL=63 indicates Linux (default 64, -1 for hop)."
+  },
+  {
+    "objectID": "security/06-htb-firewall-evasion.html#answer",
+    "href": "security/06-htb-firewall-evasion.html#answer",
+    "title": "Firewall & IDS/IPS Evasion - Easy Lab",
+    "section": "Answer",
+    "text": "Answer\nUbuntu - All three passive methods confirmed the target OS."
+  },
+  {
+    "objectID": "security/06-htb-firewall-evasion.html#key-learnings",
+    "href": "security/06-htb-firewall-evasion.html#key-learnings",
+    "title": "Firewall & IDS/IPS Evasion - Easy Lab",
+    "section": "Key Learnings",
+    "text": "Key Learnings\n\n\n\nTechnique\nIndicator\nResult\n\n\n\n\nHTTP Header\nApache/2.4.29 (Ubuntu)\nUbuntu\n\n\nSSH Banner\nUbuntu-4ubuntu0.7\nUbuntu\n\n\nTTL Value\n63 (Linux: 64)\nLinux\n\n\n\n\nEvasion Techniques Reference\n\n\n\nTechnique\nPurpose\nIDS Impact\n\n\n\n\nPassive banner grabbing\nOS/service info\nNone\n\n\ncurl -I\nHTTP headers\nMinimal\n\n\nnc connection\nService banners\nMinimal\n\n\n--source-port 53\nAppear as DNS\nLow\n\n\n-D RND:5\nDecoys\nSpread across IPs\n\n\n-sA\nACK scan\nHarder to detect"
+  },
+  {
+    "objectID": "security/06-htb-firewall-evasion.html#takeaways",
+    "href": "security/06-htb-firewall-evasion.html#takeaways",
+    "title": "Firewall & IDS/IPS Evasion - Easy Lab",
+    "section": "Takeaways",
+    "text": "Takeaways\n\nPassive &gt; Active: Service banners often reveal OS without triggering alerts\nHTTP Server Header: Apache often includes OS in version string\nSSH Banner: OpenSSH packages typically include distribution info\nTTL Fingerprinting: Linux ≈ 64, Windows ≈ 128, Network devices ≈ 255"
+  },
+  {
+    "objectID": "security/openvpn-setup.html",
+    "href": "security/openvpn-setup.html",
+    "title": "OpenVPN Setup Guide",
+    "section": "",
+    "text": "Antes de empezar cualquier desafío en HTB Academy, necesitas una conexión VPN estable. Sin ella, no podrás acceder a los targets. Esta guía te ayudará a configurar OpenVPN en todos los sistemas operativos.\n\n🎯 Mentalidad de Hacker: “Tu conexión VPN es tu puente al mundo del pentesting. Una conexión inestable significa escaneos fallidos, timeouts, y oportunidades perdidas. Invierte tiempo en configurarla correctamente.”\n\n\n\n\n\n\n\n\nCaracterística\nTerminal (CLI)\nOpenVPN Connect (GUI)\n\n\n\n\nControl total\n✅ Sí\n❌ Limitado\n\n\nLogs detallados\n✅ Sí\n❌ Limitado\n\n\nFacilidad de uso\n❌ Requiere conocimientos\n✅ Fácil\n\n\nAutomatización\n✅ Scripts\n❌ Manual\n\n\nDebugging\n✅ Verboso\n❌ Básico\n\n\nRecomendado para\nPentesters\nPrincipiantes\n\n\n\n\n\n\n\n\n\n# Debian/Ubuntu/Kali\nsudo apt update\nsudo apt install openvpn\n\n# Verificar instalación\nopenvpn --version\n\n\n\n# Descargar archivo .ovpn de HTB Academy\n# Ir a: https://academy.hackthebox.com/vpn\n\n# Conectar\nsudo openvpn academy-regular.ovpn\n\n\n\n# Con verbosity para debugging\nsudo openvpn academy-regular.ovpn --verb 4\n\n# Silenciar warnings de replay\nsudo openvpn academy-regular.ovpn --mute-replay-warnings\n\n\n\n# Verificar interfaz tun0\nip addr show tun0\n\n# Verificar IP asignada\nip addr show tun0 | grep inet\n\n# Ping al target\nping -c 3 10.129.4.45\n\n\n\n# Error: \"Permission denied\"\nsudo chmod 600 academy-regular.ovpn\n\n# Error: \"TUN/TAP device failed\"\nsudo modprobe tun\n\n# Reiniciar conexión\nsudo killall openvpn\nsudo openvpn academy-regular.ovpn\n\n\n\n\n\n\n\n\nDescargar OpenVPN Connect:\n\nhttps://openvpn.net/client-connect-vpn-for-openvpn-openvpn-protocol/\n\nInstalar la aplicación:\n\nAbrir el .dmg descargado\nArrastrar OpenVPN Connect a Applications\n\nImportar el perfil:\n\nDescargar academy-regular.ovpn de HTB Academy\nAbrir OpenVPN Connect\nArrastrar el archivo .ovpn a la ventana\nClick en “Connect”\n\n\n\n\n\n# Instalar OpenVPN\nbrew install openvpn\n\n# Crear symlink para acceso fácil\nsudo ln -s /opt/homebrew/sbin/openvpn /usr/local/bin/openvpn\n\n# Conectar\nsudo openvpn academy-regular.ovpn\n\n\n\n# Ver interfaces de red\nifconfig | grep tun\n\n# Verificar IP\nifconfig tun0\n\n# Ping al target\nping -c 3 10.129.4.45\n\n\n\n# Error: \"Cannot open TUN/TAP dev\"\nsudo kextload /Library/Extensions/tun.kext\n\n# Si no existe el kext, instalar Tunnelblick\nbrew install --cask tunnelblick\n\n\n\n\n\n\n\n\nDescargar OpenVPN Connect:\n\nhttps://openvpn.net/client-connect-vpn-for-openvpn-openvpn-protocol/\n\nInstalar:\n\nEjecutar el instalador\nPermitir instalación del driver TAP\n\nImportar perfil:\n\nDescargar academy-regular.ovpn\nClick derecho → “Import file”\nClick en “Connect”\n\n\n\n\n\n\nDescargar OpenVPN GUI:\n\nhttps://openvpn.net/community-downloads/\n\nInstalar:\n\nEjecutar instalador\nCompletar instalación con permisos de administrador\n\nConfigurar:\n\nCopiar academy-regular.ovpn a:\nC:\\Program Files\\OpenVPN\\config\\\nClick derecho en el icono de OpenVPN en la bandeja\nClick en “Connect”\n\n\n\n\n\n# PowerShell\nipconfig /all\n\n# Buscar adaptador TAP\n# Verificar IP 10.10.x.x o 10.129.x.x\n\n# Ping al target\nping 10.129.4.45\n\n\n\n# Reiniciar adaptador TAP\nnetsh interface set interface \"TAP-Windows Adapter V9\" disable\nnetsh interface set interface \"TAP-Windows Adapter V9\" enable\n\n# Verificar driver\nGet-NetAdapter -Name \"*TAP*\"\n\n\n\n\n\n\n\n# academy-regular-optimized.ovpn\nclient\ndev tun\nproto udp\nremote 38.46.226.32 1337\nresolv-retry infinite\nnobind\nuser nobody\ngroup nogroup\npersist-key\npersist-tun\nremote-cert-tls server\ncipher AES-256-CBC\nauth SHA256\ncomp-lzo no\nverb 3\nkey-direction 1\n\n# Mejoras para conexiones lentas\nkeepalive 10 120\ntun-mtu 1500\nmssfix\n\n# Evitar warnings de replay\nmute-replay-warnings\n\n\n\n#!/bin/bash\n# htb-vpn.sh\n\nOVPN_FILE=\"academy-regular.ovpn\"\n\necho \"🔌 Connecting to HTB Academy VPN...\"\nsudo openvpn $OVPN_FILE --mute-replay-warnings --verb 3 &\n\nsleep 5\n\n# Verificar conexión\nif ip addr show tun0 &&gt;/dev/null; then\n    echo \"✅ Connected successfully!\"\n    echo \"📡 IP: $(ip addr show tun0 | grep 'inet ' | awk '{print $2}')\"\nelse\n    echo \"❌ Connection failed\"\n    exit 1\nfi\n\n\n\n\n\n\n\nCausa: Tráfico intenso o conexión inestable\nSolución:\nsudo openvpn academy-regular.ovpn --mute-replay-warnings\n\n\n\nCausa: Conexión VPN no establecida o interrumpida\nSolución:\n# Verificar conexión\nping 10.129.4.45\n\n# Si no funciona, reconectar VPN\nsudo killall openvpn\nsudo openvpn academy-regular.ovpn\n\n\n\nCausa: Configuración de timing muy agresiva\nSolución:\n# Usar timing conservador en nmap\nsudo nmap -T3 target\n\n# O cambiar servidor VPN en HTB Academy\n\n\n\n\n\n\nSiempre verificar la conexión VPN antes de escanear\nping -c 3 10.129.4.45\nUsar --mute-replay-warnings para evitar ruido en logs\nTener múltiples archivos .ovpn para diferentes servidores\nCerrar conexión al terminar:\nsudo killall openvpn\nVerificar IP antes de ataques:\nip addr show tun0 | grep inet\n\n\n\n\n\n\nOpenVPN instalado\nArchivo .ovpn descargado de HTB Academy\nConexión VPN activa\nInterfaz tun0/tun presente\nIP en rango 10.10.x.x o 10.129.x.x\nPing exitoso al target\n\n\n\n\n\n\nHTB Academy VPN Guide\nOpenVPN Manual\nOpenVPN Connect Download\n\n\n\n\n\nGUÍA COMPLETADA 🎉\n\n📅 Fecha: 2026-02-20\n🎯 Sistemas: Linux, macOS, Windows\n🛠️ Herramientas: OpenVPN CLI, OpenVPN Connect\n\n\n← Back to Security"
+  },
+  {
+    "objectID": "security/openvpn-setup.html#del-instructor-la-importancia-de-la-conexión-vpn",
+    "href": "security/openvpn-setup.html#del-instructor-la-importancia-de-la-conexión-vpn",
+    "title": "OpenVPN Setup Guide",
+    "section": "",
+    "text": "Antes de empezar cualquier desafío en HTB Academy, necesitas una conexión VPN estable. Sin ella, no podrás acceder a los targets. Esta guía te ayudará a configurar OpenVPN en todos los sistemas operativos.\n\n🎯 Mentalidad de Hacker: “Tu conexión VPN es tu puente al mundo del pentesting. Una conexión inestable significa escaneos fallidos, timeouts, y oportunidades perdidas. Invierte tiempo en configurarla correctamente.”"
+  },
+  {
+    "objectID": "security/openvpn-setup.html#comparación-openvpn-terminal-vs-openvpn-connect",
+    "href": "security/openvpn-setup.html#comparación-openvpn-terminal-vs-openvpn-connect",
+    "title": "OpenVPN Setup Guide",
+    "section": "",
+    "text": "Característica\nTerminal (CLI)\nOpenVPN Connect (GUI)\n\n\n\n\nControl total\n✅ Sí\n❌ Limitado\n\n\nLogs detallados\n✅ Sí\n❌ Limitado\n\n\nFacilidad de uso\n❌ Requiere conocimientos\n✅ Fácil\n\n\nAutomatización\n✅ Scripts\n❌ Manual\n\n\nDebugging\n✅ Verboso\n❌ Básico\n\n\nRecomendado para\nPentesters\nPrincipiantes"
+  },
+  {
+    "objectID": "security/openvpn-setup.html#linux-kali-ubuntu-debian",
+    "href": "security/openvpn-setup.html#linux-kali-ubuntu-debian",
+    "title": "OpenVPN Setup Guide",
+    "section": "",
+    "text": "# Debian/Ubuntu/Kali\nsudo apt update\nsudo apt install openvpn\n\n# Verificar instalación\nopenvpn --version\n\n\n\n# Descargar archivo .ovpn de HTB Academy\n# Ir a: https://academy.hackthebox.com/vpn\n\n# Conectar\nsudo openvpn academy-regular.ovpn\n\n\n\n# Con verbosity para debugging\nsudo openvpn academy-regular.ovpn --verb 4\n\n# Silenciar warnings de replay\nsudo openvpn academy-regular.ovpn --mute-replay-warnings\n\n\n\n# Verificar interfaz tun0\nip addr show tun0\n\n# Verificar IP asignada\nip addr show tun0 | grep inet\n\n# Ping al target\nping -c 3 10.129.4.45\n\n\n\n# Error: \"Permission denied\"\nsudo chmod 600 academy-regular.ovpn\n\n# Error: \"TUN/TAP device failed\"\nsudo modprobe tun\n\n# Reiniciar conexión\nsudo killall openvpn\nsudo openvpn academy-regular.ovpn"
+  },
+  {
+    "objectID": "security/openvpn-setup.html#macos",
+    "href": "security/openvpn-setup.html#macos",
+    "title": "OpenVPN Setup Guide",
+    "section": "",
+    "text": "Descargar OpenVPN Connect:\n\nhttps://openvpn.net/client-connect-vpn-for-openvpn-openvpn-protocol/\n\nInstalar la aplicación:\n\nAbrir el .dmg descargado\nArrastrar OpenVPN Connect a Applications\n\nImportar el perfil:\n\nDescargar academy-regular.ovpn de HTB Academy\nAbrir OpenVPN Connect\nArrastrar el archivo .ovpn a la ventana\nClick en “Connect”\n\n\n\n\n\n# Instalar OpenVPN\nbrew install openvpn\n\n# Crear symlink para acceso fácil\nsudo ln -s /opt/homebrew/sbin/openvpn /usr/local/bin/openvpn\n\n# Conectar\nsudo openvpn academy-regular.ovpn\n\n\n\n# Ver interfaces de red\nifconfig | grep tun\n\n# Verificar IP\nifconfig tun0\n\n# Ping al target\nping -c 3 10.129.4.45\n\n\n\n# Error: \"Cannot open TUN/TAP dev\"\nsudo kextload /Library/Extensions/tun.kext\n\n# Si no existe el kext, instalar Tunnelblick\nbrew install --cask tunnelblick"
+  },
+  {
+    "objectID": "security/openvpn-setup.html#windows",
+    "href": "security/openvpn-setup.html#windows",
+    "title": "OpenVPN Setup Guide",
+    "section": "",
+    "text": "Descargar OpenVPN Connect:\n\nhttps://openvpn.net/client-connect-vpn-for-openvpn-openvpn-protocol/\n\nInstalar:\n\nEjecutar el instalador\nPermitir instalación del driver TAP\n\nImportar perfil:\n\nDescargar academy-regular.ovpn\nClick derecho → “Import file”\nClick en “Connect”\n\n\n\n\n\n\nDescargar OpenVPN GUI:\n\nhttps://openvpn.net/community-downloads/\n\nInstalar:\n\nEjecutar instalador\nCompletar instalación con permisos de administrador\n\nConfigurar:\n\nCopiar academy-regular.ovpn a:\nC:\\Program Files\\OpenVPN\\config\\\nClick derecho en el icono de OpenVPN en la bandeja\nClick en “Connect”\n\n\n\n\n\n# PowerShell\nipconfig /all\n\n# Buscar adaptador TAP\n# Verificar IP 10.10.x.x o 10.129.x.x\n\n# Ping al target\nping 10.129.4.45\n\n\n\n# Reiniciar adaptador TAP\nnetsh interface set interface \"TAP-Windows Adapter V9\" disable\nnetsh interface set interface \"TAP-Windows Adapter V9\" enable\n\n# Verificar driver\nGet-NetAdapter -Name \"*TAP*\""
+  },
+  {
+    "objectID": "security/openvpn-setup.html#configuración-avanzada",
+    "href": "security/openvpn-setup.html#configuración-avanzada",
+    "title": "OpenVPN Setup Guide",
+    "section": "",
+    "text": "# academy-regular-optimized.ovpn\nclient\ndev tun\nproto udp\nremote 38.46.226.32 1337\nresolv-retry infinite\nnobind\nuser nobody\ngroup nogroup\npersist-key\npersist-tun\nremote-cert-tls server\ncipher AES-256-CBC\nauth SHA256\ncomp-lzo no\nverb 3\nkey-direction 1\n\n# Mejoras para conexiones lentas\nkeepalive 10 120\ntun-mtu 1500\nmssfix\n\n# Evitar warnings de replay\nmute-replay-warnings\n\n\n\n#!/bin/bash\n# htb-vpn.sh\n\nOVPN_FILE=\"academy-regular.ovpn\"\n\necho \"🔌 Connecting to HTB Academy VPN...\"\nsudo openvpn $OVPN_FILE --mute-replay-warnings --verb 3 &\n\nsleep 5\n\n# Verificar conexión\nif ip addr show tun0 &&gt;/dev/null; then\n    echo \"✅ Connected successfully!\"\n    echo \"📡 IP: $(ip addr show tun0 | grep 'inet ' | awk '{print $2}')\"\nelse\n    echo \"❌ Connection failed\"\n    exit 1\nfi"
+  },
+  {
+    "objectID": "security/openvpn-setup.html#problemas-comunes-y-soluciones",
+    "href": "security/openvpn-setup.html#problemas-comunes-y-soluciones",
+    "title": "OpenVPN Setup Guide",
+    "section": "",
+    "text": "Causa: Tráfico intenso o conexión inestable\nSolución:\nsudo openvpn academy-regular.ovpn --mute-replay-warnings\n\n\n\nCausa: Conexión VPN no establecida o interrumpida\nSolución:\n# Verificar conexión\nping 10.129.4.45\n\n# Si no funciona, reconectar VPN\nsudo killall openvpn\nsudo openvpn academy-regular.ovpn\n\n\n\nCausa: Configuración de timing muy agresiva\nSolución:\n# Usar timing conservador en nmap\nsudo nmap -T3 target\n\n# O cambiar servidor VPN en HTB Academy"
+  },
+  {
+    "objectID": "security/openvpn-setup.html#mejores-prácticas",
+    "href": "security/openvpn-setup.html#mejores-prácticas",
+    "title": "OpenVPN Setup Guide",
+    "section": "",
+    "text": "Siempre verificar la conexión VPN antes de escanear\nping -c 3 10.129.4.45\nUsar --mute-replay-warnings para evitar ruido en logs\nTener múltiples archivos .ovpn para diferentes servidores\nCerrar conexión al terminar:\nsudo killall openvpn\nVerificar IP antes de ataques:\nip addr show tun0 | grep inet"
+  },
+  {
+    "objectID": "security/openvpn-setup.html#checklist-de-verificación",
+    "href": "security/openvpn-setup.html#checklist-de-verificación",
+    "title": "OpenVPN Setup Guide",
+    "section": "",
+    "text": "OpenVPN instalado\nArchivo .ovpn descargado de HTB Academy\nConexión VPN activa\nInterfaz tun0/tun presente\nIP en rango 10.10.x.x o 10.129.x.x\nPing exitoso al target"
+  },
+  {
+    "objectID": "security/openvpn-setup.html#recursos",
+    "href": "security/openvpn-setup.html#recursos",
+    "title": "OpenVPN Setup Guide",
+    "section": "",
+    "text": "HTB Academy VPN Guide\nOpenVPN Manual\nOpenVPN Connect Download"
+  },
+  {
+    "objectID": "security/openvpn-setup.html#estado",
+    "href": "security/openvpn-setup.html#estado",
+    "title": "OpenVPN Setup Guide",
+    "section": "",
+    "text": "GUÍA COMPLETADA 🎉\n\n📅 Fecha: 2026-02-20\n🎯 Sistemas: Linux, macOS, Windows\n🛠️ Herramientas: OpenVPN CLI, OpenVPN Connect\n\n\n← Back to Security"
+  },
+  {
+    "objectID": "devops-practices/index.html",
+    "href": "devops-practices/index.html",
+    "title": "DevOps Practices",
+    "section": "",
+    "text": "This section covers DevOps tools and methodologies - configuration management, automation, and infrastructure practices.\n\n\n\n\n\nAnsible Basics - Getting started with Ansible\n\n\n\n\n\nCron Job Deployment - Scheduled task automation\n\n\n\n\n\nMariaDB Troubleshooting - Fixing database services\n\n\n\n\n\n\nAnsible configuration management\nCron job automation\nDatabase service management\nTroubleshooting production issues\n\n\nUse the sidebar to navigate to specific chapters."
+  },
+  {
+    "objectID": "devops-practices/index.html#chapters",
+    "href": "devops-practices/index.html#chapters",
+    "title": "DevOps Practices",
+    "section": "",
+    "text": "Ansible Basics - Getting started with Ansible\n\n\n\n\n\nCron Job Deployment - Scheduled task automation\n\n\n\n\n\nMariaDB Troubleshooting - Fixing database services"
+  },
+  {
+    "objectID": "devops-practices/index.html#skills-developed",
+    "href": "devops-practices/index.html#skills-developed",
+    "title": "DevOps Practices",
+    "section": "",
+    "text": "Ansible configuration management\nCron job automation\nDatabase service management\nTroubleshooting production issues\n\n\nUse the sidebar to navigate to specific chapters."
+  },
+  {
+    "objectID": "devops-practices.html",
+    "href": "devops-practices.html",
+    "title": "DevOps Practices",
+    "section": "",
+    "text": "This section covers DevOps tools and methodologies - configuration management, automation, and infrastructure practices.\n\n\n\n\n\nAnsible Basics - Getting started with Ansible\n\n\n\n\n\nCron Job Deployment - Scheduled task automation\n\n\n\n\n\nMariaDB Troubleshooting - Fixing database services\n\n\n\n\n\n\nAnsible configuration management\nCron job automation\nDatabase service management\nTroubleshooting production issues\n\n\nUse the sidebar to navigate to specific chapters."
+  },
+  {
+    "objectID": "devops-practices.html#chapters",
+    "href": "devops-practices.html#chapters",
+    "title": "DevOps Practices",
+    "section": "",
+    "text": "Ansible Basics - Getting started with Ansible\n\n\n\n\n\nCron Job Deployment - Scheduled task automation\n\n\n\n\n\nMariaDB Troubleshooting - Fixing database services"
+  },
+  {
+    "objectID": "devops-practices.html#skills-developed",
+    "href": "devops-practices.html#skills-developed",
+    "title": "DevOps Practices",
+    "section": "",
+    "text": "Ansible configuration management\nCron job automation\nDatabase service management\nTroubleshooting production issues\n\n\nUse the sidebar to navigate to specific chapters."
+  },
+  {
     "objectID": "security/04-htb-academy.html",
     "href": "security/04-htb-academy.html",
     "title": "HTB Academy - Network Enumeration",
@@ -616,74 +798,32 @@
     "text": "COMPLETED 🎉\n\nDate: 2026-02-19\nAnswer Submitted: 31337\nPlatform: HTB Academy\n\n\n← Back to Security"
   },
   {
-    "objectID": "devops-practices/index.html",
-    "href": "devops-practices/index.html",
-    "title": "DevOps Practices",
-    "section": "",
-    "text": "This section covers DevOps tools and methodologies - configuration management, automation, and infrastructure practices.\n\n\n\n\n\nAnsible Basics - Getting started with Ansible\n\n\n\n\n\nCron Job Deployment - Scheduled task automation\n\n\n\n\n\nMariaDB Troubleshooting - Fixing database services\n\n\n\n\n\n\nAnsible configuration management\nCron job automation\nDatabase service management\nTroubleshooting production issues\n\n\nUse the sidebar to navigate to specific chapters."
-  },
-  {
-    "objectID": "devops-practices/index.html#chapters",
-    "href": "devops-practices/index.html#chapters",
-    "title": "DevOps Practices",
-    "section": "",
-    "text": "Ansible Basics - Getting started with Ansible\n\n\n\n\n\nCron Job Deployment - Scheduled task automation\n\n\n\n\n\nMariaDB Troubleshooting - Fixing database services"
-  },
-  {
-    "objectID": "devops-practices/index.html#skills-developed",
-    "href": "devops-practices/index.html#skills-developed",
-    "title": "DevOps Practices",
-    "section": "",
-    "text": "Ansible configuration management\nCron job automation\nDatabase service management\nTroubleshooting production issues\n\n\nUse the sidebar to navigate to specific chapters."
-  },
-  {
-    "objectID": "devops-practices.html",
-    "href": "devops-practices.html",
-    "title": "DevOps Practices",
-    "section": "",
-    "text": "This section covers DevOps tools and methodologies - configuration management, automation, and infrastructure practices.\n\n\n\n\n\nAnsible Basics - Getting started with Ansible\n\n\n\n\n\nCron Job Deployment - Scheduled task automation\n\n\n\n\n\nMariaDB Troubleshooting - Fixing database services\n\n\n\n\n\n\nAnsible configuration management\nCron job automation\nDatabase service management\nTroubleshooting production issues\n\n\nUse the sidebar to navigate to specific chapters."
-  },
-  {
-    "objectID": "devops-practices.html#chapters",
-    "href": "devops-practices.html#chapters",
-    "title": "DevOps Practices",
-    "section": "",
-    "text": "Ansible Basics - Getting started with Ansible\n\n\n\n\n\nCron Job Deployment - Scheduled task automation\n\n\n\n\n\nMariaDB Troubleshooting - Fixing database services"
-  },
-  {
-    "objectID": "devops-practices.html#skills-developed",
-    "href": "devops-practices.html#skills-developed",
-    "title": "DevOps Practices",
-    "section": "",
-    "text": "Ansible configuration management\nCron job automation\nDatabase service management\nTroubleshooting production issues\n\n\nUse the sidebar to navigate to specific chapters."
-  },
-  {
     "objectID": "security/index.html",
     "href": "security/index.html",
     "title": "Security",
     "section": "",
-    "text": "This section covers cybersecurity fundamentals - from CTF challenges to HTB Academy modules.\n\n\n\n  \n    6\n    Completed\n  \n  \n    6\n    Remaining\n  \n  \n    50%\n    Progress\n  \n\n\n\n\n\n\n\nNmap Full Port Scan - Complete TCP port enumeration ✓\nService Enumeration - Banner grabbing and version detection ✓\n\n\n\n\n\nCTF Introduction - Getting started with Capture The Flag\n\n\n\n\n\nForensics Basics - Digital forensics fundamentals\n\n\n\n\n\nWeb Security Basics - Web vulnerability fundamentals\n\n\n\n\n\n\n\n\nChallenge\nAnswer\nDate\n\n\n\n\nNmap Default\nHTB{pr0F7pDv3r510nb4nn3r}\n2026-02-11\n\n\nCaesar Cipher\nSolved\n2026-02-16\n\n\nNmap Full Scan\n31337\n2026-02-19\n\n\nService Enumeration\nHTB{pr0F7pDv3r510nb4nn3r}\n2026-02-20\n\n\n\n\n\n\n\nCTF problem solving\nDigital forensics\nWeb security basics\nNetwork enumeration\nBanner grabbing\n\n\nUse the sidebar to navigate to specific chapters."
+    "text": "This section covers cybersecurity fundamentals - from CTF challenges to HTB Academy modules.\n\n\n\n  \n    7\n    Completed\n  \n  \n    5\n    Remaining\n  \n  \n    58%\n    Progress\n  \n\n\n\n\n\n\n\nNmap Full Port Scan - Complete TCP port enumeration ✓\nService Enumeration - Banner grabbing and version detection ✓\nFirewall & IDS/IPS Evasion - Passive OS fingerprinting ✓\n\n\n\n\n\nCTF Introduction - Getting started with Capture The Flag\n\n\n\n\n\nForensics Basics - Digital forensics fundamentals\n\n\n\n\n\nWeb Security Basics - Web vulnerability fundamentals\n\n\n\n\n\n\n\n\nChallenge\nAnswer\nDate\n\n\n\n\nNmap Default\nHTB{pr0F7pDv3r510nb4nn3r}\n2026-02-11\n\n\nCaesar Cipher\nSolved\n2026-02-16\n\n\nNmap Full Scan\n31337\n2026-02-19\n\n\nService Enumeration\nHTB{pr0F7pDv3r510nb4nn3r}\n2026-02-20\n\n\nFirewall/IDS Evasion\nUbuntu\n2026-02-20\n\n\n\n\n\n\n\nCTF problem solving\nDigital forensics\nWeb security basics\nNetwork enumeration\nBanner grabbing\n\n\nUse the sidebar to navigate to specific chapters."
   },
   {
     "objectID": "security/index.html#progress",
     "href": "security/index.html#progress",
     "title": "Security",
     "section": "",
-    "text": "6\n    Completed\n  \n  \n    6\n    Remaining\n  \n  \n    50%\n    Progress"
+    "text": "7\n    Completed\n  \n  \n    5\n    Remaining\n  \n  \n    58%\n    Progress"
   },
   {
     "objectID": "security/index.html#chapters",
     "href": "security/index.html#chapters",
     "title": "Security",
     "section": "",
-    "text": "Nmap Full Port Scan - Complete TCP port enumeration ✓\nService Enumeration - Banner grabbing and version detection ✓\n\n\n\n\n\nCTF Introduction - Getting started with Capture The Flag\n\n\n\n\n\nForensics Basics - Digital forensics fundamentals\n\n\n\n\n\nWeb Security Basics - Web vulnerability fundamentals"
+    "text": "Nmap Full Port Scan - Complete TCP port enumeration ✓\nService Enumeration - Banner grabbing and version detection ✓\nFirewall & IDS/IPS Evasion - Passive OS fingerprinting ✓\n\n\n\n\n\nCTF Introduction - Getting started with Capture The Flag\n\n\n\n\n\nForensics Basics - Digital forensics fundamentals\n\n\n\n\n\nWeb Security Basics - Web vulnerability fundamentals"
   },
   {
     "objectID": "security/index.html#completed-htb-challenges",
     "href": "security/index.html#completed-htb-challenges",
     "title": "Security",
     "section": "",
-    "text": "Challenge\nAnswer\nDate\n\n\n\n\nNmap Default\nHTB{pr0F7pDv3r510nb4nn3r}\n2026-02-11\n\n\nCaesar Cipher\nSolved\n2026-02-16\n\n\nNmap Full Scan\n31337\n2026-02-19\n\n\nService Enumeration\nHTB{pr0F7pDv3r510nb4nn3r}\n2026-02-20"
+    "text": "Challenge\nAnswer\nDate\n\n\n\n\nNmap Default\nHTB{pr0F7pDv3r510nb4nn3r}\n2026-02-11\n\n\nCaesar Cipher\nSolved\n2026-02-16\n\n\nNmap Full Scan\n31337\n2026-02-19\n\n\nService Enumeration\nHTB{pr0F7pDv3r510nb4nn3r}\n2026-02-20\n\n\nFirewall/IDS Evasion\nUbuntu\n2026-02-20"
   },
   {
     "objectID": "security/index.html#skills-developed",
@@ -1187,7 +1327,7 @@
     "href": "es/index.html",
     "title": "Journey de Aprendizaje DevOps & Security",
     "section": "",
-    "text": "Este sitio documenta mi camino a través de administración de sistemas Linux, contenedores Docker, prácticas DevOps, y desafíos de ciberseguridad/CTF.\n\n\nEste journey sirve dos propósitos:\n\nSeguimiento de Progreso Personal - Un registro visual de lo que he aprendido y completado\nGuía de Aprendizaje para Otros - Un camino estructurado que otros pueden seguir para construir habilidades similares\n\n\n\n\n\n  \n    Completado Total\n    47%\n  \n  \n    \n  \n  \n    ✅ 28 completados\n    📋 32 restantes\n    🎯 60 total\n  \n\n\n\n\n\n\n\n  \n    🐧\n    Fundamentos Linux\n    45%\n  \n  \n    \n  \n  9/20 desafíos completados\n\n\n\n  \n    🐳\n    Docker\n    100%\n  \n  \n    \n  \n  6/6 desafíos completados\n\n\n\n  \n    ⚙️\n    DevOps\n    50%\n  \n  \n    \n  \n  8/16 desafíos completados\n\n\n\n  \n    🔒\n    Seguridad\n    43%\n  \n  \n    \n  \n  5/12 desafíos completados\n\n\n\n\n\n\n\n\n\n  ✓\n  \n    \n    Gestión de usuarios, permisos, networking, scripting\n    Completado\n  \n\n\n\n  ✓\n  \n    \n    Fundamentos de Docker, volúmenes, redes\n    Completado\n  \n\n\n\n  ◐\n  \n    \n    Ansible, Cron, MariaDB, CI/CD básico\n    En Progreso - 50%\n  \n\n\n\n  ○\n  \n    \n    CTF básico, forense, seguridad web, HTB Academy\n    No Iniciado\n  \n\n\n\n  ○\n  \n    \n    Kubernetes, networking avanzado, pentesting\n    No Iniciado\n  \n\n\n\n\n\n\nEl journey de aprendizaje está organizado en cuatro áreas principales:\n\n\nFundamentos de administración de sistemas Linux\n\n\n\nDocker y contenerización\n\n\n\nHerramientas y metodologías DevOps\n\n\n\nFundamentos de ciberseguridad\n\n\n\n\n\n\n\nHabilidad\nNivel\nEstado\n\n\n\n\nAdministración Linux\n🟢 Intermedio\nEn Progreso\n\n\nDocker & Contenedores\n🟢 Intermedio\nCertificado\n\n\nAnsible\n🔵 Básico\nAprendiendo\n\n\nBash Scripting\n🟢 Intermedio\nCompletado\n\n\nSeguridad de Redes\n🔵 Básico\nAprendiendo\n\n\nResolución CTF\n🔵 Básico\nIniciado\n\n\nHTB Academy\n🔵 Básico\nIniciado\n\n\n\n\n\n\nUsa la barra lateral para navegar entre secciones, o haz clic en los enlaces de sección anteriores.\n\nEste journey se actualiza continuamente a medida que se completan nuevos desafíos."
+    "text": "Este sitio documenta mi camino a través de administración de sistemas Linux, contenedores Docker, prácticas DevOps, y desafíos de ciberseguridad/CTF.\n\n\nEste journey sirve dos propósitos:\n\nSeguimiento de Progreso Personal - Un registro visual de lo que he aprendido y completado\nGuía de Aprendizaje para Otros - Un camino estructurado que otros pueden seguir para construir habilidades similares\n\n\n\n\n\n  \n    Completado Total\n    48%\n  \n  \n    \n  \n  \n    ✅ 29 completados\n    📋 31 restantes\n    🎯 60 total\n  \n\n\n\n\n\n\n\n  \n    🐧\n    Fundamentos Linux\n    45%\n  \n  \n    \n  \n  9/20 desafíos completados\n\n\n\n  \n    🐳\n    Docker\n    100%\n  \n  \n    \n  \n  6/6 desafíos completados\n\n\n\n  \n    ⚙️\n    DevOps\n    50%\n  \n  \n    \n  \n  8/16 desafíos completados\n\n\n\n  \n    🔒\n    Seguridad\n    43%\n  \n  \n    \n  \n  5/12 desafíos completados\n\n\n\n\n\n\n\n\n\n  ✓\n  \n    \n    Gestión de usuarios, permisos, networking, scripting\n    Completado\n  \n\n\n\n  ✓\n  \n    \n    Fundamentos de Docker, volúmenes, redes\n    Completado\n  \n\n\n\n  ◐\n  \n    \n    Ansible, Cron, MariaDB, CI/CD básico\n    En Progreso - 50%\n  \n\n\n\n  ○\n  \n    \n    CTF básico, forense, seguridad web, HTB Academy\n    No Iniciado\n  \n\n\n\n  ○\n  \n    \n    Kubernetes, networking avanzado, pentesting\n    No Iniciado\n  \n\n\n\n\n\n\nEl journey de aprendizaje está organizado en cuatro áreas principales:\n\n\nFundamentos de administración de sistemas Linux\n\n\n\nDocker y contenerización\n\n\n\nHerramientas y metodologías DevOps\n\n\n\nFundamentos de ciberseguridad\n\n\n\n\n\n\n\nHabilidad\nNivel\nEstado\n\n\n\n\nAdministración Linux\n🟢 Intermedio\nEn Progreso\n\n\nDocker & Contenedores\n🟢 Intermedio\nCertificado\n\n\nAnsible\n🔵 Básico\nAprendiendo\n\n\nBash Scripting\n🟢 Intermedio\nCompletado\n\n\nSeguridad de Redes\n🔵 Básico\nAprendiendo\n\n\nResolución CTF\n🔵 Básico\nIniciado\n\n\nHTB Academy\n🔵 Básico\nIniciado\n\n\n\n\n\n\nUsa la barra lateral para navegar entre secciones, o haz clic en los enlaces de sección anteriores.\n\nEste journey se actualiza continuamente a medida que se completan nuevos desafíos."
   },
   {
     "objectID": "es/index.html#propósito",
@@ -1201,7 +1341,7 @@
     "href": "es/index.html#progreso-general",
     "title": "Journey de Aprendizaje DevOps & Security",
     "section": "",
-    "text": "Completado Total\n    47%\n  \n  \n    \n  \n  \n    ✅ 28 completados\n    📋 32 restantes\n    🎯 60 total"
+    "text": "Completado Total\n    48%\n  \n  \n    \n  \n  \n    ✅ 29 completados\n    📋 31 restantes\n    🎯 60 total"
   },
   {
     "objectID": "es/index.html#progreso-por-área",
