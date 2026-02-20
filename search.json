@@ -623,6 +623,97 @@
     "text": "Takeaways\n\nPassive &gt; Active: Service banners often reveal OS without triggering alerts\nHTTP Server Header: Apache often includes OS in version string\nSSH Banner: OpenSSH packages typically include distribution info\nTTL Fingerprinting: Linux ≈ 64, Windows ≈ 128, Network devices ≈ 255"
   },
   {
+    "objectID": "security/04-htb-academy.html",
+    "href": "security/04-htb-academy.html",
+    "title": "HTB Academy - Network Enumeration",
+    "section": "",
+    "text": "Platform: Hack The Box Academy\nModule: Network Enumeration with Nmap\nTarget: 10.129.4.45\nTask: Perform full TCP port scan and identify the highest port\n\n\n\n\nQuick scans only check the 1000 most common ports, missing: - Administrative ports (2222, 9000, 10000) - Internal services (3306, 5432, 6379) - Backdoors and custom services (31337, 4444, 1337)\n\n\n\nOption\nDescription\n\n\n\n\n-p-\nAll TCP ports (1-65535)\n\n\n-Pn\nNo ping (skip host detection)\n\n\n-T5\nAggressive timing\n\n\n-oX\nXML output\n\n\n\n\n\n\n\n\n\nping -c 3 10.129.4.45\nResult: 0% packet loss - host is up!\n\n\n\nsudo nmap -p- -Pn -T5 -oX scan.xml 10.129.4.45\nResults:\nPORT      STATE SERVICE\n22/tcp    open  ssh\n80/tcp    open  http\n110/tcp   open  pop3\n139/tcp   open  netbios-ssn\n143/tcp   open  imap\n445/tcp   open  microsoft-ds\n31337/tcp open  Elite\n\n\n\nxsltproc scan.xml -o scan.html\n\n\n\ngrep -oP 'portid=\"\\K[0-9]+' scan.xml | sort -n | tail -1\nAnswer: 31337\n\n\n\n\n\n\nFull TCP scan completed (-p-)\nAll 7 ports identified\nHighest port found: 31337\nHTML report generated\n\n\n\n\n\n\nComplete port scanning methodology\nXML output processing\nHTML report generation with xsltproc\nPort enumeration best practices\n\n\n\n\n\nCOMPLETED 🎉\n\nDate: 2026-02-19\nAnswer Submitted: 31337\nPlatform: HTB Academy\n\n\n← Back to Security"
+  },
+  {
+    "objectID": "security/04-htb-academy.html#scenario-full-port-scan-challenge",
+    "href": "security/04-htb-academy.html#scenario-full-port-scan-challenge",
+    "title": "HTB Academy - Network Enumeration",
+    "section": "",
+    "text": "Platform: Hack The Box Academy\nModule: Network Enumeration with Nmap\nTarget: 10.129.4.45\nTask: Perform full TCP port scan and identify the highest port"
+  },
+  {
+    "objectID": "security/04-htb-academy.html#full-port-scan-vs-quick-scan",
+    "href": "security/04-htb-academy.html#full-port-scan-vs-quick-scan",
+    "title": "HTB Academy - Network Enumeration",
+    "section": "",
+    "text": "Quick scans only check the 1000 most common ports, missing: - Administrative ports (2222, 9000, 10000) - Internal services (3306, 5432, 6379) - Backdoors and custom services (31337, 4444, 1337)\n\n\n\nOption\nDescription\n\n\n\n\n-p-\nAll TCP ports (1-65535)\n\n\n-Pn\nNo ping (skip host detection)\n\n\n-T5\nAggressive timing\n\n\n-oX\nXML output"
+  },
+  {
+    "objectID": "security/04-htb-academy.html#implementation",
+    "href": "security/04-htb-academy.html#implementation",
+    "title": "HTB Academy - Network Enumeration",
+    "section": "",
+    "text": "ping -c 3 10.129.4.45\nResult: 0% packet loss - host is up!\n\n\n\nsudo nmap -p- -Pn -T5 -oX scan.xml 10.129.4.45\nResults:\nPORT      STATE SERVICE\n22/tcp    open  ssh\n80/tcp    open  http\n110/tcp   open  pop3\n139/tcp   open  netbios-ssn\n143/tcp   open  imap\n445/tcp   open  microsoft-ds\n31337/tcp open  Elite\n\n\n\nxsltproc scan.xml -o scan.html\n\n\n\ngrep -oP 'portid=\"\\K[0-9]+' scan.xml | sort -n | tail -1\nAnswer: 31337"
+  },
+  {
+    "objectID": "security/04-htb-academy.html#verification",
+    "href": "security/04-htb-academy.html#verification",
+    "title": "HTB Academy - Network Enumeration",
+    "section": "",
+    "text": "Full TCP scan completed (-p-)\nAll 7 ports identified\nHighest port found: 31337\nHTML report generated"
+  },
+  {
+    "objectID": "security/04-htb-academy.html#key-learnings",
+    "href": "security/04-htb-academy.html#key-learnings",
+    "title": "HTB Academy - Network Enumeration",
+    "section": "",
+    "text": "Complete port scanning methodology\nXML output processing\nHTML report generation with xsltproc\nPort enumeration best practices"
+  },
+  {
+    "objectID": "security/04-htb-academy.html#status",
+    "href": "security/04-htb-academy.html#status",
+    "title": "HTB Academy - Network Enumeration",
+    "section": "",
+    "text": "COMPLETED 🎉\n\nDate: 2026-02-19\nAnswer Submitted: 31337\nPlatform: HTB Academy\n\n\n← Back to Security"
+  },
+  {
+    "objectID": "devops-practices.html",
+    "href": "devops-practices.html",
+    "title": "DevOps Practices",
+    "section": "",
+    "text": "This section covers DevOps tools and methodologies - configuration management, automation, and infrastructure practices.\n\n\n\n\n\nAnsible Basics - Getting started with Ansible\n\n\n\n\n\nCron Job Deployment - Scheduled task automation\n\n\n\n\n\nMariaDB Troubleshooting - Fixing database services\n\n\n\n\n\n\nAnsible configuration management\nCron job automation\nDatabase service management\nTroubleshooting production issues\n\n\nUse the sidebar to navigate to specific chapters."
+  },
+  {
+    "objectID": "devops-practices.html#chapters",
+    "href": "devops-practices.html#chapters",
+    "title": "DevOps Practices",
+    "section": "",
+    "text": "Ansible Basics - Getting started with Ansible\n\n\n\n\n\nCron Job Deployment - Scheduled task automation\n\n\n\n\n\nMariaDB Troubleshooting - Fixing database services"
+  },
+  {
+    "objectID": "devops-practices.html#skills-developed",
+    "href": "devops-practices.html#skills-developed",
+    "title": "DevOps Practices",
+    "section": "",
+    "text": "Ansible configuration management\nCron job automation\nDatabase service management\nTroubleshooting production issues\n\n\nUse the sidebar to navigate to specific chapters."
+  },
+  {
+    "objectID": "devops-practices/index.html",
+    "href": "devops-practices/index.html",
+    "title": "DevOps Practices",
+    "section": "",
+    "text": "This section covers DevOps tools and methodologies - configuration management, automation, and infrastructure practices.\n\n\n\n\n\nAnsible Basics - Getting started with Ansible\n\n\n\n\n\nCron Job Deployment - Scheduled task automation\n\n\n\n\n\nMariaDB Troubleshooting - Fixing database services\n\n\n\n\n\n\nAnsible configuration management\nCron job automation\nDatabase service management\nTroubleshooting production issues\n\n\nUse the sidebar to navigate to specific chapters."
+  },
+  {
+    "objectID": "devops-practices/index.html#chapters",
+    "href": "devops-practices/index.html#chapters",
+    "title": "DevOps Practices",
+    "section": "",
+    "text": "Ansible Basics - Getting started with Ansible\n\n\n\n\n\nCron Job Deployment - Scheduled task automation\n\n\n\n\n\nMariaDB Troubleshooting - Fixing database services"
+  },
+  {
+    "objectID": "devops-practices/index.html#skills-developed",
+    "href": "devops-practices/index.html#skills-developed",
+    "title": "DevOps Practices",
+    "section": "",
+    "text": "Ansible configuration management\nCron job automation\nDatabase service management\nTroubleshooting production issues\n\n\nUse the sidebar to navigate to specific chapters."
+  },
+  {
     "objectID": "security/openvpn-setup.html",
     "href": "security/openvpn-setup.html",
     "title": "OpenVPN Setup Guide",
@@ -707,123 +798,95 @@
     "text": "GUÍA COMPLETADA 🎉\n\n📅 Fecha: 2026-02-20\n🎯 Sistemas: Linux, macOS, Windows\n🛠️ Herramientas: OpenVPN CLI, OpenVPN Connect\n\n\n← Back to Security"
   },
   {
-    "objectID": "devops-practices/index.html",
-    "href": "devops-practices/index.html",
-    "title": "DevOps Practices",
+    "objectID": "security/07-htb-firewall-evasion-medium.html",
+    "href": "security/07-htb-firewall-evasion-medium.html",
+    "title": "Firewall & IDS/IPS Evasion - Medium Lab",
     "section": "",
-    "text": "This section covers DevOps tools and methodologies - configuration management, automation, and infrastructure practices.\n\n\n\n\n\nAnsible Basics - Getting started with Ansible\n\n\n\n\n\nCron Job Deployment - Scheduled task automation\n\n\n\n\n\nMariaDB Troubleshooting - Fixing database services\n\n\n\n\n\n\nAnsible configuration management\nCron job automation\nDatabase service management\nTroubleshooting production issues\n\n\nUse the sidebar to navigate to specific chapters."
+    "text": "Find the DNS server version of a target with stricter IDS/IPS and firewall configurations."
   },
   {
-    "objectID": "devops-practices/index.html#chapters",
-    "href": "devops-practices/index.html#chapters",
-    "title": "DevOps Practices",
+    "objectID": "security/07-htb-firewall-evasion-medium.html#objective",
+    "href": "security/07-htb-firewall-evasion-medium.html#objective",
+    "title": "Firewall & IDS/IPS Evasion - Medium Lab",
     "section": "",
-    "text": "Ansible Basics - Getting started with Ansible\n\n\n\n\n\nCron Job Deployment - Scheduled task automation\n\n\n\n\n\nMariaDB Troubleshooting - Fixing database services"
+    "text": "Find the DNS server version of a target with stricter IDS/IPS and firewall configurations."
   },
   {
-    "objectID": "devops-practices/index.html#skills-developed",
-    "href": "devops-practices/index.html#skills-developed",
-    "title": "DevOps Practices",
-    "section": "",
-    "text": "Ansible configuration management\nCron job automation\nDatabase service management\nTroubleshooting production issues\n\n\nUse the sidebar to navigate to specific chapters."
+    "objectID": "security/07-htb-firewall-evasion-medium.html#key-requirement",
+    "href": "security/07-htb-firewall-evasion-medium.html#key-requirement",
+    "title": "Firewall & IDS/IPS Evasion - Medium Lab",
+    "section": "Key Requirement",
+    "text": "Key Requirement\nMust use UDP protocol - DNS uses UDP 53 by default."
   },
   {
-    "objectID": "devops-practices.html",
-    "href": "devops-practices.html",
-    "title": "DevOps Practices",
-    "section": "",
-    "text": "This section covers DevOps tools and methodologies - configuration management, automation, and infrastructure practices.\n\n\n\n\n\nAnsible Basics - Getting started with Ansible\n\n\n\n\n\nCron Job Deployment - Scheduled task automation\n\n\n\n\n\nMariaDB Troubleshooting - Fixing database services\n\n\n\n\n\n\nAnsible configuration management\nCron job automation\nDatabase service management\nTroubleshooting production issues\n\n\nUse the sidebar to navigate to specific chapters."
+    "objectID": "security/07-htb-firewall-evasion-medium.html#solution-dns-version-query",
+    "href": "security/07-htb-firewall-evasion-medium.html#solution-dns-version-query",
+    "title": "Firewall & IDS/IPS Evasion - Medium Lab",
+    "section": "Solution: DNS Version Query",
+    "text": "Solution: DNS Version Query\n\nUsing nslookup (No Root Required)\nnslookup -type=txt -class=chaos version.bind 10.129.4.95\nServer:     10.129.4.95\nAddress:    10.129.4.95#53\n\nversion.bind    text = \"HTB{GoTtgUnyze9Psw4vGjcuMpHRp}\"\n\n\nAlternative: dig\ndig @10.129.4.95 version.bind chaos txt"
   },
   {
-    "objectID": "devops-practices.html#chapters",
-    "href": "devops-practices.html#chapters",
-    "title": "DevOps Practices",
-    "section": "",
-    "text": "Ansible Basics - Getting started with Ansible\n\n\n\n\n\nCron Job Deployment - Scheduled task automation\n\n\n\n\n\nMariaDB Troubleshooting - Fixing database services"
+    "objectID": "security/07-htb-firewall-evasion-medium.html#answer",
+    "href": "security/07-htb-firewall-evasion-medium.html#answer",
+    "title": "Firewall & IDS/IPS Evasion - Medium Lab",
+    "section": "Answer",
+    "text": "Answer\nDNS Server Version: HTB{GoTtgUnyze9Psw4vGjcuMpHRp}"
   },
   {
-    "objectID": "devops-practices.html#skills-developed",
-    "href": "devops-practices.html#skills-developed",
-    "title": "DevOps Practices",
-    "section": "",
-    "text": "Ansible configuration management\nCron job automation\nDatabase service management\nTroubleshooting production issues\n\n\nUse the sidebar to navigate to specific chapters."
+    "objectID": "security/07-htb-firewall-evasion-medium.html#technical-details",
+    "href": "security/07-htb-firewall-evasion-medium.html#technical-details",
+    "title": "Firewall & IDS/IPS Evasion - Medium Lab",
+    "section": "Technical Details",
+    "text": "Technical Details\n\nWhat is version.bind?\n\n\n\nComponent\nDescription\n\n\n\n\nCHAOS class\nSpecial DNS class (not Internet class)\n\n\nversion.bind\nSpecial record exposing BIND version\n\n\nTXT record\nReturns version string\n\n\n\n\n\nWhy This Works\n\nUDP Protocol: DNS queries use UDP by default\nPassive: No port scanning, legitimate DNS query\nCHAOS Class: BIND servers still respond to these queries\nPublic Server: Must allow DNS queries for public access"
   },
   {
-    "objectID": "security/04-htb-academy.html",
-    "href": "security/04-htb-academy.html",
-    "title": "HTB Academy - Network Enumeration",
-    "section": "",
-    "text": "Platform: Hack The Box Academy\nModule: Network Enumeration with Nmap\nTarget: 10.129.4.45\nTask: Perform full TCP port scan and identify the highest port\n\n\n\n\nQuick scans only check the 1000 most common ports, missing: - Administrative ports (2222, 9000, 10000) - Internal services (3306, 5432, 6379) - Backdoors and custom services (31337, 4444, 1337)\n\n\n\nOption\nDescription\n\n\n\n\n-p-\nAll TCP ports (1-65535)\n\n\n-Pn\nNo ping (skip host detection)\n\n\n-T5\nAggressive timing\n\n\n-oX\nXML output\n\n\n\n\n\n\n\n\n\nping -c 3 10.129.4.45\nResult: 0% packet loss - host is up!\n\n\n\nsudo nmap -p- -Pn -T5 -oX scan.xml 10.129.4.45\nResults:\nPORT      STATE SERVICE\n22/tcp    open  ssh\n80/tcp    open  http\n110/tcp   open  pop3\n139/tcp   open  netbios-ssn\n143/tcp   open  imap\n445/tcp   open  microsoft-ds\n31337/tcp open  Elite\n\n\n\nxsltproc scan.xml -o scan.html\n\n\n\ngrep -oP 'portid=\"\\K[0-9]+' scan.xml | sort -n | tail -1\nAnswer: 31337\n\n\n\n\n\n\nFull TCP scan completed (-p-)\nAll 7 ports identified\nHighest port found: 31337\nHTML report generated\n\n\n\n\n\n\nComplete port scanning methodology\nXML output processing\nHTML report generation with xsltproc\nPort enumeration best practices\n\n\n\n\n\nCOMPLETED 🎉\n\nDate: 2026-02-19\nAnswer Submitted: 31337\nPlatform: HTB Academy\n\n\n← Back to Security"
+    "objectID": "security/07-htb-firewall-evasion-medium.html#security-recommendation",
+    "href": "security/07-htb-firewall-evasion-medium.html#security-recommendation",
+    "title": "Firewall & IDS/IPS Evasion - Medium Lab",
+    "section": "Security Recommendation",
+    "text": "Security Recommendation\nDisable version disclosure in BIND:\n# In named.conf.options\noptions {\n    version \"not disclosed\";\n}"
   },
   {
-    "objectID": "security/04-htb-academy.html#scenario-full-port-scan-challenge",
-    "href": "security/04-htb-academy.html#scenario-full-port-scan-challenge",
-    "title": "HTB Academy - Network Enumeration",
-    "section": "",
-    "text": "Platform: Hack The Box Academy\nModule: Network Enumeration with Nmap\nTarget: 10.129.4.45\nTask: Perform full TCP port scan and identify the highest port"
+    "objectID": "security/07-htb-firewall-evasion-medium.html#evasion-techniques",
+    "href": "security/07-htb-firewall-evasion-medium.html#evasion-techniques",
+    "title": "Firewall & IDS/IPS Evasion - Medium Lab",
+    "section": "Evasion Techniques",
+    "text": "Evasion Techniques\n\n\n\nTechnique\nPurpose\nResult\n\n\n\n\nDNS query\nLegitimate traffic\nNo IDS alert\n\n\nUDP protocol\nRequired\nStandard DNS\n\n\nCHAOS class\nVersion disclosure\nFlag obtained\n\n\nnslookup/dig\nNo port scan\nCompletely passive"
   },
   {
-    "objectID": "security/04-htb-academy.html#full-port-scan-vs-quick-scan",
-    "href": "security/04-htb-academy.html#full-port-scan-vs-quick-scan",
-    "title": "HTB Academy - Network Enumeration",
-    "section": "",
-    "text": "Quick scans only check the 1000 most common ports, missing: - Administrative ports (2222, 9000, 10000) - Internal services (3306, 5432, 6379) - Backdoors and custom services (31337, 4444, 1337)\n\n\n\nOption\nDescription\n\n\n\n\n-p-\nAll TCP ports (1-65535)\n\n\n-Pn\nNo ping (skip host detection)\n\n\n-T5\nAggressive timing\n\n\n-oX\nXML output"
-  },
-  {
-    "objectID": "security/04-htb-academy.html#implementation",
-    "href": "security/04-htb-academy.html#implementation",
-    "title": "HTB Academy - Network Enumeration",
-    "section": "",
-    "text": "ping -c 3 10.129.4.45\nResult: 0% packet loss - host is up!\n\n\n\nsudo nmap -p- -Pn -T5 -oX scan.xml 10.129.4.45\nResults:\nPORT      STATE SERVICE\n22/tcp    open  ssh\n80/tcp    open  http\n110/tcp   open  pop3\n139/tcp   open  netbios-ssn\n143/tcp   open  imap\n445/tcp   open  microsoft-ds\n31337/tcp open  Elite\n\n\n\nxsltproc scan.xml -o scan.html\n\n\n\ngrep -oP 'portid=\"\\K[0-9]+' scan.xml | sort -n | tail -1\nAnswer: 31337"
-  },
-  {
-    "objectID": "security/04-htb-academy.html#verification",
-    "href": "security/04-htb-academy.html#verification",
-    "title": "HTB Academy - Network Enumeration",
-    "section": "",
-    "text": "Full TCP scan completed (-p-)\nAll 7 ports identified\nHighest port found: 31337\nHTML report generated"
-  },
-  {
-    "objectID": "security/04-htb-academy.html#key-learnings",
-    "href": "security/04-htb-academy.html#key-learnings",
-    "title": "HTB Academy - Network Enumeration",
-    "section": "",
-    "text": "Complete port scanning methodology\nXML output processing\nHTML report generation with xsltproc\nPort enumeration best practices"
-  },
-  {
-    "objectID": "security/04-htb-academy.html#status",
-    "href": "security/04-htb-academy.html#status",
-    "title": "HTB Academy - Network Enumeration",
-    "section": "",
-    "text": "COMPLETED 🎉\n\nDate: 2026-02-19\nAnswer Submitted: 31337\nPlatform: HTB Academy\n\n\n← Back to Security"
+    "objectID": "security/07-htb-firewall-evasion-medium.html#key-learnings",
+    "href": "security/07-htb-firewall-evasion-medium.html#key-learnings",
+    "title": "Firewall & IDS/IPS Evasion - Medium Lab",
+    "section": "Key Learnings",
+    "text": "Key Learnings\n\nPassive DNS queries bypass IDS focused on port scanning\nversion.bind should be disabled on production servers\nnslookup/dig are quieter than Nmap for DNS enumeration\nUDP scans require root on most systems"
   },
   {
     "objectID": "security/index.html",
     "href": "security/index.html",
     "title": "Security",
     "section": "",
-    "text": "This section covers cybersecurity fundamentals - from CTF challenges to HTB Academy modules.\n\n\n\n  \n    7\n    Completed\n  \n  \n    5\n    Remaining\n  \n  \n    58%\n    Progress\n  \n\n\n\n\n\n\n\nNmap Full Port Scan - Complete TCP port enumeration ✓\nService Enumeration - Banner grabbing and version detection ✓\nFirewall & IDS/IPS Evasion - Passive OS fingerprinting ✓\n\n\n\n\n\nCTF Introduction - Getting started with Capture The Flag\n\n\n\n\n\nForensics Basics - Digital forensics fundamentals\n\n\n\n\n\nWeb Security Basics - Web vulnerability fundamentals\n\n\n\n\n\n\n\n\nChallenge\nAnswer\nDate\n\n\n\n\nNmap Default\nHTB{pr0F7pDv3r510nb4nn3r}\n2026-02-11\n\n\nCaesar Cipher\nSolved\n2026-02-16\n\n\nNmap Full Scan\n31337\n2026-02-19\n\n\nService Enumeration\nHTB{pr0F7pDv3r510nb4nn3r}\n2026-02-20\n\n\nFirewall/IDS Evasion\nUbuntu\n2026-02-20\n\n\n\n\n\n\n\nCTF problem solving\nDigital forensics\nWeb security basics\nNetwork enumeration\nBanner grabbing\n\n\nUse the sidebar to navigate to specific chapters."
+    "text": "This section covers cybersecurity fundamentals - from CTF challenges to HTB Academy modules.\n\n\n\n  \n    8\n    Completed\n  \n  \n    4\n    Remaining\n  \n  \n    67%\n    Progress\n  \n\n\n\n\n\n\n\nNmap Full Port Scan - Complete TCP port enumeration ✓\nService Enumeration - Banner grabbing and version detection ✓\nFirewall & IDS/IPS Evasion (Easy) - Passive OS fingerprinting ✓\nFirewall & IDS/IPS Evasion (Medium) - DNS version enumeration ✓\n\n\n\n\n\nCTF Introduction - Getting started with Capture The Flag\n\n\n\n\n\nForensics Basics - Digital forensics fundamentals\n\n\n\n\n\nWeb Security Basics - Web vulnerability fundamentals\n\n\n\n\n\n\n\n\n\n\n\n\n\nChallenge\nAnswer\nDate\n\n\n\n\nNmap Default\nHTB{pr0F7pDv3r510nb4nn3r}\n2026-02-11\n\n\nCaesar Cipher\nSolved\n2026-02-16\n\n\nNmap Full Scan\n31337\n2026-02-19\n\n\nService Enumeration\nHTB{pr0F7pDv3r510nb4nn3r}\n2026-02-20\n\n\nFirewall/IDS Evasion (Easy)\nUbuntu\n2026-02-20\n\n\nFirewall/IDS Evasion (Medium)\nHTB{GoTtgUnyze9Psw4vGjcuMpHRp}\n2026-02-20\n\n\n\n\n\n\n\nCTF problem solving\nDigital forensics\nWeb security basics\nNetwork enumeration\nBanner grabbing\n\n\nUse the sidebar to navigate to specific chapters."
   },
   {
     "objectID": "security/index.html#progress",
     "href": "security/index.html#progress",
     "title": "Security",
     "section": "",
-    "text": "7\n    Completed\n  \n  \n    5\n    Remaining\n  \n  \n    58%\n    Progress"
+    "text": "8\n    Completed\n  \n  \n    4\n    Remaining\n  \n  \n    67%\n    Progress"
   },
   {
     "objectID": "security/index.html#chapters",
     "href": "security/index.html#chapters",
     "title": "Security",
     "section": "",
-    "text": "Nmap Full Port Scan - Complete TCP port enumeration ✓\nService Enumeration - Banner grabbing and version detection ✓\nFirewall & IDS/IPS Evasion - Passive OS fingerprinting ✓\n\n\n\n\n\nCTF Introduction - Getting started with Capture The Flag\n\n\n\n\n\nForensics Basics - Digital forensics fundamentals\n\n\n\n\n\nWeb Security Basics - Web vulnerability fundamentals"
+    "text": "Nmap Full Port Scan - Complete TCP port enumeration ✓\nService Enumeration - Banner grabbing and version detection ✓\nFirewall & IDS/IPS Evasion (Easy) - Passive OS fingerprinting ✓\nFirewall & IDS/IPS Evasion (Medium) - DNS version enumeration ✓\n\n\n\n\n\nCTF Introduction - Getting started with Capture The Flag\n\n\n\n\n\nForensics Basics - Digital forensics fundamentals\n\n\n\n\n\nWeb Security Basics - Web vulnerability fundamentals"
   },
   {
     "objectID": "security/index.html#completed-htb-challenges",
     "href": "security/index.html#completed-htb-challenges",
     "title": "Security",
     "section": "",
-    "text": "Challenge\nAnswer\nDate\n\n\n\n\nNmap Default\nHTB{pr0F7pDv3r510nb4nn3r}\n2026-02-11\n\n\nCaesar Cipher\nSolved\n2026-02-16\n\n\nNmap Full Scan\n31337\n2026-02-19\n\n\nService Enumeration\nHTB{pr0F7pDv3r510nb4nn3r}\n2026-02-20\n\n\nFirewall/IDS Evasion\nUbuntu\n2026-02-20"
+    "text": "Challenge\nAnswer\nDate\n\n\n\n\nNmap Default\nHTB{pr0F7pDv3r510nb4nn3r}\n2026-02-11\n\n\nCaesar Cipher\nSolved\n2026-02-16\n\n\nNmap Full Scan\n31337\n2026-02-19\n\n\nService Enumeration\nHTB{pr0F7pDv3r510nb4nn3r}\n2026-02-20\n\n\nFirewall/IDS Evasion (Easy)\nUbuntu\n2026-02-20\n\n\nFirewall/IDS Evasion (Medium)\nHTB{GoTtgUnyze9Psw4vGjcuMpHRp}\n2026-02-20"
   },
   {
     "objectID": "security/index.html#skills-developed",

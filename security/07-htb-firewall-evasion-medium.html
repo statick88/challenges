@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Security – DevOps &amp; Security Learning Journey</title>
+<title>Firewall &amp; IDS/IPS Evasion - Medium Lab – DevOps &amp; Security Learning Journey</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -106,7 +141,7 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">DevOps</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../security/index.html" aria-current="page"> 
+    <a class="nav-link" href="../security/index.html"> 
 <span class="menu-text">Security</span></a>
   </li>  
   <li class="nav-item">
@@ -151,19 +186,22 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#security" id="toc-security" class="nav-link active" data-scroll-target="#security">Security 🔒</a>
+  <li><a href="#objective" id="toc-objective" class="nav-link active" data-scroll-target="#objective">Objective</a></li>
+  <li><a href="#key-requirement" id="toc-key-requirement" class="nav-link" data-scroll-target="#key-requirement">Key Requirement</a></li>
+  <li><a href="#solution-dns-version-query" id="toc-solution-dns-version-query" class="nav-link" data-scroll-target="#solution-dns-version-query">Solution: DNS Version Query</a>
   <ul class="collapse">
-  <li><a href="#progress" id="toc-progress" class="nav-link" data-scroll-target="#progress">📊 Progress</a></li>
-  <li><a href="#chapters" id="toc-chapters" class="nav-link" data-scroll-target="#chapters">📋 Chapters</a>
+  <li><a href="#using-nslookup-no-root-required" id="toc-using-nslookup-no-root-required" class="nav-link" data-scroll-target="#using-nslookup-no-root-required">Using nslookup (No Root Required)</a></li>
+  <li><a href="#alternative-dig" id="toc-alternative-dig" class="nav-link" data-scroll-target="#alternative-dig">Alternative: dig</a></li>
+  </ul></li>
+  <li><a href="#answer" id="toc-answer" class="nav-link" data-scroll-target="#answer">Answer</a></li>
+  <li><a href="#technical-details" id="toc-technical-details" class="nav-link" data-scroll-target="#technical-details">Technical Details</a>
   <ul class="collapse">
-  <li><a href="#htb-academy---network-enumeration" id="toc-htb-academy---network-enumeration" class="nav-link" data-scroll-target="#htb-academy---network-enumeration">HTB Academy - Network Enumeration</a></li>
-  <li><a href="#ctf-challenges" id="toc-ctf-challenges" class="nav-link" data-scroll-target="#ctf-challenges">CTF Challenges</a></li>
-  <li><a href="#forensics" id="toc-forensics" class="nav-link" data-scroll-target="#forensics">Forensics</a></li>
-  <li><a href="#web-security" id="toc-web-security" class="nav-link" data-scroll-target="#web-security">Web Security</a></li>
+  <li><a href="#what-is-version.bind" id="toc-what-is-version.bind" class="nav-link" data-scroll-target="#what-is-version.bind">What is version.bind?</a></li>
+  <li><a href="#why-this-works" id="toc-why-this-works" class="nav-link" data-scroll-target="#why-this-works">Why This Works</a></li>
   </ul></li>
-  <li><a href="#completed-htb-challenges" id="toc-completed-htb-challenges" class="nav-link" data-scroll-target="#completed-htb-challenges">📊 Completed HTB Challenges</a></li>
-  <li><a href="#skills-developed" id="toc-skills-developed" class="nav-link" data-scroll-target="#skills-developed">🎯 Skills Developed</a></li>
-  </ul></li>
+  <li><a href="#security-recommendation" id="toc-security-recommendation" class="nav-link" data-scroll-target="#security-recommendation">Security Recommendation</a></li>
+  <li><a href="#evasion-techniques" id="toc-evasion-techniques" class="nav-link" data-scroll-target="#evasion-techniques">Evasion Techniques</a></li>
+  <li><a href="#key-learnings" id="toc-key-learnings" class="nav-link" data-scroll-target="#key-learnings">Key Learnings</a></li>
   </ul>
 </nav>
     </div>
@@ -172,7 +210,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Security</h1>
+<h1 class="title">Firewall &amp; IDS/IPS Evasion - Medium Lab</h1>
 </div>
 
 
@@ -189,146 +227,122 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="security" class="level1">
-<h1>Security 🔒</h1>
-<p>This section covers <strong>cybersecurity fundamentals</strong> - from CTF challenges to HTB Academy modules.</p>
-<section id="progress" class="level2">
-<h2 class="anchored" data-anchor-id="progress">📊 Progress</h2>
-<div class="progress-summary">
-  <div class="progress-item">
-    <span class="progress-number">8</span>
-    <span class="progress-label">Completed</span>
-  </div>
-  <div class="progress-item">
-    <span class="progress-number">4</span>
-    <span class="progress-label">Remaining</span>
-  </div>
-  <div class="progress-item">
-    <span class="progress-number">67%</span>
-    <span class="progress-label">Progress</span>
-  </div>
-</div>
+<section id="objective" class="level2">
+<h2 class="anchored" data-anchor-id="objective">Objective</h2>
+<p>Find the DNS server version of a target with stricter IDS/IPS and firewall configurations.</p>
 </section>
-<section id="chapters" class="level2">
-<h2 class="anchored" data-anchor-id="chapters">📋 Chapters</h2>
-<section id="htb-academy---network-enumeration" class="level3">
-<h3 class="anchored" data-anchor-id="htb-academy---network-enumeration">HTB Academy - Network Enumeration</h3>
-<ul>
-<li><a href="04-htb-academy.html">Nmap Full Port Scan</a> - Complete TCP port enumeration ✓</li>
-<li><a href="05-htb-service-enum.html">Service Enumeration</a> - Banner grabbing and version detection ✓</li>
-<li><a href="06-htb-firewall-evasion.html">Firewall &amp; IDS/IPS Evasion (Easy)</a> - Passive OS fingerprinting ✓</li>
-<li><a href="07-htb-firewall-evasion-medium.html">Firewall &amp; IDS/IPS Evasion (Medium)</a> - DNS version enumeration ✓</li>
-</ul>
+<section id="key-requirement" class="level2">
+<h2 class="anchored" data-anchor-id="key-requirement">Key Requirement</h2>
+<p>Must use <strong>UDP protocol</strong> - DNS uses UDP 53 by default.</p>
 </section>
-<section id="ctf-challenges" class="level3">
-<h3 class="anchored" data-anchor-id="ctf-challenges">CTF Challenges</h3>
-<ul>
-<li><a href="01-ctf-intro.html">CTF Introduction</a> - Getting started with Capture The Flag</li>
-</ul>
+<section id="solution-dns-version-query" class="level2">
+<h2 class="anchored" data-anchor-id="solution-dns-version-query">Solution: DNS Version Query</h2>
+<section id="using-nslookup-no-root-required" class="level3">
+<h3 class="anchored" data-anchor-id="using-nslookup-no-root-required">Using nslookup (No Root Required)</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">nslookup</span> <span class="at">-type</span><span class="op">=</span>txt <span class="at">-class</span><span class="op">=</span>chaos version.bind 10.129.4.95</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<pre><code>Server:     10.129.4.95
+Address:    10.129.4.95#53
+
+version.bind    text = "HTB{GoTtgUnyze9Psw4vGjcuMpHRp}"</code></pre>
 </section>
-<section id="forensics" class="level3">
-<h3 class="anchored" data-anchor-id="forensics">Forensics</h3>
-<ul>
-<li><a href="02-forensics-basics.html">Forensics Basics</a> - Digital forensics fundamentals</li>
-</ul>
-</section>
-<section id="web-security" class="level3">
-<h3 class="anchored" data-anchor-id="web-security">Web Security</h3>
-<ul>
-<li><a href="03-web-security.html">Web Security Basics</a> - Web vulnerability fundamentals</li>
-</ul>
+<section id="alternative-dig" class="level3">
+<h3 class="anchored" data-anchor-id="alternative-dig">Alternative: dig</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">dig</span> @10.129.4.95 version.bind chaos txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 </section>
-<section id="completed-htb-challenges" class="level2">
-<h2 class="anchored" data-anchor-id="completed-htb-challenges">📊 Completed HTB Challenges</h2>
+<section id="answer" class="level2">
+<h2 class="anchored" data-anchor-id="answer">Answer</h2>
+<p><strong>DNS Server Version</strong>: <code>HTB{GoTtgUnyze9Psw4vGjcuMpHRp}</code></p>
+</section>
+<section id="technical-details" class="level2">
+<h2 class="anchored" data-anchor-id="technical-details">Technical Details</h2>
+<section id="what-is-version.bind" class="level3">
+<h3 class="anchored" data-anchor-id="what-is-version.bind">What is version.bind?</h3>
 <table class="caption-top table">
-<colgroup>
-<col style="width: 44%">
-<col style="width: 32%">
-<col style="width: 24%">
-</colgroup>
 <thead>
 <tr class="header">
-<th>Challenge</th>
-<th>Answer</th>
-<th>Date</th>
+<th>Component</th>
+<th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Nmap Default</td>
-<td>HTB{pr0F7pDv3r510nb4nn3r}</td>
-<td>2026-02-11</td>
+<td>CHAOS class</td>
+<td>Special DNS class (not Internet class)</td>
 </tr>
 <tr class="even">
-<td>Caesar Cipher</td>
-<td>Solved</td>
-<td>2026-02-16</td>
+<td>version.bind</td>
+<td>Special record exposing BIND version</td>
 </tr>
 <tr class="odd">
-<td>Nmap Full Scan</td>
-<td>31337</td>
-<td>2026-02-19</td>
-</tr>
-<tr class="even">
-<td>Service Enumeration</td>
-<td>HTB{pr0F7pDv3r510nb4nn3r}</td>
-<td>2026-02-20</td>
-</tr>
-<tr class="odd">
-<td>Firewall/IDS Evasion (Easy)</td>
-<td>Ubuntu</td>
-<td>2026-02-20</td>
-</tr>
-<tr class="even">
-<td>Firewall/IDS Evasion (Medium)</td>
-<td>HTB{GoTtgUnyze9Psw4vGjcuMpHRp}</td>
-<td>2026-02-20</td>
+<td>TXT record</td>
+<td>Returns version string</td>
 </tr>
 </tbody>
 </table>
 </section>
-<section id="skills-developed" class="level2">
-<h2 class="anchored" data-anchor-id="skills-developed">🎯 Skills Developed</h2>
-<ul>
-<li>CTF problem solving</li>
-<li>Digital forensics</li>
-<li>Web security basics</li>
-<li>Network enumeration</li>
-<li>Banner grabbing</li>
-</ul>
-<hr>
-<p><em>Use the sidebar to navigate to specific chapters.</em></p>
-<style>
-.progress-summary {
-  display: flex;
-  justify-content: space-around;
-  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-  border: 1px solid #334155;
-  border-radius: 12px;
-  padding: 1.5rem;
-  margin: 1.5rem 0;
-}
-
-.progress-item {
-  text-align: center;
-}
-
-.progress-number {
-  display: block;
-  font-size: 2rem;
-  font-weight: 700;
-  color: #22c55e;
-}
-
-.progress-label {
-  font-size: 0.85rem;
-  color: #94a3b8;
-}
-</style>
-
-
+<section id="why-this-works" class="level3">
+<h3 class="anchored" data-anchor-id="why-this-works">Why This Works</h3>
+<ol type="1">
+<li><strong>UDP Protocol</strong>: DNS queries use UDP by default</li>
+<li><strong>Passive</strong>: No port scanning, legitimate DNS query</li>
+<li><strong>CHAOS Class</strong>: BIND servers still respond to these queries</li>
+<li><strong>Public Server</strong>: Must allow DNS queries for public access</li>
+</ol>
 </section>
+</section>
+<section id="security-recommendation" class="level2">
+<h2 class="anchored" data-anchor-id="security-recommendation">Security Recommendation</h2>
+<p>Disable version disclosure in BIND:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># In named.conf.options</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">options</span> {</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="ex">version</span> <span class="st">"not disclosed"</span><span class="kw">;</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="er">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="evasion-techniques" class="level2">
+<h2 class="anchored" data-anchor-id="evasion-techniques">Evasion Techniques</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Technique</th>
+<th>Purpose</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>DNS query</td>
+<td>Legitimate traffic</td>
+<td>No IDS alert</td>
+</tr>
+<tr class="even">
+<td>UDP protocol</td>
+<td>Required</td>
+<td>Standard DNS</td>
+</tr>
+<tr class="odd">
+<td>CHAOS class</td>
+<td>Version disclosure</td>
+<td>Flag obtained</td>
+</tr>
+<tr class="even">
+<td>nslookup/dig</td>
+<td>No port scan</td>
+<td>Completely passive</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="key-learnings" class="level2">
+<h2 class="anchored" data-anchor-id="key-learnings">Key Learnings</h2>
+<ol type="1">
+<li>Passive DNS queries bypass IDS focused on port scanning</li>
+<li><code>version.bind</code> should be disabled on production servers</li>
+<li><code>nslookup</code>/<code>dig</code> are quieter than Nmap for DNS enumeration</li>
+<li>UDP scans require root on most systems</li>
+</ol>
+
+
 </section>
 
 </main> <!-- /main -->
