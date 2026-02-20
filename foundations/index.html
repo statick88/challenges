@@ -154,15 +154,18 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#linux-foundations" id="toc-linux-foundations" class="nav-link active" data-scroll-target="#linux-foundations">Linux Foundations 🐧</a>
   <ul class="collapse">
   <li><a href="#certification" id="toc-certification" class="nav-link" data-scroll-target="#certification">🏆 Certification</a></li>
-  <li><a href="#chapters" id="toc-chapters" class="nav-link" data-scroll-target="#chapters">📋 Chapters</a>
+  <li><a href="#progress" id="toc-progress" class="nav-link" data-scroll-target="#progress">📊 Progress</a></li>
+  <li><a href="#chapters" id="toc-chapters" class="nav-link" data-scroll-target="#chapters">📋 Chapters</a></li>
+  <li><a href="#skills-developed" id="toc-skills-developed" class="nav-link" data-scroll-target="#skills-developed">🎯 Skills Developed</a></li>
+  <li><a href="#coming-soon" id="toc-coming-soon" class="nav-link" data-scroll-target="#coming-soon">🔄 Coming Soon</a>
   <ul class="collapse">
   <li><a href="#chapter-1-user-management" id="toc-chapter-1-user-management" class="nav-link" data-scroll-target="#chapter-1-user-management">Chapter 1: User Management</a></li>
   <li><a href="#chapter-2-temporary-access" id="toc-chapter-2-temporary-access" class="nav-link" data-scroll-target="#chapter-2-temporary-access">Chapter 2: Temporary Access</a></li>
   <li><a href="#chapter-3-security-hardening" id="toc-chapter-3-security-hardening" class="nav-link" data-scroll-target="#chapter-3-security-hardening">Chapter 3: Security Hardening</a></li>
   <li><a href="#chapter-4-advanced-topics" id="toc-chapter-4-advanced-topics" class="nav-link" data-scroll-target="#chapter-4-advanced-topics">Chapter 4: Advanced Topics</a></li>
   </ul></li>
-  <li><a href="#skills-developed" id="toc-skills-developed" class="nav-link" data-scroll-target="#skills-developed">🎯 Skills Developed</a></li>
-  <li><a href="#coming-soon" id="toc-coming-soon" class="nav-link" data-scroll-target="#coming-soon">🔄 Coming Soon</a></li>
+  <li><a href="#skills-developed-1" id="toc-skills-developed-1" class="nav-link" data-scroll-target="#skills-developed-1">🎯 Skills Developed</a></li>
+  <li><a href="#coming-soon-1" id="toc-coming-soon-1" class="nav-link" data-scroll-target="#coming-soon-1">🔄 Coming Soon</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -201,8 +204,138 @@ ul.task-list li input[type="checkbox"] {
 </figure>
 </div>
 </section>
+<section id="progress" class="level2">
+<h2 class="anchored" data-anchor-id="progress">📊 Progress</h2>
+<div class="progress-summary">
+  <div class="progress-item">
+    <span class="progress-number">9</span>
+    <span class="progress-label">Completed</span>
+  </div>
+  <div class="progress-item">
+    <span class="progress-number">11</span>
+    <span class="progress-label">Remaining</span>
+  </div>
+  <div class="progress-item">
+    <span class="progress-number">45%</span>
+    <span class="progress-label">Progress</span>
+  </div>
+</div>
+</section>
 <section id="chapters" class="level2">
 <h2 class="anchored" data-anchor-id="chapters">📋 Chapters</h2>
+<div class="chapters-grid">
+  <a href="01-user-creation.html" class="chapter-card">
+    <span class="chapter-icon">👤</span>
+    <span class="chapter-title">User Creation</span>
+    <span class="chapter-status completed">✓</span>
+  </a>
+  <a href="02-group-management.html" class="chapter-card">
+    <span class="chapter-icon">👥</span>
+    <span class="chapter-title">Group Management</span>
+    <span class="chapter-status completed">✓</span>
+  </a>
+  <div class="chapter-card">
+    <span class="chapter-icon">🔐</span>
+    <span class="chapter-title">Non-Interactive Shell</span>
+    <span class="chapter-status">○</span>
+  </div>
+  <div class="chapter-card">
+    <span class="chapter-icon">🏠</span>
+    <span class="chapter-title">Users Without Home</span>
+    <span class="chapter-status">○</span>
+  </div>
+</div>
+</section>
+<section id="skills-developed" class="level2">
+<h2 class="anchored" data-anchor-id="skills-developed">🎯 Skills Developed</h2>
+<ul>
+<li>User and group administration</li>
+<li>Permission management</li>
+<li>SSH security</li>
+<li>Backup automation</li>
+<li>Service account configuration</li>
+</ul>
+</section>
+<section id="coming-soon" class="level2">
+<h2 class="anchored" data-anchor-id="coming-soon">🔄 Coming Soon</h2>
+<ul>
+<li>Network configuration</li>
+<li>Firewall rules (iptables/firewalld)</li>
+<li>SELinux management</li>
+<li>Process limits and tuning</li>
+</ul>
+<hr>
+<p><em>Use the sidebar to navigate to specific chapters.</em></p>
+<style>
+.progress-summary {
+  display: flex;
+  justify-content: space-around;
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  border: 1px solid #334155;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.progress-item {
+  text-align: center;
+}
+
+.progress-number {
+  display: block;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #f97316;
+}
+
+.progress-label {
+  font-size: 0.85rem;
+  color: #94a3b8;
+}
+
+.chapters-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.chapter-card {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem;
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  border: 1px solid #334155;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.chapter-card:hover {
+  border-color: #f97316;
+  transform: translateY(-2px);
+}
+
+.chapter-icon {
+  font-size: 1.5rem;
+}
+
+.chapter-title {
+  flex: 1;
+  color: #e2e8f0;
+  font-size: 0.9rem;
+}
+
+.chapter-status {
+  font-size: 0.85rem;
+  color: #64748b;
+}
+
+.chapter-status.completed {
+  color: #22c55e;
+}
+</style>
 <section id="chapter-1-user-management" class="level3">
 <h3 class="anchored" data-anchor-id="chapter-1-user-management">Chapter 1: User Management</h3>
 <ul>
@@ -232,8 +365,8 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 </section>
 </section>
-<section id="skills-developed" class="level2">
-<h2 class="anchored" data-anchor-id="skills-developed">🎯 Skills Developed</h2>
+<section id="skills-developed-1" class="level2">
+<h2 class="anchored" data-anchor-id="skills-developed-1">🎯 Skills Developed</h2>
 <ul>
 <li>User and group administration</li>
 <li>Permission management</li>
@@ -242,8 +375,8 @@ ul.task-list li input[type="checkbox"] {
 <li>Service account configuration</li>
 </ul>
 </section>
-<section id="coming-soon" class="level2">
-<h2 class="anchored" data-anchor-id="coming-soon">🔄 Coming Soon</h2>
+<section id="coming-soon-1" class="level2">
+<h2 class="anchored" data-anchor-id="coming-soon-1">🔄 Coming Soon</h2>
 <ul>
 <li>Network configuration</li>
 <li>Firewall rules (iptables/firewalld)</li>

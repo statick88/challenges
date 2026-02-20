@@ -154,7 +154,8 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#learning-roadmap" id="toc-learning-roadmap" class="nav-link active" data-scroll-target="#learning-roadmap">Learning Roadmap 🚀</a>
   <ul class="collapse">
   <li><a href="#current-position" id="toc-current-position" class="nav-link" data-scroll-target="#current-position">🎯 Current Position</a></li>
-  <li><a href="#next-steps" id="toc-next-steps" class="nav-link" data-scroll-target="#next-steps">📈 Next Steps</a>
+  <li><a href="#visual-progress" id="toc-visual-progress" class="nav-link" data-scroll-target="#visual-progress">📈 Visual Progress</a></li>
+  <li><a href="#next-steps" id="toc-next-steps" class="nav-link" data-scroll-target="#next-steps">🎯 Next Steps</a>
   <ul class="collapse">
   <li><a href="#short-term-1-3-months" id="toc-short-term-1-3-months" class="nav-link" data-scroll-target="#short-term-1-3-months">Short Term (1-3 months)</a></li>
   <li><a href="#medium-term-3-6-months" id="toc-medium-term-3-6-months" class="nav-link" data-scroll-target="#medium-term-3-6-months">Medium Term (3-6 months)</a></li>
@@ -193,15 +194,81 @@ ul.task-list li input[type="checkbox"] {
 <section id="current-position" class="level2">
 <h2 class="anchored" data-anchor-id="current-position">🎯 Current Position</h2>
 <ul>
-<li><strong>Linux Foundations</strong>: In Progress (10 chapters)</li>
-<li><strong>Containerization</strong>: In Progress (6 chapters)</li>
-<li><strong>DevOps Practices</strong>: In Progress (8 chapters)</li>
-<li><strong>Security</strong>: Starting (4 chapters)</li>
+<li><strong>Linux Foundations</strong>: 🟡 45% Complete (9/20)</li>
+<li><strong>Containerization</strong>: 🟢 100% Complete (6/6) - Certified</li>
+<li><strong>DevOps Practices</strong>: 🟡 50% Complete (8/16)</li>
+<li><strong>Security</strong>: 🟡 43% Complete (5/12)</li>
 </ul>
 <hr>
 </section>
+<section id="visual-progress" class="level2">
+<h2 class="anchored" data-anchor-id="visual-progress">📈 Visual Progress</h2>
+<div class="roadmap-grid">
+
+<div class="roadmap-phase">
+  <div class="phase-header completed">
+    <span class="phase-number">1</span>
+    <span class="phase-title">Linux Foundations</span>
+    <span class="phase-badge">✓ Complete</span>
+  </div>
+  <ul class="phase-items">
+    <li>✓ User Management</li>
+    <li>✓ Group Management</li>
+    <li>✓ Permissions</li>
+    <li>✓ SSH Security</li>
+    <li>✓ Scripting Basics</li>
+  </ul>
+</div>
+
+<div class="roadmap-phase">
+  <div class="phase-header completed">
+    <span class="phase-number">2</span>
+    <span class="phase-title">Containerization</span>
+    <span class="phase-badge">✓ Complete</span>
+  </div>
+  <ul class="phase-items">
+    <li>✓ Docker Installation</li>
+    <li>✓ Container Management</li>
+    <li>✓ Volumes &amp; Networks</li>
+    <li>✓ Troubleshooting</li>
+    <li>✓ Docker Compose</li>
+  </ul>
+</div>
+
+<div class="roadmap-phase">
+  <div class="phase-header in-progress">
+    <span class="phase-number">3</span>
+    <span class="phase-title">DevOps Practices</span>
+    <span class="phase-badge">◐ 50%</span>
+  </div>
+  <ul class="phase-items">
+    <li>✓ Ansible Basics</li>
+    <li>✓ Cron Automation</li>
+    <li>✓ MariaDB</li>
+    <li>○ CI/CD Pipelines</li>
+    <li>○ Monitoring</li>
+  </ul>
+</div>
+
+<div class="roadmap-phase">
+  <div class="phase-header">
+    <span class="phase-number">4</span>
+    <span class="phase-title">Security</span>
+    <span class="phase-badge">○ Not Started</span>
+  </div>
+  <ul class="phase-items">
+    <li>✓ CTF Introduction</li>
+    <li>○ Forensics</li>
+    <li>○ Web Security</li>
+    <li>○ Network Security</li>
+    <li>○ Privilege Escalation</li>
+  </ul>
+</div>
+
+</div>
+</section>
 <section id="next-steps" class="level2">
-<h2 class="anchored" data-anchor-id="next-steps">📈 Next Steps</h2>
+<h2 class="anchored" data-anchor-id="next-steps">🎯 Next Steps</h2>
 <section id="short-term-1-3-months" class="level3">
 <h3 class="anchored" data-anchor-id="short-term-1-3-months">Short Term (1-3 months)</h3>
 <ol type="1">
@@ -213,15 +280,16 @@ ul.task-list li input[type="checkbox"] {
 </ul></li>
 <li><strong>Advance Docker Skills</strong>
 <ul class="task-list">
-<li><label><input type="checkbox">Docker Compose</label></li>
+<li><label><input type="checkbox">Docker Compose advanced</label></li>
 <li><label><input type="checkbox">Multi-container applications</label></li>
 <li><label><input type="checkbox">Container security</label></li>
 </ul></li>
 <li><strong>HTB Academy Progress</strong>
 <ul class="task-list">
-<li><label><input type="checkbox">Complete Network Enumeration module</label></li>
-<li><label><input type="checkbox">Start SQL Injection module</label></li>
-<li><label><input type="checkbox">Begin Linux Privilege Escalation</label></li>
+<li><label><input type="checkbox" checked="">Network Enumeration (Nmap) ✓</label></li>
+<li><label><input type="checkbox">SQL Injection</label></li>
+<li><label><input type="checkbox">Linux Privilege Escalation</label></li>
+<li><label><input type="checkbox">Web Attacks</label></li>
 </ul></li>
 </ol>
 </section>
@@ -256,33 +324,40 @@ ul.task-list li input[type="checkbox"] {
 <thead>
 <tr class="header">
 <th>Skill Category</th>
-<th>Target Level</th>
+<th>Current</th>
+<th>Target</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td>Linux Administration</td>
+<td>🟢 Intermediate</td>
 <td>Advanced</td>
 </tr>
 <tr class="even">
 <td>Docker/Kubernetes</td>
-<td>Intermediate</td>
+<td>🟢 Intermediate</td>
+<td>Advanced</td>
 </tr>
 <tr class="odd">
 <td>Ansible</td>
+<td>🔵 Basic</td>
 <td>Intermediate</td>
 </tr>
 <tr class="even">
 <td>Network Security</td>
+<td>🔵 Basic</td>
 <td>Intermediate</td>
 </tr>
 <tr class="odd">
 <td>Penetration Testing</td>
-<td>Basic</td>
+<td>🔵 Basic</td>
+<td>Intermediate</td>
 </tr>
 <tr class="even">
 <td>Forensics</td>
-<td>Basic</td>
+<td>🔵 Basic</td>
+<td>Intermediate</td>
 </tr>
 </tbody>
 </table>
@@ -295,6 +370,7 @@ ul.task-list li input[type="checkbox"] {
 <li><a href="https://docs.docker.com">Docker Documentation</a></li>
 <li><a href="https://docs.ansible.com">Ansible Documentation</a></li>
 <li><a href="https://linuxjourney.com">Linux Journey</a></li>
+<li><a href="https://roadmap.sh">Roadmap.sh</a></li>
 </ul>
 <hr>
 </section>
@@ -303,6 +379,111 @@ ul.task-list li input[type="checkbox"] {
 <p>This learning journey is documented for anyone who wants to follow a similar path. If you have suggestions or want to contribute, feel free to open a pull request on GitHub.</p>
 <hr>
 <p><em>Last updated: 2026-02-19</em></p>
+<style>
+.roadmap-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.roadmap-phase {
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  border: 1px solid #334155;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.phase-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem;
+  background: #0f172a;
+}
+
+.phase-header.completed {
+  border-bottom: 3px solid #22c55e;
+}
+
+.phase-header.in-progress {
+  border-bottom: 3px solid #f59e0b;
+}
+
+.phase-number {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #334155;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.phase-header.completed .phase-number {
+  background: #22c55e;
+  color: white;
+}
+
+.phase-header.in-progress .phase-number {
+  background: #f59e0b;
+  color: white;
+}
+
+.phase-title {
+  flex: 1;
+  font-weight: 600;
+  color: #e2e8f0;
+}
+
+.phase-badge {
+  font-size: 0.7rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 999px;
+  background: #334155;
+  color: #94a3b8;
+}
+
+.phase-header.completed .phase-badge {
+  background: rgba(34, 197, 94, 0.2);
+  color: #22c55e;
+}
+
+.phase-header.in-progress .phase-badge {
+  background: rgba(245, 158, 11, 0.2);
+  color: #f59e0b;
+}
+
+.phase-items {
+  list-style: none;
+  padding: 1rem;
+  margin: 0;
+}
+
+.phase-items li {
+  padding: 0.5rem 0;
+  color: #94a3b8;
+  font-size: 0.9rem;
+  border-bottom: 1px solid #1e293b;
+}
+
+.phase-items li:last-child {
+  border-bottom: none;
+}
+
+.phase-items li::before {
+  content: "○ ";
+  color: #64748b;
+  margin-right: 0.5rem;
+}
+
+.phase-items li:has(✓)::before {
+  content: "✓ ";
+  color: #22c55e;
+}
+</style>
 
 
 </section>

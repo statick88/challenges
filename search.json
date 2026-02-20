@@ -452,35 +452,42 @@
     "href": "roadmap/index.html",
     "title": "Roadmap",
     "section": "",
-    "text": "Linux Foundations: In Progress (10 chapters)\nContainerization: In Progress (6 chapters)\nDevOps Practices: In Progress (8 chapters)\nSecurity: Starting (4 chapters)\n\n\n\n\n\n\n\n\nComplete Linux Fundamentals\n\nSELinux configuration\nFirewall management (iptables/firewalld)\nProcess limits and tuning\n\nAdvance Docker Skills\n\nDocker Compose\nMulti-container applications\nContainer security\n\nHTB Academy Progress\n\nComplete Network Enumeration module\nStart SQL Injection module\nBegin Linux Privilege Escalation\n\n\n\n\n\n\nKubernetes Introduction\n\nBasic kubectl commands\nPod management\nConfigMaps and Secrets\n\nCI/CD Pipelines\n\nGitHub Actions\nJenkins basics\nPipeline automation\n\nAdvanced Security\n\nBuffer overflow exploitation\nReverse engineering basics\nPrivilege escalation techniques\n\n\n\n\n\n\n\n\n\n\nSkill Category\nTarget Level\n\n\n\n\nLinux Administration\nAdvanced\n\n\nDocker/Kubernetes\nIntermediate\n\n\nAnsible\nIntermediate\n\n\nNetwork Security\nIntermediate\n\n\nPenetration Testing\nBasic\n\n\nForensics\nBasic\n\n\n\n\n\n\n\n\nHTB Academy\nDocker Documentation\nAnsible Documentation\nLinux Journey\n\n\n\n\n\nThis learning journey is documented for anyone who wants to follow a similar path. If you have suggestions or want to contribute, feel free to open a pull request on GitHub.\n\nLast updated: 2026-02-19"
+    "text": "Linux Foundations: 🟡 45% Complete (9/20)\nContainerization: 🟢 100% Complete (6/6) - Certified\nDevOps Practices: 🟡 50% Complete (8/16)\nSecurity: 🟡 43% Complete (5/12)\n\n\n\n\n\n\n\n\n  \n    1\n    Linux Foundations\n    ✓ Complete\n  \n  \n    ✓ User Management\n    ✓ Group Management\n    ✓ Permissions\n    ✓ SSH Security\n    ✓ Scripting Basics\n  \n\n\n\n  \n    2\n    Containerization\n    ✓ Complete\n  \n  \n    ✓ Docker Installation\n    ✓ Container Management\n    ✓ Volumes & Networks\n    ✓ Troubleshooting\n    ✓ Docker Compose\n  \n\n\n\n  \n    3\n    DevOps Practices\n    ◐ 50%\n  \n  \n    ✓ Ansible Basics\n    ✓ Cron Automation\n    ✓ MariaDB\n    ○ CI/CD Pipelines\n    ○ Monitoring\n  \n\n\n\n  \n    4\n    Security\n    ○ Not Started\n  \n  \n    ✓ CTF Introduction\n    ○ Forensics\n    ○ Web Security\n    ○ Network Security\n    ○ Privilege Escalation\n  \n\n\n\n\n\n\n\n\n\nComplete Linux Fundamentals\n\nSELinux configuration\nFirewall management (iptables/firewalld)\nProcess limits and tuning\n\nAdvance Docker Skills\n\nDocker Compose advanced\nMulti-container applications\nContainer security\n\nHTB Academy Progress\n\nNetwork Enumeration (Nmap) ✓\nSQL Injection\nLinux Privilege Escalation\nWeb Attacks\n\n\n\n\n\n\nKubernetes Introduction\n\nBasic kubectl commands\nPod management\nConfigMaps and Secrets\n\nCI/CD Pipelines\n\nGitHub Actions\nJenkins basics\nPipeline automation\n\nAdvanced Security\n\nBuffer overflow exploitation\nReverse engineering basics\nPrivilege escalation techniques\n\n\n\n\n\n\n\n\n\n\nSkill Category\nCurrent\nTarget\n\n\n\n\nLinux Administration\n🟢 Intermediate\nAdvanced\n\n\nDocker/Kubernetes\n🟢 Intermediate\nAdvanced\n\n\nAnsible\n🔵 Basic\nIntermediate\n\n\nNetwork Security\n🔵 Basic\nIntermediate\n\n\nPenetration Testing\n🔵 Basic\nIntermediate\n\n\nForensics\n🔵 Basic\nIntermediate\n\n\n\n\n\n\n\n\nHTB Academy\nDocker Documentation\nAnsible Documentation\nLinux Journey\nRoadmap.sh\n\n\n\n\n\nThis learning journey is documented for anyone who wants to follow a similar path. If you have suggestions or want to contribute, feel free to open a pull request on GitHub.\n\nLast updated: 2026-02-19"
   },
   {
     "objectID": "roadmap/index.html#current-position",
     "href": "roadmap/index.html#current-position",
     "title": "Roadmap",
     "section": "",
-    "text": "Linux Foundations: In Progress (10 chapters)\nContainerization: In Progress (6 chapters)\nDevOps Practices: In Progress (8 chapters)\nSecurity: Starting (4 chapters)"
+    "text": "Linux Foundations: 🟡 45% Complete (9/20)\nContainerization: 🟢 100% Complete (6/6) - Certified\nDevOps Practices: 🟡 50% Complete (8/16)\nSecurity: 🟡 43% Complete (5/12)"
+  },
+  {
+    "objectID": "roadmap/index.html#visual-progress",
+    "href": "roadmap/index.html#visual-progress",
+    "title": "Roadmap",
+    "section": "",
+    "text": "1\n    Linux Foundations\n    ✓ Complete\n  \n  \n    ✓ User Management\n    ✓ Group Management\n    ✓ Permissions\n    ✓ SSH Security\n    ✓ Scripting Basics\n  \n\n\n\n  \n    2\n    Containerization\n    ✓ Complete\n  \n  \n    ✓ Docker Installation\n    ✓ Container Management\n    ✓ Volumes & Networks\n    ✓ Troubleshooting\n    ✓ Docker Compose\n  \n\n\n\n  \n    3\n    DevOps Practices\n    ◐ 50%\n  \n  \n    ✓ Ansible Basics\n    ✓ Cron Automation\n    ✓ MariaDB\n    ○ CI/CD Pipelines\n    ○ Monitoring\n  \n\n\n\n  \n    4\n    Security\n    ○ Not Started\n  \n  \n    ✓ CTF Introduction\n    ○ Forensics\n    ○ Web Security\n    ○ Network Security\n    ○ Privilege Escalation"
   },
   {
     "objectID": "roadmap/index.html#next-steps",
     "href": "roadmap/index.html#next-steps",
     "title": "Roadmap",
     "section": "",
-    "text": "Complete Linux Fundamentals\n\nSELinux configuration\nFirewall management (iptables/firewalld)\nProcess limits and tuning\n\nAdvance Docker Skills\n\nDocker Compose\nMulti-container applications\nContainer security\n\nHTB Academy Progress\n\nComplete Network Enumeration module\nStart SQL Injection module\nBegin Linux Privilege Escalation\n\n\n\n\n\n\nKubernetes Introduction\n\nBasic kubectl commands\nPod management\nConfigMaps and Secrets\n\nCI/CD Pipelines\n\nGitHub Actions\nJenkins basics\nPipeline automation\n\nAdvanced Security\n\nBuffer overflow exploitation\nReverse engineering basics\nPrivilege escalation techniques"
+    "text": "Complete Linux Fundamentals\n\nSELinux configuration\nFirewall management (iptables/firewalld)\nProcess limits and tuning\n\nAdvance Docker Skills\n\nDocker Compose advanced\nMulti-container applications\nContainer security\n\nHTB Academy Progress\n\nNetwork Enumeration (Nmap) ✓\nSQL Injection\nLinux Privilege Escalation\nWeb Attacks\n\n\n\n\n\n\nKubernetes Introduction\n\nBasic kubectl commands\nPod management\nConfigMaps and Secrets\n\nCI/CD Pipelines\n\nGitHub Actions\nJenkins basics\nPipeline automation\n\nAdvanced Security\n\nBuffer overflow exploitation\nReverse engineering basics\nPrivilege escalation techniques"
   },
   {
     "objectID": "roadmap/index.html#skills-to-acquire",
     "href": "roadmap/index.html#skills-to-acquire",
     "title": "Roadmap",
     "section": "",
-    "text": "Skill Category\nTarget Level\n\n\n\n\nLinux Administration\nAdvanced\n\n\nDocker/Kubernetes\nIntermediate\n\n\nAnsible\nIntermediate\n\n\nNetwork Security\nIntermediate\n\n\nPenetration Testing\nBasic\n\n\nForensics\nBasic"
+    "text": "Skill Category\nCurrent\nTarget\n\n\n\n\nLinux Administration\n🟢 Intermediate\nAdvanced\n\n\nDocker/Kubernetes\n🟢 Intermediate\nAdvanced\n\n\nAnsible\n🔵 Basic\nIntermediate\n\n\nNetwork Security\n🔵 Basic\nIntermediate\n\n\nPenetration Testing\n🔵 Basic\nIntermediate\n\n\nForensics\n🔵 Basic\nIntermediate"
   },
   {
     "objectID": "roadmap/index.html#resources",
     "href": "roadmap/index.html#resources",
     "title": "Roadmap",
     "section": "",
-    "text": "HTB Academy\nDocker Documentation\nAnsible Documentation\nLinux Journey"
+    "text": "HTB Academy\nDocker Documentation\nAnsible Documentation\nLinux Journey\nRoadmap.sh"
   },
   {
     "objectID": "roadmap/index.html#contributing",
@@ -494,7 +501,7 @@
     "href": "index.html",
     "title": "DevOps & Security Learning Journey",
     "section": "",
-    "text": "This website documents my path through Linux system administration, Docker containerization, DevOps practices, and Cybersecurity/CTF challenges.\n\n\nThis journey serves two purposes:\n\nPersonal Progress Tracking - A visual record of what I’ve learned and completed\nLearning Guide for Others - A structured path that others can follow to build similar skills\n\n\n\n\nThe learning journey is organized into four main areas:\n\n\nLinux system administration fundamentals: - User and group management - Permissions and access control - Scripting and automation - Networking basics\n\n\n\nDocker and containerization: - Container fundamentals - Volume and network management - Deployment and troubleshooting\n\n\n\nDevOps tools and methodologies: - Configuration management with Ansible - Automation with Cron - Database services (MariaDB)\n\n\n\nCybersecurity fundamentals: - CTF challenges and forensics - Web security basics - HTB Academy modules\n\n\n\n\n\n\n\nArea\nChallenges\nStatus\n\n\n\n\nFoundations\n9\n🟢 In Progress\n\n\nContainers\n6\n🟢 In Progress\n\n\nDevOps\n8\n🟢 In Progress\n\n\nSecurity\n3\n🟢 In Progress\n\n\n\n\n\n\nEach chapter includes:\n\nScenario: Real-world context for the challenge\nStep-by-step Solution: Commands and explanations\nVerification: How to confirm success\nKey Learnings: What skills were developed\nNext Steps: Where to go from here\n\n\n\n\nUse the sidebar to navigate between sections, or click on the section links above.\n\nThis journey is continuously updated as new challenges are completed."
+    "text": "This website documents my path through Linux system administration, Docker containerization, DevOps practices, and Cybersecurity/CTF challenges.\n\n\nThis journey serves two purposes:\n\nPersonal Progress Tracking - A visual record of what I’ve learned and completed\nLearning Guide for Others - A structured path that others can follow to build similar skills\n\n\n\n\n\n  \n    Total Completion\n    47%\n  \n  \n    \n  \n  \n    ✅ 28 completed\n    📋 32 remaining\n    🎯 60 total\n  \n\n\n\n\n\n\n\n  \n    🐧\n    Linux Foundations\n    45%\n  \n  \n    \n  \n  9/20 challenges completed\n\n\n\n  \n    🐳\n    Docker\n    100%\n  \n  \n    \n  \n  6/6 challenges completed\n\n\n\n  \n    ⚙️\n    DevOps\n    50%\n  \n  \n    \n  \n  8/16 challenges completed\n\n\n\n  \n    🔒\n    Security\n    43%\n  \n  \n    \n  \n  5/12 challenges completed\n\n\n\n\n\n\n\n\n\n  ✓\n  \n    \n    User management, permissions, networking, shell scripting\n    Completed\n  \n\n\n\n  ✓\n  \n    \n    Docker basics, volumes, networks, troubleshooting\n    Completed\n  \n\n\n\n  ◐\n  \n    \n    Ansible, Cron, MariaDB, CI/CD basics\n    In Progress - 50%\n  \n\n\n\n  ○\n  \n    \n    CTF basics, forensics, web security, HTB Academy\n    Not Started\n  \n\n\n\n  ○\n  \n    \n    Kubernetes, advanced networking, penetration testing\n    Not Started\n  \n\n\n\n\n\n\nThe learning journey is organized into four main areas:\n\n\nLinux system administration fundamentals\n\n\n\nDocker and containerization\n\n\n\nDevOps tools and methodologies\n\n\n\nCybersecurity fundamentals\n\n\n\n\n\n\n\nSkill\nLevel\nStatus\n\n\n\n\nLinux System Administration\n🟢 Intermediate\nIn Progress\n\n\nDocker & Containers\n🟢 Intermediate\nCertified\n\n\nAnsible\n🔵 Basic\nLearning\n\n\nBash Scripting\n🟢 Intermediate\nCompleted\n\n\nNetwork Security\n🔵 Basic\nLearning\n\n\nCTF Problem Solving\n🔵 Basic\nStarted\n\n\nHTB Academy\n🔵 Basic\nStarted\n\n\n\n\n\n\nUse the sidebar to navigate between sections, or click on the section links above.\n\nThis journey is continuously updated as new challenges are completed."
   },
   {
     "objectID": "index.html#purpose",
@@ -504,25 +511,39 @@
     "text": "This journey serves two purposes:\n\nPersonal Progress Tracking - A visual record of what I’ve learned and completed\nLearning Guide for Others - A structured path that others can follow to build similar skills"
   },
   {
+    "objectID": "index.html#overall-progress",
+    "href": "index.html#overall-progress",
+    "title": "DevOps & Security Learning Journey",
+    "section": "",
+    "text": "Total Completion\n    47%\n  \n  \n    \n  \n  \n    ✅ 28 completed\n    📋 32 remaining\n    🎯 60 total"
+  },
+  {
+    "objectID": "index.html#progress-by-area",
+    "href": "index.html#progress-by-area",
+    "title": "DevOps & Security Learning Journey",
+    "section": "",
+    "text": "🐧\n    Linux Foundations\n    45%\n  \n  \n    \n  \n  9/20 challenges completed\n\n\n\n  \n    🐳\n    Docker\n    100%\n  \n  \n    \n  \n  6/6 challenges completed\n\n\n\n  \n    ⚙️\n    DevOps\n    50%\n  \n  \n    \n  \n  8/16 challenges completed\n\n\n\n  \n    🔒\n    Security\n    43%\n  \n  \n    \n  \n  5/12 challenges completed"
+  },
+  {
+    "objectID": "index.html#learning-path",
+    "href": "index.html#learning-path",
+    "title": "DevOps & Security Learning Journey",
+    "section": "",
+    "text": "✓\n  \n    \n    User management, permissions, networking, shell scripting\n    Completed\n  \n\n\n\n  ✓\n  \n    \n    Docker basics, volumes, networks, troubleshooting\n    Completed\n  \n\n\n\n  ◐\n  \n    \n    Ansible, Cron, MariaDB, CI/CD basics\n    In Progress - 50%\n  \n\n\n\n  ○\n  \n    \n    CTF basics, forensics, web security, HTB Academy\n    Not Started\n  \n\n\n\n  ○\n  \n    \n    Kubernetes, advanced networking, penetration testing\n    Not Started"
+  },
+  {
     "objectID": "index.html#structure",
     "href": "index.html#structure",
     "title": "DevOps & Security Learning Journey",
     "section": "",
-    "text": "The learning journey is organized into four main areas:\n\n\nLinux system administration fundamentals: - User and group management - Permissions and access control - Scripting and automation - Networking basics\n\n\n\nDocker and containerization: - Container fundamentals - Volume and network management - Deployment and troubleshooting\n\n\n\nDevOps tools and methodologies: - Configuration management with Ansible - Automation with Cron - Database services (MariaDB)\n\n\n\nCybersecurity fundamentals: - CTF challenges and forensics - Web security basics - HTB Academy modules"
+    "text": "The learning journey is organized into four main areas:\n\n\nLinux system administration fundamentals\n\n\n\nDocker and containerization\n\n\n\nDevOps tools and methodologies\n\n\n\nCybersecurity fundamentals"
   },
   {
-    "objectID": "index.html#progress",
-    "href": "index.html#progress",
+    "objectID": "index.html#skills-matrix",
+    "href": "index.html#skills-matrix",
     "title": "DevOps & Security Learning Journey",
     "section": "",
-    "text": "Area\nChallenges\nStatus\n\n\n\n\nFoundations\n9\n🟢 In Progress\n\n\nContainers\n6\n🟢 In Progress\n\n\nDevOps\n8\n🟢 In Progress\n\n\nSecurity\n3\n🟢 In Progress"
-  },
-  {
-    "objectID": "index.html#how-to-use-this-guide",
-    "href": "index.html#how-to-use-this-guide",
-    "title": "DevOps & Security Learning Journey",
-    "section": "",
-    "text": "Each chapter includes:\n\nScenario: Real-world context for the challenge\nStep-by-step Solution: Commands and explanations\nVerification: How to confirm success\nKey Learnings: What skills were developed\nNext Steps: Where to go from here"
+    "text": "Skill\nLevel\nStatus\n\n\n\n\nLinux System Administration\n🟢 Intermediate\nIn Progress\n\n\nDocker & Containers\n🟢 Intermediate\nCertified\n\n\nAnsible\n🔵 Basic\nLearning\n\n\nBash Scripting\n🟢 Intermediate\nCompleted\n\n\nNetwork Security\n🔵 Basic\nLearning\n\n\nCTF Problem Solving\n🔵 Basic\nStarted\n\n\nHTB Academy\n🔵 Basic\nStarted"
   },
   {
     "objectID": "index.html#navigation",
@@ -536,7 +557,7 @@
     "href": "foundations/index.html",
     "title": "Linux Foundations",
     "section": "",
-    "text": "This section covers Linux system administration fundamentals - the essential skills every DevOps engineer and security professional needs to master.\n\n\n\n\n\nKodekloud Course Completion Certificate\n\n\n\n\n\n\n\n\nUser Creation with Custom UID - Creating users with specific UIDs and custom home directories\nGroup Management - Managing groups and group memberships\n\n\n\n\n\nTemporary Users - Users with expiration dates\nData Transfer - Secure data migration between users\n\n\n\n\n\nSSH Root Access - Securing SSH access\nBackup Scripts - Automated backup procedures\nFile Permissions - Proper permission management\n\n\n\n\n\nUser File Filtering - Advanced file operations with user filtering\n\n\n\n\n\n\nUser and group administration\nPermission management\nSSH security\nBackup automation\nService account configuration\n\n\n\n\n\nNetwork configuration\nFirewall rules (iptables/firewalld)\nSELinux management\nProcess limits and tuning\n\n\nUse the sidebar to navigate to specific chapters."
+    "text": "This section covers Linux system administration fundamentals - the essential skills every DevOps engineer and security professional needs to master.\n\n\n\n\n\nKodekloud Course Completion Certificate\n\n\n\n\n\n\n  \n    9\n    Completed\n  \n  \n    11\n    Remaining\n  \n  \n    45%\n    Progress\n  \n\n\n\n\n\n  \n    👤\n    User Creation\n    ✓\n  \n  \n    👥\n    Group Management\n    ✓\n  \n  \n    🔐\n    Non-Interactive Shell\n    ○\n  \n  \n    🏠\n    Users Without Home\n    ○\n  \n\n\n\n\n\nUser and group administration\nPermission management\nSSH security\nBackup automation\nService account configuration\n\n\n\n\n\nNetwork configuration\nFirewall rules (iptables/firewalld)\nSELinux management\nProcess limits and tuning\n\n\nUse the sidebar to navigate to specific chapters.\n\n\n\n\nUser Creation with Custom UID - Creating users with specific UIDs and custom home directories\nGroup Management - Managing groups and group memberships\n\n\n\n\n\nTemporary Users - Users with expiration dates\nData Transfer - Secure data migration between users\n\n\n\n\n\nSSH Root Access - Securing SSH access\nBackup Scripts - Automated backup procedures\nFile Permissions - Proper permission management\n\n\n\n\n\nUser File Filtering - Advanced file operations with user filtering\n\n\n\n\n\n\nUser and group administration\nPermission management\nSSH security\nBackup automation\nService account configuration\n\n\n\n\n\nNetwork configuration\nFirewall rules (iptables/firewalld)\nSELinux management\nProcess limits and tuning\n\n\nUse the sidebar to navigate to specific chapters."
   },
   {
     "objectID": "foundations/index.html#certification",
@@ -546,11 +567,18 @@
     "text": "Kodekloud Course Completion Certificate"
   },
   {
+    "objectID": "foundations/index.html#progress",
+    "href": "foundations/index.html#progress",
+    "title": "Linux Foundations",
+    "section": "",
+    "text": "9\n    Completed\n  \n  \n    11\n    Remaining\n  \n  \n    45%\n    Progress"
+  },
+  {
     "objectID": "foundations/index.html#chapters",
     "href": "foundations/index.html#chapters",
     "title": "Linux Foundations",
     "section": "",
-    "text": "User Creation with Custom UID - Creating users with specific UIDs and custom home directories\nGroup Management - Managing groups and group memberships\n\n\n\n\n\nTemporary Users - Users with expiration dates\nData Transfer - Secure data migration between users\n\n\n\n\n\nSSH Root Access - Securing SSH access\nBackup Scripts - Automated backup procedures\nFile Permissions - Proper permission management\n\n\n\n\n\nUser File Filtering - Advanced file operations with user filtering"
+    "text": "👤\n    User Creation\n    ✓\n  \n  \n    👥\n    Group Management\n    ✓\n  \n  \n    🔐\n    Non-Interactive Shell\n    ○\n  \n  \n    🏠\n    Users Without Home\n    ○"
   },
   {
     "objectID": "foundations/index.html#skills-developed",
@@ -562,6 +590,20 @@
   {
     "objectID": "foundations/index.html#coming-soon",
     "href": "foundations/index.html#coming-soon",
+    "title": "Linux Foundations",
+    "section": "",
+    "text": "Network configuration\nFirewall rules (iptables/firewalld)\nSELinux management\nProcess limits and tuning\n\n\nUse the sidebar to navigate to specific chapters.\n\n\n\n\nUser Creation with Custom UID - Creating users with specific UIDs and custom home directories\nGroup Management - Managing groups and group memberships\n\n\n\n\n\nTemporary Users - Users with expiration dates\nData Transfer - Secure data migration between users\n\n\n\n\n\nSSH Root Access - Securing SSH access\nBackup Scripts - Automated backup procedures\nFile Permissions - Proper permission management\n\n\n\n\n\nUser File Filtering - Advanced file operations with user filtering"
+  },
+  {
+    "objectID": "foundations/index.html#skills-developed-1",
+    "href": "foundations/index.html#skills-developed-1",
+    "title": "Linux Foundations",
+    "section": "",
+    "text": "User and group administration\nPermission management\nSSH security\nBackup automation\nService account configuration"
+  },
+  {
+    "objectID": "foundations/index.html#coming-soon-1",
+    "href": "foundations/index.html#coming-soon-1",
     "title": "Linux Foundations",
     "section": "",
     "text": "Network configuration\nFirewall rules (iptables/firewalld)\nSELinux management\nProcess limits and tuning\n\n\nUse the sidebar to navigate to specific chapters."
@@ -697,7 +739,7 @@
     "href": "es/index.html",
     "title": "Journey de Aprendizaje DevOps & Security",
     "section": "",
-    "text": "Este sitio documenta mi camino a través de administración de sistemas Linux, contenedores Docker, prácticas DevOps, y desafíos de ciberseguridad/CTF.\n\n\nEste journey sirve dos propósitos:\n\nSeguimiento de Progreso Personal - Un registro visual de lo que he aprendido y completado\nGuía de Aprendizaje para Otros - Un camino estructurado que otros pueden seguir para construir habilidades similares\n\n\n\n\nEl journey de aprendizaje está organizado en cuatro áreas principales:\n\n\nFundamentos de administración de sistemas Linux: - Gestión de usuarios y grupos - Permisos y control de acceso - Scripting y automatización - Fundamentos de networking\n\n\n\nDocker y contenerización: - Fundamentos de contenedores - Gestión de volúmenes y redes - Despliegue y troubleshooting\n\n\n\nHerramientas y metodologías DevOps: - Gestión de configuración con Ansible - Automatización con Cron - Servicios de bases de datos (MariaDB)\n\n\n\nFundamentos de ciberseguridad: - Desafíos CTF y forense - Fundamentos de seguridad web - Módulos de HTB Academy\n\n\n\n\n\n\n\nÁrea\nDesafíos\nEstado\n\n\n\n\nFundamentos\n9\n🟢 En Progreso\n\n\nContenedores\n6\n🟢 En Progreso\n\n\nDevOps\n8\n🟢 En Progreso\n\n\nSeguridad\n3\n🟢 En Progreso\n\n\n\n\n\n\nCada capítulo incluye:\n\nEscenario: Contexto real para el desafío\nSolución Paso a Paso: Comandos y explicaciones\nVerificación: Cómo confirmar el éxito\nAprendizajes Clave: Qué habilidades se desarrollaron\nPróximos Pasos: Dónde ir desde aquí\n\n\n\n\nUsa la barra lateral para navegar entre secciones, o haz clic en los enlaces de sección anteriores.\n\nEste journey se actualiza continuamente a medida que se completan nuevos desafíos."
+    "text": "Este sitio documenta mi camino a través de administración de sistemas Linux, contenedores Docker, prácticas DevOps, y desafíos de ciberseguridad/CTF.\n\n\nEste journey sirve dos propósitos:\n\nSeguimiento de Progreso Personal - Un registro visual de lo que he aprendido y completado\nGuía de Aprendizaje para Otros - Un camino estructurado que otros pueden seguir para construir habilidades similares\n\n\n\n\n\n  \n    Completado Total\n    47%\n  \n  \n    \n  \n  \n    ✅ 28 completados\n    📋 32 restantes\n    🎯 60 total\n  \n\n\n\n\n\n\n\n  \n    🐧\n    Fundamentos Linux\n    45%\n  \n  \n    \n  \n  9/20 desafíos completados\n\n\n\n  \n    🐳\n    Docker\n    100%\n  \n  \n    \n  \n  6/6 desafíos completados\n\n\n\n  \n    ⚙️\n    DevOps\n    50%\n  \n  \n    \n  \n  8/16 desafíos completados\n\n\n\n  \n    🔒\n    Seguridad\n    43%\n  \n  \n    \n  \n  5/12 desafíos completados\n\n\n\n\n\n\n\n\n\n  ✓\n  \n    \n    Gestión de usuarios, permisos, networking, scripting\n    Completado\n  \n\n\n\n  ✓\n  \n    \n    Fundamentos de Docker, volúmenes, redes\n    Completado\n  \n\n\n\n  ◐\n  \n    \n    Ansible, Cron, MariaDB, CI/CD básico\n    En Progreso - 50%\n  \n\n\n\n  ○\n  \n    \n    CTF básico, forense, seguridad web, HTB Academy\n    No Iniciado\n  \n\n\n\n  ○\n  \n    \n    Kubernetes, networking avanzado, pentesting\n    No Iniciado\n  \n\n\n\n\n\n\nEl journey de aprendizaje está organizado en cuatro áreas principales:\n\n\nFundamentos de administración de sistemas Linux\n\n\n\nDocker y contenerización\n\n\n\nHerramientas y metodologías DevOps\n\n\n\nFundamentos de ciberseguridad\n\n\n\n\n\n\n\nHabilidad\nNivel\nEstado\n\n\n\n\nAdministración Linux\n🟢 Intermedio\nEn Progreso\n\n\nDocker & Contenedores\n🟢 Intermedio\nCertificado\n\n\nAnsible\n🔵 Básico\nAprendiendo\n\n\nBash Scripting\n🟢 Intermedio\nCompletado\n\n\nSeguridad de Redes\n🔵 Básico\nAprendiendo\n\n\nResolución CTF\n🔵 Básico\nIniciado\n\n\nHTB Academy\n🔵 Básico\nIniciado\n\n\n\n\n\n\nUsa la barra lateral para navegar entre secciones, o haz clic en los enlaces de sección anteriores.\n\nEste journey se actualiza continuamente a medida que se completan nuevos desafíos."
   },
   {
     "objectID": "es/index.html#propósito",
@@ -707,25 +749,39 @@
     "text": "Este journey sirve dos propósitos:\n\nSeguimiento de Progreso Personal - Un registro visual de lo que he aprendido y completado\nGuía de Aprendizaje para Otros - Un camino estructurado que otros pueden seguir para construir habilidades similares"
   },
   {
+    "objectID": "es/index.html#progreso-general",
+    "href": "es/index.html#progreso-general",
+    "title": "Journey de Aprendizaje DevOps & Security",
+    "section": "",
+    "text": "Completado Total\n    47%\n  \n  \n    \n  \n  \n    ✅ 28 completados\n    📋 32 restantes\n    🎯 60 total"
+  },
+  {
+    "objectID": "es/index.html#progreso-por-área",
+    "href": "es/index.html#progreso-por-área",
+    "title": "Journey de Aprendizaje DevOps & Security",
+    "section": "",
+    "text": "🐧\n    Fundamentos Linux\n    45%\n  \n  \n    \n  \n  9/20 desafíos completados\n\n\n\n  \n    🐳\n    Docker\n    100%\n  \n  \n    \n  \n  6/6 desafíos completados\n\n\n\n  \n    ⚙️\n    DevOps\n    50%\n  \n  \n    \n  \n  8/16 desafíos completados\n\n\n\n  \n    🔒\n    Seguridad\n    43%\n  \n  \n    \n  \n  5/12 desafíos completados"
+  },
+  {
+    "objectID": "es/index.html#ruta-de-aprendizaje",
+    "href": "es/index.html#ruta-de-aprendizaje",
+    "title": "Journey de Aprendizaje DevOps & Security",
+    "section": "",
+    "text": "✓\n  \n    \n    Gestión de usuarios, permisos, networking, scripting\n    Completado\n  \n\n\n\n  ✓\n  \n    \n    Fundamentos de Docker, volúmenes, redes\n    Completado\n  \n\n\n\n  ◐\n  \n    \n    Ansible, Cron, MariaDB, CI/CD básico\n    En Progreso - 50%\n  \n\n\n\n  ○\n  \n    \n    CTF básico, forense, seguridad web, HTB Academy\n    No Iniciado\n  \n\n\n\n  ○\n  \n    \n    Kubernetes, networking avanzado, pentesting\n    No Iniciado"
+  },
+  {
     "objectID": "es/index.html#estructura",
     "href": "es/index.html#estructura",
     "title": "Journey de Aprendizaje DevOps & Security",
     "section": "",
-    "text": "El journey de aprendizaje está organizado en cuatro áreas principales:\n\n\nFundamentos de administración de sistemas Linux: - Gestión de usuarios y grupos - Permisos y control de acceso - Scripting y automatización - Fundamentos de networking\n\n\n\nDocker y contenerización: - Fundamentos de contenedores - Gestión de volúmenes y redes - Despliegue y troubleshooting\n\n\n\nHerramientas y metodologías DevOps: - Gestión de configuración con Ansible - Automatización con Cron - Servicios de bases de datos (MariaDB)\n\n\n\nFundamentos de ciberseguridad: - Desafíos CTF y forense - Fundamentos de seguridad web - Módulos de HTB Academy"
+    "text": "El journey de aprendizaje está organizado en cuatro áreas principales:\n\n\nFundamentos de administración de sistemas Linux\n\n\n\nDocker y contenerización\n\n\n\nHerramientas y metodologías DevOps\n\n\n\nFundamentos de ciberseguridad"
   },
   {
-    "objectID": "es/index.html#progreso",
-    "href": "es/index.html#progreso",
+    "objectID": "es/index.html#matriz-de-habilidades",
+    "href": "es/index.html#matriz-de-habilidades",
     "title": "Journey de Aprendizaje DevOps & Security",
     "section": "",
-    "text": "Área\nDesafíos\nEstado\n\n\n\n\nFundamentos\n9\n🟢 En Progreso\n\n\nContenedores\n6\n🟢 En Progreso\n\n\nDevOps\n8\n🟢 En Progreso\n\n\nSeguridad\n3\n🟢 En Progreso"
-  },
-  {
-    "objectID": "es/index.html#cómo-usar-esta-guía",
-    "href": "es/index.html#cómo-usar-esta-guía",
-    "title": "Journey de Aprendizaje DevOps & Security",
-    "section": "",
-    "text": "Cada capítulo incluye:\n\nEscenario: Contexto real para el desafío\nSolución Paso a Paso: Comandos y explicaciones\nVerificación: Cómo confirmar el éxito\nAprendizajes Clave: Qué habilidades se desarrollaron\nPróximos Pasos: Dónde ir desde aquí"
+    "text": "Habilidad\nNivel\nEstado\n\n\n\n\nAdministración Linux\n🟢 Intermedio\nEn Progreso\n\n\nDocker & Contenedores\n🟢 Intermedio\nCertificado\n\n\nAnsible\n🔵 Básico\nAprendiendo\n\n\nBash Scripting\n🟢 Intermedio\nCompletado\n\n\nSeguridad de Redes\n🔵 Básico\nAprendiendo\n\n\nResolución CTF\n🔵 Básico\nIniciado\n\n\nHTB Academy\n🔵 Básico\nIniciado"
   },
   {
     "objectID": "es/index.html#navegación",
