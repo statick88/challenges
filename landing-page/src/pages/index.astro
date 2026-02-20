@@ -165,6 +165,50 @@ const { blockedCount, inProgressCount, readyCount } = calculateProgramStats(prog
       </div>
     </section>
 
+    <!-- Learning Ebooks Section -->
+    <section class="ebooks-section">
+      <div class="section-header">
+        <h2>📚 Ebooks de Aprendizaje</h2>
+        <p>Cursos estructurados en formato libro interactivo</p>
+      </div>
+      
+      <div class="ebooks-grid">
+        <a href="/learning-journey/security/linux-fundamentals/" class="ebook-card">
+          <div class="ebook-icon">🐧</div>
+          <div class="ebook-content">
+            <h3>Linux Fundamentals</h3>
+            <p class="ebook-platform">HTB Academy</p>
+            <div class="ebook-meta">
+              <span class="ebook-status completed">✓ Completado</span>
+              <span class="ebook-date">Feb 2026</span>
+            </div>
+          </div>
+          <div class="ebook-arrow">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </div>
+        </a>
+        
+        <a href="/learning-journey/security/nmap-course/" class="ebook-card">
+          <div class="ebook-icon">🔍</div>
+          <div class="ebook-content">
+            <h3>Nmap Course</h3>
+            <p class="ebook-platform">HTB Academy</p>
+            <div class="ebook-meta">
+              <span class="ebook-status completed">✓ Completado</span>
+              <span class="ebook-date">Feb 2026</span>
+            </div>
+          </div>
+          <div class="ebook-arrow">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </div>
+        </a>
+      </div>
+    </section>
+
     <!-- Recent Activity -->
     <section class="activity-section">
       <div class="section-header">
@@ -655,6 +699,87 @@ const { blockedCount, inProgressCount, readyCount } = calculateProgramStats(prog
   .cert-verify-btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
+  }
+
+  /* Ebooks Section */
+  .ebooks-section {
+    margin-bottom: 3rem;
+  }
+
+  .ebooks-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .ebook-card {
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .ebook-card:hover {
+    border-color: #8b5cf6;
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(139, 92, 246, 0.2);
+  }
+
+  .ebook-icon {
+    font-size: 2.5rem;
+    flex-shrink: 0;
+  }
+
+  .ebook-content {
+    flex: 1;
+  }
+
+  .ebook-content h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin: 0 0 0.25rem 0;
+  }
+
+  .ebook-platform {
+    color: var(--color-text-secondary);
+    font-size: 0.875rem;
+    margin: 0 0 0.75rem 0;
+  }
+
+  .ebook-meta {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.75rem;
+  }
+
+  .ebook-status {
+    padding: 0.25rem 0.5rem;
+    border-radius: 1rem;
+    font-weight: 500;
+  }
+
+  .ebook-status.completed {
+    background: rgba(34, 197, 94, 0.2);
+    color: #22c55e;
+  }
+
+  .ebook-date {
+    color: var(--color-text-muted);
+  }
+
+  .ebook-arrow {
+    color: #8b5cf6;
+    transition: transform 0.2s ease;
+  }
+
+  .ebook-card:hover .ebook-arrow {
+    transform: translateX(4px);
   }
 
   /* Activity Section */
