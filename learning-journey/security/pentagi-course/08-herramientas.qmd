@@ -1,0 +1,190 @@
+---
+title: "Herramientas y LLM Providers"
+description: "Catalogo completo de herramientas de seguridad y proveedores de LLM soportados"
+author: "Diego Saavedra"
+date: "2026-02-20"
+categories: [security, tools, llm]
+---
+
+# Herramientas y LLM Providers
+
+## Contenido
+
+- [Objetivo](#objetivo)
+- [Herramientas de Seguridad](#herramientas-de-seguridad)
+- [LLM Providers](#llm-providers)
+- [Sistemas de Busqueda](#sistemas-de-busqueda)
+- [Que Aprendimos](#que-aprendimos)
+
+## Objetivo
+
+Al finalizar esta unidad, seras capaz de:
+
+- Conocer las 20+ herramientas de seguridad integradas
+- Configurar diferentes proveedores de LLM
+- Integrar sistemas de busqueda externos
+- Seleccionar la configuracion optima para cada caso
+
+## Herramientas de Seguridad
+
+PentAGI incluye un arsenal completo de herramientas profesionales:
+
+### Reconocimiento y Enumeracion
+
+| Herramienta | Categoria | Descripcion |
+|-------------|-----------|-------------|
+| **nmap** | Port Scanning | Escaneo de puertos y deteccion de servicios |
+| **masscan** | Port Scanning | Escaneo rapido de puertos a gran escala |
+| **nuclei** | Vulnerability | Escaneo de vulnerabilidades basado en templates |
+| **naabu** | Port Scanning | Escaneo de puertos rapido |
+| **subfinder** | Recon | Enumeracion de subdominios |
+| **amass** | Recon | Mapeo de superficie de ataque |
+| **httpx** | Recon | Sondeo HTTP rapido |
+
+### Explotacion
+
+| Herramienta | Categoria | Descripcion |
+|-------------|-----------|-------------|
+| **metasploit** | Exploitation | Framework de explotacion |
+| **sqlmap** | Exploitation | Deteccion y explotacion de SQL injection |
+| **searchsploit** | Exploitation | Busqueda de exploits conocidos |
+| **john** | Cracking | Crackeo de hashes |
+| **hashcat** | Cracking | Crackeo de passwords por GPU |
+
+### Web Security
+
+| Herramienta | Categoria | Descripcion |
+|-------------|-----------|-------------|
+| **burpsuite** | Web | Proxy de intercepcion web |
+| **gobuster** | Web | Fuzzing de directorios |
+| **ffuf** | Web | Fuzzer web rapido |
+| **nikto** | Web | Escaner de servidores web |
+| **whatweb** | Web | Identificacion de tecnologias web |
+
+### Post-Explotacion
+
+| Herramienta | Categoria | Descripcion |
+|-------------|-----------|-------------|
+| **linpeas** | PrivEsc | Enumeracion de Linux |
+| **winpeas** | PrivEsc | Enumeracion de Windows |
+| **ldapdomaindump** | AD | Enumeracion de Active Directory |
+| **bloodhound** | AD | Analisis de relaciones AD |
+
+### Forense y Analisis
+
+| Herramienta | Categoria | Descripcion |
+|-------------|-----------|-------------|
+| **volatility** | Forensics | Analisis de memoria |
+| **binwalk** | Forensics | Analisis de firmware |
+| **strings** | Analysis | Extraccion de cadenas |
+
+::: {.callout-tip}
+## Seleccion Automatica
+PentAGI selecciona automaticamente la herramienta adecuada basandose en el objetivo. El agente evalua el contexto y elige el mejor approach.
+:::
+
+## LLM Providers
+
+PentAGI soporta multiples proveedores de modelos de lenguaje:
+
+### Cloud Providers
+
+| Provider | Modelos | Costo | Mejor Para |
+|----------|---------|-------|------------|
+| **OpenAI** | GPT-4o, o1, o3, o4-mini | $$$ | Razonamiento complejo, analisis |
+| **Anthropic** | Claude 4, Claude 3.7 | $$$ | Seguridad, razonamiento etico |
+| **Google AI** | Gemini 2.0, Gemini Pro | $$ | Multimodal, contexto largo |
+| **AWS Bedrock** | Claude, Llama, Mistral | $$$ | Enterprise, compliance |
+| **DeepSeek** | DeepSeek V3, R1 | $ | Costo-efectivo, razonamiento |
+| **Moonshot** | Kimi 2.5 | $$ | Contexto largo (1M tokens) |
+
+### Local Providers
+
+| Provider | Modelos | Requisitos | Mejor Para |
+|----------|---------|------------|------------|
+| **Ollama** | Llama 3.1, Qwen 2.5, QwQ | 16GB+ RAM | Privacidad, sin costo |
+| **Custom** | OpenAI-compatible | API propia | Infraestructura propia |
+
+### Configuracion por Agente
+
+PentAGI permite asignar modelos especificos por tipo de agente:
+
+```yaml
+# example.ollama.provider.yml
+agents:
+  researcher:
+    model: qwen2.5:32b
+    temperature: 0.3
+  
+  developer:
+    model: qwq:32b
+    temperature: 0.2
+  
+  executor:
+    model: llama3.1:8b
+    temperature: 0.1
+```
+
+### Modelos Recomendados por Tarea
+
+| Tarea | Modelo Cloud | Modelo Local |
+|-------|--------------|--------------|
+| Planificacion | GPT-4o, Claude 4 | Qwen 2.5 32B |
+| Investigacion | Claude Sonnet | Llama 3.1 70B |
+| Explotacion | GPT-4o-mini | Llama 3.1 8B |
+| Reportes | Claude 3.5 Haiku | Qwen 2.5 7B |
+
+## Sistemas de Busqueda
+
+PentAGI puede integrarse con sistemas de busqueda externos:
+
+### Buscadores Soportados
+
+| Sistema | Tipo | API Key | Mejor Para |
+|---------|------|---------|------------|
+| **Tavily** | AI Search | Requerida | Busqueda optimizada para IA |
+| **Perplexity** | AI Search | Requerida | Respuestas con citas |
+| **Traversaal** | AI Search | Requerida | Busqueda semantica |
+| **Google CSE** | Traditional | Requerida | Resultados precisos |
+| **DuckDuckGo** | Traditional | Gratuita | Privacidad |
+| **Searxng** | Meta-search | Self-hosted | Sin tracking |
+
+### Configuracion
+
+```bash
+# .env
+DUCKDUCKGO_ENABLED=true
+TAVILY_API_KEY=tvly-xxx
+PERPLEXITY_API_KEY=pplx-xxx
+GOOGLE_API_KEY=xxx
+GOOGLE_CX_KEY=xxx
+SEARXNG_URL=http://localhost:8080
+```
+
+## Stack de Observabilidad
+
+PentAGI incluye herramientas de monitoreo:
+
+| Componente | Funcion |
+|------------|---------|
+| **Grafana** | Dashboards de monitoreo |
+| **Prometheus** | Metricas del sistema |
+| **Jaeger** | Tracing distribuido |
+| **Loki** | Agregacion de logs |
+| **Langfuse** | Observabilidad de LLMs |
+
+## Que Aprendimos
+
+- PentAGI integra 20+ herramientas de seguridad profesionales
+- Soporta multiples proveedores de LLM (cloud y local)
+- Permite configurar modelos especificos por tipo de agente
+- Integra sistemas de busqueda externos para investigacion
+- Incluye stack completo de observabilidad
+
+## Proximos Pasos
+
+Para configurar tu entorno, continua con [Instalacion](03-instalacion.html).
+
+---
+
+[Volver al Curso](index.html) | [Instalacion ->](03-instalacion.html)

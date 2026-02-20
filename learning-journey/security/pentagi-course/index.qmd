@@ -55,6 +55,10 @@ Este curso sigue el principio de **seguridad por defecto**:
 - [Seguridad](06-seguridad.html) - Protegiendo tu laboratorio
 - [Optimizacion](07-optimizacion.html) - Mejorando el rendimiento
 
+### Unidad 4: Herramientas y Providers
+
+- [Herramientas y LLM Providers](08-herramientas.html) - Catalogo de 20+ herramientas y configuracion de modelos
+
 ### Laboratorio Practico
 
 - [Laboratorio Local](lab1-laboratorio-local.html) - Configuracion completa
@@ -64,7 +68,7 @@ Este curso sigue el principio de **seguridad por defecto**:
 ```{=html}
 <div class="progress-summary">
   <div class="progress-item">
-    <span class="progress-number">8</span>
+    <span class="progress-number">9</span>
     <span class="progress-label">Modulos</span>
   </div>
   <div class="progress-item">
