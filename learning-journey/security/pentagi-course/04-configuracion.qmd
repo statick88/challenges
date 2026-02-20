@@ -1,0 +1,134 @@
+---
+title: "Configuracion de PentAGI"
+description: "Variables de entorno y configuracion avanzada - Optimizacion y seguridad"
+author: "Diego Saavedra"
+date: "2026-02-20"
+categories: [security, configuration, docker]
+---
+
+# Configuracion de PentAGI
+
+## Variables de Entorno Principales
+
+### Ollama (LLM Local)
+
+```bash
+# URL del servidor Ollama (IP de Tailscale del Host)
+OLLAMA_SERVER_URL=http://100.x.x.x:11434
+
+# Modelo a utilizar
+OLLAMA_SERVER_MODEL=qwen2.5:32b-tc
+
+# Modelos alternativos disponibles:
+# - qwen2.5:32b-tc  (mejor razonamiento)
+# - qwen2.5:14b-tc  (mas rapido)
+# - gemma2:27b      (alternativo)
+```
+
+### Base de Datos
+
+```bash
+# PostgreSQL
+PENTAGI_POSTGRES_USER=tu_usuario
+PENTAGI_POSTGRES_PASSWORD=tu_contrasena_segura
+PENTAGI_POSTGRES_DB=pentagidb
+
+# Neo4j
+NEO4J_USER=neo4j
+NEO4J_PASSWORD=tu_contrasena_neo4j
+NEO4J_URI=bolt://neo4j:7687
+```
+
+### Seguridad
+
+```bash
+# Salt para cookies (generar con: openssl rand -hex 16)
+COOKIE_SIGNING_SALT=tu_salt_aleatorio_32chars
+
+# URL publica (IP de Tailscale de la VM)
+PUBLIC_URL=https://100.x.x.x:8443
+CORS_ORIGINS=https://100.x.x.x:8443
+```
+
+### Red
+
+```bash
+# Escuchar en todas las interfaces (importante para Tailscale)
+PENTAGI_LISTEN_IP=0.0.0.0
+
+# Puerto del servidor
+SERVER_PORT=8443
+SERVER_HOST=0.0.0.0
+SERVER_USE_SSL=true
+```
+
+## Configuracion de Modelos
+
+### Crear Modelos con Contexto Extendido
+
+```bash
+# Modelfile para qwen2.5:32b
+cat > ~/Modelfile_qwen25_32b_tc << 'EOF'
+FROM qwen2.5:32b
+PARAMETER num_ctx 110000
+PARAMETER temperature 0.3
+PARAMETER top_p 0.8
+EOF
+
+ollama create qwen2.5:32b-tc -f ~/Modelfile_qwen25_32b_tc
+```
+
+### Parametros Recomendados
+
+| Parametro | Valor | Descripcion |
+|-----------|-------|-------------|
+| num_ctx | 110000 | Contexto extendido para pentesting |
+| temperature | 0.3 | Preciso, menos creativo |
+| top_p | 0.8 | Diversidad controlada |
+
+## Comandos Utiles
+
+### Gestion de Contenedores
+
+```bash
+# Ver estado
+docker compose ps
+
+# Ver logs
+docker compose logs -f pentagi
+
+# Reiniciar
+docker compose restart
+
+# Detener
+docker compose down
+
+# Iniciar
+docker compose up -d
+
+# Actualizar
+docker compose pull && docker compose up -d
+```
+
+### Mantenimiento
+
+```bash
+# Limpiar contenedores temporales
+docker container prune
+
+# Ver uso de disco
+docker system df
+
+# Limpiar todo (cuidado)
+docker system prune -a
+```
+
+## Que Aprendimos
+
+- Las variables de entorno controlan toda la configuracion
+- El contexto extendido es critico para pentesting
+- Los comandos de Docker facilitan el mantenimiento
+
+---
+
+[Volver al Curso](index.html) | [Instalacion <-](03-instalacion.html) | [Primeros Pasos ->](05-primeros-pasos.html)

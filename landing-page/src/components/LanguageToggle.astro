@@ -1,6 +1,5 @@
 ---
-// src/components/LanguageToggle.astro
-// Componente para cambiar entre inglés y español
+import { translations } from '../i18n/translations';
 ---
 
 <button
@@ -47,46 +46,147 @@
 </style>
 
 <script>
+  const translations = {
+    es: {
+      'hero.badge': 'Plataforma de Aprendizaje',
+      'hero.title.line1': 'Domina Linux, Docker,',
+      'hero.title.line2': 'DevOps & Security',
+      'hero.subtitle': 'Plataforma interactiva con 70+ desafíos prácticos. Aprende haciendo, no solo leyendo.',
+      'hero.stat.completed': 'Completados',
+      'hero.stat.progress': 'Progreso',
+      'hero.stat.challenges': 'Desafíos',
+      'progress.title': 'Progreso General',
+      'progress.completed': 'completados',
+      'progress.in_progress': 'en progreso',
+      'progress.blocked': 'bloqueados',
+      'programs.title': 'Programas de Aprendizaje',
+      'programs.subtitle': 'Selecciona un programa para ver sus desafíos',
+      'programs.completed': 'Completados',
+      'programs.total': 'Total',
+      'programs.view': 'Ver desafíos',
+      'program.linux': 'Linux',
+      'program.docker': 'Docker',
+      'program.devops': 'DevOps',
+      'program.ctf': 'CTF',
+      'program.htb': 'HTB Academy',
+      'program.linux.desc': 'Administración de sistemas Linux, usuarios, permisos y automatización',
+      'program.docker.desc': 'Containerización, orquestación y mejores prácticas de Docker',
+      'program.devops.desc': 'CI/CD, automatización y cultura DevOps',
+      'program.ctf.desc': 'Desafíos de seguridad: criptografía, web, forense y más',
+      'program.htb.desc': 'Módulos de Hack The Box Academy completados',
+      'cert.title': 'Certificaciones Obtenidas',
+      'cert.subtitle': 'Reconocimientos oficiales de tu progreso',
+      'cert.docker.title': 'Docker Certification',
+      'cert.docker.platform': 'KodeKloud Engineer',
+      'cert.challenges': 'Challenges',
+      'cert.verify': 'Verificar certificado',
+      'activity.title': 'Actividad Reciente',
+      'activity.subtitle': 'Últimos desafíos completados',
+      'footer.update': 'Última actualización',
+    },
+    en: {
+      'hero.badge': 'Learning Platform',
+      'hero.title.line1': 'Master Linux, Docker,',
+      'hero.title.line2': 'DevOps & Security',
+      'hero.subtitle': 'Interactive platform with 70+ practical challenges. Learn by doing, not just reading.',
+      'hero.stat.completed': 'Completed',
+      'hero.stat.progress': 'Progress',
+      'hero.stat.challenges': 'Challenges',
+      'progress.title': 'Overall Progress',
+      'progress.completed': 'completed',
+      'progress.in_progress': 'in progress',
+      'progress.blocked': 'blocked',
+      'programs.title': 'Learning Programs',
+      'programs.subtitle': 'Select a program to view its challenges',
+      'programs.completed': 'Completed',
+      'programs.total': 'Total',
+      'programs.view': 'View challenges',
+      'program.linux': 'Linux',
+      'program.docker': 'Docker',
+      'program.devops': 'DevOps',
+      'program.ctf': 'CTF',
+      'program.htb': 'HTB Academy',
+      'program.linux.desc': 'Linux system administration, users, permissions and automation',
+      'program.docker.desc': 'Containerization, orchestration and Docker best practices',
+      'program.devops.desc': 'CI/CD, automation and DevOps culture',
+      'program.ctf.desc': 'Security challenges: cryptography, web, forensics and more',
+      'program.htb.desc': 'Completed Hack The Box Academy modules',
+      'cert.title': 'Earned Certifications',
+      'cert.subtitle': 'Official recognition of your progress',
+      'cert.docker.title': 'Docker Certification',
+      'cert.docker.platform': 'KodeKloud Engineer',
+      'cert.challenges': 'Challenges',
+      'cert.verify': 'Verify Certificate',
+      'activity.title': 'Recent Activity',
+      'activity.subtitle': 'Latest completed challenges',
+      'footer.update': 'Last updated',
+    }
+  };
+
   const langToggle = document.getElementById('lang-toggle');
   const langText = langToggle?.querySelector('.lang-text');
   
-  // Get current language from URL or localStorage
-  function getCurrentLang() {
-    const path = window.location.pathname;
-    if (path.startsWith('/challenges/es/') || path.includes('/es/')) {
-      return 'es';
+  function getStoredLang(): 'es' | 'en' {
+    if (typeof localStorage !== 'undefined') {
+      const stored = localStorage.getItem('lang');
+      if (stored === 'es' || stored === 'en') return stored;
     }
-    return 'en';
+    return 'es';
   }
   
-  // Update button text based on current language
-  function updateButtonText() {
-    const currentLang = getCurrentLang();
+  function setStoredLang(lang: 'es' | 'en') {
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem('lang', lang);
+    }
+  }
+  
+  function updateButtonText(lang: 'es' | 'en') {
     if (langText) {
-      langText.textContent = currentLang === 'es' ? 'ES' : 'EN';
+      langText.textContent = lang === 'es' ? 'EN' : 'ES';
     }
   }
   
-  // Initialize button text
-  updateButtonText();
+  function translatePage(lang: 'es' | 'en') {
+    const t = translations[lang];
+    
+    document.querySelectorAll('[data-i18n]').forEach((el) => {
+      const key = el.getAttribute('data-i18n');
+      if (key && t[key as keyof typeof t]) {
+        el.textContent = t[key as keyof typeof t];
+      }
+    });
+    
+    document.querySelectorAll('[data-i18n-program]').forEach((el) => {
+      const programKey = el.getAttribute('data-i18n-program');
+      if (programKey) {
+        const key = `program.${programKey}` as keyof typeof t;
+        if (t[key]) {
+          el.textContent = t[key];
+        }
+      }
+    });
+    
+    document.querySelectorAll('[data-i18n-program-desc]').forEach((el) => {
+      const programKey = el.getAttribute('data-i18n-program-desc');
+      if (programKey) {
+        const key = `program.${programKey}.desc` as keyof typeof t;
+        if (t[key]) {
+          el.textContent = t[key];
+        }
+      }
+    });
+    
+    document.documentElement.lang = lang;
+    updateButtonText(lang);
+  }
+  
+  const currentLang = getStoredLang();
+  translatePage(currentLang);
   
   langToggle?.addEventListener('click', () => {
-    const currentLang = getCurrentLang();
+    const currentLang = getStoredLang();
     const newLang = currentLang === 'es' ? 'en' : 'es';
-    
-    // Get current path
-    let currentPath = window.location.pathname;
-    
-    // Remove language prefix if present
-    currentPath = currentPath.replace('/challenges/es/', '/challenges/');
-    currentPath = currentPath.replace('/es/', '/');
-    
-    // Add new language prefix
-    const newPath = newLang === 'es' 
-      ? `/challenges/es${currentPath}` 
-      : `/challenges${currentPath}`;
-    
-    // Navigate to new path
-    window.location.href = newPath;
+    setStoredLang(newLang);
+    translatePage(newLang);
   });
 </script>

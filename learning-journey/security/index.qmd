@@ -27,7 +27,30 @@ Curso completo de enumeración de redes con Nmap, desde conceptos básicos hasta
 
 ---
 
-## 📊 Laboratorios Completados
+### PentAGI - Pentesting con IA
+
+Curso completo de pentesting automatizado con Inteligencia Artificial local, utilizando Ollama y Docker para maxima privacidad.
+
+[**Acceder al Curso de PentAGI ->**](pentagi-course/index.html)
+
+**Contenido del curso:**
+
+- Introduccion a PentAGI y arquitectura
+- Instalacion y configuracion con Ollama local
+- Primeros pasos y mejores practicas
+- Seguridad y optimizacion
+- Laboratorio practico completo
+
+**Progreso del curso: 100%** 
+
+**Filosofia: Seguridad por defecto**
+- Sin APIs externas (todo local con Ollama)
+- Sin credenciales expuestas
+- Aislamiento completo con Docker
+
+---
+
+## Laboratorios Completados
 
 | Reto | Plataforma | Dificultad | Fecha |
 |------|------------|------------|-------|

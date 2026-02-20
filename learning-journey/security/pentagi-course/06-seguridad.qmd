@@ -1,0 +1,119 @@
+---
+title: "Seguridad en PentAGI"
+description: "Mejores practicas de seguridad - Protegiendo tu laboratorio de pentesting"
+author: "Diego Saavedra"
+date: "2026-02-20"
+categories: [security, hardening, best-practices]
+---
+
+# Seguridad en PentAGI
+
+## Principios Fundamentales
+
+1. **Defensa en Profundidad** - Multiples capas de proteccion
+2. **Menor Privilegio** - Acceso minimo necesario
+3. **Seguridad por Defecto** - Configuracion segura inicial
+
+## Riesgos y Mitigaciones
+
+### Riesgos Criticos
+
+| Riesgo | Nivel | Mitigacion |
+|--------|-------|------------|
+| Acceso Docker socket | Alto | Ejecutar en VM aislada |
+| Credenciales expuestas | Alto | Variables de entorno unicas |
+| Fuga de datos a LLMs | Medio | Ollama local (no APIs externas) |
+| Puerto expuesto | Medio | Solo Tailscale, no internet |
+
+### Mitigaciones Aplicadas
+
+```
++-----------------------------------------------------------+
+|                    CAPAS DE PROTECCION                     |
++-----------------------------------------------------------+
+|                                                           |
+|  Capa 1: VM Aislada                                       |
+|  +-----------------------------------------------------+  |
+|  | - Kali/Ubuntu en VMware/VirtualBox                  |  |
+|  | - Red NAT o Bridged                                 |  |
+|  | - Snapshots antes de cambios                        |  |
+|  +-----------------------------------------------------+  |
+|                                                           |
+|  Capa 2: Tailscale                                        |
+|  +-----------------------------------------------------+  |
+|  | - Sin puertos expuestos a internet                  |  |
+|  | - Solo dispositivos autorizados                     |  |
+|  | - Encriptacion punto a punto                        |  |
+|  +-----------------------------------------------------+  |
+|                                                           |
+|  Capa 3: Docker                                           |
+|  +-----------------------------------------------------+  |
+|  | - Contenedores aislados                             |  |
+|  | - Redes Docker separadas                            |  |
+|  | - Usuarios no-root                                  |  |
+|  +-----------------------------------------------------+  |
+|                                                           |
++-----------------------------------------------------------+
+```
+
+## Checklist de Seguridad
+
+### Antes de Empezar
+
+- [ ] Cambiar TODAS las credenciales por defecto
+- [ ] Generar salt aleatorio unico
+- [ ] Verificar que Tailscale esta activo
+- [ ] Confirmar que puertos NO estan expuestos a internet
+
+### Diariamente
+
+- [ ] Verificar que solo dispositivos autorizados en Tailscale
+- [ ] Revisar logs sospechosos: `docker compose logs pentagi`
+- [ ] Confirmar que no hay contenedores huerfanos
+
+### Antes de Cada Pentest
+
+- [ ] Tomar snapshot de la VM
+- [ ] Verificar objetivo autorizado
+- [ ] Confirmar alcance del test
+
+### Despues de Cada Pentest
+
+- [ ] Limpiar contenedores temporales: `docker container prune`
+- [ ] Revisar logs de actividad
+- [ ] Opcional: Restaurar snapshot
+
+## Configuracion Segura
+
+### Variables de Entorno
+
+```bash
+# NUNCA usar estos valores de ejemplo
+PENTAGI_POSTGRES_PASSWORD=tu_contrasena_unica_20_chars
+NEO4J_PASSWORD=otra_contrasena_diferente
+COOKIE_SIGNING_SALT=salt_generado_con_openssl_rand_hex_16
+
+# Escuchar solo en Tailscale
+PENTAGI_LISTEN_IP=0.0.0.0  # OK con Tailscale
+PUBLIC_URL=https://100.x.x.x:8443  # IP Tailscale
+```
+
+### Firewall (Opcional)
+
+```bash
+# Solo permitir Tailscale
+sudo ufw enable
+sudo ufw allow from 100.64.0.0/10 to any port 8443
+sudo ufw deny 8443
+```
+
+## Que Aprendimos
+
+- La VM aislada es la primera capa de defensa
+- Tailscale elimina la necesidad de exponer puertos
+- Las credenciales unicas son criticas
+- Los snapshots permiten rollback rapido
+
+---
+
+[Volver al Curso](index.html) | [Primeros Pasos <-](05-primeros-pasos.html) | [Optimizacion ->](07-optimizacion.html)

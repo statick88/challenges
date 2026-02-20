@@ -12,29 +12,29 @@ const { blockedCount, inProgressCount, readyCount } = calculateProgramStats(prog
     <!-- Hero Section -->
     <section class="hero">
       <div class="hero-content">
-        <div class="hero-badge">🎯 Learning Platform</div>
+        <div class="hero-badge">🎯 <span data-i18n="hero.badge">Plataforma de Aprendizaje</span></div>
         <h1 class="hero-title">
-          Domina Linux, Docker,<br />
-          <span class="gradient-text">DevOps & Security</span>
+          <span data-i18n="hero.title.line1">Domina Linux, Docker,</span><br />
+          <span class="gradient-text" data-i18n="hero.title.line2">DevOps & Security</span>
         </h1>
-        <p class="hero-subtitle">
+        <p class="hero-subtitle" data-i18n="hero.subtitle">
           Plataforma interactiva con 70+ desafíos prácticos. 
           Aprende haciendo, no solo leyendo.
         </p>
         <div class="hero-stats">
           <div class="hero-stat">
             <span class="hero-stat-number">{overview.completed}</span>
-            <span class="hero-stat-label">Completados</span>
+            <span class="hero-stat-label" data-i18n="hero.stat.completed">Completados</span>
           </div>
           <div class="hero-stat-divider"></div>
           <div class="hero-stat">
             <span class="hero-stat-number">{overview.completionRate}%</span>
-            <span class="hero-stat-label">Progreso</span>
+            <span class="hero-stat-label" data-i18n="hero.stat.progress">Progreso</span>
           </div>
           <div class="hero-stat-divider"></div>
           <div class="hero-stat">
             <span class="hero-stat-number">{overview.totalChallenges}</span>
-            <span class="hero-stat-label">Desafíos</span>
+            <span class="hero-stat-label" data-i18n="hero.stat.challenges">Desafíos</span>
           </div>
         </div>
       </div>
@@ -45,7 +45,7 @@ const { blockedCount, inProgressCount, readyCount } = calculateProgramStats(prog
         </div>
         <div class="floating-card card-2">
           <span class="floating-icon">🐳</span>
-          <span="floating-label">Docker</span>
+          <span class="floating-label">Docker</span>
         </div>
         <div class="floating-card card-3">
           <span class="floating-icon">🚀</span>
@@ -61,7 +61,7 @@ const { blockedCount, inProgressCount, readyCount } = calculateProgramStats(prog
     <!-- Progress Overview -->
     <section class="progress-section">
       <div class="progress-header">
-        <h2>Progreso General</h2>
+        <h2 data-i18n="progress.title">Progreso General</h2>
         <span class="progress-percentage">{overview.completionRate}%</span>
       </div>
       <div class="progress-track">
@@ -71,15 +71,15 @@ const { blockedCount, inProgressCount, readyCount } = calculateProgramStats(prog
       <div class="progress-stats">
         <div class="progress-stat completed">
           <span class="dot"></span>
-          <span>{overview.completed} completados</span>
+          <span>{overview.completed} <span data-i18n="progress.completed">completados</span></span>
         </div>
         <div class="progress-stat in-progress">
           <span class="dot"></span>
-          <span>{inProgressCount + readyCount} en progreso</span>
+          <span>{inProgressCount + readyCount} <span data-i18n="progress.in_progress">en progreso</span></span>
         </div>
         <div class="progress-stat blocked">
           <span class="dot"></span>
-          <span>{blockedCount} bloqueados</span>
+          <span>{blockedCount} <span data-i18n="progress.blocked">bloqueados</span></span>
         </div>
       </div>
     </section>
@@ -87,8 +87,8 @@ const { blockedCount, inProgressCount, readyCount } = calculateProgramStats(prog
     <!-- Programs Grid -->
     <section class="programs-section">
       <div class="section-header">
-        <h2>Programas de Aprendizaje</h2>
-        <p>Selecciona un programa para ver sus desafíos</p>
+        <h2 data-i18n="programs.title">Programas de Aprendizaje</h2>
+        <p data-i18n="programs.subtitle">Selecciona un programa para ver sus desafíos</p>
       </div>
       
       <div class="programs-grid">
@@ -105,23 +105,23 @@ const { blockedCount, inProgressCount, readyCount } = calculateProgramStats(prog
               </div>
             </div>
             
-            <h3 class="program-title">{(program as any).name}</h3>
-            <p class="program-description">{(program as any).description}</p>
+            <h3 class="program-title" data-i18n-program={key}>{(program as any).name}</h3>
+            <p class="program-description" data-i18n-program-desc={key}>{(program as any).description}</p>
             
             <div class="program-stats">
               <div class="program-stat">
                 <span class="program-stat-value">{(program as any).completed}</span>
-                <span class="program-stat-label">Completados</span>
+                <span class="program-stat-label" data-i18n="programs.completed">Completados</span>
               </div>
               <div class="program-stat-divider"></div>
               <div class="program-stat">
                 <span class="program-stat-value">{(program as any).total}</span>
-                <span class="program-stat-label">Total</span>
+                <span class="program-stat-label" data-i18n="programs.total">Total</span>
               </div>
             </div>
             
             <div class="program-footer">
-              <span>Ver desafíos</span>
+              <span data-i18n="programs.view">Ver desafíos</span>
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M5 12h14M12 5l7 7-7 7"/>
               </svg>
@@ -134,8 +134,8 @@ const { blockedCount, inProgressCount, readyCount } = calculateProgramStats(prog
     <!-- Certifications Section -->
     <section class="cert-section">
       <div class="section-header">
-        <h2>Certificaciones Obtenidas</h2>
-        <p>Reconocimientos oficiales de tu progreso</p>
+        <h2 data-i18n="cert.title">Certificaciones Obtenidas</h2>
+        <p data-i18n="cert.subtitle">Reconocimientos oficiales de tu progreso</p>
       </div>
       
       <div class="cert-card">
@@ -143,11 +143,11 @@ const { blockedCount, inProgressCount, readyCount } = calculateProgramStats(prog
         <div class="cert-content">
           <div class="cert-icon">🐳</div>
           <div class="cert-info">
-            <h3>Docker Certification</h3>
-            <p class="cert-platform">KodeKloud Engineer</p>
+            <h3 data-i18n="cert.docker.title">Docker Certification</h3>
+            <p class="cert-platform" data-i18n="cert.docker.platform">KodeKloud Engineer</p>
             <div class="cert-meta">
               <span class="cert-date">📅 18 Feb 2026</span>
-              <span class="cert-challenges">✓ 9/9 Challenges</span>
+              <span class="cert-challenges">✓ 9/9 <span data-i18n="cert.challenges">Challenges</span></span>
             </div>
           </div>
         </div>
@@ -160,7 +160,7 @@ const { blockedCount, inProgressCount, readyCount } = calculateProgramStats(prog
             <polyline points="15 3 21 3 21 9"/>
             <line x1="10" y1="14" x2="21" y2="3"/>
           </svg>
-          Verificar Certificado
+          <span data-i18n="cert.verify">Verificar certificado</span>
         </a>
       </div>
     </section>
@@ -168,8 +168,8 @@ const { blockedCount, inProgressCount, readyCount } = calculateProgramStats(prog
     <!-- Recent Activity -->
     <section class="activity-section">
       <div class="section-header">
-        <h2>Actividad Reciente</h2>
-        <p>Últimos desafíos completados</p>
+        <h2 data-i18n="activity.title">Actividad Reciente</h2>
+        <p data-i18n="activity.subtitle">Últimos desafíos completados</p>
       </div>
       
       <div class="activity-list">
@@ -218,7 +218,7 @@ const { blockedCount, inProgressCount, readyCount } = calculateProgramStats(prog
     <!-- Footer -->
     <footer class="dashboard-footer">
       <p>
-        Última actualización: {formatDate(challengesData.lastUpdated)} • 
+        <span data-i18n="footer.update">Última actualización</span>: {formatDate(challengesData.lastUpdated)} • 
         <a href="https://github.com/statick88" target="_blank" rel="noopener noreferrer">@statick88</a>
       </p>
     </footer>

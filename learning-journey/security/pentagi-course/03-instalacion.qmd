@@ -1,0 +1,374 @@
+---
+title: "Instalacion de PentAGI"
+description: "Guia paso a paso para instalar PentAGI con Ollama local - Arquitectura segura y privada"
+author: "Diego Saavedra"
+date: "2026-02-20"
+categories: [security, installation, docker, ollama]
+---
+
+# Instalacion de PentAGI
+
+## Contenido
+
+- [Objetivo](#objetivo)
+- [Requisitos Previos](#requisitos-previos)
+- [Arquitectura Objetivo](#arquitectura-objetivo)
+- [Fase 1: Ollama](#fase-1-ollama)
+- [Fase 2: Docker](#fase-2-docker)
+- [Fase 3: PentAGI](#fase-3-pentagi)
+- [Fase 4: Configuracion](#fase-4-configuracion)
+- [Verificacion](#verificacion)
+- [Que Aprendimos](#que-aprendimos)
+
+## Objetivo
+
+Al finalizar esta unidad, seras capaz de:
+
+- Instalar y configurar Ollama como servidor LLM
+- Instalar Docker y Docker Compose
+- Desplegar PentAGI con la configuracion correcta
+- Verificar que todos los componentes funcionan
+
+## Requisitos Previos
+
+### Hardware
+
+| Componente | Minimo | Recomendado |
+|------------|--------|-------------|
+| RAM | 8 GB | 16 GB+ |
+| CPU | 4 cores | 8+ cores |
+| Disco | 40 GB | 80 GB+ SSD |
+| GPU | No requerida | 8GB+ VRAM |
+
+### Software
+
+| Software | Version |
+|----------|---------|
+| Docker | 24.0+ |
+| Docker Compose | v2.0+ |
+| Tailscale | Latest |
+
+### Cuentas
+
+- Cuenta de Tailscale (gratuita)
+- Sin necesidad de APIs de pago
+
+## Arquitectura Objetivo
+
+```
++-----------------------------------------------------------+
+|                         RED TAILSCALE                      |
++-----------------------------------------------------------+
+|                                                           |
+|  +---------------------+       +---------------------+    |
+|  | Mac/PC Host         |       | VM Kali/Ubuntu      |    |
+|  |                     |       |                     |    |
+|  | Ollama Server       |       | PentAGI             |    |
+|  | IP: 100.x.x.x       |<----->| IP: 100.x.x.x       |    |
+|  | Puerto: 11434       |       | Puerto: 8443        |    |
+|  |                     |       |                     |    |
+|  | Modelos:            |       | Servicios:          |    |
+|  | - qwen2.5:32b-tc    |       | - pentagi           |    |
+|  | - qwen2.5:14b-tc    |       | - pgvector          |    |
+|  |                     |       | - scraper           |    |
+|  +---------------------+       +---------------------+    |
+|                                                           |
+|  100% PRIVACIDAD - Sin APIs externas                      |
++-----------------------------------------------------------+
+```
+
+## Fase 1: Ollama
+
+### Paso 1.1: Instalar Tailscale en el Host
+
+```bash
+# macOS
+brew install tailscale
+
+# Linux
+curl -fsSL https://tailscale.com/install.sh | sh
+
+# Iniciar Tailscale
+sudo tailscale up
+```
+
+### Paso 1.2: Obtener IP de Tailscale
+
+```bash
+tailscale ip
+# Anota la IP que comienza con 100.
+```
+
+### Paso 1.3: Instalar Ollama
+
+```bash
+# macOS
+brew install ollama
+
+# Linux
+curl -fsSL https://ollama.com/install.sh | sh
+```
+
+### Paso 1.4: Configurar Ollama para Escuchar en Red
+
+```bash
+# Agregar a ~/.zshrc o ~/.bashrc
+echo 'export OLLAMA_HOST="0.0.0.0:11434"' >> ~/.zshrc
+source ~/.zshrc
+
+# Reiniciar Ollama
+pkill ollama
+ollama serve &
+```
+
+### Paso 1.5: Descargar Modelos
+
+```bash
+# Descargar modelos base
+ollama pull qwen2.5:32b
+ollama pull qwen2.5:14b
+```
+
+### Paso 1.6: Crear Modelos con Contexto Extendido
+
+```bash
+# Crear Modelfile para qwen2.5:32b
+cat > ~/Modelfile_qwen25_32b_tc << 'EOF'
+FROM qwen2.5:32b
+PARAMETER num_ctx 110000
+PARAMETER temperature 0.3
+PARAMETER top_p 0.8
+EOF
+
+# Crear el modelo extendido
+ollama create qwen2.5:32b-tc -f ~/Modelfile_qwen25_32b_tc
+
+# Crear modelo alternativo mas ligero
+cat > ~/Modelfile_qwen25_14b_tc << 'EOF'
+FROM qwen2.5:14b
+PARAMETER num_ctx 110000
+PARAMETER temperature 0.3
+PARAMETER top_p 0.8
+EOF
+
+ollama create qwen2.5:14b-tc -f ~/Modelfile_qwen25_14b_tc
+```
+
+### Paso 1.7: Verificar Ollama
+
+```bash
+# Verificar que escucha en todas las interfaces
+lsof -i :11434
+# Debe mostrar: *:11434 (LISTEN)
+
+# Listar modelos
+ollama list | grep tc
+```
+
+## Fase 2: Docker
+
+### Paso 2.1: Instalar Docker (en VM Kali/Ubuntu)
+
+```bash
+# Actualizar sistema
+sudo apt update && sudo apt upgrade -y
+
+# Instalar Docker
+sudo apt install -y docker.io docker-compose
+
+# Habilitar Docker
+sudo systemctl enable docker
+sudo systemctl start docker
+
+# Agregar usuario al grupo docker
+sudo usermod -aG docker $USER
+
+# Aplicar cambios
+newgrp docker
+
+# Verificar
+docker --version
+docker compose version
+```
+
+### Paso 2.2: Instalar Tailscale en la VM
+
+```bash
+curl -fsSL https://tailscale.com/install.sh | sh
+sudo tailscale up
+
+# Obtener IP de Tailscale
+tailscale ip
+```
+
+## Fase 3: PentAGI
+
+### Paso 3.1: Crear Directorio
+
+```bash
+mkdir -p ~/pentagi && cd ~/pentagi
+```
+
+### Paso 3.2: Descargar Archivos de Configuracion
+
+```bash
+curl -O https://raw.githubusercontent.com/vxcontrol/pentagi/master/.env.example
+curl -O https://raw.githubusercontent.com/vxcontrol/pentagi/master/docker-compose.yml
+
+cp .env.example .env
+```
+
+### Paso 3.3: Descargar Imagenes
+
+```bash
+docker compose pull
+```
+
+## Fase 4: Configuracion
+
+### Paso 4.1: Generar Salt Aleatorio
+
+```bash
+openssl rand -hex 16
+# Copia el resultado
+```
+
+### Paso 4.2: Editar .env
+
+```bash
+nano ~/pentagi/.env
+```
+
+### Paso 4.3: Configurar Variables Principales
+
+Reemplaza los valores marcados con `TU_`:
+
+```bash
+# ============================================
+# OLLAMA - CONEXION AL HOST
+# ============================================
+# Reemplaza con la IP de Tailscale del Host donde corre Ollama
+OLLAMA_SERVER_URL=http://TU_IP_TAILSCALE_HOST:11434
+OLLAMA_SERVER_MODEL=qwen2.5:32b-tc
+
+# ============================================
+# CREDENCIALES (CAMBIAR TODAS)
+# ============================================
+PENTAGI_POSTGRES_USER=tu_usuario_unico
+PENTAGI_POSTGRES_PASSWORD=tu_contrasena_segura_20chars
+NEO4J_PASSWORD=otra_contrasena_diferente
+
+# ============================================
+# SEGURIDAD
+# ============================================
+# Pegar resultado de: openssl rand -hex 16
+COOKIE_SIGNING_SALT=pegar_aqui_el_salt_generado
+
+# ============================================
+# RED
+# ============================================
+# Reemplaza con la IP de Tailscale de esta VM
+PUBLIC_URL=https://TU_IP_TAILSCALE_VM:8443
+CORS_ORIGINS=https://TU_IP_TAILSCALE_VM:8443
+
+# Importante: Escuchar en todas las interfaces
+PENTAGI_LISTEN_IP=0.0.0.0
+
+# ============================================
+# BUSCADORES (OPCIONAL)
+# ============================================
+DUCKDUCKGO_ENABLED=true
+GOOGLE_API_KEY=
+GOOGLE_CX_KEY=
+
+# ============================================
+# APIS EXTERNAS (NO NECESARIAS CON OLLAMA)
+# ============================================
+OPEN_AI_KEY=
+ANTHROPIC_API_KEY=
+```
+
+::: {.callout-warning}
+## Seguridad
+Nunca uses las credenciales de ejemplo. Genera contrasenas unicas y seguras para cada variable.
+:::
+
+### Paso 4.4: Levantar Servicios
+
+```bash
+cd ~/pentagi
+docker compose up -d
+```
+
+### Paso 4.5: Verificar Estado
+
+```bash
+docker compose ps
+```
+
+Todos los servicios deben mostrar status "Up".
+
+## Verificacion
+
+### Verificar Conexion Ollama
+
+Desde la VM, ejecuta:
+
+```bash
+# Reemplaza con la IP del Host
+curl http://TU_IP_TAILSCALE_HOST:11434/api/tags
+```
+
+Debe devolver JSON con los modelos disponibles.
+
+### Verificar PentAGI
+
+```bash
+# Verificar que el puerto escucha
+ss -tlnp | grep 8443
+# Debe mostrar: 0.0.0.0:8443
+
+# Ver logs
+docker compose logs pentagi | tail -20
+```
+
+### Acceder a la UI
+
+1. Abre el navegador en el Host
+2. Ve a: `https://TU_IP_TAILSCALE_VM:8443`
+3. Acepta el certificado auto-firmado
+4. Login:
+   - Usuario: `admin@pentagi.com`
+   - Contrasena: `admin`
+
+::: {.callout-tip}
+## Importante
+Cambia las credenciales por defecto inmediatamente despues del primer login.
+:::
+
+## Checklist de Verificacion
+
+| Check | Comando | Resultado Esperado |
+|-------|---------|-------------------|
+| Ollama escucha | `lsof -i :11434` | *:11434 (LISTEN) |
+| Modelos tc creados | `ollama list \| grep tc` | qwen2.5:32b-tc |
+| Tailscale conectado | `tailscale status` | Conectado |
+| Docker funciona | `docker ps` | Lista contenedores |
+| PentAGI levantado | `docker compose ps` | Todos Up |
+| Puerto accesible | `ss -tlnp \| grep 8443` | 0.0.0.0:8443 |
+
+## Que Aprendimos
+
+- Ollama se configura para escuchar en red
+- Los modelos necesitan contexto extendido (110K tokens)
+- Las credenciales deben ser unicas y seguras
+- PENTAGI_LISTEN_IP=0.0.0.0 permite acceso via Tailscale
+- La verificacion paso a paso confirma que todo funciona
+
+## Proximos Pasos
+
+En la siguiente unidad veremos la [configuracion avanzada](04-configuracion.html) y mejores practicas.
+
+---
+
+[Volver al Curso](index.html) | [Arquitectura <-](02-arquitectura.html) | [Configuracion ->](04-configuracion.html)

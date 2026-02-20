@@ -1,0 +1,140 @@
+---
+title: "Laboratorio Local Completo"
+description: "Configuracion practica de un laboratorio de pentesting con PentAGI - Ejercicio integrador"
+author: "Diego Saavedra"
+date: "2026-02-20"
+categories: [security, lab, hands-on]
+---
+
+# Laboratorio Local Completo
+
+## Objetivo
+
+Configurar un laboratorio de pentesting completo y funcional con:
+
+- PentAGI corriendo en VM Kali
+- Ollama en el Host (Mac/PC)
+- Tailscale para conexion segura
+- Target vulnerable (DVWA o similar)
+
+## Arquitectura del Laboratorio
+
+```
++-----------------------------------------------------------+
+|                    LABORATORIO PENTAGI                     |
++-----------------------------------------------------------+
+|                                                           |
+|  +---------------------+       +---------------------+    |
+|  | Mac/PC Host         |       | VM Kali Linux       |    |
+|  |                     |       |                     |    |
+|  | - Ollama (:11434)   |       | - PentAGI (:8443)   |    |
+|  | - Tailscale         |<----->| - Docker            |    |
+|  | - IP: 100.x.x.x     |       | - Tailscale         |    |
+|  +---------------------+       | - IP: 100.x.x.x     |    |
+|                                +---------------------+    |
+|                                           |               |
+|                                           | Red Virtual   |
+|                                           v               |
+|                                +---------------------+    |
+|                                | Target Vulnerable   |    |
+|                                | - DVWA              |    |
+|                                | - Metasploitable    |    |
+|                                | - IP: 192.168.x.x   |    |
+|                                +---------------------+    |
+|                                                           |
++-----------------------------------------------------------+
+```
+
+## Paso 1: Preparar el Target
+
+### Opcion A: DVWA en Docker
+
+```bash
+# En la VM Kali
+docker run -d -p 80:80 vulnerables/web-dvwa
+```
+
+### Opcion B: Metasploitable (VM separada)
+
+Descarga Metasploitable2 y configuralo en la misma red que Kali.
+
+## Paso 2: Verificar Conectividad
+
+```bash
+# Desde Kali, verificar que el target es accesible
+ping 192.168.x.x
+
+# Verificar servicio web
+curl http://192.168.x.x
+```
+
+## Paso 3: Ejecutar Primer Pentest
+
+### Crear Flow
+
+1. Accede a PentAGI UI
+2. Clic en "New Flow"
+3. Nombre: "Reconocimiento DVWA"
+
+### Definir Objetivo
+
+```
+Realizar reconocimiento basico del objetivo 192.168.x.x
+iniciando con descubrimiento de puertos y servicios
+```
+
+### Ejecutar y Monitorear
+
+1. Revisar el plan generado
+2. Aprobar cada paso
+3. Observar resultados en tiempo real
+
+## Paso 4: Analizar Resultados
+
+El agente generara:
+
+- Lista de puertos abiertos
+- Servicios identificados
+- Posibles vulnerabilidades
+- Recomendaciones
+
+## Ejercicios Practicos
+
+### Ejercicio 1: Escaneo de Puertos
+
+```
+Objetivo: Enumerar todos los puertos TCP abiertos en 192.168.x.x
+```
+
+### Ejercicio 2: Enumeracion Web
+
+```
+Objetivo: Analizar el servidor web en el puerto 80 de 192.168.x.x
+y determinar que aplicacion corre
+```
+
+### Ejercicio 3: Busqueda de Vulnerabilidades
+
+```
+Objetivo: Identificar vulnerabilidades conocidas en los servicios detectados
+```
+
+## Checklist de Completacion
+
+- [ ] Ollama funcionando en el Host
+- [ ] PentAGI funcionando en Kali VM
+- [ ] Tailscale conectado en ambos
+- [ ] Target vulnerable accesible
+- [ ] Primer Flow creado y ejecutado
+- [ ] Resultados analizados
+
+## Que Aprendimos
+
+- Integrar todos los componentes en un laboratorio funcional
+- Ejecutar pentests basicos con asistencia de IA
+- Analizar resultados generados automaticamente
+- La importancia de tener targets de practica autorizados
+
+---
+
+[Volver al Curso](index.html) | [Optimizacion <-](07-optimizacion.html)

@@ -1,0 +1,403 @@
+---
+title: "Arquitectura de PentAGI"
+description: "Diseno detallado de los componentes y su interaccion - Arquitectura modular y escalable"
+author: "Diego Saavedra"
+date: "2026-02-20"
+categories: [security, architecture, docker]
+---
+
+# Arquitectura de PentAGI
+
+## Contenido
+
+- [Objetivo](#objetivo)
+- [Vision General](#vision-general)
+- [Componentes Detallados](#componentes-detallados)
+- [Flujo de Datos](#flujo-de-datos)
+- [Seguridad](#seguridad)
+- [Escalabilidad](#escalabilidad)
+- [Que Aprendimos](#que-aprendimos)
+
+## Objetivo
+
+Al finalizar esta unidad, seras capaz de:
+
+- Comprender la arquitectura modular de PentAGI
+- Identificar cada componente y su funcion
+- Entender el flujo de datos entre componentes
+- Reconocer consideraciones de seguridad
+
+## Vision General
+
+```
++-----------------------------------------------------------------------+
+|                    ARQUITECTURA COMPLETA PentAGI                       |
++-----------------------------------------------------------------------+
+|                                                                       |
+|  +---------------------------------------------------------------+   |
+|  |                    CAPA DE PRESENTACION                        |   |
+|  |  +---------------------------------------------------------+  |   |
+|  |  |           React Frontend (TypeScript)                   |  |   |
+|  |  |  - Dashboard  - Flow Editor  - Reports  - Settings     |  |   |
+|  |  +---------------------------------------------------------+  |   |
+|  +---------------------------------------------------------------+   |
+|                                    |                                  |
+|                                    | HTTPS (:8443)                    |
+|                                    v                                  |
+|  +---------------------------------------------------------------+   |
+|  |                    CAPA DE API                                 |   |
+|  |  +---------------------------------------------------------+  |   |
+|  |  |              Go Backend Server                          |  |   |
+|  |  |  - REST API  - GraphQL  - WebSocket  - Auth            |  |   |
+|  |  +---------------------------------------------------------+  |   |
+|  +---------------------------------------------------------------+   |
+|                                    |                                  |
+|         +--------------------------+--------------------------+       |
+|         |                          |                          |       |
+|         v                          v                          v       |
+|  +-------------+           +-------------+           +-------------+  |
+|  | CAPA DATOS  |           | CAPA AI     |           | CAPA TOOLS  |  |
+|  +-------------+           +-------------+           +-------------+  |
+|  | PostgreSQL  |           | Ollama      |           | Scraper     |  |
+|  | + pgvector  |           | LLM Server  |           | Headless    |  |
+|  | Neo4j       |           | :11434      |           | Browser     |  |
+|  +-------------+           +-------------+           +-------------+  |
+|                                                                       |
++-----------------------------------------------------------------------+
+```
+
+## Componentes Detallados
+
+### 1. Frontend (React + TypeScript)
+
+**Ubicacion**: Contenedor `pentagi`
+
+```
++---------------------------------------------------+
+|              FRONTEND REACT                        |
++---------------------------------------------------+
+|                                                   |
+|  /dashboard     - Panel de control principal     |
+|  /flows         - Editor de flujos de trabajo    |
+|  /assistants    - Gestion de asistentes IA       |
+|  /settings      - Configuracion del sistema      |
+|  /reports       - Visualizacion de reportes      |
+|                                                   |
+|  Componentes:                                     |
+|  - FlowEditor (editor visual)                    |
+|  - ChatInterface (interaccion con agentes)       |
+|  - ReportViewer (visualizacion PDF/HTML)         |
+|  - SettingsPanel (configuracion)                 |
+|                                                   |
++---------------------------------------------------+
+```
+
+**Tecnologias**:
+- React 18+
+- TypeScript
+- Tailwind CSS
+- Monaco Editor (codigo)
+
+### 2. Backend (Go)
+
+**Ubicacion**: Contenedor `pentagi`
+
+```
++---------------------------------------------------+
+|              BACKEND GO                            |
++---------------------------------------------------+
+|                                                   |
+|  API REST:                                        |
+|  - POST /api/flows        Crear flujo            |
+|  - GET  /api/flows/:id    Obtener flujo          |
+|  - POST /api/chat         Chat con agente        |
+|  - GET  /api/reports      Listar reportes        |
+|                                                   |
+|  GraphQL:                                         |
+|  - Queries de datos complejos                    |
+|  - Subscriptions en tiempo real                  |
+|                                                   |
+|  Servicios:                                       |
+|  - AgentOrchestrator (coordina agentes)          |
+|  - ToolExecutor (ejecuta herramientas)           |
+|  - MemoryManager (gestiona contexto)             |
+|  - ReportGenerator (genera informes)             |
+|                                                   |
++---------------------------------------------------+
+```
+
+**Puerto**: 8443 (HTTPS)
+
+### 3. PostgreSQL + pgvector
+
+**Ubicacion**: Contenedor `pgvector`
+
+```
++---------------------------------------------------+
+|         POSTGRESQL + PGVECTOR                      |
++---------------------------------------------------+
+|                                                   |
+|  Base de datos principal:                         |
+|  - Usuarios y permisos                           |
+|  - Flujos de trabajo                             |
+|  - Historial de conversaciones                   |
+|  - Resultados de escaneos                        |
+|                                                   |
+|  Extension pgvector:                              |
+|  - Embeddings de documentos                      |
+|  - Busqueda semantica                            |
+|  - Similitud de contexto                         |
+|                                                   |
+|  Tablas principales:                              |
+|  - users          Usuarios del sistema           |
+|  - flows          Flujos de trabajo              |
+|  - conversations  Historial de chat              |
+|  - tools          Registro de herramientas       |
+|  - embeddings     Vectores semanticos            |
+|                                                   |
++---------------------------------------------------+
+```
+
+**Puerto**: 5432 (interno)
+
+### 4. Neo4j (Knowledge Graph)
+
+**Ubicacion**: Integrado en contenedor `pentagi`
+
+```
++---------------------------------------------------+
+|              NEO4J KNOWLEDGE GRAPH                 |
++---------------------------------------------------+
+|                                                   |
+|  Nodos:                                           |
+|  - Host           Maquinas descubiertas          |
+|  - Port           Puertos identificados          |
+|  - Service        Servicios detectados           |
+|  - Vulnerability  Vulnerabilidades encontradas   |
+|  - Exploit        Exploits disponibles           |
+|  - Credential    Credenciales obtenidas          |
+|                                                   |
+|  Relaciones:                                      |
+|  - (Host)-[:HAS_PORT]->(Port)                    |
+|  - (Port)-[:RUNS]->(Service)                     |
+|  - (Service)-[:VULNERABLE_TO]->(Vulnerability)   |
+|  - (Vulnerability)-[:EXPLOITED_BY]->(Exploit)    |
+|                                                   |
+|  Uso:                                             |
+|  - Memoria persistente del agente                |
+|  - Contexto entre sesiones                       |
+|  - Razonamiento sobre relaciones                 |
+|                                                   |
++---------------------------------------------------+
+```
+
+**Puerto**: 7687 (bolt, interno)
+
+### 5. Ollama (LLM Server)
+
+**Ubicacion**: Host externo (Mac/PC)
+
+```
++---------------------------------------------------+
+|              OLLAMA LLM SERVER                     |
++---------------------------------------------------+
+|                                                   |
+|  Modelos recomendados:                            |
+|  - qwen2.5:32b-tc    (principal, contexto 110K)  |
+|  - qwen2.5:14b-tc    (alternativo, mas rapido)   |
+|  - gemma2:27b        (alternativo)               |
+|                                                   |
+|  Configuracion:                                   |
+|  - OLLAMA_HOST=0.0.0.0:11434                     |
+|  - num_ctx=110000 (contexto extendido)           |
+|  - temperature=0.3 (preciso)                     |
+|                                                   |
+|  Endpoints:                                       |
+|  - POST /api/generate   Generar texto            |
+|  - POST /api/chat       Chat completion          |
+|  - GET  /api/tags       Listar modelos           |
+|                                                   |
++---------------------------------------------------+
+```
+
+**Puerto**: 11434 (via Tailscale)
+
+### 6. Scraper (Headless Browser)
+
+**Ubicacion**: Contenedor `scraper`
+
+```
++---------------------------------------------------+
+|              SCRAPER HEADLESS                      |
++---------------------------------------------------+
+|                                                   |
+|  Funciones:                                       |
+|  - Navegacion web automatizada                   |
+|  - Capturas de pantalla                          |
+|  - Extraccion de contenido                       |
+|  - Interaccion con formularios                   |
+|                                                   |
+|  Seguridad:                                       |
+|  - Aislado en contenedor separado                |
+|  - Sin acceso a red del host                     |
+|  - Sesion temporal por tarea                     |
+|                                                   |
+|  Puerto: 9443 (HTTPS, interno)                   |
+|                                                   |
++---------------------------------------------------+
+```
+
+## Flujo de Datos
+
+### Flujo de Ejecucion de un Pentest
+
+```
+1. Usuario crea Flow en UI
+        |
+        v
+2. Backend valida y almacena en PostgreSQL
+        |
+        v
+3. AgentOrchestrator analiza objetivo
+        |
+        v
+4. Consulta Ollama para planificacion
+        |
+        v
+5. Ejecuta herramientas (nmap, nuclei, etc.)
+        |
+        v
+6. Resultados se almacenan en:
+   - PostgreSQL (datos estructurados)
+   - Neo4j (relaciones)
+   - pgvector (embeddings)
+        |
+        v
+7. Agente analiza resultados con Ollama
+        |
+        v
+8. Genera reporte automatico
+        |
+        v
+9. Usuario revisa en UI
+```
+
+### Flujo de Memoria del Agente
+
+```
++-------------------+     +-------------------+
+| Conversacion      |     | Knowledge Graph   |
+| Actual            |     | (Neo4j)           |
++-------------------+     +-------------------+
+         |                        |
+         v                        v
++-------------------------------------------+
+|              Contexto Unificado            |
+|  - Memoria corto plazo (conversacion)     |
+|  - Memoria largo plazo (grafo)            |
+|  - Busqueda semantica (pgvector)          |
++-------------------------------------------+
+                        |
+                        v
+              +-------------------+
+              | Ollama LLM        |
+              | Genera respuesta  |
+              +-------------------+
+```
+
+## Seguridad
+
+### Principios de Seguridad
+
+1. **Defensa en Profundidad**
+   - Multiples capas de aislamiento
+   - Contenedores separados por funcion
+   - Redes Docker aisladas
+
+2. **Menor Privilegio**
+   - Usuarios no-root en contenedores
+   - Acceso minimo a recursos
+   - Credenciales en variables de entorno
+
+3. **Seguridad por Defecto**
+   - Puertos enlazados a localhost
+   - Certificados auto-firmados
+   - Autenticacion requerida
+
+### Diagrama de Seguridad
+
+```
++-----------------------------------------------------------+
+|                    CAPAS DE SEGURIDAD                      |
++-----------------------------------------------------------+
+|                                                           |
+|  Capa 1: Red                                              |
+|  +-----------------------------------------------------+  |
+|  | Tailscale Mesh VPN                                  |  |
+|  | - Acceso solo a dispositivos autorizados            |  |
+|  | - Sin puertos expuestos a internet                  |  |
+|  +-----------------------------------------------------+  |
+|                                                           |
+|  Capa 2: Contenedor                                       |
+|  +-----------------------------------------------------+  |
+|  | Docker Isolation                                    |  |
+|  | - Redes separadas                                   |  |
+|  | - Volumenes limitados                               |  |
+|  | - Capabilities minimas                              |  |
+|  +-----------------------------------------------------+  |
+|                                                           |
+|  Capa 3: Aplicacion                                       |
+|  +-----------------------------------------------------+  |
+|  | HTTPS + Autenticacion                               |  |
+|  | - Certificados auto-firmados                        |  |
+|  | - Cookies firmadas                                  |  |
+|  | - Credenciales en .env                              |  |
+|  +-----------------------------------------------------+  |
+|                                                           |
++-----------------------------------------------------------+
+```
+
+## Escalabilidad
+
+### Arquitectura de Dos Nodos
+
+Para mayor seguridad, se recomienda separar el worker:
+
+```
++-----------------------------------------------------------+
+|                    ARQUITECTURA TWO-NODE                   |
++-----------------------------------------------------------+
+|                                                           |
+|  +---------------------+       +---------------------+    |
+|  | NODO CONTROLADOR    |       | NODO WORKER         |    |
+|  |                     |       |                     |    |
+|  | - PentAGI UI/API    | TLS   | - Docker-in-Docker  |    |
+|  | - PostgreSQL        |<----->| - Herramientas      |    |
+|  | - Neo4j             |       | - Contenedores de   |    |
+|  |                     |       |   pentest           |    |
+|  +---------------------+       +---------------------+    |
+|                                                           |
++-----------------------------------------------------------+
+```
+
+**Ventajas**:
+- Aislamiento completo del worker
+- Si el worker se compromete, no afecta al controlador
+- Escalabilidad horizontal (multiples workers)
+
+## Que Aprendimos
+
+- La arquitectura es modular y cada componente tiene funcion especifica
+- PostgreSQL + pgvector almacena datos y embeddings
+- Neo4j maneja el grafo de conocimiento
+- Ollama proporciona inferencia de LLM local
+- La seguridad se implementa en multiples capas
+- La arquitectura permite escalabilidad horizontal
+
+## Proximos Pasos
+
+En la siguiente unidad veremos la [instalacion paso a paso](03-instalacion.html) de todos los componentes.
+
+---
+
+[Volver al Curso](index.html) | [Introduccion <-](01-introduccion.html) | [Instalacion ->](03-instalacion.html)

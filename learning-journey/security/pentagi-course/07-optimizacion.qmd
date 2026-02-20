@@ -1,0 +1,119 @@
+---
+title: "Optimizacion de PentAGI"
+description: "Mejorando el rendimiento del sistema - Configuracion para maxima eficiencia"
+author: "Diego Saavedra"
+date: "2026-02-20"
+categories: [security, optimization, performance]
+---
+
+# Optimizacion de PentAGI
+
+## Rendimiento de Ollama
+
+### Seleccion de Modelo
+
+| Modelo | VRAM | Velocidad | Calidad | Uso Recomendado |
+|--------|------|-----------|---------|-----------------|
+| qwen2.5:32b-tc | 20GB | Lento | Excelente | Analisis complejo |
+| qwen2.5:14b-tc | 10GB | Rapido | Buena | Tareas diarias |
+| gemma2:27b | 16GB | Medio | Buena | Alternativo |
+
+### Parametros Optimizados
+
+```bash
+# Modelfile optimizado
+FROM qwen2.5:32b
+PARAMETER num_ctx 110000    # Contexto extendido
+PARAMETER temperature 0.3   # Preciso
+PARAMETER top_p 0.8         # Diversidad controlada
+PARAMETER num_gpu 1         # Usar GPU
+PARAMETER num_thread 8      # Hilos CPU
+```
+
+### Monitor de GPU
+
+```bash
+# Ver uso de GPU (macOS)
+sudo powermetrics --samplers gpu_power
+
+# Ver uso de VRAM
+ollama ps
+```
+
+## Rendimiento de Docker
+
+### Limpiar Recursos
+
+```bash
+# Limpiar contenedores parados
+docker container prune
+
+# Limpiar imagenes no usadas
+docker image prune -a
+
+# Limpiar todo
+docker system prune -a --volumes
+```
+
+### Monitoreo
+
+```bash
+# Ver uso de recursos
+docker stats
+
+# Ver uso de disco
+docker system df
+```
+
+## Solucion de Problemas
+
+### Ollama Lento
+
+```bash
+# Verificar que esta usando GPU
+ollama ps
+
+# Si no usa GPU, reiniciar
+pkill ollama
+ollama serve &
+
+# Usar modelo mas pequeno
+OLLAMA_SERVER_MODEL=qwen2.5:14b-tc
+```
+
+### Contenedores Lentos
+
+```bash
+# Verificar recursos disponibles
+docker stats
+
+# Reiniciar servicios
+docker compose restart
+
+# Verificar logs de errores
+docker compose logs pentagi | grep -i error
+```
+
+### Conexion Perdida
+
+```bash
+# Verificar Tailscale
+tailscale status
+
+# Verificar Ollama
+curl http://100.x.x.x:11434/api/tags
+
+# Reiniciar todo
+docker compose down && docker compose up -d
+```
+
+## Que Aprendimos
+
+- La seleccion de modelo afecta velocidad y calidad
+- La limpieza regular mejora el rendimiento
+- El monitoreo ayuda a identificar cuellos de botella
+- Los modelos mas pequenos son mas rapidos
+
+---
+
+[Volver al Curso](index.html) | [Seguridad <-](06-seguridad.html) | [Laboratorio ->](lab1-laboratorio-local.html)

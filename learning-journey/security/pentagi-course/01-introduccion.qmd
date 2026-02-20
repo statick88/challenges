@@ -1,0 +1,188 @@
+---
+title: "Que es PentAGI"
+description: "Fundamentos de Pentesting con Inteligencia Artificial - La nueva era del pentesting automatizado"
+author: "Diego Saavedra"
+date: "2026-02-20"
+categories: [security, pentesting, ai]
+---
+
+# Que es PentAGI
+
+## Contenido
+
+- [Objetivo](#objetivo)
+- [Introduccion](#introduccion)
+- [Definicion](#definicion)
+- [Casos de Uso](#casos-de-uso)
+- [Ventajas](#ventajas)
+- [Componentes](#componentes)
+- [Flujo de Trabajo](#flujo-de-trabajo)
+- [Que Aprendimos](#que-aprendimos)
+
+## Objetivo
+
+Al finalizar esta unidad, seras capaz de:
+
+- Comprender que es PentAGI y su proposito
+- Identificar los casos de uso principales
+- Entender la arquitectura basica del sistema
+- Reconocer las ventajas del pentesting con IA
+
+## Introduccion
+
+El pentesting tradicional es un proceso manual que requiere experiencia significativa, tiempo y recursos. PentAGI revoluciona este campo automatizando tareas complejas mediante agentes de Inteligencia Artificial especializados.
+
+## Definicion
+
+**PentAGI** = **Pen**etration **T**esting **A**rtificial **G**eneral **I**ntelligence
+
+Es una plataforma de pentesting automatizado que utiliza multiples agentes de IA para:
+
+1. **Reconocimiento** - Descubrimiento automatico de activos
+2. **Enumeracion** - Identificacion de servicios y vulnerabilidades
+3. **Explotacion** - Ejecucion controlada de exploits
+4. **Post-Explotacion** - Escalada y movimiento lateral
+5. **Reporte** - Generacion automatica de informes
+
+::: {.callout-tip}
+## Paradigma
+PentAGI no reemplaza al pentester, lo potencia. El profesional supervisa, valida y toma decisiones criticas mientras la IA ejecuta tareas repetitivas.
+:::
+
+## Casos de Uso
+
+| Caso de Uso | Descripcion | Beneficio |
+|-------------|-------------|-----------|
+| Auditorias continuas | Escaneos periodicos automatizados | Deteccion temprana de vulnerabilidades |
+| Red Teaming | Simulacion de adversarios reales | Evaluacion realista de defensas |
+| Bug Bounty | Automatizacion de reconnaissance | Mayor cobertura en menos tiempo |
+| Compliance | Verificacion de controles | Evidencia para auditorias |
+| Investigacion | Analisis de vulnerabilidades | Documentacion automatizada |
+
+## Ventajas
+
+### vs Pentesting Tradicional
+
+| Aspecto | Tradicional | Con PentAGI |
+|---------|-------------|-------------|
+| Velocidad | Dias/semanas | Horas |
+| Cobertura | Limitada por tiempo | Exhaustiva |
+| Consistencia | Variable | Estandarizada |
+| Documentacion | Manual | Automatica |
+| Costo | Alto | Reducido |
+
+### vs Otros Frameworks
+
+| Aspecto | Otros Frameworks | PentAGI |
+|---------|------------------|---------|
+| IA Integrada | No / Limitada | Nativa |
+| Agentes Multiples | No | Si |
+| Memoria Persistente | No | Knowledge Graph |
+| LLM Local | No | Ollama |
+| UI Web | No / Basica | Completa |
+
+## Componentes
+
+```
++-----------------------------------------------------------+
+|                    Arquitectura PentAGI                   |
++-----------------------------------------------------------+
+|                                                           |
+|  +-----------------------------------------------------+  |
+|  |                  FRONTEND (React)                    |  |
+|  |  - Dashboard                                        |  |
+|  |  - Flow Editor                                      |  |
+|  |  - Report Viewer                                    |  |
+|  +-----------------------------------------------------+  |
+|                          |                                |
+|                          v                                |
+|  +-----------------------------------------------------+  |
+|  |                  BACKEND (Go)                        |  |
+|  |  - REST API                                         |  |
+|  |  - GraphQL                                          |  |
+|  |  - Agent Orchestrator                               |  |
+|  +-----------------------------------------------------+  |
+|                          |                                |
+|         +----------------+----------------+               |
+|         |                |                |               |
+|         v                v                v               |
+|  +-------------+  +-------------+  +-------------+        |
+|  | PostgreSQL  |  |   Neo4j     |  |   Ollama    |        |
+|  | + pgvector  |  |  Knowledge  |  |    LLM      |        |
+|  | Vector Store|  |    Graph    |  |  Inference  |        |
+|  +-------------+  +-------------+  +-------------+        |
+|                                                           |
++-----------------------------------------------------------+
+```
+
+### Componentes Principales
+
+1. **Frontend React**
+   - Interfaz web intuitiva
+   - Editor de flujos visual
+   - Dashboard de progreso
+   - Visualizacion de reportes
+
+2. **Backend Go**
+   - API REST y GraphQL
+   - Orquestador de agentes
+   - Gestion de tareas
+   - Integracion con herramientas
+
+3. **PostgreSQL + pgvector**
+   - Almacenamiento de datos
+   - Busqueda semantica
+   - Memoria de conversaciones
+
+4. **Neo4j**
+   - Grafo de conocimiento
+   - Relaciones entre activos
+   - Memoria del agente
+
+5. **Ollama**
+   - Inferencia de LLMs local
+   - Modelos especializados
+   - Sin dependencia de APIs
+
+## Flujo de Trabajo
+
+### Flujo Tipico de Pentesting con PentAGI
+
+```
++----------+     +----------+     +----------+     +----------+
+|  Usuario |---->|  Flow    |---->|  Agente  |---->| Herramie.|
+|  Define  |     |  Creado  |     |  Planifica|    | Ejecutan |
+|  Objetivo|     |          |     |          |     |          |
++----------+     +----------+     +----------+     +----------+
+                                        |
+                                        v
+                                 +-------------+
+                                 |   Reporte   |
+                                 |  Automatico |
+                                 +-------------+
+```
+
+### Agentes Especializados
+
+| Agente | Funcion |
+|--------|---------|
+| Researcher | Recopila informacion y vulnerabilidades |
+| Developer | Crea exploits y scripts personalizados |
+| Executor | Ejecuta comandos y ataques |
+| Analyst | Analiza resultados y genera reportes |
+
+## Que Aprendimos
+
+- PentAGI es una plataforma de pentesting automatizado con IA
+- Utiliza multiples agentes especializados
+- Ofrece velocidad, cobertura y consistencia superiores
+- Mantiene al pentester en el loop de decision
+- La arquitectura modular permite escalabilidad
+
+## Proximos Pasos
+
+En la siguiente unidad profundizaremos en la [arquitectura detallada](02-arquitectura.html) de cada componente.
+
+---
+
+[Volver al Curso](index.html) | [Arquitectura ->](02-arquitectura.html)

@@ -1,0 +1,152 @@
+---
+title: "Primeros Pasos con PentAGI"
+description: "Creando tu primer flujo de pentesting - Uso practico de la plataforma"
+author: "Diego Saavedra"
+date: "2026-02-20"
+categories: [security, pentesting, tutorial]
+---
+
+# Primeros Pasos con PentAGI
+
+## Acceso a la Interfaz
+
+1. Abre tu navegador
+2. Ve a: `https://TU_IP_TAILSCALE:8443`
+3. Acepta el certificado auto-firmado
+4. Inicia sesion:
+   - Usuario: `admin@pentagi.com`
+   - Contrasena: `admin`
+
+::: {.callout-warning}
+## Importante
+Cambia las credenciales inmediatamente despues del primer login en Settings > Profile.
+:::
+
+## Crear tu Primer Flow
+
+### Paso 1: Nuevo Flow
+
+1. Clic en **"New Flow"**
+2. Asigna un nombre descriptivo
+3. Selecciona el modelo: `qwen2.5:32b-tc`
+
+### Paso 2: Definir Objetivo
+
+Ejemplos de objetivos validos:
+
+```
+Realizar un escaneo de puertos basico a 192.168.1.1
+```
+
+```
+Enumerar servicios web en el rango 192.168.1.0/24
+```
+
+```
+Analizar vulnerabilidades del servidor web 10.0.0.5
+```
+
+### Paso 3: Revisar Plan
+
+El agente generara un plan de accion que incluye:
+
+1. Herramientas a utilizar
+2. Pasos de ejecucion
+3. Resultados esperados
+
+### Paso 4: Ejecutar
+
+1. Revisa el plan propuesto
+2. Aprueba la ejecucion
+3. Monitorea el progreso en tiempo real
+
+## Ejemplo: Escaneo Basico
+
+### Objetivo
+
+```
+Realizar reconocimiento basico del objetivo 192.168.1.100
+```
+
+### Resultado Esperado
+
+El agente ejecutara:
+
+1. Host discovery (nmap -sn)
+2. Port scanning (nmap -sV)
+3. Service enumeration
+4. Generacion de reporte
+
+### Flujo de Trabajo
+
+```
++----------------+     +----------------+     +----------------+
+|  Objetivo      |---->|  Planificacion |---->|  Ejecucion     |
+|  Definido      |     |  del Agente    |     |  Herramientas  |
++----------------+     +----------------+     +----------------+
+                                                     |
+                                                     v
+                                              +----------------+
+                                              |  Reporte       |
+                                              |  Automatico    |
+                                              +----------------+
+```
+
+## Interaccion con el Agente
+
+### Chat
+
+Usa el chat para:
+
+- Refinar objetivos
+- Solicitar mas detalles
+- Cambiar direccion del analisis
+
+### Ejemplos de Comandos
+
+```
+Que puertos abiertos encontraste?
+```
+
+```
+Enumera los servicios detectados en el puerto 80
+```
+
+```
+Genera un resumen de las vulnerabilidades encontradas
+```
+
+## Mejores Practicas
+
+### Objetivos Claros
+
+| Mal | Bien |
+|-----|------|
+| "Hackea esto" | "Enumera servicios en 192.168.1.1" |
+| "Busca todo" | "Identifica puertos abiertos en el rango X" |
+| "Ataca" | "Realiza escaneo de vulnerabilidades en puerto 80" |
+
+### Alcance Definido
+
+Siempre especifica:
+
+- IP o rango objetivo
+- Tipo de analisis
+- Profundidad deseada
+
+### Supervision Activa
+
+- Revisa cada paso antes de aprobar
+- Valida resultados importantes
+- No ejecutes sin entender las acciones
+
+## Que Aprendimos
+
+- Los Flows son la unidad de trabajo principal
+- Los objetivos deben ser claros y especificos
+- La supervision activa es fundamental
+- El agente genera reportes automaticos
+
+---
+
+[Volver al Curso](index.html) | [Configuracion <-](04-configuracion.html) | [Seguridad ->](06-seguridad.html)

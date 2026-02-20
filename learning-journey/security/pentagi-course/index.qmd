@@ -1,0 +1,182 @@
+---
+title: "PentAGI - Pentesting con IA"
+description: "Curso completo de Pentesting Automatizado con Inteligencia Artificial Local - Arquitectura segura con Ollama y Docker"
+author: "Diego Saavedra"
+date: "2026-02-20"
+categories: [security, pentesting, ai, ollama, docker]
+---
+
+# PentAGI - Pentesting con IA
+
+## Que es este Curso?
+
+Este curso te ensenara a configurar y utilizar PentAGI, una plataforma de pentesting automatizado impulsada por Inteligencia Artificial local. Aprenderas a construir un laboratorio de pentesting completamente privado, sin dependencia de APIs externas.
+
+## A quien esta dirigido?
+
+Este curso esta disenado para:
+
+- **Profesionales de seguridad informatica** que desean automatizar tareas de pentesting
+- **Investigadores de seguridad** que buscan integrar IA en sus flujos de trabajo
+- **Estudiantes de ciberseguridad** que quieren explorar el futuro del pentesting
+- **Equipos Red Team** que necesitan escalabilidad en sus auditorias
+
+## Requisitos
+
+- Conocimientos basicos de Docker y Docker Compose
+- Familiaridad con conceptos de pentesting
+- Hardware: Minimo 8GB RAM (16GB recomendado)
+- GPU opcional para mejor rendimiento de LLMs
+
+## Filosofia del Curso: Seguridad por Defecto
+
+Este curso sigue el principio de **seguridad por defecto**:
+
+- **Sin APIs externas**: Todo el procesamiento de IA se realiza localmente con Ollama
+- **Sin credenciales expuestas**: Nunca compartiremos keys, passwords o secrets
+- **Aislamiento completo**: Todo corre en contenedores Docker aislados
+- **Red privada**: Usamos Tailscale para acceso seguro sin exponer puertos
+
+## Contenido del Curso
+
+### Unidad 1: Introduccion
+
+- [Que es PentAGI](01-introduccion.html) - Fundamentos y filosofia
+- [Arquitectura](02-arquitectura.html) - Componentes y diseno
+
+### Unidad 2: Instalacion y Configuracion
+
+- [Instalacion](03-instalacion.html) - Paso a paso completo
+- [Configuracion](04-configuracion.html) - Variables de entorno y seguridad
+- [Primeros Pasos](05-primeros-pasos.html) - Creando tu primer flujo
+
+### Unidad 3: Mejores Practicas
+
+- [Seguridad](06-seguridad.html) - Protegiendo tu laboratorio
+- [Optimizacion](07-optimizacion.html) - Mejorando el rendimiento
+
+### Laboratorio Practico
+
+- [Laboratorio Local](lab1-laboratorio-local.html) - Configuracion completa
+
+## Progreso del Curso
+
+```{=html}
+<div class="progress-summary">
+  <div class="progress-item">
+    <span class="progress-number">8</span>
+    <span class="progress-label">Modulos</span>
+  </div>
+  <div class="progress-item">
+    <span class="progress-number">1</span>
+    <span class="progress-label">Laboratorio</span>
+  </div>
+  <div class="progress-item">
+    <span class="progress-number">100%</span>
+    <span class="progress-label">Progreso</span>
+  </div>
+</div>
+```
+
+## Arquitectura Objetivo
+
+Al finalizar este curso, tendras la siguiente arquitectura funcionando:
+
+```
++-----------------------------------------------------------+
+|                    RED TAILSCALE                          |
++-----------------------------------------------------------+
+|                                                           |
+|  +---------------------+       +---------------------+    |
+|  | Mac/PC Host         |       | VM Kali Linux       |    |
+|  |                     |       |                     |    |
+|  | +-----------------+ |       | +-----------------+ |    |
+|  | | Ollama Server   | |       | | PentAGI         | |    |
+|  | | - qwen2.5:32b   |<----------| | - UI Web       | |    |
+|  | | - gemma2:27b    | |  :11434| | - Workers      | |    |
+|  | +-----------------+ |       | | - PostgreSQL   | |    |
+|  |                     |       | +-----------------+ |    |
+|  | IP: 100.x.x.x       |       | IP: 100.x.x.x       |    |
+|  +---------------------+       +---------------------+    |
+|                                                           |
+|  100% PRIVACIDAD - Sin datos que salgan a internet       |
++-----------------------------------------------------------+
+```
+
+## Habilidades que Desarrollaras
+
+| Habilidad | Nivel |
+|-----------|-------|
+| Configuracion de Ollama | Avanzado |
+| Docker Compose | Avanzado |
+| Pentesting con IA | Intermedio |
+| Seguridad de Contenedores | Avanzado |
+| Redes Privadas (Tailscale) | Intermedio |
+
+## Stack Tecnologico
+
+| Componente | Tecnologia | Proposito |
+|------------|------------|-----------|
+| LLM Server | Ollama | Inferencia de modelos local |
+| Orquestacion | Docker Compose | Gestion de contenedores |
+| Frontend | React + TypeScript | Interfaz web |
+| Backend | Go | API REST y GraphQL |
+| Vector Store | PostgreSQL + pgvector | Busqueda semantica |
+| Knowledge Graph | Neo4j | Memoria del agente |
+| VPN | Tailscale | Acceso seguro |
+
+## Importante: Antes de Empezar
+
+::: {.callout-warning}
+## Uso Etico
+
+PentAGI es una herramienta de **pentesting etico**. Solo debe utilizarse en:
+
+- Sistemas de tu propiedad
+- Sistemas con autorizacion explicita por escrito
+- Entornos de laboratorio controlados
+- Auditorias de seguridad autorizadas
+
+El uso no autorizado puede constituir un delito.
+:::
+
+## Recursos Adicionales
+
+- [Documentacion Oficial de PentAGI](https://pentagi.com)
+- [Repositorio GitHub](https://github.com/vxcontrol/pentagi)
+- [Ollama](https://ollama.ai)
+- [Tailscale](https://tailscale.com)
+
+---
+
+*Este curso ha sido creado con el objetivo de proporcionar acceso gratuito y universal al conocimiento de pentesting con IA.*
+
+```{=html}
+<style>
+.progress-summary {
+  display: flex;
+  justify-content: space-around;
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  border: 1px solid #334155;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.progress-item {
+  text-align: center;
+}
+
+.progress-number {
+  display: block;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #22c55e;
+}
+
+.progress-label {
+  font-size: 0.85rem;
+  color: #94a3b8;
+}
+</style>
+```
