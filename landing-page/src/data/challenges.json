@@ -1,11 +1,11 @@
 {
-  "lastUpdated": "2026-02-20T11:12:43.836Z",
-  "buildVersion": 1771585963837,
+  "lastUpdated": "2026-02-20T16:48:36.106Z",
+  "buildVersion": 1771606116106,
   "overview": {
-    "totalChallenges": 65,
-    "completed": 33,
+    "totalChallenges": 70,
+    "completed": 38,
     "ctfCompleted": 2,
-    "completionRate": 51
+    "completionRate": 54
   },
   "programs": {
     "linux": {
@@ -73,12 +73,12 @@
       ]
     },
     "htb": {
-      "completed": 8,
+      "completed": 13,
       "inProgress": 0,
       "ready": 4,
       "blocked": 0,
-      "total": 12,
-      "percentage": 67,
+      "total": 17,
+      "percentage": 76,
       "challenges": [
         {
           "id": "active-directory/ldap-enumeration",
@@ -109,6 +109,56 @@
           "category": "forensics",
           "platform": "HTB",
           "path": "/challenges/htb/forensics/memory-forensics"
+        },
+        {
+          "id": "linux-fundamentals/file-descriptors",
+          "title": "Linux Fundamentals - File Descriptors and Redirections",
+          "status": "completed",
+          "difficulty": "easy",
+          "date": "2026-02-20",
+          "category": "linux-fundamentals",
+          "platform": "HTB",
+          "path": "/challenges/htb/linux-fundamentals/file-descriptors"
+        },
+        {
+          "id": "linux-fundamentals/files-directories",
+          "title": "Linux Fundamentals - Working with Files and Directories",
+          "status": "completed",
+          "difficulty": "easy",
+          "date": "2026-02-20",
+          "category": "linux-fundamentals",
+          "platform": "HTB",
+          "path": "/challenges/htb/linux-fundamentals/files-directories"
+        },
+        {
+          "id": "linux-fundamentals/find-files",
+          "title": "Linux Fundamentals - Find Files and Directories",
+          "status": "completed",
+          "difficulty": "easy",
+          "date": "2026-02-20",
+          "category": "linux-fundamentals",
+          "platform": "HTB",
+          "path": "/challenges/htb/linux-fundamentals/find-files"
+        },
+        {
+          "id": "linux-fundamentals/navigation",
+          "title": "Linux Fundamentals - Navigation",
+          "status": "completed",
+          "difficulty": "easy",
+          "date": "2026-02-20",
+          "category": "linux-fundamentals",
+          "platform": "HTB",
+          "path": "/challenges/htb/linux-fundamentals/navigation"
+        },
+        {
+          "id": "linux-fundamentals/system-information",
+          "title": "Linux Fundamentals - System Information",
+          "status": "completed",
+          "difficulty": "easy",
+          "date": "2026-02-20",
+          "category": "linux-fundamentals",
+          "platform": "HTB",
+          "path": "/challenges/htb/linux-fundamentals/system-information"
         },
         {
           "id": "network-enum/firewall-ids-evasion-easy",
@@ -263,7 +313,7 @@
     },
     {
       "program": "htb",
-      "activity": "HTB: 8/12 challenges",
+      "activity": "HTB: 13/17 challenges",
       "icon": "🎯"
     }
   ]

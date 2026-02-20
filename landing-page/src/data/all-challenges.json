@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-02-20T11:12:43.856Z",
+  "lastUpdated": "2026-02-20T16:48:36.125Z",
   "linux": [
     {
       "id": "01-creacion-usuarios",
@@ -545,6 +545,61 @@
       "platform": "HTB",
       "excerpt": "🎓 HTB Academy - Memory Forensics Basics",
       "path": "/challenges/htb/forensics/memory-forensics"
+    },
+    {
+      "id": "linux-fundamentals/file-descriptors",
+      "title": "Linux Fundamentals - File Descriptors and Redirections",
+      "status": "completed",
+      "difficulty": "easy",
+      "date": "2026-02-20",
+      "category": "linux-fundamentals",
+      "platform": "HTB",
+      "excerpt": "Linux Fundamentals - File Descriptors and Redirections",
+      "path": "/challenges/htb/linux-fundamentals/file-descriptors"
+    },
+    {
+      "id": "linux-fundamentals/files-directories",
+      "title": "Linux Fundamentals - Working with Files and Directories",
+      "status": "completed",
+      "difficulty": "easy",
+      "date": "2026-02-20",
+      "category": "linux-fundamentals",
+      "platform": "HTB",
+      "excerpt": "Linux Fundamentals - Working with Files and Directories",
+      "path": "/challenges/htb/linux-fundamentals/files-directories"
+    },
+    {
+      "id": "linux-fundamentals/find-files",
+      "title": "Linux Fundamentals - Find Files and Directories",
+      "status": "completed",
+      "difficulty": "easy",
+      "date": "2026-02-20",
+      "category": "linux-fundamentals",
+      "platform": "HTB",
+      "excerpt": "Linux Fundamentals - Find Files and Directories",
+      "path": "/challenges/htb/linux-fundamentals/find-files"
+    },
+    {
+      "id": "linux-fundamentals/navigation",
+      "title": "Linux Fundamentals - Navigation",
+      "status": "completed",
+      "difficulty": "easy",
+      "date": "2026-02-20",
+      "category": "linux-fundamentals",
+      "platform": "HTB",
+      "excerpt": "Linux Fundamentals - Navigation",
+      "path": "/challenges/htb/linux-fundamentals/navigation"
+    },
+    {
+      "id": "linux-fundamentals/system-information",
+      "title": "Linux Fundamentals - System Information",
+      "status": "completed",
+      "difficulty": "easy",
+      "date": "2026-02-20",
+      "category": "linux-fundamentals",
+      "platform": "HTB",
+      "excerpt": "Linux Fundamentals - System Information",
+      "path": "/challenges/htb/linux-fundamentals/system-information"
     },
     {
       "id": "network-enum/firewall-ids-evasion-easy",

@@ -1,0 +1,174 @@
+---
+title: "Working with Files and Directories - Linux Fundamentals"
+author: "statick88"
+date: 2026-02-20
+categories: [linux, htb, security]
+format:
+  html:
+    toc: true
+    toc-depth: 3
+---
+
+## Objetivo
+
+Dominar las operaciones fundamentales con archivos y directorios en Linux: crear, mover, copiar, eliminar y buscar archivos por características como fecha de modificación e inodos.
+
+## Introducción
+
+En Linux, la gestión de archivos se realiza principalmente desde la terminal. A diferencia de Windows con su interfaz gráfica, Linux ofrece comandos potentes y eficientes que permiten manipular archivos de manera rápida y automatizable.
+
+## Escenario
+
+Durante una auditoría de seguridad, necesitas explorar el directorio de backups del sistema para identificar archivos sensibles y determinar cuáles han sido modificados recientemente.
+
+## Ejercicios Prácticos
+
+### Ejercicio 1: Archivo Más Reciente
+
+**Objetivo:** Identificar el último archivo modificado en `/var/backups`.
+
+```bash
+ls -lt /var/backups
+```
+
+**Resultado:**
+```
+total 2160
+-rw-r--r-- 1 root root    41872 Nov 12  2020 apt.extended_states.0
+-rw-r--r-- 1 root root     4437 Nov 12  2020 apt.extended_states.1.gz
+-rw-r--r-- 1 root root   742750 Nov 11  2020 dpkg.status.0
+...
+```
+
+**Respuesta:** `apt.extended_states.0`
+
+**Explicación:**
+
+La opción `-t` ordena por tiempo de modificación, mostrando los más recientes primero. Combinado con `-l` obtenemos información detallada.
+
+### Ejercicio 2: Inodo de Archivo Sensible
+
+**Objetivo:** Obtener el inode number del archivo `shadow.bak`.
+
+```bash
+ls -li /var/backups/shadow.bak
+```
+
+**Resultado:**
+```
+265293 -rw------- 1 root shadow 1362 Sep 23  2020 /var/backups/shadow.bak
+```
+
+**Respuesta:** `265293`
+
+## Conceptos Teóricos
+
+### Comandos de Gestión de Archivos
+
+| Comando | Función | Sintaxis |
+|---------|---------|----------|
+| `touch` | Crear archivo vacío | `touch archivo.txt` |
+| `mkdir` | Crear directorio | `mkdir nombre` |
+| `mkdir -p` | Crear ruta completa | `mkdir -p a/b/c` |
+| `mv` | Mover/renombrar | `mv origen destino` |
+| `cp` | Copiar archivo | `cp archivo copia` |
+| `cp -r` | Copiar directorio | `cp -r dir1 dir2` |
+| `rm` | Eliminar archivo | `rm archivo` |
+| `rm -r` | Eliminar directorio | `rm -r dir` |
+| `tree` | Ver estructura | `tree directorio` |
+
+### Opciones de Ordenación en ls
+
+```bash
+ls -lt     # Por tiempo (recientes primero)
+ls -ltr    # Por tiempo (antiguos primero)
+ls -lS     # Por tamaño (mayores primero)
+ls -lX     # Por extensión
+ls -la     # Incluyendo ocultos
+ls -li     # Con inodos
+```
+
+### El Directorio /var/backups
+
+Este directorio contiene copias de seguridad críticas del sistema:
+
+| Archivo | Contenido |
+|---------|-----------|
+| `shadow.bak` | Hashes de contraseñas |
+| `passwd.bak` | Información de usuarios |
+| `group.bak` | Grupos del sistema |
+| `apt.extended_states.*` | Estados de paquetes APT |
+| `dpkg.status.*` | Estados de paquetes dpkg |
+
+**⚠️ Importante:** En auditorías de seguridad, estos archivos son objetivos valiosos para:
+- Cracking de contraseñas
+- Enumeración de usuarios
+- Análisis de configuraciones
+
+## Operaciones Comunes
+
+### Crear Estructura de Directorios
+```bash
+# Crear múltiples niveles de una vez
+mkdir -p proyecto/src/main/java
+mkdir -p proyecto/docs
+mkdir -p proyecto/tests
+
+# Verificar estructura
+tree proyecto
+```
+
+### Gestionar Archivos
+```bash
+# Crear varios archivos
+touch README.md LICENSE.txt .gitignore
+
+# Renombrar
+mv old_name.txt new_name.txt
+
+# Mover a directorio
+mv *.txt documentos/
+
+# Copiar con backup
+cp config.yml config.yml.bak
+
+# Eliminar con cuidado
+rm -i archivo.txt  # Pide confirmación
+```
+
+### Búsqueda por Características
+```bash
+# Archivos modificados hoy
+find . -mtime 0
+
+# Archivos mayores a 100MB
+find . -size +100M
+
+# Archivos de un usuario
+find /home -user username
+```
+
+## ¿Qué Aprendimos?
+
+1. **Ordenación temporal:** `ls -lt` identifica archivos recientes rápidamente
+2. **Inodos:** El inode identifica únicamente cada archivo
+3. **mkdir -p:** Crea estructuras completas de directorios
+4. **Archivos sensibles:** `/var/backups` contiene información crítica
+5. **rm -rf:** Potente pero peligroso, usar con precaución
+
+## Autoevaluación
+
+1. ¿Cuál es la diferencia entre `mv` y `cp`?
+2. ¿Cómo crearías una estructura de 5 directorios anidados con un solo comando?
+3. ¿Qué opción de `ls` muestra archivos ordenados por tamaño?
+4. ¿Por qué es importante el archivo `shadow.bak` en una auditoría?
+5. ¿Qué hace la opción `-i` en `rm`?
+
+## Referencias
+
+- [touch(1) - Linux manual](https://man7.org/linux/man-pages/man1/touch.1.html)
+- [mkdir(1) - Linux manual](https://man7.org/linux/man-pages/man1/mkdir.1.html)
+- [mv(1) - Linux manual](https://man7.org/linux/man-pages/man1/mv.1.html)
+- [cp(1) - Linux manual](https://man7.org/linux/man-pages/man1/cp.1.html)
+- [rm(1) - Linux manual](https://man7.org/linux/man-pages/man1/rm.1.html)
+- [Filesystem Hierarchy Standard](https://refspecs.linuxfoundation.org/FHS_3.0/fhs-3.0.html)

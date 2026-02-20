@@ -1,0 +1,156 @@
+---
+title: "Navigation - Linux Fundamentals"
+author: "statick88"
+date: 2026-02-20
+categories: [linux, htb, security]
+format:
+  html:
+    toc: true
+    toc-depth: 3
+---
+
+## Objetivo
+
+Dominar los comandos de navegación en Linux: listar contenidos, identificar archivos ocultos, entender inodos y moverse eficientemente por el sistema de archivos.
+
+## Introducción
+
+La navegación es fundamental en Linux. A diferencia de Windows con su interfaz gráfica predominante, en Linux trabajamos principalmente desde la terminal. Conocer los comandos de navegación nos permite movernos rápidamente por el sistema, inspeccionar archivos y directorios, y trabajar de manera eficiente.
+
+## Escenario
+
+Estás realizando una auditoría de seguridad en un servidor Linux. Necesitas navegar por el sistema para identificar archivos de configuración, historiales de comandos y permisos sensibles.
+
+## Ejercicios Prácticos
+
+### Ejercicio 1: Archivo de Historial Oculto
+
+**Objetivo:** Encontrar el archivo de historial de comandos del usuario.
+
+```bash
+ls -la ~ | grep history
+```
+
+**Resultado:**
+```
+-rw------- 1 htb-student htb-student    5 Sep 23  2020 .bash_history
+```
+
+**Respuesta:** `.bash_history`
+
+**Explicación:**
+
+Los archivos ocultos en Linux comienzan con un punto (`.`). El archivo `.bash_history` almacena todos los comandos ejecutados por el usuario, lo cual es invaluable para:
+
+- **Auditoría:** Ver qué comandos ejecutó un usuario
+- **Forense:** Reconstruir actividades sospechosas
+- **Productividad:** Reutilizar comandos anteriores
+
+### Ejercicio 2: Inodo del Archivo sudoers
+
+**Objetivo:** Obtener el número de inodo del archivo /etc/sudoers.
+
+```bash
+ls -li /etc/sudoers
+```
+
+**Resultado:**
+```
+147627 -r--r----- 1 root root 755 Jan 18  2018 /etc/sudoers
+```
+
+**Respuesta:** `147627`
+
+**Alternativa con stat:**
+```bash
+stat /etc/sudoers
+```
+
+## Conceptos Teóricos
+
+### Comandos de Navegación Esenciales
+
+| Comando | Descripción | Ejemplo |
+|---------|-------------|---------|
+| `pwd` | Directorio actual | `/home/htb-student` |
+| `ls` | Listar contenido | `ls -la` |
+| `cd` | Cambiar directorio | `cd /var/log` |
+| `cd -` | Directorio anterior | Alterna entre dos dirs |
+| `cd ..` | Subir un nivel | Directorio padre |
+
+### Opciones de ls Más Usadas
+
+```bash
+ls -l      # Formato largo
+ls -a      # Archivos ocultos
+ls -la     # Combinación
+ls -lh     # Tamaños legibles
+ls -li     # Con inodos
+ls -R      # Recursivo
+```
+
+### Entendiendo los Inodos
+
+Un **inode** (index node) es una estructura de datos que contiene:
+
+- **Metadatos del archivo:**
+  - Tipo de archivo (regular, directorio, link, etc.)
+  - Permisos
+  - UID y GID
+  - Tamaño en bytes
+  - Timestamps (atime, mtime, ctime)
+  - Contador de hard links
+  - Punteros a bloques de datos
+
+- **Lo que NO contiene:**
+  - Nombre del archivo (se almacena en el directorio)
+
+**¿Por qué importa el inodo?**
+
+1. **Recuperación de archivos:** Cuando un archivo se elimina, el inode se marca como disponible pero los datos pueden persistir
+2. **Hard links:** Múltiples nombres pueden apuntar al mismo inode
+3. **Forensia:** El inode puede revelar cuándo se creó/modificó un archivo
+
+### Archivos Ocultos Comunes
+
+| Archivo | Propósito |
+|---------|-----------|
+| `.bash_history` | Historial de comandos |
+| `.bashrc` | Configuración de bash interactiva |
+| `.profile` | Script de login |
+| `.ssh/` | Claves y configuración SSH |
+| `.config/` | Configuraciones de aplicaciones |
+
+## Atajos de Terminal
+
+| Atajo | Función |
+|-------|---------|
+| `Tab` | Autocompletar comando/ruta |
+| `Tab Tab` | Ver todas las opciones |
+| `Ctrl + L` | Limpiar pantalla |
+| `Ctrl + R` | Búsqueda reversa en historial |
+| `Ctrl + C` | Cancelar comando actual |
+| `Ctrl + Z` | Suspender proceso |
+| `↑ / ↓` | Navegar historial |
+
+## ¿Qué Aprendimos?
+
+1. **Archivos ocultos:** Siempre usar `ls -la` para ver todo
+2. **Inodos:** Identificador único de archivos en el filesystem
+3. **Navegación eficiente:** `cd -` y Tab completion son esenciales
+4. **Historial:** `.bash_history` es crítico para auditoría
+5. **stat:** Herramienta poderosa para metadatos detallados
+
+## Autoevaluación
+
+1. ¿Cuál es la diferencia entre `ls -a` y `ls -A`?
+2. ¿Qué información proporciona el inode de un archivo?
+3. ¿Cómo navegarías rápidamente entre dos directorios distantes?
+4. ¿Por qué es importante el archivo `.bash_history` en una investigación forense?
+5. ¿Qué hace `cd ..` vs `cd ../..`?
+
+## Referencias
+
+- [ls(1) - Linux manual](https://man7.org/linux/man-pages/man1/ls.1.html)
+- [inode(7) - Linux manual](https://man7.org/linux/man-pages/man7/inode.7.html)
+- [Bash Reference Manual](https://www.gnu.org/software/bash/manual/)

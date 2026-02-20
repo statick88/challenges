@@ -1,0 +1,79 @@
+---
+title: "Linux Fundamentals - HTB Academy"
+author: "statick88"
+date: 2026-02-20
+categories: [linux, htb, security]
+format:
+  html:
+    toc: true
+    toc-depth: 2
+---
+
+## Descripción del Curso
+
+Este curso documenta los ejercicios prácticos del módulo **Linux Fundamentals** de Hack The Box Academy. Cubre los conceptos esenciales de Linux desde la perspectiva de ciberseguridad.
+
+## Progreso
+
+| Sección | Título | Estado |
+|---------|--------|--------|
+| 6 | System Information | ✅ Completado |
+| 7 | Navigation | ✅ Completado |
+| 8 | Working with Files and Directories | ✅ Completado |
+| 9 | Editing Files | 📖 Teoría |
+| 10 | Find Files and Directories | ✅ Completado |
+| 11 | File Descriptors and Redirections | ✅ Completado |
+
+## Contenido
+
+### 01. System Information
+[:octicons-link-external-16: Ver lección](01-system-information.qmd)
+
+Comandos básicos para obtener información del sistema: `uname`, `hostname`, `whoami`, `id`, y estructura de `/etc/passwd`.
+
+### 02. Navigation
+[:octicons-link-external-16: Ver lección](02-navigation.qmd)
+
+Navegación por el sistema de archivos: `pwd`, `ls`, `cd`, archivos ocultos e inodos.
+
+### 03. Working with Files and Directories
+[:octicons-link-external-16: Ver lección](03-files-directories.qmd)
+
+Gestión de archivos: `touch`, `mkdir`, `mv`, `cp`, `rm` y ordenación por tiempo.
+
+### 04. Find Files and Directories
+[:octicons-link-external-16: Ver lección](04-find-files.qmd)
+
+Búsqueda avanzada: `which`, `find`, `locate` y filtros por nombre, tamaño, fecha y permisos.
+
+### 05. File Descriptors and Redirections
+[:octicons-link-external-16: Ver lección](05-file-descriptors.qmd)
+
+Descriptores de archivo (STDIN, STDOUT, STDERR), redirecciones y pipes.
+
+## Resumen de Aprendizaje
+
+### Comandos Dominados
+
+| Categoría | Comandos |
+|-----------|----------|
+| Información | `uname`, `hostname`, `whoami`, `id` |
+| Navegación | `pwd`, `ls`, `cd`, `tree` |
+| Archivos | `touch`, `mkdir`, `mv`, `cp`, `rm` |
+| Búsqueda | `find`, `locate`, `which`, `grep` |
+| Redirección | `>`, `>>`, `<`, `2>`, `\|` |
+
+### Conceptos Clave
+
+- **File Descriptors:** STDIN (0), STDOUT (1), STDERR (2)
+- **Inodos:** Identificadores únicos de archivos
+- **Permisos:** SUID, SGID, sticky bit
+- **Pipes:** Conexión entre comandos
+- **/etc/passwd:** Estructura de usuarios
+
+## Próximos Pasos
+
+Continuar con las secciones restantes del módulo:
+- Section 12+: Workflow
+- Section 20+: System Management
+- Section 28+: Linux Networking

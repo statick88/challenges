@@ -1,0 +1,164 @@
+---
+title: "System Information - Linux Fundamentals"
+author: "statick88"
+date: 2026-02-20
+categories: [linux, htb, security]
+format:
+  html:
+    toc: true
+    toc-depth: 3
+---
+
+## Objetivo
+
+Aprender a obtener información del sistema Linux usando comandos básicos de enumeración. Este ejercicio cubre la recopilación de información esencial como hardware, usuarios, kernel y configuración de red.
+
+## Introducción
+
+En el mundo de la ciberseguridad, la enumeración es el primer paso crítico. Antes de poder explotar o asegurar un sistema, necesitamos entender completamente su configuración. Linux proporciona diversas herramientas para obtener esta información.
+
+## Escenario
+
+Te has conectado a un servidor Linux remoto y necesitas recopilar información básica del sistema para un informe de auditoría de seguridad.
+
+### Conexión SSH
+
+```bash
+ssh htb-student@10.129.2.219
+# Password: HTB_@cademy_stdnt!
+```
+
+## Ejercicios Prácticos
+
+### Ejercicio 1: Identificar Arquitectura del Hardware
+
+**Objetivo:** Determinar la arquitectura del procesador del sistema.
+
+```bash
+uname -m
+```
+
+**Resultado:**
+```
+x86_64
+```
+
+**Explicación:** El comando `uname` muestra información del sistema. La opción `-m` muestra específicamente la arquitectura del hardware.
+
+### Ejercicio 2: Directorio Home del Usuario
+
+**Objetivo:** Encontrar el directorio home del usuario htb-student.
+
+```bash
+grep htb-student /etc/passwd | cut -d: -f6
+```
+
+**Resultado:**
+```
+/home/htb-student
+```
+
+**Explicación:** El archivo `/etc/passwd` contiene información de usuarios. El campo 6 corresponde al directorio home.
+
+### Ejercicio 3: Ubicación del Mail del Usuario
+
+**Objetivo:** Determinar la ruta del archivo de correo del usuario.
+
+```bash
+ls /var/mail/
+```
+
+**Resultado:** El path estándar es `/var/mail/htb-student`
+
+### Ejercicio 4: Shell del Usuario
+
+**Objetivo:** Identificar el shell por defecto del usuario.
+
+```bash
+grep htb-student /etc/passwd | cut -d: -f7
+```
+
+**Resultado:**
+```
+/bin/bash
+```
+
+### Ejercicio 5: Versión del Kernel
+
+**Objetivo:** Obtener la versión del kernel en formato simplificado.
+
+```bash
+uname -r
+```
+
+**Resultado:**
+```
+4.15.0-123-generic
+```
+
+Para el formato requerido (X.Y.Z): **4.15.0**
+
+### Ejercicio 6: Interfaz de Red con MTU 1500
+
+**Objetivo:** Identificar la interfaz de red con MTU configurado a 1500.
+
+```bash
+ip link show | grep "mtu 1500"
+```
+
+**Resultado:**
+```
+ens192
+```
+
+## Conceptos Teóricos
+
+### Estructura de /etc/passwd
+
+El archivo `/etc/passwd` es fundamental para la gestión de usuarios en Linux:
+
+```
+username:x:uid:gid:GECOS:home:shell
+```
+
+| Campo | Descripción | Ejemplo |
+|-------|-------------|---------|
+| username | Nombre del usuario | htb-student |
+| x | Password placeholder | x |
+| uid | User ID numérico | 1002 |
+| gid | Group ID principal | 1002 |
+| GECOS | Información adicional | (vacío) |
+| home | Directorio home | /home/htb-student |
+| shell | Shell por defecto | /bin/bash |
+
+### Comandos de Enumeración
+
+| Comando | Propósito | Opciones útiles |
+|---------|-----------|-----------------|
+| `uname` | Info del sistema | `-a`, `-r`, `-m` |
+| `hostname` | Nombre del host | `-I` (IPs) |
+| `whoami` | Usuario actual | - |
+| `id` | IDs del usuario | `-Gn` (grupos) |
+| `ip` | Configuración de red | `link`, `addr`, `route` |
+
+## ¿Qué Aprendimos?
+
+1. **Enumeración básica:** Comandos esenciales para obtener información del sistema
+2. **/etc/passwd:** Estructura y campos del archivo de usuarios
+3. **uname:** Herramienta versátil para información del kernel y hardware
+4. **ip command:** Reemplazo moderno para ifconfig
+5. **Formato de respuestas:** Importancia de leer los requisitos específicos
+
+## Autoevaluación
+
+1. ¿Qué comando usarías para ver toda la información del sistema de una vez?
+2. ¿Cuál es la diferencia entre `uname -r` y `uname -v`?
+3. ¿Qué campo de /etc/passwd contiene el shell del usuario?
+4. ¿Por qué el campo de contraseña en /etc/passwd muestra solo una 'x'?
+5. ¿Qué es MTU y por qué es importante en redes?
+
+## Referencias
+
+- [uname(1) - Linux manual page](https://man7.org/linux/man-pages/man1/uname.1.html)
+- [passwd(5) - Linux manual page](https://man7.org/linux/man-pages/man5/passwd.5.html)
+- [ip(8) - Linux manual page](https://man7.org/linux/man-pages/man8/ip.8.html)

@@ -567,6 +567,139 @@
     "text": "COMPLETED 🎉\n\nDate: 2026-02-20\nFlag: HTB{pr0F7pDv3r510nb4nn3r}\nPort: 31337/tcp (FTP)\n\n\n← Back to Security"
   },
   {
+    "objectID": "security/linux-fundamentals/01-system-information.html",
+    "href": "security/linux-fundamentals/01-system-information.html",
+    "title": "System Information - Linux Fundamentals",
+    "section": "",
+    "text": "Aprender a obtener información del sistema Linux usando comandos básicos de enumeración. Este ejercicio cubre la recopilación de información esencial como hardware, usuarios, kernel y configuración de red."
+  },
+  {
+    "objectID": "security/linux-fundamentals/01-system-information.html#objetivo",
+    "href": "security/linux-fundamentals/01-system-information.html#objetivo",
+    "title": "System Information - Linux Fundamentals",
+    "section": "",
+    "text": "Aprender a obtener información del sistema Linux usando comandos básicos de enumeración. Este ejercicio cubre la recopilación de información esencial como hardware, usuarios, kernel y configuración de red."
+  },
+  {
+    "objectID": "security/linux-fundamentals/01-system-information.html#introducción",
+    "href": "security/linux-fundamentals/01-system-information.html#introducción",
+    "title": "System Information - Linux Fundamentals",
+    "section": "Introducción",
+    "text": "Introducción\nEn el mundo de la ciberseguridad, la enumeración es el primer paso crítico. Antes de poder explotar o asegurar un sistema, necesitamos entender completamente su configuración. Linux proporciona diversas herramientas para obtener esta información."
+  },
+  {
+    "objectID": "security/linux-fundamentals/01-system-information.html#escenario",
+    "href": "security/linux-fundamentals/01-system-information.html#escenario",
+    "title": "System Information - Linux Fundamentals",
+    "section": "Escenario",
+    "text": "Escenario\nTe has conectado a un servidor Linux remoto y necesitas recopilar información básica del sistema para un informe de auditoría de seguridad.\n\nConexión SSH\nssh htb-student@10.129.2.219\n# Password: HTB_@cademy_stdnt!"
+  },
+  {
+    "objectID": "security/linux-fundamentals/01-system-information.html#ejercicios-prácticos",
+    "href": "security/linux-fundamentals/01-system-information.html#ejercicios-prácticos",
+    "title": "System Information - Linux Fundamentals",
+    "section": "Ejercicios Prácticos",
+    "text": "Ejercicios Prácticos\n\nEjercicio 1: Identificar Arquitectura del Hardware\nObjetivo: Determinar la arquitectura del procesador del sistema.\nuname -m\nResultado:\nx86_64\nExplicación: El comando uname muestra información del sistema. La opción -m muestra específicamente la arquitectura del hardware.\n\n\nEjercicio 2: Directorio Home del Usuario\nObjetivo: Encontrar el directorio home del usuario htb-student.\ngrep htb-student /etc/passwd | cut -d: -f6\nResultado:\n/home/htb-student\nExplicación: El archivo /etc/passwd contiene información de usuarios. El campo 6 corresponde al directorio home.\n\n\nEjercicio 3: Ubicación del Mail del Usuario\nObjetivo: Determinar la ruta del archivo de correo del usuario.\nls /var/mail/\nResultado: El path estándar es /var/mail/htb-student\n\n\nEjercicio 4: Shell del Usuario\nObjetivo: Identificar el shell por defecto del usuario.\ngrep htb-student /etc/passwd | cut -d: -f7\nResultado:\n/bin/bash\n\n\nEjercicio 5: Versión del Kernel\nObjetivo: Obtener la versión del kernel en formato simplificado.\nuname -r\nResultado:\n4.15.0-123-generic\nPara el formato requerido (X.Y.Z): 4.15.0\n\n\nEjercicio 6: Interfaz de Red con MTU 1500\nObjetivo: Identificar la interfaz de red con MTU configurado a 1500.\nip link show | grep \"mtu 1500\"\nResultado:\nens192"
+  },
+  {
+    "objectID": "security/linux-fundamentals/01-system-information.html#conceptos-teóricos",
+    "href": "security/linux-fundamentals/01-system-information.html#conceptos-teóricos",
+    "title": "System Information - Linux Fundamentals",
+    "section": "Conceptos Teóricos",
+    "text": "Conceptos Teóricos\n\nEstructura de /etc/passwd\nEl archivo /etc/passwd es fundamental para la gestión de usuarios en Linux:\nusername:x:uid:gid:GECOS:home:shell\n\n\n\nCampo\nDescripción\nEjemplo\n\n\n\n\nusername\nNombre del usuario\nhtb-student\n\n\nx\nPassword placeholder\nx\n\n\nuid\nUser ID numérico\n1002\n\n\ngid\nGroup ID principal\n1002\n\n\nGECOS\nInformación adicional\n(vacío)\n\n\nhome\nDirectorio home\n/home/htb-student\n\n\nshell\nShell por defecto\n/bin/bash\n\n\n\n\n\nComandos de Enumeración\n\n\n\nComando\nPropósito\nOpciones útiles\n\n\n\n\nuname\nInfo del sistema\n-a, -r, -m\n\n\nhostname\nNombre del host\n-I (IPs)\n\n\nwhoami\nUsuario actual\n-\n\n\nid\nIDs del usuario\n-Gn (grupos)\n\n\nip\nConfiguración de red\nlink, addr, route"
+  },
+  {
+    "objectID": "security/linux-fundamentals/01-system-information.html#qué-aprendimos",
+    "href": "security/linux-fundamentals/01-system-information.html#qué-aprendimos",
+    "title": "System Information - Linux Fundamentals",
+    "section": "¿Qué Aprendimos?",
+    "text": "¿Qué Aprendimos?\n\nEnumeración básica: Comandos esenciales para obtener información del sistema\n/etc/passwd: Estructura y campos del archivo de usuarios\nuname: Herramienta versátil para información del kernel y hardware\nip command: Reemplazo moderno para ifconfig\nFormato de respuestas: Importancia de leer los requisitos específicos"
+  },
+  {
+    "objectID": "security/linux-fundamentals/01-system-information.html#autoevaluación",
+    "href": "security/linux-fundamentals/01-system-information.html#autoevaluación",
+    "title": "System Information - Linux Fundamentals",
+    "section": "Autoevaluación",
+    "text": "Autoevaluación\n\n¿Qué comando usarías para ver toda la información del sistema de una vez?\n¿Cuál es la diferencia entre uname -r y uname -v?\n¿Qué campo de /etc/passwd contiene el shell del usuario?\n¿Por qué el campo de contraseña en /etc/passwd muestra solo una ‘x’?\n¿Qué es MTU y por qué es importante en redes?"
+  },
+  {
+    "objectID": "security/linux-fundamentals/01-system-information.html#referencias",
+    "href": "security/linux-fundamentals/01-system-information.html#referencias",
+    "title": "System Information - Linux Fundamentals",
+    "section": "Referencias",
+    "text": "Referencias\n\nuname(1) - Linux manual page\npasswd(5) - Linux manual page\nip(8) - Linux manual page"
+  },
+  {
+    "objectID": "security/linux-fundamentals/03-files-directories.html",
+    "href": "security/linux-fundamentals/03-files-directories.html",
+    "title": "Working with Files and Directories - Linux Fundamentals",
+    "section": "",
+    "text": "Dominar las operaciones fundamentales con archivos y directorios en Linux: crear, mover, copiar, eliminar y buscar archivos por características como fecha de modificación e inodos."
+  },
+  {
+    "objectID": "security/linux-fundamentals/03-files-directories.html#objetivo",
+    "href": "security/linux-fundamentals/03-files-directories.html#objetivo",
+    "title": "Working with Files and Directories - Linux Fundamentals",
+    "section": "",
+    "text": "Dominar las operaciones fundamentales con archivos y directorios en Linux: crear, mover, copiar, eliminar y buscar archivos por características como fecha de modificación e inodos."
+  },
+  {
+    "objectID": "security/linux-fundamentals/03-files-directories.html#introducción",
+    "href": "security/linux-fundamentals/03-files-directories.html#introducción",
+    "title": "Working with Files and Directories - Linux Fundamentals",
+    "section": "Introducción",
+    "text": "Introducción\nEn Linux, la gestión de archivos se realiza principalmente desde la terminal. A diferencia de Windows con su interfaz gráfica, Linux ofrece comandos potentes y eficientes que permiten manipular archivos de manera rápida y automatizable."
+  },
+  {
+    "objectID": "security/linux-fundamentals/03-files-directories.html#escenario",
+    "href": "security/linux-fundamentals/03-files-directories.html#escenario",
+    "title": "Working with Files and Directories - Linux Fundamentals",
+    "section": "Escenario",
+    "text": "Escenario\nDurante una auditoría de seguridad, necesitas explorar el directorio de backups del sistema para identificar archivos sensibles y determinar cuáles han sido modificados recientemente."
+  },
+  {
+    "objectID": "security/linux-fundamentals/03-files-directories.html#ejercicios-prácticos",
+    "href": "security/linux-fundamentals/03-files-directories.html#ejercicios-prácticos",
+    "title": "Working with Files and Directories - Linux Fundamentals",
+    "section": "Ejercicios Prácticos",
+    "text": "Ejercicios Prácticos\n\nEjercicio 1: Archivo Más Reciente\nObjetivo: Identificar el último archivo modificado en /var/backups.\nls -lt /var/backups\nResultado:\ntotal 2160\n-rw-r--r-- 1 root root    41872 Nov 12  2020 apt.extended_states.0\n-rw-r--r-- 1 root root     4437 Nov 12  2020 apt.extended_states.1.gz\n-rw-r--r-- 1 root root   742750 Nov 11  2020 dpkg.status.0\n...\nRespuesta: apt.extended_states.0\nExplicación:\nLa opción -t ordena por tiempo de modificación, mostrando los más recientes primero. Combinado con -l obtenemos información detallada.\n\n\nEjercicio 2: Inodo de Archivo Sensible\nObjetivo: Obtener el inode number del archivo shadow.bak.\nls -li /var/backups/shadow.bak\nResultado:\n265293 -rw------- 1 root shadow 1362 Sep 23  2020 /var/backups/shadow.bak\nRespuesta: 265293"
+  },
+  {
+    "objectID": "security/linux-fundamentals/03-files-directories.html#conceptos-teóricos",
+    "href": "security/linux-fundamentals/03-files-directories.html#conceptos-teóricos",
+    "title": "Working with Files and Directories - Linux Fundamentals",
+    "section": "Conceptos Teóricos",
+    "text": "Conceptos Teóricos\n\nComandos de Gestión de Archivos\n\n\n\nComando\nFunción\nSintaxis\n\n\n\n\ntouch\nCrear archivo vacío\ntouch archivo.txt\n\n\nmkdir\nCrear directorio\nmkdir nombre\n\n\nmkdir -p\nCrear ruta completa\nmkdir -p a/b/c\n\n\nmv\nMover/renombrar\nmv origen destino\n\n\ncp\nCopiar archivo\ncp archivo copia\n\n\ncp -r\nCopiar directorio\ncp -r dir1 dir2\n\n\nrm\nEliminar archivo\nrm archivo\n\n\nrm -r\nEliminar directorio\nrm -r dir\n\n\ntree\nVer estructura\ntree directorio\n\n\n\n\n\nOpciones de Ordenación en ls\nls -lt     # Por tiempo (recientes primero)\nls -ltr    # Por tiempo (antiguos primero)\nls -lS     # Por tamaño (mayores primero)\nls -lX     # Por extensión\nls -la     # Incluyendo ocultos\nls -li     # Con inodos\n\n\nEl Directorio /var/backups\nEste directorio contiene copias de seguridad críticas del sistema:\n\n\n\nArchivo\nContenido\n\n\n\n\nshadow.bak\nHashes de contraseñas\n\n\npasswd.bak\nInformación de usuarios\n\n\ngroup.bak\nGrupos del sistema\n\n\napt.extended_states.*\nEstados de paquetes APT\n\n\ndpkg.status.*\nEstados de paquetes dpkg\n\n\n\n⚠️ Importante: En auditorías de seguridad, estos archivos son objetivos valiosos para: - Cracking de contraseñas - Enumeración de usuarios - Análisis de configuraciones"
+  },
+  {
+    "objectID": "security/linux-fundamentals/03-files-directories.html#operaciones-comunes",
+    "href": "security/linux-fundamentals/03-files-directories.html#operaciones-comunes",
+    "title": "Working with Files and Directories - Linux Fundamentals",
+    "section": "Operaciones Comunes",
+    "text": "Operaciones Comunes\n\nCrear Estructura de Directorios\n# Crear múltiples niveles de una vez\nmkdir -p proyecto/src/main/java\nmkdir -p proyecto/docs\nmkdir -p proyecto/tests\n\n# Verificar estructura\ntree proyecto\n\n\nGestionar Archivos\n# Crear varios archivos\ntouch README.md LICENSE.txt .gitignore\n\n# Renombrar\nmv old_name.txt new_name.txt\n\n# Mover a directorio\nmv *.txt documentos/\n\n# Copiar con backup\ncp config.yml config.yml.bak\n\n# Eliminar con cuidado\nrm -i archivo.txt  # Pide confirmación\n\n\nBúsqueda por Características\n# Archivos modificados hoy\nfind . -mtime 0\n\n# Archivos mayores a 100MB\nfind . -size +100M\n\n# Archivos de un usuario\nfind /home -user username"
+  },
+  {
+    "objectID": "security/linux-fundamentals/03-files-directories.html#qué-aprendimos",
+    "href": "security/linux-fundamentals/03-files-directories.html#qué-aprendimos",
+    "title": "Working with Files and Directories - Linux Fundamentals",
+    "section": "¿Qué Aprendimos?",
+    "text": "¿Qué Aprendimos?\n\nOrdenación temporal: ls -lt identifica archivos recientes rápidamente\nInodos: El inode identifica únicamente cada archivo\nmkdir -p: Crea estructuras completas de directorios\nArchivos sensibles: /var/backups contiene información crítica\nrm -rf: Potente pero peligroso, usar con precaución"
+  },
+  {
+    "objectID": "security/linux-fundamentals/03-files-directories.html#autoevaluación",
+    "href": "security/linux-fundamentals/03-files-directories.html#autoevaluación",
+    "title": "Working with Files and Directories - Linux Fundamentals",
+    "section": "Autoevaluación",
+    "text": "Autoevaluación\n\n¿Cuál es la diferencia entre mv y cp?\n¿Cómo crearías una estructura de 5 directorios anidados con un solo comando?\n¿Qué opción de ls muestra archivos ordenados por tamaño?\n¿Por qué es importante el archivo shadow.bak en una auditoría?\n¿Qué hace la opción -i en rm?"
+  },
+  {
+    "objectID": "security/linux-fundamentals/03-files-directories.html#referencias",
+    "href": "security/linux-fundamentals/03-files-directories.html#referencias",
+    "title": "Working with Files and Directories - Linux Fundamentals",
+    "section": "Referencias",
+    "text": "Referencias\n\ntouch(1) - Linux manual\nmkdir(1) - Linux manual\nmv(1) - Linux manual\ncp(1) - Linux manual\nrm(1) - Linux manual\nFilesystem Hierarchy Standard"
+  },
+  {
     "objectID": "security/index.html",
     "href": "security/index.html",
     "title": "Security",
@@ -2112,6 +2245,153 @@
     "title": "Firewall & IDS/IPS Evasion - Easy Lab",
     "section": "Takeaways",
     "text": "Takeaways\n\nPassive &gt; Active: Service banners often reveal OS without triggering alerts\nHTTP Server Header: Apache often includes OS in version string\nSSH Banner: OpenSSH packages typically include distribution info\nTTL Fingerprinting: Linux ≈ 64, Windows ≈ 128, Network devices ≈ 255"
+  },
+  {
+    "objectID": "security/linux-fundamentals/02-navigation.html",
+    "href": "security/linux-fundamentals/02-navigation.html",
+    "title": "Navigation - Linux Fundamentals",
+    "section": "",
+    "text": "Dominar los comandos de navegación en Linux: listar contenidos, identificar archivos ocultos, entender inodos y moverse eficientemente por el sistema de archivos."
+  },
+  {
+    "objectID": "security/linux-fundamentals/02-navigation.html#objetivo",
+    "href": "security/linux-fundamentals/02-navigation.html#objetivo",
+    "title": "Navigation - Linux Fundamentals",
+    "section": "",
+    "text": "Dominar los comandos de navegación en Linux: listar contenidos, identificar archivos ocultos, entender inodos y moverse eficientemente por el sistema de archivos."
+  },
+  {
+    "objectID": "security/linux-fundamentals/02-navigation.html#introducción",
+    "href": "security/linux-fundamentals/02-navigation.html#introducción",
+    "title": "Navigation - Linux Fundamentals",
+    "section": "Introducción",
+    "text": "Introducción\nLa navegación es fundamental en Linux. A diferencia de Windows con su interfaz gráfica predominante, en Linux trabajamos principalmente desde la terminal. Conocer los comandos de navegación nos permite movernos rápidamente por el sistema, inspeccionar archivos y directorios, y trabajar de manera eficiente."
+  },
+  {
+    "objectID": "security/linux-fundamentals/02-navigation.html#escenario",
+    "href": "security/linux-fundamentals/02-navigation.html#escenario",
+    "title": "Navigation - Linux Fundamentals",
+    "section": "Escenario",
+    "text": "Escenario\nEstás realizando una auditoría de seguridad en un servidor Linux. Necesitas navegar por el sistema para identificar archivos de configuración, historiales de comandos y permisos sensibles."
+  },
+  {
+    "objectID": "security/linux-fundamentals/02-navigation.html#ejercicios-prácticos",
+    "href": "security/linux-fundamentals/02-navigation.html#ejercicios-prácticos",
+    "title": "Navigation - Linux Fundamentals",
+    "section": "Ejercicios Prácticos",
+    "text": "Ejercicios Prácticos\n\nEjercicio 1: Archivo de Historial Oculto\nObjetivo: Encontrar el archivo de historial de comandos del usuario.\nls -la ~ | grep history\nResultado:\n-rw------- 1 htb-student htb-student    5 Sep 23  2020 .bash_history\nRespuesta: .bash_history\nExplicación:\nLos archivos ocultos en Linux comienzan con un punto (.). El archivo .bash_history almacena todos los comandos ejecutados por el usuario, lo cual es invaluable para:\n\nAuditoría: Ver qué comandos ejecutó un usuario\nForense: Reconstruir actividades sospechosas\nProductividad: Reutilizar comandos anteriores\n\n\n\nEjercicio 2: Inodo del Archivo sudoers\nObjetivo: Obtener el número de inodo del archivo /etc/sudoers.\nls -li /etc/sudoers\nResultado:\n147627 -r--r----- 1 root root 755 Jan 18  2018 /etc/sudoers\nRespuesta: 147627\nAlternativa con stat:\nstat /etc/sudoers"
+  },
+  {
+    "objectID": "security/linux-fundamentals/02-navigation.html#conceptos-teóricos",
+    "href": "security/linux-fundamentals/02-navigation.html#conceptos-teóricos",
+    "title": "Navigation - Linux Fundamentals",
+    "section": "Conceptos Teóricos",
+    "text": "Conceptos Teóricos\n\nComandos de Navegación Esenciales\n\n\n\nComando\nDescripción\nEjemplo\n\n\n\n\npwd\nDirectorio actual\n/home/htb-student\n\n\nls\nListar contenido\nls -la\n\n\ncd\nCambiar directorio\ncd /var/log\n\n\ncd -\nDirectorio anterior\nAlterna entre dos dirs\n\n\ncd ..\nSubir un nivel\nDirectorio padre\n\n\n\n\n\nOpciones de ls Más Usadas\nls -l      # Formato largo\nls -a      # Archivos ocultos\nls -la     # Combinación\nls -lh     # Tamaños legibles\nls -li     # Con inodos\nls -R      # Recursivo\n\n\nEntendiendo los Inodos\nUn inode (index node) es una estructura de datos que contiene:\n\nMetadatos del archivo:\n\nTipo de archivo (regular, directorio, link, etc.)\nPermisos\nUID y GID\nTamaño en bytes\nTimestamps (atime, mtime, ctime)\nContador de hard links\nPunteros a bloques de datos\n\nLo que NO contiene:\n\nNombre del archivo (se almacena en el directorio)\n\n\n¿Por qué importa el inodo?\n\nRecuperación de archivos: Cuando un archivo se elimina, el inode se marca como disponible pero los datos pueden persistir\nHard links: Múltiples nombres pueden apuntar al mismo inode\nForensia: El inode puede revelar cuándo se creó/modificó un archivo\n\n\n\nArchivos Ocultos Comunes\n\n\n\nArchivo\nPropósito\n\n\n\n\n.bash_history\nHistorial de comandos\n\n\n.bashrc\nConfiguración de bash interactiva\n\n\n.profile\nScript de login\n\n\n.ssh/\nClaves y configuración SSH\n\n\n.config/\nConfiguraciones de aplicaciones"
+  },
+  {
+    "objectID": "security/linux-fundamentals/02-navigation.html#atajos-de-terminal",
+    "href": "security/linux-fundamentals/02-navigation.html#atajos-de-terminal",
+    "title": "Navigation - Linux Fundamentals",
+    "section": "Atajos de Terminal",
+    "text": "Atajos de Terminal\n\n\n\nAtajo\nFunción\n\n\n\n\nTab\nAutocompletar comando/ruta\n\n\nTab Tab\nVer todas las opciones\n\n\nCtrl + L\nLimpiar pantalla\n\n\nCtrl + R\nBúsqueda reversa en historial\n\n\nCtrl + C\nCancelar comando actual\n\n\nCtrl + Z\nSuspender proceso\n\n\n↑ / ↓\nNavegar historial"
+  },
+  {
+    "objectID": "security/linux-fundamentals/02-navigation.html#qué-aprendimos",
+    "href": "security/linux-fundamentals/02-navigation.html#qué-aprendimos",
+    "title": "Navigation - Linux Fundamentals",
+    "section": "¿Qué Aprendimos?",
+    "text": "¿Qué Aprendimos?\n\nArchivos ocultos: Siempre usar ls -la para ver todo\nInodos: Identificador único de archivos en el filesystem\nNavegación eficiente: cd - y Tab completion son esenciales\nHistorial: .bash_history es crítico para auditoría\nstat: Herramienta poderosa para metadatos detallados"
+  },
+  {
+    "objectID": "security/linux-fundamentals/02-navigation.html#autoevaluación",
+    "href": "security/linux-fundamentals/02-navigation.html#autoevaluación",
+    "title": "Navigation - Linux Fundamentals",
+    "section": "Autoevaluación",
+    "text": "Autoevaluación\n\n¿Cuál es la diferencia entre ls -a y ls -A?\n¿Qué información proporciona el inode de un archivo?\n¿Cómo navegarías rápidamente entre dos directorios distantes?\n¿Por qué es importante el archivo .bash_history en una investigación forense?\n¿Qué hace cd .. vs cd ../..?"
+  },
+  {
+    "objectID": "security/linux-fundamentals/02-navigation.html#referencias",
+    "href": "security/linux-fundamentals/02-navigation.html#referencias",
+    "title": "Navigation - Linux Fundamentals",
+    "section": "Referencias",
+    "text": "Referencias\n\nls(1) - Linux manual\ninode(7) - Linux manual\nBash Reference Manual"
+  },
+  {
+    "objectID": "security/linux-fundamentals/04-find-files.html",
+    "href": "security/linux-fundamentals/04-find-files.html",
+    "title": "Find Files and Directories - Linux Fundamentals",
+    "section": "",
+    "text": "Dominar las herramientas de búsqueda de archivos en Linux: which, find y locate. Aprender a filtrar resultados por nombre, tamaño, fecha, permisos y propietario."
+  },
+  {
+    "objectID": "security/linux-fundamentals/04-find-files.html#objetivo",
+    "href": "security/linux-fundamentals/04-find-files.html#objetivo",
+    "title": "Find Files and Directories - Linux Fundamentals",
+    "section": "",
+    "text": "Dominar las herramientas de búsqueda de archivos en Linux: which, find y locate. Aprender a filtrar resultados por nombre, tamaño, fecha, permisos y propietario."
+  },
+  {
+    "objectID": "security/linux-fundamentals/04-find-files.html#introducción",
+    "href": "security/linux-fundamentals/04-find-files.html#introducción",
+    "title": "Find Files and Directories - Linux Fundamentals",
+    "section": "Introducción",
+    "text": "Introducción\nEn auditorías de seguridad, la capacidad de encontrar archivos específicos es fundamental. Ya sea buscando archivos de configuración, backups, scripts o binarios, conocer las herramientas de búsqueda adecuadas puede ahorrar horas de trabajo manual."
+  },
+  {
+    "objectID": "security/linux-fundamentals/04-find-files.html#escenario",
+    "href": "security/linux-fundamentals/04-find-files.html#escenario",
+    "title": "Find Files and Directories - Linux Fundamentals",
+    "section": "Escenario",
+    "text": "Escenario\nEstás realizando una auditoría en un servidor Linux. Necesitas encontrar: 1. Archivos de configuración modificados recientemente 2. Backups que puedan contener información sensible 3. Binarios específicos disponibles en el sistema"
+  },
+  {
+    "objectID": "security/linux-fundamentals/04-find-files.html#ejercicios-prácticos",
+    "href": "security/linux-fundamentals/04-find-files.html#ejercicios-prácticos",
+    "title": "Find Files and Directories - Linux Fundamentals",
+    "section": "Ejercicios Prácticos",
+    "text": "Ejercicios Prácticos\n\nEjercicio 1: Búsqueda Avanzada con Filtros\nObjetivo: Encontrar archivo .conf creado después de 2020-03-03 con tamaño entre 25k y 28k.\nfind / -type f -name \"*.conf\" -newermt 2020-03-03 -size +25k -size -28k 2&gt;/dev/null\nResultado:\n/usr/share/drirc.d/00-mesa-defaults.conf\nRespuesta: 00-mesa-defaults.conf\nExplicación de filtros:\n\n\n\nFiltro\nSignificado\n\n\n\n\n-type f\nSolo archivos\n\n\n-name \"*.conf\"\nExtensión .conf\n\n\n-newermt 2020-03-03\nModificado después de fecha\n\n\n-size +25k\nMayor a 25KB\n\n\n-size -28k\nMenor a 28KB\n\n\n\n\n\nEjercicio 2: Contar Archivos por Extensión\nObjetivo: Determinar cuántos archivos .bak existen en el sistema.\nfind / -type f -name \"*.bak\" 2&gt;/dev/null | wc -l\nResultado:\n4\nRespuesta: 4\n\n\nEjercicio 3: Ubicar Binary\nObjetivo: Encontrar la ruta completa del binary xxd.\nwhich xxd\nResultado:\n/usr/bin/xxd\nRespuesta: /usr/bin/xxd"
+  },
+  {
+    "objectID": "security/linux-fundamentals/04-find-files.html#conceptos-teóricos",
+    "href": "security/linux-fundamentals/04-find-files.html#conceptos-teóricos",
+    "title": "Find Files and Directories - Linux Fundamentals",
+    "section": "Conceptos Teóricos",
+    "text": "Conceptos Teóricos\n\nHerramientas de Búsqueda\n\n\n\n\n\n\n\n\n\nComando\nPropósito\nVelocidad\nUso típico\n\n\n\n\nwhich\nBinarios en PATH\nInstantáneo\nVerificar si comando existe\n\n\nfind\nBúsqueda con filtros\nLento\nBúsquedas complejas\n\n\nlocate\nBúsqueda en DB\nRápido\nBúsquedas por nombre\n\n\nwhereis\nBinarios + man + source\nRápido\nDocumentación\n\n\ntype\nTipo de comando\nInstantáneo\nAliases y funciones\n\n\n\n\n\nOpciones de find Más Usadas\n# Por tipo\n-type f          # Archivos\n-type d          # Directorios\n-type l          # Symlinks\n\n# Por nombre\n-name \"*.conf\"   # Exacto (case sensitive)\n-iname \"*.CONF\"  # Case insensitive\n\n# Por tamaño\n-size +100M      # Mayor a 100MB\n-size -1k        # Menor a 1KB\n-size +25k -size -28k  # Entre 25KB y 28KB\n\n# Por tiempo\n-mtime -7        # Modificado en últimos 7 días\n-mtime +30       # Modificado hace más de 30 días\n-newermt DATE    # Más nuevo que fecha\n\n# Por permisos\n-perm 777        # Permisos exactos\n-perm -4000      # Tiene SUID\n-perm -o+w       # Escribible por otros\n\n# Por propietario\n-user root       # Propietario root\n-group sudo      # Grupo sudo\n-nouser          # Sin propietario\n\n\nOperadores de Tamaño\n\n\n\nSufijo\nValor\n\n\n\n\nc\nBytes\n\n\nk\nKilobytes (1024)\n\n\nM\nMegabytes\n\n\nG\nGigabytes\n\n\n\n\n\nEjecutar Comandos en Resultados\n# Ejecutar ls -l en cada resultado\nfind / -name \"*.conf\" -exec ls -l {} \\;\n\n# Buscar contenido dentro de archivos\nfind / -name \"*.log\" -exec grep -l \"error\" {} \\;\n\n# Contar resultados\nfind / -name \"*.bak\" -exec echo . \\; | wc -c"
+  },
+  {
+    "objectID": "security/linux-fundamentals/04-find-files.html#búsquedas-útiles-para-pentesting",
+    "href": "security/linux-fundamentals/04-find-files.html#búsquedas-útiles-para-pentesting",
+    "title": "Find Files and Directories - Linux Fundamentals",
+    "section": "Búsquedas Útiles para Pentesting",
+    "text": "Búsquedas Útiles para Pentesting\n\nArchivos SUID/SGID\nfind / -perm -4000 2&gt;/dev/null      # SUID\nfind / -perm -2000 2&gt;/dev/null      # SGID\nfind / -perm -6000 2&gt;/dev/null      # Ambos\n\n\nArchivos Escribibles\nfind / -writable 2&gt;/dev/null        # Escribibles por usuario actual\nfind / -perm -o+w 2&gt;/dev/null       # Escribibles por otros\nfind /etc -writable 2&gt;/dev/null     # Configs escribibles\n\n\nArchivos Sensibles\nfind / -name \"password*\" 2&gt;/dev/null\nfind / -name \"*backup*\" 2&gt;/dev/null\nfind / -name \"*.key\" 2&gt;/dev/null\nfind / -name \"id_rsa\" 2&gt;/dev/null\n\n\nArchivos Recientes\nfind / -mtime -1 2&gt;/dev/null        # Modificados hoy\nfind / -mmin -60 2&gt;/dev/null        # Última hora\nfind / -newermt 2024-01-01 2&gt;/dev/null"
+  },
+  {
+    "objectID": "security/linux-fundamentals/04-find-files.html#diferencias-find-vs-locate",
+    "href": "security/linux-fundamentals/04-find-files.html#diferencias-find-vs-locate",
+    "title": "Find Files and Directories - Linux Fundamentals",
+    "section": "Diferencias: find vs locate",
+    "text": "Diferencias: find vs locate\n\n\n\nAspecto\nfind\nlocate\n\n\n\n\nVelocidad\nLento (escanea FS)\nRápido (usa DB)\n\n\nPrecisión\nTiempo real\nPuede estar desactualizado\n\n\nFiltros\nMúltiples\nLimitados\n\n\nUso\nBúsquedas complejas\nBúsquedas rápidas\n\n\nActualización\nSiempre actual\nRequiere updatedb\n\n\n\n# Actualizar base de datos de locate\nsudo updatedb\n\n# Búsqueda rápida con locate\nlocate \"*.conf\""
+  },
+  {
+    "objectID": "security/linux-fundamentals/04-find-files.html#qué-aprendimos",
+    "href": "security/linux-fundamentals/04-find-files.html#qué-aprendimos",
+    "title": "Find Files and Directories - Linux Fundamentals",
+    "section": "¿Qué Aprendimos?",
+    "text": "¿Qué Aprendimos?\n\nfind es versátil: Combina múltiples filtros para búsquedas precisas\nRedirección de errores: 2&gt;/dev/null oculta errores de permisos\nRangos de tamaño: Usar dos opciones -size para crear rangos\nlocate para velocidad: Ideal cuando la DB está actualizada\nwhich para binarios: Verifica rápidamente si un comando existe"
+  },
+  {
+    "objectID": "security/linux-fundamentals/04-find-files.html#autoevaluación",
+    "href": "security/linux-fundamentals/04-find-files.html#autoevaluación",
+    "title": "Find Files and Directories - Linux Fundamentals",
+    "section": "Autoevaluación",
+    "text": "Autoevaluación\n\n¿Cuál es la diferencia entre -name e -iname?\n¿Cómo buscarías archivos modificados en las últimas 24 horas?\n¿Qué hace -perm -4000?\n¿Por qué es importante 2&gt;/dev/null en búsquedas?\n¿Cuándo usarías locate en lugar de find?"
+  },
+  {
+    "objectID": "security/linux-fundamentals/04-find-files.html#referencias",
+    "href": "security/linux-fundamentals/04-find-files.html#referencias",
+    "title": "Find Files and Directories - Linux Fundamentals",
+    "section": "Referencias",
+    "text": "Referencias\n\nfind(1) - Linux manual\nlocate(1) - Linux manual\nwhich(1) - Linux manual"
   },
   {
     "objectID": "security/08-htb-firewall-evasion-hard.html",

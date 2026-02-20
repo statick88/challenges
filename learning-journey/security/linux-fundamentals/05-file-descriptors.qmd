@@ -1,0 +1,217 @@
+---
+title: "File Descriptors and Redirections - Linux Fundamentals"
+author: "statick88"
+date: 2026-02-20
+categories: [linux, htb, security]
+format:
+  html:
+    toc: true
+    toc-depth: 3
+---
+
+## Objetivo
+
+Comprender cómo Linux maneja los flujos de datos a través de file descriptors y dominar las técnicas de redirección para controlar la entrada, salida y errores de los comandos.
+
+## Introducción
+
+En Linux, cada proceso tiene tres canales de comunicación estándar: entrada, salida y errores. Conocer cómo manipular estos canales es fundamental para automatizar tareas, crear scripts eficientes y manejar datos en pipelines complejos.
+
+## Escenario
+
+Estás auditando un servidor Linux y necesitas:
+1. Ejecutar comandos sin mostrar errores de permisos
+2. Guardar resultados en archivos para análisis posterior
+3. Conectar múltiples comandos para procesar datos
+
+## Ejercicios Prácticos
+
+### Ejercicio 1: Contar Archivos de Log
+
+**Objetivo:** Determinar cuántos archivos .log existen en el sistema.
+
+```bash
+find / -type f -name "*.log" 2>/dev/null | wc -l
+```
+
+**Resultado:**
+```
+32
+```
+
+**Respuesta:** `32`
+
+**Explicación de componentes:**
+
+| Componente | Función |
+|------------|---------|
+| `find /` | Busca desde la raíz |
+| `-type f` | Solo archivos |
+| `-name "*.log"` | Extensión .log |
+| `2>/dev/null` | Descarta errores |
+| `wc -l` | Cuenta líneas |
+
+### Ejercicio 2: Contar Paquetes Instalados
+
+**Objetivo:** Determinar el total de paquetes instalados.
+
+```bash
+dpkg -l | grep -c "^ii"
+```
+
+**Resultado:**
+```
+737
+```
+
+**Respuesta:** `737`
+
+**¿Por qué `grep -c "^ii"`?**
+
+El formato de `dpkg -l` incluye:
+- Headers (líneas de encabezado)
+- Paquetes con diferentes estados
+
+El patrón `^ii` filtra solo paquetes correctamente instalados:
+- Primer `i` = "instalado"
+- Segundo `i` = "correctamente configurado"
+
+## Conceptos Teóricos
+
+### File Descriptors Estándar
+
+| FD | Nombre | Descripción | Default |
+|----|--------|-------------|---------|
+| 0 | STDIN | Entrada estándar | Teclado |
+| 1 | STDOUT | Salida estándar | Terminal |
+| 2 | STDERR | Errores | Terminal |
+
+### Operadores de Redirección
+
+```bash
+# STDOUT a archivo (sobrescribe)
+comando > archivo.txt
+
+# STDOUT a archivo (añade)
+comando >> archivo.txt
+
+# STDERR a archivo
+comando 2> errores.txt
+
+# Descartar errores
+comando 2>/dev/null
+
+# STDOUT y STDERR separados
+comando 1> salida.txt 2> errores.txt
+
+# STDOUT y STDERR al mismo archivo
+comando &> todo.txt
+
+# STDIN desde archivo
+comando < entrada.txt
+```
+
+### Here Documents
+
+```bash
+# Crear archivo con múltiples líneas
+cat << EOF > config.yml
+database:
+  host: localhost
+  port: 5432
+EOF
+```
+
+### Pipes y Encadenamiento
+
+```bash
+# Pipe simple
+cat archivo.txt | grep "error"
+
+# Múltiples pipes
+cat access.log | grep "404" | wc -l
+
+# Con tee (ver y guardar)
+comando | tee salida.txt | grep "patrón"
+```
+
+## Casos de Uso Prácticos
+
+### Buscar Sin Errores de Permisos
+```bash
+find / -name "*.conf" 2>/dev/null
+find /etc/ -type f -perm 777 2>/dev/null
+```
+
+### Guardar y Contar Resultados
+```bash
+find / -name "*.log" 2>/dev/null | tee logs.txt | wc -l
+```
+
+### Filtrar y Procesar
+```bash
+# Encontrar archivos grandes
+find / -type f -size +100M 2>/dev/null | sort -k2
+
+# Buscar contenido en archivos
+grep -r "password" /var/ 2>/dev/null | head -20
+```
+
+### Análisis de Logs
+```bash
+# Contar errores por tipo
+cat /var/log/syslog | grep -i error | cut -d' ' -f5 | sort | uniq -c
+
+# Ver logs en tiempo real con filtro
+tail -f /var/log/syslog | grep --line-buffered "error"
+```
+
+## Estados de Paquetes dpkg
+
+| Código | Estado |
+|--------|--------|
+| `ii` | Instalado correctamente |
+| `rc` | Eliminado, configs presentes |
+| `un` | No instalado |
+| `in` | Instalación pendiente |
+| `hn` | Half-installed |
+
+### Comandos de Gestión de Paquetes
+```bash
+# Listar instalados
+dpkg -l | grep "^ii"
+
+# Buscar paquete
+dpkg -l | grep nginx
+
+# Información del paquete
+dpkg -s nginx
+
+# Archivos del paquete
+dpkg -L nginx
+
+# Qué paquete instaló un archivo
+dpkg -S /usr/bin/nginx
+```
+
+## ¿Qué Aprendimos?
+
+1. **File Descriptors:** 0, 1, 2 son STDIN, STDOUT, STDERR
+2. **Redirección:** `>` sobrescribe, `>>` añade
+3. **Silenciar errores:** `2>/dev/null` es esencial
+4. **Pipes:** Conectan comandos en cadenas eficientes
+5. **dpkg:** Usar `grep "^ii"` para contar solo instalados
+
+## Autoevaluación
+
+1. ¿Cuál es la diferencia entre `>` y `>>`?
+2. ¿Qué hace `2>&1`?
+3. ¿Cómo guardarías STDOUT y STDERR en el mismo archivo?
+4. ¿Por qué `dpkg -l | wc -l` no da el número correcto de paquetes?
+5. ¿Qué es un "here document" y cuándo usarlo?
+
+## Referencias
+
+- [Bash Redirections](https://www.gnu.org/software/bash/manual/html_node/Redirections.html)
+- [File descriptor - Wikipedia](https://en.wikipedia.org/wiki/File_descriptor)
+- [dpkg(1) - Linux manual](https://man7.org/linux/man-pages/man1/dpkg.1.html)
