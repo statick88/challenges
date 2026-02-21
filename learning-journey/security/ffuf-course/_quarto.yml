@@ -1,0 +1,99 @@
+project:
+  type: book
+  output-dir: _book
+
+book:
+  title: "Attacking Web Applications with Ffuf"
+  subtitle: "HTB Academy Course Notes"
+  author: "Diego Saavedra"
+  date: "2026-02-21"
+
+  search: true
+  repo-url: https://github.com/statick/cursos
+  repo-subdir: learning-journey/security/ffuf-course
+  repo-actions: [edit, source]
+  sharing: [twitter, linkedin]
+  
+  page-navigation: true
+  page-footer:
+    left: |
+      Attacking Web Applications with Ffuf
+    right: |
+      HTB Academy Course Notes
+    border: true
+  
+  chapters:
+    - index.qmd
+    - part: "Unidad 1: Introducción"
+      chapters:
+        - 01-introduction.qmd
+        - 02-web-fuzzing.qmd
+    - part: "Unidad 2: Basic Fuzzing"
+      chapters:
+        - 03-directory-fuzzing.qmd
+        - 04-page-fuzzing.qmd
+        - 05-recursive-fuzzing.qmd
+    - part: "Unidad 3: Domain Fuzzing"
+      chapters:
+        - 06-subdomain-fuzzing.qmd
+        - 07-vhost-fuzzing.qmd
+        - 08-filtering.qmd
+    - part: "Unidad 4: Parameter Fuzzing"
+      chapters:
+        - 09-parameter-fuzzing.qmd
+        - 10-value-fuzzing.qmd
+    - part: "Unidad 5: Skills Assessment"
+      chapters:
+        - 11-assessment.qmd
+
+format:
+  html:
+    theme:
+      light: cosmo
+      dark: cyborg
+    code-copy: true
+    code-overflow: scroll
+    highlight-style: github
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    
+  epub:
+    toc: true
+    toc-depth: 2
+    number-sections: true
+
+  pdf:
+    documentclass: report
+    papersize: a4
+    toc: true
+    toc-depth: 2
+    number-sections: true
+    colorlinks: true
+    highlight-style: github
+    pdf-engine: xelatex
+    include-in-header:
+      text: |
+        \usepackage{fvextra}
+        \DefineVerbatimEnvironment{Highlighting}{Verbatim}{
+          breaklines,
+          commandchars=\\\{\}
+        }
+
+metadata:
+  lang: es
+  language:
+    title-block-author-single: "Autor"
+    title-block-date-single: "Fecha"
+    toc-title: "Contenido"
+    chapter-title: "Capítulo"
+    part-title: "Parte"
+  keywords: [security, web, fuzzing, ffuf, htb, academy, penetration testing]
+  description: |
+    Notas completas del módulo Attacking Web Applications with Ffuf de HTB Academy.
+    Aprende a usar ffuf para fuzzing de directorios, subdominios, vhosts, parámetros y valores.
+
+execute:
+  echo: true
+  eval: false
+  freeze: auto

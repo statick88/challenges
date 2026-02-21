@@ -1,0 +1,174 @@
+---
+title: "Recursive Fuzzing"
+description: "Fuzzing recursivo de directorios"
+author: "Diego Saavedra"
+date: "2026-02-20"
+categories: [security, ffuf, recursion]
+---
+
+# Recursive Fuzzing
+
+## Objetivo
+
+Al finalizar esta seccion, seras capaz de:
+
+- Usar fuzzing recursivo con ffuf
+- Configurar profundidad de recursion
+- Optimizar escaneos recursivos
+
+## Que es Recursive Fuzzing?
+
+El fuzzing recursivo escanea directorios encontrados automaticamente, sin necesidad de ejecutar ffuf multiples veces.
+
+### Sin Recursion
+
+```bash
+# Paso 1: Fuzzear raiz
+ffuf -w wordlist.txt -u http://target/FUZZ
+# Encontramos: /blog
+
+# Paso 2: Fuzzear /blog
+ffuf -w wordlist.txt -u http://target/blog/FUZZ
+# Encontramos: /blog/admin
+
+# Paso 3: Fuzzear /blog/admin
+ffuf -w wordlist.txt -u http://target/blog/admin/FUZZ
+```
+
+### Con Recursion
+
+```bash
+# Todo en un comando
+ffuf -w wordlist.txt -u http://target/FUZZ -recursion -recursion-depth 2
+```
+
+## Opciones de Recursion
+
+| Opcion | Descripcion |
+|--------|-------------|
+| `-recursion` | Habilita fuzzing recursivo |
+| `-recursion-depth` | Profundidad maxima (default: 0) |
+
+## Ejemplo
+
+```bash
+ffuf -w /opt/useful/seclists/Discovery/Web-Content/directory-list-2.3-small.txt:FUZZ \
+     -u http://SERVER_IP:PORT/FUZZ \
+     -recursion \
+     -recursion-depth 1 \
+     -ic
+```
+
+### Output
+
+```
+blog                    [Status: 301, Size: 326, Words: 20, Lines: 10]
+    blog/admin          [Status: 301, Size: 330, Words: 20, Lines: 10]
+    blog/posts          [Status: 301, Size: 331, Words: 20, Lines: 10]
+forum                   [Status: 301, Size: 323, Words: 20, Lines: 10]
+```
+
+## Consideraciones
+
+### Ventajas
+
+- Automatiza escaneo completo
+- Descubre estructuras profundas
+- Un solo comando
+
+### Desventajas
+
+- Puede tomar mucho tiempo
+- Genera mucho trafico
+- Puede causar DoS si no se controla
+
+## Mejores Practicas
+
+1. **Limitar profundidad**: Usar `-recursion-depth 1` o `2`
+2. **Reducir threads**: `-t 20` para recursion
+3. **Filtrar falsos positivos**: Usar `-fs` para filtrar tamaños
+
+```bash
+ffuf -w wordlist.txt:FUZZ \
+     -u http://target/FUZZ \
+     -recursion \
+     -recursion-depth 2 \
+     -t 20 \
+     -fs 0
+```
+
+## Ejercicio Practico
+
+### Objetivo
+
+Usar fuzzing recursivo para encontrar una flag oculta en un subdirectorio.
+
+### Solucion
+
+**Paso 1: Fuzzear directorios raiz**
+
+```bash
+ffuf -w /opt/SecLists/Discovery/Web-Content/DirBuster-2007_directory-list-2.3-small.txt:FUZZ \
+     -u http://154.57.164.70:31556/FUZZ \
+     -recursion \
+     -recursion-depth 1 \
+     -e .php \
+     -fs 0
+```
+
+**Paso 2: Directorios encontrados**
+
+```
+blog                    [Status: 301, Size: 322, Words: 20, Lines: 10]
+forum                   [Status: 301, Size: 323, Words: 20, Lines: 10]
+```
+
+**Paso 3: Fuzzear /forum/ (manualmente)**
+
+```bash
+ffuf -w /opt/SecLists/Discovery/Web-Content/common.txt:FUZZ \
+     -u http://154.57.164.70:31556/forum/FUZZ \
+     -e .php \
+     -fs 0
+```
+
+Resultado:
+```
+flag.php                [Status: 200, Size: 21, Words: 1, Lines: 1]
+```
+
+**Paso 4: Obtener la flag**
+
+```bash
+curl http://154.57.164.70:31556/forum/flag.php
+```
+
+### Flag
+
+```
+HTB{fuzz1n6_7h3_w3b!}
+```
+
+### Analisis
+
+| Directorio | Archivo | Contenido |
+|------------|---------|-----------|
+| `/blog/` | `home.php` | Flag de Page Fuzzing |
+| `/forum/` | `flag.php` | Flag de Recursive Fuzzing |
+
+El fuzzing recursivo permite descubrir archivos dentro de directorios automaticamente, sin necesidad de ejecutar comandos manuales para cada directorio encontrado.
+
+## Que Aprendimos
+
+- Recursion automatiza escaneo de subdirectorios
+- `-recursion-depth` limita la profundidad
+- Reducir threads para evitar sobrecarga
+- Filtrar respuestas vacias con `-fs 0`
+
+## Proximos Pasos
+
+En la siguiente seccion aprenderemos sobre [Subdomain Fuzzing](06-subdomain-fuzzing.html).
+
+---
+
+[Volver al Modulo](index.html) | [Subdomain Fuzzing ->](06-subdomain-fuzzing.html)

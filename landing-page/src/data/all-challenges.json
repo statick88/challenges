@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-02-20T21:12:44.554Z",
+  "lastUpdated": "2026-02-21T03:01:15.385Z",
   "linux": [
     {
       "id": "01-creacion-usuarios",
@@ -180,6 +180,15 @@
       "date": "2026-02-20",
       "excerpt": "Reto 19: Filtrado y Copia de Archivos de Usuario - Nautilus App Server 2",
       "path": "/challenges/linux/19-filtrado-archivos-usuario"
+    },
+    {
+      "id": "20-disable-root-ssh-login",
+      "title": "Reto 20: Disable Direct Root SSH Login - xFusionCorp Industries",
+      "status": "completed",
+      "difficulty": "easy",
+      "date": "2026-02-21",
+      "excerpt": "Reto 20: Disable Direct Root SSH Login - xFusionCorp Industries",
+      "path": "/challenges/linux/20-disable-root-ssh-login"
     }
   ],
   "docker": [
@@ -300,104 +309,44 @@
       "day": 6
     },
     {
-      "id": "day-07-ansible-installation",
-      "title": "Instalación de Ansible 4.9.0 en Jump Host",
+      "id": "day-07-linux-ssh-authentication",
+      "title": "Day 7: Linux SSH Authentication",
       "status": "completed",
       "difficulty": "2",
-      "date": "2026-02-04",
-      "excerpt": "🎓 Día 7: Configuration Management con Ansible",
-      "path": "/challenges/devops/day-07-ansible-installation",
+      "date": "2026-01-31",
+      "excerpt": "Day 7: Linux SSH Authentication",
+      "path": "/challenges/devops/day-07-linux-ssh-authentication",
       "day": 7
     },
     {
-      "id": "day-08-mariadb-troubleshooting",
-      "title": "Reto: Arreglar Servicio MariaDB - Nautilus App",
+      "id": "day-08-ansible-installation",
+      "title": "Day 8: Install Ansible",
+      "status": "completed",
+      "difficulty": "2",
+      "date": "2026-02-04",
+      "excerpt": "Day 8: Install Ansible",
+      "path": "/challenges/devops/day-08-ansible-installation",
+      "day": 8
+    },
+    {
+      "id": "day-09-mariadb-troubleshooting",
+      "title": "Day 9: MariaDB Troubleshooting",
       "status": "completed",
       "difficulty": "2",
       "date": "2026-02-20",
-      "excerpt": "Reto: Arreglar Servicio MariaDB - Nautilus App",
-      "path": "/challenges/devops/day-08-mariadb-troubleshooting",
-      "day": 8
-    },
-    {
-      "id": "day-08-sudo-deployment",
-      "title": "Configuración de Permisos Sudo para Usuario",
-      "status": "ready",
-      "difficulty": "2",
-      "date": "2026-02-05",
-      "excerpt": "🎓 Día 8: Permisos Sudo y Privilege Escalation",
-      "path": "/challenges/devops/day-08-sudo-deployment",
-      "day": 8
-    },
-    {
-      "id": "day-09-git-configuration",
-      "title": "Configuración de Git Global y Usuario",
-      "status": "ready",
-      "difficulty": "1",
-      "date": "2026-02-05",
-      "excerpt": "🎓 Día 9: Fundamentos de Git para DevOps",
-      "path": "/challenges/devops/day-09-git-configuration",
+      "excerpt": "Day 9: MariaDB Troubleshooting",
+      "path": "/challenges/devops/day-09-mariadb-troubleshooting",
       "day": 9
     },
     {
-      "id": "day-10-ssh-passwordless",
-      "title": "Configuración de SSH sin Contraseña",
-      "status": "ready",
-      "difficulty": "3",
-      "date": "2026-02-05",
-      "excerpt": "🎓 Día 10: Autenticación SSH sin Contraseña",
-      "path": "/challenges/devops/day-10-ssh-passwordless",
+      "id": "day-10-backup-script-scp",
+      "title": "Linux Bash Scripts - Website Backup Automation",
+      "status": "completed",
+      "difficulty": "2",
+      "date": "2026-02-21",
+      "excerpt": "Day 10: Linux Bash Scripts - Backup con SCP",
+      "path": "/challenges/devops/day-10-backup-script-scp",
       "day": 10
-    },
-    {
-      "id": "day-11-environment-variables",
-      "title": "Configuración de Variables de Entorno",
-      "status": "ready",
-      "difficulty": "1",
-      "date": "2026-02-05",
-      "excerpt": "🎓 Día 11: Variables de Entorno y Configuración de Aplicaciones",
-      "path": "/challenges/devops/day-11-environment-variables",
-      "day": 11
-    },
-    {
-      "id": "day-12-nginx-setup",
-      "title": "Instalación y Configuración de Nginx",
-      "status": "ready",
-      "difficulty": "3",
-      "date": "2026-02-05",
-      "excerpt": "🎓 Día 12: Despliegue de Servicios con Nginx",
-      "path": "/challenges/devops/day-12-nginx-setup",
-      "day": 12
-    },
-    {
-      "id": "day-13-service-troubleshooting",
-      "title": "Resolución de Problemas de Servicio",
-      "status": "ready",
-      "difficulty": "2",
-      "date": "2026-02-05",
-      "excerpt": "🎓 Día 13: Troubleshooting y Debugging de Servicios",
-      "path": "/challenges/devops/day-13-service-troubleshooting",
-      "day": 13
-    },
-    {
-      "id": "day-14-backup-script",
-      "title": "Configuración de Respaldo con tar",
-      "status": "ready",
-      "difficulty": "2",
-      "date": "2026-02-05",
-      "excerpt": "🎓 Día 14: Automatización de Backups",
-      "path": "/challenges/devops/day-14-backup-script",
-      "day": 14
-    },
-    {
-      "id": "day-15-timezone-config",
-      "title": "Configuración de Zona Horaria",
-      "status": "ready",
-      "difficulty": "1",
-      "date": "2026-02-05",
-      "excerpt": "🎓 Día 15: Sincronización Temporal y Consistencia",
-      "path": "/challenges/devops/day-15-timezone-config",
-      "day": 15
     }
   ],
   "ctf": [

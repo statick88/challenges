@@ -1,0 +1,99 @@
+---
+title: "Web Fuzzing"
+description: "Fundamentos de web fuzzing y wordlists"
+author: "Diego Saavedra"
+date: "2026-02-20"
+categories: [security, web, wordlists]
+---
+
+# Web Fuzzing
+
+## Objetivo
+
+Al finalizar esta seccion, seras capaz de:
+
+- Entender el concepto de web fuzzing
+- Conocer las wordlists mas utilizadas
+- Ubicar wordlists en SecLists
+
+## Concepto de Web Fuzzing
+
+El web fuzzing prueba automaticamente cientos de URLs para determinar cuales existen basandose en los codigos de respuesta HTTP.
+
+### Codigos HTTP Importantes
+
+| Codigo | Significado | Indica |
+|--------|-------------|--------|
+| **200** | OK | Pagina existe |
+| **301/302** | Redirect | Directorio o redireccion |
+| **401** | Unauthorized | Requiere autenticacion |
+| **403** | Forbidden | Existe pero sin acceso |
+| **404** | Not Found | No existe |
+| **500** | Server Error | Error del servidor |
+
+## Wordlists
+
+Una wordlist contiene comunmente palabras usadas para directorios y paginas web.
+
+### SecLists Repository
+
+**SecLists** es la coleccion de wordlists mas utilizada:
+
+```
+/opt/useful/SecLists/
+├── Discovery/
+│   ├── Web-Content/
+│   │   ├── directory-list-2.3-small.txt
+│   │   ├── directory-list-2.3-medium.txt
+│   │   └── common.txt
+│   └── DNS/
+├── Passwords/
+└── Fuzzing/
+```
+
+### Wordlist Recomendada
+
+Para directory fuzzing:
+
+```bash
+/opt/useful/SecLists/Discovery/Web-Content/directory-list-2.3-small.txt
+```
+
+::: {.callout-tip}
+## Ignorar Comentarios
+Usa `-ic` para ignorar lineas de comentarios en wordlists.
+:::
+
+## Estructura de SecLists
+
+| Directorio | Contenido |
+|------------|-----------|
+| **Discovery/Web-Content** | Directorios, archivos, paginas |
+| **Discovery/DNS** | Subdominios |
+| **Passwords** | Passwords comunes |
+| **Fuzzing** | Payloads varios |
+
+## Tasa de Exito
+
+Las wordlists pueden encontrar hasta **90%** de las paginas existentes en algunos sitios web.
+
+### Limitaciones
+
+- Algunas paginas tienen nombres aleatorios
+- Nombres unicos no seran encontrados
+- Wordlists especificas pueden ser necesarias
+
+## Que Aprendimos
+
+- Web fuzzing automatiza el descubrimiento de contenido
+- Los codigos HTTP indican si existe contenido
+- SecLists es la fuente principal de wordlists
+- La wordlist `directory-list-2.3-small.txt` es ideal para empezar
+
+## Proximos Pasos
+
+En la siguiente seccion aprenderemos sobre [Directory Fuzzing](03-directory-fuzzing.html).
+
+---
+
+[Volver al Modulo](index.html) | [Directory Fuzzing ->](03-directory-fuzzing.html)

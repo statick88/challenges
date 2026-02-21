@@ -1,0 +1,132 @@
+---
+title: "Introduction to Networking - HTB Academy"
+description: "Fundamentos de redes esenciales para profesionales de seguridad informatica"
+author: "Diego Saavedra"
+date: "2026-02-20"
+categories: [networking, security, htb]
+---
+
+# Introduction to Networking
+
+![Networking Module](https://academy.hackthebox.com/storage/modules/35/logo.png){width=200px}
+
+## Que es este Modulo?
+
+Como profesional de seguridad informatica, tener una comprension firme de los fundamentos de redes es necesario. Sin una base solida en networking, sera dificil progresar en cualquier area de seguridad informatica.
+
+## Objetivos del Modulo
+
+Al completar este modulo, seras capaz de:
+
+- Entender la estructura y diseno de Internet
+- Identificar topologias de red utilizadas
+- Comprender el rol de los proxies en las redes
+- Diferenciar entre el modelo OSI y TCP/IP
+- Realizar direccionamiento IPv4/IPv6
+
+## Contenido del Curso
+
+### Unidad 1: Introduccion
+
+- [Networking Overview](01-networking-overview.html) - Conceptos fundamentales
+
+### Unidad 2: Networking Structure
+
+- [Network Types](02-network-types.html) - WAN, LAN, WLAN, VPN
+- [Networking Topologies](03-topologies.html) - Star, Ring, Mesh, Tree
+- [Proxies](04-proxies.html) - Forward, Reverse, Transparent
+
+### Unidad 3: Networking Workflow
+
+- [Networking Models](05-models.html) - OSI vs TCP/IP
+- [OSI Model](06-osi-model.html) - Las 7 capas
+- [TCP/IP Model](07-tcp-ip-model.html) - Las 4 capas
+
+### Unidad 4: Addressing
+
+- [Network Layer](08-network-layer.html) - Capa 3 OSI
+- [IP Addresses](09-ip-addresses.html) - Estructura IPv4
+- [Subnetting](10-subnetting.html) - Division de redes
+
+### Progreso del Modulo
+
+```{=html}
+<div class="progress-summary">
+  <div class="progress-item">
+    <span class="progress-number">21</span>
+    <span class="progress-label">Secciones</span>
+  </div>
+  <div class="progress-item">
+    <span class="progress-number">6</span>
+    <span class="progress-label">Unidades</span>
+  </div>
+  <div class="progress-item">
+    <span class="progress-number">0%</span>
+    <span class="progress-label">Progreso</span>
+  </div>
+</div>
+```
+
+## Requisitos
+
+- Conocimientos basicos de informatica
+- Curiosidad por entender como funciona Internet
+- Ganas de aprender conceptos tecnicos
+
+## Importancia para Seguridad
+
+Una red mal disenada puede:
+
+- Permitir movimiento lateral facil
+- Facilitar ataques de Man-in-the-Middle
+- Exponer servicios innecesarios
+- Dificultar la deteccion de intrusos
+
+## CREST Certificaciones
+
+Este modulo cubre secciones relevantes para:
+
+- **CREST CPSA/CRT**: Todas las secciones
+- **CREST CCT APP**: Todas las secciones
+- **CREST CCT INF**: Todas las secciones
+
+## Verificacion
+
+- **Platform**: HTB Academy
+- **Module**: Introduction to Networking
+- **Tier**: 0 (Fundamental)
+- **Cubes**: 10
+
+---
+
+*Este curso documenta el aprendizaje del modulo Introduction to Networking de HTB Academy.*
+
+```{=html}
+<style>
+.progress-summary {
+  display: flex;
+  justify-content: space-around;
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  border: 1px solid #334155;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.progress-item {
+  text-align: center;
+}
+
+.progress-number {
+  display: block;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #22c55e;
+}
+
+.progress-label {
+  font-size: 0.85rem;
+  color: #94a3b8;
+}
+</style>
+```

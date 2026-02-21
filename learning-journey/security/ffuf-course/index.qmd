@@ -1,0 +1,75 @@
+---
+title: "Attacking Web Applications with Ffuf"
+subtitle: "HTB Academy Course Notes"
+author: "Diego Saavedra"
+date: "2026-02-21"
+description: |
+  Notas completas del módulo Attacking Web Applications with Ffuf de HTB Academy.
+  Aprende a usar ffuf para fuzzing de directorios, subdominios, vhosts, parámetros y valores.
+keywords: [security, web, fuzzing, ffuf, htb, academy, penetration testing]
+---
+
+# Prefacio
+
+![Ffuf Module](https://academy.hackthebox.com/storage/modules/54/logo.png){width=150px}
+
+## Sobre este libro
+
+Este libro documenta el aprendizaje del módulo **Attacking Web Applications with Ffuf** de HTB Academy. Contiene notas detalladas, comandos, ejemplos y la resolución completa del Skills Assessment.
+
+## Objetivos del Módulo
+
+Al completar este módulo, serás capaz de:
+
+- **Encontrar páginas y directorios ocultos** mediante directory fuzzing
+- **Identificar vhosts y subdominios** usando DNS y VHost fuzzing
+- **Fuzzear parámetros PHP** para descubrir inputs ocultos
+- **Fuzzear valores de parámetros** para encontrar datos válidos
+
+## Estructura del Libro
+
+| Parte | Contenido |
+|-------|-----------|
+| **Unidad 1** | Introducción a ffuf y conceptos de web fuzzing |
+| **Unidad 2** | Basic Fuzzing: Directorios, páginas y recursividad |
+| **Unidad 3** | Domain Fuzzing: Subdominios, VHosts y filtrado |
+| **Unidad 4** | Parameter Fuzzing: Parámetros y valores |
+| **Unidad 5** | Skills Assessment: Evaluación práctica completa |
+
+## Requisitos Previos
+
+- Introduction to Networking
+- Linux Fundamentals
+- Web Requests
+
+## Herramientas
+
+| Herramienta | Propósito |
+|-------------|-----------|
+| **ffuf** | Fuzzing rápido y flexible |
+| **SecLists** | Colección de wordlists |
+| **curl** | Verificación manual |
+
+## Logros
+
+::: {.callout-success}
+## Módulo Completado
+
+- **Platform**: HTB Academy
+- **Module**: Attacking Web Applications with Ffuf
+- **Tier**: 0 (Easy)
+- **Cubes**: 10
+- **Exercises**: 12/12
+- **Achievement**: https://academy.hackthebox.com/achievement/2300153/54
+:::
+
+## Cómo usar este libro
+
+1. **Lee las secciones teóricas** para entender los conceptos
+2. **Practica los comandos** en tu entorno de laboratorio
+3. **Usa las tablas de referencia** como guía rápida
+4. **Completa el Skills Assessment** para validar tus conocimientos
+
+---
+
+*Este libro documenta el aprendizaje del módulo Attacking Web Applications with Ffuf de HTB Academy.*

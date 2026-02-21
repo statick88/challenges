@@ -1,0 +1,664 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Web Requests",
+    "section": "",
+    "text": "1 Prefacio",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Web Requests</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#sobre-este-libro",
+    "href": "index.html#sobre-este-libro",
+    "title": "Web Requests",
+    "section": "1.1 Sobre este libro",
+    "text": "1.1 Sobre este libro\nEste libro documenta el aprendizaje del módulo Web Requests de HTB Academy. Contiene notas detalladas, comandos, ejemplos y la resolución completa de todos los ejercicios.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Web Requests</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#objetivos-del-módulo",
+    "href": "index.html#objetivos-del-módulo",
+    "title": "Web Requests",
+    "section": "1.2 Objetivos del Módulo",
+    "text": "1.2 Objetivos del Módulo\nAl completar este módulo, serás capaz de:\n\nEntender el protocolo HTTP/HTTPS y su funcionamiento\nAnalizar requests y responses con cURL y Browser DevTools\nManipular headers para interactuar con web applications\nUsar métodos HTTP (GET, POST, PUT, DELETE)\nInteractuar con APIs mediante CRUD operations",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Web Requests</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#estructura-del-libro",
+    "href": "index.html#estructura-del-libro",
+    "title": "Web Requests",
+    "section": "1.3 Estructura del Libro",
+    "text": "1.3 Estructura del Libro\n\n\n\n\n\n\n\nParte\nContenido\n\n\n\n\nUnidad 1\nHTTP Fundamentals: Protocolo, HTTPS, Requests/Responses, Headers\n\n\nUnidad 2\nHTTP Methods: GET, POST, PUT, DELETE, CRUD APIs",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Web Requests</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#requisitos-previos",
+    "href": "index.html#requisitos-previos",
+    "title": "Web Requests",
+    "section": "1.4 Requisitos Previos",
+    "text": "1.4 Requisitos Previos\n\nIntroduction to Networking\nLinux Fundamentals",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Web Requests</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#herramientas",
+    "href": "index.html#herramientas",
+    "title": "Web Requests",
+    "section": "1.5 Herramientas",
+    "text": "1.5 Herramientas\n\n\n\nHerramienta\nPropósito\n\n\n\n\ncURL\nCommand line HTTP client\n\n\nBrowser DevTools\nNetwork analysis\n\n\njq\nJSON formatting",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Web Requests</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#logros",
+    "href": "index.html#logros",
+    "title": "Web Requests",
+    "section": "1.6 Logros",
+    "text": "1.6 Logros",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Web Requests</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#módulo-completado",
+    "href": "index.html#módulo-completado",
+    "title": "Web Requests",
+    "section": "1.7 Módulo Completado",
+    "text": "1.7 Módulo Completado\n\nPlatform: HTB Academy\nModule: Web Requests\nTier: 0 (Fundamental)\nCubes: 10\nSections: 8/8\nAchievement: https://academy.hackthebox.com/achievement/2300153/35",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Web Requests</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#flags-obtenidas",
+    "href": "index.html#flags-obtenidas",
+    "title": "Web Requests",
+    "section": "1.8 Flags Obtenidas",
+    "text": "1.8 Flags Obtenidas\n\n\n\nSección\nFlag\n\n\n\n\nHTTP Fundamentals\nHTB{64$!c_cURL_u$3r}\n\n\nHTTP Headers\nHTB{p493_r3qu3$t$_m0n!t0r}\n\n\nGET Method\nHTB{curl_g3773r}\n\n\nPOST Method\nHTB{p0$t_r3p34t3r}\n\n\nCRUD API\nHTB{crud_4p!_m4n!pul4t0r}\n\n\n\n\nEste libro documenta el aprendizaje del módulo Web Requests de HTB Academy.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Web Requests</span>"
+    ]
+  },
+  {
+    "objectID": "01-http-fundamentals.html",
+    "href": "01-http-fundamentals.html",
+    "title": "2  HTTP Fundamentals",
+    "section": "",
+    "text": "2.1 HyperText Transfer Protocol (HTTP)\nHTTP es un protocolo de nivel de aplicación usado para acceder a recursos del World Wide Web. La comunicación HTTP consiste en un cliente y un servidor, donde el cliente solicita recursos al servidor.",
+    "crumbs": [
+      "Unidad 1: HTTP Fundamentals",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>HTTP Fundamentals</span>"
+    ]
+  },
+  {
+    "objectID": "01-http-fundamentals.html#hypertext-transfer-protocol-http",
+    "href": "01-http-fundamentals.html#hypertext-transfer-protocol-http",
+    "title": "2  HTTP Fundamentals",
+    "section": "",
+    "text": "2.1.1 Estructura de una URL\nhttp://admin:password@inlanefreight.com:80/dashboard.php?login=true#status\n\n\n\nComponente\nEjemplo\nDescripción\n\n\n\n\nScheme\nhttp://\nProtocolo utilizado\n\n\nUser Info\nadmin:password@\nCredenciales (opcional)\n\n\nHost\ninlanefreight.com\nDominio o IP del recurso\n\n\nPort\n:80\nPuerto (80=HTTP, 443=HTTPS)\n\n\nPath\n/dashboard.php\nRuta del recurso\n\n\nQuery String\n?login=true\nParámetros (empiezan con ?)\n\n\nFragment\n#status\nSección dentro del recurso\n\n\n\n\n\n2.1.2 Flujo HTTP\n1. Usuario ingresa URL en navegador\n2. Navegador consulta DNS para resolver IP\n3. DNS devuelve la IP del servidor\n4. Navegador envía GET request al puerto 80\n5. Servidor procesa request y devuelve response\n6. Navegador renderiza el contenido",
+    "crumbs": [
+      "Unidad 1: HTTP Fundamentals",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>HTTP Fundamentals</span>"
+    ]
+  },
+  {
+    "objectID": "01-http-fundamentals.html#curl-cliente-http-de-línea-de-comandos",
+    "href": "01-http-fundamentals.html#curl-cliente-http-de-línea-de-comandos",
+    "title": "2  HTTP Fundamentals",
+    "section": "2.2 cURL: Cliente HTTP de Línea de Comandos",
+    "text": "2.2 cURL: Cliente HTTP de Línea de Comandos\ncURL (client URL) es una herramienta esencial para penetration testers.\n\n2.2.1 Comandos Básicos\n# Request básico\ncurl http://example.com\n\n# Descargar archivo con nombre remoto\ncurl -O http://example.com/file.txt\n\n# Descargar con nombre específico\ncurl -o output.html http://example.com\n\n# Modo silencioso (sin progreso)\ncurl -s http://example.com\n\n# Ver headers de respuesta\ncurl -I http://example.com\n\n# Modo verbose (request + response completos)\ncurl -v http://example.com\n\n# Headers + body\ncurl -i http://example.com\n\n\n2.2.2 Flags Principales\n\n\n\nFlag\nDescripción\n\n\n\n\n-O\nDescargar con nombre remoto\n\n\n-o\nEspecificar nombre de archivo\n\n\n-s\nModo silencioso\n\n\n-I\nHEAD request (solo headers)\n\n\n-v\nModo verbose\n\n\n-i\nIncluir headers en output\n\n\n-h\nVer ayuda\n\n\n-k\nSkip SSL certificate check",
+    "crumbs": [
+      "Unidad 1: HTTP Fundamentals",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>HTTP Fundamentals</span>"
+    ]
+  },
+  {
+    "objectID": "01-http-fundamentals.html#ejercicio-práctico",
+    "href": "01-http-fundamentals.html#ejercicio-práctico",
+    "title": "2  HTTP Fundamentals",
+    "section": "2.3 Ejercicio Práctico",
+    "text": "2.3 Ejercicio Práctico\n# Descargar archivo del servidor\ncurl -O http://TARGET/download.php\n\n# Ver contenido directamente\ncurl http://TARGET/download.php\nFlag: HTB{64$!c_cURL_u$3r}",
+    "crumbs": [
+      "Unidad 1: HTTP Fundamentals",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>HTTP Fundamentals</span>"
+    ]
+  },
+  {
+    "objectID": "02-https.html",
+    "href": "02-https.html",
+    "title": "3  HTTPS - HTTP Secure",
+    "section": "",
+    "text": "3.1 El Problema de HTTP\nHTTP transmite todos los datos en texto plano, permitiendo ataques Man-in-the-Middle (MiTM) para interceptar información sensible como credenciales.",
+    "crumbs": [
+      "Unidad 1: HTTP Fundamentals",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>HTTPS - HTTP Secure</span>"
+    ]
+  },
+  {
+    "objectID": "02-https.html#https-solución-de-cifrado",
+    "href": "02-https.html#https-solución-de-cifrado",
+    "title": "3  HTTPS - HTTP Secure",
+    "section": "3.2 HTTPS: Solución de Cifrado",
+    "text": "3.2 HTTPS: Solución de Cifrado\nHTTPS cifra todas las comunicaciones, protegiendo los datos incluso si son interceptados.\n\n3.2.1 Identificación de HTTPS\n\nURL: https:// en lugar de http://\nIcono: Candado en la barra de direcciones\nPuerto: 443 (por defecto)",
+    "crumbs": [
+      "Unidad 1: HTTP Fundamentals",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>HTTPS - HTTP Secure</span>"
+    ]
+  },
+  {
+    "objectID": "02-https.html#flujo-https",
+    "href": "02-https.html#flujo-https",
+    "title": "3  HTTPS - HTTP Secure",
+    "section": "3.3 Flujo HTTPS",
+    "text": "3.3 Flujo HTTPS\n1. Cliente envía request HTTP a puerto 80\n2. Servidor responde con 301 Redirect a HTTPS\n3. Cliente envía \"client hello\" (información sobre sí mismo)\n4. Servidor responde \"server hello\" + certificado SSL\n5. Cliente verifica certificado y envía el suyo\n6. Handshake cifrado para confirmar comunicación\n7. Comunicación HTTP cifrada continúa",
+    "crumbs": [
+      "Unidad 1: HTTP Fundamentals",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>HTTPS - HTTP Secure</span>"
+    ]
+  },
+  {
+    "objectID": "02-https.html#curl-con-https",
+    "href": "02-https.html#curl-con-https",
+    "title": "3  HTTPS - HTTP Secure",
+    "section": "3.4 cURL con HTTPS",
+    "text": "3.4 cURL con HTTPS\n# Request HTTPS básico\ncurl https://example.com\n\n# Si el certificado SSL es inválido\ncurl https://bad-cert.example.com\n# Error: SSL certificate problem: Invalid certificate chain\n\n# Skip verificación de certificado\ncurl -k https://bad-cert.example.com\n\n3.4.1 Flags HTTPS\n\n\n\nFlag\nDescripción\n\n\n\n\nSin flags\ncURL maneja HTTPS automáticamente\n\n\n-k\nSkip SSL certificate verification",
+    "crumbs": [
+      "Unidad 1: HTTP Fundamentals",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>HTTPS - HTTP Secure</span>"
+    ]
+  },
+  {
+    "objectID": "02-https.html#notas-de-seguridad",
+    "href": "02-https.html#notas-de-seguridad",
+    "title": "3  HTTPS - HTTP Secure",
+    "section": "3.5 Notas de Seguridad",
+    "text": "3.5 Notas de Seguridad\n\nImportante: Aunque HTTPS cifra los datos, la URL visitada puede revelarse si se usa un DNS en texto plano. Se recomienda usar DNS cifrado (8.8.8.8 o 1.1.1.1) o VPN.",
+    "crumbs": [
+      "Unidad 1: HTTP Fundamentals",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>HTTPS - HTTP Secure</span>"
+    ]
+  },
+  {
+    "objectID": "03-http-requests-responses.html",
+    "href": "03-http-requests-responses.html",
+    "title": "4  HTTP Requests and Responses",
+    "section": "",
+    "text": "4.1 HTTP Request\nUn HTTP request consta de:",
+    "crumbs": [
+      "Unidad 1: HTTP Fundamentals",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>HTTP Requests and Responses</span>"
+    ]
+  },
+  {
+    "objectID": "03-http-requests-responses.html#http-request",
+    "href": "03-http-requests-responses.html#http-request",
+    "title": "4  HTTP Requests and Responses",
+    "section": "",
+    "text": "GET /users/login.html HTTP/1.1\nHost: inlanefreight.com\nUser-Agent: Mozilla/5.0\nCookie: PHPSESSID=c4ggt4jull9obt7aupa55o8vbf\n\n[Request Body - opcional]\n\n4.1.1 Primera Línea del Request\n\n\n\nCampo\nEjemplo\nDescripción\n\n\n\n\nMethod\nGET\nTipo de acción\n\n\nPath\n/users/login.html\nRuta del recurso\n\n\nVersion\nHTTP/1.1\nVersión del protocolo",
+    "crumbs": [
+      "Unidad 1: HTTP Fundamentals",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>HTTP Requests and Responses</span>"
+    ]
+  },
+  {
+    "objectID": "03-http-requests-responses.html#http-response",
+    "href": "03-http-requests-responses.html#http-response",
+    "title": "4  HTTP Requests and Responses",
+    "section": "4.2 HTTP Response",
+    "text": "4.2 HTTP Response\nUn HTTP response consta de:\nHTTP/1.1 200 OK\nDate: Mon, 21 Feb 2022 13:19:57 GMT\nServer: Apache/2.4.41 (Ubuntu)\nContent-Type: text/html; charset=UTF-8\nSet-Cookie: PHPSESSID=m4u64rqlpfthrvvb12ai9voqgf\n\n&lt;!DOCTYPE html&gt;\n&lt;html&gt;...&lt;/html&gt;\n\n4.2.1 Primera Línea del Response\n\n\n\nCampo\nEjemplo\nDescripción\n\n\n\n\nVersion\nHTTP/1.1\nVersión del protocolo\n\n\nStatus Code\n200 OK\nEstado del request",
+    "crumbs": [
+      "Unidad 1: HTTP Fundamentals",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>HTTP Requests and Responses</span>"
+    ]
+  },
+  {
+    "objectID": "03-http-requests-responses.html#curl-verbose",
+    "href": "03-http-requests-responses.html#curl-verbose",
+    "title": "4  HTTP Requests and Responses",
+    "section": "4.3 cURL Verbose",
+    "text": "4.3 cURL Verbose\n# Ver request y response completos\ncurl -v http://example.com\n\n# Output:\n&gt; GET / HTTP/1.1              # Request line\n&gt; Host: example.com           # Request headers\n&gt; User-Agent: curl/7.65.3\n&gt; \n&lt; HTTP/1.1 200 OK             # Response line\n&lt; Server: Apache/2.4.41       # Response headers\n&lt; Content-Type: text/html\n&lt; \n&lt;!DOCTYPE html&gt;               # Response body",
+    "crumbs": [
+      "Unidad 1: HTTP Fundamentals",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>HTTP Requests and Responses</span>"
+    ]
+  },
+  {
+    "objectID": "03-http-requests-responses.html#browser-devtools",
+    "href": "03-http-requests-responses.html#browser-devtools",
+    "title": "4  HTTP Requests and Responses",
+    "section": "4.4 Browser DevTools",
+    "text": "4.4 Browser DevTools\n\n4.4.1 Abrir DevTools\n\nChrome/Firefox: F12 o Ctrl+Shift+I\nNetwork Tab: Monitorear requests\n\n\n\n4.4.2 Información Disponible\n\n\n\nColumna\nDescripción\n\n\n\n\nStatus\nCódigo de respuesta\n\n\nMethod\nMétodo HTTP usado\n\n\nDomain\nDominio/URL\n\n\nPath\nRuta del recurso\n\n\nType\nTipo de contenido\n\n\n\n\n\n4.4.3 Filtrar Requests\n\nUsar filtro de búsqueda para URLs específicos\nClick en request → ver detalles\nResponse tab: Ver body de respuesta\nRaw button: Ver código fuente sin renderizar",
+    "crumbs": [
+      "Unidad 1: HTTP Fundamentals",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>HTTP Requests and Responses</span>"
+    ]
+  },
+  {
+    "objectID": "03-http-requests-responses.html#ejercicio-práctico",
+    "href": "03-http-requests-responses.html#ejercicio-práctico",
+    "title": "4  HTTP Requests and Responses",
+    "section": "4.5 Ejercicio Práctico",
+    "text": "4.5 Ejercicio Práctico\n# Ver headers del servidor\ncurl -I http://TARGET\n\n# Buscar versión de Apache\ncurl -I http://TARGET | grep -i server\n# Server: Apache/2.4.41 (Ubuntu)\nRespuestas: - HTTP Method: GET - Apache Version: 2.4.41",
+    "crumbs": [
+      "Unidad 1: HTTP Fundamentals",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>HTTP Requests and Responses</span>"
+    ]
+  },
+  {
+    "objectID": "04-http-headers.html",
+    "href": "04-http-headers.html",
+    "title": "5  HTTP Headers",
+    "section": "",
+    "text": "5.1 Categorías de Headers\nLos headers HTTP pasan información entre cliente y servidor.",
+    "crumbs": [
+      "Unidad 1: HTTP Fundamentals",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>HTTP Headers</span>"
+    ]
+  },
+  {
+    "objectID": "04-http-headers.html#categorías-de-headers",
+    "href": "04-http-headers.html#categorías-de-headers",
+    "title": "5  HTTP Headers",
+    "section": "",
+    "text": "Categoría\nDescripción\n\n\n\n\nGeneral Headers\nContextuales, describen el mensaje\n\n\nEntity Headers\nDescriben el contenido transferido\n\n\nRequest Headers\nEnviados por el cliente\n\n\nResponse Headers\nEnviados por el servidor\n\n\nSecurity Headers\nPolíticas de seguridad",
+    "crumbs": [
+      "Unidad 1: HTTP Fundamentals",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>HTTP Headers</span>"
+    ]
+  },
+  {
+    "objectID": "04-http-headers.html#general-headers",
+    "href": "04-http-headers.html#general-headers",
+    "title": "5  HTTP Headers",
+    "section": "5.2 General Headers",
+    "text": "5.2 General Headers\n\n\n\n\n\n\n\n\nHeader\nEjemplo\nDescripción\n\n\n\n\nDate\nDate: Wed, 16 Feb 2022 10:38:44 GMT\nFecha y hora del mensaje\n\n\nConnection\nConnection: close\nMantener conexión viva o cerrar",
+    "crumbs": [
+      "Unidad 1: HTTP Fundamentals",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>HTTP Headers</span>"
+    ]
+  },
+  {
+    "objectID": "04-http-headers.html#entity-headers",
+    "href": "04-http-headers.html#entity-headers",
+    "title": "5  HTTP Headers",
+    "section": "5.3 Entity Headers",
+    "text": "5.3 Entity Headers\n\n\n\nHeader\nEjemplo\nDescripción\n\n\n\n\nContent-Type\nContent-Type: text/html\nTipo de recurso\n\n\nMedia-Type\nMedia-Type: application/pdf\nTipo de datos\n\n\nContent-Length\nContent-Length: 385\nTamaño del contenido\n\n\nContent-Encoding\nContent-Encoding: gzip\nCodificación usada",
+    "crumbs": [
+      "Unidad 1: HTTP Fundamentals",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>HTTP Headers</span>"
+    ]
+  },
+  {
+    "objectID": "04-http-headers.html#request-headers",
+    "href": "04-http-headers.html#request-headers",
+    "title": "5  HTTP Headers",
+    "section": "5.4 Request Headers",
+    "text": "5.4 Request Headers\n\n\n\n\n\n\n\n\nHeader\nEjemplo\nDescripción\n\n\n\n\nHost\nHost: www.example.com\nDominio consultado\n\n\nUser-Agent\nUser-Agent: curl/7.77.0\nCliente que hace el request\n\n\nReferer\nReferer: http://google.com\nOrigen del request\n\n\nAccept\nAccept: */*\nTipos aceptados\n\n\nCookie\nCookie: PHPSESSID=abc123\nCookies de sesión\n\n\nAuthorization\nAuthorization: BASIC cGFzc3dvcmQK\nCredenciales de autenticación",
+    "crumbs": [
+      "Unidad 1: HTTP Fundamentals",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>HTTP Headers</span>"
+    ]
+  },
+  {
+    "objectID": "04-http-headers.html#response-headers",
+    "href": "04-http-headers.html#response-headers",
+    "title": "5  HTTP Headers",
+    "section": "5.5 Response Headers",
+    "text": "5.5 Response Headers\n\n\n\n\n\n\n\n\nHeader\nEjemplo\nDescripción\n\n\n\n\nServer\nServer: Apache/2.4.41\nInformación del servidor\n\n\nSet-Cookie\nSet-Cookie: PHPSESSID=abc123\nEstablecer cookie\n\n\nWWW-Authenticate\nWWW-Authenticate: BASIC realm=\"localhost\"\nTipo de autenticación requerida",
+    "crumbs": [
+      "Unidad 1: HTTP Fundamentals",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>HTTP Headers</span>"
+    ]
+  },
+  {
+    "objectID": "04-http-headers.html#security-headers",
+    "href": "04-http-headers.html#security-headers",
+    "title": "5  HTTP Headers",
+    "section": "5.6 Security Headers",
+    "text": "5.6 Security Headers\n\n\n\nHeader\nEjemplo\nDescripción\n\n\n\n\nContent-Security-Policy\nscript-src 'self'\nPreviene XSS\n\n\nStrict-Transport-Security\nmax-age=31536000\nFuerza HTTPS\n\n\nReferrer-Policy\norigin\nControla información del referer",
+    "crumbs": [
+      "Unidad 1: HTTP Fundamentals",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>HTTP Headers</span>"
+    ]
+  },
+  {
+    "objectID": "04-http-headers.html#curl-con-headers",
+    "href": "04-http-headers.html#curl-con-headers",
+    "title": "5  HTTP Headers",
+    "section": "5.7 cURL con Headers",
+    "text": "5.7 cURL con Headers\n# Ver solo headers de respuesta\ncurl -I http://example.com\n\n# Ver headers + body\ncurl -i http://example.com\n\n# Establecer User-Agent personalizado\ncurl -A 'Mozilla/5.0' http://example.com\n\n# Establecer header personalizado\ncurl -H 'Authorization: Basic YWRtaW46YWRtaW4=' http://example.com",
+    "crumbs": [
+      "Unidad 1: HTTP Fundamentals",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>HTTP Headers</span>"
+    ]
+  },
+  {
+    "objectID": "04-http-headers.html#browser-devtools",
+    "href": "04-http-headers.html#browser-devtools",
+    "title": "5  HTTP Headers",
+    "section": "5.8 Browser DevTools",
+    "text": "5.8 Browser DevTools\n\nAbrir DevTools: F12\nIr a Network tab\nClick en request\nVer Headers tab\nClick Raw para ver formato original",
+    "crumbs": [
+      "Unidad 1: HTTP Fundamentals",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>HTTP Headers</span>"
+    ]
+  },
+  {
+    "objectID": "04-http-headers.html#ejercicio-práctico",
+    "href": "04-http-headers.html#ejercicio-práctico",
+    "title": "5  HTTP Headers",
+    "section": "5.9 Ejercicio Práctico",
+    "text": "5.9 Ejercicio Práctico\n# Usar Network tab en DevTools\n# Buscar request llamada 'flag_...'\n# Ver Response para obtener la flag\nFlag: HTB{p493_r3qu3$t$_m0n!t0r}",
+    "crumbs": [
+      "Unidad 1: HTTP Fundamentals",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>HTTP Headers</span>"
+    ]
+  },
+  {
+    "objectID": "05-http-methods-codes.html",
+    "href": "05-http-methods-codes.html",
+    "title": "6  HTTP Methods and Codes",
+    "section": "",
+    "text": "6.1 Request Methods",
+    "crumbs": [
+      "Unidad 2: HTTP Methods",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>HTTP Methods and Codes</span>"
+    ]
+  },
+  {
+    "objectID": "05-http-methods-codes.html#request-methods",
+    "href": "05-http-methods-codes.html#request-methods",
+    "title": "6  HTTP Methods and Codes",
+    "section": "",
+    "text": "Método\nDescripción\n\n\n\n\nGET\nSolicita un recurso específico\n\n\nPOST\nEnvía datos al servidor (en el body)\n\n\nHEAD\nSolicita solo headers (sin body)\n\n\nPUT\nCrea o actualiza recursos\n\n\nDELETE\nElimina un recurso existente\n\n\nOPTIONS\nRetorna métodos aceptados por el servidor\n\n\nPATCH\nAplica modificaciones parciales\n\n\n\n\nNota: La mayoría de web applications modernas usan principalmente GET y POST. Las REST APIs también usan PUT y DELETE.",
+    "crumbs": [
+      "Unidad 2: HTTP Methods",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>HTTP Methods and Codes</span>"
+    ]
+  },
+  {
+    "objectID": "05-http-methods-codes.html#status-codes",
+    "href": "05-http-methods-codes.html#status-codes",
+    "title": "6  HTTP Methods and Codes",
+    "section": "6.2 Status Codes",
+    "text": "6.2 Status Codes\n\n6.2.1 Clases de Códigos\n\n\n\nClase\nDescripción\n\n\n\n\n1xx\nInformación\n\n\n2xx\nÉxito\n\n\n3xx\nRedirección\n\n\n4xx\nError del cliente\n\n\n5xx\nError del servidor\n\n\n\n\n\n6.2.2 Códigos Comunes\n\n\n\nCódigo\nDescripción\n\n\n\n\n200 OK\nRequest exitoso\n\n\n302 Found\nRedirección\n\n\n400 Bad Request\nRequest malformado\n\n\n403 Forbidden\nSin acceso al recurso\n\n\n404 Not Found\nRecurso no existe\n\n\n500 Internal Server Error\nError en el servidor",
+    "crumbs": [
+      "Unidad 2: HTTP Methods",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>HTTP Methods and Codes</span>"
+    ]
+  },
+  {
+    "objectID": "05-http-methods-codes.html#curl-para-ver-status-codes",
+    "href": "05-http-methods-codes.html#curl-para-ver-status-codes",
+    "title": "6  HTTP Methods and Codes",
+    "section": "6.3 cURL para Ver Status Codes",
+    "text": "6.3 cURL para Ver Status Codes\n# Ver status code en response\ncurl -I http://example.com\n# HTTP/1.1 200 OK\n\n# Verbose muestra código\ncurl -v http://example.com\n# &lt; HTTP/1.1 200 OK",
+    "crumbs": [
+      "Unidad 2: HTTP Methods",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>HTTP Methods and Codes</span>"
+    ]
+  },
+  {
+    "objectID": "06-get-method.html",
+    "href": "06-get-method.html",
+    "title": "7  GET Method",
+    "section": "",
+    "text": "7.1 HTTP Basic Auth\nEl método GET es el default cuando visitamos URLs. Los parámetros se pasan en la URL como query strings.\nAlgunos sitios usan autenticación HTTP básica manejada por el servidor web.",
+    "crumbs": [
+      "Unidad 2: HTTP Methods",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>GET Method</span>"
+    ]
+  },
+  {
+    "objectID": "06-get-method.html#http-basic-auth",
+    "href": "06-get-method.html#http-basic-auth",
+    "title": "7  GET Method",
+    "section": "",
+    "text": "7.1.1 Autenticación con cURL\n# Método 1: Flag -u\ncurl -u admin:admin http://TARGET/\n\n# Método 2: En la URL\ncurl http://admin:admin@TARGET/\n\n# Método 3: Authorization header\ncurl -H 'Authorization: Basic YWRtaW46YWRtaW4=' http://TARGET/\n\nNota: YWRtaW46YWRtaW4= es admin:admin en Base64.",
+    "crumbs": [
+      "Unidad 2: HTTP Methods",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>GET Method</span>"
+    ]
+  },
+  {
+    "objectID": "06-get-method.html#get-parameters",
+    "href": "06-get-method.html#get-parameters",
+    "title": "7  GET Method",
+    "section": "7.2 GET Parameters",
+    "text": "7.2 GET Parameters\nLos parámetros GET se pasan en la URL después de ?:\nhttp://TARGET/search.php?search=london\n\n7.2.1 Usando cURL con GET Parameters\n# GET con parámetro\ncurl 'http://TARGET/search.php?search=london'\n\n# Con autenticación\ncurl -u admin:admin 'http://TARGET/search.php?search=london'",
+    "crumbs": [
+      "Unidad 2: HTTP Methods",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>GET Method</span>"
+    ]
+  },
+  {
+    "objectID": "06-get-method.html#browser-devtools",
+    "href": "06-get-method.html#browser-devtools",
+    "title": "7  GET Method",
+    "section": "7.3 Browser DevTools",
+    "text": "7.3 Browser DevTools\n\nAbrir DevTools: F12\nNetwork tab\nLimpiar requests (trash icon)\nRealizar búsqueda\nVer request a search.php\nClick derecho → Copy → Copy as cURL",
+    "crumbs": [
+      "Unidad 2: HTTP Methods",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>GET Method</span>"
+    ]
+  },
+  {
+    "objectID": "06-get-method.html#ejercicio-práctico",
+    "href": "06-get-method.html#ejercicio-práctico",
+    "title": "7  GET Method",
+    "section": "7.4 Ejercicio Práctico",
+    "text": "7.4 Ejercicio Práctico\n# 1. Autenticarse\ncurl -u admin:admin http://TARGET/\n\n# 2. Buscar 'flag'\ncurl -u admin:admin 'http://TARGET/search.php?search=flag'\nFlag: HTB{curl_g3773r}",
+    "crumbs": [
+      "Unidad 2: HTTP Methods",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>GET Method</span>"
+    ]
+  },
+  {
+    "objectID": "06-get-method.html#quick-reference",
+    "href": "06-get-method.html#quick-reference",
+    "title": "7  GET Method",
+    "section": "7.5 Quick Reference",
+    "text": "7.5 Quick Reference\n\n\n\nComando\nPropósito\n\n\n\n\ncurl -u user:pass URL\nBasic HTTP Auth\n\n\ncurl URL?param=value\nGET con parámetros\n\n\ncurl -H 'Authorization: Basic TOKEN'\nAuth via header",
+    "crumbs": [
+      "Unidad 2: HTTP Methods",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>GET Method</span>"
+    ]
+  },
+  {
+    "objectID": "07-post-method.html",
+    "href": "07-post-method.html",
+    "title": "8  POST Method",
+    "section": "",
+    "text": "8.1 Ventajas de POST sobre GET\nPOST envía datos en el body del request, no en la URL.",
+    "crumbs": [
+      "Unidad 2: HTTP Methods",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>POST Method</span>"
+    ]
+  },
+  {
+    "objectID": "07-post-method.html#ventajas-de-post-sobre-get",
+    "href": "07-post-method.html#ventajas-de-post-sobre-get",
+    "title": "8  POST Method",
+    "section": "",
+    "text": "Ventaja\nDescripción\n\n\n\n\nSin logging\nDatos grandes no se registran en URL\n\n\nMenos encoding\nAcepta datos binarios\n\n\nMás datos\nSin límite de URL (2000 chars)",
+    "crumbs": [
+      "Unidad 2: HTTP Methods",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>POST Method</span>"
+    ]
+  },
+  {
+    "objectID": "07-post-method.html#login-forms",
+    "href": "07-post-method.html#login-forms",
+    "title": "8  POST Method",
+    "section": "8.2 Login Forms",
+    "text": "8.2 Login Forms\n# POST con datos form-encoded\ncurl -X POST -d 'username=admin&password=admin' http://TARGET/",
+    "crumbs": [
+      "Unidad 2: HTTP Methods",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>POST Method</span>"
+    ]
+  },
+  {
+    "objectID": "07-post-method.html#authenticated-cookies",
+    "href": "07-post-method.html#authenticated-cookies",
+    "title": "8  POST Method",
+    "section": "8.3 Authenticated Cookies",
+    "text": "8.3 Authenticated Cookies\n# Obtener cookie de sesión\ncurl -X POST -d 'username=admin&password=admin' -i http://TARGET/\n# Set-Cookie: PHPSESSID=abc123...\n\n# Usar cookie para autenticación\ncurl -b 'PHPSESSID=abc123' http://TARGET/",
+    "crumbs": [
+      "Unidad 2: HTTP Methods",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>POST Method</span>"
+    ]
+  },
+  {
+    "objectID": "07-post-method.html#json-data",
+    "href": "07-post-method.html#json-data",
+    "title": "8  POST Method",
+    "section": "8.4 JSON Data",
+    "text": "8.4 JSON Data\nCuando el endpoint espera JSON:\n# POST con JSON\ncurl -X POST -d '{\"search\":\"london\"}' \\\n  -b 'PHPSESSID=abc123' \\\n  -H 'Content-Type: application/json' \\\n  http://TARGET/search.php",
+    "crumbs": [
+      "Unidad 2: HTTP Methods",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>POST Method</span>"
+    ]
+  },
+  {
+    "objectID": "07-post-method.html#ejercicio-práctico",
+    "href": "07-post-method.html#ejercicio-práctico",
+    "title": "8  POST Method",
+    "section": "8.5 Ejercicio Práctico",
+    "text": "8.5 Ejercicio Práctico\n# 1. Login y obtener cookie\ncurl -X POST -d 'username=admin&password=admin' -i http://TARGET/\n# Set-Cookie: PHPSESSID=rq5bqput0eqjpleghm02a4g927\n\n# 2. Buscar flag con JSON POST\ncurl -X POST -d '{\"search\":\"flag\"}' \\\n  -b 'PHPSESSID=rq5bqput0eqjpleghm02a4g927' \\\n  -H 'Content-Type: application/json' \\\n  http://TARGET/search.php\nFlag: HTB{p0$t_r3p34t3r}",
+    "crumbs": [
+      "Unidad 2: HTTP Methods",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>POST Method</span>"
+    ]
+  },
+  {
+    "objectID": "07-post-method.html#quick-reference",
+    "href": "07-post-method.html#quick-reference",
+    "title": "8  POST Method",
+    "section": "8.6 Quick Reference",
+    "text": "8.6 Quick Reference\n\n\n\n\n\n\n\nComando\nPropósito\n\n\n\n\ncurl -X POST -d 'key=value' URL\nPOST form-encoded\n\n\ncurl -X POST -d '{\"key\":\"val\"}' -H 'Content-Type: application/json' URL\nPOST JSON\n\n\ncurl -b 'PHPSESSID=xxx' URL\nUsar cookie\n\n\ncurl -i URL\nVer headers (incluye Set-Cookie)",
+    "crumbs": [
+      "Unidad 2: HTTP Methods",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>POST Method</span>"
+    ]
+  },
+  {
+    "objectID": "08-crud-api.html",
+    "href": "08-crud-api.html",
+    "title": "9  CRUD API",
+    "section": "",
+    "text": "9.1 CRUD Operations\nLas APIs permiten interactuar directamente con bases de datos usando diferentes métodos HTTP.",
+    "crumbs": [
+      "Unidad 2: HTTP Methods",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>CRUD API</span>"
+    ]
+  },
+  {
+    "objectID": "08-crud-api.html#crud-operations",
+    "href": "08-crud-api.html#crud-operations",
+    "title": "9  CRUD API",
+    "section": "",
+    "text": "Operación\nMétodo HTTP\nDescripción\n\n\n\n\nCreate\nPOST\nAgregar datos\n\n\nRead\nGET\nLeer datos\n\n\nUpdate\nPUT\nActualizar datos\n\n\nDelete\nDELETE\nEliminar datos",
+    "crumbs": [
+      "Unidad 2: HTTP Methods",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>CRUD API</span>"
+    ]
+  },
+  {
+    "objectID": "08-crud-api.html#api-endpoint-format",
+    "href": "08-crud-api.html#api-endpoint-format",
+    "title": "9  CRUD API",
+    "section": "9.2 API Endpoint Format",
+    "text": "9.2 API Endpoint Format\nhttp://TARGET/api.php/table/item",
+    "crumbs": [
+      "Unidad 2: HTTP Methods",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>CRUD API</span>"
+    ]
+  },
+  {
+    "objectID": "08-crud-api.html#read-get",
+    "href": "08-crud-api.html#read-get",
+    "title": "9  CRUD API",
+    "section": "9.3 Read (GET)",
+    "text": "9.3 Read (GET)\n# Leer item específico\ncurl http://TARGET/api.php/city/london\n\n# Leer con filtro\ncurl http://TARGET/api.php/city/le\n\n# Leer todos\ncurl http://TARGET/api.php/city/\n\n# Formatear JSON con jq\ncurl -s http://TARGET/api.php/city/london | jq",
+    "crumbs": [
+      "Unidad 2: HTTP Methods",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>CRUD API</span>"
+    ]
+  },
+  {
+    "objectID": "08-crud-api.html#create-post",
+    "href": "08-crud-api.html#create-post",
+    "title": "9  CRUD API",
+    "section": "9.4 Create (POST)",
+    "text": "9.4 Create (POST)\n# Crear nuevo item\ncurl -X POST http://TARGET/api.php/city/ \\\n  -d '{\"city_name\":\"HTB_City\", \"country_name\":\"HTB\"}' \\\n  -H 'Content-Type: application/json'",
+    "crumbs": [
+      "Unidad 2: HTTP Methods",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>CRUD API</span>"
+    ]
+  },
+  {
+    "objectID": "08-crud-api.html#update-put",
+    "href": "08-crud-api.html#update-put",
+    "title": "9  CRUD API",
+    "section": "9.5 Update (PUT)",
+    "text": "9.5 Update (PUT)\n# Actualizar item existente\ncurl -X PUT http://TARGET/api.php/city/london \\\n  -d '{\"city_name\":\"New_City\", \"country_name\":\"HTB\"}' \\\n  -H 'Content-Type: application/json'\n\nNota: PUT actualiza el item completo. PATCH actualiza parcialmente.",
+    "crumbs": [
+      "Unidad 2: HTTP Methods",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>CRUD API</span>"
+    ]
+  },
+  {
+    "objectID": "08-crud-api.html#delete-delete",
+    "href": "08-crud-api.html#delete-delete",
+    "title": "9  CRUD API",
+    "section": "9.6 Delete (DELETE)",
+    "text": "9.6 Delete (DELETE)\n# Eliminar item\ncurl -X DELETE http://TARGET/api.php/city/New_City",
+    "crumbs": [
+      "Unidad 2: HTTP Methods",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>CRUD API</span>"
+    ]
+  },
+  {
+    "objectID": "08-crud-api.html#ejercicio-práctico",
+    "href": "08-crud-api.html#ejercicio-práctico",
+    "title": "9  CRUD API",
+    "section": "9.7 Ejercicio Práctico",
+    "text": "9.7 Ejercicio Práctico\n# 1. UPDATE: Cambiar nombre de ciudad a 'flag'\ncurl -X PUT http://TARGET/api.php/city/london \\\n  -d '{\"city_name\":\"flag\", \"country_name\":\"HTB\"}' \\\n  -H 'Content-Type: application/json'\n\n# 2. DELETE: Eliminar una ciudad\ncurl -X DELETE http://TARGET/api.php/city/birmingham\n\n# 3. READ: Buscar ciudad 'flag'\ncurl -s http://TARGET/api.php/city/flag | jq\nFlag: HTB{crud_4p!_m4n!pul4t0r}",
+    "crumbs": [
+      "Unidad 2: HTTP Methods",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>CRUD API</span>"
+    ]
+  },
+  {
+    "objectID": "08-crud-api.html#quick-reference",
+    "href": "08-crud-api.html#quick-reference",
+    "title": "9  CRUD API",
+    "section": "9.8 Quick Reference",
+    "text": "9.8 Quick Reference\n\n\n\n\n\n\n\n\nOperación\nMétodo\nComando\n\n\n\n\nCreate\nPOST\ncurl -X POST -d '{\"key\":\"val\"}' -H 'Content-Type: application/json' URL\n\n\nRead\nGET\ncurl URL/api.php/table/item\n\n\nUpdate\nPUT\ncurl -X PUT -d '{\"key\":\"val\"}' -H 'Content-Type: application/json' URL\n\n\nDelete\nDELETE\ncurl -X DELETE URL/api.php/table/item",
+    "crumbs": [
+      "Unidad 2: HTTP Methods",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>CRUD API</span>"
+    ]
+  },
+  {
+    "objectID": "08-crud-api.html#autenticación-en-apis",
+    "href": "08-crud-api.html#autenticación-en-apis",
+    "title": "9  CRUD API",
+    "section": "9.9 Autenticación en APIs",
+    "text": "9.9 Autenticación en APIs\nEn APIs reales, necesitarías autenticación:\n# Con cookie\ncurl -b 'PHPSESSID=xxx' URL/api.php/city/\n\n# Con Authorization header (JWT)\ncurl -H 'Authorization: Bearer TOKEN' URL/api.php/city/",
+    "crumbs": [
+      "Unidad 2: HTTP Methods",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>CRUD API</span>"
+    ]
+  }
+]

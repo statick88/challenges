@@ -1,0 +1,99 @@
+# CRUD API
+
+Las APIs permiten interactuar directamente con bases de datos usando diferentes métodos HTTP.
+
+## CRUD Operations
+
+| Operación | Método HTTP | Descripción |
+|-----------|-------------|-------------|
+| **Create** | POST | Agregar datos |
+| **Read** | GET | Leer datos |
+| **Update** | PUT | Actualizar datos |
+| **Delete** | DELETE | Eliminar datos |
+
+## API Endpoint Format
+
+```
+http://TARGET/api.php/table/item
+```
+
+## Read (GET)
+
+```bash
+# Leer item específico
+curl http://TARGET/api.php/city/london
+
+# Leer con filtro
+curl http://TARGET/api.php/city/le
+
+# Leer todos
+curl http://TARGET/api.php/city/
+
+# Formatear JSON con jq
+curl -s http://TARGET/api.php/city/london | jq
+```
+
+## Create (POST)
+
+```bash
+# Crear nuevo item
+curl -X POST http://TARGET/api.php/city/ \
+  -d '{"city_name":"HTB_City", "country_name":"HTB"}' \
+  -H 'Content-Type: application/json'
+```
+
+## Update (PUT)
+
+```bash
+# Actualizar item existente
+curl -X PUT http://TARGET/api.php/city/london \
+  -d '{"city_name":"New_City", "country_name":"HTB"}' \
+  -H 'Content-Type: application/json'
+```
+
+> **Nota**: PUT actualiza el item completo. PATCH actualiza parcialmente.
+
+## Delete (DELETE)
+
+```bash
+# Eliminar item
+curl -X DELETE http://TARGET/api.php/city/New_City
+```
+
+## Ejercicio Práctico
+
+```bash
+# 1. UPDATE: Cambiar nombre de ciudad a 'flag'
+curl -X PUT http://TARGET/api.php/city/london \
+  -d '{"city_name":"flag", "country_name":"HTB"}' \
+  -H 'Content-Type: application/json'
+
+# 2. DELETE: Eliminar una ciudad
+curl -X DELETE http://TARGET/api.php/city/birmingham
+
+# 3. READ: Buscar ciudad 'flag'
+curl -s http://TARGET/api.php/city/flag | jq
+```
+
+**Flag**: `HTB{crud_4p!_m4n!pul4t0r}`
+
+## Quick Reference
+
+| Operación | Método | Comando |
+|-----------|--------|---------|
+| **C**reate | POST | `curl -X POST -d '{"key":"val"}' -H 'Content-Type: application/json' URL` |
+| **R**ead | GET | `curl URL/api.php/table/item` |
+| **U**pdate | PUT | `curl -X PUT -d '{"key":"val"}' -H 'Content-Type: application/json' URL` |
+| **D**elete | DELETE | `curl -X DELETE URL/api.php/table/item` |
+
+## Autenticación en APIs
+
+En APIs reales, necesitarías autenticación:
+
+```bash
+# Con cookie
+curl -b 'PHPSESSID=xxx' URL/api.php/city/
+
+# Con Authorization header (JWT)
+curl -H 'Authorization: Bearer TOKEN' URL/api.php/city/
+```

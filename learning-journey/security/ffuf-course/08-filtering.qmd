@@ -1,0 +1,184 @@
+---
+title: "Filtering Results"
+description: "Filtrado avanzado de resultados en ffuf"
+author: "Diego Saavedra"
+date: "2026-02-20"
+categories: [security, ffuf, filtering]
+---
+
+# Filtering Results
+
+## Objetivo
+
+Al finalizar esta seccion, seras capaz de:
+
+- Filtrar resultados por codigo HTTP
+- Filtrar por tamano de respuesta
+- Filtrar por contenido (palabras, lineas)
+
+## Por que Filtrar?
+
+Los escaneos generan muchos resultados. Filtrar elimina:
+
+- Falsos positivos
+- Respuestas por defecto
+- Contenido irrelevante
+
+## Opciones de Filtrado
+
+### Por Codigo HTTP (-fc)
+
+```bash
+# Excluir codigo 404
+ffuf -w wordlist.txt -u http://target/FUZZ -fc 404
+
+# Excluir multiples codigos
+ffuf -w wordlist.txt -u http://target/FUZZ -fc 404,403,400
+```
+
+### Por Tamano (-fs)
+
+```bash
+# Excluir respuestas de 900 bytes
+ffuf -w wordlist.txt -u http://target/FUZZ -fs 900
+
+# Excluir rangos
+ffuf -w wordlist.txt -u http://target/FUZZ -fs 900-1000
+```
+
+### Por Palabras (-fw)
+
+```bash
+# Excluir respuestas con 20 palabras
+ffuf -w wordlist.txt -u http://target/FUZZ -fw 20
+```
+
+### Por Lineas (-fl)
+
+```bash
+# Excluir respuestas con 10 lineas
+ffuf -w wordlist.txt -u http://target/FUZZ -fl 10
+```
+
+## Opciones de Match
+
+En lugar de excluir, podemos incluir solo lo que queremos:
+
+### Match Codigo (-mc)
+
+```bash
+# Solo codigos 200 y 301
+ffuf -w wordlist.txt -u http://target/FUZZ -mc 200,301
+
+# Todos los codigos
+ffuf -w wordlist.txt -u http://target/FUZZ -mc all
+```
+
+### Match Tamano (-ms)
+
+```bash
+# Solo respuestas de 1234 bytes
+ffuf -w wordlist.txt -u http://target/FUZZ -ms 1234
+```
+
+## Auto-Calibracion
+
+ffuf puede calibrar automaticamente:
+
+```bash
+ffuf -w wordlist.txt -u http://target/FUZZ -ac
+```
+
+Esto determina automaticamente que filtrar.
+
+## Ejemplo Completo
+
+```bash
+ffuf -w /opt/useful/seclists/Discovery/Web-Content/directory-list-2.3-small.txt:FUZZ \
+     -u http://SERVER_IP:PORT/FUZZ \
+     -mc 200,301 \
+     -fs 0 \
+     -fw 1 \
+     -ic \
+     -t 50
+```
+
+### Explicacion
+
+| Opcion | Efecto |
+|--------|--------|
+| `-mc 200,301` | Solo mostrar codigos 200 y 301 |
+| `-fs 0` | Excluir respuestas vacias |
+| `-fw 1` | Excluir respuestas con 1 palabra |
+| `-ic` | Ignorar comentarios |
+| `-t 50` | 50 threads |
+
+## Tabla de Referencia
+
+| Opcion | Tipo | Ejemplo |
+|--------|------|---------|
+| `-fc` | Filter Code | `-fc 404,403` |
+| `-fs` | Filter Size | `-fs 900` |
+| `-fw` | Filter Words | `-fw 20` |
+| `-fl` | Filter Lines | `-fl 10` |
+| `-mc` | Match Code | `-mc 200,301` |
+| `-ms` | Match Size | `-ms 1234` |
+| `-ac` | Auto-Calibrate | `-ac` |
+
+## Ejercicio Practico
+
+### Objetivo
+
+Usar filtrado por tamaño para identificar VHosts válidos.
+
+### Contexto
+
+En VHost fuzzing, todas las respuestas tienen codigo 200, pero los VHosts válidos tienen tamaño diferente al default.
+
+### Solucion
+
+**Paso 1: Identificar tamaño default**
+
+```bash
+curl -s "http://154.57.164.70:31556/" -H "Host: test.academy.htb" | wc -c
+# Resultado: 986 bytes
+```
+
+**Paso 2: Filtrar por tamaño**
+
+```bash
+ffuf -w /opt/SecLists/Discovery/DNS/subdomains-top1million-5000.txt:FUZZ \
+     -u http://154.57.164.70:31556/ \
+     -H "Host: FUZZ.academy.htb" \
+     -fs 986
+```
+
+**Paso 3: Resultados**
+
+| VHost | Status | Size |
+|-------|--------|------|
+| test.academy.htb | 200 | 0 |
+| admin.academy.htb | 200 | 0 |
+
+### Analisis
+
+- El tamaño default (986) indica respuesta generica
+- Los VHosts válidos retornan tamaño 0 (contenido diferente)
+- `-fs 986` filtra todas las respuestas con tamaño 986
+- Sin filtrado, obtendriamos miles de falsos positivos
+
+## Que Aprendimos
+
+- `-fc` filtra por codigo HTTP
+- `-fs` filtra por tamano
+- `-mc` hace match solo de lo especificado
+- `-ac` calibra automaticamente
+- Combinar filtros mejora resultados
+
+## Proximos Pasos
+
+En la siguiente seccion aprenderemos sobre [Parameter Fuzzing](09-parameter-fuzzing.html).
+
+---
+
+[Volver al Modulo](index.html) | [Parameter Fuzzing ->](09-parameter-fuzzing.html)

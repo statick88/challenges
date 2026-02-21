@@ -1,0 +1,180 @@
+---
+title: "IP Addresses"
+description: "Estructura de direcciones IPv4 y clases de red"
+author: "Diego Saavedra"
+date: "2026-02-20"
+categories: [networking, ipv4, addressing]
+---
+
+# IP Addresses
+
+## Objetivo
+
+Al finalizar esta seccion, seras capaz de:
+
+- Comprender la estructura de una direccion IPv4
+- Convertir entre binario y decimal
+- Identificar clases de red
+- Calcular subnet masks y CIDR
+
+## Concepto
+
+Cada host en una red puede ser identificado por:
+
+| Direccion | Uso |
+|-----------|-----|
+| **MAC** | Identificacion dentro de una red local |
+| **IPv4/IPv6** | Identificacion en Internet |
+
+### Analogia
+
+| Direccion | Analogia |
+|-----------|----------|
+| **IP** | Direccion postal + codigo postal |
+| **MAC** | Piso y apartamento especifico |
+
+## Estructura IPv4
+
+- **32 bits** (4 bytes)
+- Dividido en **4 octetos** (8 bits cada uno)
+- Rango por octeto: **0-255**
+- Notacion: **decimal punteada**
+
+### Ejemplo
+
+```
+IPv4: 192.168.10.39
+
+┌─────────────────────────────────────────────────┐
+│ Octeto:      1st        2nd        3rd   4th   │
+│ Binary:   11000000 . 10101000 . 00001010 . 00100111 │
+│ Decimal:     192    .   168    .    10    .   39   │
+└─────────────────────────────────────────────────┘
+```
+
+## Sistema Binario
+
+### Valores de Posicion
+
+```
+Posicion:    7    6    5    4    3    2    1    0
+Valor:     128   64   32   16    8    4    2    1
+```
+
+### Conversion Decimal
+
+Para IPv4 192.168.10.39:
+
+| Octeto | Calculo | Resultado |
+|--------|---------|-----------|
+| 1 | 128 + 64 | 192 |
+| 2 | 128 + 32 + 8 | 168 |
+| 3 | 8 + 2 | 10 |
+| 4 | 32 + 4 + 2 + 1 | 39 |
+
+### Ejemplo Detallado: 192
+
+```
+Valores:   128  64  32  16   8   4   2   1
+Binary:      1   1   0   0   0   0   0   0
+            ↓   ↓
+Calculo:   128 + 64 = 192
+```
+
+## Clases de Red
+
+| Clase | Rango | Mascara | CIDR | Hosts |
+|-------|-------|---------|------|-------|
+| **A** | 1.0.0.0 - 127.255.255.255 | 255.0.0.0 | /8 | ~16M |
+| **B** | 128.0.0.0 - 191.255.255.255 | 255.255.0.0 | /16 | ~65K |
+| **C** | 192.0.0.0 - 223.255.255.255 | 255.255.255.0 | /24 | 254 |
+| **D** | 224.0.0.0 - 239.255.255.255 | Multicast | - | - |
+| **E** | 240.0.0.0 - 255.255.255.255 | Reservado | - | - |
+
+## Subnet Mask
+
+Define que parte de la IP es **red** y cual es **host**.
+
+### Ejemplo: 255.255.255.0
+
+```
+┌─────────────────────────────────────────────────────┐
+│ Octeto:       1st         2nd         3rd    4th   │
+│ Binary:    11111111 . 11111111 . 11111111 . 00000000│
+│ Decimal:      255    .   255    .   255    .    0  │
+│                                                  │
+│           │←── Network ──→│←── Host ──→│        │
+└─────────────────────────────────────────────────────┘
+```
+
+## CIDR (Classless Inter-Domain Routing)
+
+Indica cuantos bits son de red.
+
+### Ejemplos
+
+| CIDR | Mascara | IPs Disponibles |
+|------|---------|-----------------|
+| /24 | 255.255.255.0 | 256 |
+| /25 | 255.255.255.128 | 128 |
+| /26 | 255.255.255.192 | 64 |
+| /27 | 255.255.255.224 | 32 |
+| /28 | 255.255.255.240 | 16 |
+| /29 | 255.255.255.248 | 8 |
+| /30 | 255.255.255.252 | 4 |
+
+## Direcciones Especiales
+
+### Network Address
+
+Primera IP de la subnet (todos los bits de host en 0).
+
+```
+Ejemplo: 192.168.1.0/24
+```
+
+### Broadcast Address
+
+Ultima IP de la subnet (todos los bits de host en 1).
+
+```
+Ejemplo: 192.168.1.255/24
+```
+
+### Default Gateway
+
+Comunmente la primera o ultima IP asignable.
+
+```
+Primera asignable: 192.168.1.1
+Ultima asignable:  192.168.1.254
+```
+
+## RFC 1918 - IPs Privadas
+
+| Rango | CIDR | Uso |
+|-------|------|-----|
+| 10.0.0.0 - 10.255.255.255 | 10.0.0.0/8 | Clase A privada |
+| 172.16.0.0 - 172.31.255.255 | 172.16.0.0/12 | Clase B privada |
+| 192.168.0.0 - 192.168.255.255 | 192.168.0.0/16 | Clase C privada |
+
+::: {.callout-tip}
+## IPs Privadas
+No son ruteables en Internet. Usadas para redes internas (LAN).
+:::
+
+## Que Aprendimos
+
+- IPv4 tiene 32 bits divididos en 4 octetos
+- La conversion binario-decimal es fundamental
+- Las clases de red determinan el tamano de la red
+- CIDR indica bits de red
+- RFC 1918 define IPs privadas
+
+## Proximos Pasos
+
+En la siguiente seccion aprenderemos sobre [Subnetting](10-subnetting.html).
+
+---
+
+[Volver al Modulo](index.html) | [Subnetting ->](10-subnetting.html)

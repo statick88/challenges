@@ -1,0 +1,86 @@
+# HTTP Fundamentals
+
+## HyperText Transfer Protocol (HTTP)
+
+HTTP es un protocolo de nivel de aplicación usado para acceder a recursos del World Wide Web. La comunicación HTTP consiste en un cliente y un servidor, donde el cliente solicita recursos al servidor.
+
+### Estructura de una URL
+
+```
+http://admin:password@inlanefreight.com:80/dashboard.php?login=true#status
+```
+
+| Componente | Ejemplo | Descripción |
+|------------|---------|-------------|
+| **Scheme** | `http://` | Protocolo utilizado |
+| **User Info** | `admin:password@` | Credenciales (opcional) |
+| **Host** | `inlanefreight.com` | Dominio o IP del recurso |
+| **Port** | `:80` | Puerto (80=HTTP, 443=HTTPS) |
+| **Path** | `/dashboard.php` | Ruta del recurso |
+| **Query String** | `?login=true` | Parámetros (empiezan con ?) |
+| **Fragment** | `#status` | Sección dentro del recurso |
+
+### Flujo HTTP
+
+```
+1. Usuario ingresa URL en navegador
+2. Navegador consulta DNS para resolver IP
+3. DNS devuelve la IP del servidor
+4. Navegador envía GET request al puerto 80
+5. Servidor procesa request y devuelve response
+6. Navegador renderiza el contenido
+```
+
+## cURL: Cliente HTTP de Línea de Comandos
+
+cURL (client URL) es una herramienta esencial para penetration testers.
+
+### Comandos Básicos
+
+```bash
+# Request básico
+curl http://example.com
+
+# Descargar archivo con nombre remoto
+curl -O http://example.com/file.txt
+
+# Descargar con nombre específico
+curl -o output.html http://example.com
+
+# Modo silencioso (sin progreso)
+curl -s http://example.com
+
+# Ver headers de respuesta
+curl -I http://example.com
+
+# Modo verbose (request + response completos)
+curl -v http://example.com
+
+# Headers + body
+curl -i http://example.com
+```
+
+### Flags Principales
+
+| Flag | Descripción |
+|------|-------------|
+| `-O` | Descargar con nombre remoto |
+| `-o` | Especificar nombre de archivo |
+| `-s` | Modo silencioso |
+| `-I` | HEAD request (solo headers) |
+| `-v` | Modo verbose |
+| `-i` | Incluir headers en output |
+| `-h` | Ver ayuda |
+| `-k` | Skip SSL certificate check |
+
+## Ejercicio Práctico
+
+```bash
+# Descargar archivo del servidor
+curl -O http://TARGET/download.php
+
+# Ver contenido directamente
+curl http://TARGET/download.php
+```
+
+**Flag**: `HTB{64$!c_cURL_u$3r}`

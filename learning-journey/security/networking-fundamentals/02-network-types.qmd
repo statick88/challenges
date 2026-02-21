@@ -1,0 +1,123 @@
+---
+title: "Network Types"
+description: "Tipos de redes - WAN, LAN, WLAN, VPN y sus caracteristicas"
+author: "Diego Saavedra"
+date: "2026-02-20"
+categories: [networking, wan, lan, vpn]
+---
+
+# Network Types
+
+## Objetivo
+
+Al finalizar esta seccion, seras capaz de:
+
+- Diferenciar entre WAN, LAN, WLAN y VPN
+- Comprender las diferencias entre terminos comunes y academicos
+- Identificar casos de uso para cada tipo de red
+
+## Terminologia Comun
+
+| Tipo | Definicion |
+|------|------------|
+| **WAN** | Wide Area Network - Internet |
+| **LAN** | Local Area Network - Redes internas (Hogar/Oficina) |
+| **WLAN** | Wireless LAN - Redes internas via Wi-Fi |
+| **VPN** | Virtual Private Network - Conecta multiples sitios a una LAN |
+
+## WAN (Wide Area Network)
+
+Comunmente referida como "The Internet". En equipos de red, frecuentemente tenemos:
+
+- **WAN Address** - Direccion accesible desde Internet
+- **LAN Address** - Direccion interna
+
+### Caracteristicas
+
+- Usa protocolos de enrutamiento WAN como BGP
+- IP Schema no esta en RFC 1918 (direcciones privadas)
+- Puede ser "Internal WAN" (Intranet, Airgap Network)
+
+### RFC 1918 - Direcciones Privadas
+
+| Rango | CIDR | Clase |
+|-------|------|-------|
+| 10.0.0.0 - 10.255.255.255 | 10.0.0.0/8 | A |
+| 172.16.0.0 - 172.31.255.255 | 172.16.0.0/12 | B |
+| 192.168.0.0 - 192.168.255.255 | 192.168.0.0/16 | C |
+
+## LAN / WLAN
+
+### LAN (Local Area Network)
+
+- Asigna IPs del rango RFC 1918
+- Algunas universidades/hoteles pueden asignar IPs ruteables
+- Red cableada local
+
+### WLAN (Wireless LAN)
+
+- Mismo concepto que LAN pero inalambrico
+- Introduce capacidad de transmitir datos sin cables
+- Principalmente una designacion de seguridad
+
+## VPN (Virtual Private Network)
+
+Meta: Hacer que el usuario sienta que esta conectado directamente a una red diferente.
+
+### Tipos de VPN
+
+| Tipo | Descripcion | Caso de Uso |
+|------|-------------|-------------|
+| **Site-to-Site** | Dispositivos de red (routers/firewalls) conectan redes completas | Conectar oficinas remotas |
+| **Remote Access** | PC cliente crea interfaz virtual como si estuviera en la red | HTB Labs, trabajo remoto |
+| **SSL VPN** | VPN via navegador web | Pwnbox de HTB |
+
+### Split-Tunnel VPN
+
+VPN que solo crea rutas para redes especificas.
+
+| Ventaja | Desventaja |
+|---------|------------|
+| No monitorea trafico de Internet | Malware puede evadir deteccion |
+| Mejor rendimiento | Menor visibilidad de seguridad |
+
+## Terminologia Academica
+
+| Tipo | Definicion |
+|------|------------|
+| **GAN** | Global Area Network - Internet o redes internacionales corporativas |
+| **MAN** | Metropolitan Area Network - Redes regionales (multiples LANs) |
+| **WPAN** | Wireless Personal Area Network - Bluetooth, redes personales |
+
+### GAN (Global Area Network)
+
+- Red mundial como Internet
+- Empresas internacionales mantienen redes aisladas que conectan WANs
+- Usa fibras opticas y cables submarinos
+
+### MAN (Metropolitan Area Network)
+
+- Conecta varias LANs en proximidad geografica
+- Usado por sucursales de empresas
+- Alto rendimiento basado en fibra optica
+
+### WPAN (Wireless PAN)
+
+- Redes personales (Bluetooth, Wireless USB)
+- Alcance de pocos metros
+- Usado en IoT (ZigBee, Z-Wave, Insteon)
+
+## Que Aprendimos
+
+- WAN es comunmente Internet, LAN es red local
+- VPN puede ser Site-to-Site, Remote Access o SSL
+- La terminologia academica incluye GAN, MAN, WPAN
+- RFC 1918 define los rangos de IPs privadas
+
+## Proximos Pasos
+
+En la siguiente seccion aprenderemos sobre [Networking Topologies](03-topologies.html).
+
+---
+
+[Volver al Modulo](index.html) | [Topologies ->](03-topologies.html)

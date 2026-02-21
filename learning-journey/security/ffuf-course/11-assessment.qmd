@@ -1,0 +1,473 @@
+---
+title: "Skills Assessment - Web Fuzzing"
+description: "Evaluacion practica completa de ffuf"
+author: "Diego Saavedra"
+date: "2026-02-20"
+categories: [security, ffuf, assessment]
+---
+
+# Skills Assessment - Web Fuzzing
+
+## Objetivo
+
+Enumerar completamente un objetivo web desconocido usando ffuf:
+
+1. Subdomain/VHost Fuzzing
+2. Extension Fuzzing
+3. Recursive Page Fuzzing
+4. Parameter Fuzzing
+5. Value Fuzzing
+
+## Configuracion Inicial
+
+### Agregar dominio a /etc/hosts
+
+```bash
+sudo sh -c 'echo "IP_ADDRESS academy.htb" >> /etc/hosts'
+```
+
+### Target
+
+```
+IP: 154.57.164.71
+PORT: 31494
+```
+
+---
+
+## Pregunta 1: Subdomain/VHost Fuzzing
+
+**Pregunta:** Run a sub-domain/vhost fuzzing scan on '*.academy.htb' for the IP shown above. What are all the sub-domains you can identify?
+
+### Metodologia
+
+**Paso 1: Subdomain fuzzing (DNS)**
+
+```bash
+ffuf -w /opt/SecLists/Discovery/DNS/subdomains-top1million-5000.txt:FUZZ \
+     -u "http://FUZZ.academy.htb:31494/" \
+     -t 100
+```
+
+**Resultado:** No encuentra subdominios publicos (no hay registros DNS).
+
+**Paso 2: VHost fuzzing**
+
+Los subdominios pueden no tener registros DNS publicos. VHost fuzzing busca subdominios configurados en el servidor web.
+
+```bash
+ffuf -w /opt/SecLists/Discovery/DNS/subdomains-top1million-5000.txt:FUZZ \
+     -u "http://academy.htb:31494/" \
+     -H "Host: FUZZ.academy.htb" \
+     -fs 985
+```
+
+**Explicacion:**
+
+| Flag | Proposito |
+|------|-----------|
+| `-H "Host: FUZZ.academy.htb"` | Header Host con subdominio dinamico |
+| `-fs 985` | Filtra respuestas de tamano 985 (pagina por defecto) |
+
+### Resultado
+
+```
+test
+archive
+faculty
+```
+
+### Agregar subdominios a /etc/hosts
+
+```bash
+sudo sh -c 'cat >> /etc/hosts << EOF
+IP_ADDRESS test.academy.htb
+IP_ADDRESS archive.academy.htb
+IP_ADDRESS faculty.academy.htb
+EOF'
+```
+
+**Respuesta:** `test, archive, faculty`
+
+---
+
+## Pregunta 2: Extension Fuzzing
+
+**Pregunta:** Before you run your page fuzzing scan, you should first run an extension fuzzing scan. What are the different extensions accepted by the domains?
+
+### Metodologia
+
+Escanear extensiones en TODOS los subdominios encontrados.
+
+**Paso 1: Extension fuzzing en academy.htb**
+
+```bash
+ffuf -w /opt/SecLists/Discovery/Web-Content/web-extensions.txt:FUZZ \
+     -u "http://academy.htb:31494/indexFUZZ" \
+     -mc 200
+```
+
+**Resultado:** `.php`
+
+**Paso 2: Extension fuzzing en test.academy.htb**
+
+```bash
+ffuf -w /opt/SecLists/Discovery/Web-Content/web-extensions.txt:FUZZ \
+     -u "http://test.academy.htb:31494/indexFUZZ" \
+     -mc 200
+```
+
+**Resultado:** `.php`
+
+**Paso 3: Extension fuzzing en archive.academy.htb**
+
+```bash
+ffuf -w /opt/SecLists/Discovery/Web-Content/web-extensions.txt:FUZZ \
+     -u "http://archive.academy.htb:31494/indexFUZZ" \
+     -mc 200
+```
+
+**Resultado:** `.php`
+
+**Paso 4: Extension fuzzing en faculty.academy.htb**
+
+```bash
+ffuf -w /opt/SecLists/Discovery/Web-Content/web-extensions.txt:FUZZ \
+     -u "http://faculty.academy.htb:31494/indexFUZZ" \
+     -mc 200
+```
+
+**Resultado:** `.php`, `.php7`
+
+**Paso 5: Extension fuzzing con archivo admin**
+
+```bash
+for sub in test archive faculty; do
+  ffuf -w /opt/SecLists/Discovery/Web-Content/web-extensions.txt:FUZZ \
+       -u "http://${sub}.academy.htb:31494/adminFUZZ" \
+       -mc 200,403
+done
+```
+
+**Resultado:** `.phps` (codigo 403 Forbidden)
+
+### Extensiones encontradas por subdominio
+
+| Subdominio | Extensiones |
+|------------|-------------|
+| academy.htb | .php |
+| test.academy.htb | .php |
+| archive.academy.htb | .php |
+| faculty.academy.htb | .php, .php7 |
+| Todos | .phps (403) |
+
+**Respuesta:** `php, php7, phps`
+
+**Formato:** Sin punto, separados por coma y espacio.
+
+---
+
+## Pregunta 3: Recursive Page Fuzzing
+
+**Pregunta:** One of the pages you will identify should say 'You don't have access!'. What is the full page URL?
+
+### Metodologia
+
+Realizar escaneo recursivo en cada subdominio con todas las extensiones.
+
+**Wordlist importante:** Usar `directory-list-2.3-small.txt` o `directory-list-2.3-medium.txt`. Las wordlists como `raft-*` o `common.txt` no funcionan para este ejercicio.
+
+**Paso 1: Recursive fuzzing en faculty.academy.htb**
+
+```bash
+ffuf -w /opt/SecLists/Discovery/Web-Content/DirBuster-2007_directory-list-2.3-small.txt:FUZZ \
+     -u "http://faculty.academy.htb:31494/FUZZ" \
+     -recursion -recursion-depth 1 \
+     -e .php,.php7,.phps \
+     -fs 287 \
+     -t 80
+```
+
+**Flags explicados:**
+
+| Flag | Proposito |
+|------|-----------|
+| `-recursion` | Activa escaneo recursivo |
+| `-recursion-depth 1` | Profundidad maxima de recursividad |
+| `-e .php,.php7,.phps` | Extensiones a probar |
+| `-fs 287` | Filtra respuestas vacias |
+| `-t 80` | 80 threads para mayor velocidad |
+
+**Paso 2: Directorio encontrado**
+
+```
+courses/ [Status: 301, Size: 328]
+```
+
+ffuf automaticamente anade un job para escanear dentro de `courses/`.
+
+**Paso 3: Pagina encontrada**
+
+```
+courses/linux-security.php7 [Status: 200, Size: 774]
+```
+
+**Paso 4: Verificar contenido**
+
+```bash
+curl -s "http://faculty.academy.htb:31494/courses/linux-security.php7" \
+     -H "Host: faculty.academy.htb"
+```
+
+**Respuesta:**
+
+```html
+<div class='center'><p>You don't have access!</p></div>
+```
+
+### Formato de respuesta
+
+**IMPORTANTE:** El puerto debe reemplazarse con "PORT" en la respuesta.
+
+- ❌ Incorrecto: `http://faculty.academy.htb:31494/courses/linux-security.php7`
+- ✅ Correcto: `http://faculty.academy.htb:PORT/courses/linux-security.php7`
+
+**Respuesta:** `http://faculty.academy.htb:PORT/courses/linux-security.php7`
+
+---
+
+## Pregunta 4: Parameter Fuzzing
+
+**Pregunta:** In the page from the previous question, you should be able to find multiple parameters that are accepted by the page. What are they?
+
+### Metodologia
+
+Fuzzear parametros POST en la pagina encontrada.
+
+**Paso 1: Parameter fuzzing POST**
+
+```bash
+ffuf -w /opt/SecLists/Discovery/Web-Content/burp-parameter-names.txt:FUZZ \
+     -u "http://faculty.academy.htb:31494/courses/linux-security.php7" \
+     -X POST \
+     -d "FUZZ=key" \
+     -H "Content-Type: application/x-www-form-urlencoded" \
+     -fs 774
+```
+
+**Flags explicados:**
+
+| Flag | Proposito |
+|------|-----------|
+| `-X POST` | Metodo HTTP POST |
+| `-d "FUZZ=key"` | POST data con parametro dinamico |
+| `-H "Content-Type: application/x-www-form-urlencoded"` | Header requerido para PHP |
+| `-fs 774` | Filtra respuestas de tamano 774 (mensaje "You don't have access!") |
+
+**Paso 2: Parametros encontrados**
+
+```
+user [Status: 200, Size: 781]
+username [Status: 200, Size: 781]
+```
+
+**Respuesta:** `user, username`
+
+---
+
+## Pregunta 5: Value Fuzzing
+
+**Pregunta:** Try fuzzing the parameters you identified for working values. One of them should return a flag. What is the content of the flag?
+
+### Metodologia
+
+Fuzzear valores para el parametro `username` usando wordlist de usernames.
+
+**Paso 1: Value fuzzing con usernames**
+
+```bash
+ffuf -w /opt/SecLists/Usernames/xato-net-10-million-usernames.txt:FUZZ \
+     -u "http://faculty.academy.htb:31494/courses/linux-security.php7" \
+     -X POST \
+     -d "username=FUZZ" \
+     -H "Content-Type: application/x-www-form-urlencoded" \
+     -fs 781
+```
+
+**Flags explicados:**
+
+| Flag | Proposito |
+|------|-----------|
+| `-d "username=FUZZ"` | POST data con valor dinamico |
+| `-fs 781` | Filtra respuestas de tamano 781 (mensaje "You don't have access!") |
+
+**Paso 2: Username encontrado**
+
+```
+harry [Status: 200, Size: 846]
+```
+
+**Paso 3: Obtener flag**
+
+```bash
+curl -s "http://faculty.academy.htb:31494/courses/linux-security.php7" \
+     -X POST \
+     -d "username=harry" \
+     -H "Content-Type: application/x-www-form-urlencoded"
+```
+
+**Respuesta:**
+
+```html
+<p>Welcome harry!</p>
+<p>Flag: HTB{w3b_fuzz1n6_m4573r}</p>
+```
+
+**Respuesta:** `HTB{w3b_fuzz1n6_m4573r}`
+
+---
+
+## Resumen de Comandos
+
+### Subdomain/VHost Fuzzing
+
+```bash
+# Subdomain fuzzing (DNS)
+ffuf -w /opt/SecLists/Discovery/DNS/subdomains-top1million-5000.txt:FUZZ \
+     -u "http://FUZZ.academy.htb:PORT/"
+
+# VHost fuzzing
+ffuf -w /opt/SecLists/Discovery/DNS/subdomains-top1million-5000.txt:FUZZ \
+     -u "http://academy.htb:PORT/" \
+     -H "Host: FUZZ.academy.htb" \
+     -fs <default_size>
+```
+
+### Extension Fuzzing
+
+```bash
+ffuf -w /opt/SecLists/Discovery/Web-Content/web-extensions.txt:FUZZ \
+     -u "http://subdomain.academy.htb:PORT/indexFUZZ" \
+     -mc 200
+```
+
+### Recursive Page Fuzzing
+
+```bash
+ffuf -w /opt/SecLists/Discovery/Web-Content/DirBuster-2007_directory-list-2.3-small.txt:FUZZ \
+     -u "http://subdomain.academy.htb:PORT/FUZZ" \
+     -recursion -recursion-depth 1 \
+     -e .php,.php7,.phps \
+     -fs <empty_size> \
+     -t 80
+```
+
+### Parameter Fuzzing POST
+
+```bash
+ffuf -w /opt/SecLists/Discovery/Web-Content/burp-parameter-names.txt:FUZZ \
+     -u "http://subdomain.academy.htb:PORT/page.php7" \
+     -X POST \
+     -d "FUZZ=key" \
+     -H "Content-Type: application/x-www-form-urlencoded" \
+     -fs <default_size>
+```
+
+### Value Fuzzing
+
+```bash
+ffuf -w /opt/SecLists/Usernames/xato-net-10-million-usernames.txt:FUZZ \
+     -u "http://subdomain.academy.htb:PORT/page.php7" \
+     -X POST \
+     -d "username=FUZZ" \
+     -H "Content-Type: application/x-www-form-urlencoded" \
+     -fs <default_size>
+```
+
+---
+
+## Tabla de Referencia Rapida
+
+| Tarea | Comando Base |
+|-------|--------------|
+| Subdomain | `ffuf -w dns.txt:FUZZ -u http://FUZZ.domain/` |
+| VHost | `ffuf -w dns.txt:FUZZ -u http://domain/ -H "Host: FUZZ.domain"` |
+| Extension | `ffuf -w ext.txt:FUZZ -u http://domain/indexFUZZ` |
+| Directory | `ffuf -w dirs.txt:FUZZ -u http://domain/FUZZ` |
+| Page | `ffuf -w pages.txt:FUZZ -u http://domain/FUZZ.php` |
+| Recursive | `ffuf -w dirs.txt:FUZZ -u http://domain/FUZZ -recursion -e .php` |
+| Parameter GET | `ffuf -w params.txt:FUZZ -u "http://domain/page?FUZZ=val"` |
+| Parameter POST | `ffuf -w params.txt:FUZZ -u http://domain/page -X POST -d "FUZZ=val"` |
+| Value | `ffuf -w values.txt:FUZZ -u "http://domain/page?param=FUZZ"` |
+
+---
+
+## Lecciones Aprendidas
+
+### Wordlists Importantes
+
+| Proposito | Wordlist |
+|-----------|----------|
+| Subdomains | `/opt/SecLists/Discovery/DNS/subdomains-top1million-5000.txt` |
+| Extensions | `/opt/SecLists/Discovery/Web-Content/web-extensions.txt` |
+| Directories/Pages | `/opt/SecLists/Discovery/Web-Content/DirBuster-2007_directory-list-2.3-small.txt` |
+| Parameters | `/opt/SecLists/Discovery/Web-Content/burp-parameter-names.txt` |
+| Usernames | `/opt/SecLists/Usernames/xato-net-10-million-usernames.txt` |
+
+### Errores Comunes a Evitar
+
+1. **No agregar subdominios a /etc/hosts** - Necesario para acceder a VHosts
+2. **Usar wordlist incorrecta** - `raft-*` y `common.txt` no funcionan para recursive fuzzing
+3. **No filtrar por tamano** - `-fs` es critico para limpiar resultados
+4. **Olvidar el header Content-Type** - Requerido para POST en PHP
+5. **Formato incorrecto en respuesta** - Usar "PORT" en lugar del numero de puerto
+
+### Workflow Recomendado
+
+```
+1. Subdomain fuzzing (DNS)
+   ↓ (Si no encuentra nada)
+2. VHost fuzzing
+   ↓
+3. Agregar subdominios a /etc/hosts
+   ↓
+4. Extension fuzzing en cada subdominio
+   ↓
+5. Recursive page fuzzing en cada subdominio
+   ↓
+6. Parameter fuzzing en paginas encontradas
+   ↓
+7. Value fuzzing en parametros encontrados
+```
+
+---
+
+## Logros
+
+- ✅ Modulo completado: Attacking Web Applications with Ffuf
+- ✅ Skills Assessment aprobado
+- ✅ 10 Cubes ganados
+
+## Verificacion
+
+- **Achievement**: https://academy.hackthebox.com/achievement/2300153/54
+- **Module**: Attacking Web Applications with Ffuf
+- **Tier**: 0 (Easy)
+- **Status**: Completed
+
+---
+
+## Conclusiones
+
+ffuf es una herramienta esencial para:
+
+- **Reconocimiento web**: Descubrir contenido oculto y subdominios
+- **Enumeracion**: Identificar paginas, directorios y parametros
+- **Fuzzing sistematico**: Automatizar la busqueda de vulnerabilidades
+- **Pentesting**: Fundamental para cualquier engagement
+
+Dominar el flujo completo de fuzzing (subdominios → extensiones → paginas → parametros → valores) es critico para un penetration tester.
+
+---
+
+[Volver al Modulo](index.html)

@@ -1,0 +1,157 @@
+---
+title: "Proxies"
+description: "Tipos de proxies - Forward, Reverse y Transparent"
+author: "Diego Saavedra"
+date: "2026-02-20"
+categories: [networking, proxy, security]
+---
+
+# Proxies
+
+## Objetivo
+
+Al finalizar esta seccion, seras capaz de:
+
+- Definir que es un proxy y su diferencia con un gateway
+- Identificar los tipos de proxies: Forward, Reverse, Transparent
+- Comprender casos de uso en seguridad
+
+## Que es un Proxy?
+
+Un proxy es cuando un dispositivo o servicio esta en medio de una conexion y actua como **mediador**.
+
+::: {.callout-tip}
+## Clave
+El mediador debe poder **inspeccionar el contenido del trafico**. Sin esta capacidad, es un **gateway**, no un proxy.
+:::
+
+### Percepciones Comunes
+
+| Quien | Que piensa de un proxy |
+|-------|----------------------|
+| Security Pros | HTTP Proxies (BurpSuite), SOCKS/SSH Proxy (Chisel) |
+| Web Developers | Cloudflare, ModSecurity para bloquear trafico malicioso |
+| Usuarios comunes | Ocultar ubicacion, acceder a Netflix de otros paises |
+| Law Enforcement | Actividad ilegal |
+
+## Tipos de Proxies
+
+### 1. Forward Proxy (Dedicated Proxy)
+
+Un cliente hace una solicitud a una computadora, y esa computadora ejecuta la solicitud.
+
+```
+Cliente → Forward Proxy → Internet → Servidor
+```
+
+#### Caso de Uso: Red Corporativa
+
+```
+┌─────────────────────────────────────────────┐
+│ Red Corporativa                             │
+│  ┌─────────┐    ┌─────────┐                │
+│  │Cliente A│    │Cliente B│                │
+│  └────┬────┘    └────┬────┘                │
+│       │              │                      │
+│       └──────┬───────┘                      │
+│              │                              │
+│        ┌─────┴─────┐                       │
+│        │  Proxy/   │ → Internet → Web      │
+│        │ Web Filter│                       │
+│        └───────────┘                       │
+└─────────────────────────────────────────────┘
+```
+
+**Ventajas de Seguridad**:
+
+- Computadoras sensibles no tienen acceso directo a Internet
+- Malware debe ser "proxy aware" o usar C2 no tradicional
+- Firefox usa libcurl, no WinSock, dificilando malware proxy-aware
+
+#### Ejemplo: Burp Suite
+
+Herramienta suiza de HTTP Proxies que puede configurarse como:
+
+- Forward proxy
+- Reverse proxy
+- Transparent proxy
+
+### 2. Reverse Proxy
+
+Filtra solicitudes **entrantes** en lugar de salientes.
+
+```
+Cliente → Internet → Reverse Proxy → Servidor Interno
+```
+
+#### Casos de Uso
+
+| Herramienta | Funcion |
+|-------------|---------|
+| **Cloudflare** | Proteccion DDoS, filtrado de trafico |
+| **ModSecurity** | Web Application Firewall (WAF) |
+| **Reverse Shell** | Pivotear a traves de endpoint infectado |
+
+#### Ejemplo: Pentesting
+
+```
+Atacante → Internet → Firewall → Reverse Proxy → Servidor Web
+                                    ↑
+                            Endpoint Infectado
+```
+
+El endpoint infectado escucha en un puerto y reenvia conexiones al atacante, evadiendo IDS que monitorea trafico externo.
+
+### 3. Transparent vs Non-Transparent
+
+#### Transparent Proxy
+
+- El cliente **no sabe** de su existencia
+- El proxy intercepta las solicitudes automaticamente
+- Actua como sustituto para comunicaciones externas
+
+#### Non-Transparent Proxy
+
+- El cliente **debe ser informado** de su existencia
+- Requiere configuracion especial de proxy
+- Sin configuracion, la comunicacion se corta
+
+## Comparacion
+
+| Tipo | Direccion | Visibilidad | Caso de Uso |
+|------|-----------|-------------|-------------|
+| **Forward** | Saliente | Cliente conoce | Filtros web, Burp Suite |
+| **Reverse** | Entrante | Cliente no conoce | WAF, Cloudflare |
+| **Transparent** | Ambas | Cliente no conoce | ISPs, filtrado silencioso |
+
+## Seguridad y Proxies
+
+### Beneficios
+
+- Filtrado de trafico malicioso
+- Logs centralizados
+- Cache y optimizacion
+- Anonimato (limitado)
+
+### Consideraciones
+
+- SSL/TLS requiere inspeccion profunda
+- Rendimiento puede verse afectado
+- Punto unico de falla
+- Privacidad
+
+## Que Aprendimos
+
+- Un proxy es un mediador que puede inspeccionar trafico
+- Forward proxy filtra trafico saliente
+- Reverse proxy filtra trafico entrante
+- Los proxies transparentes son invisibles para el cliente
+- Burp Suite es un ejemplo de herramienta de proxy versatil
+
+## Proximos Pasos
+
+En la siguiente seccion aprenderemos sobre [Networking Models](05-models.html).
+
+---
+
+[Volver al Modulo](index.html) | [Networking Models ->](05-models.html)

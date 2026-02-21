@@ -1,0 +1,90 @@
+# HTTP Headers
+
+Los headers HTTP pasan información entre cliente y servidor.
+
+## Categorías de Headers
+
+| Categoría | Descripción |
+|-----------|-------------|
+| **General Headers** | Contextuales, describen el mensaje |
+| **Entity Headers** | Describen el contenido transferido |
+| **Request Headers** | Enviados por el cliente |
+| **Response Headers** | Enviados por el servidor |
+| **Security Headers** | Políticas de seguridad |
+
+## General Headers
+
+| Header | Ejemplo | Descripción |
+|--------|---------|-------------|
+| `Date` | `Date: Wed, 16 Feb 2022 10:38:44 GMT` | Fecha y hora del mensaje |
+| `Connection` | `Connection: close` | Mantener conexión viva o cerrar |
+
+## Entity Headers
+
+| Header | Ejemplo | Descripción |
+|--------|---------|-------------|
+| `Content-Type` | `Content-Type: text/html` | Tipo de recurso |
+| `Media-Type` | `Media-Type: application/pdf` | Tipo de datos |
+| `Content-Length` | `Content-Length: 385` | Tamaño del contenido |
+| `Content-Encoding` | `Content-Encoding: gzip` | Codificación usada |
+
+## Request Headers
+
+| Header | Ejemplo | Descripción |
+|--------|---------|-------------|
+| `Host` | `Host: www.example.com` | Dominio consultado |
+| `User-Agent` | `User-Agent: curl/7.77.0` | Cliente que hace el request |
+| `Referer` | `Referer: http://google.com` | Origen del request |
+| `Accept` | `Accept: */*` | Tipos aceptados |
+| `Cookie` | `Cookie: PHPSESSID=abc123` | Cookies de sesión |
+| `Authorization` | `Authorization: BASIC cGFzc3dvcmQK` | Credenciales de autenticación |
+
+## Response Headers
+
+| Header | Ejemplo | Descripción |
+|--------|---------|-------------|
+| `Server` | `Server: Apache/2.4.41` | Información del servidor |
+| `Set-Cookie` | `Set-Cookie: PHPSESSID=abc123` | Establecer cookie |
+| `WWW-Authenticate` | `WWW-Authenticate: BASIC realm="localhost"` | Tipo de autenticación requerida |
+
+## Security Headers
+
+| Header | Ejemplo | Descripción |
+|--------|---------|-------------|
+| `Content-Security-Policy` | `script-src 'self'` | Previene XSS |
+| `Strict-Transport-Security` | `max-age=31536000` | Fuerza HTTPS |
+| `Referrer-Policy` | `origin` | Controla información del referer |
+
+## cURL con Headers
+
+```bash
+# Ver solo headers de respuesta
+curl -I http://example.com
+
+# Ver headers + body
+curl -i http://example.com
+
+# Establecer User-Agent personalizado
+curl -A 'Mozilla/5.0' http://example.com
+
+# Establecer header personalizado
+curl -H 'Authorization: Basic YWRtaW46YWRtaW4=' http://example.com
+```
+
+## Browser DevTools
+
+1. Abrir DevTools: `F12`
+2. Ir a **Network** tab
+3. Click en request
+4. Ver **Headers** tab
+5. Click **Raw** para ver formato original
+
+## Ejercicio Práctico
+
+```bash
+# Usar Network tab en DevTools
+# Buscar request llamada 'flag_...'
+# Ver Response para obtener la flag
+```
+
+**Flag**: `HTB{p493_r3qu3$t$_m0n!t0r}`

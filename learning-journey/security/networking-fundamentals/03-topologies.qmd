@@ -1,0 +1,209 @@
+---
+title: "Networking Topologies"
+description: "Topologias de red - Estructuras fisicas y logicas"
+author: "Diego Saavedra"
+date: "2026-02-20"
+categories: [networking, topology, architecture]
+---
+
+# Networking Topologies
+
+## Objetivo
+
+Al finalizar esta seccion, seras capaz de:
+
+- Identificar las 8 topologias basicas de red
+- Diferenciar entre topologia fisica y logica
+- Comprender las ventajas y desventajas de cada topologia
+
+## Componentes de Topologia
+
+### 1. Conexiones
+
+| Cableadas | Inalambricas |
+|-----------|--------------|
+| Coaxial | Wi-Fi |
+| Fibra optica | Celular |
+| Par trenzado | Satelital |
+
+### 2. Nodos
+
+| Dispositivo | Funcion |
+|-------------|---------|
+| Repetidores | Amplificar senal |
+| Hubs | Distribucion basica |
+| Bridges | Conectar segmentos |
+| Switches | Distribucion inteligente |
+| Routers/Modems | Enrutamiento |
+| Gateways | Traduccion de protocolos |
+| Firewalls | Filtrado de trafico |
+
+### 3. Clasificaciones
+
+- **Topologia Fisica**: Disposicion real del cableado y nodos
+- **Topologia Logica**: Como fluyen los datos
+
+## Topologias Basicas
+
+### 1. Point-to-Point
+
+La topologia mas simple con conexion dedicada entre dos hosts.
+
+```
+Host A ←────────────────────→ Host B
+```
+
+- Conexion directa y simple
+- Usado en telecomunicaciones tradicionales
+- No confundir con P2P (Peer-to-Peer)
+
+### 2. Bus
+
+Todos los hosts conectados a un medio de transmision compartido.
+
+```
+Host A     Host B     Host C     Host D
+   │          │          │          │
+   └──────────┴──────────┴──────────┘
+              Bus Compartido
+```
+
+- Solo un host puede enviar a la vez
+- Los demas solo reciben y evaluan
+- No requiere componente central
+- Medio comun: coaxial
+
+### 3. Star
+
+Un componente central conecta todos los hosts.
+
+```
+         Host A
+            │
+Host D ──Switch── Host B
+            │
+         Host C
+```
+
+- Componente central: router, hub o switch
+- Trafico alto en componente central
+- Facil de gestionar
+- Punto unico de falla
+
+### 4. Ring
+
+Cada nodo conectado con dos cables (entrada/salida).
+
+```
+    Host A ←──→ Host B
+       ↑          ↑
+       │          │
+       ↓          ↓
+    Host D ←──→ Host C
+```
+
+- Transmision en direccion predeterminada
+- No requiere componente activo
+- Control por protocolo o token
+- Un fallo rompe el anillo
+
+### 5. Mesh
+
+#### Full Mesh
+
+Cada host conectado a todos los demas.
+
+```
+Host A ←──→ Host B
+   ↑╲        ╱↑
+   │  ╲    ╱  │
+   │    ╲╱    │
+   │    ╱╲    │
+   │  ╱    ╲  │
+   ↓╱        ╲↓
+Host D ←──→ Host C
+```
+
+- Alta redundancia
+- Usado en WAN/MAN
+- Complejo y costoso
+
+#### Partial Mesh
+
+Algunos nodos conectados a multiples otros.
+
+- Menos costoso que full mesh
+- Balance entre redundancia y costo
+
+### 6. Tree
+
+Extension de topologia star en jerarquia.
+
+```
+             Server
+            ╱      ╲
+        Switch    Switch
+        ╱  ╱╲  ╲  ╱  ╱╲  ╲
+      A   B  C  D  E  F  G
+```
+
+- Usado en edificios grandes
+- Combina multiples stars
+- Estructura jerarquica
+
+### 7. Hybrid
+
+Combinacion de dos o mas topologias basicas.
+
+```
+    Ring Network     Star Network
+    A ←──→ B          E
+    ↑      │          │
+    │      ↓          F
+    D ←──→ C      G──H──I
+                   │
+              conectados
+```
+
+- Resultado no presenta topologia estandar
+- Flexible para necesidades especificas
+
+### 8. Daisy Chain
+
+Multiples hosts conectados en serie.
+
+```
+Host A ──→ Host B ──→ Host C ──→ Host D
+```
+
+- Conexion de nodo a nodo
+- Usado en automatizacion (CAN)
+- Senal pasa por nodos anteriores
+
+## Comparacion de Topologias
+
+| Topologia | Ventajas | Desventajas |
+|-----------|----------|-------------|
+| **Point-to-Point** | Simple, directo | Solo 2 hosts |
+| **Bus** | Economica, facil instalar | Bajo rendimiento, dificil debug |
+| **Star** | Facil gestion, escalable | Punto unico de falla |
+| **Ring** | Ordenada, sin colisiones | Un fallo afecta toda la red |
+| **Mesh** | Alta redundancia | Compleja, costosa |
+| **Tree** | Escalable, jerarquica | Compleja |
+| **Hybrid** | Flexible | Dificil disenar |
+| **Daisy Chain** | Simple | Latencia acumulada |
+
+## Que Aprendimos
+
+- Existen 8 topologias basicas
+- La topologia fisica no siempre coincide con la logica
+- Cada topologia tiene ventajas y desventajas
+- Las redes modernas suelen ser hibridas
+
+## Proximos Pasos
+
+En la siguiente seccion aprenderemos sobre [Proxies](04-proxies.html).
+
+---
+
+[Volver al Modulo](index.html) | [Proxies ->](04-proxies.html)

@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Diego Saavedra">
+<meta name="dcterms.date" content="2026-02-20">
+<meta name="description" content="Evaluacion practica completa de ffuf">
+
+<title>Skills Assessment - Web Fuzzing – DevOps &amp; Security Learning Journey</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-7ac2f9da8c2617a4fdd15004b4601015.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-3dad1a9f078d91cda5f1887d21eb11b5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">DevOps &amp; Security Learning Journey</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../foundations/index.html"> 
+<span class="menu-text">Foundations</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../containers/index.html"> 
+<span class="menu-text">Containers</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../devops-practices/index.html"> 
+<span class="menu-text">DevOps</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../security/index.html"> 
+<span class="menu-text">Security</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../roadmap/index.html"> 
+<span class="menu-text">Roadmap</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-language" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Language</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-language">    
+        <li>
+    <a class="dropdown-item" href="../../es/index.html">
+ <span class="dropdown-text">Español</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../index.html">
+ <span class="dropdown-text">English</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="https://github.com/statick88/challenges"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text">GitHub</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#skills-assessment---web-fuzzing" id="toc-skills-assessment---web-fuzzing" class="nav-link active" data-scroll-target="#skills-assessment---web-fuzzing">Skills Assessment - Web Fuzzing</a>
+  <ul class="collapse">
+  <li><a href="#objetivo" id="toc-objetivo" class="nav-link" data-scroll-target="#objetivo">Objetivo</a></li>
+  <li><a href="#configuracion-inicial" id="toc-configuracion-inicial" class="nav-link" data-scroll-target="#configuracion-inicial">Configuracion Inicial</a>
+  <ul class="collapse">
+  <li><a href="#agregar-dominio-a-etchosts" id="toc-agregar-dominio-a-etchosts" class="nav-link" data-scroll-target="#agregar-dominio-a-etchosts">Agregar dominio a /etc/hosts</a></li>
+  <li><a href="#target" id="toc-target" class="nav-link" data-scroll-target="#target">Target</a></li>
+  </ul></li>
+  <li><a href="#pregunta-1-subdomainvhost-fuzzing" id="toc-pregunta-1-subdomainvhost-fuzzing" class="nav-link" data-scroll-target="#pregunta-1-subdomainvhost-fuzzing">Pregunta 1: Subdomain/VHost Fuzzing</a>
+  <ul class="collapse">
+  <li><a href="#metodologia" id="toc-metodologia" class="nav-link" data-scroll-target="#metodologia">Metodologia</a></li>
+  <li><a href="#resultado" id="toc-resultado" class="nav-link" data-scroll-target="#resultado">Resultado</a></li>
+  <li><a href="#agregar-subdominios-a-etchosts" id="toc-agregar-subdominios-a-etchosts" class="nav-link" data-scroll-target="#agregar-subdominios-a-etchosts">Agregar subdominios a /etc/hosts</a></li>
+  </ul></li>
+  <li><a href="#pregunta-2-extension-fuzzing" id="toc-pregunta-2-extension-fuzzing" class="nav-link" data-scroll-target="#pregunta-2-extension-fuzzing">Pregunta 2: Extension Fuzzing</a>
+  <ul class="collapse">
+  <li><a href="#metodologia-1" id="toc-metodologia-1" class="nav-link" data-scroll-target="#metodologia-1">Metodologia</a></li>
+  <li><a href="#extensiones-encontradas-por-subdominio" id="toc-extensiones-encontradas-por-subdominio" class="nav-link" data-scroll-target="#extensiones-encontradas-por-subdominio">Extensiones encontradas por subdominio</a></li>
+  </ul></li>
+  <li><a href="#pregunta-3-recursive-page-fuzzing" id="toc-pregunta-3-recursive-page-fuzzing" class="nav-link" data-scroll-target="#pregunta-3-recursive-page-fuzzing">Pregunta 3: Recursive Page Fuzzing</a>
+  <ul class="collapse">
+  <li><a href="#metodologia-2" id="toc-metodologia-2" class="nav-link" data-scroll-target="#metodologia-2">Metodologia</a></li>
+  <li><a href="#formato-de-respuesta" id="toc-formato-de-respuesta" class="nav-link" data-scroll-target="#formato-de-respuesta">Formato de respuesta</a></li>
+  </ul></li>
+  <li><a href="#pregunta-4-parameter-fuzzing" id="toc-pregunta-4-parameter-fuzzing" class="nav-link" data-scroll-target="#pregunta-4-parameter-fuzzing">Pregunta 4: Parameter Fuzzing</a>
+  <ul class="collapse">
+  <li><a href="#metodologia-3" id="toc-metodologia-3" class="nav-link" data-scroll-target="#metodologia-3">Metodologia</a></li>
+  </ul></li>
+  <li><a href="#pregunta-5-value-fuzzing" id="toc-pregunta-5-value-fuzzing" class="nav-link" data-scroll-target="#pregunta-5-value-fuzzing">Pregunta 5: Value Fuzzing</a>
+  <ul class="collapse">
+  <li><a href="#metodologia-4" id="toc-metodologia-4" class="nav-link" data-scroll-target="#metodologia-4">Metodologia</a></li>
+  </ul></li>
+  <li><a href="#resumen-de-comandos" id="toc-resumen-de-comandos" class="nav-link" data-scroll-target="#resumen-de-comandos">Resumen de Comandos</a>
+  <ul class="collapse">
+  <li><a href="#subdomainvhost-fuzzing" id="toc-subdomainvhost-fuzzing" class="nav-link" data-scroll-target="#subdomainvhost-fuzzing">Subdomain/VHost Fuzzing</a></li>
+  <li><a href="#extension-fuzzing" id="toc-extension-fuzzing" class="nav-link" data-scroll-target="#extension-fuzzing">Extension Fuzzing</a></li>
+  <li><a href="#recursive-page-fuzzing" id="toc-recursive-page-fuzzing" class="nav-link" data-scroll-target="#recursive-page-fuzzing">Recursive Page Fuzzing</a></li>
+  <li><a href="#parameter-fuzzing-post" id="toc-parameter-fuzzing-post" class="nav-link" data-scroll-target="#parameter-fuzzing-post">Parameter Fuzzing POST</a></li>
+  <li><a href="#value-fuzzing" id="toc-value-fuzzing" class="nav-link" data-scroll-target="#value-fuzzing">Value Fuzzing</a></li>
+  </ul></li>
+  <li><a href="#tabla-de-referencia-rapida" id="toc-tabla-de-referencia-rapida" class="nav-link" data-scroll-target="#tabla-de-referencia-rapida">Tabla de Referencia Rapida</a></li>
+  <li><a href="#lecciones-aprendidas" id="toc-lecciones-aprendidas" class="nav-link" data-scroll-target="#lecciones-aprendidas">Lecciones Aprendidas</a>
+  <ul class="collapse">
+  <li><a href="#wordlists-importantes" id="toc-wordlists-importantes" class="nav-link" data-scroll-target="#wordlists-importantes">Wordlists Importantes</a></li>
+  <li><a href="#errores-comunes-a-evitar" id="toc-errores-comunes-a-evitar" class="nav-link" data-scroll-target="#errores-comunes-a-evitar">Errores Comunes a Evitar</a></li>
+  <li><a href="#workflow-recomendado" id="toc-workflow-recomendado" class="nav-link" data-scroll-target="#workflow-recomendado">Workflow Recomendado</a></li>
+  </ul></li>
+  <li><a href="#logros" id="toc-logros" class="nav-link" data-scroll-target="#logros">Logros</a></li>
+  <li><a href="#verificacion" id="toc-verificacion" class="nav-link" data-scroll-target="#verificacion">Verificacion</a></li>
+  <li><a href="#conclusiones" id="toc-conclusiones" class="nav-link" data-scroll-target="#conclusiones">Conclusiones</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Skills Assessment - Web Fuzzing</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">security</div>
+    <div class="quarto-category">ffuf</div>
+    <div class="quarto-category">assessment</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    Evaluacion practica completa de ffuf
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Diego Saavedra </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">February 20, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="skills-assessment---web-fuzzing" class="level1">
+<h1>Skills Assessment - Web Fuzzing</h1>
+<section id="objetivo" class="level2">
+<h2 class="anchored" data-anchor-id="objetivo">Objetivo</h2>
+<p>Enumerar completamente un objetivo web desconocido usando ffuf:</p>
+<ol type="1">
+<li>Subdomain/VHost Fuzzing</li>
+<li>Extension Fuzzing</li>
+<li>Recursive Page Fuzzing</li>
+<li>Parameter Fuzzing</li>
+<li>Value Fuzzing</li>
+</ol>
+</section>
+<section id="configuracion-inicial" class="level2">
+<h2 class="anchored" data-anchor-id="configuracion-inicial">Configuracion Inicial</h2>
+<section id="agregar-dominio-a-etchosts" class="level3">
+<h3 class="anchored" data-anchor-id="agregar-dominio-a-etchosts">Agregar dominio a /etc/hosts</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> sh <span class="at">-c</span> <span class="st">'echo "IP_ADDRESS academy.htb" &gt;&gt; /etc/hosts'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="target" class="level3">
+<h3 class="anchored" data-anchor-id="target">Target</h3>
+<pre><code>IP: 154.57.164.71
+PORT: 31494</code></pre>
+<hr>
+</section>
+</section>
+<section id="pregunta-1-subdomainvhost-fuzzing" class="level2">
+<h2 class="anchored" data-anchor-id="pregunta-1-subdomainvhost-fuzzing">Pregunta 1: Subdomain/VHost Fuzzing</h2>
+<p><strong>Pregunta:</strong> Run a sub-domain/vhost fuzzing scan on ’*.academy.htb’ for the IP shown above. What are all the sub-domains you can identify?</p>
+<section id="metodologia" class="level3">
+<h3 class="anchored" data-anchor-id="metodologia">Metodologia</h3>
+<p><strong>Paso 1: Subdomain fuzzing (DNS)</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ffuf</span> <span class="at">-w</span> /opt/SecLists/Discovery/DNS/subdomains-top1million-5000.txt:FUZZ <span class="dt">\</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">-u</span> <span class="st">"http://FUZZ.academy.htb:31494/"</span> <span class="dt">\</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">-t</span> 100</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Resultado:</strong> No encuentra subdominios publicos (no hay registros DNS).</p>
+<p><strong>Paso 2: VHost fuzzing</strong></p>
+<p>Los subdominios pueden no tener registros DNS publicos. VHost fuzzing busca subdominios configurados en el servidor web.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ffuf</span> <span class="at">-w</span> /opt/SecLists/Discovery/DNS/subdomains-top1million-5000.txt:FUZZ <span class="dt">\</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">-u</span> <span class="st">"http://academy.htb:31494/"</span> <span class="dt">\</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">-H</span> <span class="st">"Host: FUZZ.academy.htb"</span> <span class="dt">\</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">-fs</span> 985</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Explicacion:</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Flag</th>
+<th>Proposito</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>-H "Host: FUZZ.academy.htb"</code></td>
+<td>Header Host con subdominio dinamico</td>
+</tr>
+<tr class="even">
+<td><code>-fs 985</code></td>
+<td>Filtra respuestas de tamano 985 (pagina por defecto)</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="resultado" class="level3">
+<h3 class="anchored" data-anchor-id="resultado">Resultado</h3>
+<pre><code>test
+archive
+faculty</code></pre>
+</section>
+<section id="agregar-subdominios-a-etchosts" class="level3">
+<h3 class="anchored" data-anchor-id="agregar-subdominios-a-etchosts">Agregar subdominios a /etc/hosts</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> sh <span class="at">-c</span> <span class="st">'cat &gt;&gt; /etc/hosts &lt;&lt; EOF</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="st">IP_ADDRESS test.academy.htb</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="st">IP_ADDRESS archive.academy.htb</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="st">IP_ADDRESS faculty.academy.htb</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="st">EOF'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Respuesta:</strong> <code>test, archive, faculty</code></p>
+<hr>
+</section>
+</section>
+<section id="pregunta-2-extension-fuzzing" class="level2">
+<h2 class="anchored" data-anchor-id="pregunta-2-extension-fuzzing">Pregunta 2: Extension Fuzzing</h2>
+<p><strong>Pregunta:</strong> Before you run your page fuzzing scan, you should first run an extension fuzzing scan. What are the different extensions accepted by the domains?</p>
+<section id="metodologia-1" class="level3">
+<h3 class="anchored" data-anchor-id="metodologia-1">Metodologia</h3>
+<p>Escanear extensiones en TODOS los subdominios encontrados.</p>
+<p><strong>Paso 1: Extension fuzzing en academy.htb</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ffuf</span> <span class="at">-w</span> /opt/SecLists/Discovery/Web-Content/web-extensions.txt:FUZZ <span class="dt">\</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">-u</span> <span class="st">"http://academy.htb:31494/indexFUZZ"</span> <span class="dt">\</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">-mc</span> 200</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Resultado:</strong> <code>.php</code></p>
+<p><strong>Paso 2: Extension fuzzing en test.academy.htb</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ffuf</span> <span class="at">-w</span> /opt/SecLists/Discovery/Web-Content/web-extensions.txt:FUZZ <span class="dt">\</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">-u</span> <span class="st">"http://test.academy.htb:31494/indexFUZZ"</span> <span class="dt">\</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">-mc</span> 200</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Resultado:</strong> <code>.php</code></p>
+<p><strong>Paso 3: Extension fuzzing en archive.academy.htb</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ffuf</span> <span class="at">-w</span> /opt/SecLists/Discovery/Web-Content/web-extensions.txt:FUZZ <span class="dt">\</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">-u</span> <span class="st">"http://archive.academy.htb:31494/indexFUZZ"</span> <span class="dt">\</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">-mc</span> 200</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Resultado:</strong> <code>.php</code></p>
+<p><strong>Paso 4: Extension fuzzing en faculty.academy.htb</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ffuf</span> <span class="at">-w</span> /opt/SecLists/Discovery/Web-Content/web-extensions.txt:FUZZ <span class="dt">\</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">-u</span> <span class="st">"http://faculty.academy.htb:31494/indexFUZZ"</span> <span class="dt">\</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">-mc</span> 200</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Resultado:</strong> <code>.php</code>, <code>.php7</code></p>
+<p><strong>Paso 5: Extension fuzzing con archivo admin</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> sub <span class="kw">in</span> test archive faculty<span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="ex">ffuf</span> <span class="at">-w</span> /opt/SecLists/Discovery/Web-Content/web-extensions.txt:FUZZ <span class="dt">\</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">-u</span> <span class="st">"http://</span><span class="va">${sub}</span><span class="st">.academy.htb:31494/adminFUZZ"</span> <span class="dt">\</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">-mc</span> 200,403</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Resultado:</strong> <code>.phps</code> (codigo 403 Forbidden)</p>
+</section>
+<section id="extensiones-encontradas-por-subdominio" class="level3">
+<h3 class="anchored" data-anchor-id="extensiones-encontradas-por-subdominio">Extensiones encontradas por subdominio</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Subdominio</th>
+<th>Extensiones</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>academy.htb</td>
+<td>.php</td>
+</tr>
+<tr class="even">
+<td>test.academy.htb</td>
+<td>.php</td>
+</tr>
+<tr class="odd">
+<td>archive.academy.htb</td>
+<td>.php</td>
+</tr>
+<tr class="even">
+<td>faculty.academy.htb</td>
+<td>.php, .php7</td>
+</tr>
+<tr class="odd">
+<td>Todos</td>
+<td>.phps (403)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Respuesta:</strong> <code>php, php7, phps</code></p>
+<p><strong>Formato:</strong> Sin punto, separados por coma y espacio.</p>
+<hr>
+</section>
+</section>
+<section id="pregunta-3-recursive-page-fuzzing" class="level2">
+<h2 class="anchored" data-anchor-id="pregunta-3-recursive-page-fuzzing">Pregunta 3: Recursive Page Fuzzing</h2>
+<p><strong>Pregunta:</strong> One of the pages you will identify should say ‘You don’t have access!’. What is the full page URL?</p>
+<section id="metodologia-2" class="level3">
+<h3 class="anchored" data-anchor-id="metodologia-2">Metodologia</h3>
+<p>Realizar escaneo recursivo en cada subdominio con todas las extensiones.</p>
+<p><strong>Wordlist importante:</strong> Usar <code>directory-list-2.3-small.txt</code> o <code>directory-list-2.3-medium.txt</code>. Las wordlists como <code>raft-*</code> o <code>common.txt</code> no funcionan para este ejercicio.</p>
+<p><strong>Paso 1: Recursive fuzzing en faculty.academy.htb</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ffuf</span> <span class="at">-w</span> /opt/SecLists/Discovery/Web-Content/DirBuster-2007_directory-list-2.3-small.txt:FUZZ <span class="dt">\</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">-u</span> <span class="st">"http://faculty.academy.htb:31494/FUZZ"</span> <span class="dt">\</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">-recursion</span> <span class="at">-recursion-depth</span> 1 <span class="dt">\</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">-e</span> .php,.php7,.phps <span class="dt">\</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">-fs</span> 287 <span class="dt">\</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">-t</span> 80</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Flags explicados:</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Flag</th>
+<th>Proposito</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>-recursion</code></td>
+<td>Activa escaneo recursivo</td>
+</tr>
+<tr class="even">
+<td><code>-recursion-depth 1</code></td>
+<td>Profundidad maxima de recursividad</td>
+</tr>
+<tr class="odd">
+<td><code>-e .php,.php7,.phps</code></td>
+<td>Extensiones a probar</td>
+</tr>
+<tr class="even">
+<td><code>-fs 287</code></td>
+<td>Filtra respuestas vacias</td>
+</tr>
+<tr class="odd">
+<td><code>-t 80</code></td>
+<td>80 threads para mayor velocidad</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Paso 2: Directorio encontrado</strong></p>
+<pre><code>courses/ [Status: 301, Size: 328]</code></pre>
+<p>ffuf automaticamente anade un job para escanear dentro de <code>courses/</code>.</p>
+<p><strong>Paso 3: Pagina encontrada</strong></p>
+<pre><code>courses/linux-security.php7 [Status: 200, Size: 774]</code></pre>
+<p><strong>Paso 4: Verificar contenido</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-s</span> <span class="st">"http://faculty.academy.htb:31494/courses/linux-security.php7"</span> <span class="dt">\</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">-H</span> <span class="st">"Host: faculty.academy.htb"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Respuesta:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">'center'</span><span class="dt">&gt;&lt;</span><span class="kw">p</span><span class="dt">&gt;</span>You don't have access!<span class="dt">&lt;/</span><span class="kw">p</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="formato-de-respuesta" class="level3">
+<h3 class="anchored" data-anchor-id="formato-de-respuesta">Formato de respuesta</h3>
+<p><strong>IMPORTANTE:</strong> El puerto debe reemplazarse con “PORT” en la respuesta.</p>
+<ul>
+<li>❌ Incorrecto: <code>http://faculty.academy.htb:31494/courses/linux-security.php7</code></li>
+<li>✅ Correcto: <code>http://faculty.academy.htb:PORT/courses/linux-security.php7</code></li>
+</ul>
+<p><strong>Respuesta:</strong> <code>http://faculty.academy.htb:PORT/courses/linux-security.php7</code></p>
+<hr>
+</section>
+</section>
+<section id="pregunta-4-parameter-fuzzing" class="level2">
+<h2 class="anchored" data-anchor-id="pregunta-4-parameter-fuzzing">Pregunta 4: Parameter Fuzzing</h2>
+<p><strong>Pregunta:</strong> In the page from the previous question, you should be able to find multiple parameters that are accepted by the page. What are they?</p>
+<section id="metodologia-3" class="level3">
+<h3 class="anchored" data-anchor-id="metodologia-3">Metodologia</h3>
+<p>Fuzzear parametros POST en la pagina encontrada.</p>
+<p><strong>Paso 1: Parameter fuzzing POST</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ffuf</span> <span class="at">-w</span> /opt/SecLists/Discovery/Web-Content/burp-parameter-names.txt:FUZZ <span class="dt">\</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">-u</span> <span class="st">"http://faculty.academy.htb:31494/courses/linux-security.php7"</span> <span class="dt">\</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">-X</span> POST <span class="dt">\</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">-d</span> <span class="st">"FUZZ=key"</span> <span class="dt">\</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">-H</span> <span class="st">"Content-Type: application/x-www-form-urlencoded"</span> <span class="dt">\</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">-fs</span> 774</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Flags explicados:</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 35%">
+<col style="width: 64%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Flag</th>
+<th>Proposito</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>-X POST</code></td>
+<td>Metodo HTTP POST</td>
+</tr>
+<tr class="even">
+<td><code>-d "FUZZ=key"</code></td>
+<td>POST data con parametro dinamico</td>
+</tr>
+<tr class="odd">
+<td><code>-H "Content-Type: application/x-www-form-urlencoded"</code></td>
+<td>Header requerido para PHP</td>
+</tr>
+<tr class="even">
+<td><code>-fs 774</code></td>
+<td>Filtra respuestas de tamano 774 (mensaje “You don’t have access!”)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Paso 2: Parametros encontrados</strong></p>
+<pre><code>user [Status: 200, Size: 781]
+username [Status: 200, Size: 781]</code></pre>
+<p><strong>Respuesta:</strong> <code>user, username</code></p>
+<hr>
+</section>
+</section>
+<section id="pregunta-5-value-fuzzing" class="level2">
+<h2 class="anchored" data-anchor-id="pregunta-5-value-fuzzing">Pregunta 5: Value Fuzzing</h2>
+<p><strong>Pregunta:</strong> Try fuzzing the parameters you identified for working values. One of them should return a flag. What is the content of the flag?</p>
+<section id="metodologia-4" class="level3">
+<h3 class="anchored" data-anchor-id="metodologia-4">Metodologia</h3>
+<p>Fuzzear valores para el parametro <code>username</code> usando wordlist de usernames.</p>
+<p><strong>Paso 1: Value fuzzing con usernames</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ffuf</span> <span class="at">-w</span> /opt/SecLists/Usernames/xato-net-10-million-usernames.txt:FUZZ <span class="dt">\</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">-u</span> <span class="st">"http://faculty.academy.htb:31494/courses/linux-security.php7"</span> <span class="dt">\</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">-X</span> POST <span class="dt">\</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">-d</span> <span class="st">"username=FUZZ"</span> <span class="dt">\</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">-H</span> <span class="st">"Content-Type: application/x-www-form-urlencoded"</span> <span class="dt">\</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">-fs</span> 781</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Flags explicados:</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 35%">
+<col style="width: 64%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Flag</th>
+<th>Proposito</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>-d "username=FUZZ"</code></td>
+<td>POST data con valor dinamico</td>
+</tr>
+<tr class="even">
+<td><code>-fs 781</code></td>
+<td>Filtra respuestas de tamano 781 (mensaje “You don’t have access!”)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Paso 2: Username encontrado</strong></p>
+<pre><code>harry [Status: 200, Size: 846]</code></pre>
+<p><strong>Paso 3: Obtener flag</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-s</span> <span class="st">"http://faculty.academy.htb:31494/courses/linux-security.php7"</span> <span class="dt">\</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">-X</span> POST <span class="dt">\</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">-d</span> <span class="st">"username=harry"</span> <span class="dt">\</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">-H</span> <span class="st">"Content-Type: application/x-www-form-urlencoded"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Respuesta:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">p</span><span class="dt">&gt;</span>Welcome harry!<span class="dt">&lt;/</span><span class="kw">p</span><span class="dt">&gt;</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">p</span><span class="dt">&gt;</span>Flag: HTB{w3b_fuzz1n6_m4573r}<span class="dt">&lt;/</span><span class="kw">p</span><span class="dt">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Respuesta:</strong> <code>HTB{w3b_fuzz1n6_m4573r}</code></p>
+<hr>
+</section>
+</section>
+<section id="resumen-de-comandos" class="level2">
+<h2 class="anchored" data-anchor-id="resumen-de-comandos">Resumen de Comandos</h2>
+<section id="subdomainvhost-fuzzing" class="level3">
+<h3 class="anchored" data-anchor-id="subdomainvhost-fuzzing">Subdomain/VHost Fuzzing</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Subdomain fuzzing (DNS)</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="ex">ffuf</span> <span class="at">-w</span> /opt/SecLists/Discovery/DNS/subdomains-top1million-5000.txt:FUZZ <span class="dt">\</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">-u</span> <span class="st">"http://FUZZ.academy.htb:PORT/"</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="co"># VHost fuzzing</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="ex">ffuf</span> <span class="at">-w</span> /opt/SecLists/Discovery/DNS/subdomains-top1million-5000.txt:FUZZ <span class="dt">\</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">-u</span> <span class="st">"http://academy.htb:PORT/"</span> <span class="dt">\</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">-H</span> <span class="st">"Host: FUZZ.academy.htb"</span> <span class="dt">\</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">-fs</span> <span class="op">&lt;</span>default_size<span class="op">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="extension-fuzzing" class="level3">
+<h3 class="anchored" data-anchor-id="extension-fuzzing">Extension Fuzzing</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ffuf</span> <span class="at">-w</span> /opt/SecLists/Discovery/Web-Content/web-extensions.txt:FUZZ <span class="dt">\</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">-u</span> <span class="st">"http://subdomain.academy.htb:PORT/indexFUZZ"</span> <span class="dt">\</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">-mc</span> 200</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="recursive-page-fuzzing" class="level3">
+<h3 class="anchored" data-anchor-id="recursive-page-fuzzing">Recursive Page Fuzzing</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ffuf</span> <span class="at">-w</span> /opt/SecLists/Discovery/Web-Content/DirBuster-2007_directory-list-2.3-small.txt:FUZZ <span class="dt">\</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">-u</span> <span class="st">"http://subdomain.academy.htb:PORT/FUZZ"</span> <span class="dt">\</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">-recursion</span> <span class="at">-recursion-depth</span> 1 <span class="dt">\</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">-e</span> .php,.php7,.phps <span class="dt">\</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">-fs</span> <span class="op">&lt;</span>empty_size<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">-t</span> 80</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="parameter-fuzzing-post" class="level3">
+<h3 class="anchored" data-anchor-id="parameter-fuzzing-post">Parameter Fuzzing POST</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ffuf</span> <span class="at">-w</span> /opt/SecLists/Discovery/Web-Content/burp-parameter-names.txt:FUZZ <span class="dt">\</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">-u</span> <span class="st">"http://subdomain.academy.htb:PORT/page.php7"</span> <span class="dt">\</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">-X</span> POST <span class="dt">\</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">-d</span> <span class="st">"FUZZ=key"</span> <span class="dt">\</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">-H</span> <span class="st">"Content-Type: application/x-www-form-urlencoded"</span> <span class="dt">\</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">-fs</span> <span class="op">&lt;</span>default_size<span class="op">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="value-fuzzing" class="level3">
+<h3 class="anchored" data-anchor-id="value-fuzzing">Value Fuzzing</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ffuf</span> <span class="at">-w</span> /opt/SecLists/Usernames/xato-net-10-million-usernames.txt:FUZZ <span class="dt">\</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">-u</span> <span class="st">"http://subdomain.academy.htb:PORT/page.php7"</span> <span class="dt">\</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">-X</span> POST <span class="dt">\</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">-d</span> <span class="st">"username=FUZZ"</span> <span class="dt">\</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">-H</span> <span class="st">"Content-Type: application/x-www-form-urlencoded"</span> <span class="dt">\</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">-fs</span> <span class="op">&lt;</span>default_size<span class="op">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+</section>
+<section id="tabla-de-referencia-rapida" class="level2">
+<h2 class="anchored" data-anchor-id="tabla-de-referencia-rapida">Tabla de Referencia Rapida</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 66%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Tarea</th>
+<th>Comando Base</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Subdomain</td>
+<td><code>ffuf -w dns.txt:FUZZ -u http://FUZZ.domain/</code></td>
+</tr>
+<tr class="even">
+<td>VHost</td>
+<td><code>ffuf -w dns.txt:FUZZ -u http://domain/ -H "Host: FUZZ.domain"</code></td>
+</tr>
+<tr class="odd">
+<td>Extension</td>
+<td><code>ffuf -w ext.txt:FUZZ -u http://domain/indexFUZZ</code></td>
+</tr>
+<tr class="even">
+<td>Directory</td>
+<td><code>ffuf -w dirs.txt:FUZZ -u http://domain/FUZZ</code></td>
+</tr>
+<tr class="odd">
+<td>Page</td>
+<td><code>ffuf -w pages.txt:FUZZ -u http://domain/FUZZ.php</code></td>
+</tr>
+<tr class="even">
+<td>Recursive</td>
+<td><code>ffuf -w dirs.txt:FUZZ -u http://domain/FUZZ -recursion -e .php</code></td>
+</tr>
+<tr class="odd">
+<td>Parameter GET</td>
+<td><code>ffuf -w params.txt:FUZZ -u "http://domain/page?FUZZ=val"</code></td>
+</tr>
+<tr class="even">
+<td>Parameter POST</td>
+<td><code>ffuf -w params.txt:FUZZ -u http://domain/page -X POST -d "FUZZ=val"</code></td>
+</tr>
+<tr class="odd">
+<td>Value</td>
+<td><code>ffuf -w values.txt:FUZZ -u "http://domain/page?param=FUZZ"</code></td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="lecciones-aprendidas" class="level2">
+<h2 class="anchored" data-anchor-id="lecciones-aprendidas">Lecciones Aprendidas</h2>
+<section id="wordlists-importantes" class="level3">
+<h3 class="anchored" data-anchor-id="wordlists-importantes">Wordlists Importantes</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 52%">
+<col style="width: 47%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Proposito</th>
+<th>Wordlist</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Subdomains</td>
+<td><code>/opt/SecLists/Discovery/DNS/subdomains-top1million-5000.txt</code></td>
+</tr>
+<tr class="even">
+<td>Extensions</td>
+<td><code>/opt/SecLists/Discovery/Web-Content/web-extensions.txt</code></td>
+</tr>
+<tr class="odd">
+<td>Directories/Pages</td>
+<td><code>/opt/SecLists/Discovery/Web-Content/DirBuster-2007_directory-list-2.3-small.txt</code></td>
+</tr>
+<tr class="even">
+<td>Parameters</td>
+<td><code>/opt/SecLists/Discovery/Web-Content/burp-parameter-names.txt</code></td>
+</tr>
+<tr class="odd">
+<td>Usernames</td>
+<td><code>/opt/SecLists/Usernames/xato-net-10-million-usernames.txt</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="errores-comunes-a-evitar" class="level3">
+<h3 class="anchored" data-anchor-id="errores-comunes-a-evitar">Errores Comunes a Evitar</h3>
+<ol type="1">
+<li><strong>No agregar subdominios a /etc/hosts</strong> - Necesario para acceder a VHosts</li>
+<li><strong>Usar wordlist incorrecta</strong> - <code>raft-*</code> y <code>common.txt</code> no funcionan para recursive fuzzing</li>
+<li><strong>No filtrar por tamano</strong> - <code>-fs</code> es critico para limpiar resultados</li>
+<li><strong>Olvidar el header Content-Type</strong> - Requerido para POST en PHP</li>
+<li><strong>Formato incorrecto en respuesta</strong> - Usar “PORT” en lugar del numero de puerto</li>
+</ol>
+</section>
+<section id="workflow-recomendado" class="level3">
+<h3 class="anchored" data-anchor-id="workflow-recomendado">Workflow Recomendado</h3>
+<pre><code>1. Subdomain fuzzing (DNS)
+   ↓ (Si no encuentra nada)
+2. VHost fuzzing
+   ↓
+3. Agregar subdominios a /etc/hosts
+   ↓
+4. Extension fuzzing en cada subdominio
+   ↓
+5. Recursive page fuzzing en cada subdominio
+   ↓
+6. Parameter fuzzing en paginas encontradas
+   ↓
+7. Value fuzzing en parametros encontrados</code></pre>
+<hr>
+</section>
+</section>
+<section id="logros" class="level2">
+<h2 class="anchored" data-anchor-id="logros">Logros</h2>
+<ul>
+<li>✅ Modulo completado: Attacking Web Applications with Ffuf</li>
+<li>✅ Skills Assessment aprobado</li>
+<li>✅ 10 Cubes ganados</li>
+</ul>
+</section>
+<section id="verificacion" class="level2">
+<h2 class="anchored" data-anchor-id="verificacion">Verificacion</h2>
+<ul>
+<li><strong>Achievement</strong>: https://academy.hackthebox.com/achievement/2300153/54</li>
+<li><strong>Module</strong>: Attacking Web Applications with Ffuf</li>
+<li><strong>Tier</strong>: 0 (Easy)</li>
+<li><strong>Status</strong>: Completed</li>
+</ul>
+<hr>
+</section>
+<section id="conclusiones" class="level2">
+<h2 class="anchored" data-anchor-id="conclusiones">Conclusiones</h2>
+<p>ffuf es una herramienta esencial para:</p>
+<ul>
+<li><strong>Reconocimiento web</strong>: Descubrir contenido oculto y subdominios</li>
+<li><strong>Enumeracion</strong>: Identificar paginas, directorios y parametros</li>
+<li><strong>Fuzzing sistematico</strong>: Automatizar la busqueda de vulnerabilidades</li>
+<li><strong>Pentesting</strong>: Fundamental para cualquier engagement</li>
+</ul>
+<p>Dominar el flujo completo de fuzzing (subdominios → extensiones → paginas → parametros → valores) es critico para un penetration tester.</p>
+<hr>
+<p><a href="index.html">Volver al Modulo</a></p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

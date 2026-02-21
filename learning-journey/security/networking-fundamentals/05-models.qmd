@@ -1,0 +1,164 @@
+---
+title: "Networking Models"
+description: "Comparacion entre el modelo OSI y TCP/IP"
+author: "Diego Saavedra"
+date: "2026-02-20"
+categories: [networking, osi, tcp-ip]
+---
+
+# Networking Models
+
+## Objetivo
+
+Al finalizar esta seccion, seras capaz de:
+
+- Diferenciar entre el modelo OSI y TCP/IP
+- Comprender la estructura de capas de cada modelo
+- Entender el proceso de encapsulacion
+
+## Modelos de Red
+
+Dos modelos describen la comunicacion y transferencia de datos:
+
+| Modelo | Capas | Proposito |
+|--------|-------|-----------|
+| **ISO/OSI** | 7 | Modelo de referencia teorico |
+| **TCP/IP** | 4 | Modelo practico de Internet |
+
+```
+┌─────────────────────────────────────────────┐
+│            OSI Model      │   TCP/IP Model  │
+├─────────────────────────────────────────────┤
+│ 7. Application          │                  │
+│ 6. Presentation         │   Application    │
+│ 5. Session              │                  │
+├─────────────────────────┼──────────────────┤
+│ 4. Transport            │   Transport      │
+├─────────────────────────┼──────────────────┤
+│ 3. Network              │   Internet       │
+├─────────────────────────┼──────────────────┤
+│ 2. Data Link            │                  │
+│ 1. Physical             │   Link           │
+└─────────────────────────┴──────────────────┘
+```
+
+## El Modelo OSI
+
+**Open Systems Interconnection** - Modelo de referencia publicado por ITU e ISO.
+
+### Las 7 Capas
+
+| Capa | Nombre | Funcion |
+|------|--------|---------|
+| 7 | Application | Control de I/O y funciones de aplicacion |
+| 6 | Presentation | Transferencia de datos independiente de la aplicacion |
+| 5 | Session | Control de conexion logica entre sistemas |
+| 4 | Transport | Control end-to-end, segmentacion, control de flujo |
+| 3 | Network | Enrutamiento, direccionamiento logico |
+| 2 | Data Link | Transmision confiable, deteccion de errores |
+| 1 | Physical | Transmision de bits por medio fisico |
+
+### Orientacion
+
+- **Capas 2-4**: Orientadas al transporte
+- **Capas 5-7**: Orientadas a la aplicacion
+
+## El Modelo TCP/IP
+
+**Transmission Control Protocol/Internet Protocol** - Familia de protocolos de Internet.
+
+### Las 4 Capas
+
+| Capa | Nombre | Funcion |
+|------|--------|---------|
+| 4 | Application | Acceso a servicios de red |
+| 3 | Transport | Sesiones TCP y datagramas UDP |
+| 2 | Internet | Direccionamiento y enrutamiento IP |
+| 1 | Link | Acceso al medio de red |
+
+## Diferencias Clave
+
+| Aspecto | OSI | TCP/IP |
+|---------|-----|--------|
+| **Capas** | 7 | 4 |
+| **Enfoque** | Teorico | Practico |
+| **Rigidez** | Estricto | Flexible |
+| **Desarrollo** | ISO | DoD (EE.UU.) |
+
+## Protocol Data Units (PDU)
+
+Cada capa encapsula datos en un formato diferente:
+
+```
+┌────────────────────────────────────────────────┐
+│ OSI Layer     │  PDU                           │
+├────────────────────────────────────────────────┤
+│ Application   │  Data                          │
+│ Presentation  │  Data                          │
+│ Session       │  Data                          │
+│ Transport     │  Segment (TCP) / Datagram (UDP)│
+│ Network       │  Packet                        │
+│ Data Link     │  Frame                         │
+│ Physical      │  Bit                           │
+└────────────────────────────────────────────────┘
+```
+
+## Encapsulacion
+
+El proceso de agregar headers en cada capa:
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                     ENCAPSULACION                           │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  Sender                    │  Receiver                      │
+│                            │                                │
+│  Data                      │                                │
+│    ↓ Add TCP Header        │                                │
+│  TCP Segment               │    ↑ Remove TCP Header         │
+│    ↓ Add IP Header         │                                │
+│  IP Packet                 │    ↑ Remove IP Header          │
+│    ↓ Add MAC Header        │                                │
+│  Frame                     │    ↑ Remove MAC Header         │
+│    ↓ Bits on wire          │                                │
+│  ═════════════════════════════════════════════════════════│
+│                            │    ↑ Bits received             │
+│                            │  Frame                         │
+│                            │  IP Packet                     │
+│                            │  TCP Segment                   │
+│                            │  Data                          │
+└─────────────────────────────────────────────────────────────┘
+```
+
+## Tareas Principales de TCP/IP
+
+| Tarea | Protocolo | Descripcion |
+|-------|-----------|-------------|
+| **Direccionamiento Logico** | IP | Estructura de red y direccionamiento |
+| **Enrutamiento** | IP | Determinar siguiente nodo hacia destino |
+| **Control de Flujo** | TCP | Mensajes de control de conexion |
+| **Soporte de Aplicacion** | TCP/UDP | Puertos para distinguir aplicaciones |
+| **Resolucion de Nombres** | DNS | FQDN a direccion IP |
+
+## Para Pentesters
+
+| Modelo | Utilidad |
+|--------|----------|
+| **TCP/IP** | Entender conexion completa rapidamente |
+| **OSI** | Analizar trafico en detalle capa por capa |
+
+## Que Aprendimos
+
+- OSI tiene 7 capas, TCP/IP tiene 4
+- Cada capa tiene tareas especificas
+- La encapsulacion agrega headers en cada capa
+- Ambos modelos son utiles para diferentes propositos
+
+## Proximos Pasos
+
+En la siguiente seccion profundizaremos en el [OSI Model](06-osi-model.html).
+
+---
+
+[Volver al Modulo](index.html) | [OSI Model ->](06-osi-model.html)

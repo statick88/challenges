@@ -1,0 +1,114 @@
+---
+title: "Directory Fuzzing"
+description: "Descubriendo directorios ocultos con ffuf"
+author: "Diego Saavedra"
+date: "2026-02-20"
+categories: [security, ffuf, directories]
+---
+
+# Directory Fuzzing
+
+## Objetivo
+
+Al finalizar esta seccion, seras capaz de:
+
+- Usar ffuf para descubrir directorios
+- Interpretar los resultados del fuzzing
+- Filtrar resultados irrelevantes
+
+## Sintaxis Basica de ffuf
+
+### Opciones Principales
+
+```bash
+ffuf -w <wordlist> -u <URL>
+```
+
+| Opcion | Descripcion |
+|--------|-------------|
+| `-w` | Path a la wordlist |
+| `-u` | URL objetivo |
+| `-mc` | Match HTTP codes |
+| `-fc` | Filter HTTP codes |
+| `-fs` | Filter size |
+| `-t` | Threads (default: 40) |
+| `-ic` | Ignore comments |
+
+### Keyword FUZZ
+
+El keyword `FUZZ` indica donde inyectar la wordlist:
+
+```bash
+ffuf -w wordlist.txt:FUZZ -u http://target.com/FUZZ
+```
+
+## Ejemplo Practico
+
+```bash
+ffuf -w /opt/useful/seclists/Discovery/Web-Content/directory-list-2.3-small.txt:FUZZ \
+     -u http://SERVER_IP:PORT/FUZZ \
+     -ic
+```
+
+### Output
+
+```
+blog                    [Status: 301, Size: 326, Words: 20, Lines: 10]
+forum                   [Status: 301, Size: 323, Words: 20, Lines: 10]
+```
+
+## Interpretacion de Resultados
+
+| Resultado | Significado |
+|-----------|-------------|
+| **Status: 301** | Redirect a /blog/ |
+| **Status: 200** | Pagina existe directamente |
+| **Status: 403** | Directorio existe pero sin acceso |
+| **Status: 404** | No encontrado (filtrado por defecto) |
+
+## Ejercicio Resuelto
+
+**Pregunta**: Ademas de `blog`, que otro directorio existe?
+
+```bash
+ffuf -w /path/to/common.txt:FUZZ \
+     -u http://154.57.164.78:30777/FUZZ \
+     -mc 200,301,302,401,403
+```
+
+**Respuesta**: `forum`
+
+## Velocidad y Threads
+
+```bash
+# Aumentar threads (usar con cuidado)
+ffuf -w wordlist.txt -u http://target/FUZZ -t 200
+```
+
+::: {.callout-warning}
+## Precaucion
+Threads altos pueden causar DoS o saturar tu conexion.
+:::
+
+## Verificacion Manual
+
+Siempre verificar los hallazgos manualmente:
+
+```bash
+curl -I http://target/blog/
+```
+
+## Que Aprendimos
+
+- ffuf usa keyword `FUZZ` para indicar donde inyectar
+- Los codigos 301/200 indican contenido encontrado
+- `-ic` ignora comentarios del wordlist
+- Verificar manualmente los hallazgos
+
+## Proximos Pasos
+
+En la siguiente seccion aprenderemos sobre [Page Fuzzing](04-page-fuzzing.html).
+
+---
+
+[Volver al Modulo](index.html) | [Page Fuzzing ->](04-page-fuzzing.html)

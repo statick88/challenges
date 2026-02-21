@@ -1,0 +1,153 @@
+---
+title: "The TCP/IP Model"
+description: "Las 4 capas del modelo TCP/IP"
+author: "Diego Saavedra"
+date: "2026-02-20"
+categories: [networking, tcp-ip, protocols]
+---
+
+# The TCP/IP Model
+
+## Objetivo
+
+Al finalizar esta seccion, seras capaz de:
+
+- Describir las 4 capas del modelo TCP/IP
+- Comprender las tareas principales de cada capa
+- Entender la relacion con el modelo OSI
+
+## Las 4 Capas
+
+```
+┌─────────────────────────────────────────────────────┐
+│ 4 │ Application   │ HTTP, FTP, SMTP, DNS, SSH     │
+├───┼───────────────┼─────────────────────────────────┤
+│ 3 │ Transport     │ TCP, UDP                       │
+├───┼───────────────┼─────────────────────────────────┤
+│ 2 │ Internet      │ IP, ICMP, IPSec                │
+├───┼───────────────┼─────────────────────────────────┤
+│ 1 │ Link          │ Ethernet, Wi-Fi, DSL           │
+└───┴───────────────┴─────────────────────────────────┘
+```
+
+## Layer 4: Application
+
+**Funcion**: Permite a las aplicaciones acceder a servicios de red.
+
+| Aspecto | Detalle |
+|---------|---------|
+| **Protocolos** | HTTP, HTTPS, FTP, SSH, DNS, SMTP, POP3, IMAP |
+| **Equivalente OSI** | Capas 7, 6, 5 (Application, Presentation, Session) |
+
+### Protocolos Comunes
+
+| Protocolo | Puerto | Uso |
+|-----------|--------|-----|
+| HTTP | 80 | Web no segura |
+| HTTPS | 443 | Web segura (SSL/TLS) |
+| SSH | 22 | Acceso remoto seguro |
+| FTP | 20, 21 | Transferencia de archivos |
+| DNS | 53 | Resolucion de nombres |
+| SMTP | 25 | Envio de email |
+| POP3 | 110 | Recepcion de email |
+| IMAP | 143 | Email interactivo |
+
+## Layer 3: Transport
+
+**Funcion**: Proporciona servicios de sesion (TCP) y datagrama (UDP).
+
+| Aspecto | Detalle |
+|---------|---------|
+| **Protocolos** | TCP, UDP |
+| **Equivalente OSI** | Capa 4 (Transport) |
+
+### TCP (Transmission Control Protocol)
+
+- Orientado a conexion
+- Confiable, garantiza entrega
+- Control de flujo y congestion
+- Reordena paquetes
+
+### UDP (User Datagram Protocol)
+
+- Sin conexion
+- No garantiza entrega
+- Mas rapido que TCP
+- Usado en streaming, VoIP, DNS
+
+## Layer 2: Internet
+
+**Funcion**: Direccionamiento, empaquetado y enrutamiento.
+
+| Aspecto | Detalle |
+|---------|---------|
+| **Protocolos** | IPv4, IPv6, ICMP, IPSec, IGMP |
+| **Equivalente OSI** | Capa 3 (Network) |
+
+### Tareas Principales
+
+| Tarea | Protocolo | Descripcion |
+|-------|-----------|-------------|
+| Direccionamiento Logico | IP | Asigna direcciones unicas |
+| Enrutamiento | IP | Determina ruta al destino |
+| Control de Errores | ICMP | Mensajes de error y diagnostico |
+
+## Layer 1: Link
+
+**Funcion**: Coloca paquetes TCP/IP en el medio de red.
+
+| Aspecto | Detalle |
+|---------|---------|
+| **Tecnologias** | Ethernet, Wi-Fi, PPP, DSL |
+| **Equivalente OSI** | Capas 1 y 2 (Physical, Data Link) |
+
+### Caracteristicas
+
+- Independiente del metodo de acceso a red
+- Independiente del formato de trama
+- Independiente del medio fisico
+
+## Comparacion OSI vs TCP/IP
+
+```
+┌──────────────────────────────────────────────────┐
+│     OSI Model        │    TCP/IP Model          │
+├──────────────────────────────────────────────────┤
+│ 7. Application    ─┐ │                          │
+│ 6. Presentation   ─┼─│  4. Application          │
+│ 5. Session        ─┘ │                          │
+├────────────────────┼─┼──────────────────────────┤
+│ 4. Transport      ───│  3. Transport            │
+├────────────────────┼─┼──────────────────────────┤
+│ 3. Network        ───│  2. Internet             │
+├────────────────────┼─┼──────────────────────────┤
+│ 2. Data Link    ──┐ │                          │
+│ 1. Physical     ──┴─│  1. Link                 │
+└────────────────────┴─┴──────────────────────────┘
+```
+
+## Tareas Principales TCP/IP
+
+| Tarea | Protocolo | Descripcion |
+|-------|-----------|-------------|
+| **Direccionamiento Logico** | IP | Estructura de red con clases, subnetting, CIDR |
+| **Enrutamiento** | IP | Determina siguiente nodo en cada salto |
+| **Control de Errores** | TCP | Conexion virtual con mensajes de control |
+| **Soporte de Aplicaciones** | TCP/UDP | Puertos para distinguir aplicaciones |
+| **Resolucion de Nombres** | DNS | Convierte FQDN a IP |
+
+## Que Aprendimos
+
+- TCP/IP tiene 4 capas vs 7 del OSI
+- Combina capas OSI en grupos logicos
+- Es el modelo practico usado en Internet
+- IP maneja direccionamiento y enrutamiento
+- TCP/UDP manejan transporte de datos
+
+## Proximos Pasos
+
+En la siguiente seccion aprenderemos sobre [Network Layer](08-network-layer.html).
+
+---
+
+[Volver al Modulo](index.html) | [Network Layer ->](08-network-layer.html)

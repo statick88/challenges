@@ -1,0 +1,138 @@
+---
+title: "Value Fuzzing"
+description: "Fuzzear valores de parametros"
+author: "Diego Saavedra"
+date: "2026-02-20"
+categories: [security, ffuf, values, fuzzing]
+---
+
+# Value Fuzzing
+
+## Objetivo
+
+Al finalizar esta seccion, seras capaz de:
+
+- Fuzzear valores de parametros conocidos
+- Usar wordlists de valores comunes
+- Identificar valores validos
+
+## Concepto
+
+Despues de encontrar un parametro, fuzzear sus posibles valores:
+
+```
+?id=1        → Correcto
+?id=2        → Correcto
+?id=999      → Error
+?id=admin    → Correcto
+```
+
+## Sintaxis Basica
+
+```bash
+ffuf -w wordlist.txt:VAL \
+     -u "http://target/page.php?id=VAL"
+```
+
+## Wordlists de Valores
+
+### Numeros
+
+```bash
+# Generar secuencia
+seq 1 1000 > numbers.txt
+
+ffuf -w numbers.txt:VAL \
+     -u "http://target/page.php?id=VAL"
+```
+
+### Nombres Comunes
+
+```bash
+/opt/useful/SecLists/Usernames/
+├── names.txt
+├── xato-net-10-million-usernames.txt
+└── top-usernames-shortlist.txt
+```
+
+### Passwords
+
+```bash
+/opt/useful/SecLists/Passwords/
+├── Common-Credentials/
+├── 10k-most-common.txt
+└── rockyou.txt
+```
+
+## Ejemplo: ID Fuzzing
+
+```bash
+# Generar IDs
+seq 1 100 > ids.txt
+
+ffuf -w ids.txt:VAL \
+     -u "http://academy.htb:PORT/admin/admin.php?id=VAL" \
+     -fs 900
+```
+
+### Output
+
+```
+1                       [Status: 200, Size: 2345, Words: 345, Lines: 67]
+5                       [Status: 200, Size: 2345, Words: 345, Lines: 67]
+27                      [Status: 200, Size: 12345, Words: 1234, Lines: 234]
+```
+
+## Ejemplo: Username Fuzzing
+
+```bash
+ffuf -w /opt/useful/seclists/Usernames/top-usernames-shortlist.txt:VAL \
+     -u "http://target/profile.php?user=VAL" \
+     -fs 900
+```
+
+## Fuzzing Combinado
+
+Parametro + Valor:
+
+```bash
+ffuf -w params.txt:PARAM \
+     -w values.txt:VAL \
+     -u "http://target/page.php?PARAM=VAL" \
+     -mode clusterbomb
+```
+
+## Analisis de Respuestas
+
+| Respuesta | Significado |
+|-----------|-------------|
+| **200 diferente** | Valor valido |
+| **200 igual** | Valor invalido (filtrar) |
+| **302** | Redireccion (posible exito) |
+| **500** | Error (posible inyeccion) |
+
+## Ejemplo Practico
+
+```bash
+# Encontrar usuarios validos
+ffuf -w /opt/useful/seclists/Usernames/top-usernames-shortlist.txt:USER \
+     -u "http://target/api.php?username=USER" \
+     -mr "success"
+```
+
+La opcion `-mr` filtra por regex en la respuesta.
+
+## Que Aprendimos
+
+- Value fuzzing prueba valores para parametros conocidos
+- `seq` genera secuencias numericas
+- SecLists tiene wordlists de usernames y passwords
+- `-mr` filtra por regex
+
+## Proximos Pasos
+
+En la siguiente seccion tendremos la [Skills Assessment](11-assessment.html).
+
+---
+
+[Volver al Modulo](index.html) | [Assessment ->](11-assessment.html)

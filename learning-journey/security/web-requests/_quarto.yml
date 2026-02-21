@@ -1,0 +1,64 @@
+project:
+  type: book
+  output-dir: _book
+
+book:
+  title: "Web Requests"
+  subtitle: "HTB Academy Course Notes"
+  author: "Diego Saavedra"
+  date: "2026-02-21"
+  search: true
+  repo-url: https://github.com/statick88/cursos
+  repo-subdir: learning-journey/security/web-requests
+  
+  page-navigation: true
+  page-footer:
+    left: |
+      Web Requests - HTB Academy
+    right: |
+      Course Notes
+    border: true
+  
+  chapters:
+    - index.qmd
+    - part: "Unidad 1: HTTP Fundamentals"
+      chapters:
+        - 01-http-fundamentals.qmd
+        - 02-https.qmd
+        - 03-http-requests-responses.qmd
+        - 04-http-headers.qmd
+    - part: "Unidad 2: HTTP Methods"
+      chapters:
+        - 05-http-methods-codes.qmd
+        - 06-get-method.qmd
+        - 07-post-method.qmd
+        - 08-crud-api.qmd
+
+format:
+  html:
+    theme:
+      light: cosmo
+      dark: cyborg
+    code-copy: true
+    code-overflow: scroll
+    highlight-style: github
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    
+  epub:
+    toc: true
+    toc-depth: 2
+    number-sections: true
+
+metadata:
+  lang: es
+  keywords: [security, web, http, https, api, curl, htb, academy]
+  description: |
+    Notas completas del módulo Web Requests de HTB Academy.
+    Aprende HTTP, HTTPS, headers, métodos HTTP, y CRUD APIs.
+
+execute:
+  echo: true
+  eval: false
+  freeze: auto

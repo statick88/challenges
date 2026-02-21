@@ -1,0 +1,73 @@
+---
+title: "Web Requests"
+subtitle: "HTB Academy Course Notes"
+author: "Diego Saavedra"
+date: "2026-02-21"
+description: |
+  Notas completas del módulo Web Requests de HTB Academy.
+  Aprende HTTP, HTTPS, headers, métodos HTTP, y CRUD APIs.
+keywords: [security, web, http, https, api, curl, htb, academy]
+---
+
+# Prefacio
+
+## Sobre este libro
+
+Este libro documenta el aprendizaje del módulo **Web Requests** de HTB Academy. Contiene notas detalladas, comandos, ejemplos y la resolución completa de todos los ejercicios.
+
+## Objetivos del Módulo
+
+Al completar este módulo, serás capaz de:
+
+- **Entender el protocolo HTTP/HTTPS** y su funcionamiento
+- **Analizar requests y responses** con cURL y Browser DevTools
+- **Manipular headers** para interactuar con web applications
+- **Usar métodos HTTP** (GET, POST, PUT, DELETE)
+- **Interactuar con APIs** mediante CRUD operations
+
+## Estructura del Libro
+
+| Parte | Contenido |
+|-------|-----------|
+| **Unidad 1** | HTTP Fundamentals: Protocolo, HTTPS, Requests/Responses, Headers |
+| **Unidad 2** | HTTP Methods: GET, POST, PUT, DELETE, CRUD APIs |
+
+## Requisitos Previos
+
+- Introduction to Networking
+- Linux Fundamentals
+
+## Herramientas
+
+| Herramienta | Propósito |
+|-------------|-----------|
+| **cURL** | Command line HTTP client |
+| **Browser DevTools** | Network analysis |
+| **jq** | JSON formatting |
+
+## Logros
+
+::: {.callout-success}
+## Módulo Completado
+
+- **Platform**: HTB Academy
+- **Module**: Web Requests
+- **Tier**: 0 (Fundamental)
+- **Cubes**: 10
+- **Sections**: 8/8
+- **Achievement**: https://academy.hackthebox.com/achievement/2300153/35
+:::
+
+## Flags Obtenidas
+
+| Sección | Flag |
+|---------|------|
+| HTTP Fundamentals | `HTB{64$!c_cURL_u$3r}` |
+| HTTP Headers | `HTB{p493_r3qu3$t$_m0n!t0r}` |
+| GET Method | `HTB{curl_g3773r}` |
+| POST Method | `HTB{p0$t_r3p34t3r}` |
+| CRUD API | `HTB{crud_4p!_m4n!pul4t0r}` |
+
+---
+
+*Este libro documenta el aprendizaje del módulo Web Requests de HTB Academy.*

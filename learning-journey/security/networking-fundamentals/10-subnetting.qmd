@@ -1,0 +1,190 @@
+---
+title: "Subnetting"
+description: "Division de redes y calculo de subredes"
+author: "Diego Saavedra"
+date: "2026-02-20"
+categories: [networking, subnetting, ipv4]
+---
+
+# Subnetting
+
+## Objetivo
+
+Al finalizar esta seccion, seras capaz de:
+
+- Dividir una red en subredes mas pequenas
+- Calcular network address, broadcast address y host range
+- Aplicar subnetting mental rapido
+
+## Que es Subnetting?
+
+La division de un rango de direcciones IPv4 en varios rangos mas pequenos se llama **subnetting**.
+
+### Informacion que Podemos Obtener
+
+- Network address
+- Broadcast address
+- First host
+- Last host
+- Numero de hosts
+
+## Ejemplo Practico
+
+```
+IPv4 Address: 192.168.12.160
+Subnet Mask:  255.255.255.192
+CIDR:         192.168.12.160/26
+```
+
+### Paso 1: Identificar Network y Host Parts
+
+```
+Network Part (26 bits): 1100 0000 . 1010 1000 . 0000 1100 . 10|xx xxxx
+Host Part (6 bits):                                           |xx xxxx
+```
+
+### Paso 2: Calcular Network Address
+
+Todos los bits de host en **0**:
+
+```
+Network: 192.168.12.128/26
+```
+
+### Paso 3: Calcular Broadcast Address
+
+Todos los bits de host en **1**:
+
+```
+Broadcast: 192.168.12.191/26
+```
+
+### Paso 4: Determinar Host Range
+
+```
+First Host:  192.168.12.129
+Last Host:   192.168.12.190
+Total Hosts: 64 - 2 = 62
+```
+
+## Division en Subredes
+
+Dividir la subnet `/26` en **4 subredes**:
+
+### Calculo
+
+- 4 subredes = 2^2
+- Nueva mascara: /26 + 2 = **/28**
+- Hosts por subnet: 64 / 4 = **16**
+
+### Resultado
+
+| Subnet | Network | First Host | Last Host | Broadcast |
+|--------|---------|------------|-----------|-----------|
+| 1 | 192.168.12.128/28 | .129 | .142 | .143 |
+| 2 | 192.168.12.144/28 | .145 | .158 | .159 |
+| 3 | 192.168.12.160/28 | .161 | .174 | .175 |
+| 4 | 192.168.12.176/28 | .177 | .190 | .191 |
+
+## Subnetting Mental
+
+### Paso 1: Identificar Octeto que Cambia
+
+| CIDR | Octeto |
+|------|--------|
+| /8 | 1ero |
+| /16 | 2do |
+| /24 | 3ero |
+| /32 | 4to |
+
+### Paso 2: Calcular Remainder
+
+```
+Remainder = CIDR % 8
+```
+
+| Remainder | Hosts |
+|-----------|-------|
+| 0 | 256 |
+| 1 | 128 |
+| 2 | 64 |
+| 3 | 32 |
+| 4 | 16 |
+| 5 | 8 |
+| 6 | 4 |
+| 7 | 2 |
+
+### Ejemplo Rapido: /27
+
+1. `/27` → Octeto 4 cambia
+2. Remainder: 27 % 8 = 3
+3. Hosts: 256 / 2^3 = **32**
+
+## Ejercicios Resueltos
+
+### Question 1: Subnet Mask de /27
+
+```
+/27 = 27 bits en 1
+Binary:   11111111.11111111.11111111.11100000
+Decimal:  255.255.255.224
+```
+
+**Respuesta: 255.255.255.224**
+
+### Question 2: Broadcast de 10.200.20.0/27
+
+```
+/27 = 32 hosts
+Network: 10.200.20.0
+Broadcast: 10.200.20.0 + 31 = 10.200.20.31
+```
+
+**Respuesta: 10.200.20.31**
+
+### Question 3: 3ra Subnet de 10.200.20.0/27 dividido en 4
+
+```
+Original: /27 (32 hosts)
+Dividir en 4 = /29 (8 hosts cada una)
+
+Subnet 1: 10.200.20.0/29   (0-7)
+Subnet 2: 10.200.20.8/29   (8-15)
+Subnet 3: 10.200.20.16/29  (16-23) ← 3ra
+Subnet 4: 10.200.20.24/29  (24-31)
+```
+
+**Respuesta: 10.200.20.16**
+
+### Question 4: Broadcast de 2da Subnet
+
+```
+Subnet 2: 10.200.20.8/29
+Rango: 8-15
+Broadcast = 15
+```
+
+**Respuesta: 10.200.20.15**
+
+## Tabla de Referencia Rapida
+
+| CIDR | Mascara | Hosts |
+|------|---------|-------|
+| /24 | 255.255.255.0 | 256 |
+| /25 | 255.255.255.128 | 128 |
+| /26 | 255.255.255.192 | 64 |
+| /27 | 255.255.255.224 | 32 |
+| /28 | 255.255.255.240 | 16 |
+| /29 | 255.255.255.248 | 8 |
+| /30 | 255.255.255.252 | 4 |
+
+## Que Aprendimos
+
+- Subnetting divide redes grandes en redes mas pequenas
+- Network address: todos los bits de host en 0
+- Broadcast address: todos los bits de host en 1
+- El CIDR determina el numero de hosts disponibles
+
+---
+
+[Volver al Modulo](index.html)

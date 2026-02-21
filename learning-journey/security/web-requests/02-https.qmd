@@ -1,0 +1,52 @@
+# HTTPS - HTTP Secure
+
+## El Problema de HTTP
+
+HTTP transmite todos los datos en texto plano, permitiendo ataques Man-in-the-Middle (MiTM) para interceptar información sensible como credenciales.
+
+## HTTPS: Solución de Cifrado
+
+HTTPS cifra todas las comunicaciones, protegiendo los datos incluso si son interceptados.
+
+### Identificación de HTTPS
+
+- **URL**: `https://` en lugar de `http://`
+- **Icono**: Candado en la barra de direcciones
+- **Puerto**: 443 (por defecto)
+
+## Flujo HTTPS
+
+```
+1. Cliente envía request HTTP a puerto 80
+2. Servidor responde con 301 Redirect a HTTPS
+3. Cliente envía "client hello" (información sobre sí mismo)
+4. Servidor responde "server hello" + certificado SSL
+5. Cliente verifica certificado y envía el suyo
+6. Handshake cifrado para confirmar comunicación
+7. Comunicación HTTP cifrada continúa
+```
+
+## cURL con HTTPS
+
+```bash
+# Request HTTPS básico
+curl https://example.com
+
+# Si el certificado SSL es inválido
+curl https://bad-cert.example.com
+# Error: SSL certificate problem: Invalid certificate chain
+
+# Skip verificación de certificado
+curl -k https://bad-cert.example.com
+```
+
+### Flags HTTPS
+
+| Flag | Descripción |
+|------|-------------|
+| Sin flags | cURL maneja HTTPS automáticamente |
+| `-k` | Skip SSL certificate verification |
+
+## Notas de Seguridad
+
+> **Importante**: Aunque HTTPS cifra los datos, la URL visitada puede revelarse si se usa un DNS en texto plano. Se recomienda usar DNS cifrado (8.8.8.8 o 1.1.1.1) o VPN.

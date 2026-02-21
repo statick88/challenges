@@ -1,0 +1,169 @@
+---
+title: "Vhost Fuzzing"
+description: "Descubriendo virtual hosts"
+author: "Diego Saavedra"
+date: "2026-02-20"
+categories: [security, ffuf, vhosts, apache]
+---
+
+# Vhost Fuzzing
+
+## Objetivo
+
+Al finalizar esta seccion, seras capaz de:
+
+- Entender la diferencia entre subdominios y vhosts
+- Fuzzear virtual hosts
+- Identificar vhosts ocultos
+
+## Subdominios vs Vhosts
+
+| Concepto | Diferencia |
+|----------|------------|
+| **Subdominio** | DNS apunta a IP diferente |
+| **Vhost** | Mismo servidor, diferentes sitios |
+
+### Ejemplo
+
+```
+# Subdominios (diferentes IPs)
+www.example.com     → 192.168.1.10
+mail.example.com    → 192.168.1.20
+
+# Vhosts (misma IP, diferente contenido)
+www.example.com     → 192.168.1.10 → Sitio principal
+admin.example.com   → 192.168.1.10 → Panel admin (oculto)
+```
+
+## Virtual Hosts
+
+Un servidor web puede alojar multiples sitios en la misma IP usando el header `Host`.
+
+### Configuracion Apache
+
+```apache
+<VirtualHost *:80>
+    ServerName www.example.com
+    DocumentRoot /var/www/main
+</VirtualHost>
+
+<VirtualHost *:80>
+    ServerName admin.example.com
+    DocumentRoot /var/www/admin
+</VirtualHost>
+```
+
+## Fuzzing Vhosts
+
+Similar a subdomain fuzzing, pero la IP es la misma:
+
+```bash
+ffuf -w wordlist.txt:FUZZ \
+     -u http://SERVER_IP:PORT/ \
+     -H "Host: FUZZ.example.com"
+```
+
+## Ejemplo Practico
+
+```bash
+ffuf -w /opt/useful/seclists/Discovery/DNS/subdomains-top1million-5000.txt:FUZZ \
+     -u http://academy.htb:PORT/ \
+     -H "Host: FUZZ.academy.htb" \
+     -fs 900
+```
+
+### Resultado
+
+```
+admin                   [Status: 200, Size: 3456, Words: 567, Lines: 78]
+portal                  [Status: 200, Size: 2345, Words: 345, Lines: 56]
+```
+
+## Identificacion de Vhosts
+
+1. **Diferente tamaño**: El vhost devuelve contenido diferente
+2. **Diferente codigo HTTP**: Puede retornar 200 vs 404
+3. **Diferente contenido**: Texto o estructura distinta
+
+## Acceso a Vhosts
+
+Agregar a `/etc/hosts`:
+
+```bash
+echo "SERVER_IP admin.academy.htb" | sudo tee -a /etc/hosts
+curl http://admin.academy.htb:PORT/
+```
+
+## Comparacion
+
+| Tipo | Comando |
+|------|---------|
+| Subdomain | `-u http://target.com/ -H "Host: FUZZ.target.com"` |
+| Vhost | `-u http://SERVER_IP/ -H "Host: FUZZ.target.com"` |
+
+::: {.callout-tip}
+## Diferencia Clave
+Subdomain fuzzing usa el dominio como URL, vhost fuzzing usa la IP.
+:::
+
+## Ejercicio Practico
+
+### Objetivo
+
+Descubrir VHosts ocultos en `academy.htb` que no tienen registro DNS publico.
+
+### Solucion
+
+**Paso 1: Ejecutar VHost fuzzing**
+
+```bash
+ffuf -w /opt/SecLists/Discovery/DNS/subdomains-top1million-5000.txt:FUZZ \
+     -u http://154.57.164.70:31556/ \
+     -H "Host: FUZZ.academy.htb" \
+     -fs 986
+```
+
+**Paso 2: Analizar resultados**
+
+| VHost | Status | Size | Tipo |
+|-------|--------|------|------|
+| test.academy.htb | 200 | 0 | VHost valido |
+| admin.academy.htb | 200 | 0 | VHost valido |
+
+### Respuesta
+
+```
+test.academy.htb
+```
+
+**Paso 3: Verificar VHost**
+
+```bash
+# Agregar a /etc/hosts
+echo "154.57.164.70 test.academy.htb" | sudo tee -a /etc/hosts
+
+# Verificar
+curl http://test.academy.htb:31556/
+```
+
+### Analisis
+
+- El tamaño default de respuesta es 986 bytes
+- Los VHosts validos retornan tamaño 0 (pagina vacia o diferente)
+- `-fs 986` filtra las respuestas por defecto
+- VHost fuzzing descubre sitios que no tienen DNS publico
+
+## Que Aprendimos
+
+- Vhosts son multiples sitios en un mismo servidor
+- Fuzzing de vhosts modifica el header Host
+- Filtrar por tamaño para eliminar falsos positivos
+- Acceder agregando entradas a /etc/hosts
+
+## Proximos Pasos
+
+En la siguiente seccion aprenderemos sobre [Filtering Results](08-filtering.html).
+
+---
+
+[Volver al Modulo](index.html) | [Filtering ->](08-filtering.html)

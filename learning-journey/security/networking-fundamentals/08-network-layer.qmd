@@ -1,0 +1,130 @@
+---
+title: "Network Layer"
+description: "Capa de Red - Direccionamiento y Enrutamiento"
+author: "Diego Saavedra"
+date: "2026-02-20"
+categories: [networking, layer3, routing]
+---
+
+# Network Layer
+
+## Objetivo
+
+Al finalizar esta seccion, seras capaz de:
+
+- Comprender las funciones de la capa de red
+- Identificar los protocolos principales de Layer 3
+- Entender el proceso de enrutamiento
+
+## Funciones Principales
+
+La capa de red (Layer 3) controla el intercambio de paquetes de datos:
+
+1. **Direccionamiento Logico**
+2. **Enrutamiento**
+
+## Proceso de Comunicacion
+
+Los paquetes no pueden ser enviados directamente al receptor y deben ser proporcionados a nodos de enrutamiento:
+
+```
+┌────────┐    ┌────────┐    ┌────────┐    ┌────────┐
+│ Sender │───→│ Router │───→│ Router │───→│Receiver│
+└────────┘    └────────┘    └────────┘    └────────┘
+                  Node 1        Node 2
+```
+
+### Caracteristicas
+
+- Los nodos intermedios no procesan capas superiores
+- Las direcciones se evaluan para enrutamiento
+- Se construyen tablas de enrutamiento
+
+## Protocolos de Layer 3
+
+| Protocolo | Nombre | Funcion |
+|-----------|--------|---------|
+| **IPv4** | Internet Protocol v4 | Direccionamiento 32-bit |
+| **IPv6** | Internet Protocol v6 | Direccionamiento 128-bit |
+| **IPsec** | IP Security | Encriptacion y autenticacion |
+| **ICMP** | Internet Control Message Protocol | Mensajes de error y diagnostico |
+| **IGMP** | Internet Group Management Protocol | Gestion de grupos multicast |
+| **RIP** | Routing Information Protocol | Enrutamiento dinamico |
+| **OSPF** | Open Shortest Path First | Enrutamiento dinamico |
+
+## Protocolos Principales
+
+### IPv4 / IPv6
+
+| Caracteristica | IPv4 | IPv6 |
+|----------------|------|------|
+| **Direccion** | 32 bits | 128 bits |
+| **Formato** | Decimal (192.168.1.1) | Hexadecimal (2001:db8::1) |
+| **Direcciones** | ~4.3 mil millones | ~3.4 × 10^38 |
+| **Header** | Variable | Fijo |
+
+### ICMP
+
+Usado para:
+
+- **Ping**: Verificar conectividad
+- **Traceroute**: Identificar ruta
+- **Mensajes de error**: Destino inalcanzable, TTL exceeded
+
+### IPsec
+
+Proporciona:
+
+- Autenticacion de origen
+- Integridad de datos
+- Confidencialidad (encriptacion)
+
+## Enrutamiento
+
+### Tipos
+
+| Tipo | Descripcion |
+|------|-------------|
+| **Estatico** | Rutas configuradas manualmente |
+| **Dinamico** | Protocolos como OSPF, RIP, BGP |
+
+### Proceso
+
+```
+1. Recibir paquete
+2. Examinar direccion destino
+3. Consultar tabla de enrutamiento
+4. Determinar siguiente salto (next hop)
+5. Reenviar paquete
+```
+
+### Tabla de Enrutamiento
+
+| Destino | Mascara | Gateway | Interfaz |
+|---------|---------|---------|----------|
+| 0.0.0.0 | 0.0.0.0 | 192.168.1.1 | eth0 |
+| 192.168.1.0 | 255.255.255.0 | 0.0.0.0 | eth0 |
+| 10.0.0.0 | 255.0.0.0 | 192.168.1.254 | eth0 |
+
+## Diferentes Subredes
+
+Cuando origen y destino estan en diferentes subredes:
+
+1. Los paquetes deben ser **reenviados por routers**
+2. Los paquetes **no llegan** a capas superiores en nodos intermedios
+3. Se asigna nuevo destino intermedio
+
+## Que Aprendimos
+
+- Layer 3 maneja direccionamiento y enrutamiento
+- IPv4 usa 32 bits, IPv6 usa 128 bits
+- ICMP es usado para diagnostico
+- Los routers reenvian paquetes sin procesar capas superiores
+
+## Proximos Pasos
+
+En la siguiente seccion aprenderemos sobre [IP Addresses](09-ip-addresses.html).
+
+---
+
+[Volver al Modulo](index.html) | [IP Addresses ->](09-ip-addresses.html)

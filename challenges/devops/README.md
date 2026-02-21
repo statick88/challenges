@@ -8,18 +8,20 @@ Comprehensive 100-day DevOps learning journey covering Linux administration, Doc
 
 ## 📅 Daily Progress
 
-### ✅ Completed Days (8/100)
+### ✅ Completed Days (10/100)
 
-| Day | Challenge                                                   | Status | Category                     | Skills                   | Date       |
-| --- | ----------------------------------------------------------- | ------ | ---------------------------- | ------------------------ | ---------- |
-| 1   | [Linux User Setup](days/day-01-linux-user-setup.md)         | ✅     | #linux #usuarios #shell      | User Management          | 25-01-2026 |
-| 2   | [Temporary User](days/day-02-temporary-user.md)             | ✅     | #linux #usuarios #seguridad  | User Expiry              | 25-01-2026 |
-| 3   | [Disable Root SSH](days/day-03-disable-root-ssh.md)         | ✅     | #linux #ssh #seguridad       | SSH Security             | 25-01-2026 |
-| 4   | [Script Permissions](days/day-04-script-permissions.md)     | ✅     | #linux #scripts #permisos    | Script Management        | 25-01-2026 |
-| 5   | [SELinux Installation](days/day-05-selinux-installation.md) | ✅     | #linux #seguridad #selinux   | Security Framework       | 29-01-2026 |
-| 6   | [Cron Job Deployment](days/day-06-cron-job-deployment.md)   | ✅     | #linux #automatizacion #cron | Task Scheduling          | 30-01-2026 |
-| 7   | [Ansible Installation](days/day-07-ansible-installation.md) | ✅     | #devops #ansible #automation | Configuration Management | 04-02-2026 |
-| 8   | [MariaDB Service Troubleshooting](days/day-08-mariadb-troubleshooting.md) | ✅ | #devops #database #troubleshooting | Database Service | 20-02-2026 |
+| Day | Challenge | Status | Category | Skills | Date |
+|-----|-----------|--------|----------|--------|------|
+| 1 | [Linux User Setup with Non-Interactive Shell](days/day-01-linux-user-setup.md) | ✅ | #linux #usuarios #shell | User Management | 25-01-2026 |
+| 2 | [Temporary User Setup with Expiry](days/day-02-temporary-user.md) | ✅ | #linux #usuarios #seguridad | User Expiry | 26-01-2026 |
+| 3 | [Secure Root SSH Access](days/day-03-disable-root-ssh.md) | ✅ | #linux #ssh #seguridad | SSH Security | 27-01-2026 |
+| 4 | [Script Execution Permissions](days/day-04-script-permissions.md) | ✅ | #linux #scripts #permisos | Script Management | 28-01-2026 |
+| 5 | [SELinux Installation and Configuration](days/day-05-selinux-installation.md) | ✅ | #linux #seguridad #selinux | Security Framework | 29-01-2026 |
+| 6 | [Create a Cron Job](days/day-06-cron-job-deployment.md) | ✅ | #linux #automatizacion #cron | Task Scheduling | 30-01-2026 |
+| 7 | [Linux SSH Authentication](days/day-07-linux-ssh-authentication.md) | ✅ | #linux #ssh #keys | SSH Keys | 31-01-2026 |
+| 8 | [Install Ansible](days/day-08-ansible-installation.md) | ✅ | #devops #ansible #automation | Configuration Management | 04-02-2026 |
+| 9 | [MariaDB Troubleshooting](days/day-09-mariadb-troubleshooting.md) | ✅ | #devops #database #troubleshooting | Database Service | 20-02-2026 |
+| 10 | [Linux Bash Scripts](days/day-10-backup-script-scp.md) | ✅ | #devops #backup #scp #ssh | Backup Automation | 21-02-2026 |
 
 ### 📅 Upcoming Challenges (9-100)
 
@@ -38,17 +40,18 @@ Comprehensive 100-day DevOps learning journey covering Linux administration, Doc
 ### 🎯 Completion Metrics
 
 - **Total Days**: 100
-- **Completed**: 8 ✅ (8%)
+- **Completed**: 10 ✅ (10%)
 - **In Progress**: 0 🔄 (0%)
-- **Remaining**: 92 ⏳ (92%)
-- **Success Rate**: 100% (8/8 completed)
-- **Streak**: 8 days 🔥
+- **Remaining**: 90 ⏳ (90%)
+- **Success Rate**: 100% (10/10 completed)
+- **Streak**: 10 days 🔥
 
 ### 📈 Skill Coverage
 
 - **Linux Administration**: 70% (7/10 planned days)
 - **SSH & Security**: 40% (4/10 planned days)
-- **Scripting & Automation**: 20% (2/10 planned days)
+- **Scripting & Automation**: 30% (3/10 planned days)
+- **Backup & Recovery**: 50% (1/2 planned days)
 - **Database Troubleshooting**: 100% ✅
 - **Docker & Containers**: 0% ⏳ (0/15 planned days)
 - **CI/CD & Jenkins**: 0% ⏳ (0/20 planned days)
@@ -198,10 +201,10 @@ journalctl -u crond -f
 
 - ✅ **User Management Specialist** (Days 1-4)
 - ✅ **Security Framework Foundation** (Day 5)
-- 🔄 **Task Scheduling & Automation Expert** (Days 6-10)
-- ⏳ **Network Services Administrator** (Days 11-15)
-- ⏳ **System Monitoring Specialist** (Days 16-20)
-- ⏳ **Backup & Recovery Expert** (Days 21-25)
+- ✅ **Task Scheduling & Automation Expert** (Days 6-7)
+- 🔄 **Network Services Administrator** (Days 11-15)
+- 🔄 **Backup & Recovery Expert** (Days 16-20)
+- ⏳ **System Monitoring Specialist** (Days 21-25)
 
 ### 🐳 Container Mastery Badge (Days 26-40)
 
@@ -304,4 +307,4 @@ journalctl -u crond -f
 
 ---
 
-_100 Days of DevOps v1.0 | Started: 25-01-2026 | Current Day: 7 | Estimated Completion: 05-05-2026_
+_100 Days of DevOps v1.0 | Started: 25-01-2026 | Current Day: 10 | Estimated Completion: 05-05-2026_

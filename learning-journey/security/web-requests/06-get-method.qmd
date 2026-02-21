@@ -1,0 +1,69 @@
+# GET Method
+
+El método GET es el default cuando visitamos URLs. Los parámetros se pasan en la URL como query strings.
+
+## HTTP Basic Auth
+
+Algunos sitios usan autenticación HTTP básica manejada por el servidor web.
+
+### Autenticación con cURL
+
+```bash
+# Método 1: Flag -u
+curl -u admin:admin http://TARGET/
+
+# Método 2: En la URL
+curl http://admin:admin@TARGET/
+
+# Método 3: Authorization header
+curl -H 'Authorization: Basic YWRtaW46YWRtaW4=' http://TARGET/
+```
+
+> **Nota**: `YWRtaW46YWRtaW4=` es `admin:admin` en Base64.
+
+## GET Parameters
+
+Los parámetros GET se pasan en la URL después de `?`:
+
+```
+http://TARGET/search.php?search=london
+```
+
+### Usando cURL con GET Parameters
+
+```bash
+# GET con parámetro
+curl 'http://TARGET/search.php?search=london'
+
+# Con autenticación
+curl -u admin:admin 'http://TARGET/search.php?search=london'
+```
+
+## Browser DevTools
+
+1. Abrir DevTools: `F12`
+2. Network tab
+3. Limpiar requests (trash icon)
+4. Realizar búsqueda
+5. Ver request a `search.php`
+6. Click derecho → Copy → Copy as cURL
+
+## Ejercicio Práctico
+
+```bash
+# 1. Autenticarse
+curl -u admin:admin http://TARGET/
+
+# 2. Buscar 'flag'
+curl -u admin:admin 'http://TARGET/search.php?search=flag'
+```
+
+**Flag**: `HTB{curl_g3773r}`
+
+## Quick Reference
+
+| Comando | Propósito |
+|---------|-----------|
+| `curl -u user:pass URL` | Basic HTTP Auth |
+| `curl URL?param=value` | GET con parámetros |
+| `curl -H 'Authorization: Basic TOKEN'` | Auth via header |

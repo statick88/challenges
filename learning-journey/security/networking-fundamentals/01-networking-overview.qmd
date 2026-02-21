@@ -1,0 +1,119 @@
+---
+title: "Networking Overview"
+description: "Introduccion a los conceptos fundamentales de redes"
+author: "Diego Saavedra"
+date: "2026-02-20"
+categories: [networking, fundamentals]
+---
+
+# Networking Overview
+
+## Objetivo
+
+Al finalizar esta seccion, seras capaz de:
+
+- Entender que es una red y su proposito
+- Comprender la importancia de segmentar redes
+- Identificar errores comunes en pentesting por falta de conocimiento de redes
+
+## Que es una Red?
+
+Una red permite que dos computadoras se comuniquen entre si. Existe una amplia variedad de:
+
+- **Topologias**: mesh, tree, star
+- **Medios**: ethernet, fibra, coaxial, wireless
+- **Protocolos**: TCP, UDP, IPX
+
+::: {.callout-warning}
+## Importante para Profesionales de Seguridad
+Cuando una red falla, el error puede ser silencioso, causando que perdamos informacion critica.
+:::
+
+## Red Plana vs Red Segmentada
+
+### Red Plana
+
+Configurar una red grande y plana no es extremadamente dificil y puede ser confiable operacionalmente. Sin embargo, una red plana es como construir una casa en un terreno y considerarla segura porque tiene una cerradura en la puerta.
+
+### Red Segmentada
+
+Al crear muchas redes mas pequenas y hacerlas comunicar, podemos agregar capas de defensa. Pivotear por una red no es dificil, pero hacerlo rapida y silenciosamente es dificil y ralentiza a los atacantes.
+
+## Analogia de Seguridad
+
+| Ejemplo | Concepto de Red | Beneficio |
+|---------|-----------------|-----------|
+| Cercar la propiedad | Crear redes pequenas con ACLs | Puntos de entrada/salida especificos |
+| Iluminar el terreno | Documentar proposito de cada red | Visibilidad de actividad anomala |
+| Arbustos alrededor de ventanas | IDS como Suricata/Snort | Disuasivo para escaneos |
+
+## Historia de un Pentester
+
+La mayoria de redes usan subnet /24, tanto que muchos Pentesters configuran esta mascara sin verificar.
+
+### Escenario del Error
+
+```
+Server Gateway:     10.20.0.1/25
+Domain Controller:  10.20.0.10/25
+Client Gateway:     10.20.0.129/25
+Client Workstation: 10.20.0.200/25
+Pentester IP:       10.20.0.252/24 (Gateway: 10.20.0.1)
+```
+
+El Pentester configuro `/24` en lugar de `/25`, lo que le impidio acceder a la red de servidores donde estaba el Domain Controller.
+
+**Resultado**: Reporto que el DC estaba offline cuando en realidad estaba en una subred diferente.
+
+## Conceptos Basicos
+
+### Terminologia Clave
+
+| Termino | Definicion |
+|---------|------------|
+| **FQDN** | Fully Qualified Domain Name (www.hackthebox.eu) |
+| **URL** | Incluye path, parametros y query strings |
+| **ISP** | Internet Service Provider |
+| **DNS** | Domain Name Service |
+
+### Analogia del Correo
+
+El networking funciona como el envio de correo:
+
+1. **Direccion URL/FQDN** = Direccion del destinatario
+2. **Router local** = Oficina de correos local
+3. **ISP** = Oficina de correos principal
+4. **DNS** = Guia telefonica/directorio de direcciones
+5. **IP Address** = Coordenadas geograficas exactas
+
+## Mejores Practicas de Segmentacion
+
+En un diagrama de red empresarial ideal, deberia haber al menos 5 redes separadas:
+
+| Red | Proposito | Razon de Seguridad |
+|-----|-----------|-------------------|
+| **DMZ** | Web Server | Clientes internet pueden iniciar conexiones |
+| **Workstations** | Equipos de trabajo | Prevenir ataques entre estaciones |
+| **Administration** | Switches/Routers | Evitar snooping de comunicaciones |
+| **VoIP** | Telefonos IP | Priorizar trafico, evitar eavesdropping |
+| **Printers** | Impresoras | Dispositivos difficiles de asegurar |
+
+::: {.callout-danger}
+## Peligro de Impresoras
+Las impresoras son casi imposibles de asegurar completamente. Windows enviara NTLMv2 authentication si la impresora lo solicita, lo que puede llevar a robo de credenciales.
+:::
+
+## Que Aprendimos
+
+- Una red permite comunicacion entre dispositivos
+- Las redes segmentadas proporcionan capas de defensa
+- Los errores de subnetting pueden causar que penetesters pierdan objetivos
+- Es critico segmentar por funcion (DMZ, workstations, admin, VoIP, printers)
+
+## Proximos Pasos
+
+En la siguiente seccion aprenderemos sobre [Network Types](02-network-types.html).
+
+---
+
+[Volver al Modulo](index.html) | [Network Types ->](02-network-types.html)

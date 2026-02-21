@@ -1,0 +1,101 @@
+# HTTP Requests and Responses
+
+## HTTP Request
+
+Un HTTP request consta de:
+
+```
+GET /users/login.html HTTP/1.1
+Host: inlanefreight.com
+User-Agent: Mozilla/5.0
+Cookie: PHPSESSID=c4ggt4jull9obt7aupa55o8vbf
+
+[Request Body - opcional]
+```
+
+### Primera Línea del Request
+
+| Campo | Ejemplo | Descripción |
+|-------|---------|-------------|
+| **Method** | GET | Tipo de acción |
+| **Path** | /users/login.html | Ruta del recurso |
+| **Version** | HTTP/1.1 | Versión del protocolo |
+
+## HTTP Response
+
+Un HTTP response consta de:
+
+```
+HTTP/1.1 200 OK
+Date: Mon, 21 Feb 2022 13:19:57 GMT
+Server: Apache/2.4.41 (Ubuntu)
+Content-Type: text/html; charset=UTF-8
+Set-Cookie: PHPSESSID=m4u64rqlpfthrvvb12ai9voqgf
+
+<!DOCTYPE html>
+<html>...</html>
+```
+
+### Primera Línea del Response
+
+| Campo | Ejemplo | Descripción |
+|-------|---------|-------------|
+| **Version** | HTTP/1.1 | Versión del protocolo |
+| **Status Code** | 200 OK | Estado del request |
+
+## cURL Verbose
+
+```bash
+# Ver request y response completos
+curl -v http://example.com
+
+# Output:
+> GET / HTTP/1.1              # Request line
+> Host: example.com           # Request headers
+> User-Agent: curl/7.65.3
+> 
+< HTTP/1.1 200 OK             # Response line
+< Server: Apache/2.4.41       # Response headers
+< Content-Type: text/html
+< 
+<!DOCTYPE html>               # Response body
+```
+
+## Browser DevTools
+
+### Abrir DevTools
+
+- **Chrome/Firefox**: `F12` o `Ctrl+Shift+I`
+- **Network Tab**: Monitorear requests
+
+### Información Disponible
+
+| Columna | Descripción |
+|---------|-------------|
+| Status | Código de respuesta |
+| Method | Método HTTP usado |
+| Domain | Dominio/URL |
+| Path | Ruta del recurso |
+| Type | Tipo de contenido |
+
+### Filtrar Requests
+
+- Usar filtro de búsqueda para URLs específicos
+- Click en request → ver detalles
+- **Response tab**: Ver body de respuesta
+- **Raw button**: Ver código fuente sin renderizar
+
+## Ejercicio Práctico
+
+```bash
+# Ver headers del servidor
+curl -I http://TARGET
+
+# Buscar versión de Apache
+curl -I http://TARGET | grep -i server
+# Server: Apache/2.4.41 (Ubuntu)
+```
+
+**Respuestas**:
+- HTTP Method: `GET`
+- Apache Version: `2.4.41`

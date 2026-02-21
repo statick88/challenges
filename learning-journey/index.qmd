@@ -1,7 +1,7 @@
 ---
 title: "DevOps & Security Learning Journey"
 subtitle: "From Linux fundamentals to HTB Academy"
-date: "2026-02-19"
+date: "2026-02-21"
 ---
 
 # Welcome to My Learning Journey
@@ -21,15 +21,15 @@ This journey serves two purposes:
 <div class="progress-container">
   <div class="progress-header">
     <span class="progress-label">Total Completion</span>
-    <span class="progress-value">48%</span>
+    <span class="progress-value">55%</span>
   </div>
   <div class="progress-bar-bg">
-    <div class="progress-bar-fill" style="width: 48%;"></div>
+    <div class="progress-bar-fill" style="width: 55%;"></div>
   </div>
   <div class="progress-stats">
-    <span>✅ 29 completed</span>
-    <span>📋 31 remaining</span>
-    <span>🎯 60 total</span>
+    <span>✅ 34 completed</span>
+    <span>📋 28 remaining</span>
+    <span>🎯 62 total</span>
   </div>
 </div>
 ```
@@ -43,10 +43,10 @@ This journey serves two purposes:
   <div class="skill-header">
     <span class="skill-icon">🐧</span>
     <span class="skill-name">Linux Foundations</span>
-    <span class="skill-percent">45%</span>
+    <span class="skill-percent">50%</span>
   </div>
   <div class="progress-bar-bg">
-    <div class="progress-bar-fill linux" style="width: 45%;"></div>
+    <div class="progress-bar-fill linux" style="width: 50%;"></div>
   </div>
   <div class="skill-details">9/20 challenges completed</div>
 </div>
@@ -79,12 +79,12 @@ This journey serves two purposes:
   <div class="skill-header">
     <span class="skill-icon">🔒</span>
     <span class="skill-name">Security</span>
-    <span class="skill-percent">50%</span>
+    <span class="skill-percent">58%</span>
   </div>
   <div class="progress-bar-bg">
-    <div class="progress-bar-fill security" style="width: 50%;"></div>
+    <div class="progress-bar-fill security" style="width: 58%;"></div>
   </div>
-  <div class="skill-details">6/12 challenges completed</div>
+  <div class="skill-details">7/12 challenges completed</div>
 </div>
 
 </div>
@@ -169,7 +169,7 @@ Cybersecurity fundamentals
 | Bash Scripting | 🟢 Intermediate | Completed |
 | Network Security | 🔵 Basic | Learning |
 | CTF Problem Solving | 🔵 Basic | Started |
-| HTB Academy | 🔵 Basic | Started |
+| HTB Academy | 🟢 Intermediate | 3 Modules Completed |
 
 ## 🔗 Navigation
 

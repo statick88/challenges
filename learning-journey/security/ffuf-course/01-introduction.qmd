@@ -1,0 +1,94 @@
+---
+title: "Introduction"
+description: "Introduccion al fuzzing de aplicaciones web"
+author: "Diego Saavedra"
+date: "2026-02-20"
+categories: [security, fuzzing, ffuf]
+---
+
+# Introduction
+
+## Objetivo
+
+Al finalizar esta seccion, seras capaz de:
+
+- Entender que es fuzzing web
+- Conocer la herramienta ffuf
+- Comprender los casos de uso principales
+
+## Que es Fuzzing?
+
+**Fuzzing** es una tecnica de prueba que envia varios tipos de entrada a una interfaz para estudiar como reacciona.
+
+### Tipos de Fuzzing
+
+| Tipo | Descripcion |
+|------|-------------|
+| **SQL Injection** | Enviar caracteres especiales |
+| **Buffer Overflow** | Enviar cadenas largas incrementales |
+| **Web Fuzzing** | Probar directorios, paginas, parametros |
+
+## Ffuf - Fuzz Faster U Fool
+
+**ffuf** es una de las herramientas mas comunes y confiables para web fuzzing.
+
+### Caracteristicas
+
+- Rapido y eficiente
+- Soporta multiples tipos de fuzzing
+- Altamente configurable
+- Output personalizable
+
+### Instalacion
+
+```bash
+# En PwnBox (pre-instalado)
+ffuf -h
+
+# En tu maquina
+apt install ffuf -y
+# O descargar desde GitHub
+```
+
+## Topicos del Modulo
+
+| Tema | Descripcion |
+|------|-------------|
+| Directory Fuzzing | Descubrir directorios ocultos |
+| File Fuzzing | Encontrar archivos |
+| Vhost Fuzzing | Identificar virtual hosts |
+| Parameter Fuzzing | Descubrir parametros |
+| Value Fuzzing | Encontrar valores validos |
+
+## Concepto Basico
+
+Cuando visitamos una pagina que existe:
+
+```
+https://www.hackthebox.eu/login → HTTP 200 OK
+```
+
+Cuando visitamos una pagina que no existe:
+
+```
+https://www.hackthebox.eu/doesnotexist → HTTP 404 Not Found
+```
+
+::: {.callout-tip}
+## Automatizacion
+No podemos hacer esto manualmente - necesitamos herramientas que envien cientos de peticiones por segundo.
+:::
+
+## Que Aprendimos
+
+- Fuzzing es probar multiples entradas automaticamente
+- ffuf es una herramienta rapida y flexible
+- Web fuzzing descubre contenido oculto
+
+## Proximos Pasos
+
+En la siguiente seccion aprenderemos sobre [Web Fuzzing](02-web-fuzzing.html).
+
+---
+
+[Volver al Modulo](index.html) | [Web Fuzzing ->](02-web-fuzzing.html)

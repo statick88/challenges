@@ -1,0 +1,175 @@
+---
+title: "Subdomain Fuzzing"
+description: "Descubriendo subdominios con ffuf"
+author: "Diego Saavedra"
+date: "2026-02-20"
+categories: [security, ffuf, subdomains, dns]
+---
+
+# Subdomain Fuzzing
+
+## Objetivo
+
+Al finalizar esta seccion, seras capaz de:
+
+- Fuzzear subdominios
+- Usar el header Host
+- Identificar subdominios validos
+
+## Concepto de Subdominios
+
+Los subdominios son extensiones de un dominio principal:
+
+```
+www.example.com      → Subdominio: www
+admin.example.com    → Subdominio: admin
+api.example.com      → Subdominio: api
+dev.example.com      → Subdominio: dev
+```
+
+## Como Funciona
+
+El fuzzing de subdominios modifica el header `Host` en las peticiones HTTP.
+
+### Peticion Normal
+
+```
+GET / HTTP/1.1
+Host: www.example.com
+```
+
+### Peticion con Fuzzing
+
+```
+GET / HTTP/1.1
+Host: FUZZ.example.com
+```
+
+## Sintaxis con ffuf
+
+```bash
+ffuf -w wordlist.txt:FUZZ \
+     -u http://example.com/ \
+     -H "Host: FUZZ.example.com"
+```
+
+### Opciones
+
+| Opcion | Descripcion |
+|--------|-------------|
+| `-H` | Agregar header personalizado |
+| `-u` | URL base (puede ser IP) |
+| `-w` | Wordlist de subdominios |
+
+## Wordlists para Subdominios
+
+```bash
+/opt/useful/SecLists/Discovery/DNS/
+├── namelist.txt
+├── subdomains-top1million-5000.txt
+├── subdomains-top1million-110000.txt
+└── dns-Jhaddix.txt
+```
+
+### Recomendada
+
+```bash
+/opt/useful/SecLists/Discovery/DNS/subdomains-top1million-5000.txt
+```
+
+## Ejemplo Practico
+
+```bash
+ffuf -w /opt/useful/seclists/Discovery/DNS/subdomains-top1million-5000.txt:FUZZ \
+     -u http://SERVER_IP:PORT/ \
+     -H "Host: FUZZ.academy.htb" \
+     -fs 900
+```
+
+### Output
+
+```
+www                     [Status: 200, Size: 1234, Words: 234, Lines: 45]
+admin                   [Status: 200, Size: 5678, Words: 890, Lines: 120]
+api                     [Status: 200, Size: 456, Words: 67, Lines: 23]
+```
+
+## Filtrado
+
+Los subdominios invalidos suelen retornar la misma pagina default. Filtramos por tamaño:
+
+```bash
+# Filtrar respuestas de tamaño 900
+ffuf -w wordlist.txt:FUZZ \
+     -u http://target/ \
+     -H "Host: FUZZ.target.com" \
+     -fs 900
+```
+
+## Verificacion
+
+Siempre verificar los subdominios encontrados:
+
+```bash
+# Agregar a /etc/hosts
+echo "SERVER_IP admin.example.com" | sudo tee -a /etc/hosts
+
+# Verificar
+curl http://admin.example.com/
+```
+
+## Ejercicio Practico
+
+### Objetivo
+
+Encontrar un subdominio de cliente en `inlanefreight.com`.
+
+### Solucion
+
+**Paso 1: Ejecutar subdomain fuzzing**
+
+```bash
+ffuf -w /opt/SecLists/Discovery/DNS/subdomains-top1million-110000.txt:FUZZ \
+     -u https://FUZZ.inlanefreight.com/ \
+     -mc 200,301,302 \
+     -t 50
+```
+
+**Paso 2: Analizar resultados**
+
+| Subdominio | Status | Tipo |
+|------------|--------|------|
+| www | 200 | Sitio principal |
+| blog | 301 | Blog redirect |
+| support | 301 | Soporte |
+| my | 301 | Portal personal |
+| ns3 | 301 | Nameserver |
+| **customer** | 301 | Portal de clientes |
+
+### Respuesta
+
+```
+customer.inlanefreight.com
+```
+
+### Analisis
+
+- El subdominio `customer` indica un portal de clientes
+- Los subdominios con DNS publico se pueden descubrir con ffuf
+- Se usa el keyword `FUZZ` en la posicion del subdominio en la URL
+- Los codigos 301 indican redirecciones a otros recursos
+
+## Que Aprendimos
+
+- Subdomain fuzzing usa el header Host
+- `-H` permite modificar headers
+- Filtrar por tamaño elimina falsos positivos
+- Verificar agregando a /etc/hosts
+
+## Proximos Pasos
+
+En la siguiente seccion aprenderemos sobre [Vhost Fuzzing](07-vhost-fuzzing.html).
+
+---
+
+[Volver al Modulo](index.html) | [Vhost Fuzzing ->](07-vhost-fuzzing.html)

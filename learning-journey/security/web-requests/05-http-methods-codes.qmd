@@ -1,0 +1,50 @@
+# HTTP Methods and Codes
+
+## Request Methods
+
+| Método | Descripción |
+|--------|-------------|
+| **GET** | Solicita un recurso específico |
+| **POST** | Envía datos al servidor (en el body) |
+| **HEAD** | Solicita solo headers (sin body) |
+| **PUT** | Crea o actualiza recursos |
+| **DELETE** | Elimina un recurso existente |
+| **OPTIONS** | Retorna métodos aceptados por el servidor |
+| **PATCH** | Aplica modificaciones parciales |
+
+> **Nota**: La mayoría de web applications modernas usan principalmente GET y POST. Las REST APIs también usan PUT y DELETE.
+
+## Status Codes
+
+### Clases de Códigos
+
+| Clase | Descripción |
+|-------|-------------|
+| **1xx** | Información |
+| **2xx** | Éxito |
+| **3xx** | Redirección |
+| **4xx** | Error del cliente |
+| **5xx** | Error del servidor |
+
+### Códigos Comunes
+
+| Código | Descripción |
+|--------|-------------|
+| `200 OK` | Request exitoso |
+| `302 Found` | Redirección |
+| `400 Bad Request` | Request malformado |
+| `403 Forbidden` | Sin acceso al recurso |
+| `404 Not Found` | Recurso no existe |
+| `500 Internal Server Error` | Error en el servidor |
+
+## cURL para Ver Status Codes
+
+```bash
+# Ver status code en response
+curl -I http://example.com
+# HTTP/1.1 200 OK
+
+# Verbose muestra código
+curl -v http://example.com
+# < HTTP/1.1 200 OK
+```

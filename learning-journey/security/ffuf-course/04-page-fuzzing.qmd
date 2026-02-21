@@ -1,0 +1,171 @@
+---
+title: "Page Fuzzing"
+description: "Encontrando archivos y paginas con ffuf"
+author: "Diego Saavedra"
+date: "2026-02-20"
+categories: [security, ffuf, pages, files]
+---
+
+# Page Fuzzing
+
+## Objetivo
+
+Al finalizar esta seccion, seras capaz de:
+
+- Fuzzear por archivos y paginas
+- Usar extensiones en ffuf
+- Combinar directorios y archivos
+
+## Extensiones
+
+Muchas paginas tienen extensiones especificas. Debemos probar:
+
+| Extension | Tipo |
+|-----------|------|
+| `.php` | PHP |
+| `.html` | HTML estatico |
+| `.asp/.aspx` | ASP.NET |
+| `.jsp` | Java Server Pages |
+| `.txt` | Archivos de texto |
+| `.bak` | Backups |
+
+## Fuzzing con Extensiones
+
+### Opcion -e
+
+```bash
+ffuf -w wordlist.txt:FUZZ \
+     -u http://target/FUZZ \
+     -e .php,.html,.txt
+```
+
+### Resultado
+
+```
+index.php               [Status: 200, Size: 986, Words: 423, Lines: 56]
+about.html              [Status: 200, Size: 1523, Words: 234, Lines: 45]
+robots.txt              [Status: 200, Size: 45, Words: 3, Lines: 4]
+```
+
+## Fuzzing en Directorios
+
+Despues de encontrar directorios, fuzzear dentro de ellos:
+
+```bash
+# Fuzzear dentro de /blog/
+ffuf -w wordlist.txt:FUZZ \
+     -u http://target/blog/FUZZ \
+     -e .php,.html
+```
+
+## Wordlists para Archivos
+
+### common.txt
+
+Wordlist general para archivos comunes:
+
+```bash
+/opt/useful/SecLists/Discovery/Web-Content/common.txt
+```
+
+### Archivos Especificos
+
+| Wordlist | Uso |
+|----------|-----|
+| `common.txt` | Archivos web comunes |
+| `raft-medium-files.txt` | Archivos mas extensos |
+| `quickhits.txt` | Hits rapidos |
+
+## Ejemplo Completo
+
+```bash
+# 1. Fuzzear directorios
+ffuf -w directory-list.txt:FUZZ -u http://target/FUZZ
+
+# 2. Fuzzear archivos en directorio encontrado
+ffuf -w common.txt:FUZZ -u http://target/blog/FUZZ -e .php,.html
+
+# 3. Fuzzear archivos en raiz
+ffuf -w common.txt:FUZZ -u http://target/FUZZ -e .php,.html,.txt
+```
+
+## Patrones Comunes
+
+### Archivos de Backup
+
+```bash
+# Buscar backups
+ffuf -w files.txt:FUZZ -u http://target/FUZZ \
+     -e .bak,.backup,.old,.copy
+```
+
+### Archivos de Configuracion
+
+```bash
+# Buscar configs
+ffuf -w files.txt:FUZZ -u http://target/FUZZ \
+     -e .conf,.config,.xml,.json
+```
+
+## Ejercicio Practico
+
+### Objetivo
+
+Encontrar la flag oculta en alguna pagina del servidor.
+
+### Solucion
+
+**Paso 1: Fuzzear directorios**
+
+```bash
+ffuf -w /opt/SecLists/Discovery/Web-Content/DirBuster-2007_directory-list-2.3-small.txt:FUZZ \
+     -u http://154.57.164.70:31556/FUZZ \
+     -fs 0
+```
+
+Resultado:
+```
+blog                    [Status: 301, Size: 322, Words: 20, Lines: 10]
+forum                   [Status: 301, Size: 323, Words: 20, Lines: 10]
+```
+
+**Paso 2: Fuzzear archivos dentro de /blog/**
+
+```bash
+ffuf -w /opt/SecLists/Discovery/Web-Content/common.txt:FUZZ \
+     -u http://154.57.164.70:31556/blog/FUZZ \
+     -e .php \
+     -fs 0
+```
+
+Resultado:
+```
+home.php                [Status: 200, Size: 1046, Words: 438, Lines: 58]
+```
+
+**Paso 3: Acceder a la pagina encontrada**
+
+```bash
+curl http://154.57.164.70:31556/blog/home.php
+```
+
+### Flag
+
+```
+HTB{bru63_f0r_c0mm0n_p455w0rd5}
+```
+
+## Que Aprendimos
+
+- `-e` agrega extensiones al fuzzing
+- Fuzzear dentro de directorios encontrados
+- `common.txt` es buena para archivos
+- Buscar backups y configs es util
+
+## Proximos Pasos
+
+En la siguiente seccion aprenderemos sobre [Recursive Fuzzing](05-recursive-fuzzing.html).
+
+---
+
+[Volver al Modulo](index.html) | [Recursive Fuzzing ->](05-recursive-fuzzing.html)

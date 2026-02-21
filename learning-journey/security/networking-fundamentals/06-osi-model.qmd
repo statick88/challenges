@@ -1,0 +1,159 @@
+---
+title: "The OSI Model"
+description: "Las 7 capas del modelo OSI detalladas"
+author: "Diego Saavedra"
+date: "2026-02-20"
+categories: [networking, osi, layers]
+---
+
+# The OSI Model
+
+## Objetivo
+
+Al finalizar esta seccion, seras capaz de:
+
+- Describir cada una de las 7 capas del modelo OSI
+- Entender la funcion especifica de cada capa
+- Comprender el flujo de datos a traves de las capas
+
+## Las 7 Capas
+
+```
+┌─────────────────────────────────────────────────────┐
+│ 7 │ Application    │ Datos de aplicacion          │
+├───┼────────────────┼───────────────────────────────┤
+│ 6 │ Presentation   │ Formato, encriptacion         │
+├───┼────────────────┼───────────────────────────────┤
+│ 5 │ Session        │ Sesiones, sincronizacion      │
+├───┼────────────────┼───────────────────────────────┤
+│ 4 │ Transport      │ TCP/UDP, puertos              │
+├───┼────────────────┼───────────────────────────────┤
+│ 3 │ Network        │ IP, enrutamiento              │
+├───┼────────────────┼───────────────────────────────┤
+│ 2 │ Data Link      │ MAC, Ethernet                 │
+├───┼────────────────┼───────────────────────────────┤
+│ 1 │ Physical       │ Cables, senales               │
+└───┴────────────────┴───────────────────────────────┘
+```
+
+## Layer 7: Application
+
+**Funcion**: Control de entrada/salida de datos y funciones de aplicacion.
+
+| Aspecto | Detalle |
+|---------|---------|
+| **Protocolos** | HTTP, HTTPS, FTP, SMTP, DNS, SSH |
+| **PDU** | Data |
+| **Ejemplo** | Navegador web haciendo peticion HTTP |
+
+## Layer 6: Presentation
+
+**Funcion**: Transferencia de datos independiente del formato de aplicacion.
+
+| Aspecto | Detalle |
+|---------|---------|
+| **Funciones** | Encriptacion, compresion, traduccion de formatos |
+| **Ejemplos** | SSL/TLS, JPEG, GIF, ASCII/EBCDIC |
+
+## Layer 5: Session
+
+**Funcion**: Control de conexion logica entre sistemas.
+
+| Aspecto | Detalle |
+|---------|---------|
+| **Funciones** | Establecer, mantener, terminar sesiones |
+| **Problemas que previene** | Desconexiones, timeouts |
+
+## Layer 4: Transport
+
+**Funcion**: Control end-to-end de datos transferidos.
+
+| Aspecto | Detalle |
+|---------|---------|
+| **Protocolos** | TCP, UDP |
+| **Funciones** | Segmentacion, control de flujo, deteccion de congestion |
+| **PDU** | Segment (TCP) / Datagram (UDP) |
+
+### TCP vs UDP
+
+| Caracteristica | TCP | UDP |
+|----------------|-----|-----|
+| **Conexion** | Orientado a conexion | Sin conexion |
+| **Confiable** | Si | No |
+| **Orden** | Garantizado | No garantizado |
+| **Velocidad** | Mas lento | Mas rapido |
+| **Uso** | Web, email, SSH | Streaming, DNS, VoIP |
+
+## Layer 3: Network
+
+**Funcion**: Enrutamiento y direccionamiento logico.
+
+| Aspecto | Detalle |
+|---------|---------|
+| **Protocolos** | IPv4, IPv6, ICMP, IPSec, OSPF |
+| **Funciones** | Direccionamiento, enrutamiento |
+| **PDU** | Packet |
+| **Dispositivos** | Routers |
+
+### Funciones Principales
+
+1. **Direccionamiento Logico**: Asigna IPs unicas
+2. **Enrutamiento**: Determina el mejor camino al destino
+
+## Layer 2: Data Link
+
+**Funcion**: Transmision confiable y deteccion de errores.
+
+| Aspecto | Detalle |
+|---------|---------|
+| **Protocolos** | Ethernet, PPP, HDLC |
+| **Direccionamiento** | MAC Address |
+| **PDU** | Frame |
+| **Dispositivos** | Switches, Bridges |
+
+### Subcapas
+
+- **LLC (Logical Link Control)**: Interfaz con capa superior
+- **MAC (Media Access Control)**: Control de acceso al medio
+
+## Layer 1: Physical
+
+**Funcion**: Transmision de bits por el medio fisico.
+
+| Aspecto | Detalle |
+|---------|---------|
+| **Medios** | Cable cobre, fibra optica, ondas radio |
+| **PDU** | Bit |
+| **Dispositivos** | Hubs, repetidores |
+
+### Tipos de Transmision
+
+| Tipo | Ejemplo |
+|------|---------|
+| **Electrica** | Cable Ethernet (cobres trenzados) |
+| **Optica** | Fibra optica (luz) |
+| **Electromagnetica** | Wi-Fi, Bluetooth |
+
+## Mnemotecnia
+
+Para recordar el orden de las capas:
+
+| Desde Abajo | Desde Arriba |
+|-------------|--------------|
+| **P**lease **D**o **N**ot **T**hrow **S**ausage **P**izza **A**way | **A**ll **P**eople **S**eem **T**o **N**eed **D**ata **P**rocessing |
+| Physical, Data Link, Network, Transport, Session, Presentation, Application | Application, Presentation, Session, Transport, Network, Data Link, Physical |
+
+## Que Aprendimos
+
+- El modelo OSI tiene 7 capas
+- Cada capa tiene funciones especificas
+- Las capas se comunican solo con capas adyacentes
+- La encapsulacion ocurre de arriba hacia abajo
+
+## Proximos Pasos
+
+En la siguiente seccion aprenderemos sobre el [TCP/IP Model](07-tcp-ip-model.html).
+
+---
+
+[Volver al Modulo](index.html) | [TCP/IP Model ->](07-tcp-ip-model.html)

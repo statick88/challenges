@@ -1,20 +1,20 @@
 {
-  "lastUpdated": "2026-02-20T21:12:44.534Z",
-  "buildVersion": 1771621964534,
+  "lastUpdated": "2026-02-21T03:01:15.359Z",
+  "buildVersion": 1771642875360,
   "overview": {
-    "totalChallenges": 83,
-    "completed": 51,
+    "totalChallenges": 78,
+    "completed": 54,
     "ctfCompleted": 2,
-    "completionRate": 61
+    "completionRate": 69
   },
   "programs": {
     "linux": {
-      "completed": 9,
+      "completed": 10,
       "inProgress": 0,
       "ready": 0,
       "blocked": 11,
-      "total": 20,
-      "percentage": 45
+      "total": 21,
+      "percentage": 48
     },
     "docker": {
       "completed": 6,
@@ -25,12 +25,12 @@
       "percentage": 100
     },
     "devops": {
-      "completed": 8,
+      "completed": 10,
       "inProgress": 0,
-      "ready": 8,
+      "ready": 0,
       "blocked": 0,
-      "total": 16,
-      "percentage": 50
+      "total": 10,
+      "percentage": 100
     },
     "ctf": {
       "completed": 2,
@@ -428,7 +428,7 @@
     },
     {
       "program": "linux",
-      "activity": "Linux: 9/20 completed (11 blocked)",
+      "activity": "Linux: 10/21 completed (11 blocked)",
       "icon": "🐧"
     },
     {
@@ -438,7 +438,7 @@
     },
     {
       "program": "devops",
-      "activity": "DevOps: 8/16 days completed",
+      "activity": "DevOps: 10/10 days completed",
       "icon": "⚙️"
     },
     {

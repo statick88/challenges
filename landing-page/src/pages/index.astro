@@ -223,6 +223,23 @@ const { blockedCount, inProgressCount, readyCount } = calculateProgramStats(prog
             </svg>
           </div>
         </a>
+        
+        <a href="learning-journey/security/ffuf-course/" class="ebook-card">
+          <div class="ebook-icon">🔍</div>
+          <div class="ebook-content">
+            <h3>Attacking Web Apps with Ffuf</h3>
+            <p class="ebook-platform">HTB Academy</p>
+            <div class="ebook-meta">
+              <span class="ebook-status in-progress">En progreso</span>
+              <span class="ebook-date">Feb 2026</span>
+            </div>
+          </div>
+          <div class="ebook-arrow">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </div>
+        </a>
       </div>
     </section>
 
@@ -784,6 +801,11 @@ const { blockedCount, inProgressCount, readyCount } = calculateProgramStats(prog
   .ebook-status.completed {
     background: rgba(34, 197, 94, 0.2);
     color: #22c55e;
+  }
+
+  .ebook-status.in-progress {
+    background: rgba(245, 158, 11, 0.2);
+    color: #f59e0b;
   }
 
   .ebook-date {
