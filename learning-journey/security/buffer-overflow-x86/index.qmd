@@ -18,6 +18,7 @@ Este documento contiene las notas completas del módulo **Stack-Based Buffer Ove
 | **Tier** | 0 |
 | **Duración estimada** | 7 horas |
 | **Cubos** | 10 |
+| **Estado** | ✅ Completado |
 
 ## Objetivos de Aprendizaje
 
@@ -41,8 +42,18 @@ Este documento contiene las notas completas del módulo **Stack-Based Buffer Ove
 | 4-5 | Fundamentals | Teoría + Práctica |
 | 6-10 | Exploit Development | Práctica |
 | 11-12 | Proof-of-Concept | Práctica |
-| 13 | Skills Assessment | Evaluación |
+| 13 | Skills Assessment | Evaluación ✅ |
 
----
+## Skills Assessment Completado
 
-**Achievement:** https://academy.hackthebox.com/achievement/2300153/XX
+| Parámetro | Valor |
+|-----------|-------|
+| File type | ELF 32-bit |
+| Offset | 2060 bytes |
+| Stack size | 0x22000 |
+| Técnica | Ret2libc |
+| Flag | `HTB{wmcaJe4dEFZ3pbgDEpToJxFwvTEP4t}` |
+
+## Achievement
+
+https://academy.hackthebox.com/achievement/2300153/31

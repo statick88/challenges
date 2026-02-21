@@ -97,14 +97,20 @@ Curso completo de buffer overflows desde HTB Academy. Aprende arquitectura CPU, 
 - Generating Shellcode con msfvenom
 - Return Address Calculation
 - Proof-of-Concept Exploit
+- Skills Assessment
 
-**Progreso del curso:** 69% (9/13 secciones)
+**Progreso del curso:** 100% ✅
 
-**Bad Characters identificados:** `\x00\x09\x0a\x20`
+**Skills Assessment:**
 
-**Offset determinado:** 1036 bytes
+| Parámetro | Valor |
+|-----------|-------|
+| Offset | 2060 bytes |
+| Stack size | 0x22000 |
+| Técnica | Ret2libc |
+| Flag | `HTB{wmcaJe4dEFZ3pbgDEpToJxFwvTEP4t}` |
 
-**Stack Size:** 0x21000
+**Achievement:** https://academy.hackthebox.com/achievement/2300153/31
 
 ---
 
@@ -169,6 +175,7 @@ Plan completo de 16 semanas para conseguir empleo en ciberseguridad, usando estr
 | Buffer Overflow - EIP Control | HTB Academy | Medium | 2026-02-21 |
 | Buffer Overflow - Bad Chars | HTB Academy | Medium | 2026-02-21 |
 | Buffer Overflow - Shellcode | HTB Academy | Medium | 2026-02-21 |
+| Buffer Overflow - Skills Assessment | HTB Academy | Medium | 2026-02-21 |
 
 ---
 
@@ -201,7 +208,6 @@ Guía completa de configuración de OpenVPN para conectar a HTB Academy desde Li
 
 | Métrica | Valor |
 |---------|-------|
-| Laboratorios Completados | 18 |
-| Flags Obtenidas | 8 |
-| Módulos HTB Completados | 3 |
-| Módulos HTB En Progreso | 1 |
+| Laboratorios Completados | 19 |
+| Flags Obtenidas | 9 |
+| Módulos HTB Completados | 4 |

