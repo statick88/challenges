@@ -154,19 +154,26 @@ ul.task-list li input[type="checkbox"] {
   <ul>
   <li><a href="#welcome-to-my-learning-journey" id="toc-welcome-to-my-learning-journey" class="nav-link active" data-scroll-target="#welcome-to-my-learning-journey">Welcome to My Learning Journey</a>
   <ul class="collapse">
-  <li><a href="#purpose" id="toc-purpose" class="nav-link" data-scroll-target="#purpose">🎯 Purpose</a></li>
-  <li><a href="#overall-progress" id="toc-overall-progress" class="nav-link" data-scroll-target="#overall-progress">📊 Overall Progress</a></li>
-  <li><a href="#progress-by-area" id="toc-progress-by-area" class="nav-link" data-scroll-target="#progress-by-area">📈 Progress by Area</a></li>
-  <li><a href="#learning-path" id="toc-learning-path" class="nav-link" data-scroll-target="#learning-path">🗺️ Learning Path</a></li>
-  <li><a href="#structure" id="toc-structure" class="nav-link" data-scroll-target="#structure">📚 Structure</a>
+  <li><a href="#purpose" id="toc-purpose" class="nav-link" data-scroll-target="#purpose">Purpose</a></li>
+  <li><a href="#overall-progress" id="toc-overall-progress" class="nav-link" data-scroll-target="#overall-progress">Overall Progress</a></li>
+  <li><a href="#progress-by-area" id="toc-progress-by-area" class="nav-link" data-scroll-target="#progress-by-area">Progress by Area</a></li>
+  <li><a href="#learning-path" id="toc-learning-path" class="nav-link" data-scroll-target="#learning-path">Learning Path</a>
   <ul class="collapse">
-  <li><a href="#foundations" id="toc-foundations" class="nav-link" data-scroll-target="#foundations">Foundations 🐧</a></li>
-  <li><a href="#containers" id="toc-containers" class="nav-link" data-scroll-target="#containers">Containers 🐳</a></li>
-  <li><a href="#devops-practices" id="toc-devops-practices" class="nav-link" data-scroll-target="#devops-practices">DevOps Practices ⚙️</a></li>
-  <li><a href="#security" id="toc-security" class="nav-link" data-scroll-target="#security">Security 🔒</a></li>
+  <li><a href="#phase-1-linux-fundamentals" id="toc-phase-1-linux-fundamentals" class="nav-link" data-scroll-target="#phase-1-linux-fundamentals">Phase 1: Linux Fundamentals ✅</a></li>
+  <li><a href="#phase-2-containerization" id="toc-phase-2-containerization" class="nav-link" data-scroll-target="#phase-2-containerization">Phase 2: Containerization ✅</a></li>
+  <li><a href="#phase-3-devops-practices" id="toc-phase-3-devops-practices" class="nav-link" data-scroll-target="#phase-3-devops-practices">Phase 3: DevOps Practices 🔄</a></li>
+  <li><a href="#phase-4-security-fundamentals" id="toc-phase-4-security-fundamentals" class="nav-link" data-scroll-target="#phase-4-security-fundamentals">Phase 4: Security Fundamentals 🔄</a></li>
+  <li><a href="#phase-5-advanced-topics" id="toc-phase-5-advanced-topics" class="nav-link" data-scroll-target="#phase-5-advanced-topics">Phase 5: Advanced Topics ⏳</a></li>
   </ul></li>
-  <li><a href="#skills-matrix" id="toc-skills-matrix" class="nav-link" data-scroll-target="#skills-matrix">🛠️ Skills Matrix</a></li>
-  <li><a href="#navigation" id="toc-navigation" class="nav-link" data-scroll-target="#navigation">🔗 Navigation</a></li>
+  <li><a href="#structure" id="toc-structure" class="nav-link" data-scroll-target="#structure">Structure</a>
+  <ul class="collapse">
+  <li><a href="#foundations" id="toc-foundations" class="nav-link" data-scroll-target="#foundations">Foundations</a></li>
+  <li><a href="#containers" id="toc-containers" class="nav-link" data-scroll-target="#containers">Containers</a></li>
+  <li><a href="#devops-practices" id="toc-devops-practices" class="nav-link" data-scroll-target="#devops-practices">DevOps Practices</a></li>
+  <li><a href="#security" id="toc-security" class="nav-link" data-scroll-target="#security">Security</a></li>
+  </ul></li>
+  <li><a href="#skills-matrix" id="toc-skills-matrix" class="nav-link" data-scroll-target="#skills-matrix">Skills Matrix</a></li>
+  <li><a href="#navigation" id="toc-navigation" class="nav-link" data-scroll-target="#navigation">Navigation</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -204,7 +211,7 @@ ul.task-list li input[type="checkbox"] {
 <h1>Welcome to My Learning Journey</h1>
 <p>This website documents my path through <strong>Linux system administration</strong>, <strong>Docker containerization</strong>, <strong>DevOps practices</strong>, and <strong>Cybersecurity/CTF challenges</strong>.</p>
 <section id="purpose" class="level2">
-<h2 class="anchored" data-anchor-id="purpose">🎯 Purpose</h2>
+<h2 class="anchored" data-anchor-id="purpose">Purpose</h2>
 <p>This journey serves two purposes:</p>
 <ol type="1">
 <li><strong>Personal Progress Tracking</strong> - A visual record of what I’ve learned and completed</li>
@@ -212,149 +219,113 @@ ul.task-list li input[type="checkbox"] {
 </ol>
 </section>
 <section id="overall-progress" class="level2">
-<h2 class="anchored" data-anchor-id="overall-progress">📊 Overall Progress</h2>
-<div class="progress-container">
-  <div class="progress-header">
-    <span class="progress-label">Total Completion</span>
-    <span class="progress-value">55%</span>
-  </div>
-  <div class="progress-bar-bg">
-    <div class="progress-bar-fill" style="width: 55%;"></div>
-  </div>
-  <div class="progress-stats">
-    <span>✅ 34 completed</span>
-    <span>📋 28 remaining</span>
-    <span>🎯 62 total</span>
-  </div>
-</div>
+<h2 class="anchored" data-anchor-id="overall-progress">Overall Progress</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Metric</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Total Completion</strong></td>
+<td>55%</td>
+</tr>
+<tr class="even">
+<td><strong>Completed</strong></td>
+<td>34 challenges</td>
+</tr>
+<tr class="odd">
+<td><strong>Remaining</strong></td>
+<td>28 challenges</td>
+</tr>
+<tr class="even">
+<td><strong>Total</strong></td>
+<td>62 challenges</td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="progress-by-area" class="level2">
-<h2 class="anchored" data-anchor-id="progress-by-area">📈 Progress by Area</h2>
-<div class="skills-grid">
-
-<div class="skill-card">
-  <div class="skill-header">
-    <span class="skill-icon">🐧</span>
-    <span class="skill-name">Linux Foundations</span>
-    <span class="skill-percent">50%</span>
-  </div>
-  <div class="progress-bar-bg">
-    <div class="progress-bar-fill linux" style="width: 50%;"></div>
-  </div>
-  <div class="skill-details">9/20 challenges completed</div>
-</div>
-
-<div class="skill-card">
-  <div class="skill-header">
-    <span class="skill-icon">🐳</span>
-    <span class="skill-name">Docker</span>
-    <span class="skill-percent">100%</span>
-  </div>
-  <div class="progress-bar-bg">
-    <div class="progress-bar-fill docker" style="width: 100%;"></div>
-  </div>
-  <div class="skill-details">6/6 challenges completed</div>
-</div>
-
-<div class="skill-card">
-  <div class="skill-header">
-    <span class="skill-icon">⚙️</span>
-    <span class="skill-name">DevOps</span>
-    <span class="skill-percent">50%</span>
-  </div>
-  <div class="progress-bar-bg">
-    <div class="progress-bar-fill devops" style="width: 50%;"></div>
-  </div>
-  <div class="skill-details">8/16 challenges completed</div>
-</div>
-
-<div class="skill-card">
-  <div class="skill-header">
-    <span class="skill-icon">🔒</span>
-    <span class="skill-name">Security</span>
-    <span class="skill-percent">58%</span>
-  </div>
-  <div class="progress-bar-bg">
-    <div class="progress-bar-fill security" style="width: 58%;"></div>
-  </div>
-  <div class="skill-details">7/12 challenges completed</div>
-</div>
-
-</div>
+<h2 class="anchored" data-anchor-id="progress-by-area">Progress by Area</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Area</th>
+<th>Progress</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>🐧 <strong>Linux Foundations</strong></td>
+<td>50% (9/20)</td>
+<td>In Progress</td>
+</tr>
+<tr class="even">
+<td>🐳 <strong>Docker</strong></td>
+<td>100% (6/6)</td>
+<td>✅ Completed</td>
+</tr>
+<tr class="odd">
+<td>⚙️ <strong>DevOps</strong></td>
+<td>50% (8/16)</td>
+<td>In Progress</td>
+</tr>
+<tr class="even">
+<td>🔒 <strong>Security</strong></td>
+<td>58% (7/12)</td>
+<td>In Progress</td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="learning-path" class="level2">
-<h2 class="anchored" data-anchor-id="learning-path">🗺️ Learning Path</h2>
-<div class="path-timeline">
-
-<div class="path-item completed">
-  <div class="path-marker">✓</div>
-  <div class="path-content">
-    <h4 class="anchored">Phase 1: Linux Fundamentals</h4>
-    <p>User management, permissions, networking, shell scripting</p>
-    <span class="path-status completed">Completed</span>
-  </div>
-</div>
-
-<div class="path-item completed">
-  <div class="path-marker">✓</div>
-  <div class="path-content">
-    <h4 class="anchored">Phase 2: Containerization</h4>
-    <p>Docker basics, volumes, networks, troubleshooting</p>
-    <span class="path-status completed">Completed</span>
-  </div>
-</div>
-
-<div class="path-item in-progress">
-  <div class="path-marker">◐</div>
-  <div class="path-content">
-    <h4 class="anchored">Phase 3: DevOps Practices</h4>
-    <p>Ansible, Cron, MariaDB, CI/CD basics</p>
-    <span class="path-status in-progress">In Progress - 50%</span>
-  </div>
-</div>
-
-<div class="path-item">
-  <div class="path-marker">○</div>
-  <div class="path-content">
-    <h4 class="anchored">Phase 4: Security Fundamentals</h4>
-    <p>CTF basics, forensics, web security, HTB Academy</p>
-    <span class="path-status">Not Started</span>
-  </div>
-</div>
-
-<div class="path-item">
-  <div class="path-marker">○</div>
-  <div class="path-content">
-    <h4 class="anchored">Phase 5: Advanced Topics</h4>
-    <p>Kubernetes, advanced networking, penetration testing</p>
-    <span class="path-status">Not Started</span>
-  </div>
-</div>
-
-</div>
+<h2 class="anchored" data-anchor-id="learning-path">Learning Path</h2>
+<section id="phase-1-linux-fundamentals" class="level3">
+<h3 class="anchored" data-anchor-id="phase-1-linux-fundamentals">Phase 1: Linux Fundamentals ✅</h3>
+<p>User management, permissions, networking, shell scripting</p>
+</section>
+<section id="phase-2-containerization" class="level3">
+<h3 class="anchored" data-anchor-id="phase-2-containerization">Phase 2: Containerization ✅</h3>
+<p>Docker basics, volumes, networks, troubleshooting</p>
+</section>
+<section id="phase-3-devops-practices" class="level3">
+<h3 class="anchored" data-anchor-id="phase-3-devops-practices">Phase 3: DevOps Practices 🔄</h3>
+<p>Ansible, Cron, MariaDB, CI/CD basics — <em>In Progress (50%)</em></p>
+</section>
+<section id="phase-4-security-fundamentals" class="level3">
+<h3 class="anchored" data-anchor-id="phase-4-security-fundamentals">Phase 4: Security Fundamentals 🔄</h3>
+<p>CTF basics, forensics, web security, HTB Academy — <em>In Progress</em></p>
+</section>
+<section id="phase-5-advanced-topics" class="level3">
+<h3 class="anchored" data-anchor-id="phase-5-advanced-topics">Phase 5: Advanced Topics ⏳</h3>
+<p>Kubernetes, advanced networking, penetration testing</p>
+</section>
 </section>
 <section id="structure" class="level2">
-<h2 class="anchored" data-anchor-id="structure">📚 Structure</h2>
+<h2 class="anchored" data-anchor-id="structure">Structure</h2>
 <p>The learning journey is organized into four main areas:</p>
 <section id="foundations" class="level3">
-<h3 class="anchored" data-anchor-id="foundations"><a href="./foundations/index.html">Foundations</a> 🐧</h3>
+<h3 class="anchored" data-anchor-id="foundations"><a href="./foundations/index.html">Foundations</a></h3>
 <p>Linux system administration fundamentals</p>
 </section>
 <section id="containers" class="level3">
-<h3 class="anchored" data-anchor-id="containers"><a href="./containers/index.html">Containers</a> 🐳</h3>
+<h3 class="anchored" data-anchor-id="containers"><a href="./containers/index.html">Containers</a></h3>
 <p>Docker and containerization</p>
 </section>
 <section id="devops-practices" class="level3">
-<h3 class="anchored" data-anchor-id="devops-practices"><a href="./devops-practices/index.html">DevOps Practices</a> ⚙️</h3>
+<h3 class="anchored" data-anchor-id="devops-practices"><a href="./devops-practices/index.html">DevOps Practices</a></h3>
 <p>DevOps tools and methodologies</p>
 </section>
 <section id="security" class="level3">
-<h3 class="anchored" data-anchor-id="security"><a href="./security/index.html">Security</a> 🔒</h3>
+<h3 class="anchored" data-anchor-id="security"><a href="./security/index.html">Security</a></h3>
 <p>Cybersecurity fundamentals</p>
 </section>
 </section>
 <section id="skills-matrix" class="level2">
-<h2 class="anchored" data-anchor-id="skills-matrix">🛠️ Skills Matrix</h2>
+<h2 class="anchored" data-anchor-id="skills-matrix">Skills Matrix</h2>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -366,220 +337,47 @@ ul.task-list li input[type="checkbox"] {
 <tbody>
 <tr class="odd">
 <td>Linux System Administration</td>
-<td>🟢 Intermediate</td>
+<td>Intermediate</td>
 <td>In Progress</td>
 </tr>
 <tr class="even">
 <td>Docker &amp; Containers</td>
-<td>🟢 Intermediate</td>
+<td>Intermediate</td>
 <td>Certified</td>
 </tr>
 <tr class="odd">
 <td>Ansible</td>
-<td>🔵 Basic</td>
+<td>Basic</td>
 <td>Learning</td>
 </tr>
 <tr class="even">
 <td>Bash Scripting</td>
-<td>🟢 Intermediate</td>
+<td>Intermediate</td>
 <td>Completed</td>
 </tr>
 <tr class="odd">
 <td>Network Security</td>
-<td>🔵 Basic</td>
+<td>Basic</td>
 <td>Learning</td>
 </tr>
 <tr class="even">
 <td>CTF Problem Solving</td>
-<td>🔵 Basic</td>
+<td>Basic</td>
 <td>Started</td>
 </tr>
 <tr class="odd">
 <td>HTB Academy</td>
-<td>🟢 Intermediate</td>
+<td>Intermediate</td>
 <td>3 Modules Completed</td>
 </tr>
 </tbody>
 </table>
 </section>
 <section id="navigation" class="level2">
-<h2 class="anchored" data-anchor-id="navigation">🔗 Navigation</h2>
+<h2 class="anchored" data-anchor-id="navigation">Navigation</h2>
 <p>Use the sidebar to navigate between sections, or click on the section links above.</p>
 <hr>
 <p><em>This journey is continuously updated as new challenges are completed.</em></p>
-<style>
-.progress-container {
-  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-  border: 1px solid #334155;
-  border-radius: 12px;
-  padding: 1.5rem;
-  margin: 1.5rem 0;
-}
-
-.progress-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 0.75rem;
-}
-
-.progress-label {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #e2e8f0;
-}
-
-.progress-value {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #22d3ee;
-}
-
-.progress-bar-bg {
-  background: #334155;
-  border-radius: 999px;
-  height: 12px;
-  overflow: hidden;
-}
-
-.progress-bar-fill {
-  background: linear-gradient(90deg, #22d3ee 0%, #06b6d4 100%);
-  height: 100%;
-  border-radius: 999px;
-  transition: width 0.5s ease;
-}
-
-.progress-stats {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 0.75rem;
-  font-size: 0.85rem;
-  color: #94a3b8;
-}
-
-.skills-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1rem;
-  margin: 1.5rem 0;
-}
-
-.skill-card {
-  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-  border: 1px solid #334155;
-  border-radius: 12px;
-  padding: 1rem;
-}
-
-.skill-header {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 0.5rem;
-}
-
-.skill-icon {
-  font-size: 1.5rem;
-}
-
-.skill-name {
-  flex: 1;
-  font-weight: 600;
-  color: #e2e8f0;
-}
-
-.skill-percent {
-  font-weight: 700;
-  color: #22d3ee;
-}
-
-.skill-card .progress-bar-fill.linux {
-  background: linear-gradient(90deg, #f97316 0%, #ea580c 100%);
-}
-
-.skill-card .progress-bar-fill.docker {
-  background: linear-gradient(90deg, #3b82f6 0%, #2563eb 100%);
-}
-
-.skill-card .progress-bar-fill.devops {
-  background: linear-gradient(90deg, #a855f7 0%, #9333ea 100%);
-}
-
-.skill-card .progress-bar-fill.security {
-  background: linear-gradient(90deg, #22c55e 0%, #16a34a 100%);
-}
-
-.skill-details {
-  font-size: 0.8rem;
-  color: #94a3b8;
-  margin-top: 0.5rem;
-}
-
-.path-timeline {
-  margin: 2rem 0;
-  padding-left: 2rem;
-  border-left: 2px solid #334155;
-}
-
-.path-item {
-  position: relative;
-  margin-bottom: 1.5rem;
-  padding-left: 1.5rem;
-}
-
-.path-marker {
-  position: absolute;
-  left: -2.4rem;
-  width: 1.2rem;
-  height: 1.2rem;
-  border-radius: 50%;
-  background: #334155;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.7rem;
-  color: #64748b;
-}
-
-.path-item.completed .path-marker {
-  background: #22c55e;
-  color: white;
-}
-
-.path-item.in-progress .path-marker {
-  background: #f59e0b;
-  color: white;
-}
-
-.path-content h4 {
-  margin: 0 0 0.25rem 0;
-  color: #e2e8f0;
-}
-
-.path-content p {
-  margin: 0 0 0.5rem 0;
-  color: #94a3b8;
-  font-size: 0.9rem;
-}
-
-.path-status {
-  font-size: 0.75rem;
-  padding: 0.25rem 0.75rem;
-  border-radius: 999px;
-  background: #334155;
-  color: #64748b;
-}
-
-.path-status.completed {
-  background: rgba(34, 197, 94, 0.2);
-  color: #22c55e;
-}
-
-.path-status.in-progress {
-  background: rgba(245, 158, 11, 0.2);
-  color: #f59e0b;
-}
-</style>
 
 
 </section>

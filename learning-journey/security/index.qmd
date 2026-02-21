@@ -3,11 +3,11 @@ title: "Security"
 description: "Cursos y laboratorios de ciberseguridad"
 ---
 
-# Security 🔒
+# Security
 
 Bienvenido a la sección de **Ciberseguridad**. Aquí encontrarás cursos completos desde fundamentos hasta técnicas avanzadas de pentesting.
 
-## 📚 Cursos Disponibles
+## Cursos Disponibles
 
 ### Network Enumeration with Nmap
 
@@ -23,7 +23,7 @@ Curso completo de enumeración de redes con Nmap, desde conceptos básicos hasta
 - Firewall & IDS/IPS Evasion (3 laboratorios HTB)
 - 6 laboratorios prácticos completados
 
-**Progreso del curso: 100%** ✓
+**Progreso del curso:** 100% ✅
 
 ---
 
@@ -43,16 +43,19 @@ Curso completo de HTTP y cURL desde HTB Academy. Aprende los fundamentos del pro
 - CRUD API con cURL
 - 8 laboratorios prácticos completados
 
-**Progreso del curso: 100%** ✓
+**Progreso del curso:** 100% ✅
 
 **Flags obtenidas:**
-- `HTB{64$!c_cURL_u$3r}` - HTTP Basics
-- `HTB{p393_r3qu3$t$_m0n!t0r}` - HTTP Headers
-- `HTB{curl_g3773r}` - GET Method
-- `HTB{p0$t_r3p34t3r}` - POST Method
-- `HTB{crud_4p!_m4n!pul4t0r}` - CRUD API
 
-**Achievement**: https://academy.hackthebox.com/achievement/2300153/35
+| Flag | Sección |
+|------|---------|
+| `HTB{64$!c_cURL_u$3r}` | HTTP Basics |
+| `HTB{p393_r3qu3$t$_m0n!t0r}` | HTTP Headers |
+| `HTB{curl_g3773r}` | GET Method |
+| `HTB{p0$t_r3p34t3r}` | POST Method |
+| `HTB{crud_4p!_m4n!pul4t0r}` | CRUD API |
+
+**Achievement:** https://academy.hackthebox.com/achievement/2300153/35
 
 ---
 
@@ -69,29 +72,30 @@ Curso completo de fuzzing web con FFUF desde HTB Academy. Aprende directory fuzz
 - Parameter Fuzzing
 - 12 ejercicios prácticos completados
 
-**Progreso del curso: 100%** ✓
+**Progreso del curso:** 100% ✅
 
-**Achievement**: https://academy.hackthebox.com/achievement/2300153/54
+**Achievement:** https://academy.hackthebox.com/achievement/2300153/54
 
 ---
 
 ### PentAGI - Pentesting con IA
 
-Curso completo de pentesting automatizado con Inteligencia Artificial local, utilizando Ollama y Docker para maxima privacidad.
+Curso completo de pentesting automatizado con Inteligencia Artificial local, utilizando Ollama y Docker para máxima privacidad.
 
-[**Acceder al Curso de PentAGI ->**](pentagi-course/index.html)
+[**Acceder al Curso de PentAGI →**](pentagi-course/index.html)
 
 **Contenido del curso:**
 
-- Introduccion a PentAGI y arquitectura
-- Instalacion y configuracion con Ollama local
-- Primeros pasos y mejores practicas
-- Seguridad y optimizacion
-- Laboratorio practico completo
+- Introducción a PentAGI y arquitectura
+- Instalación y configuración con Ollama local
+- Primeros pasos y mejores prácticas
+- Seguridad y optimización
+- Laboratorio práctico completo
 
-**Progreso del curso: 100%** 
+**Progreso del curso:** 100% ✅
 
-**Filosofia: Seguridad por defecto**
+**Filosofía: Seguridad por defecto**
+
 - Sin APIs externas (todo local con Ollama)
 - Sin credenciales expuestas
 - Aislamiento completo con Docker
@@ -102,21 +106,22 @@ Curso completo de pentesting automatizado con Inteligencia Artificial local, uti
 
 Plan completo de 16 semanas para conseguir empleo en ciberseguridad, usando estrategias gratuitas con HTB Academy, PentAGI y Bug Bounty.
 
-[**Ver Roadmap Completo ->**](../roadmap-pentesting.html)
+[**Ver Roadmap Completo →**](../roadmap-pentesting.html)
 
 **Contenido del roadmap:**
 
 - Fase 1: Fundamentos + Perfil (Semanas 1-3)
 - Fase 2: PentAGI + HTB Integration (Semanas 4-6)
-- Fase 3: Desbloquear Modulos (Semanas 7-10)
+- Fase 3: Desbloquear Módulos (Semanas 7-10)
 - Fase 4: Labs + Portfolio (Semanas 11-14)
 - Fase 5: Bug Bounty + Job Search (Semanas 15-16)
 
 **Incluye:**
+
 - Tracker de cubos HTB
 - CV Template para Pentester Junior
 - Checklist semanal de progreso
-- Estrategia de acumulacion gratuita
+- Estrategia de acumulación gratuita
 
 ---
 
@@ -134,7 +139,7 @@ Plan completo de 16 semanas para conseguir empleo en ciberseguridad, usando estr
 
 ---
 
-## 🎯 Habilidades Desarrolladas
+## Habilidades Desarrolladas
 
 | Habilidad | Nivel |
 |-----------|-------|
@@ -147,7 +152,7 @@ Plan completo de 16 semanas para conseguir empleo en ciberseguridad, usando estr
 
 ---
 
-## 🔗 Otros Recursos de Seguridad
+## Otros Recursos de Seguridad
 
 ### OpenVPN Setup
 
@@ -157,49 +162,10 @@ Guía completa de configuración de OpenVPN para conectar a HTB Academy desde Li
 
 ---
 
-## 📈 Estadísticas del Módulo
+## Estadísticas del Módulo
 
-```{=html}
-<div class="stats-summary">
-  <div class="stat-item">
-    <span class="stat-number">15</span>
-    <span class="stat-label">Laboratorios Completados</span>
-  </div>
-  <div class="stat-item">
-    <span class="stat-number">8</span>
-    <span class="stat-label">Flags Obtenidas</span>
-  </div>
-  <div class="stat-item">
-    <span class="stat-number">3</span>
-    <span class="stat-label">Módulos HTB Completados</span>
-  </div>
-</div>
-
-<style>
-.stats-summary {
-  display: flex;
-  justify-content: space-around;
-  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-  border: 1px solid #334155;
-  border-radius: 12px;
-  padding: 1.5rem;
-  margin: 1.5rem 0;
-}
-
-.stat-item {
-  text-align: center;
-}
-
-.stat-number {
-  display: block;
-  font-size: 2rem;
-  font-weight: 700;
-  color: #22c55e;
-}
-
-.stat-label {
-  font-size: 0.85rem;
-  color: #94a3b8;
-}
-</style>
-```
+| Métrica | Valor |
+|---------|-------|
+| Laboratorios Completados | 15 |
+| Flags Obtenidas | 8 |
+| Módulos HTB Completados | 3 |
