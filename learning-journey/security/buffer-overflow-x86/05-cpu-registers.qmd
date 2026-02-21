@@ -1,0 +1,89 @@
+# CPU Registers
+
+Los registros son componentes esenciales de la CPU que proporcionan almacenamiento temporal para datos.
+
+## Data Registers
+
+| 32-bit | 64-bit | Descripción |
+|--------|--------|-------------|
+| EAX | RAX | Accumulator - I/O, operaciones aritméticas |
+| EBX | RBX | Base - direccionamiento indexado |
+| ECX | RCX | Counter - loops, rotaciones |
+| EDX | RDX | Data - I/O, multiplicar/dividir |
+
+## Pointer Registers
+
+| 32-bit | 64-bit | Descripción |
+|--------|--------|-------------|
+| **EIP** | RIP | Instruction Pointer - próxima instrucción |
+| **ESP** | RSP | Stack Pointer - tope del stack |
+| **EBP** | RBP | Base Pointer - base del stack frame |
+
+## Index Registers
+
+| 32-bit | 64-bit | Descripción |
+|--------|--------|-------------|
+| ESI | RSI | Source Index - operaciones de string |
+| EDI | RDI | Destination Index - operaciones de string |
+
+## Stack Frames
+
+Cada función crea un stack frame:
+
+```
+┌─────────────────────┐ Direcciones altas
+│   Argumentos        │
+├─────────────────────┤
+│   Return Address    │ ← EIP apunta aquí al retornar
+├─────────────────────┤
+│   Saved EBP         │ ← EBP apunta aquí
+├─────────────────────┤
+│   Variables locales │
+├─────────────────────┤
+│   Buffer            │
+├─────────────────────┤ ← ESP apunta aquí
+│   ...               │
+└─────────────────────┘ Direcciones bajas
+```
+
+## Prologue
+
+Cuando se llama una función:
+
+```asm
+push   ebp          ; 1. Guardar EBP anterior
+mov    ebp,esp      ; 2. Crear nuevo stack frame
+sub    esp,0x404    ; 3. Reservar espacio local
+```
+
+## Epilogue
+
+Al salir de la función:
+
+```asm
+leave               ; mov esp, ebp ; pop ebp
+ret                 ; pop eip (retorna a caller)
+```
+
+## EIP - El Registro Crítico
+
+**EIP** (Instruction Pointer) es el objetivo principal en buffer overflows:
+
+- Apunta a la próxima instrucción a ejecutar
+- Si lo controlamos, controlamos el flujo del programa
+- Se sobrescribe al desbordar el buffer hasta el return address
+
+## Diferencias 32-bit vs 64-bit
+
+| Aspecto | 32-bit | 64-bit |
+|---------|--------|--------|
+| Direcciones | 4 bytes | 8 bytes |
+| Registros | EAX, EBX... | RAX, RBX... |
+| Parámetros | Stack | Registros + Stack |
+
+## Ver Registros en GDB
+
+```bash
+(gdb) info registers
+(gdb) info registers eip esp ebp
+```

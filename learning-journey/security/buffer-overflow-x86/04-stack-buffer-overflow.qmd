@@ -1,0 +1,102 @@
+# Stack-Based Buffer Overflow
+
+Las excepciones de memoria son la reacción del sistema operativo a errores en software. Los buffer overflows son causados por datos demasiado grandes que desbordan un buffer.
+
+## Memory Layout
+
+Cuando un programa se ejecuta, sus secciones se mapean a segmentos en el proceso:
+
+| Sección | Descripción |
+|---------|-------------|
+| `.text` | Instrucciones assembler (read-only) |
+| `.data` | Variables globales y estáticas inicializadas |
+| `.bss` | Variables estáticas con valor 0 |
+| **Heap** | Memoria dinámica, crece hacia arriba |
+| **Stack** | LIFO, direcciones de retorno, crece hacia abajo |
+
+## Protecciones Modernas
+
+| Protección | Descripción |
+|------------|-------------|
+| **DEP** | Data Execution Prevention - marca regiones como read-only |
+| **ASLR** | Address Space Layout Randomization - randomiza direcciones |
+| **Stack Canary** | Valores de verificación en stack |
+
+## Programa Vulnerable
+
+```c
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+
+int bowfunc(char *string) {
+    char buffer[1024];
+    strcpy(buffer, string);  // Vulnerable - no bounds check
+    return 1;
+}
+
+int main(int argc, char *argv[]) {
+    bowfunc(argv[1]);
+    printf("Done.\n");
+    return 1;
+}
+```
+
+## Compilación Vulnerable
+
+```bash
+# Deshabilitar ASLR
+echo 0 > /proc/sys/kernel/randomize_va_space
+
+# Compilar sin protecciones (32-bit)
+gcc bow.c -o bow32 -fno-stack-protector -z execstack -m32
+```
+
+## Funciones C Vulnerables
+
+| Función | Problema |
+|---------|----------|
+| `strcpy()` | No verifica tamaño |
+| `gets()` | No verifica tamaño |
+| `sprintf()` | Puede desbordar buffer |
+| `scanf()` | Sin límites de entrada |
+| `strcat()` | No verifica tamaño |
+
+## GDB - Debugging
+
+```bash
+# Iniciar GDB
+gdb -q ./bow32
+
+# Cambiar sintaxis a Intel
+set disassembly-flavor intel
+
+# Desensamblar función
+disassemble main
+disassemble bowfunc
+```
+
+## Análisis del Stack
+
+El stack crece de direcciones altas a bajas:
+
+```
+Direcciones altas (0xFFFFFFFF)
+├── Argumentos
+├── Variables de entorno
+├── EIP (retorno de main)
+├── EBP (frame pointer)
+├── Variables locales
+├── Buffer
+└── ESP (top of stack)
+Direcciones bajas (0x00000000)
+```
+
+## Endianness
+
+| Formato | Orden de bytes |
+|---------|----------------|
+| **Big-Endian** | MSB primero (AA BB CC DD) |
+| **Little-Endian** | LSB primero (DD CC BB AA) |
+
+x86 usa Little-Endian - importante para exploits.

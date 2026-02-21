@@ -1,0 +1,34 @@
+project:
+  type: book
+  output-dir: _book
+
+book:
+  title: "Stack-Based Buffer Overflows on Linux x86"
+  subtitle: "HTB Academy Course Notes"
+  author: "Diego Saavedra"
+  date: "2026-02-21"
+  chapters:
+    - index.qmd
+    - 01-introduction.qmd
+    - 02-exploit-development.qmd
+    - 03-cpu-architecture.qmd
+    - 04-stack-buffer-overflow.qmd
+    - 05-cpu-registers.qmd
+    - 06-take-control-eip.qmd
+    - 07-shellcode-length.qmd
+    - 08-bad-characters.qmd
+    - 09-generating-shellcode.qmd
+    - 10-return-address.qmd
+    - 11-proof-of-concept.qmd
+    - 12-skills-assessment.qmd
+
+format:
+  html:
+    theme: darkly
+    toc: true
+    number-sections: true
+  epub:
+    toc: true
+    number-sections: true
+
+lang: es

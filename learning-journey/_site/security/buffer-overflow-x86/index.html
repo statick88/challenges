@@ -6,9 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Cursos y laboratorios de ciberseguridad">
+<meta name="author" content="Diego Saavedra">
+<meta name="dcterms.date" content="2026-02-21">
 
-<title>Security – DevOps &amp; Security Learning Journey</title>
+<title>Stack-Based Buffer Overflows on Linux x86 – DevOps &amp; Security Learning Journey</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -24,24 +25,24 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-7ac2f9da8c2617a4fdd15004b4601015.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-3dad1a9f078d91cda5f1887d21eb11b5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-7ac2f9da8c2617a4fdd15004b4601015.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-3dad1a9f078d91cda5f1887d21eb11b5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -80,7 +81,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">DevOps &amp; Security Learning Journey</span>
     </a>
   </div>
@@ -91,27 +92,27 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../index.html"> 
+    <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../foundations/index.html"> 
+    <a class="nav-link" href="../../foundations/index.html"> 
 <span class="menu-text">Foundations</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../containers/index.html"> 
+    <a class="nav-link" href="../../containers/index.html"> 
 <span class="menu-text">Containers</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../devops-practices/index.html"> 
+    <a class="nav-link" href="../../devops-practices/index.html"> 
 <span class="menu-text">DevOps</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../security/index.html" aria-current="page"> 
+    <a class="nav-link" href="../../security/index.html"> 
 <span class="menu-text">Security</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../roadmap/index.html"> 
+    <a class="nav-link" href="../../roadmap/index.html"> 
 <span class="menu-text">Roadmap</span></a>
   </li>  
 </ul>
@@ -122,11 +123,11 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-language">    
         <li>
-    <a class="dropdown-item" href="../es/index.html">
+    <a class="dropdown-item" href="../../es/index.html">
  <span class="dropdown-text">Español</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../index.html">
+    <a class="dropdown-item" href="../../index.html">
  <span class="dropdown-text">English</span></a>
   </li>  
     </ul>
@@ -152,24 +153,12 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#security" id="toc-security" class="nav-link active" data-scroll-target="#security">Security</a>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a>
   <ul class="collapse">
-  <li><a href="#cursos-disponibles" id="toc-cursos-disponibles" class="nav-link" data-scroll-target="#cursos-disponibles">Cursos Disponibles</a>
-  <ul class="collapse">
-  <li><a href="#network-enumeration-with-nmap" id="toc-network-enumeration-with-nmap" class="nav-link" data-scroll-target="#network-enumeration-with-nmap">Network Enumeration with Nmap</a></li>
-  <li><a href="#web-requests---http-fundamentals" id="toc-web-requests---http-fundamentals" class="nav-link" data-scroll-target="#web-requests---http-fundamentals">Web Requests - HTTP Fundamentals</a></li>
-  <li><a href="#ffuf---web-fuzzing" id="toc-ffuf---web-fuzzing" class="nav-link" data-scroll-target="#ffuf---web-fuzzing">FFUF - Web Fuzzing</a></li>
-  <li><a href="#stack-based-buffer-overflows-on-linux-x86" id="toc-stack-based-buffer-overflows-on-linux-x86" class="nav-link" data-scroll-target="#stack-based-buffer-overflows-on-linux-x86">Stack-Based Buffer Overflows on Linux x86</a></li>
-  <li><a href="#pentagi---pentesting-con-ia" id="toc-pentagi---pentesting-con-ia" class="nav-link" data-scroll-target="#pentagi---pentesting-con-ia">PentAGI - Pentesting con IA</a></li>
-  <li><a href="#roadmap-de-junior-a-pentester-employable" id="toc-roadmap-de-junior-a-pentester-employable" class="nav-link" data-scroll-target="#roadmap-de-junior-a-pentester-employable">Roadmap: De Junior a Pentester Employable</a></li>
-  </ul></li>
-  <li><a href="#laboratorios-completados" id="toc-laboratorios-completados" class="nav-link" data-scroll-target="#laboratorios-completados">Laboratorios Completados</a></li>
-  <li><a href="#habilidades-desarrolladas" id="toc-habilidades-desarrolladas" class="nav-link" data-scroll-target="#habilidades-desarrolladas">Habilidades Desarrolladas</a></li>
-  <li><a href="#otros-recursos-de-seguridad" id="toc-otros-recursos-de-seguridad" class="nav-link" data-scroll-target="#otros-recursos-de-seguridad">Otros Recursos de Seguridad</a>
-  <ul class="collapse">
-  <li><a href="#openvpn-setup" id="toc-openvpn-setup" class="nav-link" data-scroll-target="#openvpn-setup">OpenVPN Setup</a></li>
-  </ul></li>
-  <li><a href="#estadísticas-del-módulo" id="toc-estadísticas-del-módulo" class="nav-link" data-scroll-target="#estadísticas-del-módulo">Estadísticas del Módulo</a></li>
+  <li><a href="#module-overview" id="toc-module-overview" class="nav-link" data-scroll-target="#module-overview">Module Overview</a></li>
+  <li><a href="#objetivos-de-aprendizaje" id="toc-objetivos-de-aprendizaje" class="nav-link" data-scroll-target="#objetivos-de-aprendizaje">Objetivos de Aprendizaje</a></li>
+  <li><a href="#prerrequisitos" id="toc-prerrequisitos" class="nav-link" data-scroll-target="#prerrequisitos">Prerrequisitos</a></li>
+  <li><a href="#estructura-del-módulo" id="toc-estructura-del-módulo" class="nav-link" data-scroll-target="#estructura-del-módulo">Estructura del Módulo</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -179,19 +168,27 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Security</h1>
+<h1 class="title">Stack-Based Buffer Overflows on Linux x86</h1>
+<p class="subtitle lead">HTB Academy Course Notes</p>
 </div>
 
-<div>
-  <div class="description">
-    Cursos y laboratorios de ciberseguridad
-  </div>
-</div>
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Diego Saavedra </p>
+          </div>
+  </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">February 21, 2026</p>
+    </div>
+  </div>
   
     
   </div>
@@ -201,316 +198,100 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="security" class="level1">
-<h1>Security</h1>
-<p>Bienvenido a la sección de <strong>Ciberseguridad</strong>. Aquí encontrarás cursos completos desde fundamentos hasta técnicas avanzadas de pentesting.</p>
-<section id="cursos-disponibles" class="level2">
-<h2 class="anchored" data-anchor-id="cursos-disponibles">Cursos Disponibles</h2>
-<section id="network-enumeration-with-nmap" class="level3">
-<h3 class="anchored" data-anchor-id="network-enumeration-with-nmap">Network Enumeration with Nmap</h3>
-<p>Curso completo de enumeración de redes con Nmap, desde conceptos básicos hasta técnicas avanzadas de evasión de firewalls e IDS/IPS.</p>
-<p><a href="nmap-course/index.html"><strong>Acceder al Curso de Nmap →</strong></a></p>
-<p><strong>Contenido del curso:</strong></p>
-<ul>
-<li>Introducción a Nmap y arquitectura</li>
-<li>Host Discovery y Port Scanning</li>
-<li>Service Enumeration y NSE Scripts</li>
-<li>Firewall &amp; IDS/IPS Evasion (3 laboratorios HTB)</li>
-<li>6 laboratorios prácticos completados</li>
-</ul>
-<p><strong>Progreso del curso:</strong> 100% ✅</p>
-<hr>
-</section>
-<section id="web-requests---http-fundamentals" class="level3">
-<h3 class="anchored" data-anchor-id="web-requests---http-fundamentals">Web Requests - HTTP Fundamentals</h3>
-<p>Curso completo de HTTP y cURL desde HTB Academy. Aprende los fundamentos del protocolo HTTP, HTTPS, headers, métodos HTTP y CRUD APIs.</p>
-<p><a href="web-requests/index.html"><strong>Acceder al Curso de Web Requests →</strong></a></p>
-<p><strong>Contenido del curso:</strong></p>
-<ul>
-<li>HTTP Fundamentals y protocolo</li>
-<li>HTTPS y SSL/TLS</li>
-<li>HTTP Requests &amp; Responses</li>
-<li>HTTP Headers y autenticación</li>
-<li>HTTP Methods (GET, POST, PUT, DELETE)</li>
-<li>CRUD API con cURL</li>
-<li>8 laboratorios prácticos completados</li>
-</ul>
-<p><strong>Progreso del curso:</strong> 100% ✅</p>
-<p><strong>Flags obtenidas:</strong></p>
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<p>Este documento contiene las notas completas del módulo <strong>Stack-Based Buffer Overflows on Linux x86</strong> de HTB Academy.</p>
+<section id="module-overview" class="level2">
+<h2 class="anchored" data-anchor-id="module-overview">Module Overview</h2>
 <table class="caption-top table">
 <thead>
 <tr class="header">
-<th>Flag</th>
+<th>Aspecto</th>
+<th>Detalle</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Plataforma</strong></td>
+<td>HTB Academy</td>
+</tr>
+<tr class="even">
+<td><strong>Dificultad</strong></td>
+<td>Medium</td>
+</tr>
+<tr class="odd">
+<td><strong>Tier</strong></td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td><strong>Duración estimada</strong></td>
+<td>7 horas</td>
+</tr>
+<tr class="odd">
+<td><strong>Cubos</strong></td>
+<td>10</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="objetivos-de-aprendizaje" class="level2">
+<h2 class="anchored" data-anchor-id="objetivos-de-aprendizaje">Objetivos de Aprendizaje</h2>
+<ul>
+<li>Entender los fundamentos de buffer overflows</li>
+<li>Aprender arquitectura CPU y registros</li>
+<li>Desarrollar exploits básicos</li>
+<li>Generar shellcode personalizado</li>
+<li>Modificar exploits públicos</li>
+<li>Implementar técnicas de prevención</li>
+</ul>
+</section>
+<section id="prerrequisitos" class="level2">
+<h2 class="anchored" data-anchor-id="prerrequisitos">Prerrequisitos</h2>
+<ul>
+<li>Introduction to Networking</li>
+<li>Linux Fundamentals</li>
+</ul>
+</section>
+<section id="estructura-del-módulo" class="level2">
+<h2 class="anchored" data-anchor-id="estructura-del-módulo">Estructura del Módulo</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
 <th>Sección</th>
+<th>Tema</th>
+<th>Tipo</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><code>HTB{64$!c_cURL_u$3r}</code></td>
-<td>HTTP Basics</td>
+<td>1-3</td>
+<td>Introduction</td>
+<td>Teoría</td>
 </tr>
 <tr class="even">
-<td><code>HTB{p393_r3qu3$t$_m0n!t0r}</code></td>
-<td>HTTP Headers</td>
+<td>4-5</td>
+<td>Fundamentals</td>
+<td>Teoría + Práctica</td>
 </tr>
 <tr class="odd">
-<td><code>HTB{curl_g3773r}</code></td>
-<td>GET Method</td>
+<td>6-10</td>
+<td>Exploit Development</td>
+<td>Práctica</td>
 </tr>
 <tr class="even">
-<td><code>HTB{p0$t_r3p34t3r}</code></td>
-<td>POST Method</td>
+<td>11-12</td>
+<td>Proof-of-Concept</td>
+<td>Práctica</td>
 </tr>
 <tr class="odd">
-<td><code>HTB{crud_4p!_m4n!pul4t0r}</code></td>
-<td>CRUD API</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Achievement:</strong> https://academy.hackthebox.com/achievement/2300153/35</p>
-<hr>
-</section>
-<section id="ffuf---web-fuzzing" class="level3">
-<h3 class="anchored" data-anchor-id="ffuf---web-fuzzing">FFUF - Web Fuzzing</h3>
-<p>Curso completo de fuzzing web con FFUF desde HTB Academy. Aprende directory fuzzing, subdomain discovery, y parameter fuzzing.</p>
-<p><a href="ffuf-course/index.html"><strong>Acceder al Curso de FFUF →</strong></a></p>
-<p><strong>Contenido del curso:</strong></p>
-<ul>
-<li>Directory Fuzzing</li>
-<li>Subdomain Fuzzing</li>
-<li>Parameter Fuzzing</li>
-<li>12 ejercicios prácticos completados</li>
-</ul>
-<p><strong>Progreso del curso:</strong> 100% ✅</p>
-<p><strong>Achievement:</strong> https://academy.hackthebox.com/achievement/2300153/54</p>
-<hr>
-</section>
-<section id="stack-based-buffer-overflows-on-linux-x86" class="level3">
-<h3 class="anchored" data-anchor-id="stack-based-buffer-overflows-on-linux-x86">Stack-Based Buffer Overflows on Linux x86</h3>
-<p>Curso completo de buffer overflows desde HTB Academy. Aprende arquitectura CPU, registros, desarrollo de exploits y generación de shellcode.</p>
-<p><a href="buffer-overflow-x86/index.html"><strong>Acceder al Curso de Buffer Overflow →</strong></a></p>
-<p><strong>Contenido del curso:</strong></p>
-<ul>
-<li>Buffer Overflows Overview</li>
-<li>Exploit Development Introduction</li>
-<li>CPU Architecture (Von-Neumann, ISA)</li>
-<li>Stack-Based Buffer Overflow</li>
-<li>CPU Registers (EIP, ESP, EBP)</li>
-<li>Take Control of EIP</li>
-<li>Determine Shellcode Length</li>
-<li>Identification of Bad Characters</li>
-<li>Generating Shellcode con msfvenom</li>
-<li>Return Address Calculation</li>
-<li>Proof-of-Concept Exploit</li>
-</ul>
-<p><strong>Progreso del curso:</strong> 69% (9/13 secciones)</p>
-<p><strong>Bad Characters identificados:</strong> <code>\x00\x09\x0a\x20</code></p>
-<p><strong>Offset determinado:</strong> 1036 bytes</p>
-<p><strong>Stack Size:</strong> 0x21000</p>
-<hr>
-</section>
-<section id="pentagi---pentesting-con-ia" class="level3">
-<h3 class="anchored" data-anchor-id="pentagi---pentesting-con-ia">PentAGI - Pentesting con IA</h3>
-<p>Curso completo de pentesting automatizado con Inteligencia Artificial local, utilizando Ollama y Docker para máxima privacidad.</p>
-<p><a href="pentagi-course/index.html"><strong>Acceder al Curso de PentAGI →</strong></a></p>
-<p><strong>Contenido del curso:</strong></p>
-<ul>
-<li>Introducción a PentAGI y arquitectura</li>
-<li>Instalación y configuración con Ollama local</li>
-<li>Primeros pasos y mejores prácticas</li>
-<li>Seguridad y optimización</li>
-<li>Laboratorio práctico completo</li>
-</ul>
-<p><strong>Progreso del curso:</strong> 100% ✅</p>
-<p><strong>Filosofía: Seguridad por defecto</strong></p>
-<ul>
-<li>Sin APIs externas (todo local con Ollama)</li>
-<li>Sin credenciales expuestas</li>
-<li>Aislamiento completo con Docker</li>
-</ul>
-<hr>
-</section>
-<section id="roadmap-de-junior-a-pentester-employable" class="level3">
-<h3 class="anchored" data-anchor-id="roadmap-de-junior-a-pentester-employable">Roadmap: De Junior a Pentester Employable</h3>
-<p>Plan completo de 16 semanas para conseguir empleo en ciberseguridad, usando estrategias gratuitas con HTB Academy, PentAGI y Bug Bounty.</p>
-<p><a href="../roadmap-pentesting.html"><strong>Ver Roadmap Completo →</strong></a></p>
-<p><strong>Contenido del roadmap:</strong></p>
-<ul>
-<li>Fase 1: Fundamentos + Perfil (Semanas 1-3)</li>
-<li>Fase 2: PentAGI + HTB Integration (Semanas 4-6)</li>
-<li>Fase 3: Desbloquear Módulos (Semanas 7-10)</li>
-<li>Fase 4: Labs + Portfolio (Semanas 11-14)</li>
-<li>Fase 5: Bug Bounty + Job Search (Semanas 15-16)</li>
-</ul>
-<p><strong>Incluye:</strong></p>
-<ul>
-<li>Tracker de cubos HTB</li>
-<li>CV Template para Pentester Junior</li>
-<li>Checklist semanal de progreso</li>
-<li>Estrategia de acumulación gratuita</li>
-</ul>
-<hr>
-</section>
-</section>
-<section id="laboratorios-completados" class="level2">
-<h2 class="anchored" data-anchor-id="laboratorios-completados">Laboratorios Completados</h2>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Reto</th>
-<th>Plataforma</th>
-<th>Dificultad</th>
-<th>Fecha</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Nmap Default Scan</td>
-<td>HTB Academy</td>
-<td>Easy</td>
-<td>2026-02-11</td>
-</tr>
-<tr class="even">
-<td>Full Port Scan</td>
-<td>HTB Academy</td>
-<td>Easy</td>
-<td>2026-02-19</td>
-</tr>
-<tr class="odd">
-<td>Service Enumeration</td>
-<td>HTB Academy</td>
-<td>Easy</td>
-<td>2026-02-20</td>
-</tr>
-<tr class="even">
-<td>NSE Scripts</td>
-<td>HTB Academy</td>
-<td>Easy</td>
-<td>2026-02-20</td>
-</tr>
-<tr class="odd">
-<td>Firewall Evasion Easy</td>
-<td>HTB Academy</td>
-<td>Easy</td>
-<td>2026-02-20</td>
-</tr>
-<tr class="even">
-<td>Firewall Evasion Medium</td>
-<td>HTB Academy</td>
-<td>Medium</td>
-<td>2026-02-20</td>
-</tr>
-<tr class="odd">
-<td>Firewall Evasion Hard</td>
-<td>HTB Academy</td>
-<td>Hard</td>
-<td>2026-02-20</td>
-</tr>
-<tr class="even">
-<td>Buffer Overflow - EIP Control</td>
-<td>HTB Academy</td>
-<td>Medium</td>
-<td>2026-02-21</td>
-</tr>
-<tr class="odd">
-<td>Buffer Overflow - Bad Chars</td>
-<td>HTB Academy</td>
-<td>Medium</td>
-<td>2026-02-21</td>
-</tr>
-<tr class="even">
-<td>Buffer Overflow - Shellcode</td>
-<td>HTB Academy</td>
-<td>Medium</td>
-<td>2026-02-21</td>
+<td>13</td>
+<td>Skills Assessment</td>
+<td>Evaluación</td>
 </tr>
 </tbody>
 </table>
 <hr>
-</section>
-<section id="habilidades-desarrolladas" class="level2">
-<h2 class="anchored" data-anchor-id="habilidades-desarrolladas">Habilidades Desarrolladas</h2>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Habilidad</th>
-<th>Nivel</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Host Discovery</td>
-<td>Avanzado</td>
-</tr>
-<tr class="even">
-<td>Port Scanning</td>
-<td>Avanzado</td>
-</tr>
-<tr class="odd">
-<td>Service Enumeration</td>
-<td>Avanzado</td>
-</tr>
-<tr class="even">
-<td>NSE Scripts</td>
-<td>Intermedio</td>
-</tr>
-<tr class="odd">
-<td>Firewall Evasion</td>
-<td>Avanzado</td>
-</tr>
-<tr class="even">
-<td>IDS/IPS Bypass</td>
-<td>Intermedio</td>
-</tr>
-<tr class="odd">
-<td>Buffer Overflow</td>
-<td>Intermedio</td>
-</tr>
-<tr class="even">
-<td>Shellcode Generation</td>
-<td>Intermedio</td>
-</tr>
-</tbody>
-</table>
-<hr>
-</section>
-<section id="otros-recursos-de-seguridad" class="level2">
-<h2 class="anchored" data-anchor-id="otros-recursos-de-seguridad">Otros Recursos de Seguridad</h2>
-<section id="openvpn-setup" class="level3">
-<h3 class="anchored" data-anchor-id="openvpn-setup">OpenVPN Setup</h3>
-<p>Guía completa de configuración de OpenVPN para conectar a HTB Academy desde Linux, macOS y Windows.</p>
-<p><a href="openvpn-setup.html">Ver guía de OpenVPN →</a></p>
-<hr>
-</section>
-</section>
-<section id="estadísticas-del-módulo" class="level2">
-<h2 class="anchored" data-anchor-id="estadísticas-del-módulo">Estadísticas del Módulo</h2>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Métrica</th>
-<th>Valor</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Laboratorios Completados</td>
-<td>18</td>
-</tr>
-<tr class="even">
-<td>Flags Obtenidas</td>
-<td>8</td>
-</tr>
-<tr class="odd">
-<td>Módulos HTB Completados</td>
-<td>3</td>
-</tr>
-<tr class="even">
-<td>Módulos HTB En Progreso</td>
-<td>1</td>
-</tr>
-</tbody>
-</table>
+<p><strong>Achievement:</strong> https://academy.hackthebox.com/achievement/2300153/XX</p>
 
 
 </section>

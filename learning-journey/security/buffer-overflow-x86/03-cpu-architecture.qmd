@@ -1,0 +1,88 @@
+# CPU Architecture
+
+La arquitectura Von-Neumann fue desarrollada por John von Neumann y consiste en cuatro unidades funcionales.
+
+## Componentes Principales
+
+| Unidad | Función |
+|--------|---------|
+| **Memory** | Almacenamiento de datos e instrucciones |
+| **Control Unit (CU)** | Controla operaciones del procesador |
+| **ALU** | Operaciones aritméticas y lógicas |
+| **I/O Unit** | Entrada y salida de datos |
+
+## Memoria
+
+### Primary Memory
+
+| Tipo | Descripción |
+|------|-------------|
+| **Cache** | Integrada en CPU, buffer de alta velocidad |
+| **RAM** | Almacenamiento principal, acceso aleatorio por dirección |
+
+- Pérdida de datos al apagar
+- Acceso directo por direcciones de memoria
+- Cache alimenta datos al procesador
+
+### Secondary Memory
+
+| Tipo | Descripción |
+|------|-------------|
+| **HDD/SSD** | Almacenamiento masivo permanente |
+| **Flash Drives** | Almacenamiento portátil |
+| **CD/DVD-ROM** | Almacenamiento óptico |
+
+- Mayor capacidad
+- Persistencia sin energía
+- Acceso vía interfaces I/O
+- Más lento que memoria primaria
+
+## Unidad de Control (CU)
+
+Responsabilidades:
+
+- Leer datos de RAM
+- Guardar datos en RAM
+- Decodificar y ejecutar instrucciones
+- Procesar entradas/salidas
+- Control de interrupciones
+- Monitoreo del sistema
+
+## Instruction Set Architecture (ISA)
+
+### Tipos de ISA
+
+| Tipo | Descripción | Uso |
+|------|-------------|-----|
+| **CISC** | Complex Instruction Set Computing | x86/i386 |
+| **RISC** | Reduced Instruction Set Computing | ARM, smartphones |
+| **VLIW** | Very Long Instruction Word | Especializado |
+| **EPIC** | Explicitly Parallel Instruction Computing | Itanium |
+
+### CISC vs RISC
+
+| Aspecto | CISC | RISC |
+|---------|------|------|
+| Instrucciones | Complejas, muchas | Simples, pocas |
+| Ciclos por instrucción | Variable | 1 ciclo |
+| Tamaño instrucción | Variable (8-bit mode) | Fijo (32/64-bit) |
+| Frecuencia | Menor | Mayor |
+| Ejemplo | x86 | ARM |
+
+## Instruction Cycle
+
+| Paso | Instrucción | Descripción |
+|------|-------------|-------------|
+| 1 | FETCH | Cargar instrucción de RAM a IR |
+| 2 | DECODE | Decodificar instrucción |
+| 3 | FETCH OPERANDS | Cargar datos necesarios |
+| 4 | EXECUTE | Ejecutar operación |
+| 5 | UPDATE IP | Actualizar puntero de instrucción |
+
+## Arquitecturas CPU Comunes
+
+| Arquitectura | Bits | Fabricante |
+|--------------|------|------------|
+| x86/i386 | 32-bit | AMD, Intel |
+| x86-64/amd64 | 64-bit | AMD, Intel |
+| ARM | 32/64-bit | Acorn (ARM Holdings) |

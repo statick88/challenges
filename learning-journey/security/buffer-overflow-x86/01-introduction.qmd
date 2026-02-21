@@ -1,0 +1,57 @@
+# Buffer Overflows Overview
+
+Los buffer overflows son vulnerabilidades comunes en aplicaciones de software que pueden ser explotadas para lograr ejecución remota de código (RCE) o realizar ataques de Denegación de Servicio (DoS).
+
+## Causas Principales
+
+Estas vulnerabilidades son causadas por:
+
+- Código inseguro que no valida límites de memoria
+- Uso de lenguajes sin protección automática (C/C++)
+- Falta de verificación de tamaño de entrada
+- Programación descuidada en gestión de buffers
+
+## Impacto
+
+Un buffer overflow puede:
+
+- Hacer que el programa falle (crash)
+- Corromper datos
+- Sobrescribir estructuras de datos
+- Modificar la dirección de retorno
+- Ejecutar código arbitrario
+
+## Ejemplos Históricos
+
+### CVE-2021-3156
+
+Heap-Based Buffer Overflow en sudo - demuestra que estas vulnerabilidades siguen siendo relevantes.
+
+### CVE-2017-12542
+
+HP iLO Management - Buffer overflow en HTTP Header con solo 29 caracteres, causando bypass de autenticación.
+
+## Lenguajes Vulnerables
+
+| Lenguaje | Riesgo | Razón |
+|----------|--------|-------|
+| C | Alto | Sin verificación automática de límites |
+| C++ | Alto | Similar a C, énfasis en rendimiento |
+| Java | Bajo | Garbage collection, gestión automática |
+| Python | Bajo | Abstracción alta, gestión automática |
+
+## Arquitectura Von-Neumann
+
+Los buffer overflows son posibles principalmente en sistemas basados en la arquitectura Von-Neumann, donde datos e instrucciones comparten el mismo espacio de memoria.
+
+## Tendencias Actuales
+
+- Compiladores modernos incluyen protecciones
+- DEP (Data Execution Prevention)
+- ASLR (Address Space Layout Randomization)
+- Stack Canaries
+- Sin embargo, C/C++ siguen siendo predominantes en:
+  - Software embebido
+  - IoT (Internet of Things)
+  - Sistemas operativos
+  - Controladores

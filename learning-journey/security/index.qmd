@@ -78,6 +78,36 @@ Curso completo de fuzzing web con FFUF desde HTB Academy. Aprende directory fuzz
 
 ---
 
+### Stack-Based Buffer Overflows on Linux x86
+
+Curso completo de buffer overflows desde HTB Academy. Aprende arquitectura CPU, registros, desarrollo de exploits y generación de shellcode.
+
+[**Acceder al Curso de Buffer Overflow →**](buffer-overflow-x86/index.html)
+
+**Contenido del curso:**
+
+- Buffer Overflows Overview
+- Exploit Development Introduction
+- CPU Architecture (Von-Neumann, ISA)
+- Stack-Based Buffer Overflow
+- CPU Registers (EIP, ESP, EBP)
+- Take Control of EIP
+- Determine Shellcode Length
+- Identification of Bad Characters
+- Generating Shellcode con msfvenom
+- Return Address Calculation
+- Proof-of-Concept Exploit
+
+**Progreso del curso:** 69% (9/13 secciones)
+
+**Bad Characters identificados:** `\x00\x09\x0a\x20`
+
+**Offset determinado:** 1036 bytes
+
+**Stack Size:** 0x21000
+
+---
+
 ### PentAGI - Pentesting con IA
 
 Curso completo de pentesting automatizado con Inteligencia Artificial local, utilizando Ollama y Docker para máxima privacidad.
@@ -136,6 +166,9 @@ Plan completo de 16 semanas para conseguir empleo en ciberseguridad, usando estr
 | Firewall Evasion Easy | HTB Academy | Easy | 2026-02-20 |
 | Firewall Evasion Medium | HTB Academy | Medium | 2026-02-20 |
 | Firewall Evasion Hard | HTB Academy | Hard | 2026-02-20 |
+| Buffer Overflow - EIP Control | HTB Academy | Medium | 2026-02-21 |
+| Buffer Overflow - Bad Chars | HTB Academy | Medium | 2026-02-21 |
+| Buffer Overflow - Shellcode | HTB Academy | Medium | 2026-02-21 |
 
 ---
 
@@ -149,6 +182,8 @@ Plan completo de 16 semanas para conseguir empleo en ciberseguridad, usando estr
 | NSE Scripts | Intermedio |
 | Firewall Evasion | Avanzado |
 | IDS/IPS Bypass | Intermedio |
+| Buffer Overflow | Intermedio |
+| Shellcode Generation | Intermedio |
 
 ---
 
@@ -166,6 +201,7 @@ Guía completa de configuración de OpenVPN para conectar a HTB Academy desde Li
 
 | Métrica | Valor |
 |---------|-------|
-| Laboratorios Completados | 15 |
+| Laboratorios Completados | 18 |
 | Flags Obtenidas | 8 |
 | Módulos HTB Completados | 3 |
+| Módulos HTB En Progreso | 1 |

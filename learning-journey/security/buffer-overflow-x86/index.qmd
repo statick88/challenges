@@ -1,0 +1,48 @@
+---
+title: "Stack-Based Buffer Overflows on Linux x86"
+subtitle: "HTB Academy Course Notes"
+author: "Diego Saavedra"
+date: "2026-02-21"
+---
+
+# Introduction
+
+Este documento contiene las notas completas del módulo **Stack-Based Buffer Overflows on Linux x86** de HTB Academy.
+
+## Module Overview
+
+| Aspecto | Detalle |
+|---------|---------|
+| **Plataforma** | HTB Academy |
+| **Dificultad** | Medium |
+| **Tier** | 0 |
+| **Duración estimada** | 7 horas |
+| **Cubos** | 10 |
+
+## Objetivos de Aprendizaje
+
+- Entender los fundamentos de buffer overflows
+- Aprender arquitectura CPU y registros
+- Desarrollar exploits básicos
+- Generar shellcode personalizado
+- Modificar exploits públicos
+- Implementar técnicas de prevención
+
+## Prerrequisitos
+
+- Introduction to Networking
+- Linux Fundamentals
+
+## Estructura del Módulo
+
+| Sección | Tema | Tipo |
+|---------|------|------|
+| 1-3 | Introduction | Teoría |
+| 4-5 | Fundamentals | Teoría + Práctica |
+| 6-10 | Exploit Development | Práctica |
+| 11-12 | Proof-of-Concept | Práctica |
+| 13 | Skills Assessment | Evaluación |
+
+---
+
+**Achievement:** https://academy.hackthebox.com/achievement/2300153/XX
