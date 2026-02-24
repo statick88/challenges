@@ -1,0 +1,113 @@
+---
+title: "Almacenamiento de Claves RSA en macOS Keychain"
+description: "Tutorial práctico para almacenar y recuperar claves privadas RSA de forma segura"
+author: "Diego Saavedra"
+date: "2026-02-24"
+categories: [security, rsa, encryption, macos, keychain]
+---
+
+# Almacenamiento de Claves RSA en macOS Keychain
+
+## Contenido
+
+- [Introducción](#introducción)
+- [El Problema](#el-problema)
+- [La Solución](#la-solución)
+- [Contenido del Tutorial](#contenido-del-tutorial)
+- [Prerrequisitos](#prerrequisitos)
+
+## Introducción
+
+macOS Keychain es un sistema de almacenamiento de credenciales integrado que ofrece encriptación hardware (Secure Enclave en Apple Silicon) y protección automática. Sin embargo, almacenar claves privadas RSA en formato PEM presenta desafíos técnicos que este tutorial resuelve.
+
+## El Problema
+
+El comando estándar para almacenar contraseñas en Keychain:
+
+```bash
+security add-generic-password \
+  -a "$USER" \
+  -s "mi-clave-rsa" \
+  -w "$(cat private.pem)" \
+  -T ""
+```
+
+**No funciona correctamente** para claves PEM multilínea. El resultado es contenido hexadecimal inutilizable.
+
+## La Solución
+
+Codificar la clave en base64 antes de almacenarla:
+
+```bash
+# Almacenar
+ENCODED=$(base64 < private.pem | tr -d '\n')
+security add-generic-password -a "$USER" -s "rsa-key" -w "$ENCODED"
+
+# Recuperar
+security find-generic-password -s "rsa-key" -w | base64 -d > recovered.pem
+```
+
+## Contenido del Tutorial
+
+### Teoría
+
+- [01 - El Problema con Keychain](01-problema-keychain.html) - Análisis técnico del comportamiento
+- [02 - Solución con Base64](02-solucion-base64.html) - Codificación y decodificación
+- [03 - Scripts Prácticos](03-scripts-practicos.html) - Herramientas reutilizables
+
+### Laboratorio
+
+- [Lab 1 - Almacenamiento en Keychain](lab1-almacenamiento-keychain.html) - Ejercicio completo
+
+## Prerrequisitos
+
+| Requisito | Descripción |
+|-----------|-------------|
+| **Sistema** | macOS con Keychain |
+| **Herramientas** | Terminal, OpenSSL |
+| **Conocimientos** | Bash básico, concepto de clave pública/privada |
+| **Archivos** | Clave privada RSA en formato PEM |
+
+## Objetivos de Aprendizaje
+
+Al completar este tutorial serás capaz de:
+
+1. Entender por qué el comando directo falla con claves PEM
+2. Implementar la solución con codificación base64
+3. Usar scripts automatizados para almacenar y recuperar claves
+4. Verificar la integridad de las claves recuperadas
+5. Aplicar buenas prácticas de seguridad en el manejo de claves
+
+## Flujo de Trabajo
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    FLUJO KEYCHAIN RSA                           │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  ALMACENAMIENTO                                                 │
+│  ┌─────────────┐    ┌─────────────┐    ┌─────────────┐        │
+│  │ private.pem │ -> │ base64      │ -> │ Keychain    │        │
+│  │ (multilínea)│    │ encode      │    │ storage     │        │
+│  └─────────────┘    └─────────────┘    └─────────────┘        │
+│                                                                 │
+│  RECUPERACIÓN                                                   │
+│  ┌─────────────┐    ┌─────────────┐    ┌─────────────┐        │
+│  │ Keychain    │ -> │ base64      │ -> │ private.pem │        │
+│  │ storage     │    │ decode      │    │ (válido)    │        │
+│  └─────────────┘    └─────────────┘    └─────────────┘        │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+## Tiempo Estimado
+
+| Sección | Tiempo |
+|---------|--------|
+| Teoría (3 secciones) | 20 min |
+| Laboratorio | 15 min |
+| **Total** | **35 min** |
+
+---
+
+[Volver a Security](../index.html) | [Comenzar: El Problema →](01-problema-keychain.html)

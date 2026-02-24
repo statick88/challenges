@@ -1,0 +1,372 @@
+---
+title: "Laboratorio: Almacenamiento de Clave RSA en Keychain"
+---
+
+## Objetivo del Laboratorio
+
+En este laboratorio práctico:
+
+- Generarás una clave RSA de prueba
+- La almacenarás en macOS Keychain usando codificación Base64
+- Verificarás la integridad del proceso
+- Realizarás una prueba de encriptación/desencriptación
+
+**Tiempo estimado:** 20 minutos
+
+**Dificultad:** Principiante
+
+## Requisitos Previos
+
+Antes de comenzar, asegúrate de tener:
+
+- [ ] macOS 10.13 o superior
+- [ ] Acceso a Terminal
+- [ ] OpenSSL instalado (viene por defecto en macOS)
+- [ ] Permisos para acceder a Keychain
+
+### Verificación de requisitos
+
+```bash
+# Verificar versión de macOS
+sw_vers
+
+# Verificar OpenSSL
+openssl version
+
+# Verificar acceso a Keychain
+security list-keychains
+```
+
+## Paso 1: Generar Clave RSA
+
+Si ya tienes una clave para pruebas, puedes saltar al Paso 2.
+
+### Opción A: Generar clave temporal
+
+```bash
+# Crear directorio de trabajo
+mkdir -p ~/lab-keychain && cd ~/lab-keychain
+
+# Generar clave RSA de 2048 bits
+openssl genrsa -out lab_private_key.pem 2048
+
+# Verificar la clave
+openssl rsa -in lab_private_key.pem -check -noout
+```
+
+**Salida esperada:**
+
+```
+RSA key ok
+```
+
+### Opción B: Usar clave existente
+
+```bash
+# Si tienes una clave existente, copiarla al directorio de trabajo
+mkdir -p ~/lab-keychain && cd ~/lab-keychain
+cp /ruta/a/tu/clave.pem lab_private_key.pem
+```
+
+### Verificar contenido
+
+```bash
+# Ver las primeras líneas de la clave
+head -3 lab_private_key.pem
+```
+
+**Debes ver algo como:**
+
+```
+-----BEGIN RSA PRIVATE KEY-----
+MIIEowIBAAKCAQEA0Z3VS5JJcds3xfn/ygWyF5TkDkLQ...
+```
+
+## Paso 2: Almacenar en Keychain
+
+### Usando el script
+
+```bash
+# Si descargaste los scripts del curso
+store-key-keychain.sh lab_private_key.pem lab-rsa-test
+
+# Si prefieres hacerlo manualmente:
+security add-generic-password \
+  -a "$USER" \
+  -s "lab-rsa-test" \
+  -w "$(cat lab_private_key.pem | base64)"
+```
+
+**Salida esperada:**
+
+```
+✅ Clave almacenada exitosamente
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📋 Detalles:
+   Cuenta:    tu_usuario
+   Servicio:  lab-rsa-test
+   Archivo:   lab_private_key.pem
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
+### Verificar autorización
+
+macOS te pedirá autorización para acceder a Keychain:
+
+1. Aparecerá un diálogo del sistema
+2. Ingresa tu contraseña de usuario o usa Touch ID
+3. Puedes seleccionar "Siempre permitir" para evitar futuros prompts
+
+## Paso 3: Verificar Almacenamiento
+
+### Listar entradas en Keychain
+
+```bash
+# Buscar nuestra entrada
+security find-generic-password \
+  -a "$USER" \
+  -s "lab-rsa-test" \
+  -g
+```
+
+**Salida esperada (parcial):**
+
+```
+keychain: "/Users/.../login.keychain-db"
+class: "genp"
+attributes:
+    0x00000007 <blob>="tu_usuario"
+    0x00000008 <blob>="lab-rsa-test"
+    ...
+```
+
+### Ver que NO es hexadecimal
+
+```bash
+# Recuperar y ver las primeras líneas
+security find-generic-password \
+  -a "$USER" \
+  -s "lab-rsa-test" \
+  -w | head -c 50
+```
+
+**Debes ver una cadena Base64 como:**
+
+```
+LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS0tLQ...
+```
+
+Si ves `2d2d2d2d...` (hexadecimal), hubo un error en el proceso.
+
+## Paso 4: Recuperar Clave
+
+### Recuperar a archivo
+
+```bash
+# Usando el script
+retrieve-key-keychain.sh lab-rsa-test lab_recovered_key.pem
+
+# O manualmente:
+security find-generic-password \
+  -a "$USER" \
+  -s "lab-rsa-test" \
+  -w | base64 -d > lab_recovered_key.pem
+
+# Establecer permisos correctos
+chmod 600 lab_recovered_key.pem
+```
+
+### Verificar contenido recuperado
+
+```bash
+# Ver las primeras líneas
+head -3 lab_recovered_key.pem
+
+# Debe verse igual que la original
+```
+
+## Paso 5: Verificar Integridad
+
+### Comparación de archivos
+
+```bash
+# Método 1: diff
+diff lab_private_key.pem lab_recovered_key.pem && echo "✅ Archivos idénticos"
+
+# Método 2: checksum
+ORIGINAL=$(shasum -a 256 lab_private_key.pem | cut -d' ' -f1)
+RECOVERED=$(shasum -a 256 lab_recovered_key.pem | cut -d' ' -f1)
+
+echo "Original:   $ORIGINAL"
+echo "Recuperada: $RECOVERED"
+
+if [ "$ORIGINAL" = "$RECOVERED" ]; then
+  echo "✅ Integridad verificada"
+else
+  echo "❌ ERROR: Los archivos no coinciden"
+fi
+```
+
+### Verificación criptográfica
+
+```bash
+# Verificar que la clave es válida
+openssl rsa -in lab_recovered_key.pem -check -noout
+```
+
+**Salida esperada:**
+
+```
+RSA key ok
+```
+
+## Paso 6: Probar Encriptación/Desencriptación
+
+### Extraer clave pública
+
+```bash
+# Generar clave pública desde la privada
+openssl rsa -in lab_private_key.pem -pubout -out lab_public_key.pem
+```
+
+### Encriptar un mensaje
+
+```bash
+# Crear mensaje secreto
+echo "Este es un mensaje secreto del laboratorio" > mensaje.txt
+
+# Encriptar con la clave pública
+openssl rsautl -encrypt \
+  -inkey lab_public_key.pem \
+  -pubin \
+  -in mensaje.txt \
+  -out mensaje.enc
+
+echo "✅ Mensaje encriptado: mensaje.enc"
+```
+
+### Desencriptar con la clave recuperada
+
+```bash
+# Desencriptar usando la clave recuperada del Keychain
+openssl rsautl -decrypt \
+  -inkey lab_recovered_key.pem \
+  -in mensaje.enc \
+  -out mensaje_dec.txt
+
+# Verificar contenido
+cat mensaje_dec.txt
+```
+
+**Salida esperada:**
+
+```
+Este es un mensaje secreto del laboratorio
+```
+
+### Verificar que todo funciona
+
+```bash
+# Comparar original con desencriptado
+diff mensaje.txt mensaje_dec.txt && echo "✅ Encriptación/Desencriptación exitosa"
+```
+
+## Troubleshooting Común
+
+### Problema: "The specified item could not be found in the keychain"
+
+**Causa:** La entrada no existe o el nombre es incorrecto.
+
+**Solución:**
+
+```bash
+# Listar todas las entradas genéricas
+security dump-keychain | grep -A 5 "lab-rsa"
+```
+
+### Problema: "User interaction is not allowed"
+
+**Causa:** Keychain no puede mostrar el diálogo de autorización.
+
+**Solución:**
+
+```bash
+# Desbloquear keychain primero
+security unlock-keychain
+
+# O permitir acceso desde terminal en Preferencias del Sistema
+# > Seguridad y Privacidad > Privacidad > Accesibilidad
+```
+
+### Problema: "unable to load Private Key"
+
+**Causa:** La clave recuperada está corrupta o en formato incorrecto.
+
+**Solución:**
+
+```bash
+# Verificar formato de la clave recuperada
+file lab_recovered_key.pem
+
+# Debe mostrar: PEM RSA private key
+# Si muestra "data", la clave está corrupta
+
+# Recuperar nuevamente verificando que sea Base64
+security find-generic-password -a "$USER" -s "lab-rsa-test" -w | base64 -d > lab_recovered_key.pem
+```
+
+### Problema: Clave hexadecimal en lugar de Base64
+
+**Causa:** La clave se almacenó sin codificación Base64.
+
+**Solución:**
+
+```bash
+# Eliminar entrada corrupta
+security delete-generic-password -a "$USER" -s "lab-rsa-test"
+
+# Almacenar correctamente con Base64
+security add-generic-password \
+  -a "$USER" \
+  -s "lab-rsa-test" \
+  -w "$(cat lab_private_key.pem | base64)"
+```
+
+## Checklist de Completitud
+
+Verifica que hayas completado todos los pasos:
+
+- [ ] **Paso 1:** Clave RSA generada o copiada al directorio de trabajo
+- [ ] **Paso 2:** Clave almacenada en Keychain con nombre "lab-rsa-test"
+- [ ] **Paso 3:** Verificación de que el formato es Base64 (no hexadecimal)
+- [ ] **Paso 4:** Clave recuperada correctamente a archivo
+- [ ] **Paso 5:** Integridad verificada con checksums
+- [ ] **Paso 6:** Prueba de encriptación/desencriptación exitosa
+
+### Limpieza (opcional)
+
+Si deseas limpiar todo lo creado:
+
+```bash
+# Eliminar entrada del Keychain
+security delete-generic-password -a "$USER" -s "lab-rsa-test"
+
+# Eliminar archivos del laboratorio
+rm -rf ~/lab-keychain
+
+echo "✅ Limpieza completada"
+```
+
+---
+
+## Resumen
+
+En este laboratorio practicaste:
+
+1. **Generación de claves RSA** con OpenSSL
+2. **Almacenamiento seguro** en macOS Keychain usando Base64
+3. **Recuperación y verificación** de integridad
+4. **Uso práctico** en encriptación/desencriptación
+
+El patrón `base64` para almacenar y `base64 -d` para recuperar es la clave para trabajar con claves PEM en Keychain sin problemas de codificación.

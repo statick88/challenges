@@ -1,0 +1,182 @@
+---
+title: "Solución con Codificación Base64"
+---
+
+## Objetivo
+
+En esta lección aprenderás:
+
+- Por qué Base64 es la solución ideal para almacenar claves PEM
+- Los comandos correctos para almacenar y recuperar claves
+- Cómo verificar la integridad de la clave recuperada
+
+## ¿Por qué Base64?
+
+Base64 resuelve el problema fundamental de los newlines:
+
+| Característica | PEM directo | Base64 |
+|----------------|-------------|--------|
+| Newlines | Múltiples líneas | Línea única |
+| Caracteres especiales | `\n` causa problemas | Solo `A-Za-z0-9+/=` |
+| Almacenamiento en Keychain | Se corrompe | Se preserva |
+| Reversibilidad | N/A | 100% reversible |
+
+**Ventajas clave:**
+
+1. **Elimina newlines**: Una clave PEM de 50 líneas se convierte en una sola línea
+2. **Caracteres seguros**: Solo usa caracteres ASCII imprimibles
+3. **Sin ambigüedad**: Keychain nunca detectará "datos binarios"
+4. **Reversibilidad perfecta**: Decodificar devuelve exactamente el original
+
+## Comando Correcto para Almacenar
+
+```bash
+# Codificar la clave en Base64 ANTES de almacenar
+security add-generic-password \
+  -a "$USER" \
+  -s "my-rsa-key-b64" \
+  -w "$(cat ~/.ssh/id_rsa | base64)"
+```
+
+### Desglose del comando
+
+```bash
+cat ~/.ssh/id_rsa    # Leer el contenido de la clave
+  | base64           # Codificar en Base64 (línea única)
+```
+
+El resultado de `base64` es una cadena continua sin newlines que Keychain puede almacenar correctamente.
+
+## Comando Correcto para Recuperar
+
+```bash
+# Recuperar y decodificar de Base64
+security find-generic-password \
+  -a "$USER" \
+  -s "my-rsa-key-b64" \
+  -w | base64 -d
+```
+
+### Desglose del comando
+
+```bash
+security find-generic-password ... -w  # Obtener la cadena Base64
+  | base64 -d                          # Decodificar (-d = decode)
+```
+
+## Verificación de Integridad
+
+Siempre verifica que la clave recuperada sea válida:
+
+```bash
+# Verificar que la clave RSA es válida
+security find-generic-password \
+  -a "$USER" \
+  -s "my-rsa-key-b64" \
+  -w | base64 -d | openssl rsa -check -noout
+```
+
+**Salida esperada:**
+
+```
+RSA key ok
+```
+
+Si hay algún problema, `openssl` mostrará un error.
+
+### Verificación con comparación de checksums
+
+```bash
+# Checksum de la clave original
+ORIGINAL_HASH=$(cat ~/.ssh/id_rsa | shasum -a 256 | cut -d' ' -f1)
+
+# Checksum de la clave recuperada
+RECOVERED_HASH=$(security find-generic-password \
+  -a "$USER" \
+  -s "my-rsa-key-b64" \
+  -w | base64 -d | shasum -a 256 | cut -d' ' -f1)
+
+# Comparar
+if [ "$ORIGINAL_HASH" = "$RECOVERED_HASH" ]; then
+  echo "✅ Integridad verificada: las claves son idénticas"
+else
+  echo "❌ ERROR: Las claves no coinciden"
+fi
+```
+
+## Ejemplo Completo Paso a Paso
+
+### 1. Crear una clave de prueba
+
+```bash
+# Generar clave RSA de 2048 bits
+openssl genrsa -out /tmp/test_key.pem 2048
+
+# Ver el contenido original
+cat /tmp/test_key.pem
+```
+
+### 2. Almacenar en Keychain
+
+```bash
+# Almacenar con codificación Base64
+security add-generic-password \
+  -a "$USER" \
+  -s "test-rsa-demo" \
+  -w "$(cat /tmp/test_key.pem | base64)"
+
+echo "✅ Clave almacenada en Keychain"
+```
+
+### 3. Recuperar de Keychain
+
+```bash
+# Recuperar y guardar en archivo
+security find-generic-password \
+  -a "$USER" \
+  -s "test-rsa-demo" \
+  -w | base64 -d > /tmp/test_key_recovered.pem
+
+echo "✅ Clave recuperada"
+```
+
+### 4. Verificar integridad
+
+```bash
+# Comparar archivos
+diff /tmp/test_key.pem /tmp/test_key_recovered.pem
+
+if [ $? -eq 0 ]; then
+  echo "✅ Los archivos son idénticos"
+else
+  echo "❌ Los archivos difieren"
+fi
+```
+
+### 5. Verificar validez criptográfica
+
+```bash
+# Verificar que es una clave RSA válida
+openssl rsa -in /tmp/test_key_recovered.pem -check -noout
+```
+
+### 6. Limpiar
+
+```bash
+# Eliminar la entrada de prueba del Keychain
+security delete-generic-password \
+  -a "$USER" \
+  -s "test-rsa-demo"
+
+# Eliminar archivos temporales
+rm /tmp/test_key.pem /tmp/test_key_recovered.pem
+```
+
+## ¿Qué Aprendimos?
+
+1. **Base64 elimina el problema**: Convierte newlines en caracteres seguros
+2. **Proceso simple**: `base64` para almacenar, `base64 -d` para recuperar
+3. **Verificación es esencial**: Siempre confirma la integridad con `openssl rsa -check`
+4. **Reversibilidad total**: El proceso no altera la clave en absoluto
+
+En la siguiente lección crearemos scripts reutilizables para automatizar este proceso.

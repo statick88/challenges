@@ -1,0 +1,349 @@
+---
+title: "Scripts Prácticos para Keychain"
+---
+
+## Objetivo
+
+En esta lección aprenderás:
+
+- A usar scripts listos para producción
+- Manejo de errores robusto
+- Automatización del flujo de trabajo con Keychain
+
+## Script: store-key-keychain.sh
+
+```bash
+#!/bin/bash
+# store-key-keychain.sh
+# Almacena una clave RSA en macOS Keychain con codificación Base64
+
+set -euo pipefail
+
+# Colores para output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+NC='\033[0m' # No Color
+
+# Funciones de ayuda
+error() {
+  echo -e "${RED}❌ ERROR: $1${NC}" >&2
+  exit 1
+}
+
+success() {
+  echo -e "${GREEN}✅ $1${NC}"
+}
+
+info() {
+  echo -e "${YELLOW}ℹ️  $1${NC}"
+}
+
+# Validar argumentos
+if [ $# -lt 1 ]; then
+  cat <<EOF
+Uso: $0 <clave-archivo> [nombre-servicio]
+
+Argumentos:
+  clave-archivo    Ruta al archivo de clave privada (PEM)
+  nombre-servicio  Nombre del servicio en Keychain (opcional)
+
+Ejemplo:
+  $0 ~/.ssh/id_rsa my-ssh-key
+  $0 /path/to/server.key production-api-key
+EOF
+  exit 1
+fi
+
+KEY_FILE="$1"
+SERVICE_NAME="${2:-$(basename "$KEY_FILE")}"
+ACCOUNT="${USER:-$(whoami)}"
+
+# Validar que el archivo existe
+if [ ! -f "$KEY_FILE" ]; then
+  error "El archivo '$KEY_FILE' no existe"
+fi
+
+# Validar que es una clave PEM válida
+if ! openssl rsa -in "$KEY_FILE" -check -noout 2>/dev/null; then
+  error "El archivo '$KEY_FILE' no es una clave RSA válida"
+fi
+
+# Verificar si ya existe una entrada con el mismo nombre
+if security find-generic-password -a "$ACCOUNT" -s "$SERVICE_NAME" &>/dev/null; then
+  info "Ya existe una entrada con el nombre '$SERVICE_NAME'"
+  read -p "¿Deseas actualizarla? (s/N): " -n 1 -r
+  echo
+  if [[ $REPLY =~ ^[Ss]$ ]]; then
+    security delete-generic-password -a "$ACCOUNT" -s "$SERVICE_NAME"
+    info "Entrada anterior eliminada"
+  else
+    error "Operación cancelada"
+  fi
+fi
+
+# Codificar en Base64 y almacenar
+ENCODED_KEY=$(cat "$KEY_FILE" | base64)
+
+security add-generic-password \
+  -a "$ACCOUNT" \
+  -s "$SERVICE_NAME" \
+  -w "$ENCODED_KEY"
+
+# Verificar que se almacenó correctamente
+if security find-generic-password -a "$ACCOUNT" -s "$SERVICE_NAME" -w &>/dev/null; then
+  success "Clave almacenada exitosamente"
+  echo ""
+  echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+  echo "📋 Detalles:"
+  echo "   Cuenta:    $ACCOUNT"
+  echo "   Servicio:  $SERVICE_NAME"
+  echo "   Archivo:   $KEY_FILE"
+  echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+  echo ""
+  echo "Para recuperar la clave, usa:"
+  echo "  retrieve-key-keychain.sh $SERVICE_NAME"
+else
+  error "No se pudo verificar el almacenamiento"
+fi
+```
+
+## Script: retrieve-key-keychain.sh
+
+```bash
+#!/bin/bash
+# retrieve-key-keychain.sh
+# Recupera una clave RSA de macOS Keychain y la decodifica de Base64
+
+set -euo pipefail
+
+# Colores para output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+NC='\033[0m' # No Color
+
+# Funciones de ayuda
+error() {
+  echo -e "${RED}❌ ERROR: $1${NC}" >&2
+  exit 1
+}
+
+success() {
+  echo -e "${GREEN}✅ $1${NC}"
+}
+
+info() {
+  echo -e "${YELLOW}ℹ️  $1${NC}"
+}
+
+# Validar argumentos
+if [ $# -lt 1 ]; then
+  cat <<EOF
+Uso: $0 <nombre-servicio> [archivo-salida]
+
+Argumentos:
+  nombre-servicio  Nombre del servicio en Keychain
+  archivo-salida   Archivo donde guardar la clave (opcional)
+                   Si no se especifica, muestra en stdout
+
+Ejemplos:
+  $0 my-ssh-key                    # Muestra la clave en pantalla
+  $0 my-ssh-key ~/.ssh/restored_key # Guarda en archivo
+  $0 production-api-key /tmp/api.pem
+EOF
+  exit 1
+fi
+
+SERVICE_NAME="$1"
+OUTPUT_FILE="${2:-}"
+ACCOUNT="${USER:-$(whoami)}"
+
+# Verificar que la entrada existe
+if ! security find-generic-password -a "$ACCOUNT" -s "$SERVICE_NAME" &>/dev/null; then
+  error "No se encontró ninguna entrada con el nombre '$SERVICE_NAME'"
+fi
+
+# Recuperar la clave
+ENCODED_KEY=$(security find-generic-password -a "$ACCOUNT" -s "$SERVICE_NAME" -w 2>/dev/null)
+
+if [ -z "$ENCODED_KEY" ]; then
+  error "No se pudo recuperar la clave"
+fi
+
+# Decodificar de Base64
+DECODED_KEY=$(echo "$ENCODED_KEY" | base64 -d)
+
+# Verificar que es una clave válida
+if ! echo "$DECODED_KEY" | openssl rsa -check -noout 2>/dev/null; then
+  error "La clave recuperada no es válida o está corrupta"
+fi
+
+# Output según el caso
+if [ -n "$OUTPUT_FILE" ]; then
+  # Guardar en archivo
+  echo "$DECODED_KEY" > "$OUTPUT_FILE"
+  
+  # Establecer permisos restrictivos para claves privadas
+  chmod 600 "$OUTPUT_FILE"
+  
+  success "Clave recuperada y guardada en '$OUTPUT_FILE'"
+  
+  # Verificación de integridad final
+  if openssl rsa -in "$OUTPUT_FILE" -check -noout 2>/dev/null; then
+    success "Verificación de integridad exitosa"
+  else
+    error "La clave guardada no pasa la verificación de integridad"
+  fi
+  
+  echo ""
+  echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+  echo "📋 Detalles:"
+  echo "   Servicio:  $SERVICE_NAME"
+  echo "   Archivo:   $OUTPUT_FILE"
+  echo "   Permisos:  $(stat -f '%Lp' "$OUTPUT_FILE")"
+  echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+else
+  # Mostrar en stdout
+  echo "$DECODED_KEY"
+fi
+```
+
+## Uso de los Scripts
+
+### Instalación
+
+```bash
+# Crear directorio de scripts si no existe
+mkdir -p ~/bin
+
+# Copiar scripts
+cp store-key-keychain.sh ~/bin/
+cp retrieve-key-keychain.sh ~/bin/
+
+# Hacer ejecutables
+chmod +x ~/bin/store-key-keychain.sh
+chmod +x ~/bin/retrieve-key-keychain.sh
+
+# Agregar a PATH (si no está)
+echo 'export PATH="$HOME/bin:$PATH"' >> ~/.zshrc
+source ~/.zshrc
+```
+
+### Ejemplos de uso
+
+```bash
+# Almacenar clave SSH personal
+store-key-keychain.sh ~/.ssh/id_rsa_personal github-personal
+
+# Almacenar clave de servidor
+store-key-keychain.sh /path/to/production.key production-server
+
+# Recuperar y mostrar en pantalla
+retrieve-key-keychain.sh github-personal
+
+# Recuperar y guardar en archivo
+retrieve-key-keychain.sh production-server /tmp/production.key
+
+# Usar directamente con SSH
+retrieve-key-keychain.sh github-personal | ssh-add -
+```
+
+## Verificación Automática
+
+Script adicional para verificar que todo funciona:
+
+```bash
+#!/bin/bash
+# verify-keychain-storage.sh
+
+set -euo pipefail
+
+echo "🧪 Iniciando verificación de almacenamiento en Keychain..."
+echo ""
+
+# Crear clave de prueba
+TEST_KEY=$(mktemp)
+TEST_SERVICE="keychain-test-$(date +%s)"
+
+echo "1️⃣  Generando clave de prueba..."
+openssl genrsa -out "$TEST_KEY" 2048 2>/dev/null
+echo "   ✓ Clave generada: $TEST_KEY"
+
+echo ""
+echo "2️⃣  Almacenando en Keychain..."
+store-key-keychain.sh "$TEST_KEY" "$TEST_SERVICE"
+echo "   ✓ Almacenamiento completado"
+
+echo ""
+echo "3️⃣  Recuperando de Keychain..."
+RECOVERED_KEY=$(mktemp)
+retrieve-key-keychain.sh "$TEST_SERVICE" "$RECOVERED_KEY"
+echo "   ✓ Recuperación completada"
+
+echo ""
+echo "4️⃣  Verificando integridad..."
+ORIGINAL_HASH=$(shasum -a 256 "$TEST_KEY" | cut -d' ' -f1)
+RECOVERED_HASH=$(shasum -a 256 "$RECOVERED_KEY" | cut -d' ' -f1)
+
+if [ "$ORIGINAL_HASH" = "$RECOVERED_HASH" ]; then
+  echo "   ✓ Los hashes coinciden"
+else
+  echo "   ✗ ERROR: Los hashes no coinciden"
+  exit 1
+fi
+
+echo ""
+echo "5️⃣  Verificando validez criptográfica..."
+if openssl rsa -in "$RECOVERED_KEY" -check -noout 2>/dev/null; then
+  echo "   ✓ Clave criptográficamente válida"
+else
+  echo "   ✗ ERROR: Clave inválida"
+  exit 1
+fi
+
+echo ""
+echo "6️⃣  Limpiando..."
+security delete-generic-password -a "$USER" -s "$TEST_SERVICE" 2>/dev/null
+rm -f "$TEST_KEY" "$RECOVERED_KEY"
+echo "   ✓ Limpieza completada"
+
+echo ""
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "✅ Verificación exitosa: El sistema funciona correctamente"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+```
+
+## Mejores Prácticas
+
+### Seguridad
+
+1. **Permisos restrictivos**: Siempre usa `chmod 600` para archivos de claves
+2. **Nombres descriptivos**: Usa nombres de servicio que identifiquen el propósito
+3. **Rotación periódica**: Cambia las claves almacenadas regularmente
+
+### Organización
+
+1. **Convención de nombres**:
+   - `ssh-personal` - Clave SSH personal
+   - `ssh-work-github` - Clave SSH trabajo GitHub
+   - `api-production` - Clave API producción
+   - `tls-domain-com` - Certificado TLS
+
+2. **Documentación**: Mantén un registro de qué servicios usas
+
+### Backup
+
+```bash
+# Listar todas las entradas de claves (sin mostrar valores)
+security dump-keychain | grep -A 5 "svce.*key"
+```
+
+## ¿Qué Aprendimos?
+
+1. **Scripts robustos**: Manejo de errores y validaciones
+2. **UX amigable**: Mensajes claros y colores para identificar estados
+3. **Verificación automática**: Siempre validar antes y después
+4. **Prácticas seguras**: Permisos correctos y nombres organizados
+
+En el siguiente laboratorio pondremos en práctica todo lo aprendido.

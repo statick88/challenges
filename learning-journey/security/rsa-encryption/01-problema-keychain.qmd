@@ -1,0 +1,109 @@
+---
+title: "El Problema con Keychain y Claves PEM"
+---
+
+## Objetivo
+
+En esta lección aprenderás:
+
+- Por qué `security add-generic-password` no funciona correctamente con claves PEM
+- Cómo Keychain interpreta los caracteres de nueva línea
+- La diferencia entre datos binarios y textuales en macOS Keychain
+
+## El Comando Problemático
+
+Cuando intentamos almacenar una clave privada RSA en macOS Keychain, el enfoque intuitivo sería:
+
+```bash
+# Este comando NO funciona correctamente
+security add-generic-password \
+  -a "$USER" \
+  -s "my-rsa-key" \
+  -w "$(cat ~/.ssh/id_rsa)"
+```
+
+Parece lógico: leemos el contenido del archivo y lo pasamos como contraseña. Pero hay un problema fundamental.
+
+## Análisis del Comportamiento
+
+El problema radica en cómo `security` maneja el parámetro `-w`:
+
+1. **PEM contiene newlines**: Las claves PEM tienen múltiples líneas con caracteres `\n`
+2. **Keychain trata newlines como binario**: El comando `security` interpreta cualquier caracter especial como dato binario
+3. **Conversión automática a hexadecimal**: Keychain convierte los datos "binarios" a representación hexadecimal
+
+## Demostración del Problema
+
+Veamos qué sucede realmente:
+
+```bash
+# Almacenar una clave PEM directamente
+security add-generic-password \
+  -a "$USER" \
+  -s "test-key-direct" \
+  -w "$(cat ~/.ssh/test_key.pem)"
+```
+
+Al recuperar la clave:
+
+```bash
+security find-generic-password \
+  -a "$USER" \
+  -s "test-key-direct" \
+  -w
+```
+
+**Salida problemática:**
+
+```
+2d2d2d2d2d424547494e205253412050524956415445204b4559...
+```
+
+::: {.callout-warning}
+## ¡Atención!
+
+La salida NO es tu clave PEM. Es una representación hexadecimal de los bytes. Cada par de caracteres representa un byte en formato hex. Por ejemplo:
+
+- `2d` = `-` (guion)
+- `42` = `B`
+- `45` = `E`
+- `47` = `G`
+
+Intentar usar esta salida como clave resultará en errores de formato.
+:::
+
+## Explicación Técnica
+
+### ¿Por qué hexadecimal?
+
+El comando `security` detectó caracteres no imprimibles (newlines `\n` = `0x0a`) y decidió:
+
+1. El dato es "binario"
+2. Debe almacenarse como bytes raw
+3. Al recuperarse, se muestra en hexadecimal para visualización segura
+
+### El problema con esta conversión
+
+```
+Clave original:  "-----BEGIN RSA PRIVATE KEY-----\n..."
+Almacenada como: [bytes raw con newlines]
+Recuperada como: "2d2d2d2d2d42454749..." (hexadecimal)
+```
+
+El resultado **no es utilizable** directamente con herramientas como `openssl` o `ssh`.
+
+### Comparación visual
+
+| Formato | Ejemplo | Utilizable |
+|---------|---------|------------|
+| PEM original | `-----BEGIN RSA...` | Sí |
+| Hexadecimal | `2d2d2d2d...` | No |
+| Base64 | `LS0tLS1CRUdJTi...` | Sí (reversible) |
+
+## ¿Qué Aprendimos?
+
+1. **Keychain y texto multi-línea no son amigos**: Los newlines causan conversión a hexadecimal
+2. **El resultado hexadecimal es inútil**: No podemos usarlo directamente
+3. **Necesitamos una transformación**: Debemos convertir la clave a un formato de línea única
+
+En la siguiente lección veremos cómo **Base64** resuelve este problema elegantemente.

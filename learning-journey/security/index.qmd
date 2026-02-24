@@ -211,3 +211,28 @@ Guía completa de configuración de OpenVPN para conectar a HTB Academy desde Li
 | Laboratorios Completados | 19 |
 | Flags Obtenidas | 9 |
 | Módulos HTB Completados | 4 |
+
+---
+
+### Almacenamiento de Claves RSA en macOS Keychain
+
+Tutorial práctico para almacenar y recuperar claves privadas RSA de forma segura usando macOS Keychain. Incluye solución al problema de claves PEM multilínea.
+
+[**Acceder al Tutorial de RSA Keychain →**](rsa-encryption/index.html)
+
+**Contenido del tutorial:**
+
+- Análisis del problema con claves PEM multilínea
+- Solución con codificación Base64
+- Scripts automatizados para almacenar y recuperar
+- Laboratorio práctico completo
+
+**Duración:** 35 minutos
+
+**Habilidades desarrolladas:**
+
+- Manejo seguro de claves privadas RSA
+- Uso de macOS Keychain desde CLI
+- Codificación Base64 para datos estructurados
+- Verificación de integridad de claves
+
