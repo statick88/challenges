@@ -209,6 +209,36 @@ npm run preview
 node scripts/generate-challenges-data.js
 ```
 
+### **Challenge Validation Suite**
+
+Run validation before committing to ensure content quality:
+
+```bash
+# Run all validations
+npm run validate:all
+
+# Individual validators
+npm run validate              # Structure validation (naming patterns)
+npm run validate:frontmatter  # Front matter checks (YAML schema)
+npm run validate:consistency  # Cross-file consistency checks
+npm run validate:health       # Repository health report
+
+# JSON output for CI/CD integration
+npm run validate -- --json
+
+# Single challenge validation
+challenge_file="challenges/linux/retos/01-creacion-usuarios/README.md"
+node scripts/validation/validate-structure.js "$challenge_file"
+```
+
+### Exit Codes
+
+| Code | Meaning |
+|------|---------|
+| 0 | No errors (warnings may exist) |
+| 1 | Errors found |
+| 2 | Fatal system error |
+
 ### **Markdown Quality Assurance**
 
 ```bash
@@ -220,26 +250,6 @@ markdownlint-cli2 "challenges/**/*.md" "docs/**/*.md"
 
 # Check for broken links
 find challenges/ -name "*.md" -exec markdown-link-check {} \;
-
-# Validate front matter consistency
-node scripts/validation/validate-frontmatter.js
-```
-
-### **Challenge Validation Suite**
-
-```bash
-# Run all validations
-npm run validate:all
-
-# Individual validators
-npm run validate              # Structure validation
-npm run validate:frontmatter  # Front matter checks
-npm run validate:consistency  # Cross-file consistency
-npm run validate:health       # Repository health report
-
-# Single challenge validation
-challenge_file="challenges/linux/retos/01-creacion-usuarios/README.md"
-node scripts/validation/validate-structure.js "$challenge_file"
 ```
 
 ### **Frontend Testing**

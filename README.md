@@ -157,4 +157,34 @@ cursos/
 
 ---
 
-*Repository Version: 2.0 | Last Updated: 2026-02-21*
+## Validation
+
+Run quality checks before committing:
+
+```bash
+npm run validate              # Structure validation (naming patterns)
+npm run validate:frontmatter  # Front matter validation (YAML schema)
+npm run validate:consistency  # Cross-file consistency checks
+npm run validate:health       # Health report summary
+npm run validate:all          # Run all validators
+```
+
+### Exit Codes
+
+| Code | Meaning |
+|------|---------|
+| 0 | No errors (warnings may exist) |
+| 1 | Errors found |
+| 2 | Fatal system error |
+
+### JSON Output
+
+All validators support `--json` flag for machine-readable output:
+
+```bash
+npm run validate -- --json
+```
+
+---
+
+*Repository Version: 2.0 | Last Updated: 2026-02-24*
