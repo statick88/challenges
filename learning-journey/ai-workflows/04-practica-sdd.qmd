@@ -1,11 +1,11 @@
 ---
-title: "Práctica Guiada: Health Endpoint"
+title: "Práctica Guiada: Health Endpoint con Kilocode CLI"
 date: "2026-02-24"
 ---
 
 # 🎓 Práctica: Implementar Health Endpoint con SDD
 
-👨‍🏫 **Del Instructor**: Aprender SDD leyendo es como aprender a nadar viendo videos. Vamos a practicar con un caso real: agregar un health endpoint a una API.
+👨‍🏫 **Del Instructor**: Aprender SDD leyendo es como aprender a nadar viendo videos. Vamos a practicar con un caso real: agregar un health endpoint a una API usando Kilocode CLI y Neovim.
 
 > 💭 **Mentalidad de Practicante**: "La teoría sin práctica es entretenimiento. La práctica sin teoría es rutina. Juntas forman maestría."
 
@@ -19,7 +19,7 @@ Eres desarrollador en un equipo que mantiene una API REST en Node.js/Express. El
 2. Load balancer probes
 3. Monitoring alerts
 
-**Tu misión**: Implementar el endpoint siguiendo SDD.
+**Tu misión**: Implementar el endpoint siguiendo SDD con Kilocode CLI y Nvim.
 
 ---
 
@@ -38,75 +38,101 @@ npm install express
 
 # Instalar dependencias de desarrollo
 npm install --save-dev jest supertest
+
+# Configurar script de test
+npm pkg set scripts.test="jest"
 ```
 
 ### Archivo Inicial: `src/app.js`
 
-```javascript
+```bash
+mkdir -p src
+cat > src/app.js << 'EOF'
 const express = require("express");
 const app = express();
 
 module.exports = app;
+EOF
 ```
 
 ---
 
 ## 🔄 Fase 1: INIT
 
-### Comando
-
-```
-/sdd:init
-```
-
-### Lo que hace la IA
-
-1. Detecta: `package.json` → Node.js, Express
-2. Detecta: `scripts.test` → Jest
-3. Crea estructura `openspec/`
-
-### Resultado: `openspec/config.yaml`
-
-```yaml
-schema: spec-driven
-
-context: |
-  Tech stack: Node.js, Express.js
-  Architecture: REST API (minimal)
-  Testing: Jest
-  Style: None detected
-
-rules:
-  proposal:
-    - Include rollback plan
-    - Identify affected modules
-  specs:
-    - Use Given/When/Then format
-    - Use RFC 2119 keywords
-  tasks:
-    - Group by phase
-    - Use hierarchical numbering
-    - Completable in one session
-```
-
-### Verificación
+### Comando CLI
 
 ```bash
-ls openspec/
-# Output: config.yaml  specs/  changes/
+kilocode "Initialize SDD in this project with openspec mode"
+```
+
+### Output de Kilocode
+
+```
+Detecting project context...
+- Found: package.json
+- Tech stack: Node.js, Express.js
+- Testing: Jest
+- Architecture: REST API (minimal)
+
+Creating openspec/ structure...
+✓ openspec/config.yaml
+✓ openspec/specs/
+✓ openspec/changes/
+✓ openspec/changes/archive/
+
+## SDD Initialized
+
+**Project**: sdd-practice
+**Stack**: Node.js, Express.js
+**Location**: openspec/
+
+### Next Steps
+Ready to start a change: kilocode "Start SDD change for <name>"
+```
+
+### Revisar en Nvim
+
+```bash
+nvim openspec/config.yaml
 ```
 
 ---
 
 ## 🔄 Fase 2: PROPOSE
 
-### Comando
+### Comando CLI
+
+```bash
+kilocode "Start SDD change for add-health-endpoint"
+```
+
+### Output
 
 ```
-/sdd:new add-health-endpoint
+Creating change proposal...
+
+✓ Created: openspec/changes/001-add-health-endpoint/proposal.md
+
+## Proposal: Add Health Endpoint
+
+### Intent
+Add a /health endpoint for Kubernetes health checks.
+
+### Scope
+In: GET /health, JSON response
+Out: Database checks, authentication
+
+### Next Steps
+Review proposal.md and run: kilocode "Write SDD specs"
 ```
 
-### Resultado: `openspec/changes/001-add-health-endpoint/proposal.md`
+### Revisar y Editar en Nvim
+
+```bash
+nvim openspec/changes/001-add-health-endpoint/proposal.md
+```
+
+**Contenido generado**:
 
 ```markdown
 # Proposal: Add Health Endpoint
@@ -139,25 +165,43 @@ probes, and monitoring systems.
 Remove the route and test if issues arise.
 ```
 
-### Tu Revisión
-
-¿Estás de acuerdo con el scope? ¿Falta algo?
-
-```markdown
-# Tu decisión: ✅ Aprobar / ❌ Modificar
-```
-
 ---
 
 ## 🔄 Fase 3: SPEC
 
-### Comando
+### Comando CLI
+
+```bash
+kilocode "Write SDD specs for health endpoint"
+```
+
+### Output
 
 ```
-/sdd:spec
+Reading proposal...
+Generating specifications...
+
+✓ Created: openspec/changes/001-add-health-endpoint/spec.delta.md
+
+## Specs Generated
+
+- REQ-1: Health Endpoint Availability
+- REQ-2: Health Response Format
+- REQ-3: HTTP Status Code
+- SCENARIO-1: Successful Health Check
+- SCENARIO-2: Health Check Includes Timestamp
+
+### Next Steps
+Review spec.delta.md and run: kilocode "Create SDD design"
 ```
 
-### Resultado: `openspec/changes/001-add-health-endpoint/spec.delta.md`
+### Revisar en Nvim
+
+```bash
+nvim openspec/changes/001-add-health-endpoint/spec.delta.md
+```
+
+**Contenido**:
 
 ```markdown
 # Spec Delta: Add Health Endpoint
@@ -175,7 +219,6 @@ MUST satisfy: Response includes timestamp in ISO 8601 format.
 
 ### REQ-3: HTTP Status Code
 The system SHALL return HTTP 200 when healthy.
-MUST satisfy: Status code is 200 OK.
 
 ## Scenarios
 
@@ -191,90 +234,67 @@ MUST satisfy: Status code is 200 OK.
 **Then** the response includes a valid ISO 8601 timestamp
 ```
 
-### Tu Revisión
-
-¿Los requisitos son claros? ¿Los escenarios son testables?
-
 ---
 
 ## 🔄 Fase 4: DESIGN
 
-### Comando
+### Comando CLI
 
-```
-/sdd:plan
-```
-
-### Resultado: `openspec/changes/001-add-health-endpoint/design.md`
-
-```markdown
-# Design: Add Health Endpoint
-
-## Architecture Decisions
-
-### ADR-1: Inline Route vs Separate Router
-**Context**: Should health endpoint be in app.js or separate file?
-**Decision**: Inline in app.js
-**Consequences**: Minimal change, easy to test, no new files
-
-### ADR-2: Response Format
-**Context**: What should the response include?
-**Decision**: { status: "ok", timestamp: "<ISO 8601>" }
-**Consequences**: Simple, extensible, standard format
-
-## Technical Approach
-
-### Components Affected
-- `src/app.js`: Add health route before other routes
-
-### API Changes
-```
-GET /health
-Response 200:
-{
-  "status": "ok",
-  "timestamp": "2026-02-24T10:00:00.000Z"
-}
+```bash
+kilocode "Create SDD design for health endpoint"
 ```
 
-### Sequence Diagram
-```
-Client -> API: GET /health
-API -> Client: 200 { status, timestamp }
-```
+### Output
 
-## Implementation Notes
-- Use new Date().toISOString() for timestamp
+```
+Reading specs...
+Creating technical design...
+
+✓ Created: openspec/changes/001-add-health-endpoint/design.md
+
+## Design Summary
+
+- ADR-1: Inline route in app.js
+- Response: { status: "ok", timestamp: ISO8601 }
 - No authentication required
-- Keep response minimal for fast response time
+```
+
+### Revisar en Nvim
+
+```bash
+nvim openspec/changes/001-add-health-endpoint/design.md
 ```
 
 ---
 
 ## 🔄 Fase 5: TASKS
 
-### Comando
+### Comando CLI
+
+```bash
+kilocode "Break down SDD tasks for health endpoint"
+```
+
+### Output
 
 ```
-/sdd:tasks
-```
+Generating implementation tasks...
 
-### Resultado: `openspec/changes/001-add-health-endpoint/tasks.md`
+✓ Created: openspec/changes/001-add-health-endpoint/tasks.md
 
-```markdown
-# Tasks: Add Health Endpoint
+## Tasks
 
-## Phase 1: Implementation
-- [ ] 1.1 Add GET /health route in app.js
-- [ ] 1.2 Return JSON with status and timestamp
+### Phase 1: Implementation
+- [ ] 1.1 Add GET /health route
+- [ ] 1.2 Return JSON response
 
-## Phase 2: Testing
-- [ ] 2.1 Create test file tests/health.test.js
-- [ ] 2.2 Test SCENARIO-1: 200 response and status ok
-- [ ] 2.3 Test SCENARIO-2: Valid ISO 8601 timestamp
+### Phase 2: Testing
+- [ ] 2.1 Create test file
+- [ ] 2.2 Test scenario 1
+- [ ] 2.3 Test scenario 2
 
-## Phase 3: Verification
-- [ ] 3.1 Run all tests
+### Phase 3: Verification
+- [ ] 3.1 Run tests
 - [ ] 3.2 Verify against specs
 ```
 
@@ -282,15 +302,33 @@ API -> Client: 200 { status, timestamp }
 
 ## 🔄 Fase 6: APPLY
 
-### Comando
+### Comando CLI
+
+```bash
+kilocode "Implement SDD task 1.1 and 1.2"
+```
+
+### Output
 
 ```
-/sdd:implement
+Implementing Phase 1 tasks...
+
+✓ Modified: src/app.js
+  - Added GET /health route
+  - Returns { status: "ok", timestamp }
+
+✓ Updated: tasks.md
+  - [x] 1.1 Add GET /health route
+  - [x] 1.2 Return JSON response
 ```
 
-### Resultado: Código Implementado
+### Revisar Código en Nvim
 
-**Archivo**: `src/app.js`
+```bash
+nvim src/app.js
+```
+
+**Código generado**:
 
 ```javascript
 const express = require("express");
@@ -306,7 +344,32 @@ app.get("/health", (req, res) => {
 module.exports = app;
 ```
 
-**Archivo**: `tests/health.test.js`
+### Implementar Tests
+
+```bash
+kilocode "Implement SDD tasks 2.1, 2.2, 2.3"
+```
+
+**Output**:
+
+```
+Creating tests...
+
+✓ Created: tests/health.test.js
+
+✓ Updated: tasks.md
+  - [x] 2.1 Create test file
+  - [x] 2.2 Test scenario 1
+  - [x] 2.3 Test scenario 2
+```
+
+### Revisar Tests en Nvim
+
+```bash
+nvim tests/health.test.js
+```
+
+**Contenido**:
 
 ```javascript
 const request = require("supertest");
@@ -337,32 +400,9 @@ describe("Health Endpoint", () => {
 });
 ```
 
-### Tasks Actualizado
-
-```markdown
-## Phase 1: Implementation
-- [x] 1.1 Add GET /health route in app.js
-- [x] 1.2 Return JSON with status and timestamp
-
-## Phase 2: Testing
-- [x] 2.1 Create test file tests/health.test.js
-- [x] 2.2 Test SCENARIO-1: 200 response and status ok
-- [x] 2.3 Test SCENARIO-2: Valid ISO 8601 timestamp
-
-## Phase 3: Verification
-- [ ] 3.1 Run all tests
-- [ ] 3.2 Verify against specs
-```
-
 ---
 
 ## 🔄 Fase 7: VERIFY
-
-### Comando
-
-```
-/sdd:verify
-```
 
 ### Ejecutar Tests
 
@@ -385,49 +425,66 @@ Test Suites: 1 passed, 1 total
 Tests:       3 passed, 3 total
 ```
 
-### Resultado: `openspec/changes/001-add-health-endpoint/verification.md`
+### Comando CLI
 
-```markdown
-# Verification: Add Health Endpoint
+```bash
+kilocode "Verify SDD implementation against specs"
+```
 
-## Requirements Coverage
-| Requirement | Status | Evidence |
-|-------------|--------|----------|
-| REQ-1 | ✅ PASS | GET /health implemented |
-| REQ-2 | ✅ PASS | Returns { status, timestamp } |
-| REQ-3 | ✅ PASS | Returns 200 |
+### Output
 
-## Scenario Results
-| Scenario | Status | Evidence |
-|----------|--------|----------|
-| SCENARIO-1 | ✅ PASS | tests/health.test.js:7-14 |
-| SCENARIO-2 | ✅ PASS | tests/health.test.js:17-25 |
+```
+Running verification...
 
-## Test Results
-All 3 tests passing
+✓ Created: openspec/changes/001-add-health-endpoint/verification.md
 
-## Summary
-- **Status**: ✅ VERIFIED
-- **All Requirements**: Met
-- **All Scenarios**: Passed
+## Verification Report
+
+| Requirement | Status |
+|-------------|--------|
+| REQ-1 | ✅ PASS |
+| REQ-2 | ✅ PASS |
+| REQ-3 | ✅ PASS |
+
+| Scenario | Status |
+|----------|--------|
+| SCENARIO-1 | ✅ PASS |
+| SCENARIO-2 | ✅ PASS |
+
+**Status: ✅ VERIFIED**
 ```
 
 ---
 
 ## 🔄 Fase 8: ARCHIVE
 
-### Comando
+### Comando CLI
+
+```bash
+kilocode "Archive SDD change"
+```
+
+### Output
 
 ```
-/sdd:archive
+Archiving change...
+
+✓ Merged spec.delta.md → openspec/specs/health.spec.md
+✓ Moved to: openspec/changes/archive/001-add-health-endpoint/
+
+## Archive Complete
+
+Source of truth: openspec/specs/health.spec.md
+Archive: openspec/changes/archive/001-add-health-endpoint/
 ```
 
-### Acciones
+---
 
-1. Crea `openspec/specs/health.spec.md` (merge del delta)
-2. Mueve `openspec/changes/001-add-health-endpoint/` a `archive/`
+## 📁 Estructura Final del Proyecto
 
-### Estructura Final
+```bash
+tree -I node_modules
+```
 
 ```
 sdd-practice/
@@ -444,27 +501,84 @@ sdd-practice/
 │               ├── tasks.md
 │               └── verification.md
 ├── src/
-│   └── app.js
-└── tests/
-    └── health.test.js
+│   └── app.js                      ← Implementation
+├── tests/
+│   └── health.test.js              ← Tests
+├── package.json
+└── package-lock.json
 ```
 
 ---
 
-## 📊 Resumen del Flujo
+## 🎯 Atajos Nvim para SDD
 
-| Fase | Artefacto | Duración |
-|------|-----------|----------|
-| INIT | config.yaml | 1 min |
-| PROPOSE | proposal.md | 3 min |
-| SPEC | spec.delta.md | 5 min |
-| DESIGN | design.md | 3 min |
-| TASKS | tasks.md | 2 min |
-| APPLY | código + tests | 5 min |
-| VERIFY | verification.md | 2 min |
-| ARCHIVE | specs/ + archive/ | 1 min |
+Si configuraste los comandos de Neovim:
 
-**Total**: ~22 minutos para un cambio simple
+```vim
+" Flujo rápido
+<leader>si    " SDD Init
+<leader>sn    " SDD New (pedirá nombre)
+<leader>ss    " SDD Spec
+<leader>sp    " SDD Plan/Design
+<leader>st    " SDD Tasks
+<leader>sm    " SDD Implement
+<leader>sv    " SDD Verify
+<leader>sa    " SDD Archive
+```
+
+---
+
+## 🧪 Verificar el Endpoint
+
+### Crear servidor de prueba
+
+```bash
+cat > server.js << 'EOF'
+const app = require("./src/app");
+const PORT = 3000;
+
+app.listen(PORT, () => {
+  console.log(`Server: http://localhost:${PORT}`);
+  console.log(`Health: http://localhost:${PORT}/health`);
+});
+EOF
+```
+
+### Ejecutar y probar
+
+```bash
+# Terminal 1: Iniciar servidor
+node server.js
+
+# Terminal 2: Probar endpoint
+curl http://localhost:3000/health | jq .
+```
+
+**Output esperado**:
+
+```json
+{
+  "status": "ok",
+  "timestamp": "2026-02-24T10:30:00.000Z"
+}
+```
+
+---
+
+## 📊 Resumen del Flujo CLI
+
+| Fase | Comando Kilocode | Artefacto |
+|------|------------------|-----------|
+| INIT | `kilocode "Initialize SDD"` | config.yaml |
+| PROPOSE | `kilocode "Start SDD change..."` | proposal.md |
+| SPEC | `kilocode "Write SDD specs"` | spec.delta.md |
+| DESIGN | `kilocode "Create SDD design"` | design.md |
+| TASKS | `kilocode "Break down SDD tasks"` | tasks.md |
+| APPLY | `kilocode "Implement SDD..."` | código + tests |
+| VERIFY | `kilocode "Verify SDD..."` | verification.md |
+| ARCHIVE | `kilocode "Archive SDD change"` | specs/ + archive/ |
+
+**Total**: ~20 minutos para un cambio simple
 
 ---
 
@@ -472,21 +586,30 @@ sdd-practice/
 
 Ahora practica tú mismo:
 
-1. Crea un nuevo proyecto vacío
-2. Inicializa SDD
-3. Propón un nuevo endpoint: GET /ready
-4. Completa el flujo SDD
+```bash
+# Crear nuevo proyecto
+mkdir sdd-practice-2 && cd sdd-practice-2
+npm init -y
+npm install express
 
-**Diferencia**: /ready debe verificar conexión a base de datos
+# Implementar: GET /ready endpoint
+# Debe verificar conexión a base de datos
+# (simular con variable de entorno DB_CONNECTED=true)
+
+# Flujo SDD completo
+kilocode "Initialize SDD"
+kilocode "Start SDD change for add-ready-endpoint"
+# ... continuar el flujo
+```
 
 ---
 
 ## 🎓 Lo Que Aprendiste
 
-1. **Cada fase** produce artefactos específicos
-2. **Los specs** guían la implementación
-3. **Los tests** verifican contra escenarios
-4. **El archivo** preserva el historial
+1. **Kilocode CLI** ejecuta SDD desde terminal
+2. **Nvim** revisa y edita artefactos generados
+3. **Cada fase** tiene comandos específicos
+4. **El flujo** es rápido y repetible
 5. **La trazabilidad** es automática
 
 ---

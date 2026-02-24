@@ -1,12 +1,12 @@
 ---
 title: "DevOps & Security Learning Journey"
-subtitle: "From Linux fundamentals to HTB Academy"
-date: "2026-02-21"
+subtitle: "From Linux fundamentals to HTB Academy and AI Workflows"
+date: "2026-02-24"
 ---
 
 # Welcome to My Learning Journey
 
-This website documents my path through **Linux system administration**, **Docker containerization**, **DevOps practices**, and **Cybersecurity/CTF challenges**.
+This website documents my path through **Linux system administration**, **Docker containerization**, **DevOps practices**, **Cybersecurity/CTF challenges**, and **AI-assisted development workflows**.
 
 ## Purpose
 
@@ -32,6 +32,7 @@ This journey serves two purposes:
 | 🐳 **Docker** | 100% (6/6) | ✅ Completed |
 | ⚙️ **DevOps** | 50% (8/16) | In Progress |
 | 🔒 **Security** | 58% (7/12) | In Progress |
+| 🤖 **AI Workflows** | New | 🆕 Course Available |
 
 ## Learning Path
 
@@ -51,13 +52,17 @@ Ansible, Cron, MariaDB, CI/CD basics — *In Progress (50%)*
 
 CTF basics, forensics, web security, HTB Academy — *In Progress*
 
-### Phase 5: Advanced Topics ⏳
+### Phase 5: AI-Assisted Development 🆕
+
+Spec-Driven Development, Kilocode CLI, Opencode, MCP Integration — *Course Available*
+
+### Phase 6: Advanced Topics ⏳
 
 Kubernetes, advanced networking, penetration testing
 
 ## Structure
 
-The learning journey is organized into four main areas:
+The learning journey is organized into main areas:
 
 ### [Foundations](foundations/index.qmd)
 
@@ -75,6 +80,17 @@ DevOps tools and methodologies
 
 Cybersecurity fundamentals
 
+### [AI Workflows](ai-workflows/index.qmd) 🆕
+
+Spec-Driven Development with AI assistants:
+
+- **Module 1**: Introduction to SDD
+- **Module 2**: Kilocode CLI Setup
+- **Module 3**: Opencode Integration
+- **Module 4**: Guided Practice
+- **Module 5**: MCP Servers
+- **Module 6**: Advanced Patterns
+
 ## Skills Matrix
 
 | Skill | Level | Status |
@@ -86,6 +102,8 @@ Cybersecurity fundamentals
 | Network Security | Basic | Learning |
 | CTF Problem Solving | Basic | Started |
 | HTB Academy | Intermediate | 3 Modules Completed |
+| AI-Assisted Development | Beginner | Learning |
+| SDD (Spec-Driven Development) | Beginner | Learning |
 
 ## Navigation
 

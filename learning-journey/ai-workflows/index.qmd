@@ -1,12 +1,12 @@
 ---
 title: "Spec-Driven Development con Asistentes de IA"
-subtitle: "Metodología estructurada para desarrollo asistido por IA"
+subtitle: "Metodología estructurada para desarrollo asistido por IA en CLI"
 date: "2026-02-24"
 ---
 
 # 🎓 Bienvenido al Curso de SDD con IA
 
-👨‍🏫 **Del Instructor**: Bienvenido a este curso práctico sobre Spec-Driven Development (SDD), una metodología que transforma cómo trabajamos con asistentes de IA para desarrollo de software.
+👨‍🏫 **Del Instructor**: Bienvenido a este curso práctico sobre Spec-Driven Development (SDD), una metodología que transforma cómo trabajamos con asistentes de IA para desarrollo de software, usando CLI y Neovim.
 
 > 💭 **Mentalidad de Arquitecto**: "Un buen asistente de IA es como un junior brillante: necesita especificaciones claras para brillar, no instrucciones vagas para fallar."
 
@@ -30,10 +30,10 @@ Los asistentes de IA (Claude, GPT-4, etc.) han revolucionado el desarrollo, pero
 Al completar este curso, serás capaz de:
 
 1. **Comprender** la filosofía y workflow de SDD
-2. **Configurar** SDD en Kilocode y Opencode
-3. **Aplicar** el flujo completo en proyectos reales
-4. **Integrar** MCP servers para potenciar el workflow
-5. **Adaptar** SDD a diferentes contextos (brownfield, greenfield, equipo)
+2. **Configurar** SDD en Kilocode CLI y Opencode
+3. **Integrar** el flujo con Neovim
+4. **Aplicar** el flujo completo en proyectos reales
+5. **Configurar** MCP servers para potenciar el workflow
 
 ---
 
@@ -42,13 +42,15 @@ Al completar este curso, serás capaz de:
 | Conocimiento | Nivel Requerido |
 |--------------|-----------------|
 | Git básico | Intermedio |
-| Terminal/CLI | Básico |
+| Terminal/CLI | Intermedio |
+| Neovim | Básico |
 | JavaScript/Python | Básico |
 | Asistentes de IA | Principiante |
 
 ### Herramientas Necesarias
 
-- **Kilocode** (extensión VS Code) o **Opencode** (CLI)
+- **Kilocode CLI** o **Opencode**
+- **Neovim** (editor de código)
 - Node.js 18+ (para MCP servers)
 - Git
 - Cuenta de Claude API (recomendado)
@@ -64,12 +66,12 @@ Al completar este curso, serás capaz de:
 - Las 8 fases del workflow
 - Beneficios vs desarrollo tradicional
 
-### Módulo 2: [SDD en Kilocode](02-sdd-kilocode.qmd)
+### Módulo 2: [SDD en Kilocode CLI](02-sdd-kilocode.qmd)
 
+- Configuración CLI
 - Estructura de skills
-- Comandos slash
+- Integración con Neovim
 - Configuración MCP
-- Ejemplo práctico
 
 ### Módulo 3: [SDD en Opencode](03-sdd-opencode.qmd)
 
@@ -81,7 +83,7 @@ Al completar este curso, serás capaz de:
 ### Módulo 4: [Práctica Guiada](04-practica-sdd.qmd)
 
 - Caso real: API con health endpoint
-- Paso a paso por todas las fases
+- Paso a paso con Kilocode CLI + Nvim
 - Verificación y archivado
 
 ### Módulo 5: [Integración MCP](05-mcp-integration.qmd)
@@ -104,7 +106,7 @@ Al completar este curso, serás capaz de:
 | Módulo | Duración Estimada | Dificultad |
 |--------|-------------------|------------|
 | 1. Introducción | 30 min | 🟢 Básico |
-| 2. Kilocode | 45 min | 🟡 Intermedio |
+| 2. Kilocode CLI | 45 min | 🟡 Intermedio |
 | 3. Opencode | 30 min | 🟡 Intermedio |
 | 4. Práctica | 60 min | 🟡 Intermedio |
 | 5. MCP Integration | 45 min | 🔴 Avanzado |
@@ -126,6 +128,33 @@ Imagina que lideras un equipo de desarrollo. Cada vez que un desarrollador usa I
 
 ---
 
+## 🛠️ Stack Tecnológico del Curso
+
+```
+┌─────────────────────────────────────────────┐
+│              Asistentes de IA               │
+│         (Claude, GPT-4, Gemini)             │
+└─────────────────────────────────────────────┘
+                    │
+        ┌───────────┴───────────┐
+        ▼                       ▼
+┌───────────────┐       ┌───────────────┐
+│  Kilocode CLI │       │   Opencode    │
+│   (Agent 1)   │       │  (Agent 2)    │
+└───────────────┘       └───────────────┘
+        │                       │
+        └───────────┬───────────┘
+                    │
+        ┌───────────┴───────────┐
+        ▼                       ▼
+┌───────────────┐       ┌───────────────┐
+│   Neovim      │       │  MCP Servers  │
+│   (Editor)    │       │ (Extensions)  │
+└───────────────┘       └───────────────┘
+```
+
+---
+
 ## 🚀 Comenzando
 
 Dirígete al [Módulo 1: Introducción a SDD](01-intro-sdd.qmd) para comenzar tu journey.
@@ -135,7 +164,7 @@ Dirígete al [Módulo 1: Introducción a SDD](01-intro-sdd.qmd) para comenzar tu
 ## 📚 Recursos Adicionales
 
 - [OpenSpec Specification](https://github.com/github/spec-kit)
-- [Kilocode Documentation](https://kilocode.ai/docs)
+- [Neovim Documentation](https://neovim.io/doc/)
 - [Model Context Protocol](https://modelcontextprotocol.io/)
 
 ---

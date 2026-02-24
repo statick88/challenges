@@ -6,7 +6,7 @@ project:
 
 website:
   title: "DevOps & Security Learning Journey"
-  description: "My path through Linux, Docker, DevOps, CTF and Hack The Box Academy"
+  description: "My path through Linux, Docker, DevOps, CTF, AI Workflows and Hack The Box Academy"
   navbar:
     left:
       - text: "Home"
@@ -19,6 +19,8 @@ website:
         href: devops-practices/index.qmd
       - text: "Security"
         href: security/index.qmd
+      - text: "AI Workflows"
+        href: ai-workflows/index.qmd
       - text: "Roadmap"
         href: roadmap/index.qmd
     right:

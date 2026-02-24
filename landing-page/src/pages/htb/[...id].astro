@@ -54,7 +54,6 @@ function parseFrontMatter(content: string): Record<string, any> {
         if (value.startsWith('[')) {
           frontMatter[m[1]] = value.replace(/[\[\]]/g, '').split(',').map((v: string) => v.trim().replace(/['"]/g, ''));
         } else if (value.includes(',')) {
-          // Handle comma-separated values as arrays
           frontMatter[m[1]] = value.split(',').map((v: string) => v.trim().replace(/['"]/g, ''));
         } else {
           frontMatter[m[1]] = value;
@@ -312,14 +311,24 @@ const categoryColor = 'from-green-500 to-teal-600';
     </footer>
 
     <script>
-      function openModal(modalId: string) {
+      function openModal(modalId) {
         const modal = document.getElementById(`modal-${modalId}`);
         if (modal) {
           modal.classList.remove('hidden');
           document.body.style.overflow = 'hidden';
         }
       }
+      
+      function closeModal(modalId) {
+        const modal = document.getElementById(`modal-${modalId}`);
+        if (modal) {
+          modal.classList.add('hidden');
+          document.body.style.overflow = '';
+        }
+      }
+      
       window.openModal = openModal;
+      window.closeModal = closeModal;
     </script>
   </body>
 </html>
