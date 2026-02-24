@@ -752,7 +752,7 @@ rules:
 │              Context Window Limits                       │
 ├─────────────────────────────────────────────────────────┤
 │                                                          │
-│  Claude 3.5 Sonnet: 200K tokens (~150K palabras)        │
+│  Modelos de LLM (Claude, GPT-4, etc.): 128K-200K tokens │
 │  GPT-4 Turbo: 128K tokens (~96K palabras)               │
 │                                                          │
 │  Un proyecto típico:                                     │
@@ -783,7 +783,7 @@ rules:
 <span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>            relevant.append(spec)</span>
 <span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>    </span>
 <span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> relevant[:MAX_SPECS]</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-<p><strong>Claude Code usa grep-based retrieval</strong>:</p>
+<p><strong>Los agentes CLI usan grep-based retrieval</strong>:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Simplificado pero efectivo</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-r</span> <span class="st">"authentication"</span> openspec/specs/</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Solo carga specs que mencionan "authentication"</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1070,7 +1070,7 @@ rules:
 </section>
 <section id="ide-team-features" class="level4">
 <h4 class="anchored" data-anchor-id="ide-team-features">2. IDE Team Features</h4>
-<pre><code>Cursor Teams / VS Code Settings Sync
+<pre><code>Config compartida entre agentes
 ├── .cursorrules (compartido)
 ├── specs/ (compartido)
 └── skills/ (compartido)</code></pre>

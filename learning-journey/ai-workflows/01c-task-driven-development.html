@@ -56,7 +56,27 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -345,7 +365,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="task-driven-development">✅ Task-Driven Development</h2>
 <section id="definición" class="level3">
 <h3 class="anchored" data-anchor-id="definición">Definición</h3>
-<p><strong>Task-Driven Development</strong> significa descomponer el trabajo en tareas pequeñas y bien definidas que reducen la complejidad y el alcance de cada cambio.</p>
+<p><strong>Task-Driven Development</strong> <span class="citation" data-cites="strategyradar2025tdd">(<a href="#ref-strategyradar2025tdd" role="doc-biblioref">StrategyRadar.ai 2025</a>)</span> significa descomponer el trabajo en tareas pequeñas y bien definidas que reducen la complejidad y el alcance de cada cambio.</p>
 </section>
 <section id="ejemplo-de-gran-a-granular" class="level3">
 <h3 class="anchored" data-anchor-id="ejemplo-de-gran-a-granular">Ejemplo: De Gran a Granular</h3>
@@ -744,7 +764,7 @@ Task 7: Build cart abandonment email flow</code></pre>
 </section>
 <section id="cómo-usarlos" class="level3">
 <h3 class="anchored" data-anchor-id="cómo-usarlos">Cómo Usarlos</h3>
-<pre class="text"><code># Con Claude Code o similar
+<pre class="text"><code># Con Kilocode o similar
 
 You: "@Taskie help me create a task for adding OAuth to my app"
 
@@ -820,10 +840,15 @@ Taskie: "Great. Let me help you identify:
 <p><em>Módulo 01c | © Diego Saavedra</em></p>
 
 
+
 </section>
 </section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">Referencias</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-strategyradar2025tdd" class="csl-entry" role="listitem">
+StrategyRadar.ai. 2025. <span>«Task-Driven Development with AI: The Complete Guide»</span>. febrero de 2025. <a href="https://strategyradar.ai/guides/task-driven-development">https://strategyradar.ai/guides/task-driven-development</a>.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";

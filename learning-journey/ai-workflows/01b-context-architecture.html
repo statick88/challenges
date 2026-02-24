@@ -56,7 +56,27 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -219,7 +239,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#estructura-de-context-documents" id="toc-estructura-de-context-documents" class="nav-link" data-scroll-target="#estructura-de-context-documents">📊 Estructura de Context Documents</a>
   <ul class="collapse">
-  <li><a href="#tipos-de-contexto-strategyradar" id="toc-tipos-de-contexto-strategyradar" class="nav-link" data-scroll-target="#tipos-de-contexto-strategyradar">Tipos de Contexto (StrategyRadar)</a></li>
+  <li><a href="#tipos-de-contexto-strategyradar-strategyradar2025tdd" id="toc-tipos-de-contexto-strategyradar-strategyradar2025tdd" class="nav-link" data-scroll-target="#tipos-de-contexto-strategyradar-strategyradar2025tdd">Tipos de Contexto (StrategyRadar) <span class="citation" data-cites="strategyradar2025tdd">(StrategyRadar.ai 2025)</span></a></li>
   <li><a href="#master-spec-vs-task-spec" id="toc-master-spec-vs-task-spec" class="nav-link" data-scroll-target="#master-spec-vs-task-spec">Master Spec vs Task Spec</a></li>
   <li><a href="#ejemplo-master-spec" id="toc-ejemplo-master-spec" class="nav-link" data-scroll-target="#ejemplo-master-spec">Ejemplo: Master Spec</a></li>
   </ul></li>
@@ -331,7 +351,7 @@ AI: [regenera código, inconsistente con lo anterior]
 </tbody>
 </table>
 <blockquote class="blockquote">
-<p><strong>We’re building the most important part of our development process on the most ephemeral medium possible.</strong> — Precursor Manifesto</p>
+<p><strong>We’re building the most important part of our development process on the most ephemeral medium possible.</strong> — Precursor Manifesto <span class="citation" data-cites="precursor2025manifesto">(<a href="#ref-precursor2025manifesto" role="doc-biblioref">Precursor 2025</a>)</span></p>
 </blockquote>
 <hr>
 </section>
@@ -532,8 +552,8 @@ Task Spec ───────┘</code></pre>
 </section>
 <section id="estructura-de-context-documents" class="level2">
 <h2 class="anchored" data-anchor-id="estructura-de-context-documents">📊 Estructura de Context Documents</h2>
-<section id="tipos-de-contexto-strategyradar" class="level3">
-<h3 class="anchored" data-anchor-id="tipos-de-contexto-strategyradar">Tipos de Contexto (StrategyRadar)</h3>
+<section id="tipos-de-contexto-strategyradar-strategyradar2025tdd" class="level3">
+<h3 class="anchored" data-anchor-id="tipos-de-contexto-strategyradar-strategyradar2025tdd">Tipos de Contexto (StrategyRadar) <span class="citation" data-cites="strategyradar2025tdd">(<a href="#ref-strategyradar2025tdd" role="doc-biblioref">StrategyRadar.ai 2025</a>)</span></h3>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 23%">
@@ -810,10 +830,18 @@ Provide:
 <p><em>Módulo 01b | © Diego Saavedra</em></p>
 
 
+
 </section>
 </section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">Referencias</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-precursor2025manifesto" class="csl-entry" role="listitem">
+Precursor. 2025. <span>«The Precursor Manifesto: Context Architecture»</span>. enero de 2025. <a href="https://precursor.dev/manifesto">https://precursor.dev/manifesto</a>.
+</div>
+<div id="ref-strategyradar2025tdd" class="csl-entry" role="listitem">
+StrategyRadar.ai. 2025. <span>«Task-Driven Development with AI: The Complete Guide»</span>. febrero de 2025. <a href="https://strategyradar.ai/guides/task-driven-development">https://strategyradar.ai/guides/task-driven-development</a>.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
