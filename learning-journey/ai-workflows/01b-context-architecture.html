@@ -1,0 +1,1222 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es-ES" xml:lang="es-ES"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Diego Saavedra">
+
+<title>Context Architecture vs Prompt Engineering – DevOps &amp; Security Learning Journey</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-7ac2f9da8c2617a4fdd15004b4601015.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-3dad1a9f078d91cda5f1887d21eb11b5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No se han encontrado resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">DevOps &amp; Security Learning Journey</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Buscar"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Navegación de palanca" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../foundations/index.html"> 
+<span class="menu-text">Foundations</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../containers/index.html"> 
+<span class="menu-text">Containers</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../devops-practices/index.html"> 
+<span class="menu-text">DevOps</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../security/index.html"> 
+<span class="menu-text">Security</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../ai-workflows/index.html"> 
+<span class="menu-text">AI Workflows</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../roadmap/index.html"> 
+<span class="menu-text">Roadmap</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-language" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Language</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-language">    
+        <li>
+    <a class="dropdown-item" href="../es/index.html">
+ <span class="dropdown-text">Español</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../index.html">
+ <span class="dropdown-text">English</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="https://github.com/statick88/challenges"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text">GitHub</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">En esta página</h2>
+   
+  <ul>
+  <li><a href="#context-architecture-el-nuevo-paradigma" id="toc-context-architecture-el-nuevo-paradigma" class="nav-link active" data-scroll-target="#context-architecture-el-nuevo-paradigma">🎓 Context Architecture: El Nuevo Paradigma</a>
+  <ul class="collapse">
+  <li><a href="#el-error-fundamental" id="toc-el-error-fundamental" class="nav-link" data-scroll-target="#el-error-fundamental">❌ El Error Fundamental</a>
+  <ul class="collapse">
+  <li><a href="#el-patrón-típico" id="toc-el-patrón-típico" class="nav-link" data-scroll-target="#el-patrón-típico">El Patrón Típico</a></li>
+  <li><a href="#por-qué-falla" id="toc-por-qué-falla" class="nav-link" data-scroll-target="#por-qué-falla">¿Por Qué Falla?</a></li>
+  </ul></li>
+  <li><a href="#context-architecture-la-solución" id="toc-context-architecture-la-solución" class="nav-link" data-scroll-target="#context-architecture-la-solución">🏗️ Context Architecture: La Solución</a>
+  <ul class="collapse">
+  <li><a href="#definición" id="toc-definición" class="nav-link" data-scroll-target="#definición">Definición</a></li>
+  <li><a href="#comparación" id="toc-comparación" class="nav-link" data-scroll-target="#comparación">Comparación</a></li>
+  <li><a href="#la-regla-8020" id="toc-la-regla-8020" class="nav-link" data-scroll-target="#la-regla-8020">La Regla 80/20</a></li>
+  </ul></li>
+  <li><a href="#the-precursor-methodology" id="toc-the-precursor-methodology" class="nav-link" data-scroll-target="#the-precursor-methodology">📐 The Precursor Methodology</a>
+  <ul class="collapse">
+  <li><a href="#los-4-pilares" id="toc-los-4-pilares" class="nav-link" data-scroll-target="#los-4-pilares">Los 4 Pilares</a></li>
+  <li><a href="#pilar-1-ideate-with-ai" id="toc-pilar-1-ideate-with-ai" class="nav-link" data-scroll-target="#pilar-1-ideate-with-ai">Pilar 1: Ideate with AI</a></li>
+  <li><a href="#pilar-2-context-first-architecture" id="toc-pilar-2-context-first-architecture" class="nav-link" data-scroll-target="#pilar-2-context-first-architecture">Pilar 2: Context-First Architecture</a></li>
+  <li><a href="#pilar-3-ai-pairing" id="toc-pilar-3-ai-pairing" class="nav-link" data-scroll-target="#pilar-3-ai-pairing">Pilar 3: AI Pairing</a></li>
+  <li><a href="#pilar-4-systematic-execution" id="toc-pilar-4-systematic-execution" class="nav-link" data-scroll-target="#pilar-4-systematic-execution">Pilar 4: Systematic Execution</a></li>
+  </ul></li>
+  <li><a href="#context-architecture-vs-prompt-engineering" id="toc-context-architecture-vs-prompt-engineering" class="nav-link" data-scroll-target="#context-architecture-vs-prompt-engineering">🔄 Context Architecture vs Prompt Engineering</a>
+  <ul class="collapse">
+  <li><a href="#prompt-engineering-el-dead-end" id="toc-prompt-engineering-el-dead-end" class="nav-link" data-scroll-target="#prompt-engineering-el-dead-end">Prompt Engineering: El Dead End</a></li>
+  <li><a href="#context-architecture-el-foundation" id="toc-context-architecture-el-foundation" class="nav-link" data-scroll-target="#context-architecture-el-foundation">Context Architecture: El Foundation</a></li>
+  </ul></li>
+  <li><a href="#estructura-de-context-documents" id="toc-estructura-de-context-documents" class="nav-link" data-scroll-target="#estructura-de-context-documents">📊 Estructura de Context Documents</a>
+  <ul class="collapse">
+  <li><a href="#tipos-de-contexto-strategyradar" id="toc-tipos-de-contexto-strategyradar" class="nav-link" data-scroll-target="#tipos-de-contexto-strategyradar">Tipos de Contexto (StrategyRadar)</a></li>
+  <li><a href="#master-spec-vs-task-spec" id="toc-master-spec-vs-task-spec" class="nav-link" data-scroll-target="#master-spec-vs-task-spec">Master Spec vs Task Spec</a></li>
+  <li><a href="#ejemplo-master-spec" id="toc-ejemplo-master-spec" class="nav-link" data-scroll-target="#ejemplo-master-spec">Ejemplo: Master Spec</a></li>
+  </ul></li>
+  <li><a href="#implementación-práctica" id="toc-implementación-práctica" class="nav-link" data-scroll-target="#implementación-práctica">🛠️ Implementación Práctica</a>
+  <ul class="collapse">
+  <li><a href="#paso-1-crear-context-directory" id="toc-paso-1-crear-context-directory" class="nav-link" data-scroll-target="#paso-1-crear-context-directory">Paso 1: Crear Context Directory</a></li>
+  <li><a href="#paso-2-documentar-estado-actual" id="toc-paso-2-documentar-estado-actual" class="nav-link" data-scroll-target="#paso-2-documentar-estado-actual">Paso 2: Documentar Estado Actual</a></li>
+  <li><a href="#paso-3-crear-task-spec" id="toc-paso-3-crear-task-spec" class="nav-link" data-scroll-target="#paso-3-crear-task-spec">Paso 3: Crear Task Spec</a></li>
+  <li><a href="#paso-4-ai-pairing-session" id="toc-paso-4-ai-pairing-session" class="nav-link" data-scroll-target="#paso-4-ai-pairing-session">Paso 4: AI Pairing Session</a></li>
+  <li><a href="#paso-5-update-master-spec" id="toc-paso-5-update-master-spec" class="nav-link" data-scroll-target="#paso-5-update-master-spec">Paso 5: Update Master Spec</a></li>
+  </ul></li>
+  <li><a href="#el-warning-crítico" id="toc-el-warning-crítico" class="nav-link" data-scroll-target="#el-warning-crítico">⚠️ El Warning Crítico</a>
+  <ul class="collapse">
+  <li><a href="#ejemplo-del-desastre" id="toc-ejemplo-del-desastre" class="nav-link" data-scroll-target="#ejemplo-del-desastre">Ejemplo del Desastre</a></li>
+  <li><a href="#regla-de-oro" id="toc-regla-de-oro" class="nav-link" data-scroll-target="#regla-de-oro">Regla de Oro</a></li>
+  </ul></li>
+  <li><a href="#metaprompting-la-técnica-experta" id="toc-metaprompting-la-técnica-experta" class="nav-link" data-scroll-target="#metaprompting-la-técnica-experta">🎯 Metaprompting: La Técnica Experta</a>
+  <ul class="collapse">
+  <li><a href="#qué-es-metaprompting" id="toc-qué-es-metaprompting" class="nav-link" data-scroll-target="#qué-es-metaprompting">¿Qué es Metaprompting?</a></li>
+  <li><a href="#la-técnica-del-experto" id="toc-la-técnica-del-experto" class="nav-link" data-scroll-target="#la-técnica-del-experto">La Técnica del Experto</a></li>
+  <li><a href="#ejemplo-completo" id="toc-ejemplo-completo" class="nav-link" data-scroll-target="#ejemplo-completo">Ejemplo Completo</a></li>
+  </ul></li>
+  <li><a href="#lo-que-aprendiste" id="toc-lo-que-aprendiste" class="nav-link" data-scroll-target="#lo-que-aprendiste">🎓 Lo Que Aprendiste</a></li>
+  <li><a href="#siguiente-paso" id="toc-siguiente-paso" class="nav-link" data-scroll-target="#siguiente-paso">🚀 Siguiente Paso</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Context Architecture vs Prompt Engineering</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Autor/a</div>
+    <div class="quarto-title-meta-contents">
+             <p>Diego Saavedra </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Fecha de publicación</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">24 de febrero de 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="context-architecture-el-nuevo-paradigma" class="level1">
+<h1>🎓 Context Architecture: El Nuevo Paradigma</h1>
+<p>👨‍🏫 <strong>Del Instructor</strong>: La mayoría cree que el secreto de la IA es escribir el “prompt perfecto”. Están equivocados. El contexto es el rey. Aquí aprenderás por qué Context Architecture supera a Prompt Engineering.</p>
+<blockquote class="blockquote">
+<p>💭 <strong>Mentalidad de Arquitecto</strong>: “El futuro del desarrollo de software no son mejores prompts. Es mejor contexto.”</p>
+</blockquote>
+<hr>
+<section id="el-error-fundamental" class="level2">
+<h2 class="anchored" data-anchor-id="el-error-fundamental">❌ El Error Fundamental</h2>
+<section id="el-patrón-típico" class="level3">
+<h3 class="anchored" data-anchor-id="el-patrón-típico">El Patrón Típico</h3>
+<pre class="text"><code>Developer: "Build me a todo app"
+AI: [genera código]
+Developer: "Hmm, pero quiero OAuth"
+AI: [regenera código]
+Developer: "Y también necesito offline mode"
+AI: [regenera código, inconsistente con lo anterior]
+...
+→ Caos técnico</code></pre>
+</section>
+<section id="por-qué-falla" class="level3">
+<h3 class="anchored" data-anchor-id="por-qué-falla">¿Por Qué Falla?</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Causa</th>
+<th>Efecto</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Sin estructura</td>
+<td>Código inconsistente</td>
+</tr>
+<tr class="even">
+<td>Sin persistencia</td>
+<td>Cada sesión empieza de cero</td>
+</tr>
+<tr class="odd">
+<td>Sin trazabilidad</td>
+<td>Nadie sabe por qué se decidió X</td>
+</tr>
+<tr class="even">
+<td>Sin versionado</td>
+<td>El contexto “desaparece” en chat history</td>
+</tr>
+</tbody>
+</table>
+<blockquote class="blockquote">
+<p><strong>We’re building the most important part of our development process on the most ephemeral medium possible.</strong> — Precursor Manifesto</p>
+</blockquote>
+<hr>
+</section>
+</section>
+<section id="context-architecture-la-solución" class="level2">
+<h2 class="anchored" data-anchor-id="context-architecture-la-solución">🏗️ Context Architecture: La Solución</h2>
+<section id="definición" class="level3">
+<h3 class="anchored" data-anchor-id="definición">Definición</h3>
+<p><strong>Context Architecture</strong> trata el contexto como un artefacto de ingeniería de primera clase:</p>
+<ul>
+<li>Versionado en Git</li>
+<li>Peer-reviewed como código</li>
+<li>Estructurado para consumo de IA</li>
+<li>Mantenido sistemáticamente</li>
+</ul>
+</section>
+<section id="comparación" class="level3">
+<h3 class="anchored" data-anchor-id="comparación">Comparación</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Aspecto</th>
+<th>Prompt Engineering</th>
+<th>Context Architecture</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Medio</strong></td>
+<td>Chat ephemeral</td>
+<td>Git-versioned files</td>
+</tr>
+<tr class="even">
+<td><strong>Escalabilidad</strong></td>
+<td>No escala</td>
+<td>Escala con el equipo</td>
+</tr>
+<tr class="odd">
+<td><strong>Consistencia</strong></td>
+<td>Variable</td>
+<td>Predecible</td>
+</tr>
+<tr class="even">
+<td><strong>Onboarding</strong></td>
+<td>Imposible</td>
+<td>Leer context docs</td>
+</tr>
+<tr class="odd">
+<td><strong>Mantenimiento</strong></td>
+<td>No existe</td>
+<td>Evoluciona con el proyecto</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="la-regla-8020" class="level3">
+<h3 class="anchored" data-anchor-id="la-regla-8020">La Regla 80/20</h3>
+<pre><code>┌─────────────────────────────────────────────────────────┐
+│                  REGLA 80/20                            │
+├─────────────────────────────────────────────────────────┤
+│                                                          │
+│  ❌ Enfoque actual:                                      │
+│     20% pensando → 80% debuggeando caos de IA          │
+│                                                          │
+│  ✅ Enfoque Context Architecture:                        │
+│     80% planeando con contexto → 20% ejecutando         │
+│                                                          │
+└─────────────────────────────────────────────────────────┘</code></pre>
+<hr>
+</section>
+</section>
+<section id="the-precursor-methodology" class="level2">
+<h2 class="anchored" data-anchor-id="the-precursor-methodology">📐 The Precursor Methodology</h2>
+<section id="los-4-pilares" class="level3">
+<h3 class="anchored" data-anchor-id="los-4-pilares">Los 4 Pilares</h3>
+<pre><code>┌─────────────────────────────────────────────────────────┐
+│               PRECURSOR METHODOLOGY                      │
+├─────────────────────────────────────────────────────────┤
+│                                                          │
+│  1. IDEATE with AI                                      │
+│     └── Workshop requirements con IA                    │
+│                                                          │
+│  2. CONTEXT-FIRST Architecture                          │
+│     └── Crear JSON context docs como artefactos         │
+│                                                          │
+│  3. AI PAIRING                                          │
+│     └── Usar IA junto con context docs                  │
+│                                                          │
+│  4. SYSTEMATIC Execution                                │
+│     └── Seguir proceso, no improvisar                   │
+│                                                          │
+└─────────────────────────────────────────────────────────┘</code></pre>
+</section>
+<section id="pilar-1-ideate-with-ai" class="level3">
+<h3 class="anchored" data-anchor-id="pilar-1-ideate-with-ai">Pilar 1: Ideate with AI</h3>
+<p><strong>Antes de escribir código, workshop con IA:</strong></p>
+<pre class="text"><code>❌ Mal:
+"Build a todo app"
+
+✅ Bien:
+"I'm building a task management system. Let me workshop 
+the requirements with you:
+- Who are the users?
+- What edge cases exist?
+- What are the non-functional requirements?
+- What constraints apply?"</code></pre>
+<p><strong>Output</strong>: Requirements refinados, edge cases identificados, supuestos claros</p>
+</section>
+<section id="pilar-2-context-first-architecture" class="level3">
+<h3 class="anchored" data-anchor-id="pilar-2-context-first-architecture">Pilar 2: Context-First Architecture</h3>
+<p><strong>Crear documentos de contexto como artefactos de ingeniería:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="er">//</span> <span class="er">context/architecture.json</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"project"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"name"</span><span class="fu">:</span> <span class="st">"TaskMaster"</span><span class="fu">,</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"version"</span><span class="fu">:</span> <span class="st">"2.1.0"</span><span class="fu">,</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"tech_stack"</span><span class="fu">:</span> <span class="ot">[</span><span class="st">"Node.js"</span><span class="ot">,</span> <span class="st">"PostgreSQL"</span><span class="ot">,</span> <span class="st">"Redis"</span><span class="ot">]</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"patterns"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"api"</span><span class="fu">:</span> <span class="st">"REST with OpenAPI 3.0"</span><span class="fu">,</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"auth"</span><span class="fu">:</span> <span class="st">"JWT + OAuth2"</span><span class="fu">,</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"testing"</span><span class="fu">:</span> <span class="st">"Jest + Supertest"</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"conventions"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"naming"</span><span class="fu">:</span> <span class="st">"camelCase for variables, PascalCase for classes"</span><span class="fu">,</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"file_structure"</span><span class="fu">:</span> <span class="st">"feature-based"</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Principios</strong>:</p>
+<ol type="1">
+<li>Machine-optimized (JSON/YAML)</li>
+<li>Version-controlled</li>
+<li>Peer-reviewed</li>
+<li>Comprehensive</li>
+</ol>
+</section>
+<section id="pilar-3-ai-pairing" class="level3">
+<h3 class="anchored" data-anchor-id="pilar-3-ai-pairing">Pilar 3: AI Pairing</h3>
+<p><strong>Usar IA junto con contexto, no aislada:</strong></p>
+<pre class="text"><code>Context Doc ─────┐
+                 ├──▶ AI Assistant ──▶ Quality Code
+Task Spec ───────┘</code></pre>
+<p><strong>Regla</strong>: “No context-free prompting. No starting from scratch each session.”</p>
+</section>
+<section id="pilar-4-systematic-execution" class="level3">
+<h3 class="anchored" data-anchor-id="pilar-4-systematic-execution">Pilar 4: Systematic Execution</h3>
+<p><strong>Seguir proceso, no improvisar:</strong></p>
+<pre class="text"><code>1. Read context docs
+2. Create/update task spec
+3. Generate with AI
+4. Review generated code
+5. Validate against specs
+6. Update context docs</code></pre>
+<hr>
+</section>
+</section>
+<section id="context-architecture-vs-prompt-engineering" class="level2">
+<h2 class="anchored" data-anchor-id="context-architecture-vs-prompt-engineering">🔄 Context Architecture vs Prompt Engineering</h2>
+<section id="prompt-engineering-el-dead-end" class="level3">
+<h3 class="anchored" data-anchor-id="prompt-engineering-el-dead-end">Prompt Engineering: El Dead End</h3>
+<pre class="text"><code>┌─────────────────────────────────────────────────────────┐
+│           POR QUÉ PROMPT ENGINEERING FALLA               │
+├─────────────────────────────────────────────────────────┤
+│                                                          │
+│  1. Optimiza para una sola interacción                  │
+│     └── Software = miles de interacciones               │
+│                                                          │
+│  2. No es reproducible                                  │
+│     └── Mismo prompt ≠ mismo resultado                  │
+│                                                          │
+│  3. No transfiere conocimiento                          │
+│     └── Cada sesión empieza de cero                     │
+│                                                          │
+│  4. No escala con equipos                               │
+│     └── Cada developer tiene sus "prompts secretos"     │
+│                                                          │
+│  Conclusion: Prompt engineering es duct tape             │
+│              Context architecture es infrastructure      │
+│                                                          │
+└─────────────────────────────────────────────────────────┘</code></pre>
+</section>
+<section id="context-architecture-el-foundation" class="level3">
+<h3 class="anchored" data-anchor-id="context-architecture-el-foundation">Context Architecture: El Foundation</h3>
+<pre class="text"><code>┌─────────────────────────────────────────────────────────┐
+│           VENTAJAS DE CONTEXT ARCHITECTURE               │
+├─────────────────────────────────────────────────────────┤
+│                                                          │
+│  ✅ Funciona con múltiples modelos de IA                │
+│  ✅ Funciona con múltiples developers                   │
+│  ✅ Funciona a través de fases del proyecto             │
+│  ✅ Construye conocimiento institucional                │
+│  ✅ Onboarding: leer context docs                       │
+│  ✅ Product managers entienden decisiones técnicas       │
+│                                                          │
+└─────────────────────────────────────────────────────────┘</code></pre>
+<hr>
+</section>
+</section>
+<section id="estructura-de-context-documents" class="level2">
+<h2 class="anchored" data-anchor-id="estructura-de-context-documents">📊 Estructura de Context Documents</h2>
+<section id="tipos-de-contexto-strategyradar" class="level3">
+<h3 class="anchored" data-anchor-id="tipos-de-contexto-strategyradar">Tipos de Contexto (StrategyRadar)</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 23%">
+<col style="width: 42%">
+<col style="width: 34%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Tipo</th>
+<th>Propósito</th>
+<th>Ejemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Business Context</strong></td>
+<td>Reglas de negocio</td>
+<td>“Orders &gt; $100 require approval”</td>
+</tr>
+<tr class="even">
+<td><strong>Functional Context</strong></td>
+<td>Flujos de usuario</td>
+<td>Login flow, Checkout flow</td>
+</tr>
+<tr class="odd">
+<td><strong>Technical Strategy</strong></td>
+<td>Decisiones arquitecturales</td>
+<td>“Use PostgreSQL for OLTP”</td>
+</tr>
+<tr class="even">
+<td><strong>Technical Context</strong></td>
+<td>Estructura del proyecto</td>
+<td>File layout, naming conventions</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="master-spec-vs-task-spec" class="level3">
+<h3 class="anchored" data-anchor-id="master-spec-vs-task-spec">Master Spec vs Task Spec</h3>
+<pre><code>┌─────────────────────────────────────────────────────────┐
+│                    MASTER SPEC                           │
+│                                                          │
+│  "Cómo funciona el sistema AHORA"                        │
+│  - Estado completo actual                               │
+│  - Arquitectura vigente                                 │
+│  - Patrones en uso                                      │
+│  - Convenciones del equipo                              │
+│                                                          │
+│  └── Living document, se actualiza con cada cambio      │
+│                                                          │
+└─────────────────────────────────────────────────────────┘
+                          │
+                          │ provides context for
+                          ▼
+┌─────────────────────────────────────────────────────────┐
+│                    TASK SPEC                             │
+│                                                          │
+│  "Qué estoy cambiando"                                   │
+│  - Requisitos específicos del cambio                    │
+│  - Impacto en sistema                                   │
+│  - Solución técnica                                     │
+│                                                          │
+│  └── Temporal, se archiva al completar                 │
+│                                                          │
+└─────────────────────────────────────────────────────────┘</code></pre>
+</section>
+<section id="ejemplo-master-spec" class="level3">
+<h3 class="anchored" data-anchor-id="ejemplo-master-spec">Ejemplo: Master Spec</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># context/master-spec.yaml</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">project</span><span class="kw">:</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">name</span><span class="kw">:</span><span class="at"> E-Commerce Platform</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">version</span><span class="kw">:</span><span class="at"> </span><span class="fl">3.2.1</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="fu">architecture</span><span class="kw">:</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">pattern</span><span class="kw">:</span><span class="at"> Microservices</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">services</span><span class="kw">:</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> user-service</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">port</span><span class="kw">:</span><span class="at"> </span><span class="dv">3001</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">database</span><span class="kw">:</span><span class="at"> PostgreSQL</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> order-service</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">port</span><span class="kw">:</span><span class="at"> </span><span class="dv">3002</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">database</span><span class="kw">:</span><span class="at"> PostgreSQL</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> inventory-service</span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">port</span><span class="kw">:</span><span class="at"> </span><span class="dv">3003</span></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">database</span><span class="kw">:</span><span class="at"> Redis + PostgreSQL</span></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="at">      </span></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a><span class="fu">patterns</span><span class="kw">:</span></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">api</span><span class="kw">:</span></span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">style</span><span class="kw">:</span><span class="at"> REST</span></span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">versioning</span><span class="kw">:</span><span class="at"> URL path (/api/v1/)</span></span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">auth</span><span class="kw">:</span><span class="at"> JWT + API Gateway</span></span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a><span class="at">    </span></span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">data</span><span class="kw">:</span></span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">orm</span><span class="kw">:</span><span class="at"> TypeORM</span></span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">migrations</span><span class="kw">:</span><span class="at"> Flyway</span></span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a><span class="at">    </span></span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">testing</span><span class="kw">:</span></span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">unit</span><span class="kw">:</span><span class="at"> Jest</span></span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">e2e</span><span class="kw">:</span><span class="at"> Cypress</span></span>
+<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">coverage_threshold</span><span class="kw">:</span><span class="at"> 80%</span></span>
+<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a><span class="at">    </span></span>
+<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a><span class="fu">conventions</span><span class="kw">:</span></span>
+<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">naming</span><span class="kw">:</span></span>
+<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">files</span><span class="kw">:</span><span class="at"> kebab-case</span></span>
+<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">variables</span><span class="kw">:</span><span class="at"> camelCase</span></span>
+<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">classes</span><span class="kw">:</span><span class="at"> PascalCase</span></span>
+<span id="cb11-39"><a href="#cb11-39" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">constants</span><span class="kw">:</span><span class="at"> SCREAMING_SNAKE_CASE</span></span>
+<span id="cb11-40"><a href="#cb11-40" aria-hidden="true" tabindex="-1"></a><span class="at">    </span></span>
+<span id="cb11-41"><a href="#cb11-41" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">structure</span><span class="kw">:</span></span>
+<span id="cb11-42"><a href="#cb11-42" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">feature_based</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb11-43"><a href="#cb11-43" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">max_file_lines</span><span class="kw">:</span><span class="at"> </span><span class="dv">300</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+</section>
+<section id="implementación-práctica" class="level2">
+<h2 class="anchored" data-anchor-id="implementación-práctica">🛠️ Implementación Práctica</h2>
+<section id="paso-1-crear-context-directory" class="level3">
+<h3 class="anchored" data-anchor-id="paso-1-crear-context-directory">Paso 1: Crear Context Directory</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> context/</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">touch</span> context/master-spec.yaml</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">touch</span> context/conventions.yaml</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="fu">touch</span> context/decisions.yaml</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="paso-2-documentar-estado-actual" class="level3">
+<h3 class="anchored" data-anchor-id="paso-2-documentar-estado-actual">Paso 2: Documentar Estado Actual</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># context/master-spec.yaml (v1)</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">project</span><span class="kw">:</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">name</span><span class="kw">:</span><span class="at"> My Project</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">tech_stack</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">Node.js</span><span class="kw">,</span><span class="at"> Express</span><span class="kw">,</span><span class="at"> PostgreSQL</span><span class="kw">]</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="fu">current_state</span><span class="kw">:</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">auth</span><span class="kw">:</span><span class="at"> </span><span class="st">"JWT + bcrypt"</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">api_style</span><span class="kw">:</span><span class="at"> </span><span class="st">"REST"</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">testing</span><span class="kw">:</span><span class="at"> </span><span class="st">"Jest"</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="paso-3-crear-task-spec" class="level3">
+<h3 class="anchored" data-anchor-id="paso-3-crear-task-spec">Paso 3: Crear Task Spec</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># openspec/changes/001-add-oauth/spec.yaml</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">change</span><span class="kw">:</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">type</span><span class="kw">:</span><span class="at"> feature</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">affects</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">auth</span><span class="kw">,</span><span class="at"> user-service</span><span class="kw">]</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="fu">requirements</span><span class="kw">:</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> Add Google OAuth provider</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> Maintain existing JWT auth</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> Link OAuth accounts to existing users</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="at">  </span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="fu">context_used</span><span class="kw">:</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> context/master-spec.yaml</span><span class="co">#auth</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> context/conventions.yaml</span><span class="co">#api</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="paso-4-ai-pairing-session" class="level3">
+<h3 class="anchored" data-anchor-id="paso-4-ai-pairing-session">Paso 4: AI Pairing Session</h3>
+<pre class="text"><code>Prompt a IA:
+"Read context/master-spec.yaml and openspec/changes/001-add-oauth/spec.yaml.
+Implement Google OAuth following the patterns in master-spec.
+Maintain existing JWT auth as fallback."</code></pre>
+</section>
+<section id="paso-5-update-master-spec" class="level3">
+<h3 class="anchored" data-anchor-id="paso-5-update-master-spec">Paso 5: Update Master Spec</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># context/master-spec.yaml (v2)</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">project</span><span class="kw">:</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">name</span><span class="kw">:</span><span class="at"> My Project</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">tech_stack</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">Node.js</span><span class="kw">,</span><span class="at"> Express</span><span class="kw">,</span><span class="at"> PostgreSQL</span><span class="kw">]</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="fu">current_state</span><span class="kw">:</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">auth</span><span class="kw">:</span><span class="at"> </span><span class="st">"JWT + bcrypt + Google OAuth"</span><span class="co">  # UPDATED</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">api_style</span><span class="kw">:</span><span class="at"> </span><span class="st">"REST"</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">testing</span><span class="kw">:</span><span class="at"> </span><span class="st">"Jest"</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+</section>
+<section id="el-warning-crítico" class="level2">
+<h2 class="anchored" data-anchor-id="el-warning-crítico">⚠️ El Warning Crítico</h2>
+<blockquote class="blockquote">
+<p><strong>WARNING: Keep Specs Up-to-Date</strong></p>
+<p>Unlike human developers who can identify outdated documentation, AI agents trust your specifications as source of truth.</p>
+<p>Outdated specs don’t just create confusion—they actively generate INCORRECT code.</p>
+<p>— StrategyRadar.ai</p>
+</blockquote>
+<section id="ejemplo-del-desastre" class="level3">
+<h3 class="anchored" data-anchor-id="ejemplo-del-desastre">Ejemplo del Desastre</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># context/master-spec.yaml (OUTDATED)</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">api</span><span class="kw">:</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">style</span><span class="kw">:</span><span class="at"> REST</span><span class="co">  # Pero en realidad migraron a GraphQL hace 3 meses</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Resultado:</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="co"># IA genera código REST para una API que ya es GraphQL</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="co"># → Horas de debugging</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="co"># → Confusión del equipo</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="co"># → Desconfianza en IA</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="regla-de-oro" class="level3">
+<h3 class="anchored" data-anchor-id="regla-de-oro">Regla de Oro</h3>
+<pre class="text"><code>Si cambias el código, actualiza el context doc.
+Si no actualizas el context doc, no hagas commit.</code></pre>
+<hr>
+</section>
+</section>
+<section id="metaprompting-la-técnica-experta" class="level2">
+<h2 class="anchored" data-anchor-id="metaprompting-la-técnica-experta">🎯 Metaprompting: La Técnica Experta</h2>
+<section id="qué-es-metaprompting" class="level3">
+<h3 class="anchored" data-anchor-id="qué-es-metaprompting">¿Qué es Metaprompting?</h3>
+<p><strong>Metaprompting</strong> es pedirle a la IA que piense como experto antes de responder:</p>
+<pre class="text"><code>❌ Prompt directo:
+"Add OAuth to my app"
+
+✅ Metaprompt:
+"Before answering, think like a Security Architect with 15 years 
+of experience. Consider:
+- Threat model
+- Attack vectors
+- Compliance requirements
+Then provide your recommendation."</code></pre>
+</section>
+<section id="la-técnica-del-experto" class="level3">
+<h3 class="anchored" data-anchor-id="la-técnica-del-experto">La Técnica del Experto</h3>
+<pre class="text"><code>Step 1: Define el rol
+"You are a Senior Architect specializing in authentication systems"
+
+Step 2: Establece contexto
+"The project uses Node.js, PostgreSQL, and serves 100K daily users"
+
+Step 3: Pide análisis
+"First, analyze the security implications. Then propose solutions."
+
+Step 4: Solicita trade-offs
+"For each solution, list pros/cons and your recommendation"</code></pre>
+</section>
+<section id="ejemplo-completo" class="level3">
+<h3 class="anchored" data-anchor-id="ejemplo-completo">Ejemplo Completo</h3>
+<pre class="text"><code>Prompt:
+"You are a Principal Engineer at a fintech company. 
+We need to add rate limiting to our API.
+
+Context:
+- Node.js + Express
+- 50 endpoints
+- 10K requests/minute peak
+- Must comply with PCI-DSS
+
+Before proposing a solution:
+1. Analyze threat model
+2. Consider scalability
+3. Evaluate libraries vs custom solution
+4. Think about monitoring and alerting
+
+Provide:
+- Recommended approach
+- Implementation phases
+- Monitoring strategy
+- Rollback plan"</code></pre>
+<hr>
+</section>
+</section>
+<section id="lo-que-aprendiste" class="level2">
+<h2 class="anchored" data-anchor-id="lo-que-aprendiste">🎓 Lo Que Aprendiste</h2>
+<ol type="1">
+<li><strong>Context Architecture</strong> supera a Prompt Engineering</li>
+<li><strong>La Regla 80/20</strong>: 80% planeando, 20% ejecutando</li>
+<li><strong>4 Pilares</strong>: Ideate, Context-First, AI Pairing, Systematic</li>
+<li><strong>Master Spec</strong>: Estado actual del sistema</li>
+<li><strong>Task Spec</strong>: Cambios específicos</li>
+<li><strong>Warning crítico</strong>: Specs desactualizados = código incorrecto</li>
+<li><strong>Metaprompting</strong>: Técnica experta para mejores resultados</li>
+</ol>
+<hr>
+</section>
+<section id="siguiente-paso" class="level2">
+<h2 class="anchored" data-anchor-id="siguiente-paso">🚀 Siguiente Paso</h2>
+<p>Continúa con <a href="../ai-workflows/01c-task-driven-development.html">Módulo 1C: Task-Driven Development</a> para aprender el flujo de trabajo basado en tareas.</p>
+<hr>
+<p><em>Módulo 1B | Duración: 45 min | Dificultad: 🟡 Intermedio</em></p>
+<p><em>Módulo 01b | © Diego Saavedra</em></p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiado");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiado");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

@@ -1,0 +1,353 @@
+<!DOCTYPE html><html lang="es" data-astro-cid-ouamjn2i> <head><meta charset="UTF-8"><meta name="description" content="Plataforma interactiva de desafíos técnicos - Linux, Docker, DevOps, CTF"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.17.1"><meta name="theme-color" content="#4c80cc"><title>Day 15: Configuración de Zona Horaria - DevOps 100 Days</title><!-- Preconnect for fonts --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><!-- Script para prevenir flash de tema incorrecto --><script>
+      const theme = (() => {
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+          return localStorage.getItem('theme');
+        }
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          return 'dark';
+        }
+        return 'light';
+      })();
+      
+      if (theme === 'light') {
+        document.documentElement.classList.add('light');
+      } else {
+        document.documentElement.classList.add('dark');
+      }
+    </script><!-- Cache busting: Verificar versión y recargar si hay cambios --><script>
+      (function() {
+        const BUILD_VERSION = '1771614292958';
+        const CACHE_KEY = 'tech-challenges-build-version';
+        
+        // Verificar si hay nueva versión
+        const storedVersion = localStorage.getItem(CACHE_KEY);
+        
+        if (storedVersion && storedVersion !== BUILD_VERSION) {
+          // Nueva versión detectada, limpiar cache y recargar
+          console.log('🆕 Nueva versión detectada. Actualizando...');
+          if ('caches' in window) {
+            caches.keys().then(names => {
+              names.forEach(name => caches.delete(name));
+            });
+          }
+          localStorage.setItem(CACHE_KEY, BUILD_VERSION);
+          window.location.reload();
+        } else if (!storedVersion) {
+          localStorage.setItem(CACHE_KEY, BUILD_VERSION);
+        }
+      })();
+    </script><link rel="stylesheet" href="/challenges/_astro/_slug_-Bxg8atdN.css">
+<link rel="stylesheet" href="/challenges/_astro/_slug_-CaxYOu3g.css">
+<style>.nav-buttons[data-astro-cid-mvyioy5t]{display:flex;justify-content:space-between;gap:1rem;margin-top:2rem;flex-wrap:wrap}.nav-btn[data-astro-cid-mvyioy5t]{display:flex;align-items:center;gap:.75rem;padding:1rem 1.25rem;background:#1e293bcc;border:1px solid rgba(71,85,105,.3);border-radius:.75rem;text-decoration:none;transition:all .2s ease;flex:1;min-width:200px;max-width:280px}.nav-btn[data-astro-cid-mvyioy5t]:hover:not(.disabled){background:#a855f71a;border-color:#a855f74d;transform:translateY(-2px)}.nav-btn[data-astro-cid-mvyioy5t].disabled{opacity:.4;cursor:not-allowed;pointer-events:none}.nav-btn[data-astro-cid-mvyioy5t].prev{text-align:left}.nav-btn[data-astro-cid-mvyioy5t].next{text-align:right;justify-content:flex-end}.nav-btn[data-astro-cid-mvyioy5t].home{justify-content:center;max-width:200px}.nav-icon[data-astro-cid-mvyioy5t]{font-size:1.25rem;color:#a855f7}.nav-content[data-astro-cid-mvyioy5t]{display:flex;flex-direction:column;gap:.25rem}.nav-label[data-astro-cid-mvyioy5t]{font-size:.7rem;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em}.nav-title[data-astro-cid-mvyioy5t]{font-size:.875rem;color:#e2e8f0;font-weight:500}@media(max-width:768px){.nav-buttons[data-astro-cid-mvyioy5t]{flex-direction:column}.nav-btn[data-astro-cid-mvyioy5t]{max-width:100%}}.markdown-body{font-family:system-ui;line-height:1.8;color:#e5e7eb}.markdown-body h1{font-size:2rem;font-weight:700;color:#a855f7;margin:2rem 0 1rem;border-bottom:1px solid #374151;padding-bottom:.5rem}.markdown-body h2{font-size:1.5rem;font-weight:600;color:#f472b6;margin:1.75rem 0 1rem}.markdown-body h3{font-size:1.25rem;font-weight:600;color:#f9a8d4;margin:1.5rem 0 .75rem}.markdown-body p{margin:.75rem 0;color:#d1d5db}.markdown-body strong{color:#fbbf24;font-weight:600}.markdown-body code{background:#a855f726;color:#c084fc;padding:.2rem .5rem;border-radius:.375rem;font-family:monospace}.markdown-body pre{background:#0f172a;padding:1rem;border-radius:.75rem;overflow-x:auto;margin:1rem 0;border:1px solid #1e293b}.markdown-body pre code{background:transparent;padding:0;color:#a5b4fc}.markdown-body ul,.markdown-body ol{margin:.75rem 0;padding-left:1.5rem;color:#d1d5db}.markdown-body li{margin:.5rem 0}.markdown-body blockquote{border-left:4px solid #a855f7;padding-left:1rem;margin:1rem 0;color:#9ca3af}
+</style></head> <body class="min-h-screen flex flex-col" data-astro-cid-ouamjn2i> <!-- Header --> <header class="sticky top-0 z-50 border-b" style="background-color: var(--color-bg); border-color: var(--color-border);" data-astro-cid-ouamjn2i> <div class="container mx-auto px-4 py-4 flex items-center justify-between" data-astro-cid-ouamjn2i> <!-- Logo / Brand --> <a href="/" class="flex items-center gap-3 group" data-astro-cid-ouamjn2i> <span class="text-2xl" data-astro-cid-ouamjn2i>🚀</span> <span class="font-bold text-lg transition-colors group-hover:text-accent" style="color: var(--color-text);" data-astro-cid-ouamjn2i>
+Tech Challenges
+</span> </a> <!-- Navigation --> <nav class="hidden md:flex items-center gap-6" data-astro-cid-ouamjn2i> <a href="/challenges/" class="nav-link" data-astro-cid-ouamjn2i>Dashboard</a> <a href="/challenges/linux/" class="nav-link" data-astro-cid-ouamjn2i>Linux</a> <a href="/challenges/docker/" class="nav-link" data-astro-cid-ouamjn2i>Docker</a> <a href="/challenges/devops/" class="nav-link" data-astro-cid-ouamjn2i>DevOps</a> <a href="/challenges/ctf/" class="nav-link" data-astro-cid-ouamjn2i>CTF</a> <a href="/challenges/htb/" class="nav-link" data-astro-cid-ouamjn2i>HTB</a> </nav> <!-- Theme Toggle --> <div class="flex items-center gap-4" data-astro-cid-ouamjn2i> <button id="lang-toggle" class="lang-toggle" type="button" aria-label="Cambiar idioma" title="Cambiar idioma" data-astro-cid-lb7h3eps> <span class="lang-text" data-astro-cid-lb7h3eps>EN</span> </button>  <script type="module">const l={es:{"hero.badge":"Plataforma de Aprendizaje","hero.title.line1":"Domina Linux, Docker,","hero.title.line2":"DevOps & Security","hero.subtitle":"Plataforma interactiva con 70+ desafíos prácticos. Aprende haciendo, no solo leyendo.","hero.stat.completed":"Completados","hero.stat.progress":"Progreso","hero.stat.challenges":"Desafíos","progress.title":"Progreso General","progress.completed":"completados","progress.in_progress":"en progreso","progress.blocked":"bloqueados","programs.title":"Programas de Aprendizaje","programs.subtitle":"Selecciona un programa para ver sus desafíos","programs.completed":"Completados","programs.total":"Total","programs.view":"Ver desafíos","program.linux":"Linux","program.docker":"Docker","program.devops":"DevOps","program.ctf":"CTF","program.htb":"HTB Academy","program.linux.desc":"Administración de sistemas Linux, usuarios, permisos y automatización","program.docker.desc":"Containerización, orquestación y mejores prácticas de Docker","program.devops.desc":"CI/CD, automatización y cultura DevOps","program.ctf.desc":"Desafíos de seguridad: criptografía, web, forense y más","program.htb.desc":"Módulos de Hack The Box Academy completados","cert.title":"Certificaciones Obtenidas","cert.subtitle":"Reconocimientos oficiales de tu progreso","cert.docker.title":"Docker Certification","cert.docker.platform":"KodeKloud Engineer","cert.challenges":"Challenges","cert.verify":"Verificar certificado","activity.title":"Actividad Reciente","activity.subtitle":"Últimos desafíos completados","footer.update":"Última actualización"},en:{"hero.badge":"Learning Platform","hero.title.line1":"Master Linux, Docker,","hero.title.line2":"DevOps & Security","hero.subtitle":"Interactive platform with 70+ practical challenges. Learn by doing, not just reading.","hero.stat.completed":"Completed","hero.stat.progress":"Progress","hero.stat.challenges":"Challenges","progress.title":"Overall Progress","progress.completed":"completed","progress.in_progress":"in progress","progress.blocked":"blocked","programs.title":"Learning Programs","programs.subtitle":"Select a program to view its challenges","programs.completed":"Completed","programs.total":"Total","programs.view":"View challenges","program.linux":"Linux","program.docker":"Docker","program.devops":"DevOps","program.ctf":"CTF","program.htb":"HTB Academy","program.linux.desc":"Linux system administration, users, permissions and automation","program.docker.desc":"Containerization, orchestration and Docker best practices","program.devops.desc":"CI/CD, automation and DevOps culture","program.ctf.desc":"Security challenges: cryptography, web, forensics and more","program.htb.desc":"Completed Hack The Box Academy modules","cert.title":"Earned Certifications","cert.subtitle":"Official recognition of your progress","cert.docker.title":"Docker Certification","cert.docker.platform":"KodeKloud Engineer","cert.challenges":"Challenges","cert.verify":"Verify Certificate","activity.title":"Recent Activity","activity.subtitle":"Latest completed challenges","footer.update":"Last updated"}},i=document.getElementById("lang-toggle"),s=i?.querySelector(".lang-text");function c(){if(typeof localStorage<"u"){const e=localStorage.getItem("lang");if(e==="es"||e==="en")return e}return"es"}function d(e){typeof localStorage<"u"&&localStorage.setItem("lang",e)}function g(e){s&&(s.textContent=e==="es"?"EN":"ES")}function n(e){const t=l[e];document.querySelectorAll("[data-i18n]").forEach(o=>{const r=o.getAttribute("data-i18n");r&&t[r]&&(o.textContent=t[r])}),document.querySelectorAll("[data-i18n-program]").forEach(o=>{const r=o.getAttribute("data-i18n-program");if(r){const a=`program.${r}`;t[a]&&(o.textContent=t[a])}}),document.querySelectorAll("[data-i18n-program-desc]").forEach(o=>{const r=o.getAttribute("data-i18n-program-desc");if(r){const a=`program.${r}.desc`;t[a]&&(o.textContent=t[a])}}),document.documentElement.lang=e,g(e)}const p=c();n(p);i?.addEventListener("click",()=>{const t=c()==="es"?"en":"es";d(t),n(t)});</script> <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Cambiar tema" title="Cambiar tema claro/oscuro" data-astro-cid-x3pjskd3> <!-- Icono Sol (visible en tema oscuro) --> <svg class="icon-sun w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" data-astro-cid-x3pjskd3> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" data-astro-cid-x3pjskd3></path> </svg> <!-- Icono Luna (visible en tema claro) --> <svg class="icon-moon w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" data-astro-cid-x3pjskd3> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" data-astro-cid-x3pjskd3></path> </svg> </button>  <script type="module">const m=document.getElementById("theme-toggle");function c(){return typeof localStorage<"u"&&localStorage.getItem("theme")?localStorage.getItem("theme"):window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}function t(e){e==="dark"?(document.documentElement.classList.remove("light"),document.documentElement.classList.add("dark")):(document.documentElement.classList.remove("dark"),document.documentElement.classList.add("light")),localStorage.setItem("theme",e)}const d=c();d==="light"?document.documentElement.classList.add("light"):document.documentElement.classList.add("dark");m?.addEventListener("click",()=>{const n=(document.documentElement.classList.contains("light")?"light":"dark")==="dark"?"light":"dark";document.documentElement.classList.add("theme-transitioning"),t(n),setTimeout(()=>{document.documentElement.classList.remove("theme-transitioning")},300)});window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change",e=>{localStorage.getItem("theme")||t(e.matches?"dark":"light")});</script> <!-- Mobile Menu Button --> <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg border transition-colors" style="background-color: var(--color-bg-card); border-color: var(--color-border);" aria-label="Menú" data-astro-cid-ouamjn2i> <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-ouamjn2i> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" data-astro-cid-ouamjn2i></path> </svg> </button> </div> </div> <!-- Mobile Navigation --> <div id="mobile-menu" class="hidden md:hidden border-t" style="border-color: var(--color-border); background-color: var(--color-bg-card);" data-astro-cid-ouamjn2i> <nav class="container mx-auto px-4 py-4 flex flex-col gap-2" data-astro-cid-ouamjn2i> <a href="/challenges/" class="mobile-nav-link" data-astro-cid-ouamjn2i>Dashboard</a> <a href="/challenges/linux/" class="mobile-nav-link" data-astro-cid-ouamjn2i>🐧 Linux</a> <a href="/challenges/docker/" class="mobile-nav-link" data-astro-cid-ouamjn2i>🐳 Docker</a> <a href="/challenges/devops/" class="mobile-nav-link" data-astro-cid-ouamjn2i>⚙️ DevOps</a> <a href="/challenges/ctf/" class="mobile-nav-link" data-astro-cid-ouamjn2i>🚩 CTF</a> <a href="/challenges/htb/" class="mobile-nav-link" data-astro-cid-ouamjn2i>🎯 HTB</a> </nav> </div> </header> <!-- Main Content --> <main class="flex-1" data-astro-cid-ouamjn2i>   <main class="container mx-auto px-4 py-8" data-astro-cid-mvyioy5t> <div class="max-w-4xl mx-auto" data-astro-cid-mvyioy5t> <!-- Breadcrumb --> <nav class="flex items-center gap-2 text-sm mb-6" style="color: var(--color-text-secondary);" data-astro-cid-mvyioy5t> <a href="/" class="hover:underline" style="color: var(--color-accent);" data-astro-cid-mvyioy5t>Dashboard</a> <span data-astro-cid-mvyioy5t>/</span> <a href="/challenges/devops/" class="hover:underline" style="color: var(--color-accent);" data-astro-cid-mvyioy5t>DevOps</a> <span data-astro-cid-mvyioy5t>/</span> <span data-astro-cid-mvyioy5t>Day 15</span> </nav> <article class="card p-8" data-astro-cid-mvyioy5t> <header class="mb-6" data-astro-cid-mvyioy5t> <div class="flex items-center gap-2 mb-2" data-astro-cid-mvyioy5t> <span class="text-purple-400 font-mono font-bold" data-astro-cid-mvyioy5t>⚙️ Day 15</span> </div> <h1 class="text-3xl font-bold mb-4" style="color: var(--color-text);" data-astro-cid-mvyioy5t>Configuración de Zona Horaria</h1> <div class="flex items-center gap-4 text-sm" style="color: var(--color-text-secondary);" data-astro-cid-mvyioy5t> <span data-astro-cid-mvyioy5t>Dificultad: 1</span> <span data-astro-cid-mvyioy5t>Fecha: 2026-02-05</span> </div> </header> <div class="markdown-body" data-astro-cid-mvyioy5t><h1>🎓 Día 15: Sincronización Temporal y Consistencia</h1>
+<h2>🎓 Del Instructor: DevOps Coach</h2>
+<blockquote>
+<p>🔄 <strong>Mentalidad DevOps</strong>: &quot;El tiempo es la única métrica que todos compartimos. Cuando tus servidores, logs y bases de datos están sincronizados temporalmente, los eventos cuentan una historia coherente. Sin sincronización, tienes caos disfrazado de datos.&quot;</p>
+</blockquote>
+<p>Hoy configuramos <strong>zona horaria y sincronización temporal</strong> - aparentemente simple, pero crítico para logging, troubleshooting y operaciones coordinadas. Es el cierre perfecto de nuestro bloque inicial.</p>
+<hr>
+<h2>🎭 Contexto del Día</h2>
+<h3>Conexión con Días Anteriores</h3>
+<ul>
+<li><strong>Días 1-14</strong>: Infraestructura, servicios, backups configurados</li>
+<li><strong>Hoy</strong>: Aseguramos consistencia temporal en todo</li>
+<li><strong>Próximos</strong>: Aplicaremos esto a logs distribuidos y debugging</li>
+</ul>
+<h3>Progresión hacia el Pipeline CI/CD</h3>
+<p>Timezone correcto es esencial para:</p>
+<ul>
+<li><strong>Log Aggregation</strong>: Trazar eventos entre múltiples servidores</li>
+<li><strong>Cron Jobs</strong>: Ejecutar tareas en horarios correctos</li>
+<li><strong>Compliance</strong>: Auditorías requieren timestamps precisos</li>
+<li><strong>Debugging</strong>: Correlacionar eventos entre servicios</li>
+</ul>
+<h3>Escenario Empresarial</h3>
+<p>xFusionCorp opera desde Ecuador (ECT, UTC-5). Todos los servidores deben:</p>
+<ol>
+<li>Usar zona horaria <code>America/Guayaquil</code></li>
+<li>Sincronizarse con servidores NTP</li>
+<li>Mantener consistencia temporal para logs y backups</li>
+</ol>
+<hr>
+<h2>🧠 Fundamentos DevOps</h2>
+<h3>Cultura de Colaboración</h3>
+<p>Timezone consistente facilita:</p>
+<ul>
+<li><strong>On-Call Rotation</strong>: Saber exactamente cuándo ocurrió un incidente</li>
+<li><strong>Cross-Team Debugging</strong>: Desarrollo y operaciones en misma línea temporal</li>
+<li><strong>Global Operations</strong>: Coordinar eventos entre regiones</li>
+</ul>
+<h3>Automatización</h3>
+<pre><code class="language-bash"># Timezone incorrecto causa:
+- &quot;¿Por qué el backup dice 2 AM pero ejecutó a 7 PM?&quot;
+- &quot;El log del servidor A no coincide con el servidor B&quot;
+
+# Timezone correcto permite:
+- Correlación automática de eventos
+- Cron jobs ejecutando exactamente cuando deben
+- Logs con timestamps significativos
+</code></pre>
+<h3>Métricas y Observabilidad</h3>
+<ul>
+<li><strong>Time Drift</strong>: Diferencia entre tiempo local y NTP</li>
+<li><strong>Log Latency</strong>: Delay en generación de logs</li>
+<li><strong>Event Correlation</strong>: Precisión en trazabilidad de eventos</li>
+</ul>
+<hr>
+<h2>🛠️ Implementación Paso a Paso</h2>
+<h3>Paso 1: Verificar Estado Actual</h3>
+<pre><code class="language-bash"># Verificar configuración temporal actual
+timedatectl
+</code></pre>
+<p><strong>Salida típica</strong>:</p>
+<pre><code>               Local time: Wed 2026-02-05 14:30:22 UTC
+           Universal time: Wed 2026-02-05 14:30:22 UTC
+                 RTC time: Wed 2026-02-05 14:30:22
+                Time zone: UTC (UTC, +0000)
+System clock synchronized: yes
+              NTP service: active
+          RTC in local TZ: no
+</code></pre>
+<p><strong>Análisis DevOps</strong>: <code>UTC</code> es estándar para servidores, pero para operaciones locales necesitamos zona horaria específica.</p>
+<h3>Paso 2: Listar Zonas Horarias Disponibles</h3>
+<pre><code class="language-bash"># Listar todas las zonas horarias
+timedatectl list-timezones
+
+# Buscar zonas específicas
+timedatectl list-timezones | grep -i guayaquil
+timedatectl list-timezones | grep America/
+</code></pre>
+<p><strong>Análisis DevOps</strong>: Usar nombres de zona horaria canónicos (tz database) asegura compatibilidad.</p>
+<h3>Paso 3: Configurar Zona Horaria</h3>
+<pre><code class="language-bash"># Configurar a America/Guayaquil (ECT, UTC-5)
+sudo timedatectl set-timezone America/Guayaquil
+</code></pre>
+<p><strong>Análisis DevOps</strong>:</p>
+<ul>
+<li><code>timedatectl</code>: Herramienta moderna para gestión temporal (systemd)</li>
+<li>No requiere reinicio</li>
+<li>Aplica inmediatamente a todos los servicios</li>
+</ul>
+<h3>Paso 4: Verificar NTP/Sincronización</h3>
+<pre><code class="language-bash"># Verificar que NTP está activo
+timedatectl status
+</code></pre>
+<p><strong>Salida esperada</strong>:</p>
+<pre><code>               Local time: Wed 2026-02-05 09:30:22 -05
+           Universal time: Wed 2026-02-05 14:30:22 UTC
+                Time zone: America/Guayaquil (ECT, -0500)
+System clock synchronized: yes
+              NTP service: active
+</code></pre>
+<p><strong>Análisis DevOps</strong>:</p>
+<ul>
+<li><code>System clock synchronized: yes</code>: El reloj está sincronizado</li>
+<li><code>NTP service: active</code>: Sincronización automática funcionando</li>
+</ul>
+<h3>Paso 5: Verificar con Comandos Tradicionales</h3>
+<pre><code class="language-bash"># Ver fecha y hora actual
+date
+# Salida: Wed Feb 5 09:30:22 AM ECT 2026
+
+# Ver en formato ISO
+date -Iseconds
+# Salida: 2026-02-05T09:30:22-05:00
+
+# Ver timestamp Unix (útil para scripts)
+date +%s
+# Salida: 1707142222
+</code></pre>
+<h3>Paso 6: Aplicar a Servicios Existentes</h3>
+<pre><code class="language-bash"># Verificar que cron usará nueva zona horaria
+sudo systemctl restart cron
+
+# Verificar logs con nuevo timezone
+sudo journalctl --since &quot;today&quot; | head -5
+</code></pre>
+<p><strong>Análisis DevOps</strong>: Algunos servicios necesitan reinicio para reconocer cambio de timezone.</p>
+<h3>Paso 7: Testing de Cron (Verificación Práctica)</h3>
+<pre><code class="language-bash"># Crear job de prueba para verificar timezone en cron
+echo &#39;* * * * * root echo &quot;Cron test at $(date)&quot; &gt;&gt; /tmp/cron-timezone-test.log&#39; | sudo tee /etc/cron.d/test-timezone
+
+# Esperar 1-2 minutos...
+sleep 120
+
+# Verificar logs
+cat /tmp/cron-timezone-test.log
+</code></pre>
+<p><strong>Salida esperada</strong>:</p>
+<pre><code>Cron test at Wed Feb 5 09:32:01 AM ECT 2026
+Cron test at Wed Feb 5 09:33:01 AM ECT 2026
+</code></pre>
+<h3>Paso 8: Limpiar Pruebas</h3>
+<pre><code class="language-bash"># Remover cron de prueba
+sudo rm /etc/cron.d/test-timezone
+sudo rm /tmp/cron-timezone-test.log
+</code></pre>
+<hr>
+<h2>✅ Criterios de Éxito</h2>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> Zona horaria cambiada de UTC a <code>America/Guayaquil</code></li>
+<li><input checked="" disabled="" type="checkbox"> <code>timedatectl</code> muestra <code>ECT, -0500</code></li>
+<li><input checked="" disabled="" type="checkbox"> NTP service activo y funcionando</li>
+<li><input checked="" disabled="" type="checkbox"> <code>date</code> muestra hora local correcta</li>
+<li><input checked="" disabled="" type="checkbox"> Logs de sistema muestran timestamps correctos</li>
+<li><input checked="" disabled="" type="checkbox"> Cron jobs ejecutan en horario local correcto</li>
+<li><input checked="" disabled="" type="checkbox"> Consistencia verificada entre múltiples comandos</li>
+</ul>
+<hr>
+<h2>🎓 Lecciones Aprendidas</h2>
+<h3>🔑 Conceptos Clave</h3>
+<ol>
+<li><p><strong>UTC vs Local Time</strong>:</p>
+<ul>
+<li><strong>UTC</strong>: Estándar para servidores y bases de datos</li>
+<li><strong>Local Time</strong>: Para visualización y operaciones humanas</li>
+<li><strong>Best Practice</strong>: Almacenar en UTC, mostrar en local</li>
+</ul>
+</li>
+<li><p><strong>Time Synchronization (NTP)</strong>:</p>
+<pre><code class="language-bash"># NTP asegura que todos los servidores tengan el mismo tiempo
+# Crítico para:
+# - Certificados SSL/TLS
+# - Tokens de autenticación
+# - Logs distribuidos
+# - Bases de datos replicadas
+</code></pre>
+</li>
+<li><p><strong>Timestamp Formats</strong>:</p>
+<pre><code class="language-bash">date +%Y-%m-%d              # 2026-02-05 (para filenames)
+date +%Y%m%d_%H%M%S        # 20260205_093022 (para backups)
+date -Iseconds              # 2026-02-05T09:30:22-05:00 (ISO 8601)
+date +%s                    # 1707142222 (Unix timestamp)
+</code></pre>
+</li>
+</ol>
+<h3>🚨 Troubleshooting DevOps</h3>
+<p><strong>Problema 1</strong>: Cambio de timezone no persiste</p>
+<ul>
+<li><strong>Causa</strong>: Posible conflicto con configuración de hardware</li>
+<li><strong>Solución</strong>: Verificar y sincronizar RTC<pre><code class="language-bash">sudo timedatectl set-local-rtc 0  # RTC en UTC
+</code></pre>
+</li>
+</ul>
+<p><strong>Problema 2</strong>: Hora incorrecta después de cambiar timezone</p>
+<ul>
+<li><strong>Causa</strong>: Reloj de sistema desincronizado</li>
+<li><strong>Solución</strong>: Forzar sincronización NTP<pre><code class="language-bash">sudo systemctl restart systemd-timesyncd
+# o
+sudo ntpdate pool.ntp.org
+</code></pre>
+</li>
+</ul>
+<p><strong>Problema 3</strong>: Aplicación muestra hora incorrecta</p>
+<ul>
+<li><strong>Causa</strong>: La aplicación no respeta timezone del sistema</li>
+<li><strong>Solución</strong>: Configurar explícitamente en la app<pre><code class="language-python"># Ejemplo Python
+import os
+os.environ[&#39;TZ&#39;] = &#39;America/Guayaquil&#39;
+</code></pre>
+</li>
+</ul>
+<h3>💡 Mejores Prácticas</h3>
+<ol>
+<li><p><strong>Always Use UTC Internally</strong>:</p>
+<pre><code class="language-python"># Almacenar en UTC
+timestamp = datetime.now(timezone.utc)
+
+# Convertir a local para display
+local_time = timestamp.astimezone(ZoneInfo(&#39;America/Guayaquil&#39;))
+</code></pre>
+</li>
+<li><p><strong>Consistent Naming in Backups</strong>:</p>
+<pre><code class="language-bash"># Usar timestamp UTC en filenames para evitar confusiones
+BACKUP_FILE=&quot;backup_$(date -u +%Y%m%d_%H%M%S).tar.gz&quot;
+</code></pre>
+</li>
+<li><p><strong>Documentation</strong>:</p>
+<pre><code class="language-markdown">## Timezone Configuration
+
+- Production Servers: America/Guayaquil (ECT, UTC-5)
+- Database Storage: UTC
+- Application Display: Local timezone per user preference
+</code></pre>
+</li>
+<li><p><strong>Ansible Automation</strong>:</p>
+<pre><code class="language-yaml">- name: Set timezone
+  timezone:
+    name: America/Guayaquil
+
+- name: Ensure NTP is enabled
+  service:
+    name: systemd-timesyncd
+    state: started
+    enabled: yes
+</code></pre>
+</li>
+<li><p><strong>Monitoring Time Drift</strong>:</p>
+<pre><code class="language-bash"># Verificar drift respecto a NTP
+timedatectl status | grep &quot;System clock synchronized&quot;
+
+# Alertar si no está sincronizado
+if ! timedatectl status | grep -q &quot;System clock synchronized: yes&quot;; then
+  echo &quot;ALERT: Clock not synchronized!&quot;
+fi
+</code></pre>
+</li>
+</ol>
+<hr>
+<h2>🚀 Continuación del Programa</h2>
+<p><strong>¡Felicitaciones! Has completado los fundamentos de DevOps (Días 1-15).</strong></p>
+<h3>Resumen de lo Aprendido:</h3>
+<ol>
+<li><strong>Usuarios y Seguridad</strong>: Gestión de identidades, SSH hardening</li>
+<li><strong>Automatización</strong>: Cron jobs, Ansible installation</li>
+<li><strong>Servicios</strong>: Nginx deployment y troubleshooting</li>
+<li><strong>Data Protection</strong>: Backups automatizados</li>
+<li><strong>Operaciones</strong>: Timezone, logging, debugging</li>
+</ol>
+<h3>Próximos Bloques:</h3>
+<ul>
+<li><strong>Días 16-30</strong>: CI/CD Pipelines y GitOps</li>
+<li><strong>Días 31-50</strong>: Containerización con Docker</li>
+<li><strong>Días 51-75</strong>: Orquestación con Kubernetes</li>
+<li><strong>Días 76-100</strong>: Observabilidad y SRE</li>
+</ul>
+<hr>
+<h2>📚 Recursos DevOps</h2>
+<ul>
+<li><a href="https://www.freedesktop.org/software/systemd/man/systemd-timesyncd.service.html">Systemd Time Synchronization</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Tz_database">TZ Database</a></li>
+<li><a href="https://support.ntp.org/bin/view/Support/SelectingOffsiteNTPServers">NTP Best Practices</a></li>
+</ul>
+<hr>
+<h2>📊 Seguimiento de Progreso</h2>
+<ul>
+<li><strong>Día</strong>: 15 de 100 ✅</li>
+<li><strong>Bloque</strong>: Fundamentos de DevOps COMPLETADO</li>
+<li><strong>Progresión</strong>: 1-15 Fundamentos → 16-30 CI/CD → 31-50 Docker → 51-75 K8s → 76-100 SRE</li>
+<li><strong>Habilidades</strong>: Infraestructura segura, automatizada y operable</li>
+</ul>
+<p><strong>¡INCREÍBLE! Has construido una base sólida en DevOps. Estás listo para pipelines CI/CD!</strong> 🎉</p>
+<hr>
+<h2>🎯 Challenge Final del Bloque</h2>
+<p>Como ejercicio de integración, automatiza la configuración de timezone en todos los servidores usando Ansible:</p>
+<pre><code class="language-yaml">- name: Configure timezone across all servers
+  hosts: all
+  tasks:
+    - name: Set timezone
+      timezone:
+        name: America/Guayaquil
+
+    - name: Verify configuration
+      command: date
+      register: current_date
+
+    - name: Show result
+      debug:
+        msg: &quot;Server {{ inventory_hostname }} timezone set to: {{ current_date.stdout }}&quot;
+</code></pre>
+<p><strong>¡Nos vemos en el Día 16!</strong> 🚀</p>
+</div> </article> <!-- Navigation --> <div class="nav-buttons" data-astro-cid-mvyioy5t> <a href="/challenges/devops/day-14-backup-script" class="nav-btn prev" data-astro-cid-mvyioy5t> <span class="nav-icon" data-astro-cid-mvyioy5t>←</span> <span class="nav-content" data-astro-cid-mvyioy5t> <span class="nav-label" data-astro-cid-mvyioy5t>Anterior</span> <span class="nav-title" data-astro-cid-mvyioy5t>Day 14 Configuración de Respaldo con tar</span> </span> </a> <a href="/challenges/devops/" class="nav-btn home" data-astro-cid-mvyioy5t> <span class="nav-icon" data-astro-cid-mvyioy5t>⚙️</span> <span class="nav-content" data-astro-cid-mvyioy5t> <span class="nav-label" data-astro-cid-mvyioy5t>Volver</span> <span class="nav-title" data-astro-cid-mvyioy5t>Todos los Días</span> </span> </a> <span class="nav-btn disabled next" data-astro-cid-mvyioy5t> <span class="nav-content" data-astro-cid-mvyioy5t> <span class="nav-label" data-astro-cid-mvyioy5t>Siguiente</span> <span class="nav-title" data-astro-cid-mvyioy5t>No hay día siguiente</span> </span> <span class="nav-icon" data-astro-cid-mvyioy5t>→</span> </span> </div> </div> </main>  </main>  <script type="module">const e=document.getElementById("mobile-menu-btn"),n=document.getElementById("mobile-menu");e?.addEventListener("click",()=>{n?.classList.toggle("hidden")});</script></body></html> 

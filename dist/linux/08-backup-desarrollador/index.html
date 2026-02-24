@@ -1,0 +1,934 @@
+<!DOCTYPE html><html lang="es" data-astro-cid-ouamjn2i> <head><meta charset="UTF-8"><meta name="description" content="Plataforma interactiva de desafíos técnicos - Linux, Docker, DevOps, CTF"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.17.1"><meta name="theme-color" content="#4c80cc"><title>Reto 08: Data Backup for Developer - xFusionCorp Industries - Linux Challenges</title><!-- Preconnect for fonts --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><!-- Script para prevenir flash de tema incorrecto --><script>
+      const theme = (() => {
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+          return localStorage.getItem('theme');
+        }
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          return 'dark';
+        }
+        return 'light';
+      })();
+      
+      if (theme === 'light') {
+        document.documentElement.classList.add('light');
+      } else {
+        document.documentElement.classList.add('dark');
+      }
+    </script><!-- Cache busting: Verificar versión y recargar si hay cambios --><script>
+      (function() {
+        const BUILD_VERSION = '1771614292958';
+        const CACHE_KEY = 'tech-challenges-build-version';
+        
+        // Verificar si hay nueva versión
+        const storedVersion = localStorage.getItem(CACHE_KEY);
+        
+        if (storedVersion && storedVersion !== BUILD_VERSION) {
+          // Nueva versión detectada, limpiar cache y recargar
+          console.log('🆕 Nueva versión detectada. Actualizando...');
+          if ('caches' in window) {
+            caches.keys().then(names => {
+              names.forEach(name => caches.delete(name));
+            });
+          }
+          localStorage.setItem(CACHE_KEY, BUILD_VERSION);
+          window.location.reload();
+        } else if (!storedVersion) {
+          localStorage.setItem(CACHE_KEY, BUILD_VERSION);
+        }
+      })();
+    </script><link rel="stylesheet" href="/challenges/_astro/_slug_-Bxg8atdN.css">
+<link rel="stylesheet" href="/challenges/_astro/_slug_-CaxYOu3g.css">
+<style>.nav-buttons[data-astro-cid-i5n6fu6j]{display:flex;justify-content:space-between;gap:1rem;margin-top:2rem;flex-wrap:wrap}.nav-btn[data-astro-cid-i5n6fu6j]{display:flex;align-items:center;gap:.75rem;padding:1rem 1.25rem;background:#1e293bcc;border:1px solid rgba(71,85,105,.3);border-radius:.75rem;text-decoration:none;transition:all .2s ease;flex:1;min-width:200px;max-width:280px}.nav-btn[data-astro-cid-i5n6fu6j]:hover:not(.disabled){background:#f973161a;border-color:#f973164d;transform:translateY(-2px)}.nav-btn[data-astro-cid-i5n6fu6j].disabled{opacity:.4;cursor:not-allowed;pointer-events:none}.nav-btn[data-astro-cid-i5n6fu6j].prev{text-align:left}.nav-btn[data-astro-cid-i5n6fu6j].next{text-align:right;justify-content:flex-end}.nav-btn[data-astro-cid-i5n6fu6j].home{justify-content:center;max-width:200px}.nav-icon[data-astro-cid-i5n6fu6j]{font-size:1.25rem;color:#f97316}.nav-content[data-astro-cid-i5n6fu6j]{display:flex;flex-direction:column;gap:.25rem}.nav-label[data-astro-cid-i5n6fu6j]{font-size:.7rem;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em}.nav-title[data-astro-cid-i5n6fu6j]{font-size:.875rem;color:#e2e8f0;font-weight:500}@media(max-width:768px){.nav-buttons[data-astro-cid-i5n6fu6j]{flex-direction:column}.nav-btn[data-astro-cid-i5n6fu6j]{max-width:100%}}.markdown-body{font-family:system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;line-height:1.8;color:#e5e7eb}.markdown-body h1{font-size:2rem;font-weight:700;color:#f97316;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid #374151}.markdown-body h2{font-size:1.5rem;font-weight:600;color:#22d3ee;margin:1.75rem 0 1rem;padding-bottom:.25rem}.markdown-body h3{font-size:1.25rem;font-weight:600;color:#a5f3fc;margin:1.5rem 0 .75rem}.markdown-body p{margin:.75rem 0;color:#d1d5db}.markdown-body strong{color:#fbbf24;font-weight:600}.markdown-body ul,.markdown-body ol{margin:.75rem 0;padding-left:1.5rem;color:#d1d5db}.markdown-body li{margin:.5rem 0;list-style-type:disc}.markdown-body table{width:100%;margin:1rem 0;border-collapse:collapse;font-size:.9rem}.markdown-body th,.markdown-body td{padding:.75rem;border:1px solid #374151;text-align:left}.markdown-body th{background:#37415180;color:#fbbf24;font-weight:600}.markdown-body td{color:#d1d5db}.markdown-body code{background:#06b6d426;color:#22d3ee;padding:.2rem .5rem;border-radius:.375rem;font-family:SF Mono,Monaco,Courier New,monospace;font-size:.875rem}.markdown-body pre{background:#0f172a;padding:1rem;border-radius:.75rem;overflow-x:auto;margin:1rem 0;border:1px solid #1e293b}.markdown-body pre code{background:transparent;padding:0;color:#a5b4fc}
+</style></head> <body class="min-h-screen flex flex-col" data-astro-cid-ouamjn2i> <!-- Header --> <header class="sticky top-0 z-50 border-b" style="background-color: var(--color-bg); border-color: var(--color-border);" data-astro-cid-ouamjn2i> <div class="container mx-auto px-4 py-4 flex items-center justify-between" data-astro-cid-ouamjn2i> <!-- Logo / Brand --> <a href="/" class="flex items-center gap-3 group" data-astro-cid-ouamjn2i> <span class="text-2xl" data-astro-cid-ouamjn2i>🚀</span> <span class="font-bold text-lg transition-colors group-hover:text-accent" style="color: var(--color-text);" data-astro-cid-ouamjn2i>
+Tech Challenges
+</span> </a> <!-- Navigation --> <nav class="hidden md:flex items-center gap-6" data-astro-cid-ouamjn2i> <a href="/challenges/" class="nav-link" data-astro-cid-ouamjn2i>Dashboard</a> <a href="/challenges/linux/" class="nav-link" data-astro-cid-ouamjn2i>Linux</a> <a href="/challenges/docker/" class="nav-link" data-astro-cid-ouamjn2i>Docker</a> <a href="/challenges/devops/" class="nav-link" data-astro-cid-ouamjn2i>DevOps</a> <a href="/challenges/ctf/" class="nav-link" data-astro-cid-ouamjn2i>CTF</a> <a href="/challenges/htb/" class="nav-link" data-astro-cid-ouamjn2i>HTB</a> </nav> <!-- Theme Toggle --> <div class="flex items-center gap-4" data-astro-cid-ouamjn2i> <button id="lang-toggle" class="lang-toggle" type="button" aria-label="Cambiar idioma" title="Cambiar idioma" data-astro-cid-lb7h3eps> <span class="lang-text" data-astro-cid-lb7h3eps>EN</span> </button>  <script type="module">const l={es:{"hero.badge":"Plataforma de Aprendizaje","hero.title.line1":"Domina Linux, Docker,","hero.title.line2":"DevOps & Security","hero.subtitle":"Plataforma interactiva con 70+ desafíos prácticos. Aprende haciendo, no solo leyendo.","hero.stat.completed":"Completados","hero.stat.progress":"Progreso","hero.stat.challenges":"Desafíos","progress.title":"Progreso General","progress.completed":"completados","progress.in_progress":"en progreso","progress.blocked":"bloqueados","programs.title":"Programas de Aprendizaje","programs.subtitle":"Selecciona un programa para ver sus desafíos","programs.completed":"Completados","programs.total":"Total","programs.view":"Ver desafíos","program.linux":"Linux","program.docker":"Docker","program.devops":"DevOps","program.ctf":"CTF","program.htb":"HTB Academy","program.linux.desc":"Administración de sistemas Linux, usuarios, permisos y automatización","program.docker.desc":"Containerización, orquestación y mejores prácticas de Docker","program.devops.desc":"CI/CD, automatización y cultura DevOps","program.ctf.desc":"Desafíos de seguridad: criptografía, web, forense y más","program.htb.desc":"Módulos de Hack The Box Academy completados","cert.title":"Certificaciones Obtenidas","cert.subtitle":"Reconocimientos oficiales de tu progreso","cert.docker.title":"Docker Certification","cert.docker.platform":"KodeKloud Engineer","cert.challenges":"Challenges","cert.verify":"Verificar certificado","activity.title":"Actividad Reciente","activity.subtitle":"Últimos desafíos completados","footer.update":"Última actualización"},en:{"hero.badge":"Learning Platform","hero.title.line1":"Master Linux, Docker,","hero.title.line2":"DevOps & Security","hero.subtitle":"Interactive platform with 70+ practical challenges. Learn by doing, not just reading.","hero.stat.completed":"Completed","hero.stat.progress":"Progress","hero.stat.challenges":"Challenges","progress.title":"Overall Progress","progress.completed":"completed","progress.in_progress":"in progress","progress.blocked":"blocked","programs.title":"Learning Programs","programs.subtitle":"Select a program to view its challenges","programs.completed":"Completed","programs.total":"Total","programs.view":"View challenges","program.linux":"Linux","program.docker":"Docker","program.devops":"DevOps","program.ctf":"CTF","program.htb":"HTB Academy","program.linux.desc":"Linux system administration, users, permissions and automation","program.docker.desc":"Containerization, orchestration and Docker best practices","program.devops.desc":"CI/CD, automation and DevOps culture","program.ctf.desc":"Security challenges: cryptography, web, forensics and more","program.htb.desc":"Completed Hack The Box Academy modules","cert.title":"Earned Certifications","cert.subtitle":"Official recognition of your progress","cert.docker.title":"Docker Certification","cert.docker.platform":"KodeKloud Engineer","cert.challenges":"Challenges","cert.verify":"Verify Certificate","activity.title":"Recent Activity","activity.subtitle":"Latest completed challenges","footer.update":"Last updated"}},i=document.getElementById("lang-toggle"),s=i?.querySelector(".lang-text");function c(){if(typeof localStorage<"u"){const e=localStorage.getItem("lang");if(e==="es"||e==="en")return e}return"es"}function d(e){typeof localStorage<"u"&&localStorage.setItem("lang",e)}function g(e){s&&(s.textContent=e==="es"?"EN":"ES")}function n(e){const t=l[e];document.querySelectorAll("[data-i18n]").forEach(o=>{const r=o.getAttribute("data-i18n");r&&t[r]&&(o.textContent=t[r])}),document.querySelectorAll("[data-i18n-program]").forEach(o=>{const r=o.getAttribute("data-i18n-program");if(r){const a=`program.${r}`;t[a]&&(o.textContent=t[a])}}),document.querySelectorAll("[data-i18n-program-desc]").forEach(o=>{const r=o.getAttribute("data-i18n-program-desc");if(r){const a=`program.${r}.desc`;t[a]&&(o.textContent=t[a])}}),document.documentElement.lang=e,g(e)}const p=c();n(p);i?.addEventListener("click",()=>{const t=c()==="es"?"en":"es";d(t),n(t)});</script> <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Cambiar tema" title="Cambiar tema claro/oscuro" data-astro-cid-x3pjskd3> <!-- Icono Sol (visible en tema oscuro) --> <svg class="icon-sun w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" data-astro-cid-x3pjskd3> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" data-astro-cid-x3pjskd3></path> </svg> <!-- Icono Luna (visible en tema claro) --> <svg class="icon-moon w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" data-astro-cid-x3pjskd3> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" data-astro-cid-x3pjskd3></path> </svg> </button>  <script type="module">const m=document.getElementById("theme-toggle");function c(){return typeof localStorage<"u"&&localStorage.getItem("theme")?localStorage.getItem("theme"):window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}function t(e){e==="dark"?(document.documentElement.classList.remove("light"),document.documentElement.classList.add("dark")):(document.documentElement.classList.remove("dark"),document.documentElement.classList.add("light")),localStorage.setItem("theme",e)}const d=c();d==="light"?document.documentElement.classList.add("light"):document.documentElement.classList.add("dark");m?.addEventListener("click",()=>{const n=(document.documentElement.classList.contains("light")?"light":"dark")==="dark"?"light":"dark";document.documentElement.classList.add("theme-transitioning"),t(n),setTimeout(()=>{document.documentElement.classList.remove("theme-transitioning")},300)});window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change",e=>{localStorage.getItem("theme")||t(e.matches?"dark":"light")});</script> <!-- Mobile Menu Button --> <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg border transition-colors" style="background-color: var(--color-bg-card); border-color: var(--color-border);" aria-label="Menú" data-astro-cid-ouamjn2i> <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-ouamjn2i> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" data-astro-cid-ouamjn2i></path> </svg> </button> </div> </div> <!-- Mobile Navigation --> <div id="mobile-menu" class="hidden md:hidden border-t" style="border-color: var(--color-border); background-color: var(--color-bg-card);" data-astro-cid-ouamjn2i> <nav class="container mx-auto px-4 py-4 flex flex-col gap-2" data-astro-cid-ouamjn2i> <a href="/challenges/" class="mobile-nav-link" data-astro-cid-ouamjn2i>Dashboard</a> <a href="/challenges/linux/" class="mobile-nav-link" data-astro-cid-ouamjn2i>🐧 Linux</a> <a href="/challenges/docker/" class="mobile-nav-link" data-astro-cid-ouamjn2i>🐳 Docker</a> <a href="/challenges/devops/" class="mobile-nav-link" data-astro-cid-ouamjn2i>⚙️ DevOps</a> <a href="/challenges/ctf/" class="mobile-nav-link" data-astro-cid-ouamjn2i>🚩 CTF</a> <a href="/challenges/htb/" class="mobile-nav-link" data-astro-cid-ouamjn2i>🎯 HTB</a> </nav> </div> </header> <!-- Main Content --> <main class="flex-1" data-astro-cid-ouamjn2i>   <main class="container mx-auto px-4 py-8" data-astro-cid-i5n6fu6j> <div class="max-w-4xl mx-auto" data-astro-cid-i5n6fu6j> <nav class="flex mb-6" aria-label="Breadcrumb"> <ol class="flex items-center space-x-2"> <li class="flex items-center">  <a href="/challenges" class="text-cyan-400 hover:text-cyan-300 transition-colors"> Challenges </a> </li><li class="flex items-center"> <span class="text-gray-500 mx-2">/</span> <a href="/challenges/linux" class="text-cyan-400 hover:text-cyan-300 transition-colors"> Linux </a> </li><li class="flex items-center"> <span class="text-gray-500 mx-2">/</span> <span class="text-gray-300 font-medium">Reto 08: Data Backup for Developer - xFusionCorp Industries</span> </li> </ol> </nav> <article class="bg-slate-800 rounded-lg p-6 border border-slate-700" data-astro-cid-i5n6fu6j> <header class="mb-6" data-astro-cid-i5n6fu6j> <h1 class="text-3xl font-bold text-orange-400 mb-2" data-astro-cid-i5n6fu6j>Reto 08: Data Backup for Developer - xFusionCorp Industries</h1> <div class="flex items-center gap-4 text-sm text-gray-400" data-astro-cid-i5n6fu6j> <span class="bg-orange-600 px-2 py-1 rounded text-xs" data-astro-cid-i5n6fu6j>Linux #08</span> <span class="capitalize" data-astro-cid-i5n6fu6j>easy</span> <span data-astro-cid-i5n6fu6j>2025-01-25</span> </div> </header> <div class="prose prose-invert max-w-none" data-astro-cid-i5n6fu6j> <div class="markdown-body" data-astro-cid-i5n6fu6j><h1>Reto 08: Data Backup for Developer - xFusionCorp Industries</h1>
+<h2>Automatización de Backups: El Seguro de Vida de los Datos</h2>
+<hr>
+<h2>🎓 Del Instructor</h2>
+<p>Bienvenido a tu noveno desafío como SysAdmin Senior en xFusionCorp. Hoy implementamos uno de los pilares de la administración de sistemas: <strong>la estrategia de backup automatizado</strong>.</p>
+<blockquote>
+<p>💭 <strong>Mentalidad de SysAdmin</strong>: &quot;Los datos no existen a menos que estén respaldados en al menos dos lugares. Un backup que no se ha probado no es un backup; es un deseo.&quot;</p>
+</blockquote>
+<p>En entornos empresariales, la pérdida de datos no es una opción. Desarrolladores, analistas y usuarios confían en que sus datos están protegidos. Tu trabajo como SysAdmin es garantizar esa protección de forma automatizada y verificable.</p>
+<hr>
+<h2>🎭 Escenario Real: Protección de Datos de Desarrollo</h2>
+<p><strong>Empresa</strong>: xFusionCorp Industries<br><strong>Proyecto</strong>: Nautilus - Protección de Activos de Desarrollo<br><strong>Servidor</strong>: App Server 2 (stapp02)<br><strong>Tu rol</strong>: Senior System Administrator - Continuidad de Negocio</p>
+<h3>La Problemática</h3>
+<p>El equipo de desarrollo de xFusionCorp ha experimentado pérdida de datos en el pasado debido a:</p>
+<ul>
+<li>Borrados accidentales de directorios de trabajo</li>
+<li>Corrupción de archivos durante actualizaciones</li>
+<li>Errores humanos en scripts de despliegue</li>
+</ul>
+<p>El directorio <code>/home/developer_data</code> contiene:</p>
+<ul>
+<li>Código fuente crítico</li>
+<li>Configuraciones de desarrollo</li>
+<li>Scripts de automatización</li>
+<li>Documentación técnica</li>
+</ul>
+<p><strong>El requerimiento del CTO</strong>:</p>
+<blockquote>
+<p>&quot;Implement automated backup system for developer data with scheduling.&quot;</p>
+</blockquote>
+<h3>Contexto de Recuperación</h3>
+<p>El plan de respaldo debe cumplir:</p>
+<ul>
+<li><strong>RPO (Recovery Point Objective)</strong>: Máximo 24 horas de datos perdidos</li>
+<li><strong>RTO (Recovery Time Objective)</strong>: Restauración en menos de 1 hora</li>
+<li><strong>Retención</strong>: 7 días de historial para recuperación puntual</li>
+<li><strong>Automatización</strong>: Sin intervención humana</li>
+<li><strong>Monitoreo</strong>: Alertas ante fallos</li>
+</ul>
+<h3>Infraestructura Objetivo</h3>
+<table>
+<thead>
+<tr>
+<th>Servidor</th>
+<th>IP</th>
+<th>Hostname</th>
+<th>Usuario Acceso</th>
+<th>Contraseña</th>
+<th>Propósito</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>stapp02</td>
+<td>172.16.238.11</td>
+<td>stapp02.stratos.xfusioncorp.com</td>
+<td>steve</td>
+<td>Am3ric@</td>
+<td>Backup Setup</td>
+</tr>
+</tbody></table>
+<h3>Requisitos Técnicos</h3>
+<ul>
+<li><strong>Directorio origen</strong>: <code>/home/developer_data</code></li>
+<li><strong>Destino backup</strong>: <code>/backup/daily/</code></li>
+<li><strong>Frecuencia</strong>: Diaria a las 02:00 AM</li>
+<li><strong>Rotación</strong>: Mantener últimos 7 días</li>
+<li><strong>Método</strong>: rsync con compresión y preservación</li>
+<li><strong>Logging</strong>: Registro completo de operaciones</li>
+<li><strong>Notificación</strong>: Registro de éxito/fallo</li>
+</ul>
+<hr>
+<h2>🧠 La Arquitectura: Estrategias de Backup</h2>
+<h3>Tipos de Backup</h3>
+<table>
+<thead>
+<tr>
+<th>Tipo</th>
+<th>Descripción</th>
+<th>Ventajas</th>
+<th>Desventajas</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Full</strong></td>
+<td>Copia completa de todos los datos</td>
+<td>Restauración simple</td>
+<td>Lento, ocupa más espacio</td>
+</tr>
+<tr>
+<td><strong>Incremental</strong></td>
+<td>Solo cambios desde último backup</td>
+<td>Rápido, eficiente</td>
+<td>Restauración compleja</td>
+</tr>
+<tr>
+<td><strong>Diferencial</strong></td>
+<td>Cambios desde último full</td>
+<td>Balance velocidad/simplicidad</td>
+<td>Crece con el tiempo</td>
+</tr>
+</tbody></table>
+<p>Para este escenario usaremos <strong>Full Backup Diario</strong> (más simple y adecuado para el volumen de datos).</p>
+<h3>Rotación de Backups (Grandfather-Father-Son)</h3>
+<pre><code>┌────────────────────────────────────────────────────────────────┐
+│                   ESQUEMA DE RETENCIÓN                          │
+├────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  Día 1:  backup_20250125/  ◄── Lunes                           │
+│  Día 2:  backup_20250126/  ◄── Martes                          │
+│  Día 3:  backup_20250127/  ◄── Miércoles                       │
+│  Día 4:  backup_20250128/  ◄── Jueves                          │
+│  Día 5:  backup_20250129/  ◄── Viernes                         │
+│  Día 6:  backup_20250130/  ◄── Sábado                          │
+│  Día 7:  backup_20250131/  ◄── Domingo                         │
+│  Día 8:  backup_20250201/  ◄── Lunes (Nuevo)                   │
+│                              └── backup_20250125/ ELIMINADO    │
+│                                                                 │
+│  Regla: Mantener solo los últimos 7 días                        │
+│  Método: find + delete con mtime +7                            │
+│                                                                 │
+└────────────────────────────────────────────────────────────────┘
+</code></pre>
+<h3>Componentes del Sistema de Backup</h3>
+<pre><code>┌────────────────────────────────────────────────────────────────┐
+│              ARQUITECTURA DE BACKUP AUTOMATIZADO                │
+├────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  ┌─────────────────┐      ┌─────────────────┐                  │
+│  │   CRON JOB      │      │   SCRIPT DE     │                  │
+│  │   0 2 * * *     │──────→│   BACKUP        │                  │
+│  │   (2:00 AM)     │      │   /usr/local/   │                  │
+│  └─────────────────┘      │   bin/dev_      │                  │
+│                           │   backup.sh     │                  │
+│                           └────────┬────────┘                  │
+│                                    │                           │
+│                                    ▼                           │
+│                           ┌─────────────────┐                  │
+│                           │   RSYNC/TAR     │                  │
+│                           │   Backup de     │                  │
+│                           │   /home/        │                  │
+│                           │   developer_    │                  │
+│                           │   data          │                  │
+│                           └────────┬────────┘                  │
+│                                    │                           │
+│                    ┌───────────────┴───────────────┐          │
+│                    ▼                               ▼          │
+│           ┌──────────────────┐          ┌──────────────────┐   │
+│           │  /backup/daily/  │          │  /var/log/       │   │
+│           │  backup_YYYYMMDD │          │  backup/         │   │
+│           │                  │          │  backup_YYYY     │   │
+│           │  • Copia         │          │  MMDD_HHMMSS.log │   │
+│           │    completa      │          │                  │   │
+│           │  • Permisos      │          │  • Timestamp     │   │
+│           │    preservados   │          │  • Éxito/Fallo   │   │
+│           │  • Timestamped   │          │  • Estadísticas  │   │
+│           └──────────────────┘          └──────────────────┘   │
+│                                                                 │
+│  ┌────────────────────────────────────────────────────────────┐│
+│  │  LIMPIEZA AUTOMÁTICA:                                      ││
+│  │  find /backup/daily -name &quot;backup_*&quot; -mtime +7 -delete     ││
+│  └────────────────────────────────────────────────────────────┘│
+│                                                                 │
+└────────────────────────────────────────────────────────────────┘
+</code></pre>
+<h3>Analogía: Sistema de Archivos de una Oficina</h3>
+<ul>
+<li><strong>Directorio de trabajo</strong> (<code>/home/developer_data</code>): Escritorios de los empleados con documentos activos</li>
+<li><strong>Sala de archivos</strong> (<code>/backup/daily/</code>): Copias de seguridad organizadas por fecha</li>
+<li><strong>Bitácora</strong> (<code>/var/log/backup/</code>): Registro de quién hizo qué y cuándo</li>
+<li><strong>Política de retención</strong>: &quot;Mantener solo la última semana de copias, destruir las más antiguas automáticamente&quot;</li>
+<li><strong>Cron job</strong>: Empleado de mantenimiento que entra todas las noches a las 2 AM a hacer las copias</li>
+</ul>
+<hr>
+<h2>🛠️ Implementación Profesional</h2>
+<h3>Fase 1: Preparación del Entorno</h3>
+<h4>1.1 Acceso al Sistema</h4>
+<pre><code class="language-bash"># Conexión al servidor
+ssh steve@172.16.238.11
+sudo su -
+</code></pre>
+<h4>1.2 Verificar Datos de Origen</h4>
+<pre><code class="language-bash"># Verificar que el directorio origen existe
+ls -la /home/developer_data
+
+# Calcular tamaño total
+du -sh /home/developer_data
+
+# Verificar permisos
+ls -la /home/developer_data | head -10
+</code></pre>
+<blockquote>
+<p>⚠️ <strong>Advertencia</strong>: Antes de implementar backups, asegúrate de que el origen existe y tienes permisos de lectura.</p>
+</blockquote>
+<h3>Fase 2: Crear Estructura de Directorios</h3>
+<h4>2.1 Crear Directorios de Backup y Logs</h4>
+<pre><code class="language-bash"># Crear directorio para backups diarios
+mkdir -p /backup/daily
+
+# Crear directorio para logs
+mkdir -p /var/log/backup
+
+# Establecer permisos adecuados
+chmod 755 /backup
+chmod 755 /backup/daily
+chmod 755 /var/log/backup
+
+# Verificar creación
+ls -la /backup/
+ls -la /var/log/backup/
+</code></pre>
+<h4>2.2 Verificar Espacio Disponible</h4>
+<pre><code class="language-bash"># Verificar espacio en disco
+df -h /backup/
+
+# Calcular espacio necesario (aproximado)
+du -sh /home/developer_data
+
+# Asegurar que hay al menos 7x el tamaño para 7 días de retención
+# Más margen de crecimiento
+</code></pre>
+<h3>Fase 3: Crear Script de Backup</h3>
+<h4>3.1 Crear Script Principal</h4>
+<pre><code class="language-bash"># Crear el script de backup
+cat &gt; /usr/local/bin/dev_backup.sh &lt;&lt; &#39;EOF&#39;
+#!/bin/bash
+
+#===============================================================================
+# Script de Backup para Datos de Desarrollador
+# xFusionCorp Industries - Nautilus Project
+#
+# Descripción: Realiza backup diario de /home/developer_data
+# Frecuencia: Diaria a las 02:00 AM
+# Retención: 7 días
+#===============================================================================
+
+# Configuración
+SOURCE_DIR=&quot;/home/developer_data&quot;
+BACKUP_BASE=&quot;/backup/daily&quot;
+LOG_DIR=&quot;/var/log/backup&quot;
+RETENTION_DAYS=7
+
+# Generar timestamp
+DATE=$(date +%Y%m%d_%H%M%S)
+BACKUP_DIR=&quot;${BACKUP_BASE}/backup_${DATE}&quot;
+LOG_FILE=&quot;${LOG_DIR}/backup_${DATE}.log&quot;
+
+# Función de logging
+log() {
+    echo &quot;$(date &#39;+%Y-%m-%d %H:%M:%S&#39;) - $1&quot; | tee -a &quot;$LOG_FILE&quot;
+}
+
+# Iniciar backup
+log &quot;==========================================&quot;
+log &quot;INICIANDO BACKUP&quot;
+log &quot;Origen: $SOURCE_DIR&quot;
+log &quot;Destino: $BACKUP_DIR&quot;
+log &quot;==========================================&quot;
+
+# Verificar que el origen existe
+if [ ! -d &quot;$SOURCE_DIR&quot; ]; then
+    log &quot;ERROR: Directorio origen no existe: $SOURCE_DIR&quot;
+    exit 1
+fi
+
+# Crear directorio de backup
+mkdir -p &quot;$BACKUP_DIR&quot;
+if [ $? -ne 0 ]; then
+    log &quot;ERROR: No se pudo crear directorio de backup: $BACKUP_DIR&quot;
+    exit 1
+fi
+
+# Realizar backup con rsync
+log &quot;Ejecutando rsync...&quot;
+rsync -avz --delete &quot;$SOURCE_DIR/&quot; &quot;$BACKUP_DIR/&quot; &gt;&gt; &quot;$LOG_FILE&quot; 2&gt;&amp;1
+RSYNC_EXIT=$?
+
+if [ $RSYNC_EXIT -eq 0 ]; then
+    log &quot;✓ Backup completado exitosamente&quot;
+
+    # Calcular estadísticas
+    SOURCE_SIZE=$(du -sb &quot;$SOURCE_DIR&quot; | awk &#39;{print $1}&#39;)
+    BACKUP_SIZE=$(du -sb &quot;$BACKUP_DIR&quot; | awk &#39;{print $1}&#39;)
+    FILE_COUNT=$(find &quot;$BACKUP_DIR&quot; -type f | wc -l)
+
+    log &quot;Estadísticas:&quot;
+    log &quot;  - Archivos respaldados: $FILE_COUNT&quot;
+    log &quot;  - Tamaño origen: $(du -sh &quot;$SOURCE_DIR&quot; | awk &#39;{print $1}&#39;)&quot;
+    log &quot;  - Tamaño backup: $(du -sh &quot;$BACKUP_DIR&quot; | awk &#39;{print $1}&#39;)&quot;
+
+else
+    log &quot;✗ ERROR en rsync (exit code: $RSYNC_EXIT)&quot;
+    exit 1
+fi
+
+# Limpiar backups antiguos
+log &quot;Limpiando backups antiguos (&gt; $RETENTION_Días días)...&quot;
+DELETED=$(find &quot;$BACKUP_BASE&quot; -name &quot;backup_*&quot; -type d -mtime +$RETENTION_DAYS)
+if [ -n &quot;$DELETED&quot; ]; then
+    echo &quot;$DELETED&quot; | while read dir; do
+        log &quot;  Eliminando: $dir&quot;
+    done
+    find &quot;$BACKUP_BASE&quot; -name &quot;backup_*&quot; -type d -mtime +$RETENTION_DAYS -exec rm -rf {} + 2&gt;/dev/null
+fi
+REMAINING=$(find &quot;$BACKUP_BASE&quot; -name &quot;backup_*&quot; -type d | wc -l)
+log &quot;Backups restantes: $REMAINING&quot;
+
+log &quot;==========================================&quot;
+log &quot;BACKUP FINALIZADO&quot;
+log &quot;==========================================&quot;
+
+exit 0
+EOF
+
+# Hacer script ejecutable
+chmod +x /usr/local/bin/dev_backup.sh
+
+# Verificar script
+cat /usr/local/bin/dev_backup.sh | head -20
+</code></pre>
+<h4>3.2 Probar Script Manualmente</h4>
+<pre><code class="language-bash"># Ejecutar script manualmente para verificar
+/usr/local/bin/dev_backup.sh
+
+# Verificar resultado
+echo &quot;Exit code: $?&quot;
+
+# Verificar log generado
+ls -la /var/log/backup/
+cat /var/log/backup/backup_*.log | tail -30
+
+# Verificar backup creado
+ls -la /backup/daily/
+</code></pre>
+<h3>Fase 4: Configurar Automatización con Cron</h3>
+<h4>4.1 Editar Crontab</h4>
+<pre><code class="language-bash"># Editar crontab del usuario root (o usuario específico)
+crontab -e
+
+# O crear archivo en /etc/cron.d/
+</code></pre>
+<h4>4.2 Agregar Entrada de Cron</h4>
+<pre><code class="language-bash"># Agregar línea al crontab
+echo &quot;0 2 * * * /usr/local/bin/dev_backup.sh&quot; | crontab -
+
+# O crear archivo dedicado
+cat &gt; /etc/cron.d/dev-backup &lt;&lt; &#39;EOF&#39;
+# Backup diario de datos de desarrollador
+# Se ejecuta todos los días a las 02:00 AM
+SHELL=/bin/bash
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+0 2 * * * root /usr/local/bin/dev_backup.sh
+EOF
+
+# Establecer permisos correctos para cron.d
+chmod 644 /etc/cron.d/dev-backup
+</code></pre>
+<blockquote>
+<p>💡 <strong>Nota técnica</strong>: Los archivos en <code>/etc/cron.d/</code> deben tener permisos 644 y terminar en newline.</p>
+</blockquote>
+<h4>4.3 Verificar Configuración de Cron</h4>
+<pre><code class="language-bash"># Listar tareas cron
+crontab -l
+
+# O verificar archivo
+ls -la /etc/cron.d/dev-backup
+cat /etc/cron.d/dev-backup
+
+# Verificar servicio cron activo
+systemctl status crond
+# o
+systemctl status cron
+</code></pre>
+<h3>Fase 5: Verificación y Monitoreo</h3>
+<h4>5.1 Simular Ejecución</h4>
+<pre><code class="language-bash"># Verificar que el script existe y es ejecutable
+ls -la /usr/local/bin/dev_backup.sh
+file /usr/local/bin/dev_backup.sh
+
+# Verificar sintaxis del script
+bash -n /usr/local/bin/dev_backup.sh
+echo &quot;Syntax OK: $?&quot;
+
+# Ejecutar en modo verbose para verificar
+bash -x /usr/local/bin/dev_backup.sh 2&gt;&amp;1 | head -50
+</code></pre>
+<h4>5.2 Verificar Backups Generados</h4>
+<pre><code class="language-bash"># Listar todos los backups
+ls -ltr /backup/daily/
+
+# Verificar contenido del backup más reciente
+ls -la /backup/daily/backup_*/
+
+# Comparar con origen
+diff -r /home/developer_data /backup/daily/backup_$(ls /backup/daily/ | tail -1)/
+# Si no hay salida, son idénticos
+</code></pre>
+<h4>5.3 Verificar Logs</h4>
+<pre><code class="language-bash"># Ver último log
+tail -50 /var/log/backup/backup_*.log | tail -50
+
+# Buscar errores en logs
+grep -i &quot;error&quot; /var/log/backup/backup_*.log
+
+# Ver resumen de todos los backups
+cat /var/log/backup/backup_*.log | grep -E &quot;(INICIANDO|FINALIZADO|ERROR)&quot;
+</code></pre>
+<h3>Resumen de Comandos</h3>
+<pre><code class="language-bash"># SECUENCIA COMPLETA
+
+# 1. Crear estructura de directorios
+mkdir -p /backup/daily /var/log/backup
+
+# 2. Crear script de backup
+cat &gt; /usr/local/bin/dev_backup.sh &lt;&lt; &#39;EOF&#39;
+#!/bin/bash
+SOURCE_DIR=&quot;/home/developer_data&quot;
+BACKUP_BASE=&quot;/backup/daily&quot;
+LOG_DIR=&quot;/var/log/backup&quot;
+DATE=$(date +%Y%m%d_%H%M%S)
+LOG_FILE=&quot;${LOG_DIR}/backup_${DATE}.log&quot;
+
+echo &quot;$(date) - Iniciando backup&quot; &gt;&gt; &quot;$LOG_FILE&quot;
+mkdir -p &quot;${BACKUP_BASE}/backup_${DATE}&quot;
+rsync -avz --delete &quot;$SOURCE_DIR/&quot; &quot;${BACKUP_BASE}/backup_${DATE}/&quot; &gt;&gt; &quot;$LOG_FILE&quot; 2&gt;&amp;1
+echo &quot;$(date) - Backup completado&quot; &gt;&gt; &quot;$LOG_FILE&quot;
+find &quot;$BACKUP_BASE&quot; -name &quot;backup_*&quot; -type d -mtime +7 -exec rm -rf {} +
+EOF
+chmod +x /usr/local/bin/dev_backup.sh
+
+# 3. Configurar cron
+echo &quot;0 2 * * * /usr/local/bin/dev_backup.sh&quot; | crontab -
+
+# 4. Verificación
+crontab -l
+/usr/local/bin/dev_backup.sh
+ls -la /backup/daily/
+ls -la /var/log/backup/
+</code></pre>
+<hr>
+<h2>🎯 Análisis Post-Implementación: Lo Que Acabas de Construir</h2>
+<h3>Arquitectura Implementada</h3>
+<pre><code>┌─────────────────────────────────────────────────────────────────────────┐
+│              SISTEMA DE BACKUP AUTOMATIZADO - stapp02                   │
+├─────────────────────────────────────────────────────────────────────────┤
+│                                                                          │
+│  ┌──────────────────────────────────────────────────────────────────┐   │
+│  │                    CRON JOB (2:00 AM diario)                      │   │
+│  │  0 2 * * * /usr/local/bin/dev_backup.sh                          │   │
+│  └──────────────────────────────────────────────────────────────────┘   │
+│                                    │                                     │
+│                                    ▼                                     │
+│  ┌──────────────────────────────────────────────────────────────────┐   │
+│  │              SCRIPT: /usr/local/bin/dev_backup.sh                 │   │
+│  │                                                                   │   │
+│  │  PASO 1: Logging inicial                                          │   │
+│  │     ↓                                                             │   │
+│  │  PASO 2: Verificar origen existe                                  │   │
+│  │     ↓                                                             │   │
+│  │  PASO 3: Crear directorio backup_YYYYMMDD_HHMMSS/                 │   │
+│  │     ↓                                                             │   │
+│  │  PASO 4: rsync -avz --delete                                      │   │
+│  │          /home/developer_data/ → /backup/daily/backup_*/          │   │
+│  │     ↓                                                             │   │
+│  │  PASO 5: Estadísticas de backup                                   │   │
+│  │     ↓                                                             │   │
+│  │  PASO 6: Limpiar backups &gt; 7 días                                 │   │
+│  │     ↓                                                             │   │
+│  │  PASO 7: Logging final                                            │   │
+│  │                                                                   │   │
+│  └──────────────────────────────────────────────────────────────────┘   │
+│                                    │                                     │
+│                    ┌───────────────┴───────────────┐                    │
+│                    ▼                               ▼                    │
+│  ┌──────────────────────────────┐  ┌──────────────────────────────┐    │
+│  │   /backup/daily/             │  │   /var/log/backup/           │    │
+│  │                              │  │                              │    │
+│  │   backup_20250125_020000/    │  │   backup_20250125_020000.log │    │
+│  │   backup_20250126_020000/    │  │   backup_20250126_020000.log │    │
+│  │   backup_20250127_020000/    │  │   backup_20250127_020000.log │    │
+│  │   backup_20250128_020000/    │  │   backup_20250128_020000.log │    │
+│  │   backup_20250129_020000/    │  │   backup_20250129_020000.log │    │
+│  │   backup_20250130_020000/    │  │   backup_20250130_020000.log │    │
+│  │   backup_20250131_020000/    │  │   backup_20250131_020000.log │    │
+│  │                              │  │                              │    │
+│  │   (backup_20250124 eliminado)│  │   [Historial completo]       │    │
+│  │                              │  │                              │    │
+│  └──────────────────────────────┘  └──────────────────────────────┘    │
+│                                                                          │
+│  ✅ Características:                                                     │
+│     • Automático: Sin intervención humana                               │
+│     • Timestamped: Cada backup identificable                            │
+│     • Incremental: Solo copia cambios (rsync --delete)                  │
+│     • Preservador: Permisos, timestamps intactos                        │
+│     • Rotación: Máximo 7 días de historial                              │
+│     • Auditado: Logs detallados de cada operación                       │
+│                                                                          │
+└─────────────────────────────────────────────────────────────────────────┘
+</code></pre>
+<h3>Beneficios del Sistema Implementado</h3>
+<table>
+<thead>
+<tr>
+<th>Aspecto</th>
+<th>Antes</th>
+<th>Después</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Frecuencia</strong></td>
+<td>Manual/esporádico</td>
+<td>Diario automatizado</td>
+</tr>
+<tr>
+<td><strong>Consistencia</strong></td>
+<td>Variable</td>
+<td>02:00 AM todos los días</td>
+</tr>
+<tr>
+<td><strong>Retención</strong></td>
+<td>Sin política</td>
+<td>7 días automático</td>
+</tr>
+<tr>
+<td><strong>Verificación</strong></td>
+<td>Subjetiva</td>
+<td>Logs detallados</td>
+</tr>
+<tr>
+<td><strong>Recuperación</strong></td>
+<td>Incierta</td>
+<td>Rápida y predecible</td>
+</tr>
+</tbody></table>
+<h3>Checklist de Verificación</h3>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> Directorios <code>/backup/daily/</code> y <code>/var/log/backup/</code> creados</li>
+<li><input checked="" disabled="" type="checkbox"> Script <code>/usr/local/bin/dev_backup.sh</code> creado y ejecutable</li>
+<li><input checked="" disabled="" type="checkbox"> Script probado manualmente sin errores</li>
+<li><input checked="" disabled="" type="checkbox"> Cron job configurado para 02:00 AM diario</li>
+<li><input checked="" disabled="" type="checkbox"> Backup generado correctamente</li>
+<li><input checked="" disabled="" type="checkbox"> Logs generados con información útil</li>
+<li><input checked="" disabled="" type="checkbox"> Rotación de 7 días funcionando</li>
+<li><input checked="" disabled="" type="checkbox"> Permisos y timestamps preservados en backup</li>
+<li><input checked="" disabled="" type="checkbox"> Servicio cron activo</li>
+</ul>
+<hr>
+<h2>🎓 Reflexión Final: Mentalidad Desarrollada</h2>
+<h3>La Regla 3-2-1 de Backups</h3>
+<blockquote>
+<p>&quot;3 copias de los datos, en 2 medios diferentes, 1 fuera del sitio.&quot;</p>
+</blockquote>
+<p>Este reto implementa la base (copias locales), pero para producción real necesitas:</p>
+<ul>
+<li><strong>3 copias</strong>: Original + backup local + backup remoto</li>
+<li><strong>2 medios</strong>: Disco local + disco externo/nube</li>
+<li><strong>1 offsite</strong>: Backup en ubicación geográfica diferente</li>
+</ul>
+<h3>Lecciones Clave</h3>
+<ol>
+<li><p><strong>Automatización &gt; Manual</strong>: Un backup que requiere que alguien lo ejecute no se ejecutará consistentemente.</p>
+</li>
+<li><p><strong>Logs son Evidencia</strong>: Sin logs, no puedes probar que el backup funcionó ni diagnosticar fallos.</p>
+</li>
+<li><p><strong>Rotación Automática</strong>: Los backups infinitos llenan discos. La rotación debe ser automática.</p>
+</li>
+<li><p><strong>Prueba de Restauración</strong>: Un backup que nunca has restaurado es un riesgo. Debes probar restauraciones periódicamente.</p>
+</li>
+</ol>
+<h3>Mejores Prácticas de Backup</h3>
+<pre><code class="language-bash"># ✅ HACER:
+# Verificar backup después de crearlo
+diff -r /origen /backup/latest/
+
+# Monitorear espacio disponible
+df -h /backup/
+
+# Probar restauración periódicamente
+# (en ambiente de prueba)
+
+# Documentar procedimiento de recuperación
+
+# ❌ EVITAR:
+# Backups sin verificación
+# Rotación manual (propenso a errores)
+# Backup en mismo disco físico que origen
+# Ignorar errores en logs
+</code></pre>
+<hr>
+<h2>🚀 Siguientes Pasos</h2>
+<h3>Retos Relacionados</h3>
+<ul>
+<li><strong>Reto 12</strong>: Transferencia Segura - Backup a servidores remotos</li>
+<li><strong>Reto 06</strong>: Transferencia de Datos - Migración de backups</li>
+<li><strong>Reto 11</strong>: Reemplazo de Cadenas - Modificación de configuraciones</li>
+</ul>
+<h3>Mejoras Avanzadas</h3>
+<pre><code class="language-bash"># 1. Backup a servidor remoto
+# Agregar al script:
+rsync -avz /backup/daily/ backup-server:/backups/stapp02/
+
+# 2. Notificación por email en caso de fallo
+# Agregar al script:
+if [ $RSYNC_EXIT -ne 0 ]; then
+    echo &quot;Backup failed on $(hostname)&quot; | mail -s &quot;Backup Error&quot; admin@xfusioncorp.com
+fi
+
+# 3. Compresión de backups antiguos
+find /backup/daily -name &quot;backup_*&quot; -type d -mtime +3 -exec tar -czf {}.tar.gz {} \; -exec rm -rf {} \;
+
+# 4. Backup incremental con snapshots (LVM/Btrfs)
+# Si el sistema soporta snapshots
+
+# 5. Integración con monitoreo (Nagios/Zabbix)
+# Agregar check que verifique backup reciente
+</code></pre>
+<h3>Comandos de Mantenimiento</h3>
+<pre><code class="language-bash"># Verificar estado de backups
+ls -ltr /backup/daily/
+
+# Espacio usado por backups
+du -sh /backup/daily/*
+
+# Último backup exitoso
+grep &quot;completado exitosamente&quot; /var/log/backup/backup_*.log | tail -1
+
+# Limpiar manualmente si es necesario
+find /backup/daily -name &quot;backup_*&quot; -type d -mtime +7 -ls
+
+# Verificar integridad de backup específico
+diff -r /home/developer_data /backup/daily/backup_20250125_020000/
+</code></pre>
+<hr>
+<h2>📚 Recursos y Referencias</h2>
+<h3>Documentación Oficial</h3>
+<ul>
+<li><a href="https://rsync.samba.org/documentation.html">Rsync Documentation</a></li>
+<li><a href="https://help.ubuntu.com/community/CronHowto">Cron How-To</a></li>
+<li><a href="https://tldp.org/LDP/sag/html/backup-strategies.html">Linux Backup Strategies</a></li>
+</ul>
+<h3>Troubleshooting</h3>
+<table>
+<thead>
+<tr>
+<th>Síntoma</th>
+<th>Causa</th>
+<th>Solución</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&quot;No such file or directory&quot;</td>
+<td>Directorio origen no existe</td>
+<td>Crear o verificar ruta</td>
+</tr>
+<tr>
+<td>&quot;Permission denied&quot;</td>
+<td>Sin permisos de lectura</td>
+<td>Ejecutar como root o ajustar permisos</td>
+</tr>
+<tr>
+<td>Backup vacío</td>
+<td>Ruta incorrecta en rsync</td>
+<td>Verificar barras finales en paths</td>
+</tr>
+<tr>
+<td>Cron no ejecuta</td>
+<td>Permisos o sintaxis</td>
+<td>Verificar <code>crontab -l</code> y logs de cron</td>
+</tr>
+<tr>
+<td>Disco lleno</td>
+<td>Sin rotación o muchos datos</td>
+<td>Limpiar backups antiguos, aumentar retención</td>
+</tr>
+<tr>
+<td>Logs vacíos</td>
+<td>Redirección incorrecta</td>
+<td>Verificar <code>&gt;&gt;</code> en lugar de <code>&gt;</code></td>
+</tr>
+</tbody></table>
+<h3>Mejores Prácticas</h3>
+<pre><code class="language-bash"># ✅ SIEMPRE:
+# - Verificar espacio antes de backup
+# - Incluir timestamps en nombres
+# - Rotar automáticamente
+# - Loggear todo
+# - Probar restauración periódicamente
+
+# ❌ NUNCA:
+# - Backups en mismo filesystem que origen
+# - Sin verificación de integridad
+# - Retención infinita sin política
+# - Ignorar errores de rsync
+</code></pre>
+<hr>
+<h2>✅ Estado del Reto</h2>
+<p>🔒 <strong>BLOQUEADO</strong> - Requiere completar retos 4-6</p>
+<ul>
+<li>📅 Fecha planeada: Pendiente</li>
+<li>⏱️ Tiempo estimado: 25 minutos</li>
+<li>🎯 Dificultad: Fácil</li>
+<li>🖥️ Servidor objetivo: stapp02 (172.16.238.11)</li>
+</ul>
+<h3>Plan de Implementación</h3>
+<ol>
+<li>Verificar datos de origen existen</li>
+<li>Crear estructura de directorios (/backup, /var/log/backup)</li>
+<li>Crear script de backup con rsync</li>
+<li>Probar script manualmente</li>
+<li>Configurar cron job para 02:00 AM</li>
+<li>Verificar ejecución automática</li>
+<li>Validar logs y backups generados</li>
+</ol>
+<h3>Criterios de Éxito</h3>
+<ul>
+<li>✅ Script de backup funcional y programado</li>
+<li>✅ Directorios de backup creados con estructura adecuada</li>
+<li>✅ Rotación automática de backups antiguos (&gt;7 días)</li>
+<li>✅ Logging completo de operaciones</li>
+<li>✅ Backups con timestamps identificables</li>
+<li>✅ Permisos y metadatos preservados</li>
+</ul>
+<hr>
+<p><em>Documentación creada siguiendo estándares de SysAdmin - Continuidad de Negocio</em></p>
+</div> </div> </article> <div id="modal-08-backup-desarrollador" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50" aria-hidden="true"> <div class="flex items-center justify-center min-h-screen p-4"> <div class="bg-slate-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto"> <div class="p-6 border-b border-slate-700"> <div class="flex justify-between items-start"> <div> <h2 class="text-2xl font-bold text-gray-100">Reto 08: Data Backup for Developer - xFusionCorp Industries</h2> <div class="flex items-center gap-4 mt-2 text-sm"> <span class="capitalize bg-slate-700 px-2 py-1 rounded">linux</span> <span class="text-cyan-400">easy</span>  </div> </div> <button onclick="closeModal('08-backup-desarrollador')" class="text-gray-400 hover:text-white">
+✕
+</button> </div> </div> <div class="p-6"> <div class="mb-6"> <h3 class="text-lg font-semibold text-cyan-400 mb-4">Pasos a Seguir</h3> <div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">1. La Problemática</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">2. Contexto de Recuperación</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">3. Infraestructura Objetivo</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">4. Requisitos Técnicos</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">5. Tipos de Backup</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">6. Rotación de Backups (Grandfather-Father-Son)</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">7. Componentes del Sistema de Backup</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">8. Analogía: Sistema de Archivos de una Oficina</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">9. Fase 1: Preparación del Entorno</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">10. 1 Acceso al Sistema</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>ssh steve@172.16.238.11
+sudo su -</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">11. 2 Verificar Datos de Origen</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>ls -la /home/developer_data
+du -sh /home/developer_data
+ls -la /home/developer_data | head -10</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">12. Fase 2: Crear Estructura de Directorios</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">13. 1 Crear Directorios de Backup y Logs</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>mkdir -p /backup/daily
+mkdir -p /var/log/backup
+chmod 755 /backup
+chmod 755 /backup/daily
+chmod 755 /var/log/backup
+ls -la /backup/
+ls -la /var/log/backup/</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">14. 2 Verificar Espacio Disponible</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>df -h /backup/
+du -sh /home/developer_data</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">15. Fase 3: Crear Script de Backup</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">16. 1 Crear Script Principal</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>cat &gt; /usr/local/bin/dev_backup.sh &lt;&lt; &#39;EOF&#39;
+SOURCE_DIR=&quot;/home/developer_data&quot;
+BACKUP_BASE=&quot;/backup/daily&quot;
+LOG_DIR=&quot;/var/log/backup&quot;
+RETENTION_DAYS=7
+DATE=$(date +%Y%m%d_%H%M%S)
+BACKUP_DIR=&quot;${BACKUP_BASE}/backup_${DATE}&quot;
+LOG_FILE=&quot;${LOG_DIR}/backup_${DATE}.log&quot;
+log() {
+echo &quot;$(date &#39;+%Y-%m-%d %H:%M:%S&#39;) - $1&quot; | tee -a &quot;$LOG_FILE&quot;
+}
+log &quot;==========================================&quot;
+log &quot;INICIANDO BACKUP&quot;
+log &quot;Origen: $SOURCE_DIR&quot;
+log &quot;Destino: $BACKUP_DIR&quot;
+log &quot;==========================================&quot;
+if [ ! -d &quot;$SOURCE_DIR&quot; ]; then
+log &quot;ERROR: Directorio origen no existe: $SOURCE_DIR&quot;
+exit 1
+fi
+mkdir -p &quot;$BACKUP_DIR&quot;
+if [ $? -ne 0 ]; then
+log &quot;ERROR: No se pudo crear directorio de backup: $BACKUP_DIR&quot;
+exit 1
+fi
+log &quot;Ejecutando rsync...&quot;
+rsync -avz --delete &quot;$SOURCE_DIR/&quot; &quot;$BACKUP_DIR/&quot; &gt;&gt; &quot;$LOG_FILE&quot; 2&gt;&amp;1
+RSYNC_EXIT=$?
+if [ $RSYNC_EXIT -eq 0 ]; then
+log &quot;✓ Backup completado exitosamente&quot;
+SOURCE_SIZE=$(du -sb &quot;$SOURCE_DIR&quot; | awk &#39;{print $1}&#39;)
+BACKUP_SIZE=$(du -sb &quot;$BACKUP_DIR&quot; | awk &#39;{print $1}&#39;)
+FILE_COUNT=$(find &quot;$BACKUP_DIR&quot; -type f | wc -l)
+log &quot;Estadísticas:&quot;
+log &quot;  - Archivos respaldados: $FILE_COUNT&quot;
+log &quot;  - Tamaño origen: $(du -sh &quot;$SOURCE_DIR&quot; | awk &#39;{print $1}&#39;)&quot;
+log &quot;  - Tamaño backup: $(du -sh &quot;$BACKUP_DIR&quot; | awk &#39;{print $1}&#39;)&quot;
+else
+log &quot;✗ ERROR en rsync (exit code: $RSYNC_EXIT)&quot;
+exit 1
+fi
+log &quot;Limpiando backups antiguos (&gt; $RETENTION_Días días)...&quot;
+DELETED=$(find &quot;$BACKUP_BASE&quot; -name &quot;backup_*&quot; -type d -mtime +$RETENTION_DAYS)
+if [ -n &quot;$DELETED&quot; ]; then
+echo &quot;$DELETED&quot; | while read dir; do
+log &quot;  Eliminando: $dir&quot;
+done
+find &quot;$BACKUP_BASE&quot; -name &quot;backup_*&quot; -type d -mtime +$RETENTION_DAYS -exec rm -rf {} + 2&gt;/dev/null
+fi
+REMAINING=$(find &quot;$BACKUP_BASE&quot; -name &quot;backup_*&quot; -type d | wc -l)
+log &quot;Backups restantes: $REMAINING&quot;
+log &quot;==========================================&quot;
+log &quot;BACKUP FINALIZADO&quot;
+log &quot;==========================================&quot;
+exit 0
+EOF
+chmod +x /usr/local/bin/dev_backup.sh
+cat /usr/local/bin/dev_backup.sh | head -20</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">17. 2 Probar Script Manualmente</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>/usr/local/bin/dev_backup.sh
+echo &quot;Exit code: $?&quot;
+ls -la /var/log/backup/
+cat /var/log/backup/backup_*.log | tail -30
+ls -la /backup/daily/</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">18. Fase 4: Configurar Automatización con Cron</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">19. 1 Editar Crontab</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>crontab -e</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">20. 2 Agregar Entrada de Cron</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>echo &quot;0 2 * * * /usr/local/bin/dev_backup.sh&quot; | crontab -
+cat &gt; /etc/cron.d/dev-backup &lt;&lt; &#39;EOF&#39;
+SHELL=/bin/bash
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+0 2 * * * root /usr/local/bin/dev_backup.sh
+EOF
+chmod 644 /etc/cron.d/dev-backup</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">21. 3 Verificar Configuración de Cron</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>crontab -l
+ls -la /etc/cron.d/dev-backup
+cat /etc/cron.d/dev-backup
+systemctl status crond
+systemctl status cron</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">22. Fase 5: Verificación y Monitoreo</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">23. 1 Simular Ejecución</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>ls -la /usr/local/bin/dev_backup.sh
+file /usr/local/bin/dev_backup.sh
+bash -n /usr/local/bin/dev_backup.sh
+echo &quot;Syntax OK: $?&quot;
+bash -x /usr/local/bin/dev_backup.sh 2&gt;&amp;1 | head -50</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">24. 2 Verificar Backups Generados</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>ls -ltr /backup/daily/
+ls -la /backup/daily/backup_*/
+diff -r /home/developer_data /backup/daily/backup_$(ls /backup/daily/ | tail -1)/</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">25. 3 Verificar Logs</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>tail -50 /var/log/backup/backup_*.log | tail -50
+grep -i &quot;error&quot; /var/log/backup/backup_*.log
+cat /var/log/backup/backup_*.log | grep -E &quot;(INICIANDO|FINALIZADO|ERROR)&quot;</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">26. Resumen de Comandos</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>mkdir -p /backup/daily /var/log/backup
+cat &gt; /usr/local/bin/dev_backup.sh &lt;&lt; &#39;EOF&#39;
+SOURCE_DIR=&quot;/home/developer_data&quot;
+BACKUP_BASE=&quot;/backup/daily&quot;
+LOG_DIR=&quot;/var/log/backup&quot;
+DATE=$(date +%Y%m%d_%H%M%S)
+LOG_FILE=&quot;${LOG_DIR}/backup_${DATE}.log&quot;
+echo &quot;$(date) - Iniciando backup&quot; &gt;&gt; &quot;$LOG_FILE&quot;
+mkdir -p &quot;${BACKUP_BASE}/backup_${DATE}&quot;
+rsync -avz --delete &quot;$SOURCE_DIR/&quot; &quot;${BACKUP_BASE}/backup_${DATE}/&quot; &gt;&gt; &quot;$LOG_FILE&quot; 2&gt;&amp;1
+echo &quot;$(date) - Backup completado&quot; &gt;&gt; &quot;$LOG_FILE&quot;
+find &quot;$BACKUP_BASE&quot; -name &quot;backup_*&quot; -type d -mtime +7 -exec rm -rf {} +
+EOF
+chmod +x /usr/local/bin/dev_backup.sh
+echo &quot;0 2 * * * /usr/local/bin/dev_backup.sh&quot; | crontab -
+crontab -l
+/usr/local/bin/dev_backup.sh
+ls -la /backup/daily/
+ls -la /var/log/backup/</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">27. Arquitectura Implementada</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">28. Beneficios del Sistema Implementado</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">29. Checklist de Verificación</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">30. La Regla 3-2-1 de Backups</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">31. Lecciones Clave</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">32. Mejores Prácticas de Backup</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>diff -r /origen /backup/latest/
+df -h /backup/</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">33. Retos Relacionados</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">34. Mejoras Avanzadas</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>rsync -avz /backup/daily/ backup-server:/backups/stapp02/
+if [ $RSYNC_EXIT -ne 0 ]; then
+echo &quot;Backup failed on $(hostname)&quot; | mail -s &quot;Backup Error&quot; admin@xfusioncorp.com
+fi
+find /backup/daily -name &quot;backup_*&quot; -type d -mtime +3 -exec tar -czf {}.tar.gz {} \; -exec rm -rf {} \;</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">35. Comandos de Mantenimiento</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>ls -ltr /backup/daily/
+du -sh /backup/daily/*
+grep &quot;completado exitosamente&quot; /var/log/backup/backup_*.log | tail -1
+find /backup/daily -name &quot;backup_*&quot; -type d -mtime +7 -ls
+diff -r /home/developer_data /backup/daily/backup_20250125_020000/</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">36. Documentación Oficial</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">37. Troubleshooting</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">38. Mejores Prácticas</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">39. Plan de Implementación</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">40. Criterios de Éxito</h4>   </div> </div>    </div> </div> </div> </div> <script type="module">document.addEventListener("click",e=>{const t=e.target;t.classList.contains("bg-black")&&(t.classList.add("hidden"),t.setAttribute("aria-hidden","true"))});</script> <!-- Navigation --> <div class="nav-buttons" data-astro-cid-i5n6fu6j> <a href="/challenges/linux/07-ssh-root-seguro" class="nav-btn prev" data-astro-cid-i5n6fu6j> <span class="nav-icon" data-astro-cid-i5n6fu6j>←</span> <span class="nav-content" data-astro-cid-i5n6fu6j> <span class="nav-label" data-astro-cid-i5n6fu6j>Anterior</span> <span class="nav-title" data-astro-cid-i5n6fu6j>#07 Reto 07: Secure Root SSH Access - xFusio...</span> </span> </a> <a href="/challenges/linux/" class="nav-btn home" data-astro-cid-i5n6fu6j> <span class="nav-icon" data-astro-cid-i5n6fu6j>🐧</span> <span class="nav-content" data-astro-cid-i5n6fu6j> <span class="nav-label" data-astro-cid-i5n6fu6j>Volver</span> <span class="nav-title" data-astro-cid-i5n6fu6j>Todos los Retos</span> </span> </a> <a href="/challenges/linux/09-permisos-scripts" class="nav-btn next" data-astro-cid-i5n6fu6j> <span class="nav-content" data-astro-cid-i5n6fu6j> <span class="nav-label" data-astro-cid-i5n6fu6j>Siguiente</span> <span class="nav-title" data-astro-cid-i5n6fu6j>#09 Reto 09: Script Execution Permissions - ...</span> </span> <span class="nav-icon" data-astro-cid-i5n6fu6j>→</span> </a> </div> </div> </main>  </main>  <script type="module">const e=document.getElementById("mobile-menu-btn"),n=document.getElementById("mobile-menu");e?.addEventListener("click",()=>{n?.classList.toggle("hidden")});</script></body></html> 

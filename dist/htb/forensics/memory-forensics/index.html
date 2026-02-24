@@ -1,0 +1,215 @@
+<!DOCTYPE html><html lang="es"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="HTB Academy - Memory Forensics Basics - HTB Challenge"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><title>HTB Academy - Memory Forensics Basics | HTB Challenge</title><link rel="stylesheet" href="/challenges/_astro/_slug_-Bxg8atdN.css">
+<style>.markdown-body{font-family:system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;line-height:1.8;color:#e5e7eb}.markdown-body h1{font-size:2rem;font-weight:700;color:#f97316;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid #374151}.markdown-body h2{font-size:1.5rem;font-weight:600;color:#22d3ee;margin:1.75rem 0 1rem;padding-bottom:.25rem}.markdown-body h3{font-size:1.25rem;font-weight:600;color:#a5f3fc;margin:1.5rem 0 .75rem}.markdown-body p{margin:.75rem 0;color:#d1d5db}.markdown-body strong{color:#fbbf24;font-weight:600}.markdown-body ul,.markdown-body ol{margin:.75rem 0;padding-left:1.5rem;color:#d1d5db}.markdown-body li{margin:.5rem 0;list-style-type:disc}.markdown-body table{width:100%;margin:1rem 0;border-collapse:collapse;font-size:.9rem}.markdown-body th,.markdown-body td{padding:.75rem;border:1px solid #374151;text-align:left}.markdown-body th{background:#37415180;color:#fbbf24;font-weight:600}.markdown-body td{color:#d1d5db}.markdown-body code{background:#06b6d426;color:#22d3ee;padding:.2rem .5rem;border-radius:.375rem;font-family:SF Mono,Monaco,Courier New,monospace;font-size:.875rem}.markdown-body pre{background:#0f172a;padding:1rem;border-radius:.75rem;overflow-x:auto;margin:1rem 0;border:1px solid #1e293b}.markdown-body pre code{background:transparent;padding:0;color:#a5b4fc}
+</style></head> <body class="bg-dark-bg text-gray-100 min-h-screen"> <header class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 border-b border-dark-border"> <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4"> <nav class="flex mb-6" aria-label="Breadcrumb"> <ol class="flex items-center space-x-2"> <li class="flex items-center">  <a href="/challenges" class="text-cyan-400 hover:text-cyan-300 transition-colors"> Challenges </a> </li><li class="flex items-center"> <span class="text-gray-500 mx-2">/</span> <a href="/challenges/htb" class="text-cyan-400 hover:text-cyan-300 transition-colors"> HTB </a> </li><li class="flex items-center"> <span class="text-gray-500 mx-2">/</span> <span class="text-gray-300 font-medium">HTB Academy - Memory Forensics Basics</span> </li> </ol> </nav> </nav> <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12"> <div class="flex items-center space-x-4 mb-4"> <span class="px-4 py-2 bg-gradient-to-r from-green-500 to-teal-600 rounded-full text-lg font-bold text-white">
+🎯
+</span> <span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">✅ Completado</span> <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">⭐ medium</span> <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">HTB</span> </div> <h1 class="text-4xl font-bold text-white mb-2">HTB Academy - Memory Forensics Basics</h1> <p class="text-gray-400">HTB Challenge</p> </div> </header> <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12"> <article class="prose prose-invert max-w-none"> <div class="bg-dark-card rounded-xl border border-dark-border p-8">  <div class="flex flex-wrap gap-2 mb-6"> <span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#forensics</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#memory-analysis</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#volatility</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#malware</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#htb-academy</span> </div> <div class="markdown-body"><h1>🎓 HTB Academy - Memory Forensics Basics</h1>
+<h2>🎭 Análisis Forense de Memoria</h2>
+<hr>
+<p>👨‍🏫 <strong>Del Instructor</strong>: Bienvenido al módulo de Memory Forensics. Como Analista Forense, la capacidad de analizar volcados de memoria es crucial para investigar incidentes de seguridad, detectar malware en ejecución y recuperar evidencia que no existe en disco.</p>
+<blockquote>
+<p>🎯 <strong>Mentalidad de Forense</strong>: &quot;La memoria es el testigo silencioso. Mientras el disco puede ser borrado o cifrado, la memoria contiene la verdad viva del momento del incidente - procesos, conexiones, malware, todo está ahí esperando ser descubierto.&quot;</p>
+</blockquote>
+<hr>
+<h2>🎭 El Escenario: Investigación de Incidente</h2>
+<h3>Contexto del Caso</h3>
+<p>Eres un analista del equipo de respuesta a incidentes. Se ha detectado comportamiento sospechoso en una estación de trabajo. El equipo de SOC ha capturado un volcado de memoria antes de aislar el equipo. Tu misión es analizar el volcado para:</p>
+<ul>
+<li>Identificar procesos maliciosos</li>
+<li>Descubrir conexiones de red sospechosas</li>
+<li>Extraer malware y evidencia</li>
+<li>Reconstruir la cronología del ataque</li>
+</ul>
+<p><strong>Tu misión como Forensic Analyst</strong>:</p>
+<ul>
+<li>Analizar el volcado de memoria con Volatility</li>
+<li>Identificar procesos anómalos</li>
+<li>Extraer indicadores de compromiso (IOCs)</li>
+<li>Documentar hallazgos para el reporte</li>
+</ul>
+<h2>🧠 Fundamentos de Análisis: Memory Forensics</h2>
+<h3>¿Qué es un Memory Dump?</h3>
+<p>Un volcado de memoria es una copia del contenido de la RAM de un sistema en un momento específico. Contiene:</p>
+<ul>
+<li><strong>Procesos en ejecución</strong>: Programas activos y sus metadatos</li>
+<li><strong>Conexiones de red</strong>: Sockets activos y recientes</li>
+<li><strong>Archivos mapeados</strong>: DLLs, drivers, ejecutables</li>
+<li><strong>Registro de Windows</strong>: Hive y configuraciones</li>
+<li><strong>Malware en memoria</strong>: Payloads descifrados, rootkits</li>
+</ul>
+<h3>Volatility Framework</h3>
+<p>Volatility es la herramienta estándar para análisis forense de memoria:</p>
+<pre><code>Volatility 3 Architecture:
+├── plugins/          # Plugins de análisis
+├── symbols/          # Tablas de símbolos OS
+└── framework/        # Motor de análisis
+</code></pre>
+<h2>🔍 Metodología de Investigación</h2>
+<h3>Paso 1: Preparación del Entorno</h3>
+<pre><code class="language-bash"># Conectar a Pwnbox HTB Academy
+ssh htb-ac-XXXXXX@htb-XXXXXX.htb-cloud.com
+
+# Verificar Volatility instalado
+python3 -c &quot;import volatility3; print(volatility3.__version__)&quot;
+
+# Descargar el volcado de memoria
+wget https://academy.hackthebox.com/storage/modules/memory_dump.raw
+
+# Verificar integridad
+md5sum memory_dump.raw
+</code></pre>
+<h3>Paso 2: Identificar el Profile</h3>
+<pre><code class="language-bash"># Usar Volatility 3 para identificar el OS
+python3 vol.py -f memory_dump.raw windows.info
+
+# Output esperado:
+# Name: Windows 10 Pro
+# Version: 10.0.19041
+# Architecture: x64
+</code></pre>
+<p><strong>Análisis</strong>: Identificar el sistema operativo correcto es crucial para usar los símbolos adecuados.</p>
+<h3>Paso 3: Listar Procesos</h3>
+<pre><code class="language-bash"># Listar todos los procesos
+python3 vol.py -f memory_dump.raw windows.pslist
+
+# Procesos sospechosos a buscar:
+# - Procesos con nombres extraños
+# - Procesos sin ruta de imagen válida
+# - Procesos con PID alto pero padres legítimos
+# - Procesos con handles sospechosos
+
+# Buscar procesos ocultos (rootkit detection)
+python3 vol.py -f memory_dump.raw windows.psscan
+
+# Comparar pslist vs psscan para detectar rootkits
+diff &lt;(python3 vol.py -f memory_dump.raw windows.pslist | grep -E &quot;^\d&quot;) \
+     &lt;(python3 vol.py -f memory_dump.raw windows.psscan | grep -E &quot;^\d&quot;)
+</code></pre>
+<h3>Paso 4: Análisis de Red</h3>
+<pre><code class="language-bash"># Conexiones de red activas
+python3 vol.py -f memory_dump.raw windows.netscan
+
+# Buscar conexiones sospechosas:
+# - Puertos altos (&gt;49152)
+# - IPs externas desconocidas
+# - Conexiones ESTABLISHED a puertos no estándar
+
+# Filtrar por puertos sospechosos
+python3 vol.py -f memory_dump.raw windows.netscan | grep -E &quot;:4444|:6667|:31337&quot;
+</code></pre>
+<h3>Paso 5: Análisis de Malware</h3>
+<pre><code class="language-bash"># Buscar procesos inyectados
+python3 vol.py -f memory_dump.raw windows.malfind
+
+# Extraer ejecutable de un proceso sospechoso
+python3 vol.py -f memory_dump.raw -o ./output windows.dump --pid 1234
+
+# Analizar strings del proceso
+strings ./output/process.1234.dmp | grep -i &quot;password\|key\|http&quot;
+
+# Buscar DLLs inyectadas
+python3 vol.py -f memory_dump.raw windows.dlllist --pid 1234
+</code></pre>
+<h3>Paso 6: Análisis de Persistencia</h3>
+<pre><code class="language-bash"># Buscar claves de registro de persistencia
+python3 vol.py -f memory_dump.raw windows.registry.printkey \
+  --key &quot;Software\\Microsoft\\Windows\\CurrentVersion\\Run&quot;
+
+# Buscar servicios maliciosos
+python3 vol.py -f memory_dump.raw windows.svcscan | grep -i &quot;unknown&quot;
+
+# Buscar tareas programadas
+python3 vol.py -f memory_dump.raw windows.tasks
+</code></pre>
+<h2>🛠️ Arsenal de Herramientas</h2>
+<table>
+<thead>
+<tr>
+<th>Herramienta</th>
+<th>Uso</th>
+<th>Comando</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>volatility3</code></td>
+<td>Análisis de memoria</td>
+<td><code>python3 vol.py -f dump.raw</code></td>
+</tr>
+<tr>
+<td><code>strings</code></td>
+<td>Búsqueda de texto</td>
+<td><code>strings dump.dmp</code></td>
+</tr>
+<tr>
+<td><code>grep</code></td>
+<td>Filtrado</td>
+<td><code>grep -i &quot;password&quot;</code></td>
+</tr>
+<tr>
+<td><code>bulk_extractor</code></td>
+<td>Extracción masiva</td>
+<td><code>bulk_extractor -o output dump.raw</code></td>
+</tr>
+<tr>
+<td><code>memprocfs</code></td>
+<td>Análisis interactivo</td>
+<td><code>MemProcFS -device dump.raw</code></td>
+</tr>
+</tbody></table>
+<h2>✅ Checklist de Verificación</h2>
+<ul>
+<li><input disabled="" type="checkbox"> Identificar sistema operativo del volcado</li>
+<li><input disabled="" type="checkbox"> Listar todos los procesos activos</li>
+<li><input disabled="" type="checkbox"> Detectar procesos ocultos (rootkits)</li>
+<li><input disabled="" type="checkbox"> Analizar conexiones de red</li>
+<li><input disabled="" type="checkbox"> Buscar inyecciones de código</li>
+<li><input disabled="" type="checkbox"> Extraer procesos sospechosos</li>
+<li><input disabled="" type="checkbox"> Analizar persistencia</li>
+<li><input disabled="" type="checkbox"> Documentar IOCs encontrados</li>
+</ul>
+<h2>🎓 Lo Que Acabas de Aprender</h2>
+<p><strong>Habilidades Técnicas</strong>:</p>
+<ul>
+<li>Uso de Volatility 3 para análisis de memoria</li>
+<li>Detección de procesos maliciosos</li>
+<li>Análisis de conexiones de red</li>
+<li>Extracción de malware de memoria</li>
+</ul>
+<p><strong>Mentalidad Forense</strong>:</p>
+<ul>
+<li><strong>Metodología sistemática</strong>: Seguir el orden correcto de análisis</li>
+<li><strong>Correlación de evidencia</strong>: Procesos + Red + Registro</li>
+<li><strong>Documentación</strong>: Cada hallazgo debe ser reproducible</li>
+</ul>
+<h2>🚀 Próximos Pasos</h2>
+<ol>
+<li><strong>Malware Analysis</strong>: Analizar los ejecutables extraídos</li>
+<li><strong>Timeline Analysis</strong>: Reconstruir la cronología del ataque</li>
+<li><strong>Threat Intelligence</strong>: Correlacionar IOCs con bases de datos</li>
+<li><strong>Incident Report</strong>: Documentar hallazgos para stakeholders</li>
+</ol>
+<h2>📚 Recursos HTB Academy</h2>
+<ul>
+<li><a href="https://academy.hackthebox.com/module/details/115">HTB Academy - Memory Forensics Module</a></li>
+<li><a href="https://github.com/volatilityfoundation/volatility3">Volatility 3 Documentation</a></li>
+<li><a href="https://downloads.volatilityfoundation.org/cheatsheets/">Memory Forensics Cheat Sheet</a></li>
+<li><a href="https://www.sans.org/blog/memory-forensics/">SANS Memory Forensics</a></li>
+</ul>
+<hr>
+<h2>✅ Estado</h2>
+<p><strong>LISTO PARA COMPLETAR</strong> 🔵</p>
+<ul>
+<li>📅 Fecha: 2026-02-17</li>
+<li>⏱️ Tiempo estimado: 45 minutos</li>
+<li>🎯 Dificultad: Media (HTB Academy Intermediate)</li>
+</ul>
+</div> </div> </article> <div class="mt-8 flex justify-between items-center"> <a href="/challenges/htb/" class="px-6 py-3 bg-slate-700 hover:bg-slate-600 rounded-lg transition-colors">
+← Volver
+</a> <button onclick="openModal('forensics/memory-forensics')" class="px-6 py-3 bg-gradient-to-r from-green-500 to-teal-600 hover:from-green-600 hover:to-teal-700 rounded-lg transition-all font-medium flex items-center gap-2 shadow-lg shadow-green-500/25"> <span>📋</span> <span>Ver Solución Paso a Paso</span> </button> </div> </main> <div id="modal-forensics/memory-forensics" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50" aria-hidden="true"> <div class="flex items-center justify-center min-h-screen p-4"> <div class="bg-slate-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto"> <div class="p-6 border-b border-slate-700"> <div class="flex justify-between items-start"> <div> <h2 class="text-2xl font-bold text-gray-100">HTB Academy - Memory Forensics Basics</h2> <div class="flex items-center gap-4 mt-2 text-sm"> <span class="capitalize bg-slate-700 px-2 py-1 rounded">forensics</span> <span class="text-cyan-400">medium</span>  </div> </div> <button onclick="closeModal('forensics/memory-forensics')" class="text-gray-400 hover:text-white">
+✕
+</button> </div> </div> <div class="p-6"> <div class="mb-6"> <h3 class="text-lg font-semibold text-cyan-400 mb-4">Pasos a Seguir</h3> <div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">1. Comandos de Solución</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>ssh htb-ac-XXXXXX@htb-XXXXXX.htb-cloud.com
+python3 -c &quot;import volatility3; print(volatility3.__version__)&quot;
+wget https://academy.hackthebox.com/storage/modules/memory_dump.raw
+md5sum memory_dump.raw</code>
+                  </pre>  </div> </div> <div class="mb-6"> <h3 class="text-lg font-semibold text-yellow-400 mb-4">Verificación</h3> <ul class="space-y-2"> <li class="flex items-center text-gray-300"> <span class="text-green-400 mr-2">✓</span> Reto completado </li><li class="flex items-center text-gray-300"> <span class="text-green-400 mr-2">✓</span> Puntuación obtenida </li> </ul> </div>   </div> </div> </div> </div> <script type="module">document.addEventListener("click",e=>{const t=e.target;t.classList.contains("bg-black")&&(t.classList.add("hidden"),t.setAttribute("aria-hidden","true"))});</script> <footer class="border-t border-dark-border mt-16"> <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center text-gray-500 text-sm"> <p>Technical Challenges Repository | HTB Challenge</p> </div> </footer> <script type="module">function e(d){const o=document.getElementById(`modal-${d}`);o&&(o.classList.remove("hidden"),document.body.style.overflow="hidden")}window.openModal=e;</script> </body> </html>

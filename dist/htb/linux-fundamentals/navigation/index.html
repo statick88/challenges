@@ -1,0 +1,204 @@
+<!DOCTYPE html><html lang="es"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="Linux Fundamentals - Navigation - HTB Challenge"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><title>Linux Fundamentals - Navigation | HTB Challenge</title><link rel="stylesheet" href="/challenges/_astro/_slug_-Bxg8atdN.css">
+<style>.markdown-body{font-family:system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;line-height:1.8;color:#e5e7eb}.markdown-body h1{font-size:2rem;font-weight:700;color:#f97316;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid #374151}.markdown-body h2{font-size:1.5rem;font-weight:600;color:#22d3ee;margin:1.75rem 0 1rem;padding-bottom:.25rem}.markdown-body h3{font-size:1.25rem;font-weight:600;color:#a5f3fc;margin:1.5rem 0 .75rem}.markdown-body p{margin:.75rem 0;color:#d1d5db}.markdown-body strong{color:#fbbf24;font-weight:600}.markdown-body ul,.markdown-body ol{margin:.75rem 0;padding-left:1.5rem;color:#d1d5db}.markdown-body li{margin:.5rem 0;list-style-type:disc}.markdown-body table{width:100%;margin:1rem 0;border-collapse:collapse;font-size:.9rem}.markdown-body th,.markdown-body td{padding:.75rem;border:1px solid #374151;text-align:left}.markdown-body th{background:#37415180;color:#fbbf24;font-weight:600}.markdown-body td{color:#d1d5db}.markdown-body code{background:#06b6d426;color:#22d3ee;padding:.2rem .5rem;border-radius:.375rem;font-family:SF Mono,Monaco,Courier New,monospace;font-size:.875rem}.markdown-body pre{background:#0f172a;padding:1rem;border-radius:.75rem;overflow-x:auto;margin:1rem 0;border:1px solid #1e293b}.markdown-body pre code{background:transparent;padding:0;color:#a5b4fc}
+</style></head> <body class="bg-dark-bg text-gray-100 min-h-screen"> <header class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 border-b border-dark-border"> <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4"> <nav class="flex mb-6" aria-label="Breadcrumb"> <ol class="flex items-center space-x-2"> <li class="flex items-center">  <a href="/challenges" class="text-cyan-400 hover:text-cyan-300 transition-colors"> Challenges </a> </li><li class="flex items-center"> <span class="text-gray-500 mx-2">/</span> <a href="/challenges/htb" class="text-cyan-400 hover:text-cyan-300 transition-colors"> HTB </a> </li><li class="flex items-center"> <span class="text-gray-500 mx-2">/</span> <span class="text-gray-300 font-medium">Linux Fundamentals - Navigation</span> </li> </ol> </nav> </nav> <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12"> <div class="flex items-center space-x-4 mb-4"> <span class="px-4 py-2 bg-gradient-to-r from-green-500 to-teal-600 rounded-full text-lg font-bold text-white">
+🎯
+</span> <span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">✅ Completado</span> <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">⭐ easy</span> <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">HTB Academy</span> </div> <h1 class="text-4xl font-bold text-white mb-2">Linux Fundamentals - Navigation</h1> <p class="text-gray-400">HTB Challenge</p> </div> </header> <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12"> <article class="prose prose-invert max-w-none"> <div class="bg-dark-card rounded-xl border border-dark-border p-8">  <div class="flex flex-wrap gap-2 mb-6"> <span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#linux</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#navigation</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#ls</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#cd</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#inode</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#hidden-files</span> </div> <div class="markdown-body"><h1>Linux Fundamentals - Navigation</h1>
+<h2>Objetivo</h2>
+<p>Aprender a navegar por el sistema de archivos Linux, listar contenidos de directorios, identificar archivos ocultos y entender los inodos.</p>
+<hr>
+<h2>Conexión al Target</h2>
+<pre><code class="language-bash">ssh htb-student@10.129.2.219
+# Password: HTB_@cademy_stdnt!
+</code></pre>
+<hr>
+<h2>Preguntas y Soluciones</h2>
+<h3>Question 1: Hidden History File</h3>
+<p><strong>Pregunta:</strong> What is the name of the hidden &quot;history&quot; file in the htb-user&#39;s home directory?</p>
+<p><strong>Solución:</strong></p>
+<pre><code class="language-bash">ls -la ~ | grep history
+</code></pre>
+<p><strong>Output:</strong></p>
+<pre><code>-rw------- 1 htb-student htb-student    5 Sep 23  2020 .bash_history
+</code></pre>
+<p><strong>Respuesta:</strong> <code>.bash_history</code></p>
+<p><strong>Explicación:</strong></p>
+<ul>
+<li>Los archivos ocultos en Linux comienzan con <code>.</code> (punto)</li>
+<li><code>.bash_history</code> almacena el historial de comandos del usuario</li>
+<li>La opción <code>-a</code> de <code>ls</code> muestra archivos ocultos</li>
+</ul>
+<hr>
+<h3>Question 2: Index Number of sudoers</h3>
+<p><strong>Pregunta:</strong> What is the index number of the &quot;sudoers&quot; file in the &quot;/etc&quot; directory?</p>
+<p><strong>Solución:</strong></p>
+<pre><code class="language-bash">ls -li /etc/sudoers
+</code></pre>
+<p><strong>Output:</strong></p>
+<pre><code>147627 -r--r----- 1 root root 755 Jan 18  2018 /etc/sudoers
+</code></pre>
+<p><strong>Respuesta:</strong> <code>147627</code></p>
+<p><strong>Alternativa:</strong></p>
+<pre><code class="language-bash">stat /etc/sudoers
+</code></pre>
+<pre><code>  File: /etc/sudoers
+  Size: 755       	Blocks: 8          IO Block: 4096   regular file
+Device: 801h/2049d	Inode: 147627      Links: 1
+</code></pre>
+<hr>
+<h2>Conceptos Clave</h2>
+<h3>Comandos de Navegación</h3>
+<table>
+<thead>
+<tr>
+<th>Comando</th>
+<th>Descripción</th>
+<th>Ejemplo</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>pwd</code></td>
+<td>Print working directory</td>
+<td><code>pwd</code></td>
+</tr>
+<tr>
+<td><code>ls</code></td>
+<td>List directory contents</td>
+<td><code>ls -la</code></td>
+</tr>
+<tr>
+<td><code>cd</code></td>
+<td>Change directory</td>
+<td><code>cd /var/log</code></td>
+</tr>
+<tr>
+<td><code>cd -</code></td>
+<td>Ir al directorio anterior</td>
+<td><code>cd -</code></td>
+</tr>
+<tr>
+<td><code>cd ..</code></td>
+<td>Ir al directorio padre</td>
+<td><code>cd ..</code></td>
+</tr>
+<tr>
+<td><code>clear</code></td>
+<td>Limpiar terminal</td>
+<td><code>clear</code></td>
+</tr>
+</tbody></table>
+<h3>Opciones de ls</h3>
+<table>
+<thead>
+<tr>
+<th>Opción</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>-l</code></td>
+<td>Formato largo (permisos, owner, tamaño, fecha)</td>
+</tr>
+<tr>
+<td><code>-a</code></td>
+<td>Mostrar archivos ocultos (incluye <code>.</code> y <code>..</code>)</td>
+</tr>
+<tr>
+<td><code>-h</code></td>
+<td>Tamaños legibles (KB, MB, GB)</td>
+</tr>
+<tr>
+<td><code>-i</code></td>
+<td>Mostrar inode number</td>
+</tr>
+<tr>
+<td><code>-R</code></td>
+<td>Listar recursivamente</td>
+</tr>
+</tbody></table>
+<h3>Inodos (Inodes)</h3>
+<p>Un <strong>inode</strong> es una estructura de datos que almacena metadatos de un archivo:</p>
+<ul>
+<li>Tipo de archivo</li>
+<li>Permisos</li>
+<li>Owner (UID) y Group (GID)</li>
+<li>Tamaño</li>
+<li>Timestamps (acceso, modificación, cambio)</li>
+<li>Punteros a bloques de datos</li>
+<li>Número de links</li>
+</ul>
+<p>El inode se muestra con <code>ls -li</code> como el primer campo.</p>
+<h3>Archivos Ocultos</h3>
+<p>Los archivos que comienzan con <code>.</code> son ocultos:</p>
+<ul>
+<li><code>.bash_history</code> - Historial de comandos</li>
+<li><code>.bashrc</code> - Configuración de bash</li>
+<li><code>.profile</code> - Script de login</li>
+<li><code>.ssh/</code> - Claves SSH y configuración</li>
+</ul>
+<hr>
+<h2>Atajos de Teclado</h2>
+<table>
+<thead>
+<tr>
+<th>Atajo</th>
+<th>Función</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Tab</code></td>
+<td>Auto-completar</td>
+</tr>
+<tr>
+<td><code>Tab Tab</code></td>
+<td>Mostrar opciones</td>
+</tr>
+<tr>
+<td><code>Ctrl + L</code></td>
+<td>Limpiar pantalla</td>
+</tr>
+<tr>
+<td><code>Ctrl + R</code></td>
+<td>Buscar en historial</td>
+</tr>
+<tr>
+<td><code>↑ / ↓</code></td>
+<td>Navegar historial</td>
+</tr>
+<tr>
+<td><code>Ctrl + C</code></td>
+<td>Cancelar comando</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>Lecciones Aprendidas</h2>
+<ol>
+<li><strong>Archivos ocultos:</strong> Siempre usar <code>ls -la</code> para ver todo el contenido</li>
+<li><strong>Inodos:</strong> El inode es el identificador único de un archivo en el filesystem</li>
+<li><strong>Navegación:</strong> <code>cd -</code> permite alternar entre dos directorios rápidamente</li>
+<li><strong>Autocompletar:</strong> Tab es esencial para navegar eficientemente</li>
+<li><strong>stat:</strong> Proporciona información detallada de un archivo</li>
+</ol>
+<hr>
+<h2>Referencias</h2>
+<ul>
+<li><a href="https://man7.org/linux/man-pages/man1/ls.1.html">ls(1) - Linux manual page</a></li>
+<li><a href="https://man7.org/linux/man-pages/man7/inode.7.html">inode(7) - Linux manual page</a></li>
+<li><a href="https://refspecs.linuxfoundation.org/FHS_3.0/fhs-3.0.html">Filesystem Hierarchy Standard</a></li>
+</ul>
+<hr>
+<h2>Estado</h2>
+<p><strong>COMPLETADO</strong> ✓</p>
+<ul>
+<li>Fecha: 2026-02-20</li>
+<li>Módulo: Linux Fundamentals</li>
+<li>Sección: 7 - Navigation</li>
+<li>Respuestas correctas: 2/2</li>
+</ul>
+</div> </div> </article> <div class="mt-8 flex justify-between items-center"> <a href="/challenges/htb/" class="px-6 py-3 bg-slate-700 hover:bg-slate-600 rounded-lg transition-colors">
+← Volver
+</a> <button onclick="openModal('linux-fundamentals/navigation')" class="px-6 py-3 bg-gradient-to-r from-green-500 to-teal-600 hover:from-green-600 hover:to-teal-700 rounded-lg transition-all font-medium flex items-center gap-2 shadow-lg shadow-green-500/25"> <span>📋</span> <span>Ver Solución Paso a Paso</span> </button> </div> </main> <div id="modal-linux-fundamentals/navigation" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50" aria-hidden="true"> <div class="flex items-center justify-center min-h-screen p-4"> <div class="bg-slate-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto"> <div class="p-6 border-b border-slate-700"> <div class="flex justify-between items-start"> <div> <h2 class="text-2xl font-bold text-gray-100">Linux Fundamentals - Navigation</h2> <div class="flex items-center gap-4 mt-2 text-sm"> <span class="capitalize bg-slate-700 px-2 py-1 rounded">htb</span> <span class="text-cyan-400">easy</span>  </div> </div> <button onclick="closeModal('linux-fundamentals/navigation')" class="text-gray-400 hover:text-white">
+✕
+</button> </div> </div> <div class="p-6"> <div class="mb-6"> <h3 class="text-lg font-semibold text-cyan-400 mb-4">Pasos a Seguir</h3> <div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">1. Comandos de Solución</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>ssh htb-student@10.129.2.219</code>
+                  </pre>  </div> </div> <div class="mb-6"> <h3 class="text-lg font-semibold text-yellow-400 mb-4">Verificación</h3> <ul class="space-y-2"> <li class="flex items-center text-gray-300"> <span class="text-green-400 mr-2">✓</span> Reto completado </li><li class="flex items-center text-gray-300"> <span class="text-green-400 mr-2">✓</span> Puntuación obtenida </li> </ul> </div>   </div> </div> </div> </div> <script type="module">document.addEventListener("click",e=>{const t=e.target;t.classList.contains("bg-black")&&(t.classList.add("hidden"),t.setAttribute("aria-hidden","true"))});</script> <footer class="border-t border-dark-border mt-16"> <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center text-gray-500 text-sm"> <p>Technical Challenges Repository | HTB Challenge</p> </div> </footer> <script type="module">function e(d){const o=document.getElementById(`modal-${d}`);o&&(o.classList.remove("hidden"),document.body.style.overflow="hidden")}window.openModal=e;</script> </body> </html>

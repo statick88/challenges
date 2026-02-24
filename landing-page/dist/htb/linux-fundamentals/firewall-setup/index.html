@@ -1,0 +1,296 @@
+<!DOCTYPE html><html lang="es"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="Linux Fundamentals - Firewall Setup - HTB Challenge"><link rel="icon" type="image/svg+xml" href="/challenges/favicon.svg"><title>Linux Fundamentals - Firewall Setup | HTB Challenge</title><link rel="stylesheet" href="/challenges/_astro/_slug_-DHZt47Ra.css">
+<style>.markdown-body{font-family:system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;line-height:1.8;color:#e5e7eb}.markdown-body h1{font-size:2rem;font-weight:700;color:#f97316;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid #374151}.markdown-body h2{font-size:1.5rem;font-weight:600;color:#22d3ee;margin:1.75rem 0 1rem;padding-bottom:.25rem}.markdown-body h3{font-size:1.25rem;font-weight:600;color:#a5f3fc;margin:1.5rem 0 .75rem}.markdown-body p{margin:.75rem 0;color:#d1d5db}.markdown-body strong{color:#fbbf24;font-weight:600}.markdown-body ul,.markdown-body ol{margin:.75rem 0;padding-left:1.5rem;color:#d1d5db}.markdown-body li{margin:.5rem 0;list-style-type:disc}.markdown-body table{width:100%;margin:1rem 0;border-collapse:collapse;font-size:.9rem}.markdown-body th,.markdown-body td{padding:.75rem;border:1px solid #374151;text-align:left}.markdown-body th{background:#37415180;color:#fbbf24;font-weight:600}.markdown-body td{color:#d1d5db}.markdown-body code{background:#06b6d426;color:#22d3ee;padding:.2rem .5rem;border-radius:.375rem;font-family:SF Mono,Monaco,Courier New,monospace;font-size:.875rem}.markdown-body pre{background:#0f172a;padding:1rem;border-radius:.75rem;overflow-x:auto;margin:1rem 0;border:1px solid #1e293b}.markdown-body pre code{background:transparent;padding:0;color:#a5b4fc}
+</style></head> <body class="bg-slate-950 text-gray-100 min-h-screen"> <header class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 border-b border-slate-800"> <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4"> <nav class="flex mb-6" aria-label="Breadcrumb"> <ol class="flex items-center space-x-2"> <li class="flex items-center">  <a href="/challenges" class="text-cyan-400 hover:text-cyan-300 transition-colors"> Challenges </a> </li><li class="flex items-center"> <span class="text-gray-500 mx-2">/</span> <a href="/challenges/htb" class="text-cyan-400 hover:text-cyan-300 transition-colors"> HTB </a> </li><li class="flex items-center"> <span class="text-gray-500 mx-2">/</span> <span class="text-gray-300 font-medium">Linux Fundamentals - Firewall Setup</span> </li> </ol> </nav> </nav> <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12"> <div class="flex items-center space-x-4 mb-4"> <span class="px-4 py-2 bg-gradient-to-r from-green-500 to-teal-600 rounded-full text-lg font-bold text-white">
+🎯
+</span> <span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">✅ Completado</span> <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">⭐ easy</span> <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">HTB Academy</span> </div> <h1 class="text-4xl font-bold text-white mb-2">Linux Fundamentals - Firewall Setup</h1> <p class="text-gray-400">HTB Challenge</p> </div> </header> <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12"> <article class="prose prose-invert max-w-none"> <div class="bg-slate-900 rounded-xl border border-slate-800 p-8">  <div class="flex flex-wrap gap-2 mb-6"> <span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#linux</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#firewall</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#iptables</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#netfilter</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#ufw</span> </div> <div class="markdown-body"><h1>Linux Fundamentals - Firewall Setup</h1>
+<h2>Objetivo</h2>
+<p>Configurar firewalls en Linux: iptables, nftables, UFW, y firewalld.</p>
+<hr>
+<h2>Netfilter Framework</h2>
+<p>Netfilter es el framework del kernel Linux que permite:</p>
+<ul>
+<li>Filtrado de paquetes</li>
+<li>NAT</li>
+<li>Manipulación de headers</li>
+</ul>
+<hr>
+<h2>iptables</h2>
+<h3>Componentes</h3>
+<table>
+<thead>
+<tr>
+<th>Componente</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Tables</td>
+<td>Organizar reglas (filter, nat, mangle)</td>
+</tr>
+<tr>
+<td>Chains</td>
+<td>Grupos de reglas (INPUT, OUTPUT, FORWARD)</td>
+</tr>
+<tr>
+<td>Rules</td>
+<td>Criterios y acciones</td>
+</tr>
+<tr>
+<td>Matches</td>
+<td>Criterios de coincidencia</td>
+</tr>
+<tr>
+<td>Targets</td>
+<td>Acciones (ACCEPT, DROP, REJECT)</td>
+</tr>
+</tbody></table>
+<h3>Tablas</h3>
+<table>
+<thead>
+<tr>
+<th>Tabla</th>
+<th>Chains</th>
+<th>Uso</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>filter</td>
+<td>INPUT, OUTPUT, FORWARD</td>
+<td>Filtrado</td>
+</tr>
+<tr>
+<td>nat</td>
+<td>PREROUTING, POSTROUTING</td>
+<td>NAT</td>
+</tr>
+<tr>
+<td>mangle</td>
+<td>PREROUTING, OUTPUT, INPUT, FORWARD, POSTROUTING</td>
+<td>Modificar headers</td>
+</tr>
+</tbody></table>
+<h3>Targets</h3>
+<table>
+<thead>
+<tr>
+<th>Target</th>
+<th>Acción</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ACCEPT</td>
+<td>Permitir paquete</td>
+</tr>
+<tr>
+<td>DROP</td>
+<td>Descartar silenciosamente</td>
+</tr>
+<tr>
+<td>REJECT</td>
+<td>Descartar con error</td>
+</tr>
+<tr>
+<td>LOG</td>
+<td>Registrar en syslog</td>
+</tr>
+<tr>
+<td>SNAT</td>
+<td>Modificar IP origen</td>
+</tr>
+<tr>
+<td>DNAT</td>
+<td>Modificar IP destino</td>
+</tr>
+<tr>
+<td>MASQUERADE</td>
+<td>NAT dinámico</td>
+</tr>
+</tbody></table>
+<h3>Comandos Básicos</h3>
+<pre><code class="language-bash"># Listar reglas
+sudo iptables -L
+
+# Con números de línea
+sudo iptables -L --line-numbers
+
+# Ver todas las tablas
+sudo iptables -L -t nat
+sudo iptables -L -t mangle
+
+# Añadir regla
+sudo iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+
+# Eliminar regla
+sudo iptables -D INPUT 1
+
+# Flush (eliminar todas)
+sudo iptables -F
+</code></pre>
+<h3>Reglas Comunes</h3>
+<pre><code class="language-bash"># Permitir SSH
+sudo iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+
+# Permitir HTTP
+sudo iptables -A INPUT -p tcp --dport 80 -j ACCEPT
+
+# Permitir HTTPS
+sudo iptables -A INPUT -p tcp --dport 443 -j ACCEPT
+
+# Bloquear IP específica
+sudo iptables -A INPUT -s 10.129.22.22 -j DROP
+
+# Permitir loopback
+sudo iptables -A INPUT -i lo -j ACCEPT
+
+# Permitir conexiones establecidas
+sudo iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+
+# Drop por defecto
+sudo iptables -P INPUT DROP
+</code></pre>
+<h3>Matches</h3>
+<table>
+<thead>
+<tr>
+<th>Match</th>
+<th>Uso</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>-p</code></td>
+<td>Protocolo (tcp, udp, icmp)</td>
+</tr>
+<tr>
+<td><code>--dport</code></td>
+<td>Puerto destino</td>
+</tr>
+<tr>
+<td><code>--sport</code></td>
+<td>Puerto origen</td>
+</tr>
+<tr>
+<td><code>-s</code></td>
+<td>IP origen</td>
+</tr>
+<tr>
+<td><code>-d</code></td>
+<td>IP destino</td>
+</tr>
+<tr>
+<td><code>-m state</code></td>
+<td>Estado conexión</td>
+</tr>
+<tr>
+<td><code>-m multiport</code></td>
+<td>Múltiples puertos</td>
+</tr>
+<tr>
+<td><code>-m string</code></td>
+<td>Buscar string</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>UFW (Uncomplicated Firewall)</h2>
+<pre><code class="language-bash"># Estado
+sudo ufw status
+
+# Habilitar
+sudo ufw enable
+
+# Permitir puerto
+sudo ufw allow 22
+sudo ufw allow 80/tcp
+
+# Denegar
+sudo ufw deny 23
+
+# Por IP
+sudo ufw allow from 10.129.14.0/24
+
+# Eliminar regla
+sudo ufw delete allow 22
+
+# Reset
+sudo ufw reset
+</code></pre>
+<hr>
+<h2>nftables (Modern)</h2>
+<pre><code class="language-bash"># Listar tablas
+sudo nft list tables
+
+# Listar reglas
+sudo nft list ruleset
+
+# Añadir tabla
+sudo nft add table inet filter
+
+# Añadir chain
+sudo nft add chain inet filter input { type filter hook input priority 0 \; }
+
+# Añadir regla
+sudo nft add rule inet filter input tcp dport 22 accept
+</code></pre>
+<hr>
+<h2>Persistencia</h2>
+<h3>iptables-persistent</h3>
+<pre><code class="language-bash"># Instalar
+sudo apt install iptables-persistent
+
+# Guardar reglas
+sudo netfilter-persistent save
+
+# Restaurar
+sudo netfilter-persistent reload
+</code></pre>
+<hr>
+<h2>Casos de Uso en Pentesting</h2>
+<h3>Enumerar Firewall</h3>
+<pre><code class="language-bash"># Ver reglas
+sudo iptables -L -n -v
+
+# Ver políticas por defecto
+sudo iptables -L | grep Policy
+</code></pre>
+<h3>Evitar Detección</h3>
+<pre><code class="language-bash"># Regla para drop sin log
+sudo iptables -A INPUT -s scanner_ip -j DROP
+</code></pre>
+<hr>
+<h2>Lecciones Aprendidas</h2>
+<ol>
+<li><strong>iptables</strong>: Herramienta estándar de firewall</li>
+<li><strong>UFW</strong>: Interfaz simple sobre iptables</li>
+<li><strong>nftables</strong>: Reemplazo moderno</li>
+<li><strong>Persistencia</strong>: iptables-persistent para guardar reglas</li>
+<li><strong>Orden</strong>: Las reglas se procesan secuencialmente</li>
+</ol>
+<hr>
+<h2>Referencias</h2>
+<ul>
+<li><a href="https://man7.org/linux/man-pages/man8/iptables.8.html">iptables(8)</a></li>
+<li><a href="https://wiki.nftables.org/">nftables Wiki</a></li>
+<li><a href="https://help.ubuntu.com/community/UFW">UFW Documentation</a></li>
+</ul>
+<hr>
+<h2>Estado</h2>
+<p><strong>COMPLETADO</strong> ✓</p>
+<ul>
+<li>Fecha: 2026-02-20</li>
+<li>Módulo: Linux Fundamentals</li>
+<li>Sección: 27 - Firewall Setup</li>
+<li>Tipo: Teoría</li>
+</ul>
+</div> </div> </article> <div class="mt-8 flex justify-between items-center"> <a href="/challenges/htb/" class="px-6 py-3 bg-slate-700 hover:bg-slate-600 rounded-lg transition-colors">
+← Volver
+</a> <button onclick="openModal('linux-fundamentals/firewall-setup')" class="px-6 py-3 bg-gradient-to-r from-green-500 to-teal-600 hover:from-green-600 hover:to-teal-700 rounded-lg transition-all font-medium flex items-center gap-2 shadow-lg shadow-green-500/25"> <span>📋</span> <span>Ver Solución Paso a Paso</span> </button> </div> </main> <div id="modal-linux-fundamentals/firewall-setup" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50" aria-hidden="true"> <div class="flex items-center justify-center min-h-screen p-4"> <div class="bg-slate-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto"> <div class="p-6 border-b border-slate-700"> <div class="flex justify-between items-start"> <div> <h2 class="text-2xl font-bold text-gray-100">Linux Fundamentals - Firewall Setup</h2> <div class="flex items-center gap-4 mt-2 text-sm"> <span class="capitalize bg-slate-700 px-2 py-1 rounded">htb</span> <span class="text-cyan-400">easy</span>  </div> </div> <button onclick="closeModal('linux-fundamentals/firewall-setup')" class="text-gray-400 hover:text-white">
+✕
+</button> </div> </div> <div class="p-6"> <div class="mb-6"> <h3 class="text-lg font-semibold text-cyan-400 mb-4">Pasos a Seguir</h3> <div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">1. Comandos de Solución</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>sudo iptables -L
+sudo iptables -L --line-numbers
+sudo iptables -L -t nat
+sudo iptables -L -t mangle
+sudo iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+sudo iptables -D INPUT 1
+sudo iptables -F</code>
+                  </pre>  </div> </div> <div class="mb-6"> <h3 class="text-lg font-semibold text-yellow-400 mb-4">Verificación</h3> <ul class="space-y-2"> <li class="flex items-center text-gray-300"> <span class="text-green-400 mr-2">✓</span> Reto completado </li><li class="flex items-center text-gray-300"> <span class="text-green-400 mr-2">✓</span> Puntuación obtenida </li> </ul> </div>   </div> </div> </div> </div> <script type="module">document.addEventListener("click",e=>{const t=e.target;t.classList.contains("bg-black")&&(t.classList.add("hidden"),t.setAttribute("aria-hidden","true"))});</script> <footer class="border-t border-slate-800 mt-16"> <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center text-gray-500 text-sm"> <p>Technical Challenges Repository | HTB Challenge</p> </div> </footer> <script type="module">function e(d){const o=document.getElementById(`modal-${d}`);o&&(o.classList.remove("hidden"),document.body.style.overflow="hidden")}function n(d){const o=document.getElementById(`modal-${d}`);o&&(o.classList.add("hidden"),document.body.style.overflow="")}window.openModal=e;window.closeModal=n;</script> </body> </html>

@@ -1,0 +1,614 @@
+<!DOCTYPE html><html lang="es" data-astro-cid-ouamjn2i> <head><meta charset="UTF-8"><meta name="description" content="Plataforma interactiva de desafíos técnicos - Linux, Docker, DevOps, CTF"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/challenges/favicon.svg"><meta name="generator" content="Astro v5.17.1"><meta name="theme-color" content="#4c80cc"><title>Log Hunt - CTF Challenges</title><!-- Preconnect for fonts --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><!-- Script para prevenir flash de tema incorrecto --><script>
+      const theme = (() => {
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+          return localStorage.getItem('theme');
+        }
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          return 'dark';
+        }
+        return 'light';
+      })();
+      
+      if (theme === 'light') {
+        document.documentElement.classList.add('light');
+      } else {
+        document.documentElement.classList.add('dark');
+      }
+    </script><!-- Cache busting: Verificar versión y recargar si hay cambios --><script>
+      (function() {
+        const BUILD_VERSION = '1771938333648';
+        const CACHE_KEY = 'tech-challenges-build-version';
+        
+        // Verificar si hay nueva versión
+        const storedVersion = localStorage.getItem(CACHE_KEY);
+        
+        if (storedVersion && storedVersion !== BUILD_VERSION) {
+          // Nueva versión detectada, limpiar cache y recargar
+          console.log('🆕 Nueva versión detectada. Actualizando...');
+          if ('caches' in window) {
+            caches.keys().then(names => {
+              names.forEach(name => caches.delete(name));
+            });
+          }
+          localStorage.setItem(CACHE_KEY, BUILD_VERSION);
+          window.location.reload();
+        } else if (!storedVersion) {
+          localStorage.setItem(CACHE_KEY, BUILD_VERSION);
+        }
+      })();
+    </script><link rel="stylesheet" href="/challenges/_astro/_slug_-DHZt47Ra.css">
+<link rel="stylesheet" href="/challenges/_astro/_slug_-CaxYOu3g.css">
+<style>.nav-buttons[data-astro-cid-wdujc6bn]{display:flex;justify-content:space-between;gap:1rem;margin-top:2rem;flex-wrap:wrap}.nav-btn[data-astro-cid-wdujc6bn]{display:flex;align-items:center;gap:.75rem;padding:1rem 1.25rem;background:#1e293bcc;border:1px solid rgba(71,85,105,.3);border-radius:.75rem;text-decoration:none;transition:all .2s ease;flex:1;min-width:200px;max-width:280px}.nav-btn[data-astro-cid-wdujc6bn]:hover:not(.disabled){background:#22c55e1a;border-color:#22c55e4d;transform:translateY(-2px)}.nav-btn[data-astro-cid-wdujc6bn].disabled{opacity:.4;cursor:not-allowed;pointer-events:none}.nav-btn[data-astro-cid-wdujc6bn].prev{text-align:left}.nav-btn[data-astro-cid-wdujc6bn].next{text-align:right;justify-content:flex-end}.nav-btn[data-astro-cid-wdujc6bn].home{justify-content:center;max-width:200px}.nav-icon[data-astro-cid-wdujc6bn]{font-size:1.25rem;color:#22c55e}.nav-content[data-astro-cid-wdujc6bn]{display:flex;flex-direction:column;gap:.25rem}.nav-label[data-astro-cid-wdujc6bn]{font-size:.7rem;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em}.nav-title[data-astro-cid-wdujc6bn]{font-size:.875rem;color:#e2e8f0;font-weight:500}@media(max-width:768px){.nav-buttons[data-astro-cid-wdujc6bn]{flex-direction:column}.nav-btn[data-astro-cid-wdujc6bn]{max-width:100%}}
+</style></head> <body class="min-h-screen flex flex-col" data-astro-cid-ouamjn2i> <!-- Header --> <header class="sticky top-0 z-50 border-b" style="background-color: var(--color-bg); border-color: var(--color-border);" data-astro-cid-ouamjn2i> <div class="container mx-auto px-4 py-4 flex items-center justify-between" data-astro-cid-ouamjn2i> <!-- Logo / Brand --> <a href="/challenges/" class="flex items-center gap-3 group" data-astro-cid-ouamjn2i> <span class="text-2xl" data-astro-cid-ouamjn2i>🚀</span> <span class="font-bold text-lg transition-colors group-hover:text-accent" style="color: var(--color-text);" data-astro-cid-ouamjn2i>
+Tech Challenges
+</span> </a> <!-- Navigation --> <nav class="hidden md:flex items-center gap-6" data-astro-cid-ouamjn2i> <a href="/challenges/" class="nav-link" data-astro-cid-ouamjn2i>Dashboard</a> <a href="/challenges/linux/" class="nav-link" data-astro-cid-ouamjn2i>Linux</a> <a href="/challenges/docker/" class="nav-link" data-astro-cid-ouamjn2i>Docker</a> <a href="/challenges/devops/" class="nav-link" data-astro-cid-ouamjn2i>DevOps</a> <a href="/challenges/ctf/" class="nav-link" data-astro-cid-ouamjn2i>CTF</a> <a href="/challenges/htb/" class="nav-link" data-astro-cid-ouamjn2i>HTB</a> </nav> <!-- Theme Toggle --> <div class="flex items-center gap-4" data-astro-cid-ouamjn2i> <button id="lang-toggle" class="lang-toggle" type="button" aria-label="Cambiar idioma" title="Cambiar idioma" data-astro-cid-lb7h3eps> <span class="lang-text" data-astro-cid-lb7h3eps>EN</span> </button>  <script type="module">const l={es:{"hero.badge":"Plataforma de Aprendizaje","hero.title.line1":"Domina Linux, Docker,","hero.title.line2":"DevOps & Security","hero.subtitle":"Plataforma interactiva con 70+ desafíos prácticos. Aprende haciendo, no solo leyendo.","hero.stat.completed":"Completados","hero.stat.progress":"Progreso","hero.stat.challenges":"Desafíos","progress.title":"Progreso General","progress.completed":"completados","progress.in_progress":"en progreso","progress.blocked":"bloqueados","programs.title":"Programas de Aprendizaje","programs.subtitle":"Selecciona un programa para ver sus desafíos","programs.completed":"Completados","programs.total":"Total","programs.view":"Ver desafíos","program.linux":"Linux","program.docker":"Docker","program.devops":"DevOps","program.ctf":"CTF","program.htb":"HTB Academy","program.linux.desc":"Administración de sistemas Linux, usuarios, permisos y automatización","program.docker.desc":"Containerización, orquestación y mejores prácticas de Docker","program.devops.desc":"CI/CD, automatización y cultura DevOps","program.ctf.desc":"Desafíos de seguridad: criptografía, web, forense y más","program.htb.desc":"Módulos de Hack The Box Academy completados","cert.title":"Certificaciones Obtenidas","cert.subtitle":"Reconocimientos oficiales de tu progreso","cert.docker.title":"Docker Certification","cert.docker.platform":"KodeKloud Engineer","cert.challenges":"Challenges","cert.verify":"Verificar certificado","activity.title":"Actividad Reciente","activity.subtitle":"Últimos desafíos completados","footer.update":"Última actualización"},en:{"hero.badge":"Learning Platform","hero.title.line1":"Master Linux, Docker,","hero.title.line2":"DevOps & Security","hero.subtitle":"Interactive platform with 70+ practical challenges. Learn by doing, not just reading.","hero.stat.completed":"Completed","hero.stat.progress":"Progress","hero.stat.challenges":"Challenges","progress.title":"Overall Progress","progress.completed":"completed","progress.in_progress":"in progress","progress.blocked":"blocked","programs.title":"Learning Programs","programs.subtitle":"Select a program to view its challenges","programs.completed":"Completed","programs.total":"Total","programs.view":"View challenges","program.linux":"Linux","program.docker":"Docker","program.devops":"DevOps","program.ctf":"CTF","program.htb":"HTB Academy","program.linux.desc":"Linux system administration, users, permissions and automation","program.docker.desc":"Containerization, orchestration and Docker best practices","program.devops.desc":"CI/CD, automation and DevOps culture","program.ctf.desc":"Security challenges: cryptography, web, forensics and more","program.htb.desc":"Completed Hack The Box Academy modules","cert.title":"Earned Certifications","cert.subtitle":"Official recognition of your progress","cert.docker.title":"Docker Certification","cert.docker.platform":"KodeKloud Engineer","cert.challenges":"Challenges","cert.verify":"Verify Certificate","activity.title":"Recent Activity","activity.subtitle":"Latest completed challenges","footer.update":"Last updated"}},i=document.getElementById("lang-toggle"),s=i?.querySelector(".lang-text");function c(){if(typeof localStorage<"u"){const e=localStorage.getItem("lang");if(e==="es"||e==="en")return e}return"es"}function d(e){typeof localStorage<"u"&&localStorage.setItem("lang",e)}function g(e){s&&(s.textContent=e==="es"?"EN":"ES")}function n(e){const t=l[e];document.querySelectorAll("[data-i18n]").forEach(o=>{const r=o.getAttribute("data-i18n");r&&t[r]&&(o.textContent=t[r])}),document.querySelectorAll("[data-i18n-program]").forEach(o=>{const r=o.getAttribute("data-i18n-program");if(r){const a=`program.${r}`;t[a]&&(o.textContent=t[a])}}),document.querySelectorAll("[data-i18n-program-desc]").forEach(o=>{const r=o.getAttribute("data-i18n-program-desc");if(r){const a=`program.${r}.desc`;t[a]&&(o.textContent=t[a])}}),document.documentElement.lang=e,g(e)}const p=c();n(p);i?.addEventListener("click",()=>{const t=c()==="es"?"en":"es";d(t),n(t)});</script> <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Cambiar tema" title="Cambiar tema claro/oscuro" data-astro-cid-x3pjskd3> <!-- Icono Sol (visible en tema oscuro) --> <svg class="icon-sun w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" data-astro-cid-x3pjskd3> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" data-astro-cid-x3pjskd3></path> </svg> <!-- Icono Luna (visible en tema claro) --> <svg class="icon-moon w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" data-astro-cid-x3pjskd3> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" data-astro-cid-x3pjskd3></path> </svg> </button>  <script type="module">const m=document.getElementById("theme-toggle");function c(){return typeof localStorage<"u"&&localStorage.getItem("theme")?localStorage.getItem("theme"):window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}function t(e){e==="dark"?(document.documentElement.classList.remove("light"),document.documentElement.classList.add("dark")):(document.documentElement.classList.remove("dark"),document.documentElement.classList.add("light")),localStorage.setItem("theme",e)}const d=c();d==="light"?document.documentElement.classList.add("light"):document.documentElement.classList.add("dark");m?.addEventListener("click",()=>{const n=(document.documentElement.classList.contains("light")?"light":"dark")==="dark"?"light":"dark";document.documentElement.classList.add("theme-transitioning"),t(n),setTimeout(()=>{document.documentElement.classList.remove("theme-transitioning")},300)});window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change",e=>{localStorage.getItem("theme")||t(e.matches?"dark":"light")});</script> <!-- Mobile Menu Button --> <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg border transition-colors" style="background-color: var(--color-bg-card); border-color: var(--color-border);" aria-label="Menú" data-astro-cid-ouamjn2i> <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-ouamjn2i> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" data-astro-cid-ouamjn2i></path> </svg> </button> </div> </div> <!-- Mobile Navigation --> <div id="mobile-menu" class="hidden md:hidden border-t" style="border-color: var(--color-border); background-color: var(--color-bg-card);" data-astro-cid-ouamjn2i> <nav class="container mx-auto px-4 py-4 flex flex-col gap-2" data-astro-cid-ouamjn2i> <a href="/challenges/" class="mobile-nav-link" data-astro-cid-ouamjn2i>Dashboard</a> <a href="/challenges/linux/" class="mobile-nav-link" data-astro-cid-ouamjn2i>🐧 Linux</a> <a href="/challenges/docker/" class="mobile-nav-link" data-astro-cid-ouamjn2i>🐳 Docker</a> <a href="/challenges/devops/" class="mobile-nav-link" data-astro-cid-ouamjn2i>⚙️ DevOps</a> <a href="/challenges/ctf/" class="mobile-nav-link" data-astro-cid-ouamjn2i>🚩 CTF</a> <a href="/challenges/htb/" class="mobile-nav-link" data-astro-cid-ouamjn2i>🎯 HTB</a> </nav> </div> </header> <!-- Main Content --> <main class="flex-1" data-astro-cid-ouamjn2i>  <main class="container mx-auto px-4 py-8" data-astro-cid-wdujc6bn> <div class="max-w-4xl mx-auto" data-astro-cid-wdujc6bn> <div class="mb-6" data-astro-cid-wdujc6bn> <a href="/challenges" class="text-cyan-400 hover:text-cyan-300" data-astro-cid-wdujc6bn>← Volver al Dashboard</a> </div> <article class="bg-slate-800 rounded-lg p-6 border border-slate-700" data-astro-cid-wdujc6bn> <header class="mb-6" data-astro-cid-wdujc6bn> <h1 class="text-3xl font-bold text-orange-400 mb-2" data-astro-cid-wdujc6bn>Log Hunt</h1> <div class="flex items-center gap-4 text-sm text-gray-400" data-astro-cid-wdujc6bn> <span class="bg-purple-600 px-2 py-1 rounded text-xs" data-astro-cid-wdujc6bn>CTF</span> <span class="capitalize" data-astro-cid-wdujc6bn>easy</span> <span data-astro-cid-wdujc6bn>2026-02-04</span> <span data-astro-cid-wdujc6bn>picoCTF</span> </div> </header> <div class="prose prose-invert max-w-none" data-astro-cid-wdujc6bn> <div data-astro-cid-wdujc6bn>
+
+# Log Analysis - Digital Forensics Investigation
+
+---
+
+👨‍🏫 **Del Instructor**: Ethical Hacker & SOC Analyst
+
+> 🎯 **Mentalidad de Hacker**: _"Los logs no mienten. Son la memoria del sistema, testigos silenciosos de todo lo que sucedió. Un buen analista de logs puede reconstruir un incidente completo, encontrar el IOC que todos pasaron por alto, y atrapar al atacante que pensó que había cubierto sus huellas."_
+
+---
+
+## 🎭 El Escenario: Breach de Servidor Web
+
+### Contexto de Incident Response
+
+Eres el analista principal del SOC de una empresa de e-commerce. A las 3:47 AM, el sistema de detección de intrusiones (IDS) generó una alerta crítica:
+
+```
+ALERT: Anomalía de tráfico detectada en web-server-03
+Patrón: Múltiples conexiones desde IP sospechosa
+Severidad: CRÍTICA
+```
+
+El administrador de sistemas te entrega el archivo de logs del servidor:
+
+```
+server.log  (1,400+ líneas)
+```
+
+El incidente parece contener una fuga de datos. Los atacantes dejaron pistas deliberadamente fragmentadas.
+
+**Tu misión como analista forense**:
+
+1. Procesar y filtrar 1,400+ líneas de logs
+2. Identificar patrones de ataque y anomalías
+3. Reconstruir el indicador de compromiso (IOC)
+4. Generar timeline del incidente
+
+---
+
+## 🧠 Fundamentos de Análisis: La Anatomía de un Log
+
+### Estructura de Logs de Servidor
+
+Los logs de servidor típicamente siguen formatos estándar:
+
+```
+# Formato Combinado Apache/Nginx
+[1990-08-09 10:00:10] INFO Server started successfully
+[1990-08-09 10:00:11] WARN High memory usage detected: 85%
+[1990-08-09 10:00:12] ERROR Connection timeout from 192.168.1.100
+```
+
+**Componentes clave**:
+
+- **Timestamp**: Cuándo ocurrió el evento
+- **Log Level**: INFO, WARN, ERROR, DEBUG, CRITICAL
+- **Message**: Descripción del evento
+- **Context**: IPs, usuarios, rutas, etc.
+
+### ¿Por qué los Logs son Críticos?
+
+1. **Forense Post-Incidente**: Reconstruir qué sucedió
+2. **Detección Temprana**: Identificar ataques en progreso
+3. **Cumplimiento**: Auditorías y regulaciones (PCI-DSS, GDPR)
+4. **Threat Hunting**: Buscar amenazas desconocidas
+5. **Tuning**: Mejorar detección basada en falsos positivos
+
+### Volumen y Escalabilidad
+
+```
+Small Server:     ~1MB/día   → grep funciona
+Medium Site:      ~100MB/día → awk, sed, scripts
+Enterprise:       ~10GB/día  → ELK Stack, Splunk
+Cloud Scale:      ~1TB/día   → Data pipelines, ML
+```
+
+---
+
+## 🔍 Metodología de Investigación
+
+### Fase 1: Reconocimiento del Dataset
+
+```bash
+# Verificar archivo
+file server.log
+wc -l server.log
+ls -lh server.log
+
+# Vista general
+head -20 server.log
+tail -20 server.log
+
+# Estadísticas básicas
+wc -l server.log
+awk '{print $3}' server.log | sort | uniq -c  # Contar por log level
+```
+
+### Fase 2: Identificación de Patrones
+
+```bash
+# Buscar palabras clave sospechosas
+grep -i "error\|fail\|attack\|exploit\|flag" server.log
+
+# Identificar IPs únicas
+grep -oE '\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b' server.log | sort | uniq -c | sort -rn
+
+# Buscar el patrón FLAGPART
+grep "FLAGPART" server.log
+```
+
+### Fase 3: Extracción y Reconstrucción
+
+```bash
+# Extraer todas las líneas FLAGPART
+grep "FLAGPART" server.log
+
+# Eliminar duplicados y ordenar
+grep "FLAGPART" server.log | sort -u
+
+# Extraer solo el contenido de la flag
+grep "FLAGPART" server.log | awk -F': ' '{print $2}' | sort -u
+
+# Concatenar para formar la flag completa
+grep "FLAGPART" server.log | sort -u | awk -F': ' '{print $2}' | tr -d '\n'
+```
+
+### Fase 4: Timeline Analysis
+
+```bash
+# Timeline de eventos FLAGPART
+grep "FLAGPART" server.log | sort
+
+# Extraer timestamps
+awk '/FLAGPART/ {print $1, $2}' server.log | tr -d '[]'
+
+# Cronología completa
+awk -F'[][]' '/FLAGPART/ {print $2}' server.log
+```
+
+---
+
+## 🛠️ Arsenal de Herramientas
+
+### Herramientas de Línea de Comandos
+
+| Herramienta | Uso                     | Ejemplo                    |
+| ----------- | ----------------------- | -------------------------- |
+| `grep`      | Filtrar por patrón      | `grep "ERROR" logfile`     |
+| `awk`       | Procesamiento de campos | `awk '{print $1}' logfile` |
+| `sed`       | Transformación de texto | `sed 's/old/new/g'`        |
+| `sort`      | Ordenar líneas          | `sort -u` (único)          |
+| `uniq`      | Eliminar duplicados     | `uniq -c` (contar)         |
+| `cut`       | Extraer campos          | `cut -d' ' -f1`            |
+| `tr`        | Traducir caracteres     | `tr -d '\n'`               |
+| `head/tail` | Ver inicio/fin          | `head -100`                |
+
+### Herramientas Avanzadas
+
+| Herramienta | Uso                           | Instalación                                   |
+| ----------- | ----------------------------- | --------------------------------------------- |
+| `lnav`      | Navegador de logs interactivo | `apt install lnav`                            |
+| `gron`      | JSON con grep                 | `go install github.com/tomnomnom/gron@latest` |
+| `jq`        | Procesador JSON               | `apt install jq`                              |
+| `mlr`       | Miller (CSV/TSV)              | `apt install miller`                          |
+
+### Script de Análisis Forense de Logs
+
+```python
+#!/usr/bin/env python3
+"""
+Log Forensics Analyzer - Digital Investigation Tool
+For SOC analysts and incident response teams
+"""
+
+import re
+import sys
+from collections import Counter, defaultdict
+from datetime import datetime
+from pathlib import Path
+import argparse
+
+class LogForensicsAnalyzer:
+    def __init__(self, log_file):
+        self.log_file = Path(log_file)
+        self.logs = []
+        self.timeline = defaultdict(list)
+        self.iocs = {
+            'ips': Counter(),
+            'users': Counter(),
+            'paths': Counter(),
+            'errors': Counter()
+        }
+
+    def parse_logs(self):
+        """Parsea el archivo de logs"""
+        print(f"[+] Parseando: {self.log_file}")
+
+        with open(self.log_file, 'r') as f:
+            for line_num, line in enumerate(f, 1):
+                line = line.strip()
+                if not line:
+                    continue
+
+                # Parsear timestamp y nivel
+                # Formato esperado: [1990-08-09 10:00:10] LEVEL message
+                match = re.match(r'\[(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})\] (\w+) (.*)', line)
+
+                if match:
+                    timestamp_str, level, message = match.groups()
+                    try:
+                        timestamp = datetime.strptime(timestamp_str, '%Y-%m-%d %H:%M:%S')
+                    except:
+                        timestamp = None
+
+                    entry = {
+                        'line_num': line_num,
+                        'timestamp': timestamp,
+                        'timestamp_str': timestamp_str,
+                        'level': level,
+                        'message': message,
+                        'raw': line
+                    }
+
+                    self.logs.append(entry)
+                    if timestamp:
+                        self.timeline[timestamp.strftime('%Y-%m-%d %H:%M')].append(entry)
+                else:
+                    # Línea sin formato estándar
+                    self.logs.append({
+                        'line_num': line_num,
+                        'timestamp': None,
+                        'level': 'UNKNOWN',
+                        'message': line,
+                        'raw': line
+                    })
+
+        print(f"[+] {len(self.logs)} entradas parseadas")
+
+    def extract_iocs(self):
+        """Extrae Indicadores de Compromiso"""
+        print("\n[*] Extrayendo IOCs...")
+
+        ip_pattern = r'\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b'
+        user_pattern = r'user[:\s=]+(\S+)'
+        path_pattern = r'(/[a-zA-Z0-9_/.-]+)'
+
+        for entry in self.logs:
+            message = entry['message']
+
+            # IPs
+            ips = re.findall(ip_pattern, message)
+            self.iocs['ips'].update(ips)
+
+            # Usuarios
+            users = re.findall(user_pattern, message, re.IGNORECASE)
+            self.iocs['users'].update(users)
+
+            # Rutas
+            paths = re.findall(path_pattern, message)
+            self.iocs['paths'].update(paths)
+
+            # Errores
+            if entry['level'] == 'ERROR':
+                self.iocs['errors'][message[:50]] += 1
+
+    def analyze_patterns(self):
+        """Analiza patrones sospechosos"""
+        print("\n[*] Analizando patrones...")
+
+        suspicious_patterns = {
+            'FLAGPART': [],
+            'SQL_INJECTION': [],
+            'PATH_TRAVERSAL': [],
+            'BRUTE_FORCE': [],
+        }
+
+        # Contar eventos por minuto para detectar brute force
+        events_per_minute = Counter()
+        for entry in self.logs:
+            if entry['timestamp']:
+                key = entry['timestamp'].strftime('%Y-%m-%d %H:%M')
+                events_per_minute[key] += 1
+
+        # Buscar FLAGPART
+        for entry in self.logs:
+            if 'FLAGPART' in entry['message']:
+                suspicious_patterns['FLAGPART'].append(entry)
+
+        return suspicious_patterns
+
+    def generate_timeline(self, suspicious_patterns):
+        """Genera timeline del incidente"""
+        print("\n" + "=" * 60)
+        print("TIMELINE DEL INCIDENTE")
+        print("=" * 60)
+
+        flag_parts = suspicious_patterns['FLAGPART']
+        if flag_parts:
+            print(f"\n[+] Flag Parts encontrados: {len(flag_parts)}")
+            for entry in flag_parts:
+                print(f"    {entry['timestamp_str']} - {entry['message'][:60]}")
+
+        # Top 5 minutos con más actividad
+        print("\n[+] Periodos de alta actividad:")
+        for period, count in Counter({k: v for k, v in events_per_minute.items()}).most_common(5):
+            print(f"    {period}: {count} eventos")
+
+    def generate_ioc_report(self):
+        """Genera reporte de IOCs"""
+        print("\n" + "=" * 60)
+        print("INDICADORES DE COMPROMISO (IOCs)")
+        print("=" * 60)
+
+        print("\n[+] Top IPs:")
+        for ip, count in self.iocs['ips'].most_common(10):
+            print(f"    {ip}: {count} ocurrencias")
+
+        print("\n[+] Top Errores:")
+        for error, count in self.iocs['errors'].most_common(5):
+            print(f"    {count}x: {error}")
+
+        print("\n[+] Rutas accedidas:")
+        for path, count in self.iocs['paths'].most_common(10):
+            print(f"    {path}: {count}x")
+
+    def reconstruct_flag(self, suspicious_patterns):
+        """Reconstruye la flag desde fragmentos"""
+        print("\n" + "=" * 60)
+        print("RECONSTRUCCIÓN DE EVIDENCIA")
+        print("=" * 60)
+
+        flag_parts = suspicious_patterns['FLAGPART']
+        if not flag_parts:
+            print("[-] No se encontraron fragmentos de flag")
+            return
+
+        # Extraer partes únicas ordenadas por tiempo
+        unique_parts = {}
+        for entry in flag_parts:
+            match = re.search(r'FLAGPART:\s*(.+)', entry['message'])
+            if match:
+                part = match.group(1)
+                if entry['timestamp'] and part not in unique_parts:
+                    unique_parts[part] = entry['timestamp']
+
+        # Ordenar por timestamp
+        sorted_parts = sorted(unique_parts.items(), key=lambda x: x[1])
+
+        print("\n[+] Partes de la flag (ordenadas cronológicamente):")
+        for part, timestamp in sorted_parts:
+            print(f"    [{timestamp}] {part}")
+
+        # Reconstruir flag completa
+        flag = ''.join([part for part, _ in sorted_parts])
+        print(f"\n[+] Flag reconstruida: {flag}")
+        return flag
+
+    def run_analysis(self):
+        """Ejecuta análisis completo"""
+        print(f"[+] Iniciando análisis forense de logs")
+        print(f"[*] Archivo: {self.log_file}")
+        print("=" * 60)
+
+        self.parse_logs()
+        self.extract_iocs()
+        suspicious = self.analyze_patterns()
+        self.generate_timeline(suspicious)
+        self.generate_ioc_report()
+        flag = self.reconstruct_flag(suspicious)
+
+        return flag
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='Log Forensics Analyzer')
+    parser.add_argument('logfile', help='Archivo de logs a analizar')
+
+    args = parser.parse_args()
+
+    analyzer = LogForensicsAnalyzer(args.logfile)
+    flag = analyzer.run_analysis()
+```
+
+### Uso del Script
+
+```bash
+# Ejecutar análisis
+python3 log_forensics.py server.log
+
+# Output esperado:
+# [+] Iniciando análisis forense de logs
+# [*] Archivo: server.log
+# ============================================================
+# [+] Parseando: server.log
+# [+] 1423 entradas parseadas
+#
+# [*] Extrayendo IOCs...
+#
+# [*] Analizando patrones...
+#
+# ============================================================
+# TIMELINE DEL INCIDENTE
+# ============================================================
+#
+# [+] Flag Parts encontrados: 27
+#     1990-08-09 10:00:10 - FLAGPART: picoCTF{us3_
+#     1990-08-09 10:02:55 - FLAGPART: y0urlinux_
+#     1990-08-09 10:05:54 - FLAGPART: sk1lls_
+#     1990-08-09 10:10:54 - FLAGPART: cedfa5fb}
+#
+# [+] Flag reconstruida: picoCTF{us3_y0urlinux_sk1lls_cedfa5fb}
+```
+
+---
+
+## 🎯 Lecciones del Mundo Real
+
+### Casos Documentados
+
+**Caso Target Breach (2013)**:
+
+- Logs mostraron movimiento lateral durante 2 semanas antes de detección
+- Malware exfiltró 40M tarjetas de crédito
+- **Lección**: Logs son críticos pero necesitan análisis proactivo
+
+**Caso SolarWinds (2020)**:
+
+- Logs de red revelaron comunicaciones C2 sospechosas
+- Timeline de 9 meses de actividad no detectada
+- **Lección**: Correlación de logs es esencial
+
+**Caso Equifax (2017)**:
+
+- Vulnerabilidad Apache Struts explotada
+- Logs mostraron 76 días de actividad maliciosa antes de detección
+- **Lección**: Logging adecuado puede reducir MTTD (Mean Time To Detect)
+
+### Mejores Prácticas en Logging
+
+**Centralización**:
+
+```bash
+# Usar ELK Stack o Splunk
+filebeat → logstash → elasticsearch → kibana
+```
+
+**Retención**:
+
+```yaml
+Retention_Policies:
+  web_access: 90_days
+  authentication: 1_year
+  security_events: 7_years
+  audit_logs: permanent
+```
+
+**Formato Estructurado**:
+
+```json
+{
+  "timestamp": "2024-01-15T10:30:00Z",
+  "level": "ERROR",
+  "service": "auth-api",
+  "user_id": "12345",
+  "ip": "192.168.1.100",
+  "event": "login_failed",
+  "message": "Invalid credentials"
+}
+```
+
+---
+
+## 🚀 Solución del Reto
+
+### Paso a Paso
+
+```bash
+# Paso 1: Verificar el archivo
+wc -l server.log  # ~1400 líneas
+
+# Paso 2: Buscar el patrón FLAGPART
+grep "FLAGPART" server.log
+
+# Paso 3: Eliminar duplicados y ordenar
+grep "FLAGPART" server.log | sort -u
+
+# Paso 4: Extraer solo las partes de la flag
+grep "FLAGPART" server.log | sort -u | awk -F': ' '{print $2}'
+
+# Paso 5: Concatenar sin saltos de línea
+grep "FLAGPART" server.log | sort -u | awk -F': ' '{print $2}' | tr -d '\n'
+```
+
+### One-liners
+
+```bash
+# Versión simple
+grep "FLAGPART" server.log | sort -u | grep -oP 'FLAGPART: \K.*' | tr -d '\n'
+
+# Versión con awk
+grep "FLAGPART" server.log | sort -u | awk -F': ' '{printf "%s", $2}'
+
+# Versión completa con timestamp
+grep "FLAGPART" server.log | sort -t'[' -k2 | awk -F': ' '/FLAGPART/ {printf "%s", $2}'
+```
+
+### Flag
+
+```
+picoCTF{us3_y0urlinux_sk1lls_cedfa5fb}
+```
+
+---
+
+## 📚 Recursos y Referencias
+
+- [SANS Log Analysis](https://www.sans.org/white-papers/coming-age-log-analysis-37172/)
+- [Awesome Log Analysis Tools](https://github.com/aliijaz1997/awesome-log-analysis)
+- [Elastic Security Labs](https://www.elastic.co/security-labs)
+- [Sigma Rules](https://github.com/SigmaHQ/sigma) - Generic SIEM signatures
+
+---
+
+**¿Listo para el siguiente reto?** → Prueba análisis de logs complejos, threat hunting con ELK, o detección de APTs.
+</div> </div> </article> <div id="modal-forensics/log-hunt" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50" aria-hidden="true"> <div class="flex items-center justify-center min-h-screen p-4"> <div class="bg-slate-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto"> <div class="p-6 border-b border-slate-700"> <div class="flex justify-between items-start"> <div> <h2 class="text-2xl font-bold text-gray-100">Log Hunt</h2> <div class="flex items-center gap-4 mt-2 text-sm"> <span class="capitalize bg-slate-700 px-2 py-1 rounded">ctf</span> <span class="text-cyan-400">easy</span> <span class="text-green-400 font-mono">Flag: picoCTF{us3_y0urlinux_sk1lls_cedfa5fb}</span> </div> </div> <button onclick="closeModal('forensics/log-hunt')" class="text-gray-400 hover:text-white">
+✕
+</button> </div> </div> <div class="p-6"> <div class="mb-6"> <h3 class="text-lg font-semibold text-cyan-400 mb-4">Pasos a Seguir</h3> <div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">1. Contexto de Incident Response</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">2. Estructura de Logs de Servidor</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">3. ¿Por qué los Logs son Críticos?</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">4. Volumen y Escalabilidad</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">5. Fase 1: Reconocimiento del Dataset</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>file server.log
+wc -l server.log
+ls -lh server.log
+head -20 server.log
+tail -20 server.log
+wc -l server.log
+awk &#39;{print $3}&#39; server.log | sort | uniq -c  # Contar por log level</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">6. Fase 2: Identificación de Patrones</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>grep -i &quot;error\|fail\|attack\|exploit\|flag&quot; server.log
+grep -oE &#39;\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b&#39; server.log | sort | uniq -c | sort -rn
+grep &quot;FLAGPART&quot; server.log</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">7. Fase 3: Extracción y Reconstrucción</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>grep &quot;FLAGPART&quot; server.log
+grep &quot;FLAGPART&quot; server.log | sort -u
+grep &quot;FLAGPART&quot; server.log | awk -F&#39;: &#39; &#39;{print $2}&#39; | sort -u
+grep &quot;FLAGPART&quot; server.log | sort -u | awk -F&#39;: &#39; &#39;{print $2}&#39; | tr -d &#39;\n&#39;</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">8. Fase 4: Timeline Analysis</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>grep &quot;FLAGPART&quot; server.log | sort
+awk &#39;/FLAGPART/ {print $1, $2}&#39; server.log | tr -d &#39;[]&#39;
+awk -F&#39;[][]&#39; &#39;/FLAGPART/ {print $2}&#39; server.log</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">9. Herramientas de Línea de Comandos</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">10. Herramientas Avanzadas</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">11. Script de Análisis Forense de Logs</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">12. Uso del Script</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>python3 log_forensics.py server.log</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">13. Casos Documentados</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">14. Mejores Prácticas en Logging</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>filebeat → logstash → elasticsearch → kibana</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">15. Paso a Paso</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>wc -l server.log  # ~1400 líneas
+grep &quot;FLAGPART&quot; server.log
+grep &quot;FLAGPART&quot; server.log | sort -u
+grep &quot;FLAGPART&quot; server.log | sort -u | awk -F&#39;: &#39; &#39;{print $2}&#39;
+grep &quot;FLAGPART&quot; server.log | sort -u | awk -F&#39;: &#39; &#39;{print $2}&#39; | tr -d &#39;\n&#39;</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">16. One-liners</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>grep &quot;FLAGPART&quot; server.log | sort -u | grep -oP &#39;FLAGPART: \K.*&#39; | tr -d &#39;\n&#39;
+grep &quot;FLAGPART&quot; server.log | sort -u | awk -F&#39;: &#39; &#39;{printf &quot;%s&quot;, $2}&#39;
+grep &quot;FLAGPART&quot; server.log | sort -t&#39;[&#39; -k2 | awk -F&#39;: &#39; &#39;/FLAGPART/ {printf &quot;%s&quot;, $2}&#39;</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">17. Flag</h4>   </div> </div>    </div> </div> </div> </div> <script type="module">document.addEventListener("click",e=>{const t=e.target;t.classList.contains("bg-black")&&(t.classList.add("hidden"),t.setAttribute("aria-hidden","true"))});</script> <!-- Navigation --> <div class="nav-buttons" data-astro-cid-wdujc6bn> <a href="/challenges/ctf/forensics/hidden-metadata-pdf" class="nav-btn prev" data-astro-cid-wdujc6bn> <span class="nav-icon" data-astro-cid-wdujc6bn>←</span> <span class="nav-content" data-astro-cid-wdujc6bn> <span class="nav-label" data-astro-cid-wdujc6bn>Anterior</span> <span class="nav-title" data-astro-cid-wdujc6bn>Hidden Confidential Document</span> </span> </a> <a href="/challenges/ctf/" class="nav-btn home" data-astro-cid-wdujc6bn> <span class="nav-icon" data-astro-cid-wdujc6bn>🚩</span> <span class="nav-content" data-astro-cid-wdujc6bn> <span class="nav-label" data-astro-cid-wdujc6bn>Volver</span> <span class="nav-title" data-astro-cid-wdujc6bn>Todos los Retos</span> </span> </a> <a href="/challenges/ctf/misc/information-disclosure" class="nav-btn next" data-astro-cid-wdujc6bn> <span class="nav-content" data-astro-cid-wdujc6bn> <span class="nav-label" data-astro-cid-wdujc6bn>Siguiente</span> <span class="nav-title" data-astro-cid-wdujc6bn>Information Disclosure</span> </span> <span class="nav-icon" data-astro-cid-wdujc6bn>→</span> </a> </div> </div> </main>  </main>  <script type="module">const e=document.getElementById("mobile-menu-btn"),n=document.getElementById("mobile-menu");e?.addEventListener("click",()=>{n?.classList.toggle("hidden")});</script></body></html> 

@@ -1,0 +1,296 @@
+<!DOCTYPE html><html lang="es"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="Linux Fundamentals - Working with Web Services - HTB Challenge"><link rel="icon" type="image/svg+xml" href="/challenges/favicon.svg"><title>Linux Fundamentals - Working with Web Services | HTB Challenge</title><link rel="stylesheet" href="/challenges/_astro/_slug_-DHZt47Ra.css">
+<style>.markdown-body{font-family:system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;line-height:1.8;color:#e5e7eb}.markdown-body h1{font-size:2rem;font-weight:700;color:#f97316;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid #374151}.markdown-body h2{font-size:1.5rem;font-weight:600;color:#22d3ee;margin:1.75rem 0 1rem;padding-bottom:.25rem}.markdown-body h3{font-size:1.25rem;font-weight:600;color:#a5f3fc;margin:1.5rem 0 .75rem}.markdown-body p{margin:.75rem 0;color:#d1d5db}.markdown-body strong{color:#fbbf24;font-weight:600}.markdown-body ul,.markdown-body ol{margin:.75rem 0;padding-left:1.5rem;color:#d1d5db}.markdown-body li{margin:.5rem 0;list-style-type:disc}.markdown-body table{width:100%;margin:1rem 0;border-collapse:collapse;font-size:.9rem}.markdown-body th,.markdown-body td{padding:.75rem;border:1px solid #374151;text-align:left}.markdown-body th{background:#37415180;color:#fbbf24;font-weight:600}.markdown-body td{color:#d1d5db}.markdown-body code{background:#06b6d426;color:#22d3ee;padding:.2rem .5rem;border-radius:.375rem;font-family:SF Mono,Monaco,Courier New,monospace;font-size:.875rem}.markdown-body pre{background:#0f172a;padding:1rem;border-radius:.75rem;overflow-x:auto;margin:1rem 0;border:1px solid #1e293b}.markdown-body pre code{background:transparent;padding:0;color:#a5b4fc}
+</style></head> <body class="bg-slate-950 text-gray-100 min-h-screen"> <header class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 border-b border-slate-800"> <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4"> <nav class="flex mb-6" aria-label="Breadcrumb"> <ol class="flex items-center space-x-2"> <li class="flex items-center">  <a href="/challenges" class="text-cyan-400 hover:text-cyan-300 transition-colors"> Challenges </a> </li><li class="flex items-center"> <span class="text-gray-500 mx-2">/</span> <a href="/challenges/htb" class="text-cyan-400 hover:text-cyan-300 transition-colors"> HTB </a> </li><li class="flex items-center"> <span class="text-gray-500 mx-2">/</span> <span class="text-gray-300 font-medium">Linux Fundamentals - Working with Web Services</span> </li> </ol> </nav> </nav> <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12"> <div class="flex items-center space-x-4 mb-4"> <span class="px-4 py-2 bg-gradient-to-r from-green-500 to-teal-600 rounded-full text-lg font-bold text-white">
+🎯
+</span> <span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">✅ Completado</span> <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">⭐ easy</span> <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">HTB Academy</span> </div> <h1 class="text-4xl font-bold text-white mb-2">Linux Fundamentals - Working with Web Services</h1> <p class="text-gray-400">HTB Challenge</p> </div> </header> <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12"> <article class="prose prose-invert max-w-none"> <div class="bg-slate-900 rounded-xl border border-slate-800 p-8">  <div class="flex flex-wrap gap-2 mb-6"> <span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#linux</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#web-services</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#apache</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#curl</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#wget</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#npm</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#php</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#http-server</span> </div> <div class="markdown-body"><h1>Linux Fundamentals - Working with Web Services</h1>
+<h2>Objetivo</h2>
+<p>Aprender a trabajar con servidores web en Linux: Apache, servidores HTTP simples (Python, PHP, npm), y herramientas de cliente HTTP como curl y wget.</p>
+<hr>
+<h2>Preguntas y Soluciones</h2>
+<h3>Question 1: npm HTTP Server</h3>
+<p><strong>Pregunta:</strong> Find a way to start a simple HTTP server inside Pwnbox or your local VM using &quot;npm&quot;. Submit the command that starts the web server on port 8080 (use the short argument to specify the port number).</p>
+<p><strong>Respuesta:</strong> <code>http-server -p 8080</code></p>
+<p><strong>Explicación:</strong></p>
+<ul>
+<li><code>http-server</code> es un paquete npm que proporciona un servidor HTTP simple</li>
+<li>Se puede instalar con <code>npm install -g http-server</code></li>
+<li>La opción <code>-p</code> especifica el puerto (forma corta)</li>
+<li>También se puede usar con <code>npx http-server -p 8080</code> sin instalación global</li>
+</ul>
+<hr>
+<h3>Question 2: PHP Built-in Server</h3>
+<p><strong>Pregunta:</strong> Find a way to start a simple HTTP server inside Pwnbox or your local VM using &quot;php&quot;. Submit the command that starts the web server on the localhost (127.0.0.1) on port 8080.</p>
+<p><strong>Respuesta:</strong> <code>php -S 127.0.0.1:8080</code></p>
+<p><strong>Explicación:</strong></p>
+<ul>
+<li>PHP tiene un servidor web integrado desde PHP 5.4</li>
+<li><code>-S</code> especifica la dirección IP y puerto</li>
+<li>El servidor sirve archivos del directorio actual</li>
+<li>Ideal para desarrollo rápido y testing</li>
+</ul>
+<hr>
+<h2>Conceptos Clave</h2>
+<h3>Servidores Web en Linux</h3>
+<table>
+<thead>
+<tr>
+<th>Herramienta</th>
+<th>Comando</th>
+<th>Uso</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Python</td>
+<td><code>python3 -m http.server 8080</code></td>
+<td>Servidor simple, todos los archivos</td>
+</tr>
+<tr>
+<td>PHP</td>
+<td><code>php -S 127.0.0.1:8080</code></td>
+<td>Servidor con soporte PHP</td>
+</tr>
+<tr>
+<td>npm http-server</td>
+<td><code>http-server -p 8080</code></td>
+<td>Servidor estático con cache</td>
+</tr>
+<tr>
+<td>npm serve</td>
+<td><code>serve -p 8080</code></td>
+<td>Servidor con SPA support</td>
+</tr>
+<tr>
+<td>Apache</td>
+<td><code>systemctl start apache2</code></td>
+<td>Servidor completo de producción</td>
+</tr>
+<tr>
+<td>Nginx</td>
+<td><code>systemctl start nginx</code></td>
+<td>Servidor de alto rendimiento</td>
+</tr>
+</tbody></table>
+<h3>Cliente HTTP: curl</h3>
+<pre><code class="language-bash"># Obtener página web
+curl http://localhost
+
+# Solo headers
+curl -I http://localhost
+
+# Descargar archivo
+curl -O http://localhost/archivo.txt
+
+# POST request
+curl -X POST -d &quot;data=value&quot; http://localhost/api
+
+# Seguir redirecciones
+curl -L http://localhost
+</code></pre>
+<h3>Cliente HTTP: wget</h3>
+<pre><code class="language-bash"># Descargar archivo
+wget http://localhost/archivo.txt
+
+# Descargar con nombre específico
+wget -O miarchivo.txt http://localhost/archivo.txt
+
+# Descargar recursivamente
+wget -r http://localhost
+
+# Continuar descarga interrumpida
+wget -c http://localhost/archivo.grande
+</code></pre>
+<hr>
+<h2>Configuración de Apache</h2>
+<h3>Archivos Importantes</h3>
+<table>
+<thead>
+<tr>
+<th>Archivo</th>
+<th>Propósito</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>/etc/apache2/apache2.conf</code></td>
+<td>Configuración global</td>
+</tr>
+<tr>
+<td><code>/etc/apache2/ports.conf</code></td>
+<td>Puertos de escucha</td>
+</tr>
+<tr>
+<td><code>/etc/apache2/sites-available/</code></td>
+<td>Sitios disponibles</td>
+</tr>
+<tr>
+<td><code>/etc/apache2/sites-enabled/</code></td>
+<td>Sitios activos</td>
+</tr>
+<tr>
+<td><code>/var/www/html/</code></td>
+<td>Directorio raíz por defecto</td>
+</tr>
+</tbody></table>
+<h3>Comandos de Gestión</h3>
+<pre><code class="language-bash"># Iniciar/Detener
+sudo systemctl start apache2
+sudo systemctl stop apache2
+sudo systemctl restart apache2
+
+# Verificar configuración
+sudo apache2ctl configtest
+
+# Ver estado
+sudo systemctl status apache2
+
+# Habilitar sitio
+sudo a2ensite misitio.conf
+sudo a2dissite 000-default.conf
+</code></pre>
+<h3>Cambiar Puerto</h3>
+<pre><code class="language-bash"># Editar ports.conf
+sudo nano /etc/apache2/ports.conf
+# Cambiar Listen 80 por Listen 8080
+
+# Reiniciar
+sudo systemctl restart apache2
+</code></pre>
+<hr>
+<h2>Módulos de Apache</h2>
+<table>
+<thead>
+<tr>
+<th>Módulo</th>
+<th>Función</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>mod_ssl</td>
+<td>HTTPS/TLS</td>
+</tr>
+<tr>
+<td>mod_rewrite</td>
+<td>Reescritura de URLs</td>
+</tr>
+<tr>
+<td>mod_proxy</td>
+<td>Proxy inverso</td>
+</tr>
+<tr>
+<td>mod_headers</td>
+<td>Manipular headers HTTP</td>
+</tr>
+<tr>
+<td>mod_security</td>
+<td>Firewall de aplicaciones web</td>
+</tr>
+</tbody></table>
+<pre><code class="language-bash"># Habilitar módulo
+sudo a2enmod ssl
+
+# Deshabilitar módulo
+sudo a2dismod status
+</code></pre>
+<hr>
+<h2>Ejemplos Prácticos</h2>
+<h3>Servidor Python Rápido</h3>
+<pre><code class="language-bash"># Desde el directorio que quieres servir
+cd /ruta/a/archivos
+python3 -m http.server 8080
+# Acceder: http://localhost:8080
+</code></pre>
+<h3>Servidor PHP para Desarrollo</h3>
+<pre><code class="language-bash"># Servir aplicación PHP
+cd /ruta/a/mi/app
+php -S localhost:8000
+# Acceder: http://localhost:8000
+</code></pre>
+<h3>Servidor npm Estático</h3>
+<pre><code class="language-bash"># Sin instalación (npx)
+npx http-server -p 8080
+
+# Con instalación global
+npm install -g http-server
+http-server -p 8080 --cors
+</code></pre>
+<h3>Transferir Archivos con curl/wget</h3>
+<pre><code class="language-bash"># Descargar desde servidor local
+wget http://localhost:8080/archivo.txt
+
+# Subir archivo con curl
+curl -X POST -F &quot;file=@archivo.txt&quot; http://localhost:8080/upload
+</code></pre>
+<hr>
+<h2>curl vs wget</h2>
+<table>
+<thead>
+<tr>
+<th>Característica</th>
+<th>curl</th>
+<th>wget</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Protocolos</td>
+<td>Muchos (HTTP, FTP, SCP...)</td>
+<td>HTTP, HTTPS, FTP</td>
+</tr>
+<tr>
+<td>Output</td>
+<td>STDOUT por defecto</td>
+<td>Guarda archivo</td>
+</tr>
+<tr>
+<td>Upload</td>
+<td>✓</td>
+<td>✗</td>
+</tr>
+<tr>
+<td>Resume</td>
+<td>✗</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>Uso típico</td>
+<td>Testing, APIs</td>
+<td>Descargas</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>Lecciones Aprendidas</h2>
+<ol>
+<li><strong>npm http-server:</strong> Servidor estático simple con <code>-p</code> para puerto</li>
+<li><strong>PHP built-in:</strong> <code>php -S IP:PORT</code> para desarrollo rápido</li>
+<li><strong>curl:</strong> Herramienta versátil para testing HTTP</li>
+<li><strong>wget:</strong> Ideal para descargar archivos</li>
+<li><strong>Python:</strong> Servidor simple con <code>python3 -m http.server</code></li>
+</ol>
+<hr>
+<h2>Referencias</h2>
+<ul>
+<li><a href="https://www.npmjs.com/package/http-server">http-server (npm)</a></li>
+<li><a href="https://www.php.net/manual/en/features.commandline.webserver.php">PHP Built-in Web Server</a></li>
+<li><a href="https://man7.org/linux/man-pages/man1/curl.1.html">curl(1) - Linux manual</a></li>
+<li><a href="https://man7.org/linux/man-pages/man1/wget.1.html">wget(1) - Linux manual</a></li>
+<li><a href="https://httpd.apache.org/docs/">Apache Documentation</a></li>
+</ul>
+<hr>
+<h2>Estado</h2>
+<p><strong>COMPLETADO</strong> ✓</p>
+<ul>
+<li>Fecha: 2026-02-20</li>
+<li>Módulo: Linux Fundamentals</li>
+<li>Sección: 20 - Working with Web Services</li>
+<li>Respuestas correctas: 2/2</li>
+</ul>
+</div> </div> </article> <div class="mt-8 flex justify-between items-center"> <a href="/challenges/htb/" class="px-6 py-3 bg-slate-700 hover:bg-slate-600 rounded-lg transition-colors">
+← Volver
+</a> <button onclick="openModal('linux-fundamentals/web-services')" class="px-6 py-3 bg-gradient-to-r from-green-500 to-teal-600 hover:from-green-600 hover:to-teal-700 rounded-lg transition-all font-medium flex items-center gap-2 shadow-lg shadow-green-500/25"> <span>📋</span> <span>Ver Solución Paso a Paso</span> </button> </div> </main> <div id="modal-linux-fundamentals/web-services" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50" aria-hidden="true"> <div class="flex items-center justify-center min-h-screen p-4"> <div class="bg-slate-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto"> <div class="p-6 border-b border-slate-700"> <div class="flex justify-between items-start"> <div> <h2 class="text-2xl font-bold text-gray-100">Linux Fundamentals - Working with Web Services</h2> <div class="flex items-center gap-4 mt-2 text-sm"> <span class="capitalize bg-slate-700 px-2 py-1 rounded">htb</span> <span class="text-cyan-400">easy</span>  </div> </div> <button onclick="closeModal('linux-fundamentals/web-services')" class="text-gray-400 hover:text-white">
+✕
+</button> </div> </div> <div class="p-6"> <div class="mb-6"> <h3 class="text-lg font-semibold text-cyan-400 mb-4">Pasos a Seguir</h3> <div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">1. Comandos de Solución</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>curl http://localhost
+curl -I http://localhost
+curl -O http://localhost/archivo.txt
+curl -X POST -d &quot;data=value&quot; http://localhost/api
+curl -L http://localhost</code>
+                  </pre>  </div> </div> <div class="mb-6"> <h3 class="text-lg font-semibold text-yellow-400 mb-4">Verificación</h3> <ul class="space-y-2"> <li class="flex items-center text-gray-300"> <span class="text-green-400 mr-2">✓</span> Reto completado </li><li class="flex items-center text-gray-300"> <span class="text-green-400 mr-2">✓</span> Puntuación obtenida </li> </ul> </div>   </div> </div> </div> </div> <script type="module">document.addEventListener("click",e=>{const t=e.target;t.classList.contains("bg-black")&&(t.classList.add("hidden"),t.setAttribute("aria-hidden","true"))});</script> <footer class="border-t border-slate-800 mt-16"> <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center text-gray-500 text-sm"> <p>Technical Challenges Repository | HTB Challenge</p> </div> </footer> <script type="module">function e(d){const o=document.getElementById(`modal-${d}`);o&&(o.classList.remove("hidden"),document.body.style.overflow="hidden")}function n(d){const o=document.getElementById(`modal-${d}`);o&&(o.classList.add("hidden"),document.body.style.overflow="")}window.openModal=e;window.closeModal=n;</script> </body> </html>

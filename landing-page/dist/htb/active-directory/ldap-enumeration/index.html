@@ -1,0 +1,191 @@
+<!DOCTYPE html><html lang="es"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="HTB Academy - LDAP Enumeration - HTB Challenge"><link rel="icon" type="image/svg+xml" href="/challenges/favicon.svg"><title>HTB Academy - LDAP Enumeration | HTB Challenge</title><link rel="stylesheet" href="/challenges/_astro/_slug_-DHZt47Ra.css">
+<style>.markdown-body{font-family:system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;line-height:1.8;color:#e5e7eb}.markdown-body h1{font-size:2rem;font-weight:700;color:#f97316;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid #374151}.markdown-body h2{font-size:1.5rem;font-weight:600;color:#22d3ee;margin:1.75rem 0 1rem;padding-bottom:.25rem}.markdown-body h3{font-size:1.25rem;font-weight:600;color:#a5f3fc;margin:1.5rem 0 .75rem}.markdown-body p{margin:.75rem 0;color:#d1d5db}.markdown-body strong{color:#fbbf24;font-weight:600}.markdown-body ul,.markdown-body ol{margin:.75rem 0;padding-left:1.5rem;color:#d1d5db}.markdown-body li{margin:.5rem 0;list-style-type:disc}.markdown-body table{width:100%;margin:1rem 0;border-collapse:collapse;font-size:.9rem}.markdown-body th,.markdown-body td{padding:.75rem;border:1px solid #374151;text-align:left}.markdown-body th{background:#37415180;color:#fbbf24;font-weight:600}.markdown-body td{color:#d1d5db}.markdown-body code{background:#06b6d426;color:#22d3ee;padding:.2rem .5rem;border-radius:.375rem;font-family:SF Mono,Monaco,Courier New,monospace;font-size:.875rem}.markdown-body pre{background:#0f172a;padding:1rem;border-radius:.75rem;overflow-x:auto;margin:1rem 0;border:1px solid #1e293b}.markdown-body pre code{background:transparent;padding:0;color:#a5b4fc}
+</style></head> <body class="bg-slate-950 text-gray-100 min-h-screen"> <header class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 border-b border-slate-800"> <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4"> <nav class="flex mb-6" aria-label="Breadcrumb"> <ol class="flex items-center space-x-2"> <li class="flex items-center">  <a href="/challenges" class="text-cyan-400 hover:text-cyan-300 transition-colors"> Challenges </a> </li><li class="flex items-center"> <span class="text-gray-500 mx-2">/</span> <a href="/challenges/htb" class="text-cyan-400 hover:text-cyan-300 transition-colors"> HTB </a> </li><li class="flex items-center"> <span class="text-gray-500 mx-2">/</span> <span class="text-gray-300 font-medium">HTB Academy - LDAP Enumeration</span> </li> </ol> </nav> </nav> <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12"> <div class="flex items-center space-x-4 mb-4"> <span class="px-4 py-2 bg-gradient-to-r from-green-500 to-teal-600 rounded-full text-lg font-bold text-white">
+🎯
+</span> <span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">✅ Completado</span> <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">⭐ easy</span> <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">HTB</span> </div> <h1 class="text-4xl font-bold text-white mb-2">HTB Academy - LDAP Enumeration</h1> <p class="text-gray-400">HTB Challenge</p> </div> </header> <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12"> <article class="prose prose-invert max-w-none"> <div class="bg-slate-900 rounded-xl border border-slate-800 p-8">  <div class="flex flex-wrap gap-2 mb-6"> <span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#ldap</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#active-directory</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#enumeration</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#htb-academy</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#pentesting</span> </div> <div class="markdown-body"><h1>🎓 HTB Academy - LDAP Enumeration</h1>
+<h2>🎭 Enumeración de Active Directory via LDAP</h2>
+<hr>
+<p>👨‍🏫 <strong>Del Instructor</strong>: Bienvenido al módulo de Active Directory. Como Ethical Hacker, la enumeración LDAP es fundamental para comprender la estructura de un dominio Windows y identificar vectores de ataque potenciales.</p>
+<blockquote>
+<p>🎯 <strong>Mentalidad de Hacker</strong>: &quot;Active Directory es el cerebro de la infraestructura empresarial. Cada objeto, cada permiso, cada relación es una pieza del rompecabezas que puede conducir a la compromise total del dominio.&quot;</p>
+</blockquote>
+<hr>
+<h2>🎭 El Escenario: Assessing Corporate Domain</h2>
+<h3>Contexto del Pentest</h3>
+<p>Eres un consultor de seguridad realizando un assessment autorizado para una empresa. Durante la fase de reconocimiento, has identificado un Domain Controller expuesto. Tu objetivo es enumerar la estructura del dominio utilizando LDAP para:</p>
+<ul>
+<li>Identificar usuarios y grupos del dominio</li>
+<li>Descubrir políticas de contraseñas</li>
+<li>Mapear la estructura organizacional</li>
+<li>Encontrar cuentas de servicio vulnerables (Kerberoasting)</li>
+</ul>
+<p><strong>Tu misión como Pentester</strong>:</p>
+<ul>
+<li>Conectar al servidor LDAP del dominio</li>
+<li>Enumerar usuarios del dominio</li>
+<li>Identificar grupos con privilegios elevados</li>
+<li>Documentar hallazgos para el reporte</li>
+</ul>
+<h2>🧠 Fundamentos de Análisis: LDAP y Active Directory</h2>
+<h3>¿Qué es LDAP?</h3>
+<p>LDAP (Lightweight Directory Access Protocol) es el protocolo que utiliza Active Directory para almacenar y consultar información sobre objetos del dominio:</p>
+<ul>
+<li><strong>Usuarios</strong>: Cuentas de usuario y sus atributos</li>
+<li><strong>Grupos</strong>: Estructuras de permisos y membresías</li>
+<li><strong>Computadoras</strong>: Cuentas de máquina</li>
+<li><strong>Políticas</strong>: GPOs y configuraciones de seguridad</li>
+<li><strong>Servicios</strong>: Service accounts y SPNs</li>
+</ul>
+<h3>Estructura LDAP</h3>
+<pre><code>DC=htb,DC=local (Dominio)
+├── CN=Users (Contenedor de usuarios)
+│   ├── CN=Administrator
+│   ├── CN=Guest
+│   └── CN=krbtgt (Cuenta de servicio Kerberos)
+├── CN=Computers
+├── OU=Domain Controllers
+└── CN=System
+</code></pre>
+<h2>🔍 Metodología de Investigación</h2>
+<h3>Paso 1: Preparación del Entorno</h3>
+<pre><code class="language-bash"># Conectar a Pwnbox HTB Academy
+ssh htb-ac-XXXXXX@htb-XXXXXX.htb-cloud.com
+
+# Verificar herramientas disponibles
+which ldapsearch windapsearch ldapdomaindump
+
+# Instalar herramientas si es necesario
+sudo apt update &amp;&amp; sudo apt install -y ldap-utils
+</code></pre>
+<h3>Paso 2: Identificar el Domain Controller</h3>
+<pre><code class="language-bash"># Escaneo de puertos AD comunes
+nmap -p 389,636,3268,3269 10.10.10.10
+
+# Output esperado:
+# 389/tcp   open  ldap
+# 636/tcp   open  ssl/ldap (LDAPS)
+# 3268/tcp  open  globalcatLDAP
+# 3269/tcp  open  globalcatLDAPssl
+</code></pre>
+<p><strong>Análisis</strong>: Los puertos LDAP indican presencia de Active Directory. El puerto 389 es LDAP estándar, 636 es LDAP sobre SSL.</p>
+<h3>Paso 3: Enumeración LDAP Básica</h3>
+<pre><code class="language-bash"># Enumeración anónima
+ldapsearch -x -H ldap://10.10.10.10 -b &quot;DC=htb,DC=local&quot; &quot;(objectClass=*)&quot; | head -100
+
+# Enumeración de usuarios
+ldapsearch -x -H ldap://10.10.10.10 -b &quot;DC=htb,DC=local&quot; &quot;(objectClass=user)&quot; sAMAccountName | grep sAMAccountName
+
+# Enumeración de grupos
+ldapsearch -x -H ldap://10.10.10.10 -b &quot;DC=htb,DC=local&quot; &quot;(objectClass=group)&quot; sAMAccountName | grep sAMAccountName
+
+# Enumeración de Domain Admins
+ldapsearch -x -H ldap://10.10.10.10 -b &quot;DC=htb,DC=local&quot; &quot;(&amp;(objectClass=group)(cn=Domain Admins))&quot; member
+</code></pre>
+<h3>Paso 4: Enumeración con Credenciales</h3>
+<pre><code class="language-bash"># Si tenemos credenciales válidas
+ldapsearch -x -H ldap://10.10.10.10 -D &quot;htb\\user&quot; -W -b &quot;DC=htb,DC=local&quot; &quot;(objectClass=user)&quot; sAMAccountName pwdLastSet
+
+# Usar ldapdomaindump para visualización completa
+ldapdomaindump -u &#39;htb\user&#39; -p &#39;password&#39; 10.10.10.10
+
+# Los resultados se guardan en:
+# domain_users.json, domain_groups.json, domain_computers.json
+</code></pre>
+<h3>Paso 5: Identificar Cuentas de Servicio (Kerberoasting)</h3>
+<pre><code class="language-bash"># Buscar cuentas con SPN (Service Principal Name)
+ldapsearch -x -H ldap://10.10.10.10 -D &quot;htb\\user&quot; -W -b &quot;DC=htb,DC=local&quot; &quot;(&amp;(objectClass=user)(servicePrincipalName=*))&quot; sAMAccountName servicePrincipalName
+
+# Output ejemplo:
+# sAMAccountName: sqlservice
+# servicePrincipalName: MSSQLSvc/db.htb.local:1433
+</code></pre>
+<h2>🛠️ Arsenal de Herramientas HTB Academy</h2>
+<table>
+<thead>
+<tr>
+<th>Herramienta</th>
+<th>Uso</th>
+<th>Comando</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>ldapsearch</code></td>
+<td>Queries LDAP nativas</td>
+<td><code>ldapsearch -x -H ldap://IP</code></td>
+</tr>
+<tr>
+<td><code>windapsearch</code></td>
+<td>Enumeración AD específica</td>
+<td><code>windapsearch.py -u user@domain</code></td>
+</tr>
+<tr>
+<td><code>ldapdomaindump</code></td>
+<td>Dump completo del dominio</td>
+<td><code>ldapdomaindump -u user IP</code></td>
+</tr>
+<tr>
+<td><code>bloodhound-python</code></td>
+<td>Mapeo de relaciones AD</td>
+<td><code>bloodhound-python -u user@domain</code></td>
+</tr>
+<tr>
+<td><code>CrackMapExec</code></td>
+<td>Enumeración integrada</td>
+<td><code>cme ldap IP -u user -p pass</code></td>
+</tr>
+</tbody></table>
+<h2>✅ Checklist de Verificación</h2>
+<ul>
+<li><input disabled="" type="checkbox"> Identificar Domain Controller via nmap</li>
+<li><input disabled="" type="checkbox"> Enumerar usuarios del dominio</li>
+<li><input disabled="" type="checkbox"> Enumerar grupos y membresías</li>
+<li><input disabled="" type="checkbox"> Identificar Domain Admins</li>
+<li><input disabled="" type="checkbox"> Descubrir cuentas de servicio (SPNs)</li>
+<li><input disabled="" type="checkbox"> Documentar estructura del dominio</li>
+<li><input disabled="" type="checkbox"> Identificar vectores de ataque potenciales</li>
+</ul>
+<h2>🎓 Lo Que Acabas de Aprender</h2>
+<p><strong>Habilidades Técnicas</strong>:</p>
+<ul>
+<li>Enumeración LDAP básica y avanzada</li>
+<li>Identificación de estructura de dominio</li>
+<li>Detección de cuentas de servicio</li>
+<li>Uso de herramientas especializadas AD</li>
+</ul>
+<p><strong>Mentalidad de Pentester</strong>:</p>
+<ul>
+<li><strong>Reconocimiento exhaustivo</strong>: Enumerar todo antes de atacar</li>
+<li><strong>Documentación rigurosa</strong>: Cada hallazgo es importante</li>
+<li><strong>Pensamiento lateral</strong>: Usuarios → Grupos → Permisos → Acceso</li>
+</ul>
+<h2>🚀 Próximos Pasos</h2>
+<ol>
+<li><strong>Kerberoasting</strong>: Atacar cuentas de servicio identificadas</li>
+<li><strong>AS-REP Roasting</strong>: Usuarios sin pre-auth</li>
+<li><strong>BloodHound</strong>: Visualizar relaciones de ataque</li>
+<li><strong>Lateral Movement</strong>: Usar información para pivotear</li>
+</ol>
+<h2>📚 Recursos HTB Academy</h2>
+<ul>
+<li><a href="https://academy.hackthebox.com/module/details/74">HTB Academy - Active Directory LDAP Module</a></li>
+<li><a href="https://book.hacktricks.xyz/pentesting/pentesting-ldap">Attacking Active Directory: LDAP Enumeration</a></li>
+<li><a href="https://github.com/ropnop/windapsearch">WindAPSearch GitHub</a></li>
+</ul>
+<hr>
+<h2>✅ Estado</h2>
+<p><strong>LISTO PARA COMPLETAR</strong> 🔵</p>
+<ul>
+<li>📅 Fecha: 2026-02-17</li>
+<li>⏱️ Tiempo estimado: 30 minutos</li>
+<li>🎯 Dificultad: Fácil (HTB Academy Beginner)</li>
+</ul>
+</div> </div> </article> <div class="mt-8 flex justify-between items-center"> <a href="/challenges/htb/" class="px-6 py-3 bg-slate-700 hover:bg-slate-600 rounded-lg transition-colors">
+← Volver
+</a> <button onclick="openModal('active-directory/ldap-enumeration')" class="px-6 py-3 bg-gradient-to-r from-green-500 to-teal-600 hover:from-green-600 hover:to-teal-700 rounded-lg transition-all font-medium flex items-center gap-2 shadow-lg shadow-green-500/25"> <span>📋</span> <span>Ver Solución Paso a Paso</span> </button> </div> </main> <div id="modal-active-directory/ldap-enumeration" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50" aria-hidden="true"> <div class="flex items-center justify-center min-h-screen p-4"> <div class="bg-slate-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto"> <div class="p-6 border-b border-slate-700"> <div class="flex justify-between items-start"> <div> <h2 class="text-2xl font-bold text-gray-100">HTB Academy - LDAP Enumeration</h2> <div class="flex items-center gap-4 mt-2 text-sm"> <span class="capitalize bg-slate-700 px-2 py-1 rounded">active-directory</span> <span class="text-cyan-400">easy</span>  </div> </div> <button onclick="closeModal('active-directory/ldap-enumeration')" class="text-gray-400 hover:text-white">
+✕
+</button> </div> </div> <div class="p-6"> <div class="mb-6"> <h3 class="text-lg font-semibold text-cyan-400 mb-4">Pasos a Seguir</h3> <div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">1. Comandos de Solución</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>ssh htb-ac-XXXXXX@htb-XXXXXX.htb-cloud.com
+which ldapsearch windapsearch ldapdomaindump
+sudo apt update &amp;&amp; sudo apt install -y ldap-utils</code>
+                  </pre>  </div> </div> <div class="mb-6"> <h3 class="text-lg font-semibold text-yellow-400 mb-4">Verificación</h3> <ul class="space-y-2"> <li class="flex items-center text-gray-300"> <span class="text-green-400 mr-2">✓</span> Reto completado </li><li class="flex items-center text-gray-300"> <span class="text-green-400 mr-2">✓</span> Puntuación obtenida </li> </ul> </div>   </div> </div> </div> </div> <script type="module">document.addEventListener("click",e=>{const t=e.target;t.classList.contains("bg-black")&&(t.classList.add("hidden"),t.setAttribute("aria-hidden","true"))});</script> <footer class="border-t border-slate-800 mt-16"> <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center text-gray-500 text-sm"> <p>Technical Challenges Repository | HTB Challenge</p> </div> </footer> <script type="module">function e(d){const o=document.getElementById(`modal-${d}`);o&&(o.classList.remove("hidden"),document.body.style.overflow="hidden")}function n(d){const o=document.getElementById(`modal-${d}`);o&&(o.classList.add("hidden"),document.body.style.overflow="")}window.openModal=e;window.closeModal=n;</script> </body> </html>

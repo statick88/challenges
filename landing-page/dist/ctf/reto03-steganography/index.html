@@ -1,0 +1,592 @@
+<!DOCTYPE html><html lang="es" data-astro-cid-ouamjn2i> <head><meta charset="UTF-8"><meta name="description" content="Plataforma interactiva de desafíos técnicos - Linux, Docker, DevOps, CTF"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/challenges/favicon.svg"><meta name="generator" content="Astro v5.17.1"><meta name="theme-color" content="#4c80cc"><title>Hidden in Image (Steganography) - CTF Challenges</title><!-- Preconnect for fonts --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><!-- Script para prevenir flash de tema incorrecto --><script>
+      const theme = (() => {
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+          return localStorage.getItem('theme');
+        }
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          return 'dark';
+        }
+        return 'light';
+      })();
+      
+      if (theme === 'light') {
+        document.documentElement.classList.add('light');
+      } else {
+        document.documentElement.classList.add('dark');
+      }
+    </script><!-- Cache busting: Verificar versión y recargar si hay cambios --><script>
+      (function() {
+        const BUILD_VERSION = '1771938333648';
+        const CACHE_KEY = 'tech-challenges-build-version';
+        
+        // Verificar si hay nueva versión
+        const storedVersion = localStorage.getItem(CACHE_KEY);
+        
+        if (storedVersion && storedVersion !== BUILD_VERSION) {
+          // Nueva versión detectada, limpiar cache y recargar
+          console.log('🆕 Nueva versión detectada. Actualizando...');
+          if ('caches' in window) {
+            caches.keys().then(names => {
+              names.forEach(name => caches.delete(name));
+            });
+          }
+          localStorage.setItem(CACHE_KEY, BUILD_VERSION);
+          window.location.reload();
+        } else if (!storedVersion) {
+          localStorage.setItem(CACHE_KEY, BUILD_VERSION);
+        }
+      })();
+    </script><link rel="stylesheet" href="/challenges/_astro/_slug_-DHZt47Ra.css">
+<link rel="stylesheet" href="/challenges/_astro/_slug_-CaxYOu3g.css">
+<style>.nav-buttons[data-astro-cid-wdujc6bn]{display:flex;justify-content:space-between;gap:1rem;margin-top:2rem;flex-wrap:wrap}.nav-btn[data-astro-cid-wdujc6bn]{display:flex;align-items:center;gap:.75rem;padding:1rem 1.25rem;background:#1e293bcc;border:1px solid rgba(71,85,105,.3);border-radius:.75rem;text-decoration:none;transition:all .2s ease;flex:1;min-width:200px;max-width:280px}.nav-btn[data-astro-cid-wdujc6bn]:hover:not(.disabled){background:#22c55e1a;border-color:#22c55e4d;transform:translateY(-2px)}.nav-btn[data-astro-cid-wdujc6bn].disabled{opacity:.4;cursor:not-allowed;pointer-events:none}.nav-btn[data-astro-cid-wdujc6bn].prev{text-align:left}.nav-btn[data-astro-cid-wdujc6bn].next{text-align:right;justify-content:flex-end}.nav-btn[data-astro-cid-wdujc6bn].home{justify-content:center;max-width:200px}.nav-icon[data-astro-cid-wdujc6bn]{font-size:1.25rem;color:#22c55e}.nav-content[data-astro-cid-wdujc6bn]{display:flex;flex-direction:column;gap:.25rem}.nav-label[data-astro-cid-wdujc6bn]{font-size:.7rem;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em}.nav-title[data-astro-cid-wdujc6bn]{font-size:.875rem;color:#e2e8f0;font-weight:500}@media(max-width:768px){.nav-buttons[data-astro-cid-wdujc6bn]{flex-direction:column}.nav-btn[data-astro-cid-wdujc6bn]{max-width:100%}}
+</style></head> <body class="min-h-screen flex flex-col" data-astro-cid-ouamjn2i> <!-- Header --> <header class="sticky top-0 z-50 border-b" style="background-color: var(--color-bg); border-color: var(--color-border);" data-astro-cid-ouamjn2i> <div class="container mx-auto px-4 py-4 flex items-center justify-between" data-astro-cid-ouamjn2i> <!-- Logo / Brand --> <a href="/challenges/" class="flex items-center gap-3 group" data-astro-cid-ouamjn2i> <span class="text-2xl" data-astro-cid-ouamjn2i>🚀</span> <span class="font-bold text-lg transition-colors group-hover:text-accent" style="color: var(--color-text);" data-astro-cid-ouamjn2i>
+Tech Challenges
+</span> </a> <!-- Navigation --> <nav class="hidden md:flex items-center gap-6" data-astro-cid-ouamjn2i> <a href="/challenges/" class="nav-link" data-astro-cid-ouamjn2i>Dashboard</a> <a href="/challenges/linux/" class="nav-link" data-astro-cid-ouamjn2i>Linux</a> <a href="/challenges/docker/" class="nav-link" data-astro-cid-ouamjn2i>Docker</a> <a href="/challenges/devops/" class="nav-link" data-astro-cid-ouamjn2i>DevOps</a> <a href="/challenges/ctf/" class="nav-link" data-astro-cid-ouamjn2i>CTF</a> <a href="/challenges/htb/" class="nav-link" data-astro-cid-ouamjn2i>HTB</a> </nav> <!-- Theme Toggle --> <div class="flex items-center gap-4" data-astro-cid-ouamjn2i> <button id="lang-toggle" class="lang-toggle" type="button" aria-label="Cambiar idioma" title="Cambiar idioma" data-astro-cid-lb7h3eps> <span class="lang-text" data-astro-cid-lb7h3eps>EN</span> </button>  <script type="module">const l={es:{"hero.badge":"Plataforma de Aprendizaje","hero.title.line1":"Domina Linux, Docker,","hero.title.line2":"DevOps & Security","hero.subtitle":"Plataforma interactiva con 70+ desafíos prácticos. Aprende haciendo, no solo leyendo.","hero.stat.completed":"Completados","hero.stat.progress":"Progreso","hero.stat.challenges":"Desafíos","progress.title":"Progreso General","progress.completed":"completados","progress.in_progress":"en progreso","progress.blocked":"bloqueados","programs.title":"Programas de Aprendizaje","programs.subtitle":"Selecciona un programa para ver sus desafíos","programs.completed":"Completados","programs.total":"Total","programs.view":"Ver desafíos","program.linux":"Linux","program.docker":"Docker","program.devops":"DevOps","program.ctf":"CTF","program.htb":"HTB Academy","program.linux.desc":"Administración de sistemas Linux, usuarios, permisos y automatización","program.docker.desc":"Containerización, orquestación y mejores prácticas de Docker","program.devops.desc":"CI/CD, automatización y cultura DevOps","program.ctf.desc":"Desafíos de seguridad: criptografía, web, forense y más","program.htb.desc":"Módulos de Hack The Box Academy completados","cert.title":"Certificaciones Obtenidas","cert.subtitle":"Reconocimientos oficiales de tu progreso","cert.docker.title":"Docker Certification","cert.docker.platform":"KodeKloud Engineer","cert.challenges":"Challenges","cert.verify":"Verificar certificado","activity.title":"Actividad Reciente","activity.subtitle":"Últimos desafíos completados","footer.update":"Última actualización"},en:{"hero.badge":"Learning Platform","hero.title.line1":"Master Linux, Docker,","hero.title.line2":"DevOps & Security","hero.subtitle":"Interactive platform with 70+ practical challenges. Learn by doing, not just reading.","hero.stat.completed":"Completed","hero.stat.progress":"Progress","hero.stat.challenges":"Challenges","progress.title":"Overall Progress","progress.completed":"completed","progress.in_progress":"in progress","progress.blocked":"blocked","programs.title":"Learning Programs","programs.subtitle":"Select a program to view its challenges","programs.completed":"Completed","programs.total":"Total","programs.view":"View challenges","program.linux":"Linux","program.docker":"Docker","program.devops":"DevOps","program.ctf":"CTF","program.htb":"HTB Academy","program.linux.desc":"Linux system administration, users, permissions and automation","program.docker.desc":"Containerization, orchestration and Docker best practices","program.devops.desc":"CI/CD, automation and DevOps culture","program.ctf.desc":"Security challenges: cryptography, web, forensics and more","program.htb.desc":"Completed Hack The Box Academy modules","cert.title":"Earned Certifications","cert.subtitle":"Official recognition of your progress","cert.docker.title":"Docker Certification","cert.docker.platform":"KodeKloud Engineer","cert.challenges":"Challenges","cert.verify":"Verify Certificate","activity.title":"Recent Activity","activity.subtitle":"Latest completed challenges","footer.update":"Last updated"}},i=document.getElementById("lang-toggle"),s=i?.querySelector(".lang-text");function c(){if(typeof localStorage<"u"){const e=localStorage.getItem("lang");if(e==="es"||e==="en")return e}return"es"}function d(e){typeof localStorage<"u"&&localStorage.setItem("lang",e)}function g(e){s&&(s.textContent=e==="es"?"EN":"ES")}function n(e){const t=l[e];document.querySelectorAll("[data-i18n]").forEach(o=>{const r=o.getAttribute("data-i18n");r&&t[r]&&(o.textContent=t[r])}),document.querySelectorAll("[data-i18n-program]").forEach(o=>{const r=o.getAttribute("data-i18n-program");if(r){const a=`program.${r}`;t[a]&&(o.textContent=t[a])}}),document.querySelectorAll("[data-i18n-program-desc]").forEach(o=>{const r=o.getAttribute("data-i18n-program-desc");if(r){const a=`program.${r}.desc`;t[a]&&(o.textContent=t[a])}}),document.documentElement.lang=e,g(e)}const p=c();n(p);i?.addEventListener("click",()=>{const t=c()==="es"?"en":"es";d(t),n(t)});</script> <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Cambiar tema" title="Cambiar tema claro/oscuro" data-astro-cid-x3pjskd3> <!-- Icono Sol (visible en tema oscuro) --> <svg class="icon-sun w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" data-astro-cid-x3pjskd3> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" data-astro-cid-x3pjskd3></path> </svg> <!-- Icono Luna (visible en tema claro) --> <svg class="icon-moon w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" data-astro-cid-x3pjskd3> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" data-astro-cid-x3pjskd3></path> </svg> </button>  <script type="module">const m=document.getElementById("theme-toggle");function c(){return typeof localStorage<"u"&&localStorage.getItem("theme")?localStorage.getItem("theme"):window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}function t(e){e==="dark"?(document.documentElement.classList.remove("light"),document.documentElement.classList.add("dark")):(document.documentElement.classList.remove("dark"),document.documentElement.classList.add("light")),localStorage.setItem("theme",e)}const d=c();d==="light"?document.documentElement.classList.add("light"):document.documentElement.classList.add("dark");m?.addEventListener("click",()=>{const n=(document.documentElement.classList.contains("light")?"light":"dark")==="dark"?"light":"dark";document.documentElement.classList.add("theme-transitioning"),t(n),setTimeout(()=>{document.documentElement.classList.remove("theme-transitioning")},300)});window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change",e=>{localStorage.getItem("theme")||t(e.matches?"dark":"light")});</script> <!-- Mobile Menu Button --> <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg border transition-colors" style="background-color: var(--color-bg-card); border-color: var(--color-border);" aria-label="Menú" data-astro-cid-ouamjn2i> <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-ouamjn2i> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" data-astro-cid-ouamjn2i></path> </svg> </button> </div> </div> <!-- Mobile Navigation --> <div id="mobile-menu" class="hidden md:hidden border-t" style="border-color: var(--color-border); background-color: var(--color-bg-card);" data-astro-cid-ouamjn2i> <nav class="container mx-auto px-4 py-4 flex flex-col gap-2" data-astro-cid-ouamjn2i> <a href="/challenges/" class="mobile-nav-link" data-astro-cid-ouamjn2i>Dashboard</a> <a href="/challenges/linux/" class="mobile-nav-link" data-astro-cid-ouamjn2i>🐧 Linux</a> <a href="/challenges/docker/" class="mobile-nav-link" data-astro-cid-ouamjn2i>🐳 Docker</a> <a href="/challenges/devops/" class="mobile-nav-link" data-astro-cid-ouamjn2i>⚙️ DevOps</a> <a href="/challenges/ctf/" class="mobile-nav-link" data-astro-cid-ouamjn2i>🚩 CTF</a> <a href="/challenges/htb/" class="mobile-nav-link" data-astro-cid-ouamjn2i>🎯 HTB</a> </nav> </div> </header> <!-- Main Content --> <main class="flex-1" data-astro-cid-ouamjn2i>  <main class="container mx-auto px-4 py-8" data-astro-cid-wdujc6bn> <div class="max-w-4xl mx-auto" data-astro-cid-wdujc6bn> <div class="mb-6" data-astro-cid-wdujc6bn> <a href="/challenges" class="text-cyan-400 hover:text-cyan-300" data-astro-cid-wdujc6bn>← Volver al Dashboard</a> </div> <article class="bg-slate-800 rounded-lg p-6 border border-slate-700" data-astro-cid-wdujc6bn> <header class="mb-6" data-astro-cid-wdujc6bn> <h1 class="text-3xl font-bold text-orange-400 mb-2" data-astro-cid-wdujc6bn>Hidden in Image (Steganography)</h1> <div class="flex items-center gap-4 text-sm text-gray-400" data-astro-cid-wdujc6bn> <span class="bg-purple-600 px-2 py-1 rounded text-xs" data-astro-cid-wdujc6bn>CTF</span> <span class="capitalize" data-astro-cid-wdujc6bn>easy</span> <span data-astro-cid-wdujc6bn>2025-02-04</span> <span data-astro-cid-wdujc6bn>picoCTF</span> </div> </header> <div class="prose prose-invert max-w-none" data-astro-cid-wdujc6bn> <div data-astro-cid-wdujc6bn>
+
+# Advanced Image Steganography
+
+---
+
+👨‍🏫 **Del Instructor**: Ethical Hacker & Digital Forensics Expert
+
+> 🎯 **Mentalidad de Hacker**: _"Una imagen vale más que mil palabras, pero en CTF y forense, una imagen puede contener mil secretos. Los píxeles son solo la superficie; los bytes ocultos cuentan la historia real. Nunca subestimes un archivo aparentemente inocuo."_
+
+---
+
+## 🎭 El Escenario: Exfiltración de Datos Corporativos
+
+### Contexto de Insider Threat Investigation
+
+Eres el lead forense de una empresa de investigación farmacéutica. Un científico senior renunció abruptamente y se unió a la competencia. Antes de irse, envió múltiples emails a su cuenta personal con "fotos de despedida" de sus colegas.
+
+El equipo legal te entrega una de estas imágenes para análisis:
+
+```
+img.jpg (74 KB, 640x640 píxeles)
+```
+
+La imagen muestra a un grupo de científicos sonriendo. Nada parece fuera de lo común.
+
+**Tu misión como forense**:
+
+1. Analizar la imagen a nivel forense
+2. Extraer cualquier dato oculto
+3. Identificar la técnica de esteganografía usada
+4. Documentar evidencia para procedimiento legal
+
+---
+
+## 🧠 Fundamentos de Análisis: Esteganografía Avanzada
+
+### Técnicas de Esteganografía en Imágenes
+
+#### 1. LSB (Least Significant Bit)
+
+Modifica el bit menos significativo de cada canal de color:
+
+```
+Pixel Original:  R=10110100 G=11110000 B=01010101
+Pixel con LSB:   R=10110101 G=11110000 B=01010100
+                         ↑                    ↑
+                      bit modificado
+```
+
+#### 2. Metadatos (EXIF)
+
+Almacena datos en campos de metadatos:
+
+- Comment
+- Artist
+- Copyright
+- ImageDescription
+
+#### 3. Steghide
+
+Algoritmo robusto que:
+
+- Comprime datos antes de ocultar
+- Encripta con contraseña
+- Oculta en coeficientes JPEG (no en píxeles directos)
+
+#### 4. Append/Concatenación
+
+Datos añadidos después del EOI marker de JPEG.
+
+### Detección de Esteganografía
+
+```bash
+# Análisis estadístico (Chi-square)
+steghide info image.jpg
+
+# Análisis de entropía (detecta datos aleatorios)
+binwalk -E image.jpg
+
+# Visual analysis (LSB)
+stegsolve.jar
+
+# Metadata extraction
+exiftool image.jpg
+```
+
+---
+
+## 🔍 Metodología de Investigación
+
+### Fase 1: Análisis de Archivo
+
+```bash
+# Identificar tipo
+file img.jpg
+# JPEG image data, JFIF standard 1.01, comment: "...", baseline, precision 8, 640x640
+
+# Tamaño vs dimensiones
+ls -la img.jpg
+# 74504 bytes para 640x640 es razonable para JPEG
+
+# Verificar estructura
+xxd img.jpg | head -20
+```
+
+### Fase 2: Extracción de Metadatos
+
+```bash
+# Todos los metadatos
+exiftool img.jpg
+
+# Buscar campos sospechosos
+exiftool img.jpg | grep -iE "(comment|artist|copyright|description)"
+
+# Identify (ImageMagick)
+identify -verbose img.jpg | grep -i comment
+```
+
+### Fase 3: Análisis de Comentario
+
+```bash
+# El campo comment contiene: c3RlZ2hpZGU6Y0VGNmVuZHZjbVE9
+
+# Decodificar Base64
+echo "c3RlZ2hpZGU6Y0VGNmVuZHZjbVE9" | base64 -d
+# Resultado: steghide:cEF6endvcmQ=
+
+# Segunda capa Base64
+echo "cEF6endvcmQ=" | base64 -d
+# Resultado: pAzzword
+```
+
+### Fase 4: Extracción con Steghide
+
+```bash
+# Verificar si hay datos
+steghide info img.jpg
+# Preguntará por passphrase: pAzzword
+
+# Extraer datos
+steghide extract -sf img.jpg -p "pAzzword"
+# o
+steghide extract -sf img.jpg -p ""
+
+# Verificar archivo extraído
+file output.txt
+cat output.txt
+```
+
+---
+
+## 🛠️ Arsenal de Herramientas
+
+### Herramientas Especializadas
+
+| Herramienta | Propósito               | Comando                        |
+| ----------- | ----------------------- | ------------------------------ |
+| `steghide`  | Ocultar/extraer en JPEG | `steghide extract -sf img.jpg` |
+| `exiftool`  | Metadatos EXIF          | `exiftool -Comment img.jpg`    |
+| `zsteg`     | LSB analysis            | `zsteg img.png`                |
+| `stegseek`  | Crackear steghide       | `stegseek img.jpg rockyou.txt` |
+| `stegsolve` | Visual analysis         | `java -jar stegsolve.jar`      |
+| `binwalk`   | Extracción firmware     | `binwalk -e img.jpg`           |
+| `foremost`  | Recuperación archivos   | `foremost -i img.jpg`          |
+
+### Script de Análisis Forense de Imágenes
+
+```python
+#!/usr/bin/env python3
+"""
+Image Forensics Suite - Steganography Detection
+Advanced analysis for hidden data detection
+"""
+
+import subprocess
+import base64
+import re
+import sys
+from pathlib import Path
+from PIL import Image
+import numpy as np
+
+class ImageForensicsSuite:
+    def __init__(self, image_path):
+        self.image_path = Path(image_path)
+        self.findings = []
+
+    def file_analysis(self):
+        """Análisis básico del archivo"""
+        print(f"[+] Analyzing: {self.image_path}")
+
+        # Tipo de archivo
+        result = subprocess.run(['file', str(self.image_path)],
+                              capture_output=True, text=True)
+        print(f"[*] File type: {result.stdout.strip()}")
+
+        # Tamaño
+        size = self.image_path.stat().st_size
+        print(f"[*] Size: {size} bytes")
+
+        # Verificar comment en JPEG
+        if 'comment' in result.stdout:
+            match = re.search(r'comment: "([^"]+)"', result.stdout)
+            if match:
+                comment = match.group(1)
+                print(f"\n[+] JPEG Comment found: {comment}")
+                self.findings.append({'type': 'jpeg_comment', 'data': comment})
+
+                # Intentar decodificar
+                if self.is_base64(comment):
+                    decoded = self.decode_base64(comment)
+                    if decoded:
+                        print(f"    -> Decoded: {decoded}")
+                        self.findings.append({'type': 'decoded', 'data': decoded})
+
+    def metadata_analysis(self):
+        """Análisis exhaustivo de metadatos"""
+        print("\n[*] Extracting metadata...")
+
+        try:
+            result = subprocess.run(['exiftool', str(self.image_path)],
+                                  capture_output=True, text=True)
+
+            # Buscar campos interesantes
+            interesting = ['Comment', 'Artist', 'Copyright', 'ImageDescription',
+                          'XPComment', 'XPAuthor', 'Software']
+
+            for line in result.stdout.split('\n'):
+                for field in interesting:
+                    if field in line:
+                        print(f"  [+] {line}")
+
+        except Exception as e:
+            print(f"[-] exiftool error: {e}")
+
+    def check_steghide(self):
+        """Verifica presencia de datos steghide"""
+        print("\n[*] Checking for steghide data...")
+
+        try:
+            result = subprocess.run(['steghide', 'info', str(self.image_path)],
+                                  input='\n',
+                                  capture_output=True, text=True,
+                                  timeout=10)
+
+            if 'embedded file' in result.stdout:
+                print(f"  [+] Steghide data detected!")
+                print(f"      {result.stdout}")
+                return True
+            else:
+                print(f"  [-] No steghide data found")
+                return False
+
+        except Exception as e:
+            print(f"  [-] Error: {e}")
+            return False
+
+    def extract_steghide(self, passwords=None):
+        """Intenta extraer con múltiples passwords"""
+        if passwords is None:
+            passwords = ['', 'password', '123456', 'steghide',
+                        'secret', 'admin', 'pAzzword']
+
+        print(f"\n[*] Attempting extraction with common passwords...")
+
+        for pwd in passwords:
+            try:
+                result = subprocess.run(
+                    ['steghide', 'extract', '-sf', str(self.image_path),
+                     '-p', pwd, '-xf', '-'],
+                    capture_output=True, text=True, timeout=10
+                )
+
+                if 'wrote extracted data' in result.stderr or result.stdout:
+                    print(f"  [+] SUCCESS with password: '{pwd}'")
+                    content = result.stdout or result.stderr
+                    print(f"      Content: {content[:200]}")
+                    return content
+
+            except:
+                continue
+
+        print(f"  [-] No password worked")
+        return None
+
+    def lsb_analysis(self):
+        """Análisis de LSB para PNG"""
+        if not str(self.image_path).endswith('.png'):
+            return
+
+        print("\n[*] Performing LSB analysis...")
+
+        try:
+            img = Image.open(self.image_path)
+            arr = np.array(img)
+
+            # Extraer LSB de primeros 100 bytes
+            lsb_bits = []
+            for i in range(min(100, arr.shape[0])):
+                for j in range(min(100, arr.shape[1])):
+                    for k in range(min(3, arr.shape[2])):  # RGB
+                        lsb_bits.append(arr[i,j,k] & 1)
+
+            # Convertir a bytes
+            lsb_bytes = []
+            for i in range(0, len(lsb_bits), 8):
+                byte = 0
+                for j in range(8):
+                    if i+j < len(lsb_bits):
+                        byte |= (lsb_bits[i+j] << (7-j))
+                lsb_bytes.append(byte)
+
+            # Intentar decodificar como texto
+            try:
+                text = bytes(lsb_bytes).decode('utf-8', errors='ignore')
+                if text.isprintable() and len(text) > 3:
+                    print(f"  [+] LSB data found: {text[:50]}")
+            except:
+                pass
+
+        except Exception as e:
+            print(f"  [-] LSB analysis error: {e}")
+
+    def is_base64(self, s):
+        """Verifica si string es Base64 válido"""
+        pattern = r'^[A-Za-z0-9+/]*={0,2}$'
+        return bool(re.match(pattern, s)) and len(s) % 4 == 0 and len(s) > 8
+
+    def decode_base64(self, s):
+        """Decodifica Base64 recursivamente"""
+        try:
+            decoded = base64.b64decode(s).decode('utf-8')
+            # Si es otro Base64, decodificar de nuevo
+            if self.is_base64(decoded):
+                print(f"    -> Nested Base64 detected!")
+                return self.decode_base64(decoded)
+            return decoded
+        except:
+            return None
+
+    def generate_report(self):
+        """Genera reporte de hallazgos"""
+        print("\n" + "=" * 60)
+        print("FORENSICS REPORT")
+        print("=" * 60)
+        print(f"Image: {self.image_path}")
+        print(f"Findings: {len(self.findings)}")
+
+        for finding in self.findings:
+            print(f"\n  Type: {finding['type']}")
+            print(f"  Data: {finding['data'][:100]}")
+
+    def run_analysis(self):
+        """Ejecuta análisis completo"""
+        self.file_analysis()
+        self.metadata_analysis()
+
+        if self.check_steghide():
+            self.extract_steghide()
+
+        self.lsb_analysis()
+        self.generate_report()
+
+if __name__ == "__main__":
+    if len(sys.argv) < 2:
+        print(f"Usage: {sys.argv[0]} <image>")
+        sys.exit(1)
+
+    forensics = ImageForensicsSuite(sys.argv[1])
+    forensics.run_analysis()
+```
+
+### Uso del Script
+
+```bash
+# Instalar dependencias
+pip3 install Pillow numpy
+
+# Ejecutar análisis
+python3 image_forensics.py img.jpg
+
+# Output esperado:
+# [+] Analyzing: img.jpg
+# [*] File type: img.jpg: JPEG image data, JFIF standard 1.01, comment: "c3RlZ2hpZGU6Y0VGNmVuZHZjbVE9"
+# [*] Size: 74504 bytes
+#
+# [+] JPEG Comment found: c3RlZ2hpZGU6Y0VGNmVuZHZjbVE9
+#     -> Decoded: steghide:cEF6endvcmQ=
+#     -> Nested Base64 detected!
+#     -> Decoded: pAzzword
+#
+# [*] Extracting metadata...
+#
+# [*] Checking for steghide data...
+#   [+] Steghide data detected!
+#
+# [*] Attempting extraction with common passwords...
+#   [+] SUCCESS with password: 'pAzzword'
+#       Content: picoCTF{h1dd3n_1n_1m4g3_2ac27d95}
+```
+
+---
+
+## 🎯 Lecciones del Mundo Real
+
+### Casos Documentados
+
+**Caso DarkHotel (2014)**:
+
+- APT usó steganografía en imágenes para C2
+- Comandos ocultos en imágenes descargadas de forma legítima
+- **Lección**: Esteganografía en tráfico legítimo
+
+**Caso Cisco Data Exfiltration (2020)**:
+
+- Empleado exfiltró IP en imágenes de presentaciones
+- Steghide para ocultar archivos ZIP
+- **Lección**: Revisar imágenes en correos salientes
+
+**Caso Al-Qaeda Communication (2001)**:
+
+- Comunicaciones ocultas en imágenes de eBay
+- LSB encoding para mensajes terroristas
+- **Lección**: Esteganografía en sitios públicos
+
+### Defensa contra Esteganografía
+
+**Prevención**:
+
+```bash
+# Re-encode imágenes para eliminar datos ocultos
+convert input.jpg -strip -quality 85 output.jpg
+
+# Verificar entropía antes/despues
+ent input.jpg
+ent output.jpg
+```
+
+**Detección DLP**:
+
+```yaml
+Steganography_Detection:
+  - Check metadata fields for Base64
+  - Analyze file entropy
+  - Flag images with unusual size ratios
+  - Scan for steghide signatures
+```
+
+---
+
+## 🚀 Solución del Reto
+
+### Paso a Paso
+
+```bash
+# Paso 1: Identificar comentario JPEG
+file img.jpg
+# JPEG image data, ... comment: "c3RlZ2hpZGU6Y0VGNmVuZHZjbVE9"
+
+# Paso 2: Decodificar Base64
+echo "c3RlZ2hpZGU6Y0VGNmVuZHZjbVE9" | base64 -d
+# Resultado: steghide:cEF6endvcmQ=
+
+# Paso 3: Decodificar segunda capa
+echo "cEF6endvcmQ=" | base64 -d
+# Resultado: pAzzword
+
+# Paso 4: Extraer datos ocultos
+steghide extract -sf img.jpg -p "pAzzword"
+
+# Paso 5: Verificar resultado
+cat output.txt
+```
+
+### One-liner Completo
+
+```bash
+# Extrae contraseña de metadata y usa para steghide
+steghide extract -sf img.jpg -p "$(file img.jpg | grep -oP 'comment: "\K[^"]+' | base64 -d | cut -d: -f2 | base64 -d)" -xf -
+```
+
+### Flag
+
+```
+picoCTF{h1dd3n_1n_1m4g3_2ac27d95}
+```
+
+---
+
+## 📚 Recursos y Referencias
+
+- [Steganography Techniques Overview](https://www.sans.org/blog/steganography-hiding-data-within-data/)
+- [Steghide Documentation](https://steghide.sourceforge.net/)
+- [CTF Stego Challenges](https://github.com/DominicBreuker/stego-toolkit)
+- [Stegsolve Download](https://github.com/zardus/ctf-tools)
+
+---
+
+**¿Listo para el siguiente reto?** → Prueba esteganografía en audio (espectrogramas), en video, o técnicas avanzadas como F5 algorithm.
+</div> </div> </article> <div id="modal-reto03-steganography" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50" aria-hidden="true"> <div class="flex items-center justify-center min-h-screen p-4"> <div class="bg-slate-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto"> <div class="p-6 border-b border-slate-700"> <div class="flex justify-between items-start"> <div> <h2 class="text-2xl font-bold text-gray-100">Hidden in Image (Steganography)</h2> <div class="flex items-center gap-4 mt-2 text-sm"> <span class="capitalize bg-slate-700 px-2 py-1 rounded">ctf</span> <span class="text-cyan-400">easy</span> <span class="text-green-400 font-mono">Flag: picoCTF{h1dd3n_1n_1m4g3_2ac27d95}</span> </div> </div> <button onclick="closeModal('reto03-steganography')" class="text-gray-400 hover:text-white">
+✕
+</button> </div> </div> <div class="p-6"> <div class="mb-6"> <h3 class="text-lg font-semibold text-cyan-400 mb-4">Pasos a Seguir</h3> <div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">1. Contexto de Insider Threat Investigation</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">2. Técnicas de Esteganografía en Imágenes</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">3. LSB (Least Significant Bit)</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">4. Metadatos (EXIF)</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">5. Steghide</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">6. Append/Concatenación</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">7. Detección de Esteganografía</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>steghide info image.jpg
+binwalk -E image.jpg
+stegsolve.jar
+exiftool image.jpg</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">8. Fase 1: Análisis de Archivo</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>file img.jpg
+ls -la img.jpg
+xxd img.jpg | head -20</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">9. Fase 2: Extracción de Metadatos</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>exiftool img.jpg
+exiftool img.jpg | grep -iE &quot;(comment|artist|copyright|description)&quot;
+identify -verbose img.jpg | grep -i comment</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">10. Fase 3: Análisis de Comentario</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>echo &quot;c3RlZ2hpZGU6Y0VGNmVuZHZjbVE9&quot; | base64 -d
+echo &quot;cEF6endvcmQ=&quot; | base64 -d</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">11. Fase 4: Extracción con Steghide</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>steghide info img.jpg
+steghide extract -sf img.jpg -p &quot;pAzzword&quot;
+steghide extract -sf img.jpg -p &quot;&quot;
+file output.txt
+cat output.txt</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">12. Herramientas Especializadas</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">13. Script de Análisis Forense de Imágenes</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">14. Uso del Script</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>pip3 install Pillow numpy
+python3 image_forensics.py img.jpg</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">15. Casos Documentados</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">16. Defensa contra Esteganografía</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>convert input.jpg -strip -quality 85 output.jpg
+ent input.jpg
+ent output.jpg</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">17. Paso a Paso</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>file img.jpg
+echo &quot;c3RlZ2hpZGU6Y0VGNmVuZHZjbVE9&quot; | base64 -d
+echo &quot;cEF6endvcmQ=&quot; | base64 -d
+steghide extract -sf img.jpg -p &quot;pAzzword&quot;
+cat output.txt</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">18. One-liner Completo</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>steghide extract -sf img.jpg -p &quot;$(file img.jpg | grep -oP &#39;comment: &quot;\K[^&quot;]+&#39; | base64 -d | cut -d: -f2 | base64 -d)&quot; -xf -</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">19. Flag</h4>   </div> </div>    </div> </div> </div> </div> <script type="module">document.addEventListener("click",e=>{const t=e.target;t.classList.contains("bg-black")&&(t.classList.add("hidden"),t.setAttribute("aria-hidden","true"))});</script> <!-- Navigation --> <div class="nav-buttons" data-astro-cid-wdujc6bn> <a href="/challenges/ctf/reto02-log-hunt" class="nav-btn prev" data-astro-cid-wdujc6bn> <span class="nav-icon" data-astro-cid-wdujc6bn>←</span> <span class="nav-content" data-astro-cid-wdujc6bn> <span class="nav-label" data-astro-cid-wdujc6bn>Anterior</span> <span class="nav-title" data-astro-cid-wdujc6bn>Server Log Hunt</span> </span> </a> <a href="/challenges/ctf/" class="nav-btn home" data-astro-cid-wdujc6bn> <span class="nav-icon" data-astro-cid-wdujc6bn>🚩</span> <span class="nav-content" data-astro-cid-wdujc6bn> <span class="nav-label" data-astro-cid-wdujc6bn>Volver</span> <span class="nav-title" data-astro-cid-wdujc6bn>Todos los Retos</span> </span> </a> <a href="/challenges/ctf/reversing/reversing-basics" class="nav-btn next" data-astro-cid-wdujc6bn> <span class="nav-content" data-astro-cid-wdujc6bn> <span class="nav-label" data-astro-cid-wdujc6bn>Siguiente</span> <span class="nav-title" data-astro-cid-wdujc6bn>Reverse Engineering Basics</span> </span> <span class="nav-icon" data-astro-cid-wdujc6bn>→</span> </a> </div> </div> </main>  </main>  <script type="module">const e=document.getElementById("mobile-menu-btn"),n=document.getElementById("mobile-menu");e?.addEventListener("click",()=>{n?.classList.toggle("hidden")});</script></body></html> 

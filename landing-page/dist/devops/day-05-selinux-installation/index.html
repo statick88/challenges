@@ -1,0 +1,247 @@
+<!DOCTYPE html><html lang="es" data-astro-cid-ouamjn2i> <head><meta charset="UTF-8"><meta name="description" content="Plataforma interactiva de desafíos técnicos - Linux, Docker, DevOps, CTF"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/challenges/favicon.svg"><meta name="generator" content="Astro v5.17.1"><meta name="theme-color" content="#4c80cc"><title>Day 05: SELinux Installation and Configuration - DevOps 100 Days</title><!-- Preconnect for fonts --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><!-- Script para prevenir flash de tema incorrecto --><script>
+      const theme = (() => {
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+          return localStorage.getItem('theme');
+        }
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          return 'dark';
+        }
+        return 'light';
+      })();
+      
+      if (theme === 'light') {
+        document.documentElement.classList.add('light');
+      } else {
+        document.documentElement.classList.add('dark');
+      }
+    </script><!-- Cache busting: Verificar versión y recargar si hay cambios --><script>
+      (function() {
+        const BUILD_VERSION = '1771938333648';
+        const CACHE_KEY = 'tech-challenges-build-version';
+        
+        // Verificar si hay nueva versión
+        const storedVersion = localStorage.getItem(CACHE_KEY);
+        
+        if (storedVersion && storedVersion !== BUILD_VERSION) {
+          // Nueva versión detectada, limpiar cache y recargar
+          console.log('🆕 Nueva versión detectada. Actualizando...');
+          if ('caches' in window) {
+            caches.keys().then(names => {
+              names.forEach(name => caches.delete(name));
+            });
+          }
+          localStorage.setItem(CACHE_KEY, BUILD_VERSION);
+          window.location.reload();
+        } else if (!storedVersion) {
+          localStorage.setItem(CACHE_KEY, BUILD_VERSION);
+        }
+      })();
+    </script><link rel="stylesheet" href="/challenges/_astro/_slug_-DHZt47Ra.css">
+<link rel="stylesheet" href="/challenges/_astro/_slug_-CaxYOu3g.css">
+<style>.nav-buttons[data-astro-cid-mvyioy5t]{display:flex;justify-content:space-between;gap:1rem;margin-top:2rem;flex-wrap:wrap}.nav-btn[data-astro-cid-mvyioy5t]{display:flex;align-items:center;gap:.75rem;padding:1rem 1.25rem;background:#1e293bcc;border:1px solid rgba(71,85,105,.3);border-radius:.75rem;text-decoration:none;transition:all .2s ease;flex:1;min-width:200px;max-width:280px}.nav-btn[data-astro-cid-mvyioy5t]:hover:not(.disabled){background:#a855f71a;border-color:#a855f74d;transform:translateY(-2px)}.nav-btn[data-astro-cid-mvyioy5t].disabled{opacity:.4;cursor:not-allowed;pointer-events:none}.nav-btn[data-astro-cid-mvyioy5t].prev{text-align:left}.nav-btn[data-astro-cid-mvyioy5t].next{text-align:right;justify-content:flex-end}.nav-btn[data-astro-cid-mvyioy5t].home{justify-content:center;max-width:200px}.nav-icon[data-astro-cid-mvyioy5t]{font-size:1.25rem;color:#a855f7}.nav-content[data-astro-cid-mvyioy5t]{display:flex;flex-direction:column;gap:.25rem}.nav-label[data-astro-cid-mvyioy5t]{font-size:.7rem;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em}.nav-title[data-astro-cid-mvyioy5t]{font-size:.875rem;color:#e2e8f0;font-weight:500}@media(max-width:768px){.nav-buttons[data-astro-cid-mvyioy5t]{flex-direction:column}.nav-btn[data-astro-cid-mvyioy5t]{max-width:100%}}.markdown-body{font-family:system-ui;line-height:1.8;color:#e5e7eb}.markdown-body h1{font-size:2rem;font-weight:700;color:#a855f7;margin:2rem 0 1rem;border-bottom:1px solid #374151;padding-bottom:.5rem}.markdown-body h2{font-size:1.5rem;font-weight:600;color:#f472b6;margin:1.75rem 0 1rem}.markdown-body h3{font-size:1.25rem;font-weight:600;color:#f9a8d4;margin:1.5rem 0 .75rem}.markdown-body p{margin:.75rem 0;color:#d1d5db}.markdown-body strong{color:#fbbf24;font-weight:600}.markdown-body code{background:#a855f726;color:#c084fc;padding:.2rem .5rem;border-radius:.375rem;font-family:monospace}.markdown-body pre{background:#0f172a;padding:1rem;border-radius:.75rem;overflow-x:auto;margin:1rem 0;border:1px solid #1e293b}.markdown-body pre code{background:transparent;padding:0;color:#a5b4fc}.markdown-body ul,.markdown-body ol{margin:.75rem 0;padding-left:1.5rem;color:#d1d5db}.markdown-body li{margin:.5rem 0}.markdown-body blockquote{border-left:4px solid #a855f7;padding-left:1rem;margin:1rem 0;color:#9ca3af}
+</style></head> <body class="min-h-screen flex flex-col" data-astro-cid-ouamjn2i> <!-- Header --> <header class="sticky top-0 z-50 border-b" style="background-color: var(--color-bg); border-color: var(--color-border);" data-astro-cid-ouamjn2i> <div class="container mx-auto px-4 py-4 flex items-center justify-between" data-astro-cid-ouamjn2i> <!-- Logo / Brand --> <a href="/challenges/" class="flex items-center gap-3 group" data-astro-cid-ouamjn2i> <span class="text-2xl" data-astro-cid-ouamjn2i>🚀</span> <span class="font-bold text-lg transition-colors group-hover:text-accent" style="color: var(--color-text);" data-astro-cid-ouamjn2i>
+Tech Challenges
+</span> </a> <!-- Navigation --> <nav class="hidden md:flex items-center gap-6" data-astro-cid-ouamjn2i> <a href="/challenges/" class="nav-link" data-astro-cid-ouamjn2i>Dashboard</a> <a href="/challenges/linux/" class="nav-link" data-astro-cid-ouamjn2i>Linux</a> <a href="/challenges/docker/" class="nav-link" data-astro-cid-ouamjn2i>Docker</a> <a href="/challenges/devops/" class="nav-link" data-astro-cid-ouamjn2i>DevOps</a> <a href="/challenges/ctf/" class="nav-link" data-astro-cid-ouamjn2i>CTF</a> <a href="/challenges/htb/" class="nav-link" data-astro-cid-ouamjn2i>HTB</a> </nav> <!-- Theme Toggle --> <div class="flex items-center gap-4" data-astro-cid-ouamjn2i> <button id="lang-toggle" class="lang-toggle" type="button" aria-label="Cambiar idioma" title="Cambiar idioma" data-astro-cid-lb7h3eps> <span class="lang-text" data-astro-cid-lb7h3eps>EN</span> </button>  <script type="module">const l={es:{"hero.badge":"Plataforma de Aprendizaje","hero.title.line1":"Domina Linux, Docker,","hero.title.line2":"DevOps & Security","hero.subtitle":"Plataforma interactiva con 70+ desafíos prácticos. Aprende haciendo, no solo leyendo.","hero.stat.completed":"Completados","hero.stat.progress":"Progreso","hero.stat.challenges":"Desafíos","progress.title":"Progreso General","progress.completed":"completados","progress.in_progress":"en progreso","progress.blocked":"bloqueados","programs.title":"Programas de Aprendizaje","programs.subtitle":"Selecciona un programa para ver sus desafíos","programs.completed":"Completados","programs.total":"Total","programs.view":"Ver desafíos","program.linux":"Linux","program.docker":"Docker","program.devops":"DevOps","program.ctf":"CTF","program.htb":"HTB Academy","program.linux.desc":"Administración de sistemas Linux, usuarios, permisos y automatización","program.docker.desc":"Containerización, orquestación y mejores prácticas de Docker","program.devops.desc":"CI/CD, automatización y cultura DevOps","program.ctf.desc":"Desafíos de seguridad: criptografía, web, forense y más","program.htb.desc":"Módulos de Hack The Box Academy completados","cert.title":"Certificaciones Obtenidas","cert.subtitle":"Reconocimientos oficiales de tu progreso","cert.docker.title":"Docker Certification","cert.docker.platform":"KodeKloud Engineer","cert.challenges":"Challenges","cert.verify":"Verificar certificado","activity.title":"Actividad Reciente","activity.subtitle":"Últimos desafíos completados","footer.update":"Última actualización"},en:{"hero.badge":"Learning Platform","hero.title.line1":"Master Linux, Docker,","hero.title.line2":"DevOps & Security","hero.subtitle":"Interactive platform with 70+ practical challenges. Learn by doing, not just reading.","hero.stat.completed":"Completed","hero.stat.progress":"Progress","hero.stat.challenges":"Challenges","progress.title":"Overall Progress","progress.completed":"completed","progress.in_progress":"in progress","progress.blocked":"blocked","programs.title":"Learning Programs","programs.subtitle":"Select a program to view its challenges","programs.completed":"Completed","programs.total":"Total","programs.view":"View challenges","program.linux":"Linux","program.docker":"Docker","program.devops":"DevOps","program.ctf":"CTF","program.htb":"HTB Academy","program.linux.desc":"Linux system administration, users, permissions and automation","program.docker.desc":"Containerization, orchestration and Docker best practices","program.devops.desc":"CI/CD, automation and DevOps culture","program.ctf.desc":"Security challenges: cryptography, web, forensics and more","program.htb.desc":"Completed Hack The Box Academy modules","cert.title":"Earned Certifications","cert.subtitle":"Official recognition of your progress","cert.docker.title":"Docker Certification","cert.docker.platform":"KodeKloud Engineer","cert.challenges":"Challenges","cert.verify":"Verify Certificate","activity.title":"Recent Activity","activity.subtitle":"Latest completed challenges","footer.update":"Last updated"}},i=document.getElementById("lang-toggle"),s=i?.querySelector(".lang-text");function c(){if(typeof localStorage<"u"){const e=localStorage.getItem("lang");if(e==="es"||e==="en")return e}return"es"}function d(e){typeof localStorage<"u"&&localStorage.setItem("lang",e)}function g(e){s&&(s.textContent=e==="es"?"EN":"ES")}function n(e){const t=l[e];document.querySelectorAll("[data-i18n]").forEach(o=>{const r=o.getAttribute("data-i18n");r&&t[r]&&(o.textContent=t[r])}),document.querySelectorAll("[data-i18n-program]").forEach(o=>{const r=o.getAttribute("data-i18n-program");if(r){const a=`program.${r}`;t[a]&&(o.textContent=t[a])}}),document.querySelectorAll("[data-i18n-program-desc]").forEach(o=>{const r=o.getAttribute("data-i18n-program-desc");if(r){const a=`program.${r}.desc`;t[a]&&(o.textContent=t[a])}}),document.documentElement.lang=e,g(e)}const p=c();n(p);i?.addEventListener("click",()=>{const t=c()==="es"?"en":"es";d(t),n(t)});</script> <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Cambiar tema" title="Cambiar tema claro/oscuro" data-astro-cid-x3pjskd3> <!-- Icono Sol (visible en tema oscuro) --> <svg class="icon-sun w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" data-astro-cid-x3pjskd3> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" data-astro-cid-x3pjskd3></path> </svg> <!-- Icono Luna (visible en tema claro) --> <svg class="icon-moon w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" data-astro-cid-x3pjskd3> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" data-astro-cid-x3pjskd3></path> </svg> </button>  <script type="module">const m=document.getElementById("theme-toggle");function c(){return typeof localStorage<"u"&&localStorage.getItem("theme")?localStorage.getItem("theme"):window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}function t(e){e==="dark"?(document.documentElement.classList.remove("light"),document.documentElement.classList.add("dark")):(document.documentElement.classList.remove("dark"),document.documentElement.classList.add("light")),localStorage.setItem("theme",e)}const d=c();d==="light"?document.documentElement.classList.add("light"):document.documentElement.classList.add("dark");m?.addEventListener("click",()=>{const n=(document.documentElement.classList.contains("light")?"light":"dark")==="dark"?"light":"dark";document.documentElement.classList.add("theme-transitioning"),t(n),setTimeout(()=>{document.documentElement.classList.remove("theme-transitioning")},300)});window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change",e=>{localStorage.getItem("theme")||t(e.matches?"dark":"light")});</script> <!-- Mobile Menu Button --> <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg border transition-colors" style="background-color: var(--color-bg-card); border-color: var(--color-border);" aria-label="Menú" data-astro-cid-ouamjn2i> <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-ouamjn2i> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" data-astro-cid-ouamjn2i></path> </svg> </button> </div> </div> <!-- Mobile Navigation --> <div id="mobile-menu" class="hidden md:hidden border-t" style="border-color: var(--color-border); background-color: var(--color-bg-card);" data-astro-cid-ouamjn2i> <nav class="container mx-auto px-4 py-4 flex flex-col gap-2" data-astro-cid-ouamjn2i> <a href="/challenges/" class="mobile-nav-link" data-astro-cid-ouamjn2i>Dashboard</a> <a href="/challenges/linux/" class="mobile-nav-link" data-astro-cid-ouamjn2i>🐧 Linux</a> <a href="/challenges/docker/" class="mobile-nav-link" data-astro-cid-ouamjn2i>🐳 Docker</a> <a href="/challenges/devops/" class="mobile-nav-link" data-astro-cid-ouamjn2i>⚙️ DevOps</a> <a href="/challenges/ctf/" class="mobile-nav-link" data-astro-cid-ouamjn2i>🚩 CTF</a> <a href="/challenges/htb/" class="mobile-nav-link" data-astro-cid-ouamjn2i>🎯 HTB</a> </nav> </div> </header> <!-- Main Content --> <main class="flex-1" data-astro-cid-ouamjn2i>   <main class="container mx-auto px-4 py-8" data-astro-cid-mvyioy5t> <div class="max-w-4xl mx-auto" data-astro-cid-mvyioy5t> <!-- Breadcrumb --> <nav class="flex items-center gap-2 text-sm mb-6" style="color: var(--color-text-secondary);" data-astro-cid-mvyioy5t> <a href="/challenges/" class="hover:underline" style="color: var(--color-accent);" data-astro-cid-mvyioy5t>Dashboard</a> <span data-astro-cid-mvyioy5t>/</span> <a href="/challenges/devops/" class="hover:underline" style="color: var(--color-accent);" data-astro-cid-mvyioy5t>DevOps</a> <span data-astro-cid-mvyioy5t>/</span> <span data-astro-cid-mvyioy5t>Day 05</span> </nav> <article class="card p-8" data-astro-cid-mvyioy5t> <header class="mb-6" data-astro-cid-mvyioy5t> <div class="flex items-center gap-2 mb-2" data-astro-cid-mvyioy5t> <span class="text-purple-400 font-mono font-bold" data-astro-cid-mvyioy5t>⚙️ Day 05</span> </div> <h1 class="text-3xl font-bold mb-4" style="color: var(--color-text);" data-astro-cid-mvyioy5t>SELinux Installation and Configuration</h1> <div class="flex items-center gap-4 text-sm" style="color: var(--color-text-secondary);" data-astro-cid-mvyioy5t> <span data-astro-cid-mvyioy5t>Dificultad: 3</span> <span data-astro-cid-mvyioy5t>Fecha: 2026-01-29</span> </div> </header> <div class="markdown-body" data-astro-cid-mvyioy5t><h1>🎓 Día 5: Security-Enhanced Linux (SELinux)</h1>
+<h2>🎓 Del Instructor: DevOps Coach</h2>
+<blockquote>
+<p>🔄 <strong>Mentalidad DevOps</strong>: &quot;La seguridad no debe ser un obstáculo para la velocidad. SELinux es como un firewall avanzado para tus procesos - cuando lo entiendes, te protege sin frenarte. La clave es integrarlo en tu pipeline desde el diseño.&quot;</p>
+</blockquote>
+<p>Hoy nos adentramos en <strong>SELinux</strong>, uno de los frameworks de seguridad más poderosos pero menos comprendidos de Linux. Es esencial para entornos enterprise y compliance (HIPAA, PCI-DSS, SOC 2).</p>
+<hr>
+<h2>🎭 Contexto del Día</h2>
+<h3>Conexión con Días Anteriores</h3>
+<ul>
+<li><strong>Días 1-4</strong>: Usuarios, SSH, permisos - control de acceso tradicional</li>
+<li><strong>Hoy</strong>: Añadimos <strong>Mandatory Access Control (MAC)</strong> - seguridad a nivel de kernel</li>
+<li><strong>Día 6</strong>: Cron jobs - los servicios automatizados deben respetar SELinux</li>
+</ul>
+<h3>Progresión hacia el Pipeline CI/CD</h3>
+<p>SELinux afecta directamente:</p>
+<ul>
+<li><strong>Contenedores Docker</strong>: Políticas de seguridad para containers</li>
+<li><strong>CI/CD Runners</strong>: Permisos para ejecutar builds</li>
+<li><strong>Kubernetes</strong>: Security contexts y SELinux labels</li>
+</ul>
+<h3>Escenario Empresarial</h3>
+<p>xFusionCorp Industries requiere SELinux instalado pero deshabilitado temporalmente para:</p>
+<ol>
+<li>Evaluación de aplicaciones legacy</li>
+<li>Migración gradual de políticas</li>
+<li>Cumplimiento de auditoría (tenerlo instalado)</li>
+</ol>
+<hr>
+<h2>🧠 Fundamentos DevOps</h2>
+<h3>Cultura de Colaboración</h3>
+<p>SELinux frena la fricción entre:</p>
+<ul>
+<li><strong>Desarrolladores</strong>: &quot;Mi aplicación no funciona en producción&quot;</li>
+<li><strong>Operaciones</strong>: &quot;El servidor está configurado igual&quot;</li>
+<li><strong>Seguridad</strong>: &quot;Necesitamos controles de acceso&quot;</li>
+</ul>
+<p><strong>SELinux como Common Language</strong>: Cuando todos entienden los contextos de seguridad, las conversaciones son más productivas.</p>
+<h3>Automatización</h3>
+<pre><code class="language-bash"># En un pipeline CI/CD, necesitas:
+- Verificar modo SELinux antes del deploy
+- Configurar contextos correctos para archivos
+- Asegurar que los servicios pueden ejecutarse
+</code></pre>
+<h3>Métricas y Compliance</h3>
+<ul>
+<li><strong>SELinux Denials</strong>: Eventos de seguridad bloqueados</li>
+<li><strong>Audit Logs</strong>: Trazabilidad completa de accesos</li>
+<li><strong>Compliance Score</strong>: Cumplimiento de frameworks de seguridad</li>
+</ul>
+<hr>
+<h2>🛠️ Implementación Paso a Paso</h2>
+<h3>Paso 1: Conexión y Reconocimiento</h3>
+<pre><code class="language-bash">ssh tony@172.16.238.10
+
+# Identificar tipo de sistema
+which dnf || which yum || which apt
+# Confirmado: DNF disponible (CentOS/RHEL moderno)
+</code></pre>
+<p><strong>Análisis DevOps</strong>: DNF es el package manager moderno para RHEL/CentOS 8+. Reemplaza a YUM con mejor resolución de dependencias.</p>
+<h3>Paso 2: Verificación Inicial</h3>
+<pre><code class="language-bash"># Verificar estado SELinux
+sestatus 2&gt;/dev/null || echo &quot;SELinux packages not installed&quot;
+getenforce 2&gt;/dev/null || echo &quot;getenforce not available&quot;
+
+# Ver paquetes existentes
+rpm -qa | grep selinux
+# Salida: libselinux-3.6-3.el9.x86_64 (biblioteca base)
+</code></pre>
+<p><strong>Análisis DevOps</strong>: La biblioteca base está instalada, pero faltan las herramientas de gestión (<code>policycoreutils</code>, políticas, etc.)</p>
+<h3>Paso 3: Instalación de Paquetes SELinux</h3>
+<pre><code class="language-bash">sudo dnf install -y policycoreutils selinux-policy-targeted selinux-policy-devel
+</code></pre>
+<p><strong>Salida esperada</strong>:</p>
+<pre><code>Installed:
+  policycoreutils-3.6-4.el9.x86_64
+  selinux-policy-targeted-38.1.72-1.el9.noarch
+  selinux-policy-devel-38.1.72-1.el9.noarch
+  + 16 dependencias
+Complete!
+</code></pre>
+<p><strong>Componentes instalados</strong>:</p>
+<ul>
+<li><code>policycoreutils</code>: Herramientas de gestión (semanage, restorecon)</li>
+<li><code>selinux-policy-targeted</code>: Política por defecto (targeted)</li>
+<li><code>selinux-policy-devel</code>: Herramientas de desarrollo de políticas</li>
+</ul>
+<h3>Paso 4: Configuración Permanente</h3>
+<pre><code class="language-bash">sudo vi /etc/selinux/config
+
+# Configuración aplicada:
+SELINUX=disabled
+SELINUXTYPE=targeted
+</code></pre>
+<p><strong>Modos de SELinux</strong>:</p>
+<ul>
+<li><code>enforcing</code>: Políticas aplicadas activamente (producción segura)</li>
+<li><code>permissive</code>: Solo registra violaciones (modo debugging)</li>
+<li><code>disabled</code>: Deshabilitado completamente</li>
+</ul>
+<p><strong>Análisis DevOps</strong>: En un pipeline maduro, usarías <code>permissive</code> temporalmente para identificar problemas sin bloquear el servicio.</p>
+<h3>Paso 5: Verificación Final</h3>
+<pre><code class="language-bash"># Ver configuración en archivo
+cat /etc/selinux/config | grep SELINUX=
+# Salida: SELINUX=disabled
+
+# Ver estado actual
+sestatus
+# Salida: SELinux status: disabled
+
+getenforce
+# Salida: Disabled
+</code></pre>
+<hr>
+<h2>✅ Criterios de Éxito</h2>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> 19 paquetes SELinux instalados exitosamente</li>
+<li><input checked="" disabled="" type="checkbox"> Configuración permanente establecida en <code>/etc/selinux/config</code></li>
+<li><input checked="" disabled="" type="checkbox"> Estado verificado como <code>disabled</code> con <code>sestatus</code></li>
+<li><input checked="" disabled="" type="checkbox"> Sistema identificado correctamente (RPM-based con DNF)</li>
+<li><input checked="" disabled="" type="checkbox"> Uso de DNF moderno en lugar de YUM legacy</li>
+<li><input checked="" disabled="" type="checkbox"> Sin errores durante instalación</li>
+</ul>
+<hr>
+<h2>🎓 Lecciones Aprendidas</h2>
+<h3>🔑 Conceptos Clave</h3>
+<ol>
+<li><p><strong>MAC vs DAC</strong>:</p>
+<ul>
+<li><strong>DAC</strong> (Discretionary): Permisos tradicionales (chmod, chown)</li>
+<li><strong>MAC</strong> (Mandatory): SELinux impone controles independientemente del usuario</li>
+</ul>
+</li>
+<li><p><strong>Contextos de Seguridad</strong>:</p>
+<pre><code class="language-bash">ls -Z /tmp/xfusioncorp.sh
+# system_u:object_r:usr_t:s0 /tmp/xfusioncorp.sh
+#    ↑           ↑       ↑
+# Usuario     Tipo    Nivel
+</code></pre>
+</li>
+<li><p><strong>Política Targeted</strong>: Solo protege procesos específicos (sshd, httpd, etc.), dejando el resto sin restricciones.</p>
+</li>
+</ol>
+<h3>🚨 Troubleshooting DevOps</h3>
+<p><strong>Problema</strong>: Script funciona como root pero falla como usuario</p>
+<ul>
+<li><strong>Posible causa</strong>: SELinux context incorrecto</li>
+<li><strong>Diagnóstico</strong>: <code>ausearch -m avc -ts recent</code></li>
+<li><strong>Solución</strong>: <code>restorecon -v /path/to/script</code></li>
+</ul>
+<p><strong>Problema</strong>: Servicio no inicia después de mover archivos</p>
+<ul>
+<li><strong>Causa</strong>: <code>mv</code> preserva contextos; <code>cp</code> hereda del destino</li>
+<li><strong>Solución</strong>: <code>restorecon -Rv /var/www/html</code></li>
+</ul>
+<h3>💡 Mejores Prácticas</h3>
+<ol>
+<li><p><strong>Pipeline Check</strong>:</p>
+<pre><code class="language-bash">if [ $(getenforce) == &quot;Enforcing&quot; ]; then
+  echo &quot;⚠️ SELinux activo - verificar contextos&quot;
+fi
+</code></pre>
+</li>
+<li><p><strong>Debugging</strong>:</p>
+<pre><code class="language-bash"># Ver denials recientes
+ausearch -m avc -ts recent
+
+# Ver sugerencias de solución
+sealert -a /var/log/audit/audit.log
+</code></pre>
+</li>
+<li><p><strong>Contextos para CI/CD</strong>:</p>
+<pre><code class="language-bash"># Asegurar contexto correcto para scripts
+semanage fcontext -a -t bin_t &quot;/opt/ci-scripts(/.*)?&quot;
+restorecon -Rv /opt/ci-scripts
+</code></pre>
+</li>
+</ol>
+<hr>
+<h2>🚀 Día Siguiente: Preparación</h2>
+<p><strong>Día 6</strong> introduce <strong>Cron Jobs</strong> - automatización programada. La conexión con SELinux es crítica:</p>
+<ul>
+<li>Los cron jobs ejecutan en contextos específicos de SELinux</li>
+<li>Scripts que funcionan manualmente pueden fallar en cron</li>
+<li>Necesitas entender <code>crond_t</code> (tipo de dominio de cron)</li>
+</ul>
+<p><strong>Preparación</strong>: Investiga cómo SELinux afecta procesos ejecutados por cron.</p>
+<hr>
+<h2>📚 Recursos DevOps</h2>
+<ul>
+<li><a href="https://selinuxproject.org/">SELinux Project Wiki</a></li>
+<li><a href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/9/html/using_selinux/index">Red Hat SELinux Guide</a></li>
+<li><a href="https://docs.docker.com/engine/security/selinux/">Docker SELinux</a></li>
+</ul>
+<hr>
+<h2>📊 Seguimiento de Progreso</h2>
+<ul>
+<li><strong>Día</strong>: 5 de 100</li>
+<li><strong>Bloque</strong>: Seguridad Enterprise</li>
+<li><strong>Progresión</strong>: 1-4 → 5 → 6 (Básico → SELinux → Automatización)</li>
+<li><strong>Habilidad</strong>: Seguridad a nivel de kernel y compliance</li>
+</ul>
+<p><strong>¡Excelente! Ahora entiendes por qué las aplicaciones a veces &#39;misteriosamente&#39; fallan en producción.</strong> 🔒</p>
+</div> </article> <!-- Navigation --> <div class="nav-buttons" data-astro-cid-mvyioy5t> <a href="/challenges/devops/day-04-script-permissions" class="nav-btn prev" data-astro-cid-mvyioy5t> <span class="nav-icon" data-astro-cid-mvyioy5t>←</span> <span class="nav-content" data-astro-cid-mvyioy5t> <span class="nav-label" data-astro-cid-mvyioy5t>Anterior</span> <span class="nav-title" data-astro-cid-mvyioy5t>Day 04 Permisos de Ejecución de Scripts</span> </span> </a> <a href="/challenges/devops/" class="nav-btn home" data-astro-cid-mvyioy5t> <span class="nav-icon" data-astro-cid-mvyioy5t>⚙️</span> <span class="nav-content" data-astro-cid-mvyioy5t> <span class="nav-label" data-astro-cid-mvyioy5t>Volver</span> <span class="nav-title" data-astro-cid-mvyioy5t>Todos los Días</span> </span> </a> <a href="/challenges/devops/day-06-cron-job-deployment" class="nav-btn next" data-astro-cid-mvyioy5t> <span class="nav-content" data-astro-cid-mvyioy5t> <span class="nav-label" data-astro-cid-mvyioy5t>Siguiente</span> <span class="nav-title" data-astro-cid-mvyioy5t>Day 06 Cron Job Deployment Across Multiple...</span> </span> <span class="nav-icon" data-astro-cid-mvyioy5t>→</span> </a> </div> </div> </main>  </main>  <script type="module">const e=document.getElementById("mobile-menu-btn"),n=document.getElementById("mobile-menu");e?.addEventListener("click",()=>{n?.classList.toggle("hidden")});</script></body></html> 

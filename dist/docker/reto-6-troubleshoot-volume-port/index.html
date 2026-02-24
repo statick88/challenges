@@ -1,0 +1,502 @@
+<!DOCTYPE html><html lang="es" data-astro-cid-ouamjn2i> <head><meta charset="UTF-8"><meta name="description" content="Plataforma interactiva de desafíos técnicos - Linux, Docker, DevOps, CTF"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.17.1"><meta name="theme-color" content="#4c80cc"><title>Docker Challenge Reto 6: Troubleshoot Container Volume &amp; Port Mapping - Docker Challenges</title><!-- Preconnect for fonts --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><!-- Script para prevenir flash de tema incorrecto --><script>
+      const theme = (() => {
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+          return localStorage.getItem('theme');
+        }
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          return 'dark';
+        }
+        return 'light';
+      })();
+      
+      if (theme === 'light') {
+        document.documentElement.classList.add('light');
+      } else {
+        document.documentElement.classList.add('dark');
+      }
+    </script><!-- Cache busting: Verificar versión y recargar si hay cambios --><script>
+      (function() {
+        const BUILD_VERSION = '1771614292958';
+        const CACHE_KEY = 'tech-challenges-build-version';
+        
+        // Verificar si hay nueva versión
+        const storedVersion = localStorage.getItem(CACHE_KEY);
+        
+        if (storedVersion && storedVersion !== BUILD_VERSION) {
+          // Nueva versión detectada, limpiar cache y recargar
+          console.log('🆕 Nueva versión detectada. Actualizando...');
+          if ('caches' in window) {
+            caches.keys().then(names => {
+              names.forEach(name => caches.delete(name));
+            });
+          }
+          localStorage.setItem(CACHE_KEY, BUILD_VERSION);
+          window.location.reload();
+        } else if (!storedVersion) {
+          localStorage.setItem(CACHE_KEY, BUILD_VERSION);
+        }
+      })();
+    </script><link rel="stylesheet" href="/challenges/_astro/_slug_-Bxg8atdN.css">
+<link rel="stylesheet" href="/challenges/_astro/_slug_-CaxYOu3g.css">
+<style>.nav-buttons[data-astro-cid-gg2brgul]{display:flex;justify-content:space-between;gap:1rem;margin-top:2rem;flex-wrap:wrap}.nav-btn[data-astro-cid-gg2brgul]{display:flex;align-items:center;gap:.75rem;padding:1rem 1.25rem;background:#1e293bcc;border:1px solid rgba(71,85,105,.3);border-radius:.75rem;text-decoration:none;transition:all .2s ease;flex:1;min-width:200px;max-width:280px}.nav-btn[data-astro-cid-gg2brgul]:hover:not(.disabled){background:#3b82f61a;border-color:#3b82f64d;transform:translateY(-2px)}.nav-btn[data-astro-cid-gg2brgul].disabled{opacity:.4;cursor:not-allowed;pointer-events:none}.nav-btn[data-astro-cid-gg2brgul].prev{text-align:left}.nav-btn[data-astro-cid-gg2brgul].next{text-align:right;justify-content:flex-end}.nav-btn[data-astro-cid-gg2brgul].home{justify-content:center;max-width:200px}.nav-icon[data-astro-cid-gg2brgul]{font-size:1.25rem;color:#3b82f6}.nav-content[data-astro-cid-gg2brgul]{display:flex;flex-direction:column;gap:.25rem}.nav-label[data-astro-cid-gg2brgul]{font-size:.7rem;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em}.nav-title[data-astro-cid-gg2brgul]{font-size:.875rem;color:#e2e8f0;font-weight:500}@media(max-width:768px){.nav-buttons[data-astro-cid-gg2brgul]{flex-direction:column}.nav-btn[data-astro-cid-gg2brgul]{max-width:100%}}.markdown-body{font-family:system-ui;line-height:1.8;color:#e5e7eb}.markdown-body h1{font-size:2rem;font-weight:700;color:#3b82f6;margin:2rem 0 1rem;border-bottom:1px solid #374151;padding-bottom:.5rem}.markdown-body h2{font-size:1.5rem;font-weight:600;color:#22d3ee;margin:1.75rem 0 1rem}.markdown-body h3{font-size:1.25rem;font-weight:600;color:#a5f3fc;margin:1.5rem 0 .75rem}.markdown-body p{margin:.75rem 0;color:#d1d5db}.markdown-body strong{color:#fbbf24;font-weight:600}.markdown-body code{background:#06b6d426;color:#22d3ee;padding:.2rem .5rem;border-radius:.375rem;font-family:monospace}.markdown-body pre{background:#0f172a;padding:1rem;border-radius:.75rem;overflow-x:auto;margin:1rem 0;border:1px solid #1e293b}.markdown-body pre code{background:transparent;padding:0;color:#a5b4fc}.markdown-body ul,.markdown-body ol{margin:.75rem 0;padding-left:1.5rem;color:#d1d5db}.markdown-body li{margin:.5rem 0}.markdown-body blockquote{border-left:4px solid #3b82f6;padding-left:1rem;margin:1rem 0;color:#9ca3af}
+</style></head> <body class="min-h-screen flex flex-col" data-astro-cid-ouamjn2i> <!-- Header --> <header class="sticky top-0 z-50 border-b" style="background-color: var(--color-bg); border-color: var(--color-border);" data-astro-cid-ouamjn2i> <div class="container mx-auto px-4 py-4 flex items-center justify-between" data-astro-cid-ouamjn2i> <!-- Logo / Brand --> <a href="/" class="flex items-center gap-3 group" data-astro-cid-ouamjn2i> <span class="text-2xl" data-astro-cid-ouamjn2i>🚀</span> <span class="font-bold text-lg transition-colors group-hover:text-accent" style="color: var(--color-text);" data-astro-cid-ouamjn2i>
+Tech Challenges
+</span> </a> <!-- Navigation --> <nav class="hidden md:flex items-center gap-6" data-astro-cid-ouamjn2i> <a href="/challenges/" class="nav-link" data-astro-cid-ouamjn2i>Dashboard</a> <a href="/challenges/linux/" class="nav-link" data-astro-cid-ouamjn2i>Linux</a> <a href="/challenges/docker/" class="nav-link" data-astro-cid-ouamjn2i>Docker</a> <a href="/challenges/devops/" class="nav-link" data-astro-cid-ouamjn2i>DevOps</a> <a href="/challenges/ctf/" class="nav-link" data-astro-cid-ouamjn2i>CTF</a> <a href="/challenges/htb/" class="nav-link" data-astro-cid-ouamjn2i>HTB</a> </nav> <!-- Theme Toggle --> <div class="flex items-center gap-4" data-astro-cid-ouamjn2i> <button id="lang-toggle" class="lang-toggle" type="button" aria-label="Cambiar idioma" title="Cambiar idioma" data-astro-cid-lb7h3eps> <span class="lang-text" data-astro-cid-lb7h3eps>EN</span> </button>  <script type="module">const l={es:{"hero.badge":"Plataforma de Aprendizaje","hero.title.line1":"Domina Linux, Docker,","hero.title.line2":"DevOps & Security","hero.subtitle":"Plataforma interactiva con 70+ desafíos prácticos. Aprende haciendo, no solo leyendo.","hero.stat.completed":"Completados","hero.stat.progress":"Progreso","hero.stat.challenges":"Desafíos","progress.title":"Progreso General","progress.completed":"completados","progress.in_progress":"en progreso","progress.blocked":"bloqueados","programs.title":"Programas de Aprendizaje","programs.subtitle":"Selecciona un programa para ver sus desafíos","programs.completed":"Completados","programs.total":"Total","programs.view":"Ver desafíos","program.linux":"Linux","program.docker":"Docker","program.devops":"DevOps","program.ctf":"CTF","program.htb":"HTB Academy","program.linux.desc":"Administración de sistemas Linux, usuarios, permisos y automatización","program.docker.desc":"Containerización, orquestación y mejores prácticas de Docker","program.devops.desc":"CI/CD, automatización y cultura DevOps","program.ctf.desc":"Desafíos de seguridad: criptografía, web, forense y más","program.htb.desc":"Módulos de Hack The Box Academy completados","cert.title":"Certificaciones Obtenidas","cert.subtitle":"Reconocimientos oficiales de tu progreso","cert.docker.title":"Docker Certification","cert.docker.platform":"KodeKloud Engineer","cert.challenges":"Challenges","cert.verify":"Verificar certificado","activity.title":"Actividad Reciente","activity.subtitle":"Últimos desafíos completados","footer.update":"Última actualización"},en:{"hero.badge":"Learning Platform","hero.title.line1":"Master Linux, Docker,","hero.title.line2":"DevOps & Security","hero.subtitle":"Interactive platform with 70+ practical challenges. Learn by doing, not just reading.","hero.stat.completed":"Completed","hero.stat.progress":"Progress","hero.stat.challenges":"Challenges","progress.title":"Overall Progress","progress.completed":"completed","progress.in_progress":"in progress","progress.blocked":"blocked","programs.title":"Learning Programs","programs.subtitle":"Select a program to view its challenges","programs.completed":"Completed","programs.total":"Total","programs.view":"View challenges","program.linux":"Linux","program.docker":"Docker","program.devops":"DevOps","program.ctf":"CTF","program.htb":"HTB Academy","program.linux.desc":"Linux system administration, users, permissions and automation","program.docker.desc":"Containerization, orchestration and Docker best practices","program.devops.desc":"CI/CD, automation and DevOps culture","program.ctf.desc":"Security challenges: cryptography, web, forensics and more","program.htb.desc":"Completed Hack The Box Academy modules","cert.title":"Earned Certifications","cert.subtitle":"Official recognition of your progress","cert.docker.title":"Docker Certification","cert.docker.platform":"KodeKloud Engineer","cert.challenges":"Challenges","cert.verify":"Verify Certificate","activity.title":"Recent Activity","activity.subtitle":"Latest completed challenges","footer.update":"Last updated"}},i=document.getElementById("lang-toggle"),s=i?.querySelector(".lang-text");function c(){if(typeof localStorage<"u"){const e=localStorage.getItem("lang");if(e==="es"||e==="en")return e}return"es"}function d(e){typeof localStorage<"u"&&localStorage.setItem("lang",e)}function g(e){s&&(s.textContent=e==="es"?"EN":"ES")}function n(e){const t=l[e];document.querySelectorAll("[data-i18n]").forEach(o=>{const r=o.getAttribute("data-i18n");r&&t[r]&&(o.textContent=t[r])}),document.querySelectorAll("[data-i18n-program]").forEach(o=>{const r=o.getAttribute("data-i18n-program");if(r){const a=`program.${r}`;t[a]&&(o.textContent=t[a])}}),document.querySelectorAll("[data-i18n-program-desc]").forEach(o=>{const r=o.getAttribute("data-i18n-program-desc");if(r){const a=`program.${r}.desc`;t[a]&&(o.textContent=t[a])}}),document.documentElement.lang=e,g(e)}const p=c();n(p);i?.addEventListener("click",()=>{const t=c()==="es"?"en":"es";d(t),n(t)});</script> <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Cambiar tema" title="Cambiar tema claro/oscuro" data-astro-cid-x3pjskd3> <!-- Icono Sol (visible en tema oscuro) --> <svg class="icon-sun w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" data-astro-cid-x3pjskd3> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" data-astro-cid-x3pjskd3></path> </svg> <!-- Icono Luna (visible en tema claro) --> <svg class="icon-moon w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" data-astro-cid-x3pjskd3> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" data-astro-cid-x3pjskd3></path> </svg> </button>  <script type="module">const m=document.getElementById("theme-toggle");function c(){return typeof localStorage<"u"&&localStorage.getItem("theme")?localStorage.getItem("theme"):window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}function t(e){e==="dark"?(document.documentElement.classList.remove("light"),document.documentElement.classList.add("dark")):(document.documentElement.classList.remove("dark"),document.documentElement.classList.add("light")),localStorage.setItem("theme",e)}const d=c();d==="light"?document.documentElement.classList.add("light"):document.documentElement.classList.add("dark");m?.addEventListener("click",()=>{const n=(document.documentElement.classList.contains("light")?"light":"dark")==="dark"?"light":"dark";document.documentElement.classList.add("theme-transitioning"),t(n),setTimeout(()=>{document.documentElement.classList.remove("theme-transitioning")},300)});window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change",e=>{localStorage.getItem("theme")||t(e.matches?"dark":"light")});</script> <!-- Mobile Menu Button --> <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg border transition-colors" style="background-color: var(--color-bg-card); border-color: var(--color-border);" aria-label="Menú" data-astro-cid-ouamjn2i> <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-ouamjn2i> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" data-astro-cid-ouamjn2i></path> </svg> </button> </div> </div> <!-- Mobile Navigation --> <div id="mobile-menu" class="hidden md:hidden border-t" style="border-color: var(--color-border); background-color: var(--color-bg-card);" data-astro-cid-ouamjn2i> <nav class="container mx-auto px-4 py-4 flex flex-col gap-2" data-astro-cid-ouamjn2i> <a href="/challenges/" class="mobile-nav-link" data-astro-cid-ouamjn2i>Dashboard</a> <a href="/challenges/linux/" class="mobile-nav-link" data-astro-cid-ouamjn2i>🐧 Linux</a> <a href="/challenges/docker/" class="mobile-nav-link" data-astro-cid-ouamjn2i>🐳 Docker</a> <a href="/challenges/devops/" class="mobile-nav-link" data-astro-cid-ouamjn2i>⚙️ DevOps</a> <a href="/challenges/ctf/" class="mobile-nav-link" data-astro-cid-ouamjn2i>🚩 CTF</a> <a href="/challenges/htb/" class="mobile-nav-link" data-astro-cid-ouamjn2i>🎯 HTB</a> </nav> </div> </header> <!-- Main Content --> <main class="flex-1" data-astro-cid-ouamjn2i>   <main class="container mx-auto px-4 py-8" data-astro-cid-gg2brgul> <div class="max-w-4xl mx-auto" data-astro-cid-gg2brgul> <!-- Breadcrumb --> <nav class="flex items-center gap-2 text-sm mb-6" style="color: var(--color-text-secondary);" data-astro-cid-gg2brgul> <a href="/" class="hover:underline" style="color: var(--color-accent);" data-astro-cid-gg2brgul>Dashboard</a> <span data-astro-cid-gg2brgul>/</span> <a href="/challenges/docker/" class="hover:underline" style="color: var(--color-accent);" data-astro-cid-gg2brgul>Docker</a> <span data-astro-cid-gg2brgul>/</span> <span data-astro-cid-gg2brgul>Docker Challenge Reto 6: Troubleshoot Container Volume &amp; Port Mapping</span> </nav> <article class="card p-8" data-astro-cid-gg2brgul> <header class="mb-6" data-astro-cid-gg2brgul> <div class="flex items-center gap-2 mb-2" data-astro-cid-gg2brgul> <span class="text-blue-400 font-mono" data-astro-cid-gg2brgul>🐳 Docker</span> <span class="text-xs px-2 py-1 rounded bg-blue-500/20 text-blue-400" data-astro-cid-gg2brgul>
+Reto #6 </span> </div> <h1 class="text-3xl font-bold mb-4" style="color: var(--color-text);" data-astro-cid-gg2brgul>Docker Challenge Reto 6: Troubleshoot Container Volume &amp; Port Mapping</h1> <div class="flex items-center gap-4 text-sm" style="color: var(--color-text-secondary);" data-astro-cid-gg2brgul> <span data-astro-cid-gg2brgul>Dificultad: 3</span> <span data-astro-cid-gg2brgul>Fecha: 18-02-2026</span> </div> </header> <div class="markdown-body" data-astro-cid-gg2brgul><h1>🐳 Docker Challenge Reto 6: Troubleshoot Container Volume &amp; Port Mapping</h1>
+<hr>
+<h2>🎓 Del Instructor</h2>
+<p>En mis años como <strong>Platform Engineer</strong>, he aprendido que los problemas de contenedores suelen estar en tres lugares: <strong>configuración de red</strong>, <strong>mapeo de volúmenes</strong> y <strong>límites de recursos</strong>. Un contenedor puede estar &quot;running&quot; y aún así no servir tráfico porque olvidaste mapear el puerto. O puede servir una página vacía porque el bind mount no existe.</p>
+<blockquote>
+<p>🎯 <strong>Mentalidad DevOps</strong>: &quot;El contenedor está aislado. Si no lo conectas explícitamente al mundo exterior (puertos) y a los datos (volúmenes), existe en el vacío.&quot;</p>
+</blockquote>
+<hr>
+<h2>🎭 Escenario Empresarial</h2>
+<p><strong>Contexto</strong>: El equipo de soporte reporta que el sitio web estático de la empresa no está accesible. El contenedor <code>nautilus</code> en App Server 1 muestra estado &quot;Exited&quot; y los usuarios reciben errores de conexión al intentar acceder al sitio.</p>
+<p><strong>Tu misión</strong>: Diagnosticar y resolver el problema del contenedor <code>nautilus</code> para que el sitio web estático sea accesible nuevamente.</p>
+<p><strong>Métricas de éxito</strong>:</p>
+<ul>
+<li>Volumen <code>/usr/local/apache2/htdocs</code> mapeado correctamente a <code>/var/www/html</code> del host</li>
+<li>Website accesible en puerto 8080 del host</li>
+<li>Comando <code>curl http://localhost:8080/</code> funcional</li>
+</ul>
+<p><strong>Infraestructura</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Valor</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Servidor</strong></td>
+<td>stapp01.stratos.xfusioncorp.com</td>
+</tr>
+<tr>
+<td><strong>IP</strong></td>
+<td>172.16.238.10</td>
+</tr>
+<tr>
+<td><strong>Usuario</strong></td>
+<td>tony</td>
+</tr>
+<tr>
+<td><strong>Password</strong></td>
+<td>Ir0nM@n</td>
+</tr>
+<tr>
+<td><strong>Stack</strong></td>
+<td>Apache HTTP Server (httpd)</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>🧠 Arquitectura: Bind Mounts &amp; Port Mapping</h2>
+<h3>El Problema del Aislamiento</h3>
+<pre><code>┌─────────────────────────────────────────────────────────────┐
+│  CONTENEDOR SIN CONFIGURACIÓN                                │
+│  ┌─────────────────────────────────────────────────────┐    │
+│  │  httpd container                                    │    │
+│  │  ├── /usr/local/apache2/htdocs/ (vacío)             │    │
+│  │  ├── Port 80 (interno, no accesible desde host)      │    │
+│  │  └── Estado: Exited (no está corriendo)              │    │
+│  └─────────────────────────────────────────────────────┘    │
+│                          ↓                                   │
+│              curl localhost:8080 → Connection refused        │
+└─────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────┐
+│  CONTENEDOR CON CONFIGURACIÓN CORRECTA                       │
+│  ┌─────────────────────────────────────────────────────┐    │
+│  │  httpd container                                    │    │
+│  │  ├── /usr/local/apache2/htdocs/                     │    │
+│  │  │   └── ← BIND MOUNT: /var/www/html/ (host)        │    │
+│  │  ├── Port 80 (interno)                              │    │
+│  │  │   └── ← PORT MAP: 8080:80 (host:container)       │    │
+│  │  └── Estado: Up (corriendo)                         │    │
+│  └─────────────────────────────────────────────────────┘    │
+│                          ↓                                   │
+│              curl localhost:8080 → Welcome to xFusionCorp!  │
+└─────────────────────────────────────────────────────────────┘
+</code></pre>
+<h3>Taxonomía de Configuración Docker</h3>
+<table>
+<thead>
+<tr>
+<th>Elemento</th>
+<th>Sintaxis</th>
+<th>Propósito</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Bind Mount</strong></td>
+<td><code>-v /host/path:/container/path</code></td>
+<td>Montar directorio del host en el contenedor</td>
+</tr>
+<tr>
+<td><strong>Named Volume</strong></td>
+<td><code>-v volume_name:/container/path</code></td>
+<td>Persistencia de datos gestionada por Docker</td>
+</tr>
+<tr>
+<td><strong>Port Mapping</strong></td>
+<td><code>-p host_port:container_port</code></td>
+<td>Exponer puerto del contenedor al host</td>
+</tr>
+<tr>
+<td><strong>Read-only Mount</strong></td>
+<td><code>-v /host:/container:ro</code></td>
+<td>Montar sin permisos de escritura</td>
+</tr>
+</tbody></table>
+<h3>Flujo de Datos</h3>
+<pre><code>Usuario → curl localhost:8080
+              ↓
+    Host Port 8080 (stapp01)
+              ↓
+    Docker Port Mapping (-p 8080:80)
+              ↓
+    Container Port 80 (nautilus)
+              ↓
+    Apache httpd sirviendo /usr/local/apache2/htdocs/
+              ↓
+    Bind Mount (-v /var/www/html:/usr/local/apache2/htdocs)
+              ↓
+    Archivo index.html en el host
+</code></pre>
+<hr>
+<h2>🛠️ Implementación Profesional</h2>
+<h3>Paso 1: Conexión SSH al Servidor</h3>
+<pre><code class="language-bash"># Conexión desde jump_host
+ssh tony@172.16.238.10
+</code></pre>
+<p><strong>Cuando aparezca el mensaje de fingerprint</strong>:</p>
+<pre><code>The authenticity of host &#39;172.16.238.10 (172.16.238.10)&#39; can&#39;t be established.
+Are you sure you want to continue connecting (yes/no/[fingerprint])?
+</code></pre>
+<ul>
+<li>Escribir: <code>yes</code></li>
+</ul>
+<p><strong>Password</strong>: <code>Ir0nM@n</code></p>
+<blockquote>
+<p>💡 <strong>Nota técnica</strong>: La primera conexión SSH a un servidor genera este mensaje porque no hay registro previo de su clave pública. Escribir <code>yes</code> añade el servidor al archivo <code>~/.ssh/known_hosts</code>.</p>
+</blockquote>
+<h3>Paso 2: Escalar Privilegios a Root</h3>
+<pre><code class="language-bash">sudo su -
+</code></pre>
+<p><strong>Password</strong>: <code>Ir0nM@n</code> (mismo que el usuario)</p>
+<blockquote>
+<p>🎯 <strong>Mentalidad DevOps</strong>: Docker requiere privilegios de root o pertenencia al grupo <code>docker</code>. Para operaciones de troubleshooting, root es el camino más directo.</p>
+</blockquote>
+<h3>Paso 3: Diagnóstico Inicial del Contenedor</h3>
+<pre><code class="language-bash"># Verificar estado del contenedor
+docker ps -a --filter name=nautilus
+</code></pre>
+<p><strong>Salida observada</strong>:</p>
+<pre><code>CONTAINER ID   IMAGE     COMMAND              CREATED         STATUS                     PORTS     NAMES
+9a482bcf77fb   httpd     &quot;httpd-foreground&quot;   4 minutes ago   Exited (0) 3 minutes ago             nautilus
+</code></pre>
+<p><strong>Análisis</strong>:</p>
+<ul>
+<li><strong>STATUS</strong>: <code>Exited (0)</code> → El contenedor no está corriendo</li>
+<li><strong>PORTS</strong>: Vacío → No hay puertos mapeados</li>
+<li><strong>IMAGE</strong>: <code>httpd</code> → Apache HTTP Server</li>
+</ul>
+<h3>Paso 4: Inspección de Configuración</h3>
+<pre><code class="language-bash"># Inspeccionar mapeo de volúmenes
+docker inspect nautilus --format &#39;{{json .Mounts}}&#39;
+
+# Inspeccionar mapeo de puertos
+docker inspect nautilus --format &#39;{{json .HostConfig.PortBindings}}&#39;
+
+# Verificar acceso web (fallará)
+curl http://localhost:8080/
+</code></pre>
+<p><strong>Salida esperada del curl fallido</strong>:</p>
+<pre><code>curl: (7) Failed to connect to localhost port 8080: Connection refused
+</code></pre>
+<p><strong>Diagnóstico confirmado</strong>:</p>
+<ol>
+<li>Contenedor detenido (<code>Exited</code>)</li>
+<li>Sin puertos mapeados</li>
+<li>Sin acceso web</li>
+</ol>
+<h3>Paso 5: Eliminar Contenedor con Configuración Incorrecta</h3>
+<pre><code class="language-bash"># Detener contenedor (si estuviera running)
+docker stop nautilus
+
+# Eliminar contenedor
+docker rm nautilus
+</code></pre>
+<p><strong>Salida esperada</strong>:</p>
+<pre><code>nautilus
+nautilus
+</code></pre>
+<blockquote>
+<p>💡 <strong>Principio</strong>: Los contenedores son efímeros por diseño. Si la configuración es incorrecta, es más limpio eliminar y recrear que intentar parchear.</p>
+</blockquote>
+<h3>Paso 6: Crear Contenedor con Configuración Correcta</h3>
+<pre><code class="language-bash">docker run -d \
+  --name nautilus \
+  -v /var/www/html:/usr/local/apache2/htdocs \
+  -p 8080:80 \
+  httpd:latest
+</code></pre>
+<p><strong>Explicación detallada de flags</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Flag</th>
+<th>Valor</th>
+<th>Explicación</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>-d</code></td>
+<td>-</td>
+<td><strong>Detached mode</strong>: Ejecuta en segundo plano, libera la terminal</td>
+</tr>
+<tr>
+<td><code>--name</code></td>
+<td><code>nautilus</code></td>
+<td><strong>Naming</strong>: Identificador predecible para gestión</td>
+</tr>
+<tr>
+<td><code>-v</code></td>
+<td><code>/var/www/html:/usr/local/apache2/htdocs</code></td>
+<td><strong>Bind Mount</strong>: Directorio del host → directorio del contenedor</td>
+</tr>
+<tr>
+<td><code>-p</code></td>
+<td><code>8080:80</code></td>
+<td><strong>Port Mapping</strong>: Puerto 8080 del host → puerto 80 del contenedor</td>
+</tr>
+<tr>
+<td><code>httpd:latest</code></td>
+<td>-</td>
+<td><strong>Imagen</strong>: Apache HTTP Server versión latest</td>
+</tr>
+</tbody></table>
+<p><strong>Salida esperada</strong>:</p>
+<pre><code>92950a3b79f5539ffafc44694d24285e86358da12ec7f8ee97f62c26f00c26f7
+</code></pre>
+<p>(Hash del contenedor creado)</p>
+<h3>Paso 7: Verificación de Volumen Mapeado</h3>
+<pre><code class="language-bash">docker inspect nautilus --format &#39;{{range .Mounts}}{{.Source}} -&gt; {{.Destination}}{{end}}&#39;
+</code></pre>
+<p><strong>Salida esperada</strong>:</p>
+<pre><code>/var/www/html -&gt; /usr/local/apache2/htdocs
+</code></pre>
+<p><strong>Validación</strong>:</p>
+<ul>
+<li>✅ Source: <code>/var/www/html</code> (directorio del host)</li>
+<li>✅ Destination: <code>/usr/local/apache2/htdocs</code> (directorio del contenedor Apache)</li>
+</ul>
+<h3>Paso 8: Verificación de Puerto Expuesto</h3>
+<pre><code class="language-bash">docker port nautilus
+</code></pre>
+<p><strong>Salida esperada</strong>:</p>
+<pre><code>80/tcp -&gt; 0.0.0.0:8080
+</code></pre>
+<p><strong>Validación</strong>:</p>
+<ul>
+<li>✅ Puerto interno: <code>80/tcp</code> (Apache escucha en 80)</li>
+<li>✅ Puerto externo: <code>8080</code> (accesible desde el host)</li>
+<li>✅ Bind address: <code>0.0.0.0</code> (todas las interfaces de red)</li>
+</ul>
+<h3>Paso 9: Verificación de Acceso Web</h3>
+<pre><code class="language-bash">curl http://localhost:8080/
+</code></pre>
+<p><strong>Salida esperada</strong>:</p>
+<pre><code>Welcome to xFusionCorp Industries!
+</code></pre>
+<p><strong>Validación exitosa</strong>:</p>
+<ul>
+<li>✅ Website accesible</li>
+<li>✅ Contenido servido correctamente</li>
+<li>✅ Bind mount funcionando</li>
+</ul>
+<hr>
+<h2>📊 Checklist de Producción</h2>
+<h3>Diagnóstico</h3>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> Conexión SSH establecida a stapp01</li>
+<li><input checked="" disabled="" type="checkbox"> Privilegios root obtenidos</li>
+<li><input checked="" disabled="" type="checkbox"> Estado del contenedor verificado (<code>Exited</code>)</li>
+<li><input checked="" disabled="" type="checkbox"> Configuración de puertos inspeccionada (vacía)</li>
+</ul>
+<h3>Resolución</h3>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> Contenedor eliminado correctamente</li>
+<li><input checked="" disabled="" type="checkbox"> Contenedor recreado con <code>-v</code> y <code>-p</code> correctos</li>
+<li><input checked="" disabled="" type="checkbox"> Contenedor en estado <code>Up</code></li>
+</ul>
+<h3>Verificación</h3>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> Volumen mapeado: <code>/var/www/html -&gt; /usr/local/apache2/htdocs</code></li>
+<li><input checked="" disabled="" type="checkbox"> Puerto expuesto: <code>80/tcp -&gt; 0.0.0.0:8080</code></li>
+<li><input checked="" disabled="" type="checkbox"> Curl exitoso: <code>Welcome to xFusionCorp Industries!</code></li>
+</ul>
+<hr>
+<h2>🎓 Reflexión Final: From Installer to Engineer</h2>
+<h3>Lo Que Acabas de Aprender</h3>
+<p><strong>Problema raíz</strong>: Un contenedor sin configuración de red y volúmenes está completamente aislado.</p>
+<p><strong>Solución aplicada</strong>:</p>
+<ol>
+<li><strong>Bind Mount</strong> (<code>-v</code>): Conectó los datos del host con el contenedor</li>
+<li><strong>Port Mapping</strong> (<code>-p</code>): Expuso el servicio al mundo exterior</li>
+</ol>
+<h3>Conceptos Clave</h3>
+<table>
+<thead>
+<tr>
+<th>Concepto</th>
+<th>Definición</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Bind Mount</strong></td>
+<td>Mapeo directo de un directorio del host a un directorio del contenedor</td>
+</tr>
+<tr>
+<td><strong>Port Mapping</strong></td>
+<td>Traducción de puertos entre el host y el contenedor</td>
+</tr>
+<tr>
+<td><strong>Container Isolation</strong></td>
+<td>Los contenedores están aislados por defecto; requieren configuración explícita para interactuar</td>
+</tr>
+</tbody></table>
+<h3>Errores Comunes</h3>
+<table>
+<thead>
+<tr>
+<th>Error</th>
+<th>Consecuencia</th>
+<th>Solución</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Olvidar <code>-p</code></td>
+<td>Contenedor inaccesible desde el host</td>
+<td>Agregar <code>-p host_port:container_port</code></td>
+</tr>
+<tr>
+<td>Olvidar <code>-v</code></td>
+<td>Contenedor sin datos/vacío</td>
+<td>Agregar <code>-v /host/path:/container/path</code></td>
+</tr>
+<tr>
+<td>Puerto ocupado</td>
+<td>Error &quot;port already in use&quot;</td>
+<td>Verificar con <code>netstat -tulpn | grep PORT</code></td>
+</tr>
+<tr>
+<td>Path incorrecto</td>
+<td>&quot;No such file or directory&quot;</td>
+<td>Verificar que el directorio del host existe</td>
+</tr>
+</tbody></table>
+<h3>Evolución del Mindset</h3>
+<table>
+<thead>
+<tr>
+<th>Instalador</th>
+<th>Platform Engineer</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&quot;El contenedor está corriendo pero no funciona&quot;</td>
+<td>&quot;El contenedor necesita bind mount y port mapping para ser funcional&quot;</td>
+</tr>
+<tr>
+<td>&quot;No sé por qué curl falla&quot;</td>
+<td>&quot;Diagnóstico sistemático: verificar estado, puertos, volúmenes&quot;</td>
+</tr>
+<tr>
+<td>&quot;Reinicio el contenedor y ya&quot;</td>
+<td>&quot;Elimino y recreo con configuración correcta - IaC mindset&quot;</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>🚀 Próximos Pasos en el Learning Path</h2>
+<h3>Nivel Actual: Docker Container Operations ✅</h3>
+<ol>
+<li><strong>Reto 7+</strong>: Dockerfile creation - construir imágenes personalizadas</li>
+<li><strong>Reto 8+</strong>: Docker Compose - orquestación de múltiples contenedores</li>
+<li><strong>Reto 9+</strong>: Docker Networks - redes personalizadas y comunicación entre contenedores</li>
+</ol>
+<h3>Conceptos a Investigar</h3>
+<ul>
+<li><strong>Named Volumes</strong>: <code>docker volume create</code> vs bind mounts</li>
+<li><strong>Dockerfile</strong>: <code>VOLUME</code> y <code>EXPOSE</code> instructions</li>
+<li><strong>Docker Compose</strong>: Sintaxis <code>volumes:</code> y <code>ports:</code> en YAML</li>
+<li><strong>Reverse Proxy</strong>: Nginx/Traefik para multiple containers en puerto 80</li>
+</ul>
+<hr>
+<h2>📚 Recursos y Referencias</h2>
+<h3>Documentación Oficial</h3>
+<ul>
+<li><a href="https://docs.docker.com/storage/bind-mounts/">Docker Bind Mounts</a></li>
+<li><a href="https://docs.docker.com/network/network-tutorial-published-ports/">Docker Port Mapping</a></li>
+<li><a href="https://hub.docker.com/_/httpd">httpd Docker Image</a></li>
+</ul>
+<h3>Comandos de Referencia</h3>
+<pre><code class="language-bash"># Inspeccionar volúmenes
+docker inspect container --format &#39;{{json .Mounts}}&#39;
+
+# Inspeccionar puertos
+docker port container
+
+# Ver puertos en uso en el host
+netstat -tulpn | grep LISTEN
+
+# Verificar contenido del bind mount
+ls -la /var/www/html/
+
+# Entrar al contenedor para debugging
+docker exec -it nautilus /bin/bash
+</code></pre>
+<hr>
+<h2>📊 Métricas del Reto</h2>
+<table>
+<thead>
+<tr>
+<th>Métrica</th>
+<th>Valor</th>
+<th>Benchmark</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Tiempo de resolución</td>
+<td>~3 min</td>
+<td>&lt; 10 min ✅</td>
+</tr>
+<tr>
+<td>Comandos ejecutados</td>
+<td>8</td>
+<td>Mínimo necesario ✅</td>
+</tr>
+<tr>
+<td>Contenedores recreados</td>
+<td>1</td>
+<td>Eficiente ✅</td>
+</tr>
+<tr>
+<td>Verificaciones</td>
+<td>3</td>
+<td>Completo ✅</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>🏆 Logros Desbloqueados</h2>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> Docker Bind Mounts mastery</li>
+<li><input checked="" disabled="" type="checkbox"> Docker Port Mapping mastery</li>
+<li><input checked="" disabled="" type="checkbox"> Container troubleshooting methodology</li>
+<li><input checked="" disabled="" type="checkbox"> curl verification proficiency</li>
+</ul>
+<hr>
+<p><strong>Reto 6 completado exitosamente</strong> 🎉<br><em>Fecha: 18-02-2026 | Status: Volume &amp; Port Configuration Mastered | Engineer: Platform Engineer Jr.</em></p>
+<blockquote>
+<p><em>&quot;A container without volume mounts is a container without memory. A container without port mapping is a container without voice.&quot;</em></p>
+</blockquote>
+</div> </article> <!-- Navigation --> <div class="nav-buttons" data-astro-cid-gg2brgul> <a href="/challenges/docker/reto-5-troubleshoot" class="nav-btn prev" data-astro-cid-gg2brgul> <span class="nav-icon" data-astro-cid-gg2brgul>←</span> <span class="nav-content" data-astro-cid-gg2brgul> <span class="nav-label" data-astro-cid-gg2brgul>Anterior</span> <span class="nav-title" data-astro-cid-gg2brgul>Reto #5 Docker Challenge Reto 5: Troubleshoot Do...</span> </span> </a> <a href="/challenges/docker/" class="nav-btn home" data-astro-cid-gg2brgul> <span class="nav-icon" data-astro-cid-gg2brgul>🐳</span> <span class="nav-content" data-astro-cid-gg2brgul> <span class="nav-label" data-astro-cid-gg2brgul>Volver</span> <span class="nav-title" data-astro-cid-gg2brgul>Todos los Retos</span> </span> </a> <span class="nav-btn disabled next" data-astro-cid-gg2brgul> <span class="nav-content" data-astro-cid-gg2brgul> <span class="nav-label" data-astro-cid-gg2brgul>Siguiente</span> <span class="nav-title" data-astro-cid-gg2brgul>No hay reto siguiente</span> </span> <span class="nav-icon" data-astro-cid-gg2brgul>→</span> </span> </div> </div> </main>  </main>  <script type="module">const e=document.getElementById("mobile-menu-btn"),n=document.getElementById("mobile-menu");e?.addEventListener("click",()=>{n?.classList.toggle("hidden")});</script></body></html> 

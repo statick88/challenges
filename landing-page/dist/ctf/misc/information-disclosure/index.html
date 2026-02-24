@@ -1,0 +1,522 @@
+<!DOCTYPE html><html lang="es" data-astro-cid-ouamjn2i> <head><meta charset="UTF-8"><meta name="description" content="Plataforma interactiva de desafíos técnicos - Linux, Docker, DevOps, CTF"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/challenges/favicon.svg"><meta name="generator" content="Astro v5.17.1"><meta name="theme-color" content="#4c80cc"><title>Information Disclosure - CTF Challenges</title><!-- Preconnect for fonts --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><!-- Script para prevenir flash de tema incorrecto --><script>
+      const theme = (() => {
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+          return localStorage.getItem('theme');
+        }
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          return 'dark';
+        }
+        return 'light';
+      })();
+      
+      if (theme === 'light') {
+        document.documentElement.classList.add('light');
+      } else {
+        document.documentElement.classList.add('dark');
+      }
+    </script><!-- Cache busting: Verificar versión y recargar si hay cambios --><script>
+      (function() {
+        const BUILD_VERSION = '1771938333648';
+        const CACHE_KEY = 'tech-challenges-build-version';
+        
+        // Verificar si hay nueva versión
+        const storedVersion = localStorage.getItem(CACHE_KEY);
+        
+        if (storedVersion && storedVersion !== BUILD_VERSION) {
+          // Nueva versión detectada, limpiar cache y recargar
+          console.log('🆕 Nueva versión detectada. Actualizando...');
+          if ('caches' in window) {
+            caches.keys().then(names => {
+              names.forEach(name => caches.delete(name));
+            });
+          }
+          localStorage.setItem(CACHE_KEY, BUILD_VERSION);
+          window.location.reload();
+        } else if (!storedVersion) {
+          localStorage.setItem(CACHE_KEY, BUILD_VERSION);
+        }
+      })();
+    </script><link rel="stylesheet" href="/challenges/_astro/_slug_-DHZt47Ra.css">
+<link rel="stylesheet" href="/challenges/_astro/_slug_-CaxYOu3g.css">
+<style>.nav-buttons[data-astro-cid-wdujc6bn]{display:flex;justify-content:space-between;gap:1rem;margin-top:2rem;flex-wrap:wrap}.nav-btn[data-astro-cid-wdujc6bn]{display:flex;align-items:center;gap:.75rem;padding:1rem 1.25rem;background:#1e293bcc;border:1px solid rgba(71,85,105,.3);border-radius:.75rem;text-decoration:none;transition:all .2s ease;flex:1;min-width:200px;max-width:280px}.nav-btn[data-astro-cid-wdujc6bn]:hover:not(.disabled){background:#22c55e1a;border-color:#22c55e4d;transform:translateY(-2px)}.nav-btn[data-astro-cid-wdujc6bn].disabled{opacity:.4;cursor:not-allowed;pointer-events:none}.nav-btn[data-astro-cid-wdujc6bn].prev{text-align:left}.nav-btn[data-astro-cid-wdujc6bn].next{text-align:right;justify-content:flex-end}.nav-btn[data-astro-cid-wdujc6bn].home{justify-content:center;max-width:200px}.nav-icon[data-astro-cid-wdujc6bn]{font-size:1.25rem;color:#22c55e}.nav-content[data-astro-cid-wdujc6bn]{display:flex;flex-direction:column;gap:.25rem}.nav-label[data-astro-cid-wdujc6bn]{font-size:.7rem;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em}.nav-title[data-astro-cid-wdujc6bn]{font-size:.875rem;color:#e2e8f0;font-weight:500}@media(max-width:768px){.nav-buttons[data-astro-cid-wdujc6bn]{flex-direction:column}.nav-btn[data-astro-cid-wdujc6bn]{max-width:100%}}
+</style></head> <body class="min-h-screen flex flex-col" data-astro-cid-ouamjn2i> <!-- Header --> <header class="sticky top-0 z-50 border-b" style="background-color: var(--color-bg); border-color: var(--color-border);" data-astro-cid-ouamjn2i> <div class="container mx-auto px-4 py-4 flex items-center justify-between" data-astro-cid-ouamjn2i> <!-- Logo / Brand --> <a href="/challenges/" class="flex items-center gap-3 group" data-astro-cid-ouamjn2i> <span class="text-2xl" data-astro-cid-ouamjn2i>🚀</span> <span class="font-bold text-lg transition-colors group-hover:text-accent" style="color: var(--color-text);" data-astro-cid-ouamjn2i>
+Tech Challenges
+</span> </a> <!-- Navigation --> <nav class="hidden md:flex items-center gap-6" data-astro-cid-ouamjn2i> <a href="/challenges/" class="nav-link" data-astro-cid-ouamjn2i>Dashboard</a> <a href="/challenges/linux/" class="nav-link" data-astro-cid-ouamjn2i>Linux</a> <a href="/challenges/docker/" class="nav-link" data-astro-cid-ouamjn2i>Docker</a> <a href="/challenges/devops/" class="nav-link" data-astro-cid-ouamjn2i>DevOps</a> <a href="/challenges/ctf/" class="nav-link" data-astro-cid-ouamjn2i>CTF</a> <a href="/challenges/htb/" class="nav-link" data-astro-cid-ouamjn2i>HTB</a> </nav> <!-- Theme Toggle --> <div class="flex items-center gap-4" data-astro-cid-ouamjn2i> <button id="lang-toggle" class="lang-toggle" type="button" aria-label="Cambiar idioma" title="Cambiar idioma" data-astro-cid-lb7h3eps> <span class="lang-text" data-astro-cid-lb7h3eps>EN</span> </button>  <script type="module">const l={es:{"hero.badge":"Plataforma de Aprendizaje","hero.title.line1":"Domina Linux, Docker,","hero.title.line2":"DevOps & Security","hero.subtitle":"Plataforma interactiva con 70+ desafíos prácticos. Aprende haciendo, no solo leyendo.","hero.stat.completed":"Completados","hero.stat.progress":"Progreso","hero.stat.challenges":"Desafíos","progress.title":"Progreso General","progress.completed":"completados","progress.in_progress":"en progreso","progress.blocked":"bloqueados","programs.title":"Programas de Aprendizaje","programs.subtitle":"Selecciona un programa para ver sus desafíos","programs.completed":"Completados","programs.total":"Total","programs.view":"Ver desafíos","program.linux":"Linux","program.docker":"Docker","program.devops":"DevOps","program.ctf":"CTF","program.htb":"HTB Academy","program.linux.desc":"Administración de sistemas Linux, usuarios, permisos y automatización","program.docker.desc":"Containerización, orquestación y mejores prácticas de Docker","program.devops.desc":"CI/CD, automatización y cultura DevOps","program.ctf.desc":"Desafíos de seguridad: criptografía, web, forense y más","program.htb.desc":"Módulos de Hack The Box Academy completados","cert.title":"Certificaciones Obtenidas","cert.subtitle":"Reconocimientos oficiales de tu progreso","cert.docker.title":"Docker Certification","cert.docker.platform":"KodeKloud Engineer","cert.challenges":"Challenges","cert.verify":"Verificar certificado","activity.title":"Actividad Reciente","activity.subtitle":"Últimos desafíos completados","footer.update":"Última actualización"},en:{"hero.badge":"Learning Platform","hero.title.line1":"Master Linux, Docker,","hero.title.line2":"DevOps & Security","hero.subtitle":"Interactive platform with 70+ practical challenges. Learn by doing, not just reading.","hero.stat.completed":"Completed","hero.stat.progress":"Progress","hero.stat.challenges":"Challenges","progress.title":"Overall Progress","progress.completed":"completed","progress.in_progress":"in progress","progress.blocked":"blocked","programs.title":"Learning Programs","programs.subtitle":"Select a program to view its challenges","programs.completed":"Completed","programs.total":"Total","programs.view":"View challenges","program.linux":"Linux","program.docker":"Docker","program.devops":"DevOps","program.ctf":"CTF","program.htb":"HTB Academy","program.linux.desc":"Linux system administration, users, permissions and automation","program.docker.desc":"Containerization, orchestration and Docker best practices","program.devops.desc":"CI/CD, automation and DevOps culture","program.ctf.desc":"Security challenges: cryptography, web, forensics and more","program.htb.desc":"Completed Hack The Box Academy modules","cert.title":"Earned Certifications","cert.subtitle":"Official recognition of your progress","cert.docker.title":"Docker Certification","cert.docker.platform":"KodeKloud Engineer","cert.challenges":"Challenges","cert.verify":"Verify Certificate","activity.title":"Recent Activity","activity.subtitle":"Latest completed challenges","footer.update":"Last updated"}},i=document.getElementById("lang-toggle"),s=i?.querySelector(".lang-text");function c(){if(typeof localStorage<"u"){const e=localStorage.getItem("lang");if(e==="es"||e==="en")return e}return"es"}function d(e){typeof localStorage<"u"&&localStorage.setItem("lang",e)}function g(e){s&&(s.textContent=e==="es"?"EN":"ES")}function n(e){const t=l[e];document.querySelectorAll("[data-i18n]").forEach(o=>{const r=o.getAttribute("data-i18n");r&&t[r]&&(o.textContent=t[r])}),document.querySelectorAll("[data-i18n-program]").forEach(o=>{const r=o.getAttribute("data-i18n-program");if(r){const a=`program.${r}`;t[a]&&(o.textContent=t[a])}}),document.querySelectorAll("[data-i18n-program-desc]").forEach(o=>{const r=o.getAttribute("data-i18n-program-desc");if(r){const a=`program.${r}.desc`;t[a]&&(o.textContent=t[a])}}),document.documentElement.lang=e,g(e)}const p=c();n(p);i?.addEventListener("click",()=>{const t=c()==="es"?"en":"es";d(t),n(t)});</script> <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Cambiar tema" title="Cambiar tema claro/oscuro" data-astro-cid-x3pjskd3> <!-- Icono Sol (visible en tema oscuro) --> <svg class="icon-sun w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" data-astro-cid-x3pjskd3> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" data-astro-cid-x3pjskd3></path> </svg> <!-- Icono Luna (visible en tema claro) --> <svg class="icon-moon w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" data-astro-cid-x3pjskd3> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" data-astro-cid-x3pjskd3></path> </svg> </button>  <script type="module">const m=document.getElementById("theme-toggle");function c(){return typeof localStorage<"u"&&localStorage.getItem("theme")?localStorage.getItem("theme"):window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}function t(e){e==="dark"?(document.documentElement.classList.remove("light"),document.documentElement.classList.add("dark")):(document.documentElement.classList.remove("dark"),document.documentElement.classList.add("light")),localStorage.setItem("theme",e)}const d=c();d==="light"?document.documentElement.classList.add("light"):document.documentElement.classList.add("dark");m?.addEventListener("click",()=>{const n=(document.documentElement.classList.contains("light")?"light":"dark")==="dark"?"light":"dark";document.documentElement.classList.add("theme-transitioning"),t(n),setTimeout(()=>{document.documentElement.classList.remove("theme-transitioning")},300)});window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change",e=>{localStorage.getItem("theme")||t(e.matches?"dark":"light")});</script> <!-- Mobile Menu Button --> <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg border transition-colors" style="background-color: var(--color-bg-card); border-color: var(--color-border);" aria-label="Menú" data-astro-cid-ouamjn2i> <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-ouamjn2i> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" data-astro-cid-ouamjn2i></path> </svg> </button> </div> </div> <!-- Mobile Navigation --> <div id="mobile-menu" class="hidden md:hidden border-t" style="border-color: var(--color-border); background-color: var(--color-bg-card);" data-astro-cid-ouamjn2i> <nav class="container mx-auto px-4 py-4 flex flex-col gap-2" data-astro-cid-ouamjn2i> <a href="/challenges/" class="mobile-nav-link" data-astro-cid-ouamjn2i>Dashboard</a> <a href="/challenges/linux/" class="mobile-nav-link" data-astro-cid-ouamjn2i>🐧 Linux</a> <a href="/challenges/docker/" class="mobile-nav-link" data-astro-cid-ouamjn2i>🐳 Docker</a> <a href="/challenges/devops/" class="mobile-nav-link" data-astro-cid-ouamjn2i>⚙️ DevOps</a> <a href="/challenges/ctf/" class="mobile-nav-link" data-astro-cid-ouamjn2i>🚩 CTF</a> <a href="/challenges/htb/" class="mobile-nav-link" data-astro-cid-ouamjn2i>🎯 HTB</a> </nav> </div> </header> <!-- Main Content --> <main class="flex-1" data-astro-cid-ouamjn2i>  <main class="container mx-auto px-4 py-8" data-astro-cid-wdujc6bn> <div class="max-w-4xl mx-auto" data-astro-cid-wdujc6bn> <div class="mb-6" data-astro-cid-wdujc6bn> <a href="/challenges" class="text-cyan-400 hover:text-cyan-300" data-astro-cid-wdujc6bn>← Volver al Dashboard</a> </div> <article class="bg-slate-800 rounded-lg p-6 border border-slate-700" data-astro-cid-wdujc6bn> <header class="mb-6" data-astro-cid-wdujc6bn> <h1 class="text-3xl font-bold text-orange-400 mb-2" data-astro-cid-wdujc6bn>Information Disclosure</h1> <div class="flex items-center gap-4 text-sm text-gray-400" data-astro-cid-wdujc6bn> <span class="bg-purple-600 px-2 py-1 rounded text-xs" data-astro-cid-wdujc6bn>CTF</span> <span class="capitalize" data-astro-cid-wdujc6bn>easy</span> <span data-astro-cid-wdujc6bn>2026-02-05</span> <span data-astro-cid-wdujc6bn>picoCTF</span> </div> </header> <div class="prose prose-invert max-w-none" data-astro-cid-wdujc6bn> <div data-astro-cid-wdujc6bn>
+
+# Information Disclosure - OSINT & Reconnaissance
+
+---
+
+👨‍🏫 **Del Instructor**: Ethical Hacker & OSINT Specialist
+
+> 🎯 **Mentalidad de Hacker**: _"La información que consideras basura es oro para un atacante. Cada comentario HTML, cada metadato, cada archivo robots.txt cuenta una historia. Tu trabajo es escuchar lo que los desarrolladores no quieren que escuches."_
+
+---
+
+## 🎭 El Escenario: Fuga de Información en Aplicación Web
+
+### Contexto de Bug Bounty
+
+Eres un bug bounty hunter auditando "TechStartup Inc.", una nueva plataforma SaaS que acaba de lanzar su MVP. Durante tu reconocimiento inicial, notas que la aplicación parece básica pero prometedora.
+
+**Tu misión como investigador de seguridad**: Realizar reconocimiento pasivo y activo para encontrar información sensible que no debería ser pública - credenciales, rutas internas, datos de desarrollo, o cualquier fuga de información que pueda facilitar un ataque.
+
+---
+
+## 🧠 Fundamentos de Análisis: La Superficie de Ataque Invisible
+
+### ¿Qué es Information Disclosure?
+
+La **fuga de información** ocurre cuando una aplicación revela datos sensibles a usuarios que normalmente no tendrían acceso a ellos. Estos datos pueden ser usados por atacantes para:
+
+1. **Mapear la infraestructura**: Descubrir rutas, tecnologías, arquitectura
+2. **Encontrar credenciales**: API keys, contraseñas, tokens hardcodeados
+3. **Identificar vulnerabilidades**: Versiones de software, paths de debugging
+4. **Social engineering**: Emails, nombres de empleados, información interna
+
+**Fuentes comunes de fugas**:
+
+- HTML comments (`<!-- admin panel at /admin -->`)
+- Archivos de configuración expuestos (`.env`, `config.json`)
+- Metadatos (EXIF en imágenes, PDF metadata)
+- Error messages detallados
+- `robots.txt` y `sitemap.xml`
+- Repositorios públicos (GitHub, GitLab)
+- Documentación Swagger/API expuesta
+
+---
+
+## 🔍 Metodología de Investigación
+
+### Fase 1: Reconocimiento Pasivo (OSINT)
+
+```bash
+# Recopilación de subdominios
+subfinder -d target.com -o subdomains.txt
+amass enum -d target.com
+
+# Wayback Machine para URLs históricas
+waybackurls target.com | tee wayback.txt
+gau target.com | tee gau.txt
+
+# GitHub reconnaissance
+github-search -t "target.com" -s "password\|api_key\|secret"
+git-hound --config config.yml
+
+# Google dorks
+site:target.com filetype:env
+site:target.com filetype:sql
+site:target.com intitle:"index of"
+```
+
+### Fase 2: Análisis Activo de la Aplicación
+
+```bash
+# Inspección de código fuente HTML
+curl -s https://target.com | grep -i "<!--"
+curl -s https://target.com | grep -i "password\|secret\|key\|api"
+
+# Verificar archivos comunes
+curl -s https://target.com/robots.txt
+curl -s https://target.com/.env
+curl -s https://target.com/config.json
+curl -s https://target.com/.git/config
+curl -s https://target.com/api/swagger.json
+
+# Fuzzing de directorios
+ffuf -u https://target.com/FUZZ -w /usr/share/wordlists/dirb/common.txt
+gobuster dir -u https://target.com -w /usr/share/wordlists/dirb/common.txt
+
+# Análisis de headers
+curl -I https://target.com | grep -i "server\|x-powered\|via"
+```
+
+### Fase 3: Análisis de Metadatos
+
+```bash
+# Extraer metadatos de imágenes
+exiftool image.jpg | grep -i "author\|copyright\|comment"
+
+# Análisis de PDFs
+pdfinfo document.pdf
+exiftool document.pdf
+
+# Buscar strings en binarios
+strings binary_file | grep -i "password\|secret\|key"
+```
+
+---
+
+## 🛠️ Arsenal de Herramientas
+
+### Herramientas Esenciales
+
+| Herramienta   | Uso                           | Instalación                                                                |
+| ------------- | ----------------------------- | -------------------------------------------------------------------------- |
+| `subfinder`   | Descubrimiento de subdominios | `go install github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest` |
+| `amass`       | OSINT y enumeración de DNS    | `snap install amass`                                                       |
+| `waybackurls` | URLs históricas               | `go install github.com/tomnomnom/waybackurls@latest`                       |
+| `gau`         | GetAllUrls                    | `go install github.com/lc/gau/v2/cmd/gau@latest`                           |
+| `ffuf`        | Fuzzer de directorios         | `go install github.com/ffuf/ffuf@latest`                                   |
+| `gobuster`    | Directorio/file brute forcer  | `apt install gobuster`                                                     |
+| `exiftool`    | Análisis de metadatos         | `apt install libimage-exiftool-perl`                                       |
+| `trufflehog`  | Búsqueda de secretos          | `pip3 install trufflehog`                                                  |
+
+### Script de Reconocimiento Automatizado
+
+```python
+#!/usr/bin/env python3
+"""
+Information Disclosure Scanner - OSINT Automation
+For authorized security testing only
+"""
+
+import requests
+import re
+import sys
+from urllib.parse import urljoin, urlparse
+from concurrent.futures import ThreadPoolExecutor
+import argparse
+
+class InfoDisclosureScanner:
+    def __init__(self, target_url, threads=10):
+        self.target_url = target_url
+        self.threads = threads
+        self.findings = []
+        self.session = requests.Session()
+        self.session.headers.update({
+            'User-Agent': 'Mozilla/5.0 (Security Scanner)'
+        })
+
+    def check_common_files(self):
+        """Busca archivos comunes que podrían exponer información"""
+        common_files = [
+            '/robots.txt',
+            '/.env',
+            '/config.json',
+            '/.git/config',
+            '/.htaccess',
+            '/web.config',
+            '/api/swagger.json',
+            '/api/docs',
+            '/phpinfo.php',
+            '/.DS_Store',
+            '/sitemap.xml',
+            '/admin/',
+            '/backup/',
+            '/.svn/entries',
+            '/.hg/hgrc',
+        ]
+
+        print(f"[*] Escaneando archivos comunes...")
+
+        def check_file(path):
+            url = urljoin(self.target_url, path)
+            try:
+                resp = self.session.get(url, timeout=5, allow_redirects=False)
+                if resp.status_code == 200:
+                    size = len(resp.text)
+                    print(f"  [+] {path} - {resp.status_code} ({size} bytes)")
+                    return {
+                        'type': 'file',
+                        'path': path,
+                        'status': resp.status_code,
+                        'size': size,
+                        'content': resp.text[:500]  # Primeros 500 chars
+                    }
+            except:
+                pass
+            return None
+
+        with ThreadPoolExecutor(max_workers=self.threads) as executor:
+            results = executor.map(check_file, common_files)
+
+        self.findings.extend([r for r in results if r])
+
+    def analyze_html(self):
+        """Analiza el HTML en busca de información sensible"""
+        print(f"\n[*] Analizando HTML fuente...")
+
+        try:
+            resp = self.session.get(self.target_url, timeout=10)
+            html = resp.text
+
+            # Buscar comentarios HTML
+            comments = re.findall(r'<!--(.*?)-->', html, re.DOTALL)
+            for comment in comments:
+                comment = comment.strip()
+                if len(comment) > 5:
+                    print(f"  [+] Comentario HTML encontrado")
+                    self.findings.append({
+                        'type': 'html_comment',
+                        'content': comment[:200]
+                    })
+
+            # Buscar patrones sensibles
+            patterns = {
+                'api_key': r'api[_-]?key\s*[=:]\s*["\']([^"\']+)["\']',
+                'secret': r'secret\s*[=:]\s*["\']([^"\']+)["\']',
+                'password': r'password\s*[=:]\s*["\']([^"\']+)["\']',
+                'email': r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b',
+                'internal_ip': r'\b(?:192\.168\.|10\.|172\.(?:1[6-9]|2[0-9]|3[01])\.)[0-9.]+\b',
+            }
+
+            for pattern_name, pattern in patterns.items():
+                matches = re.findall(pattern, html, re.IGNORECASE)
+                for match in matches:
+                    print(f"  [+] {pattern_name.upper()}: {match}")
+                    self.findings.append({
+                        'type': pattern_name,
+                        'content': match
+                    })
+
+            # Buscar rutas en JavaScript
+            js_paths = re.findall(r'["\'](/[^"\']*(?:api|admin|internal)[^"\']*)["\']', html)
+            for path in set(js_paths):
+                print(f"  [+] Ruta potencial: {path}")
+                self.findings.append({
+                    'type': 'potential_path',
+                    'content': path
+                })
+
+        except Exception as e:
+            print(f"  [-] Error analizando HTML: {e}")
+
+    def check_headers(self):
+        """Analiza headers HTTP"""
+        print(f"\n[*] Analizando headers HTTP...")
+
+        try:
+            resp = self.session.head(self.target_url, timeout=10)
+
+            interesting_headers = ['server', 'x-powered-by', 'via',
+                                   'x-aspnet-version', 'x-generator']
+
+            for header in interesting_headers:
+                if header in resp.headers:
+                    value = resp.headers[header]
+                    print(f"  [+] {header}: {value}")
+                    self.findings.append({
+                        'type': 'header',
+                        'header': header,
+                        'value': value
+                    })
+        except Exception as e:
+            print(f"  [-] Error: {e}")
+
+    def generate_report(self):
+        """Genera reporte de hallazgos"""
+        print("\n" + "=" * 60)
+        print("REPORTE DE INFORMATION DISCLOSURE")
+        print("=" * 60)
+        print(f"\nTarget: {self.target_url}")
+        print(f"Hallazgos totales: {len(self.findings)}")
+        print("\nDetalles:")
+
+        for i, finding in enumerate(self.findings, 1):
+            print(f"\n{i}. Tipo: {finding['type']}")
+            for key, value in finding.items():
+                if key != 'type' and value:
+                    print(f"   {key}: {str(value)[:100]}")
+
+    def scan(self):
+        """Ejecuta escaneo completo"""
+        print(f"[+] Iniciando Information Disclosure Scan")
+        print(f"[*] Target: {self.target_url}")
+        print("=" * 60)
+
+        self.check_common_files()
+        self.analyze_html()
+        self.check_headers()
+        self.generate_report()
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='Information Disclosure Scanner')
+    parser.add_argument('url', help='URL objetivo')
+    parser.add_argument('-t', '--threads', type=int, default=10, help='Número de threads')
+
+    args = parser.parse_args()
+
+    scanner = InfoDisclosureScanner(args.url, args.threads)
+    scanner.scan()
+```
+
+### Uso del Script
+
+```bash
+# Instalar dependencias
+pip3 install requests
+
+# Ejecutar escaneo
+python3 info_disclosure_scanner.py https://target.com
+
+# Output esperado:
+# [+] Iniciando Information Disclosure Scan
+# [*] Target: https://target.com
+# ============================================================
+# [*] Escaneando archivos comunes...
+#   [+] /robots.txt - 200 (234 bytes)
+#   [+] /.env - 200 (156 bytes)
+#
+# [*] Analizando HTML fuente...
+#   [+] Comentario HTML encontrado
+#   [+] API_KEY: sk_live_12345...
+#
+# [*] Analizando headers HTTP...
+#   [+] server: nginx/1.18.0
+#   [+] x-powered-by: PHP/7.4.3
+```
+
+---
+
+## 🎯 Lecciones del Mundo Real
+
+### Casos Documentados
+
+**Caso Uber (2016)**:
+
+- Credentials expuestas en repositorio GitHub público
+- AWS keys comprometidas
+- Impacto: Datos de 57 millones de usuarios
+- **Lección**: Repositorios públicos son minas de oro para atacantes
+
+**Caso Tesla (2018)**:
+
+- Kubernetes console expuesta sin autenticación
+- Cryptominer desplegado en infraestructura
+- **Lección**: Dashboards administrativos deben estar protegidos
+
+**Caso Capital One (2019)**:
+
+- SSRF + Information disclosure
+- 100+ millones de registros expuestos
+- **Lección**: Metadatos cloud pueden ser peligrosos
+
+### OWASP Top 10 Relacionados
+
+- **A01:2021 – Broken Access Control**: Acceso a información sin autorización
+- **A05:2021 – Security Misconfiguration**: Configuraciones por defecto inseguras
+- **A06:2021 – Vulnerable and Outdated Components**: Versión expuesta en headers
+
+### Defensa y Mitigación
+
+**Prevención**:
+
+```bash
+# Remover comentarios HTML en producción
+# Usar build process que limpia comentarios
+
+# Proteger archivos sensibles
+location ~ /\. {
+    deny all;
+}
+
+location ~ ^/(\.env|config\.json|\.git) {
+    deny all;
+}
+
+# Headers de seguridad
+add_header X-Content-Type-Options nosniff;
+add_header X-Frame-Options DENY;
+server_tokens off;
+```
+
+**IOCs**:
+
+- Respuestas 200 en archivos `.env`, `config`
+- Comentarios HTML con rutas internas
+- Headers que revelan versiones exactas
+- Repositorios Git expuestos
+
+---
+
+## 🚀 Solución del Reto
+
+### Paso a Paso
+
+```bash
+# Paso 1: Revisar código fuente
+curl -s http://example.com | grep -i "<!--"
+# <!-- admin panel at /admin-panel -->
+
+# Paso 2: Verificar robots.txt
+curl -s http://example.com/robots.txt
+# User-agent: *
+# Disallow: /admin-panel
+# Disallow: /secret-config
+
+# Paso 3: Acceder a rutas descubiertas
+curl -s http://example.com/secret-config
+# {"flag": "picoCTF{information_disclosure_easy}"}
+```
+
+### Flag
+
+```
+picoCTF{information_disclosure_easy}
+```
+
+---
+
+## 📚 Recursos y Referencias
+
+- [OWASP Information Disclosure](https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/01-Information_Gathering/)
+- [PayloadsAllTheThings - Information Disclosure](https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Information%20Disclosure)
+- [Bug Bounty Hunter Methodology](https://github.com/0xmaximus/Galaxy-Bugbounty-Checklist)
+- [GitHub OSINT Tools](https://github.com/jivoi/awesome-osint)
+
+---
+
+**¿Listo para el siguiente reto?** → Prueba reconocimiento avanzado, análisis de APIs, o bug bounty hunting real.
+</div> </div> </article> <div id="modal-misc/information-disclosure" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50" aria-hidden="true"> <div class="flex items-center justify-center min-h-screen p-4"> <div class="bg-slate-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto"> <div class="p-6 border-b border-slate-700"> <div class="flex justify-between items-start"> <div> <h2 class="text-2xl font-bold text-gray-100">Information Disclosure</h2> <div class="flex items-center gap-4 mt-2 text-sm"> <span class="capitalize bg-slate-700 px-2 py-1 rounded">ctf</span> <span class="text-cyan-400">easy</span> <span class="text-green-400 font-mono">Flag: picoCTF{information_disclosure_easy}</span> </div> </div> <button onclick="closeModal('misc/information-disclosure')" class="text-gray-400 hover:text-white">
+✕
+</button> </div> </div> <div class="p-6"> <div class="mb-6"> <h3 class="text-lg font-semibold text-cyan-400 mb-4">Pasos a Seguir</h3> <div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">1. Contexto de Bug Bounty</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">2. ¿Qué es Information Disclosure?</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">3. Fase 1: Reconocimiento Pasivo (OSINT)</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>subfinder -d target.com -o subdomains.txt
+amass enum -d target.com
+waybackurls target.com | tee wayback.txt
+gau target.com | tee gau.txt
+github-search -t &quot;target.com&quot; -s &quot;password\|api_key\|secret&quot;
+git-hound --config config.yml
+site:target.com filetype:env
+site:target.com filetype:sql
+site:target.com intitle:&quot;index of&quot;</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">4. Fase 2: Análisis Activo de la Aplicación</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>curl -s https://target.com | grep -i &quot;&lt;!--&quot;
+curl -s https://target.com | grep -i &quot;password\|secret\|key\|api&quot;
+curl -s https://target.com/robots.txt
+curl -s https://target.com/.env
+curl -s https://target.com/config.json
+curl -s https://target.com/.git/config
+curl -s https://target.com/api/swagger.json
+ffuf -u https://target.com/FUZZ -w /usr/share/wordlists/dirb/common.txt
+gobuster dir -u https://target.com -w /usr/share/wordlists/dirb/common.txt
+curl -I https://target.com | grep -i &quot;server\|x-powered\|via&quot;</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">5. Fase 3: Análisis de Metadatos</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>exiftool image.jpg | grep -i &quot;author\|copyright\|comment&quot;
+pdfinfo document.pdf
+exiftool document.pdf
+strings binary_file | grep -i &quot;password\|secret\|key&quot;</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">6. Herramientas Esenciales</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">7. Script de Reconocimiento Automatizado</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">8. Uso del Script</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>pip3 install requests
+python3 info_disclosure_scanner.py https://target.com</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">9. Casos Documentados</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">10. OWASP Top 10 Relacionados</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">11. Defensa y Mitigación</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>location ~ /\. {
+deny all;
+}
+location ~ ^/(\.env|config\.json|\.git) {
+deny all;
+}
+add_header X-Content-Type-Options nosniff;
+add_header X-Frame-Options DENY;
+server_tokens off;</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">12. Paso a Paso</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>curl -s http://example.com | grep -i &quot;&lt;!--&quot;
+curl -s http://example.com/robots.txt
+curl -s http://example.com/secret-config</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">13. Flag</h4>   </div> </div>    </div> </div> </div> </div> <script type="module">document.addEventListener("click",e=>{const t=e.target;t.classList.contains("bg-black")&&(t.classList.add("hidden"),t.setAttribute("aria-hidden","true"))});</script> <!-- Navigation --> <div class="nav-buttons" data-astro-cid-wdujc6bn> <a href="/challenges/ctf/forensics/log-hunt" class="nav-btn prev" data-astro-cid-wdujc6bn> <span class="nav-icon" data-astro-cid-wdujc6bn>←</span> <span class="nav-content" data-astro-cid-wdujc6bn> <span class="nav-label" data-astro-cid-wdujc6bn>Anterior</span> <span class="nav-title" data-astro-cid-wdujc6bn>Log Hunt</span> </span> </a> <a href="/challenges/ctf/" class="nav-btn home" data-astro-cid-wdujc6bn> <span class="nav-icon" data-astro-cid-wdujc6bn>🚩</span> <span class="nav-content" data-astro-cid-wdujc6bn> <span class="nav-label" data-astro-cid-wdujc6bn>Volver</span> <span class="nav-title" data-astro-cid-wdujc6bn>Todos los Retos</span> </span> </a> <a href="/challenges/ctf/pwn/buffer-overflow" class="nav-btn next" data-astro-cid-wdujc6bn> <span class="nav-content" data-astro-cid-wdujc6bn> <span class="nav-label" data-astro-cid-wdujc6bn>Siguiente</span> <span class="nav-title" data-astro-cid-wdujc6bn>Buffer Overflow Basics</span> </span> <span class="nav-icon" data-astro-cid-wdujc6bn>→</span> </a> </div> </div> </main>  </main>  <script type="module">const e=document.getElementById("mobile-menu-btn"),n=document.getElementById("mobile-menu");e?.addEventListener("click",()=>{n?.classList.toggle("hidden")});</script></body></html> 

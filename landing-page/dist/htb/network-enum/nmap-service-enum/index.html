@@ -1,0 +1,217 @@
+<!DOCTYPE html><html lang="es"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="HTB Academy - Service Enumeration with Nmap - HTB Challenge"><link rel="icon" type="image/svg+xml" href="/challenges/favicon.svg"><title>HTB Academy - Service Enumeration with Nmap | HTB Challenge</title><link rel="stylesheet" href="/challenges/_astro/_slug_-DHZt47Ra.css">
+<style>.markdown-body{font-family:system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;line-height:1.8;color:#e5e7eb}.markdown-body h1{font-size:2rem;font-weight:700;color:#f97316;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid #374151}.markdown-body h2{font-size:1.5rem;font-weight:600;color:#22d3ee;margin:1.75rem 0 1rem;padding-bottom:.25rem}.markdown-body h3{font-size:1.25rem;font-weight:600;color:#a5f3fc;margin:1.5rem 0 .75rem}.markdown-body p{margin:.75rem 0;color:#d1d5db}.markdown-body strong{color:#fbbf24;font-weight:600}.markdown-body ul,.markdown-body ol{margin:.75rem 0;padding-left:1.5rem;color:#d1d5db}.markdown-body li{margin:.5rem 0;list-style-type:disc}.markdown-body table{width:100%;margin:1rem 0;border-collapse:collapse;font-size:.9rem}.markdown-body th,.markdown-body td{padding:.75rem;border:1px solid #374151;text-align:left}.markdown-body th{background:#37415180;color:#fbbf24;font-weight:600}.markdown-body td{color:#d1d5db}.markdown-body code{background:#06b6d426;color:#22d3ee;padding:.2rem .5rem;border-radius:.375rem;font-family:SF Mono,Monaco,Courier New,monospace;font-size:.875rem}.markdown-body pre{background:#0f172a;padding:1rem;border-radius:.75rem;overflow-x:auto;margin:1rem 0;border:1px solid #1e293b}.markdown-body pre code{background:transparent;padding:0;color:#a5b4fc}
+</style></head> <body class="bg-slate-950 text-gray-100 min-h-screen"> <header class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 border-b border-slate-800"> <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4"> <nav class="flex mb-6" aria-label="Breadcrumb"> <ol class="flex items-center space-x-2"> <li class="flex items-center">  <a href="/challenges" class="text-cyan-400 hover:text-cyan-300 transition-colors"> Challenges </a> </li><li class="flex items-center"> <span class="text-gray-500 mx-2">/</span> <a href="/challenges/htb" class="text-cyan-400 hover:text-cyan-300 transition-colors"> HTB </a> </li><li class="flex items-center"> <span class="text-gray-500 mx-2">/</span> <span class="text-gray-300 font-medium">HTB Academy - Service Enumeration with Nmap</span> </li> </ol> </nav> </nav> <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12"> <div class="flex items-center space-x-4 mb-4"> <span class="px-4 py-2 bg-gradient-to-r from-green-500 to-teal-600 rounded-full text-lg font-bold text-white">
+🎯
+</span> <span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">✅ Completado</span> <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">⭐ easy</span> <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">HTB</span> </div> <h1 class="text-4xl font-bold text-white mb-2">HTB Academy - Service Enumeration with Nmap</h1> <p class="text-gray-400">HTB Challenge</p> </div> </header> <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12"> <article class="prose prose-invert max-w-none"> <div class="bg-slate-900 rounded-xl border border-slate-800 p-8"> <div class="mb-6 p-4 bg-red-500/10 border border-red-500/30 rounded-lg"> <p class="text-red-400 text-sm font-bold mb-2">🏴 Flag</p> <code class="text-red-300 font-mono text-lg">HTB{pr0F7pDv3r510nb4nn3r}</code> </div> <div class="flex flex-wrap gap-2 mb-6"> <span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#nmap</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#enumeration</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#htb-academy</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#service-detection</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#banner-grabbing</span> </div> <div class="markdown-body"><h1>HTB Academy - Service Enumeration with Nmap</h1>
+<h2>🎓 Del Instructor: El Arte del Banner Grabbing</h2>
+<p>En el mundo del Ethical Hacking, la información es poder. Un simple banner puede revelar la versión exacta de un servicio, el sistema operativo, e incluso <strong>flags ocultas</strong> en desafíos CTF.</p>
+<blockquote>
+<p>🎯 <strong>Mentalidad de Hacker</strong>: &quot;Nmap es tu navaja suiza, pero a veces necesitas herramientas más específicas. El banner grabbing manual revela lo que los escaneos automatizados pasan por alto.&quot;</p>
+</blockquote>
+<hr>
+<h2>🎭 El Escenario: Network Enumeration - Service Detection</h2>
+<p><strong>Plataforma</strong>: Hack The Box Academy<br><strong>Módulo</strong>: Network Enumeration with Nmap<br><strong>Sección</strong>: Service Enumeration<br><strong>Target</strong>: 10.129.4.45 (ACADEMY-NMAP-DEFAULT)</p>
+<h3>Objetivo</h3>
+<p>Enumerar todos los puertos y sus servicios. Uno de los servicios contiene el flag.</p>
+<hr>
+<h2>🧠 Fundamentos de Análisis: Service Version Detection</h2>
+<h3>¿Por qué detectar versiones?</h3>
+<p>La detección de versiones es crítica para:</p>
+<ul>
+<li><strong>Vulnerability Assessment</strong>: Identificar CVEs conocidos</li>
+<li><strong>Exploit Development</strong>: Buscar exploits específicos</li>
+<li><strong>Source Code Analysis</strong>: Analizar código de versiones específicas</li>
+<li><strong>OS Fingerprinting</strong>: Determinar el sistema operativo</li>
+</ul>
+<h3>Opciones de Nmap para Version Detection</h3>
+<table>
+<thead>
+<tr>
+<th>Opción</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>-sV</code></td>
+<td>Service version detection</td>
+</tr>
+<tr>
+<td><code>-sV --version-intensity 0-9</code></td>
+<td>Nivel de intensidad</td>
+</tr>
+<tr>
+<td><code>-sV --version-light</code></td>
+<td>Modo ligero (intensity 2)</td>
+</tr>
+<tr>
+<td><code>-sV --version-all</code></td>
+<td>Modo completo (intensity 9)</td>
+</tr>
+</tbody></table>
+<h3>El Problema del Banner Grabbing</h3>
+<p>Nmap a veces no muestra toda la información del banner. Ejemplo:</p>
+<pre><code># Nmap muestra:
+31337/tcp open  ftp  ProFTPD
+
+# El banner real contiene:
+220 HTB{pr0F7pDv3r510nb4nn3r}
+</code></pre>
+<hr>
+<h2>🔍 Metodología de Investigación</h2>
+<h3>Paso 1: Escaneo Completo de Puertos</h3>
+<pre><code class="language-bash"># Escaneo de todos los puertos con detección de versión
+sudo nmap 10.129.4.45 -p- -sV
+</code></pre>
+<p><strong>Problema encontrado</strong>: El escaneo completo tomó demasiado tiempo y eventualmente falló con &quot;host timeout&quot;.</p>
+<h3>Paso 2: Escaneo Dirigido a Puertos Conocidos</h3>
+<pre><code class="language-bash"># Escanear solo los puertos detectados previamente
+sudo nmap 10.129.4.45 -p 22,80,110,139,143,445,31337 -sV --host-timeout 300s
+</code></pre>
+<p><strong>Resultados:</strong></p>
+<pre><code>PORT      STATE SERVICE     VERSION
+22/tcp    open  ssh         OpenSSH 7.6p1 Ubuntu 4ubuntu0.7
+80/tcp    open  http        Apache httpd 2.4.29 ((Ubuntu))
+110/tcp   open  pop3        Dovecot pop3d
+139/tcp   open  netbios-ssn Samba smbd 3.X - 4.X (workgroup: WORKGROUP)
+143/tcp   open  imap        Dovecot imapd (Ubuntu)
+445/tcp   open  netbios-ssn Samba smbd 3.X - 4.X (workgroup: WORKGROUP)
+31337/tcp open  ftp         ProFTPD
+</code></pre>
+<h3>Paso 3: Banner Grabbing Manual</h3>
+<pre><code class="language-bash"># Banner del FTP (puerto 31337)
+nc -nv 10.129.4.45 31337
+</code></pre>
+<p><strong>Output:</strong></p>
+<pre><code>220 HTB{pr0F7pDv3r510nb4nn3r}
+</code></pre>
+<p><strong>¡Flag encontrada!</strong></p>
+<hr>
+<h2>🛠️ Arsenal de Herramientas</h2>
+<h3>Banner Grabbing</h3>
+<pre><code class="language-bash"># Usando netcat
+nc -nv &lt;IP&gt; &lt;PORT&gt;
+
+# Usando telnet
+telnet &lt;IP&gt; &lt;PORT&gt;
+
+# Usando curl (para HTTP)
+curl -I http://&lt;IP&gt;
+
+# Usando nmap con packet trace
+sudo nmap &lt;IP&gt; -p &lt;PORT&gt; -sV --packet-trace
+</code></pre>
+<h3>Verbosidad en Nmap</h3>
+<pre><code class="language-bash"># Modo verboso
+sudo nmap &lt;IP&gt; -p- -sV -v
+
+# Ver puertos en tiempo real
+sudo nmap &lt;IP&gt; -p- -sV -vv
+
+# Stats cada 5 segundos
+sudo nmap &lt;IP&gt; -p- -sV --stats-every=5s
+</code></pre>
+<hr>
+<h2>📊 Análisis de Servicios Detectados</h2>
+<table>
+<thead>
+<tr>
+<th>Puerto</th>
+<th>Servicio</th>
+<th>Versión</th>
+<th>Vector de Ataque Potencial</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>22</td>
+<td>SSH</td>
+<td>OpenSSH 7.6p1</td>
+<td>Brute force, key theft</td>
+</tr>
+<tr>
+<td>80</td>
+<td>HTTP</td>
+<td>Apache 2.4.29</td>
+<td>Web vulnerabilities</td>
+</tr>
+<tr>
+<td>110</td>
+<td>POP3</td>
+<td>Dovecot</td>
+<td>Email enumeration</td>
+</tr>
+<tr>
+<td>139/445</td>
+<td>SMB</td>
+<td>Samba 3.X-4.X</td>
+<td>SMB exploits, share enumeration</td>
+</tr>
+<tr>
+<td>143</td>
+<td>IMAP</td>
+<td>Dovecot</td>
+<td>Email enumeration</td>
+</tr>
+<tr>
+<td>31337</td>
+<td>FTP</td>
+<td>ProFTPD</td>
+<td><strong>Flag en banner</strong></td>
+</tr>
+</tbody></table>
+<hr>
+<h2>✅ Checklist de Verificación</h2>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> Escaneo completo de puertos ejecutado</li>
+<li><input checked="" disabled="" type="checkbox"> Detección de versiones realizada</li>
+<li><input checked="" disabled="" type="checkbox"> Banner grabbing manual ejecutado</li>
+<li><input checked="" disabled="" type="checkbox"> Flag encontrada: HTB{pr0F7pDv3r510nb4nn3r}</li>
+<li><input checked="" disabled="" type="checkbox"> Todos los servicios documentados</li>
+</ul>
+<hr>
+<h2>🎓 Lecciones Aprendidas</h2>
+<h3>Técnicas</h3>
+<ol>
+<li><strong>Nmap puede perder información</strong> - Siempre verificar con banner grabbing manual</li>
+<li><strong>Los banners pueden contener información sensible</strong> - Flags, versiones exactas, configuraciones</li>
+<li><strong>El puerto 31337 (Elite)</strong> es común en CTFs para &quot;puertos especiales&quot;</li>
+<li><strong>Host timeout</strong> - Aumentar con <code>--host-timeout</code> para conexiones lentas</li>
+</ol>
+<h3>Mentalidad</h3>
+<ol>
+<li><strong>Desconfía de los resultados automatizados</strong> - Verifica manualmente</li>
+<li><strong>Los puertos no estándar merecen atención especial</strong></li>
+<li><strong>La paciencia en escaneos lentos paga con información completa</strong></li>
+</ol>
+<hr>
+<h2>🚀 Próximos Pasos</h2>
+<ol>
+<li><strong>Nmap NSE Scripts</strong> - Scripts para enumeración avanzada</li>
+<li><strong>SMB Enumeration</strong> - Enumerar shares de Samba</li>
+<li><strong>HTTP Enumeration</strong> - Directorios y archivos ocultos</li>
+<li><strong>SSH Hardening</strong> - Cómo proteger estos servicios</li>
+</ol>
+<hr>
+<h2>📚 Recursos</h2>
+<ul>
+<li><a href="https://nmap.org/book/vscan.html">Nmap Service Version Detection</a></li>
+<li><a href="https://academy.hackthebox.com/module/details/19">HTB Academy - Network Enumeration</a></li>
+<li><a href="https://www.netcat%5D(http://netcat.sourceforge.net/">Banner Grabbing Techniques</a></li>
+</ul>
+<hr>
+<h2>✅ Estado</h2>
+<p><strong>COMPLETADO</strong> 🎉</p>
+<ul>
+<li>📅 Fecha: 2026-02-20</li>
+<li>⏱️ Tiempo: 15 minutos</li>
+<li>🎯 Dificultad: Fácil</li>
+<li>🚩 Flag: <code>HTB{pr0F7pDv3r510nb4nn3r}</code></li>
+<li>🎯 Puerto: 31337/tcp (ProFTPD)</li>
+</ul>
+</div> </div> </article> <div class="mt-8 flex justify-between items-center"> <a href="/challenges/htb/" class="px-6 py-3 bg-slate-700 hover:bg-slate-600 rounded-lg transition-colors">
+← Volver
+</a> <button onclick="openModal('network-enum/nmap-service-enum')" class="px-6 py-3 bg-gradient-to-r from-green-500 to-teal-600 hover:from-green-600 hover:to-teal-700 rounded-lg transition-all font-medium flex items-center gap-2 shadow-lg shadow-green-500/25"> <span>📋</span> <span>Ver Solución Paso a Paso</span> </button> </div> </main> <div id="modal-network-enum/nmap-service-enum" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50" aria-hidden="true"> <div class="flex items-center justify-center min-h-screen p-4"> <div class="bg-slate-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto"> <div class="p-6 border-b border-slate-700"> <div class="flex justify-between items-start"> <div> <h2 class="text-2xl font-bold text-gray-100">HTB Academy - Service Enumeration with Nmap</h2> <div class="flex items-center gap-4 mt-2 text-sm"> <span class="capitalize bg-slate-700 px-2 py-1 rounded">htb</span> <span class="text-cyan-400">easy</span> <span class="text-green-400 font-mono">Flag: HTB{pr0F7pDv3r510nb4nn3r}</span> </div> </div> <button onclick="closeModal('network-enum/nmap-service-enum')" class="text-gray-400 hover:text-white">
+✕
+</button> </div> </div> <div class="p-6"> <div class="mb-6"> <h3 class="text-lg font-semibold text-cyan-400 mb-4">Pasos a Seguir</h3> <div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">1. Comandos de Solución</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>sudo nmap 10.129.4.45 -p- -sV</code>
+                  </pre>  </div> </div> <div class="mb-6"> <h3 class="text-lg font-semibold text-yellow-400 mb-4">Verificación</h3> <ul class="space-y-2"> <li class="flex items-center text-gray-300"> <span class="text-green-400 mr-2">✓</span> Reto completado </li><li class="flex items-center text-gray-300"> <span class="text-green-400 mr-2">✓</span> Puntuación obtenida </li> </ul> </div>   </div> </div> </div> </div> <script type="module">document.addEventListener("click",e=>{const t=e.target;t.classList.contains("bg-black")&&(t.classList.add("hidden"),t.setAttribute("aria-hidden","true"))});</script> <footer class="border-t border-slate-800 mt-16"> <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center text-gray-500 text-sm"> <p>Technical Challenges Repository | HTB Challenge</p> </div> </footer> <script type="module">function e(d){const o=document.getElementById(`modal-${d}`);o&&(o.classList.remove("hidden"),document.body.style.overflow="hidden")}function n(d){const o=document.getElementById(`modal-${d}`);o&&(o.classList.add("hidden"),document.body.style.overflow="")}window.openModal=e;window.closeModal=n;</script> </body> </html>

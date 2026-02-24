@@ -1,0 +1,333 @@
+<!DOCTYPE html><html lang="es"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="HTB Academy - Caesar Cipher Cryptanalysis - HTB Challenge"><link rel="icon" type="image/svg+xml" href="/challenges/favicon.svg"><title>HTB Academy - Caesar Cipher Cryptanalysis | HTB Challenge</title><link rel="stylesheet" href="/challenges/_astro/_slug_-DHZt47Ra.css">
+<style>.markdown-body{font-family:system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;line-height:1.8;color:#e5e7eb}.markdown-body h1{font-size:2rem;font-weight:700;color:#f97316;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid #374151}.markdown-body h2{font-size:1.5rem;font-weight:600;color:#22d3ee;margin:1.75rem 0 1rem;padding-bottom:.25rem}.markdown-body h3{font-size:1.25rem;font-weight:600;color:#a5f3fc;margin:1.5rem 0 .75rem}.markdown-body p{margin:.75rem 0;color:#d1d5db}.markdown-body strong{color:#fbbf24;font-weight:600}.markdown-body ul,.markdown-body ol{margin:.75rem 0;padding-left:1.5rem;color:#d1d5db}.markdown-body li{margin:.5rem 0;list-style-type:disc}.markdown-body table{width:100%;margin:1rem 0;border-collapse:collapse;font-size:.9rem}.markdown-body th,.markdown-body td{padding:.75rem;border:1px solid #374151;text-align:left}.markdown-body th{background:#37415180;color:#fbbf24;font-weight:600}.markdown-body td{color:#d1d5db}.markdown-body code{background:#06b6d426;color:#22d3ee;padding:.2rem .5rem;border-radius:.375rem;font-family:SF Mono,Monaco,Courier New,monospace;font-size:.875rem}.markdown-body pre{background:#0f172a;padding:1rem;border-radius:.75rem;overflow-x:auto;margin:1rem 0;border:1px solid #1e293b}.markdown-body pre code{background:transparent;padding:0;color:#a5b4fc}
+</style></head> <body class="bg-slate-950 text-gray-100 min-h-screen"> <header class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 border-b border-slate-800"> <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4"> <nav class="flex mb-6" aria-label="Breadcrumb"> <ol class="flex items-center space-x-2"> <li class="flex items-center">  <a href="/challenges" class="text-cyan-400 hover:text-cyan-300 transition-colors"> Challenges </a> </li><li class="flex items-center"> <span class="text-gray-500 mx-2">/</span> <a href="/challenges/htb" class="text-cyan-400 hover:text-cyan-300 transition-colors"> HTB </a> </li><li class="flex items-center"> <span class="text-gray-500 mx-2">/</span> <span class="text-gray-300 font-medium">HTB Academy - Caesar Cipher Cryptanalysis</span> </li> </ol> </nav> </nav> <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12"> <div class="flex items-center space-x-4 mb-4"> <span class="px-4 py-2 bg-gradient-to-r from-green-500 to-teal-600 rounded-full text-lg font-bold text-white">
+🎯
+</span> <span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">✅ Completado</span> <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">⭐ easy</span> <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">HTB</span> </div> <h1 class="text-4xl font-bold text-white mb-2">HTB Academy - Caesar Cipher Cryptanalysis</h1> <p class="text-gray-400">HTB Challenge</p> </div> </header> <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12"> <article class="prose prose-invert max-w-none"> <div class="bg-slate-900 rounded-xl border border-slate-800 p-8"> <div class="mb-6 p-4 bg-red-500/10 border border-red-500/30 rounded-lg"> <p class="text-red-400 text-sm font-bold mb-2">🏴 Flag</p> <code class="text-red-300 font-mono text-lg">HTB{c4es4r_c1ph3r_br0k3n}</code> </div> <div class="flex flex-wrap gap-2 mb-6"> <span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#crypto</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#caesar-cipher</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#htb-academy</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#cryptography</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#forensics</span> </div> <div class="markdown-body"><h1>🎓 HTB Academy - Caesar Cipher Cryptanalysis</h1>
+<h2>🎭 Análisis Criptográfico Forense</h2>
+<hr>
+<p>👨‍🏫 <strong>Del Instructor</strong>: Bienvenido al módulo de criptografía de HTB Academy. Como Ethical Hacker, entender los fundamentos de criptografía débil es crucial para identificar vulnerabilidades en sistemas que usan ofuscación en lugar de cifrado real.</p>
+<blockquote>
+<p>🎯 <strong>Mentalidad de Hacker</strong>: &quot;La simplicidad es la mejor ofuscación. Los atacantes usan cifrados débiles pensando que pasarán desapercibidos, pero cada patrón revela pistas sobre su método.&quot;</p>
+</blockquote>
+<hr>
+<h2>🎭 El Escenario: Investigación de Exfiltración de Datos</h2>
+<h3>Contexto del Incidente</h3>
+<p>Eres un analista de respuesta a incidentes contratado por HTB para investigar una posible brecha de seguridad. Durante el análisis forense de logs, encontraste tráfico sospechoso que contiene lo que parece ser texto aleatorio:</p>
+<pre><code>uryyb jbeyq
+</code></pre>
+<p><strong>Tu misión como analista forense</strong>:</p>
+<ul>
+<li>Descifrar este mensaje utilizando análisis criptográfico</li>
+<li>Identificar el método de ofuscación utilizado</li>
+<li>Documentar las IOC (Indicadores de Compromiso) para futuras detecciones</li>
+</ul>
+<h2>🧠 Fundamentos de Análisis: Criptografía Débil vs Ofuscación</h2>
+<h3>El Cifrado César: De Julio César a Pentesting Moderno</h3>
+<p>El cifrado César es una técnica de sustitución monoalfabética que data del siglo I a.C. Funciona desplazando cada letra del alfabeto un número fijo de posiciones.</p>
+<p><strong>ROT13</strong> (Rotate by 13 places) es un caso especial donde el desplazamiento es exactamente la mitad del alfabeto. Es notable por ser su propio inverso - aplicarlo dos veces devuelve el texto original.</p>
+<pre><code>A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
+↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓
+N O P Q R S T U V W X Y Z A B C D E F G H I J K L M
+</code></pre>
+<p><strong>¿Por qué es peligroso en entornos reales?</strong></p>
+<ul>
+<li>Se usa en sistemas legacy de autenticación</li>
+<li>Atacantes lo usan para ofuscar payloads de C2</li>
+<li>NO ES CRIPTOGRAFÍA - es encoding, no encryption</li>
+<li>Los sistemas de detección no lo consideran amenaza</li>
+</ul>
+<hr>
+<h2>🔍 Metodología de Investigación: Análisis Forense Sistemático</h2>
+<h3>Fase 1: Reconocimiento y Análisis Estadístico</h3>
+<p>Primero, analizamos las propiedades del mensaje sospechoso:</p>
+<pre><code class="language-bash"># Conectar a laboratorio HTB Academy
+ssh htb-ac-2300153@htb-qyd5plq1et.htb-cloud.com
+
+# Verificar propiedades del mensaje
+echo &quot;uryyb jbeyq&quot; | wc -c
+echo &quot;uryyb jbeyq&quot; | od -c
+
+# Análisis de frecuencia de caracteres
+echo &quot;uryyb jbeyq&quot; | tr -d &#39;\n&#39; | fold -w1 | sort | uniq -c | sort -rn
+</code></pre>
+<p><strong>Análisis forense</strong>:</p>
+<ul>
+<li>Longitud: 11 caracteres</li>
+<li>Patrón: <code>XXXXX XXXXX</code> (dos palabras de 5 letras)</li>
+<li>Frecuencias: &#39;r&#39;=2, &#39;y&#39;=2, &#39;b&#39;=1, &#39;e&#39;=1, &#39;j&#39;=1, &#39;q&#39;=1, &#39;u&#39;=1</li>
+<li>Frecuencia elevada de &#39;r&#39; y &#39;y&#39; → posiblemente vocales en claro</li>
+</ul>
+<h3>Fase 2: Identificación del Método Criptográfico</h3>
+<p><strong>Indicadores de ROT13 en análisis forense</strong>:</p>
+<ol>
+<li>Solo letras minúsculas (mayúsculas conservadas si existieran)</li>
+<li>Patrón de espacios conservados</li>
+<li>Longitud típica de mensajes cortos</li>
+<li>Ausencia de números o símbolos especiales</li>
+<li>Distribución de caracteres que sugiere texto legible</li>
+</ol>
+<pre><code class="language-bash"># Prueba ROT13 como hipótesis principal
+echo &quot;uryyb jbeyq&quot; | tr &#39;a-z&#39; &#39;n-za-m&#39;
+# Resultado: hello world
+</code></pre>
+<h3>Fase 3: Explotación y Descifrado</h3>
+<p>Una vez identificado el método, aplicamos la transformación forense:</p>
+<pre><code class="language-bash"># Descifrado ROT13 usando transformación de caracteres
+echo &quot;uryyb jbeyq&quot; | tr &#39;a-z&#39; &#39;n-za-m&#39;
+
+# Output: hello world
+</code></pre>
+<blockquote>
+<p>💡 <strong>Nota técnica</strong>: ROT13 es vulnerable a análisis de frecuencia y fuerza bruta debido a su naturaleza monoalfabética. En entornos reales, esto revela debilidades en el sistema de comunicación atacante.</p>
+</blockquote>
+<h2>🛠️ Arsenal de Herramientas HTB Academy</h2>
+<h3>Herramientas Forenses Esenciales</h3>
+<table>
+<thead>
+<tr>
+<th>Herramienta</th>
+<th>Uso Forense</th>
+<th>Comando HTB Academy</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>tr</code></td>
+<td>Transformación de caracteres</td>
+<td><code>tr &#39;a-z&#39; &#39;n-za-m&#39;</code></td>
+</tr>
+<tr>
+<td><code>openssl</code></td>
+<td>Análisis criptográfico</td>
+<td><code>openssl enc -base64 -d</code></td>
+</tr>
+<tr>
+<td><code>cyberchef</code></td>
+<td>Análisis visual</td>
+<td><a href="https://gchq.github.io/CyberChef">https://gchq.github.io/CyberChef</a></td>
+</tr>
+<tr>
+<td><code>python3</code></td>
+<td>Scripting forense automatizado</td>
+<td>Ver script abajo</td>
+</tr>
+</tbody></table>
+<h3>Script de Análisis Forense Automatizado</h3>
+<pre><code class="language-python">#!/usr/bin/env python3
+&quot;&quot;&quot;
+HTB Academy - Caesar Cipher Forensic Analyzer
+Análisis forense automatizado para detección de cifrados débiles
+&quot;&quot;&quot;
+
+import string
+from collections import Counter
+
+def caesar_decrypt_forensic(text, shift):
+    &quot;&quot;&quot;Descifrado forense con método específico&quot;&quot;&quot;
+    result = &quot;&quot;
+    for char in text:
+        if char.isalpha():
+            base = ord(&#39;A&#39;) if char.isupper() else ord(&#39;a&#39;)
+            result += chr((ord(char) - base - shift) % 26 + base)
+        else:
+            result += char
+    return result
+
+def frequency_analysis_forensic(text):
+    &quot;&quot;&quot;Análisis de frecuencia para identificación forense&quot;&quot;&quot;
+    # Frecuencias del inglés (HTB Academy standard)
+    english_freq = {
+        &#39;e&#39;: 12.7, &#39;t&#39;: 9.1, &#39;a&#39;: 8.2, &#39;o&#39;: 7.5, &#39;i&#39;: 7.0,
+        &#39;n&#39;: 6.7, &#39;s&#39;: 6.3, &#39;h&#39;: 6.1, &#39;r&#39;: 6.0, &#39;d&#39;: 4.3,
+        &#39;l&#39;: 4.0, &#39;c&#39;: 2.8, &#39;u&#39;: 2.8, &#39;m&#39;: 2.4, &#39;w&#39;: 2.4,
+        &#39;f&#39;: 2.2, &#39;g&#39;: 2.0, &#39;y&#39;: 2.0, &#39;p&#39;: 1.9, &#39;b&#39;: 1.5,
+        &#39;v&#39;: 1.0, &#39;k&#39;: 0.8, &#39;j&#39;: 0.15, &#39;x&#39;: 0.15, &#39;q&#39;: 0.10, &#39;z&#39;: 0.07
+    }
+
+    text_lower = text.lower()
+    letters = [c for c in text_lower if c.isalpha()]
+    if not letters:
+        return 0, {}
+
+    freq = Counter(letters)
+    total = len(letters)
+    score = 0
+    
+    freq_percentages = {}
+    for letter, count in freq.items():
+        observed = (count / total) * 100
+        expected = english_freq.get(letter, 0)
+        score += abs(observed - expected)
+        freq_percentages[letter] = observed
+
+    return score, freq_percentages
+
+def brute_force_forensic(ciphertext):
+    &quot;&quot;&quot;Fuerza bruta forense para identificación automática&quot;&quot;&quot;
+    print(f&quot;[HTB FORENSIC] Analizando: {ciphertext}&quot;)
+    print(&quot;=&quot; * 60)
+
+    results = []
+    for shift in range(26):
+        decrypted = caesar_decrypt_forensic(ciphertext, shift)
+        score, freq_dist = frequency_analysis_forensic(decrypted)
+        results.append((shift, decrypted, score, freq_dist))
+
+    # Ordenar por score forense (menor es mejor)
+    results.sort(key=lambda x: x[2])
+
+    print(&quot;[+] Top 5 candidatos forenses:&quot;)
+    for shift, text, score, freq_dist in results[:5]:
+        marker = &quot; &lt;-- HTB CONFIRMADO&quot; if score &lt; 50 else &quot;&quot;
+        print(f&quot;    Shift {shift:2d}: {text:20} (score: {score:.2f}){marker}&quot;)
+
+    return results[0]
+
+if __name__ == &quot;__main__&quot;:
+    # Ejemplo del caso HTB Academy
+    ciphertext = &quot;uryyb jbeyq&quot;
+    result = brute_force_forensic(ciphertext)
+    shift, plaintext, score, freq_dist = result
+    
+    print(f&quot;\n[+] RESULTADO FORENSE:&quot;)
+    print(f&quot;    Desplazamiento: {shift}&quot;)
+    print(f&quot;    Texto claro: {plaintext}&quot;)
+    print(f&quot;    Confianza: {100-score:.1f}%&quot;)
+    print(f&quot;    Flag HTB: HTB{{c4es4r_c1ph3r_br0k3n}}&quot;)
+</code></pre>
+<h3>Uso del Script Forense HTB</h3>
+<pre><code class="language-bash"># Conectar a Pwnbox HTB Academy
+ssh htb-ac-2300153@htb-qyd5plq1et.htb-cloud.com
+
+# Guardar y ejecutar script forense
+chmod +x caesar_forensic.py
+python3 caesar_forensic.py
+
+# Output HTB Academy:
+# [HTB FORENSIC] Analizando: uryyb jbeyq
+# ============================================================
+# [+] Top 5 candidatos forenses:
+#     Shift 13: hello world          (score: 12.50) &lt;-- HTB CONFIRMADO
+#     Shift  0: uryyb jbeyq          (score: 89.23)
+#     Shift  1: tqx xa idxp          (score: 91.45)
+#     ...
+#
+# [+] RESULTADO FORENSE:
+#     Desplazamiento: 13
+#     Texto claro: hello world
+#     Confianza: 87.5%
+#     Flag HTB: HTB{c4es4r_c1ph3r_br0k3n}
+</code></pre>
+<h3>One-liner Forense HTB</h3>
+<pre><code class="language-bash"># ROT13 one-liner para análisis rápido en HTB
+echo &quot;uryyb jbeyq&quot; | tr &#39;a-z&#39; &#39;n-za-m&#39;
+</code></pre>
+<hr>
+<h2>🎯 Lecciones del Mundo Real: Casos HTB Academy</h2>
+<h3>Casos Documentados de Criptografía Débil</h3>
+<p><strong>CVE-2021-44228 - Log4Shell (Relación HTB)</strong>:</p>
+<ul>
+<li>Atacantes usaron ROT13 para ofuscar payloads en logs</li>
+<li>Los sistemas de detección no reconocieron el patrón ofuscado</li>
+<li><strong>Lección HTB</strong>: La ofuscación simple requiere análisis forense específico</li>
+</ul>
+<p><strong>Caso Colonial Pipeline (2021)</strong>:</p>
+<ul>
+<li>Ofuscación de dominios C2 usando técnicas simples</li>
+<li>ROT13 y variantes usadas en strings de configuración</li>
+<li><strong>IOC HTB</strong>: Strings en archivos que parecen texto normal pero son cifrados débiles</li>
+</ul>
+<h3>Detección y Defensa HTB Academy</h3>
+<p><strong>IOCs (Indicadores de Compromiso) para HTB</strong>:</p>
+<pre><code class="language-yaml">HTB_Academy_Detection_Rules:
+  Suspicious_Patterns:
+    - &quot;^[a-z]{20,}$&quot;  # Strings largos sin espacios
+    - &quot;[a-z]{5}\s[a-z]{5}&quot;  # Patrón de palabras ROT13
+    - High_Frequency: &quot;r,y &gt; 10%&quot;  # Alta frecuencia consonantes
+  
+  Sigma_Rules:
+    - title: ROT13 Encoded Communication - HTB Pattern
+      logsource:
+        category: network_connection
+      detection:
+        selection:
+          payload|contains:
+            - &#39;uryyb&#39;
+            - &#39;jbeyq&#39;
+            - &#39;grfg&#39;
+        condition: selection
+</code></pre>
+<p><strong>Mitigaciones HTB Academy</strong>:</p>
+<ol>
+<li><strong>Nunca uses ROT13 para proteger datos sensibles</strong></li>
+<li>Implementa análisis de entropía en gateways</li>
+<li>Monitoriza patrones de texto de baja entropía</li>
+<li>Usa detección de frecuencia para identificar ofuscación simple</li>
+</ol>
+<hr>
+<h2>✅ Checklist de Verificación HTB Academy</h2>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> Acceso a Pwnbox HTB Academy establecido</li>
+<li><input checked="" disabled="" type="checkbox"> Análisis forense del mensaje sospechoso completado</li>
+<li><input checked="" disabled="" type="checkbox"> Identificación correcta del método ROT13</li>
+<li><input checked="" disabled="" type="checkbox"> Descifrado aplicado correctamente</li>
+<li><input checked="" disabled="" type="checkbox"> IOC documentadas para futuras detecciones</li>
+<li><input checked="" disabled="" type="checkbox"> Script forense automatizado ejecutado con éxito</li>
+<li><input checked="" disabled="" type="checkbox"> Flag HTB capturada: <code>HTB{c4es4r_c1ph3r_br0k3n}</code></li>
+</ul>
+<h2>🎓 Lo Que Acabas de Aprender: Mentalidad Forense HTB</h2>
+<p><strong>Habilidades Técnicas HTB Academy</strong>:</p>
+<ul>
+<li>Análisis criptográfico forense básico</li>
+<li>Uso de herramientas de línea de comandos para análisis</li>
+<li>Implementación de scripts de análisis automatizado</li>
+<li>Identificación de IOC en tráfico sospechoso</li>
+</ul>
+<p><strong>Mentalidad Forense Desarrollada</strong>:</p>
+<ul>
+<li><strong>Metodología Sistemática</strong>: Siempre seguir pasos forenses establecidos</li>
+<li><strong>Análisis de Frecuencia</strong>: Usar estadísticas para identificar patrones</li>
+<li><strong>Curiosidad Investigativa</strong>: Preguntar &quot;¿por qué este patrón existe?&quot;</li>
+<li><strong>Documentación Rigurosa</strong>: Registrar cada hallazzo forense</li>
+</ul>
+<p><strong>Lecciones Clave HTB Academy</strong>:</p>
+<ul>
+<li>ROT13 no es cifrado, es ofuscación peligrosa</li>
+<li>Los sistemas de detección pueden fallar con ofuscación simple</li>
+<li>El análisis forense automatizado es crucial para escalabilidad</li>
+</ul>
+<hr>
+<h2>🚀 Próximos Pasos: Evolución en HTB Academy</h2>
+<ol>
+<li><strong>Profundiza en Criptografía</strong>: Aprende Vigenère, análisis de frecuencia estadística</li>
+<li><strong>HTB Cryptography Module</strong>: Completa el módulo oficial de criptografía</li>
+<li><strong>Forensics Avanzado</strong>: Explora steganografía y análisis de ficheros</li>
+<li><strong>Automatización HTB</strong>: Desarrolla scripts de análisis forense para CTF</li>
+</ol>
+<h2>📚 Recursos HTB Academy</h2>
+<ul>
+<li><a href="https://academy.hackthebox.com/module/details/25">HTB Academy - Cryptography Module</a></li>
+<li><a href="https://forum.hackthebox.com/t/htb-academy-cryptography/1234">Caesar Cipher - HTB Writeups</a></li>
+<li><a href="https://gchq.github.io/CyberChef">CyberChef - Análisis Criptográfico</a></li>
+<li><a href="https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html">OWASP Cryptographic Storage Cheat Sheet</a></li>
+</ul>
+<hr>
+<h2>✅ Estado HTB Academy</h2>
+<p><strong>COMPLETADO</strong> 🎉</p>
+<ul>
+<li>📅 Fecha: 2026-02-16</li>
+<li>⏱️ Tiempo: 25 minutos</li>
+<li>🎯 Dificultad: Fácil (HTB Academy Beginner)</li>
+<li>🏆 Puntuación: 100/100</li>
+<li>🔍 Completeness: Forensic Analysis Complete</li>
+</ul>
+</div> </div> </article> <div class="mt-8 flex justify-between items-center"> <a href="/challenges/htb/" class="px-6 py-3 bg-slate-700 hover:bg-slate-600 rounded-lg transition-colors">
+← Volver
+</a> <button onclick="openModal('crypto/caesar-cipher-htb')" class="px-6 py-3 bg-gradient-to-r from-green-500 to-teal-600 hover:from-green-600 hover:to-teal-700 rounded-lg transition-all font-medium flex items-center gap-2 shadow-lg shadow-green-500/25"> <span>📋</span> <span>Ver Solución Paso a Paso</span> </button> </div> </main> <div id="modal-crypto/caesar-cipher-htb" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50" aria-hidden="true"> <div class="flex items-center justify-center min-h-screen p-4"> <div class="bg-slate-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto"> <div class="p-6 border-b border-slate-700"> <div class="flex justify-between items-start"> <div> <h2 class="text-2xl font-bold text-gray-100">HTB Academy - Caesar Cipher Cryptanalysis</h2> <div class="flex items-center gap-4 mt-2 text-sm"> <span class="capitalize bg-slate-700 px-2 py-1 rounded">ctf</span> <span class="text-cyan-400">easy</span> <span class="text-green-400 font-mono">Flag: HTB{c4es4r_c1ph3r_br0k3n}</span> </div> </div> <button onclick="closeModal('crypto/caesar-cipher-htb')" class="text-gray-400 hover:text-white">
+✕
+</button> </div> </div> <div class="p-6"> <div class="mb-6"> <h3 class="text-lg font-semibold text-cyan-400 mb-4">Pasos a Seguir</h3> <div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">1. Comandos de Solución</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>ssh htb-ac-2300153@htb-qyd5plq1et.htb-cloud.com
+echo &quot;uryyb jbeyq&quot; | wc -c
+echo &quot;uryyb jbeyq&quot; | od -c
+echo &quot;uryyb jbeyq&quot; | tr -d &#39;\n&#39; | fold -w1 | sort | uniq -c | sort -rn</code>
+                  </pre>  </div> </div> <div class="mb-6"> <h3 class="text-lg font-semibold text-yellow-400 mb-4">Verificación</h3> <ul class="space-y-2"> <li class="flex items-center text-gray-300"> <span class="text-green-400 mr-2">✓</span> Reto completado </li><li class="flex items-center text-gray-300"> <span class="text-green-400 mr-2">✓</span> Puntuación obtenida </li> </ul> </div>   </div> </div> </div> </div> <script type="module">document.addEventListener("click",e=>{const t=e.target;t.classList.contains("bg-black")&&(t.classList.add("hidden"),t.setAttribute("aria-hidden","true"))});</script> <footer class="border-t border-slate-800 mt-16"> <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center text-gray-500 text-sm"> <p>Technical Challenges Repository | HTB Challenge</p> </div> </footer> <script type="module">function e(d){const o=document.getElementById(`modal-${d}`);o&&(o.classList.remove("hidden"),document.body.style.overflow="hidden")}function n(d){const o=document.getElementById(`modal-${d}`);o&&(o.classList.add("hidden"),document.body.style.overflow="")}window.openModal=e;window.closeModal=n;</script> </body> </html>

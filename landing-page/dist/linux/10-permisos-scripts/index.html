@@ -1,0 +1,872 @@
+<!DOCTYPE html><html lang="es" data-astro-cid-ouamjn2i> <head><meta charset="UTF-8"><meta name="description" content="Plataforma interactiva de desafíos técnicos - Linux, Docker, DevOps, CTF"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/challenges/favicon.svg"><meta name="generator" content="Astro v5.17.1"><meta name="theme-color" content="#4c80cc"><title>Reto 10: Script Execution Permissions - xFusionCorp Industries - Linux Challenges</title><!-- Preconnect for fonts --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><!-- Script para prevenir flash de tema incorrecto --><script>
+      const theme = (() => {
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+          return localStorage.getItem('theme');
+        }
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          return 'dark';
+        }
+        return 'light';
+      })();
+      
+      if (theme === 'light') {
+        document.documentElement.classList.add('light');
+      } else {
+        document.documentElement.classList.add('dark');
+      }
+    </script><!-- Cache busting: Verificar versión y recargar si hay cambios --><script>
+      (function() {
+        const BUILD_VERSION = '1771938333648';
+        const CACHE_KEY = 'tech-challenges-build-version';
+        
+        // Verificar si hay nueva versión
+        const storedVersion = localStorage.getItem(CACHE_KEY);
+        
+        if (storedVersion && storedVersion !== BUILD_VERSION) {
+          // Nueva versión detectada, limpiar cache y recargar
+          console.log('🆕 Nueva versión detectada. Actualizando...');
+          if ('caches' in window) {
+            caches.keys().then(names => {
+              names.forEach(name => caches.delete(name));
+            });
+          }
+          localStorage.setItem(CACHE_KEY, BUILD_VERSION);
+          window.location.reload();
+        } else if (!storedVersion) {
+          localStorage.setItem(CACHE_KEY, BUILD_VERSION);
+        }
+      })();
+    </script><link rel="stylesheet" href="/challenges/_astro/_slug_-DHZt47Ra.css">
+<link rel="stylesheet" href="/challenges/_astro/_slug_-CaxYOu3g.css">
+<style>.nav-buttons[data-astro-cid-i5n6fu6j]{display:flex;justify-content:space-between;gap:1rem;margin-top:2rem;flex-wrap:wrap}.nav-btn[data-astro-cid-i5n6fu6j]{display:flex;align-items:center;gap:.75rem;padding:1rem 1.25rem;background:#1e293bcc;border:1px solid rgba(71,85,105,.3);border-radius:.75rem;text-decoration:none;transition:all .2s ease;flex:1;min-width:200px;max-width:280px}.nav-btn[data-astro-cid-i5n6fu6j]:hover:not(.disabled){background:#f973161a;border-color:#f973164d;transform:translateY(-2px)}.nav-btn[data-astro-cid-i5n6fu6j].disabled{opacity:.4;cursor:not-allowed;pointer-events:none}.nav-btn[data-astro-cid-i5n6fu6j].prev{text-align:left}.nav-btn[data-astro-cid-i5n6fu6j].next{text-align:right;justify-content:flex-end}.nav-btn[data-astro-cid-i5n6fu6j].home{justify-content:center;max-width:200px}.nav-icon[data-astro-cid-i5n6fu6j]{font-size:1.25rem;color:#f97316}.nav-content[data-astro-cid-i5n6fu6j]{display:flex;flex-direction:column;gap:.25rem}.nav-label[data-astro-cid-i5n6fu6j]{font-size:.7rem;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em}.nav-title[data-astro-cid-i5n6fu6j]{font-size:.875rem;color:#e2e8f0;font-weight:500}@media(max-width:768px){.nav-buttons[data-astro-cid-i5n6fu6j]{flex-direction:column}.nav-btn[data-astro-cid-i5n6fu6j]{max-width:100%}}.markdown-body{font-family:system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;line-height:1.8;color:#e5e7eb}.markdown-body h1{font-size:2rem;font-weight:700;color:#f97316;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid #374151}.markdown-body h2{font-size:1.5rem;font-weight:600;color:#22d3ee;margin:1.75rem 0 1rem;padding-bottom:.25rem}.markdown-body h3{font-size:1.25rem;font-weight:600;color:#a5f3fc;margin:1.5rem 0 .75rem}.markdown-body p{margin:.75rem 0;color:#d1d5db}.markdown-body strong{color:#fbbf24;font-weight:600}.markdown-body ul,.markdown-body ol{margin:.75rem 0;padding-left:1.5rem;color:#d1d5db}.markdown-body li{margin:.5rem 0;list-style-type:disc}.markdown-body table{width:100%;margin:1rem 0;border-collapse:collapse;font-size:.9rem}.markdown-body th,.markdown-body td{padding:.75rem;border:1px solid #374151;text-align:left}.markdown-body th{background:#37415180;color:#fbbf24;font-weight:600}.markdown-body td{color:#d1d5db}.markdown-body code{background:#06b6d426;color:#22d3ee;padding:.2rem .5rem;border-radius:.375rem;font-family:SF Mono,Monaco,Courier New,monospace;font-size:.875rem}.markdown-body pre{background:#0f172a;padding:1rem;border-radius:.75rem;overflow-x:auto;margin:1rem 0;border:1px solid #1e293b}.markdown-body pre code{background:transparent;padding:0;color:#a5b4fc}
+</style></head> <body class="min-h-screen flex flex-col" data-astro-cid-ouamjn2i> <!-- Header --> <header class="sticky top-0 z-50 border-b" style="background-color: var(--color-bg); border-color: var(--color-border);" data-astro-cid-ouamjn2i> <div class="container mx-auto px-4 py-4 flex items-center justify-between" data-astro-cid-ouamjn2i> <!-- Logo / Brand --> <a href="/challenges/" class="flex items-center gap-3 group" data-astro-cid-ouamjn2i> <span class="text-2xl" data-astro-cid-ouamjn2i>🚀</span> <span class="font-bold text-lg transition-colors group-hover:text-accent" style="color: var(--color-text);" data-astro-cid-ouamjn2i>
+Tech Challenges
+</span> </a> <!-- Navigation --> <nav class="hidden md:flex items-center gap-6" data-astro-cid-ouamjn2i> <a href="/challenges/" class="nav-link" data-astro-cid-ouamjn2i>Dashboard</a> <a href="/challenges/linux/" class="nav-link" data-astro-cid-ouamjn2i>Linux</a> <a href="/challenges/docker/" class="nav-link" data-astro-cid-ouamjn2i>Docker</a> <a href="/challenges/devops/" class="nav-link" data-astro-cid-ouamjn2i>DevOps</a> <a href="/challenges/ctf/" class="nav-link" data-astro-cid-ouamjn2i>CTF</a> <a href="/challenges/htb/" class="nav-link" data-astro-cid-ouamjn2i>HTB</a> </nav> <!-- Theme Toggle --> <div class="flex items-center gap-4" data-astro-cid-ouamjn2i> <button id="lang-toggle" class="lang-toggle" type="button" aria-label="Cambiar idioma" title="Cambiar idioma" data-astro-cid-lb7h3eps> <span class="lang-text" data-astro-cid-lb7h3eps>EN</span> </button>  <script type="module">const l={es:{"hero.badge":"Plataforma de Aprendizaje","hero.title.line1":"Domina Linux, Docker,","hero.title.line2":"DevOps & Security","hero.subtitle":"Plataforma interactiva con 70+ desafíos prácticos. Aprende haciendo, no solo leyendo.","hero.stat.completed":"Completados","hero.stat.progress":"Progreso","hero.stat.challenges":"Desafíos","progress.title":"Progreso General","progress.completed":"completados","progress.in_progress":"en progreso","progress.blocked":"bloqueados","programs.title":"Programas de Aprendizaje","programs.subtitle":"Selecciona un programa para ver sus desafíos","programs.completed":"Completados","programs.total":"Total","programs.view":"Ver desafíos","program.linux":"Linux","program.docker":"Docker","program.devops":"DevOps","program.ctf":"CTF","program.htb":"HTB Academy","program.linux.desc":"Administración de sistemas Linux, usuarios, permisos y automatización","program.docker.desc":"Containerización, orquestación y mejores prácticas de Docker","program.devops.desc":"CI/CD, automatización y cultura DevOps","program.ctf.desc":"Desafíos de seguridad: criptografía, web, forense y más","program.htb.desc":"Módulos de Hack The Box Academy completados","cert.title":"Certificaciones Obtenidas","cert.subtitle":"Reconocimientos oficiales de tu progreso","cert.docker.title":"Docker Certification","cert.docker.platform":"KodeKloud Engineer","cert.challenges":"Challenges","cert.verify":"Verificar certificado","activity.title":"Actividad Reciente","activity.subtitle":"Últimos desafíos completados","footer.update":"Última actualización"},en:{"hero.badge":"Learning Platform","hero.title.line1":"Master Linux, Docker,","hero.title.line2":"DevOps & Security","hero.subtitle":"Interactive platform with 70+ practical challenges. Learn by doing, not just reading.","hero.stat.completed":"Completed","hero.stat.progress":"Progress","hero.stat.challenges":"Challenges","progress.title":"Overall Progress","progress.completed":"completed","progress.in_progress":"in progress","progress.blocked":"blocked","programs.title":"Learning Programs","programs.subtitle":"Select a program to view its challenges","programs.completed":"Completed","programs.total":"Total","programs.view":"View challenges","program.linux":"Linux","program.docker":"Docker","program.devops":"DevOps","program.ctf":"CTF","program.htb":"HTB Academy","program.linux.desc":"Linux system administration, users, permissions and automation","program.docker.desc":"Containerization, orchestration and Docker best practices","program.devops.desc":"CI/CD, automation and DevOps culture","program.ctf.desc":"Security challenges: cryptography, web, forensics and more","program.htb.desc":"Completed Hack The Box Academy modules","cert.title":"Earned Certifications","cert.subtitle":"Official recognition of your progress","cert.docker.title":"Docker Certification","cert.docker.platform":"KodeKloud Engineer","cert.challenges":"Challenges","cert.verify":"Verify Certificate","activity.title":"Recent Activity","activity.subtitle":"Latest completed challenges","footer.update":"Last updated"}},i=document.getElementById("lang-toggle"),s=i?.querySelector(".lang-text");function c(){if(typeof localStorage<"u"){const e=localStorage.getItem("lang");if(e==="es"||e==="en")return e}return"es"}function d(e){typeof localStorage<"u"&&localStorage.setItem("lang",e)}function g(e){s&&(s.textContent=e==="es"?"EN":"ES")}function n(e){const t=l[e];document.querySelectorAll("[data-i18n]").forEach(o=>{const r=o.getAttribute("data-i18n");r&&t[r]&&(o.textContent=t[r])}),document.querySelectorAll("[data-i18n-program]").forEach(o=>{const r=o.getAttribute("data-i18n-program");if(r){const a=`program.${r}`;t[a]&&(o.textContent=t[a])}}),document.querySelectorAll("[data-i18n-program-desc]").forEach(o=>{const r=o.getAttribute("data-i18n-program-desc");if(r){const a=`program.${r}.desc`;t[a]&&(o.textContent=t[a])}}),document.documentElement.lang=e,g(e)}const p=c();n(p);i?.addEventListener("click",()=>{const t=c()==="es"?"en":"es";d(t),n(t)});</script> <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Cambiar tema" title="Cambiar tema claro/oscuro" data-astro-cid-x3pjskd3> <!-- Icono Sol (visible en tema oscuro) --> <svg class="icon-sun w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" data-astro-cid-x3pjskd3> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" data-astro-cid-x3pjskd3></path> </svg> <!-- Icono Luna (visible en tema claro) --> <svg class="icon-moon w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" data-astro-cid-x3pjskd3> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" data-astro-cid-x3pjskd3></path> </svg> </button>  <script type="module">const m=document.getElementById("theme-toggle");function c(){return typeof localStorage<"u"&&localStorage.getItem("theme")?localStorage.getItem("theme"):window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}function t(e){e==="dark"?(document.documentElement.classList.remove("light"),document.documentElement.classList.add("dark")):(document.documentElement.classList.remove("dark"),document.documentElement.classList.add("light")),localStorage.setItem("theme",e)}const d=c();d==="light"?document.documentElement.classList.add("light"):document.documentElement.classList.add("dark");m?.addEventListener("click",()=>{const n=(document.documentElement.classList.contains("light")?"light":"dark")==="dark"?"light":"dark";document.documentElement.classList.add("theme-transitioning"),t(n),setTimeout(()=>{document.documentElement.classList.remove("theme-transitioning")},300)});window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change",e=>{localStorage.getItem("theme")||t(e.matches?"dark":"light")});</script> <!-- Mobile Menu Button --> <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg border transition-colors" style="background-color: var(--color-bg-card); border-color: var(--color-border);" aria-label="Menú" data-astro-cid-ouamjn2i> <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-ouamjn2i> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" data-astro-cid-ouamjn2i></path> </svg> </button> </div> </div> <!-- Mobile Navigation --> <div id="mobile-menu" class="hidden md:hidden border-t" style="border-color: var(--color-border); background-color: var(--color-bg-card);" data-astro-cid-ouamjn2i> <nav class="container mx-auto px-4 py-4 flex flex-col gap-2" data-astro-cid-ouamjn2i> <a href="/challenges/" class="mobile-nav-link" data-astro-cid-ouamjn2i>Dashboard</a> <a href="/challenges/linux/" class="mobile-nav-link" data-astro-cid-ouamjn2i>🐧 Linux</a> <a href="/challenges/docker/" class="mobile-nav-link" data-astro-cid-ouamjn2i>🐳 Docker</a> <a href="/challenges/devops/" class="mobile-nav-link" data-astro-cid-ouamjn2i>⚙️ DevOps</a> <a href="/challenges/ctf/" class="mobile-nav-link" data-astro-cid-ouamjn2i>🚩 CTF</a> <a href="/challenges/htb/" class="mobile-nav-link" data-astro-cid-ouamjn2i>🎯 HTB</a> </nav> </div> </header> <!-- Main Content --> <main class="flex-1" data-astro-cid-ouamjn2i>   <main class="container mx-auto px-4 py-8" data-astro-cid-i5n6fu6j> <div class="max-w-4xl mx-auto" data-astro-cid-i5n6fu6j> <nav class="flex mb-6" aria-label="Breadcrumb"> <ol class="flex items-center space-x-2"> <li class="flex items-center">  <a href="/challenges" class="text-cyan-400 hover:text-cyan-300 transition-colors"> Challenges </a> </li><li class="flex items-center"> <span class="text-gray-500 mx-2">/</span> <a href="/challenges/linux" class="text-cyan-400 hover:text-cyan-300 transition-colors"> Linux </a> </li><li class="flex items-center"> <span class="text-gray-500 mx-2">/</span> <span class="text-gray-300 font-medium">Reto 10: Script Execution Permissions - xFusionCorp Industries</span> </li> </ol> </nav> <article class="bg-slate-800 rounded-lg p-6 border border-slate-700" data-astro-cid-i5n6fu6j> <header class="mb-6" data-astro-cid-i5n6fu6j> <h1 class="text-3xl font-bold text-orange-400 mb-2" data-astro-cid-i5n6fu6j>Reto 10: Script Execution Permissions - xFusionCorp Industries</h1> <div class="flex items-center gap-4 text-sm text-gray-400" data-astro-cid-i5n6fu6j> <span class="bg-orange-600 px-2 py-1 rounded text-xs" data-astro-cid-i5n6fu6j>Linux #10</span> <span class="capitalize" data-astro-cid-i5n6fu6j>easy</span> <span data-astro-cid-i5n6fu6j>2025-01-25</span> </div> </header> <div class="prose prose-invert max-w-none" data-astro-cid-i5n6fu6j> <div class="markdown-body" data-astro-cid-i5n6fu6j><h1>Reto 10: Script Execution Permissions - xFusionCorp Industries</h1>
+<h2>Control de Acceso a Scripts del Sistema: Seguridad Operacional</h2>
+<hr>
+<h2>🎓 Del Instructor</h2>
+<p>Bienvenido a tu décimo desafío como SysAdmin Senior en xFusionCorp. Hoy abordamos un aspecto fundamental de la seguridad operacional: <strong>el control de permisos de ejecución para scripts del sistema</strong>.</p>
+<blockquote>
+<p>💭 <strong>Mentalidad de SysAdmin</strong>: &quot;Un script con permisos incorrectos es tan peligroso como una puerta sin cerradura. Todos deben poder ejecutar las herramientas que necesitan, pero solo los administradores deben poder modificarlas.&quot;</p>
+</blockquote>
+<p>En entornos empresariales, los scripts de administración son herramientas compartidas. La configuración correcta de permisos permite que operadores y desarrolladores ejecuten tareas automatizadas sin comprometer la integridad del sistema.</p>
+<hr>
+<h2>🎭 Escenario Real: Scripts de Operaciones en Nautilus App 3</h2>
+<p><strong>Empresa</strong>: xFusionCorp Industries<br><strong>Proyecto</strong>: Nautilus - Operaciones de Infraestructura<br><strong>Servidor</strong>: App Server 3 (stapp03)<br><strong>Tu rol</strong>: Senior System Administrator - Seguridad Operacional</p>
+<h3>La Problemática</h3>
+<p>El equipo de operaciones de xFusionCorp ha desarrollado varios scripts para tareas comunes:</p>
+<ul>
+<li><strong>deploy.sh</strong>: Despliegue de aplicaciones</li>
+<li><strong>monitor.sh</strong>: Monitoreo de servicios</li>
+<li><strong>backup.sh</strong>: Ejecución de respaldos</li>
+</ul>
+<p>Estos scripts están ubicados en <code>/usr/local/scripts/</code> pero tienen problemas de permisos:</p>
+<ul>
+<li>Algunos usuarios no pueden ejecutarlos</li>
+<li>Otros usuarios pueden modificarlos accidentalmente</li>
+<li>No hay consistencia en los permisos</li>
+</ul>
+<p><strong>El requerimiento del equipo de Operaciones</strong>:</p>
+<blockquote>
+<p>&quot;Configure proper execution permissions for system scripts.&quot;</p>
+</blockquote>
+<h3>Contexto de Seguridad</h3>
+<p>El esquema de permisos debe cumplir:</p>
+<ul>
+<li><strong>Ejecución</strong>: Todos los usuarios necesitan ejecutar los scripts</li>
+<li><strong>Modificación</strong>: Solo root (o administradores designados)</li>
+<li><strong>Lectura</strong>: Permitida para auditoría y transparencia</li>
+<li><strong>Consistencia</strong>: Mismo esquema para todos los scripts del sistema</li>
+</ul>
+<h3>Infraestructura Objetivo</h3>
+<table>
+<thead>
+<tr>
+<th>Servidor</th>
+<th>IP</th>
+<th>Hostname</th>
+<th>Usuario Acceso</th>
+<th>Contraseña</th>
+<th>Propósito</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>stapp03</td>
+<td>172.16.238.12</td>
+<td>stapp03.stratos.xfusioncorp.com</td>
+<td>banner</td>
+<td>BigGr33n</td>
+<td>Script Management</td>
+</tr>
+</tbody></table>
+<h3>Requisitos Técnicos</h3>
+<ul>
+<li><strong>Ubicación</strong>: <code>/usr/local/scripts/</code></li>
+<li><strong>Scripts</strong>: <code>deploy.sh</code>, <code>monitor.sh</code>, <code>backup.sh</code></li>
+<li><strong>Permisos objetivo</strong>: <code>755</code> (rwxr-xr-x)</li>
+<li><strong>Ownership</strong>: <code>root:staff</code></li>
+<li><strong>Ejecución</strong>: Todos los usuarios pueden ejecutar</li>
+<li><strong>Modificación</strong>: Solo root puede modificar</li>
+<li><strong>Verificación</strong>: Funcionamiento como usuario regular</li>
+</ul>
+<hr>
+<h2>🧠 La Arquitectura: Permisos de Archivos en Linux</h2>
+<h3>Notación de Permisos</h3>
+<pre><code>-rwxr-xr-x  1 root staff  2341 Jan 25 10:00 deploy.sh
+ │││││││││
+ ││││││││└── Otros: Ejecución (x)
+ │││││││└─── Otros: Escritura (w)
+ ││││││└──── Otros: Lectura (r)
+ │││││└───── Grupo: Ejecución (x)
+ ││││└────── Grupo: Escritura (w)
+ │││└─────── Grupo: Lectura (r)
+ ││└──────── Owner: Ejecución (x)
+ │└───────── Owner: Escritura (w)
+ └────────── Owner: Lectura (r)
+
+ Tipo: - (archivo regular)
+</code></pre>
+<h3>Permisos Numéricos vs Simbólicos</h3>
+<table>
+<thead>
+<tr>
+<th>Notación</th>
+<th>Numérico</th>
+<th>Significado</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>rwxr-xr-x</td>
+<td>755</td>
+<td>Owner: todo, Grupo/Otros: leer+ejecutar</td>
+</tr>
+<tr>
+<td>rwxr-x---</td>
+<td>750</td>
+<td>Owner: todo, Grupo: leer+ejecutar, Otros: nada</td>
+</tr>
+<tr>
+<td>rw-r--r--</td>
+<td>644</td>
+<td>Owner: leer+escribir, Grupo/Otros: solo leer</td>
+</tr>
+<tr>
+<td>rwx------</td>
+<td>700</td>
+<td>Solo owner puede todo, nadie más nada</td>
+</tr>
+</tbody></table>
+<h3>Jerarquía de Permisos para Scripts del Sistema</h3>
+<pre><code>┌─────────────────────────────────────────────────────────────────┐
+│              JERARQUÍA DE ACCESO A SCRIPTS                       │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│  ┌─────────────────────────────────────────────────────────┐    │
+│  │                     ROOT (root:root)                    │    │
+│  │                   Permisos: rwx (7)                     │    │
+│  │              Puede: Leer, Escribir, Ejecutar            │    │
+│  │              Propietario absoluto del script            │    │
+│  └─────────────────────────────────────────────────────────┘    │
+│                              │                                   │
+│                              ▼                                   │
+│  ┌─────────────────────────────────────────────────────────┐    │
+│  │              STAFF GROUP (root:staff)                   │    │
+│  │                   Permisos: r-x (5)                     │    │
+│  │              Puede: Leer, Ejecutar                      │    │
+│  │              NO puede: Modificar                        │    │
+│  │              (Operadores, desarrolladores senior)       │    │
+│  └─────────────────────────────────────────────────────────┘    │
+│                              │                                   │
+│                              ▼                                   │
+│  ┌─────────────────────────────────────────────────────────┐    │
+│  │                    OTHERS (todos)                       │    │
+│  │                   Permisos: r-x (5)                     │    │
+│  │              Puede: Leer, Ejecutar                      │    │
+│  │              NO puede: Modificar                        │    │
+│  │              (Cualquier usuario del sistema)            │    │
+│  └─────────────────────────────────────────────────────────┘    │
+│                                                                  │
+└─────────────────────────────────────────────────────────────────┘
+</code></pre>
+<h3>Archivos de Configuración Relacionados</h3>
+<pre><code>/etc/group          # Definición del grupo &#39;staff&#39;
+/usr/local/scripts/ # Directorio de scripts del sistema
+/etc/sudoers        # Si se requiere elevación de privilegios
+</code></pre>
+<h3>Analogía: Biblioteca de Procedimientos</h3>
+<ul>
+<li><strong>Scripts en /usr/local/scripts/</strong>: Libros de procedimientos en la biblioteca de la empresa</li>
+<li><strong>Permisos 755</strong>: Cualquiera puede leer el libro y seguir los procedimientos, pero solo el bibliotecario (root) puede modificar el contenido</li>
+<li><strong>Grupo staff</strong>: Los usuarios avanzados que tienen acceso prioritario y pueden sugerir cambios</li>
+<li><strong>Ownership root:staff</strong>: El bibliotecario es responsable, pero el personal de la biblioteca (staff) tiene acceso especial</li>
+</ul>
+<hr>
+<h2>🛠️ Implementación Profesional</h2>
+<h3>Fase 1: Verificación Pre-Implementación</h3>
+<h4>1.1 Acceso al Sistema</h4>
+<pre><code class="language-bash"># Conexión al servidor
+ssh banner@172.16.238.12
+sudo su -
+</code></pre>
+<h4>1.2 Verificar Estado Actual</h4>
+<pre><code class="language-bash"># Verificar que el directorio existe
+ls -la /usr/local/scripts/
+
+# Ver scripts existentes
+ls -la /usr/local/scripts/*.sh 2&gt;/dev/null || echo &quot;No .sh files found&quot;
+
+# Verificar permisos actuales detallados
+ls -la /usr/local/scripts/ | grep -E &quot;(deploy|monitor|backup)&quot;
+
+# Verificar ACLs si existen
+getfacl /usr/local/scripts/* 2&gt;/dev/null || echo &quot;No ACLs configured&quot;
+</code></pre>
+<blockquote>
+<p>⚠️ <strong>Advertencia</strong>: Si los scripts no existen, necesitarás crearlos primero o verificar la ruta correcta.</p>
+</blockquote>
+<h3>Fase 2: Crear Directorio y Scripts (Si es necesario)</h3>
+<h4>2.1 Crear Directorio de Scripts</h4>
+<pre><code class="language-bash"># Crear directorio si no existe
+mkdir -p /usr/local/scripts
+
+# Verificar creación
+ls -la /usr/local/
+</code></pre>
+<h4>2.2 Crear Scripts de Ejemplo (Para Práctica)</h4>
+<pre><code class="language-bash"># Crear deploy.sh
+cat &gt; /usr/local/scripts/deploy.sh &lt;&lt; &#39;EOF&#39;
+#!/bin/bash
+# Script de despliegue de aplicaciones
+# xFusionCorp Industries
+
+echo &quot;Iniciando despliegue de aplicación...&quot;
+echo &quot;Timestamp: $(date)&quot;
+echo &quot;Usuario: $(whoami)&quot;
+echo &quot;Despliegue completado exitosamente.&quot;
+EOF
+
+# Crear monitor.sh
+cat &gt; /usr/local/scripts/monitor.sh &lt;&lt; &#39;EOF&#39;
+#!/bin/bash
+# Script de monitoreo de servicios
+# xFusionCorp Industries
+
+echo &quot;Estado de servicios críticos:&quot;
+echo &quot;===========================&quot;
+systemctl status sshd --no-pager 2&gt;/dev/null || echo &quot;sshd: estado no disponible&quot;
+echo &quot;===========================&quot;
+echo &quot;Monitoreo completado: $(date)&quot;
+EOF
+
+# Crear backup.sh
+cat &gt; /usr/local/scripts/backup.sh &lt;&lt; &#39;EOF&#39;
+#!/bin/bash
+# Script de backup
+# xFusionCorp Industries
+
+echo &quot;Iniciando procedimiento de backup...&quot;
+echo &quot;Usuario ejecutando: $(whoami)&quot;
+echo &quot;Timestamp inicio: $(date)&quot;
+echo &quot;Backup completado: $(date)&quot;
+EOF
+
+# Hacer scripts ejecutables (temporalmente)
+chmod +x /usr/local/scripts/*.sh
+</code></pre>
+<h3>Fase 3: Configurar Ownership Correcto</h3>
+<h4>3.1 Establecer Usuario y Grupo</h4>
+<pre><code class="language-bash"># Verificar que el grupo staff existe
+getent group staff
+
+# Si no existe, crearlo
+if ! getent group staff &gt; /dev/null; then
+    groupadd staff
+fi
+
+# Establecer ownership root:staff para todo el directorio
+chown -R root:staff /usr/local/scripts/
+
+# Verificar cambio
+ls -la /usr/local/scripts/
+</code></pre>
+<blockquote>
+<p>💡 <strong>Nota técnica</strong>: El grupo <code>staff</code> es un grupo tradicional de sistemas Unix/Linux para usuarios de soporte técnico y operaciones.</p>
+</blockquote>
+<h3>Fase 4: Configurar Permisos 755</h3>
+<h4>4.1 Aplicar Permisos</h4>
+<pre><code class="language-bash"># Configurar permisos 755 para todos los scripts .sh
+chmod 755 /usr/local/scripts/*.sh
+
+# Verificar permisos aplicados
+ls -la /usr/local/scripts/*.sh
+
+# Salida esperada:
+# -rwxr-xr-x 1 root staff backup.sh
+# -rwxr-xr-x 1 root staff deploy.sh
+# -rwxr-xr-x 1 root staff monitor.sh
+</code></pre>
+<h4>4.2 Verificar Permisos Detallados</h4>
+<pre><code class="language-bash"># Verificación detallada por script
+for script in /usr/local/scripts/*.sh; do
+    echo &quot;=== $script ===&quot;
+    ls -la &quot;$script&quot;
+    echo &quot;Permisos numéricos: $(stat -c %a &quot;$script&quot;)&quot;
+    echo &quot;Owner: $(stat -c %U &quot;$script&quot;)&quot;
+    echo &quot;Group: $(stat -c %G &quot;$script&quot;)&quot;
+    echo &quot;&quot;
+done
+</code></pre>
+<h3>Fase 5: Verificación de Funcionamiento</h3>
+<h4>5.1 Probar Ejecución como root</h4>
+<pre><code class="language-bash"># Ejecutar scripts como root
+/usr/local/scripts/deploy.sh
+/usr/local/scripts/monitor.sh
+/usr/local/scripts/backup.sh
+
+# Todos deben ejecutar sin errores
+</code></pre>
+<h4>5.2 Probar Ejecución como Usuario Regular</h4>
+<pre><code class="language-bash"># Crear usuario de prueba si es necesario
+id someuser || useradd -m someuser
+
+# Ejecutar como usuario regular
+su - someuser -c &quot;/usr/local/scripts/deploy.sh&quot;
+su - someuser -c &quot;/usr/local/scripts/monitor.sh&quot;
+su - someuser -c &quot;/usr/local/scripts/backup.sh&quot;
+
+# Todos deben ejecutar exitosamente
+</code></pre>
+<h4>5.3 Verificar Bloqueo de Modificación</h4>
+<pre><code class="language-bash"># Intentar modificar como usuario regular (debe fallar)
+su - someuser -c &quot;echo &#39;# test&#39; &gt;&gt; /usr/local/scripts/deploy.sh&quot;
+# Debe mostrar: Permission denied
+
+# Verificar que el script no fue modificado
+tail -5 /usr/local/scripts/deploy.sh
+# No debe mostrar la línea &#39;# test&#39;
+</code></pre>
+<h3>Fase 6: Verificación Exhaustiva</h3>
+<h4>6.1 Verificación de Permisos con find</h4>
+<pre><code class="language-bash"># Verificar que todos los scripts tienen permisos correctos
+echo &quot;Verificación de permisos:&quot;
+find /usr/local/scripts -name &quot;*.sh&quot; -type f -exec ls -la {} \;
+
+echo &quot;&quot;
+echo &quot;Verificación numérica:&quot;
+find /usr/local/scripts -name &quot;*.sh&quot; -type f -exec stat -c &quot;%n: %a %U:%G&quot; {} \;
+</code></pre>
+<h4>6.2 Script de Verificación Automatizado</h4>
+<pre><code class="language-bash"># Crear script de verificación
+cat &gt; /tmp/verify_scripts.sh &lt;&lt; &#39;EOF&#39;
+#!/bin/bash
+
+echo &quot;=== Verificación de Scripts del Sistema ===&quot;
+echo &quot;&quot;
+
+ERRORS=0
+
+for script in /usr/local/scripts/*.sh; do
+    if [ -f &quot;$script&quot; ]; then
+        echo &quot;Verificando: $script&quot;
+
+        # Verificar permisos
+        PERMS=$(stat -c %a &quot;$script&quot;)
+        if [ &quot;$PERMS&quot; != &quot;755&quot; ]; then
+            echo &quot;  ✗ Permisos incorrectos: $PERMS (esperado: 755)&quot;
+            ERRORS=$((ERRORS + 1))
+        else
+            echo &quot;  ✓ Permisos correctos: $PERMS&quot;
+        fi
+
+        # Verificar owner
+        OWNER=$(stat -c %U &quot;$script&quot;)
+        if [ &quot;$OWNER&quot; != &quot;root&quot; ]; then
+            echo &quot;  ✗ Owner incorrecto: $OWNER (esperado: root)&quot;
+            ERRORS=$((ERRORS + 1))
+        else
+            echo &quot;  ✓ Owner correcto: $OWNER&quot;
+        fi
+
+        # Verificar grupo
+        GROUP=$(stat -c %G &quot;$script&quot;)
+        if [ &quot;$GROUP&quot; != &quot;staff&quot; ]; then
+            echo &quot;  ✗ Grupo incorrecto: $GROUP (esperado: staff)&quot;
+            ERRORS=$((ERRORS + 1))
+        else
+            echo &quot;  ✓ Grupo correcto: $GROUP&quot;
+        fi
+
+        echo &quot;&quot;
+    fi
+done
+
+if [ $ERRORS -eq 0 ]; then
+    echo &quot;✓ Todos los scripts verificados correctamente&quot;
+    exit 0
+else
+    echo &quot;✗ Se encontraron $ERRORS errores&quot;
+    exit 1
+fi
+EOF
+
+chmod +x /tmp/verify_scripts.sh
+/tmp/verify_scripts.sh
+</code></pre>
+<h3>Resumen de Comandos</h3>
+<pre><code class="language-bash"># SECUENCIA COMPLETA
+
+# 1. Verificar directorio y scripts
+ls -la /usr/local/scripts/
+
+# 2. Establecer ownership
+chown -R root:staff /usr/local/scripts/
+
+# 3. Configurar permisos 755
+chmod 755 /usr/local/scripts/*.sh
+
+# 4. Verificar permisos
+ls -la /usr/local/scripts/*.sh
+
+# 5. Probar ejecución como usuario regular
+su - someuser -c &quot;/usr/local/scripts/deploy.sh&quot;
+
+# 6. Verificar que no se puede modificar
+su - someuser -c &quot;echo test &gt;&gt; /usr/local/scripts/deploy.sh&quot;  # Debe fallar
+</code></pre>
+<hr>
+<h2>🎯 Análisis Post-Implementación: Lo Que Acabas de Construir</h2>
+<h3>Arquitectura Implementada</h3>
+<pre><code>┌─────────────────────────────────────────────────────────────────────────┐
+│                PERMISOS DE SCRIPTS CONFIGURADOS - stapp03               │
+├─────────────────────────────────────────────────────────────────────────┤
+│                                                                          │
+│  Directorio: /usr/local/scripts/                                         │
+│  Ownership: root:staff                                                   │
+│  Permisos de directorio: 755 (drwxr-xr-x)                               │
+│                                                                          │
+│  ┌──────────────────────────────────────────────────────────────────┐   │
+│  │  Scripts Configurados:                                            │   │
+│  │                                                                   │   │
+│  │  deploy.sh                                                        │   │
+│  │  ├─ Permisos: -rwxr-xr-x (755)                                   │   │
+│  │  ├─ Owner: root (rwx)    ← Puede todo                            │   │
+│  │  ├─ Group: staff (r-x)   ← Ejecutar + Leer                       │   │
+│  │  └─ Others: r-x          ← Ejecutar + Leer                       │   │
+│  │                                                                   │   │
+│  │  monitor.sh                                                       │   │
+│  │  ├─ Permisos: -rwxr-xr-x (755)                                   │   │
+│  │  ├─ Owner: root (rwx)                                            │   │
+│  │  ├─ Group: staff (r-x)                                           │   │
+│  │  └─ Others: r-x                                                  │   │
+│  │                                                                   │   │
+│  │  backup.sh                                                        │   │
+│  │  ├─ Permisos: -rwxr-xr-x (755)                                   │   │
+│  │  ├─ Owner: root (rwx)                                            │   │
+│  │  ├─ Group: staff (r-x)                                           │   │
+│  │  └─ Others: r-x                                                  │   │
+│  │                                                                   │   │
+│  └──────────────────────────────────────────────────────────────────┘   │
+│                                                                          │
+│  ✅ Modelo de Acceso:                                                    │
+│     • Root: Control total (lectura, escritura, ejecución)               │
+│     • Staff: Uso operacional (lectura, ejecución)                       │
+│     • Usuarios: Uso general (lectura, ejecución)                        │
+│     • Modificación: Solo root (integridad protegida)                    │
+│                                                                          │
+│  🔒 Seguridad Implementada:                                              │
+│     • Scripts inmutables para usuarios no-root                          │
+│     • Ejecución universal permitida                                     │
+│     • Auditoría de lectura posible                                      │
+│     • Consistencia en todos los scripts                                 │
+│                                                                          │
+└─────────────────────────────────────────────────────────────────────────┘
+</code></pre>
+<h3>Modelo de Permisos Resultante</h3>
+<table>
+<thead>
+<tr>
+<th>Rol</th>
+<th>Lectura</th>
+<th>Escritura</th>
+<th>Ejecución</th>
+<th>Propósito</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>root</strong></td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>Administración total</td>
+</tr>
+<tr>
+<td><strong>staff</strong></td>
+<td>✅</td>
+<td>❌</td>
+<td>✅</td>
+<td>Operaciones</td>
+</tr>
+<tr>
+<td><strong>otros</strong></td>
+<td>✅</td>
+<td>❌</td>
+<td>✅</td>
+<td>Uso general</td>
+</tr>
+</tbody></table>
+<h3>Checklist de Verificación</h3>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> Directorio <code>/usr/local/scripts/</code> existe</li>
+<li><input checked="" disabled="" type="checkbox"> Scripts <code>deploy.sh</code>, <code>monitor.sh</code>, <code>backup.sh</code> existen</li>
+<li><input checked="" disabled="" type="checkbox"> Ownership <code>root:staff</code> establecido</li>
+<li><input checked="" disabled="" type="checkbox"> Permisos <code>755</code> (rwxr-xr-x) configurados</li>
+<li><input checked="" disabled="" type="checkbox"> Ejecución exitosa como usuario root</li>
+<li><input checked="" disabled="" type="checkbox"> Ejecución exitosa como usuario regular</li>
+<li><input checked="" disabled="" type="checkbox"> Modificación bloqueada para usuarios no-root</li>
+<li><input checked="" disabled="" type="checkbox"> Verificación automatizada exitosa</li>
+</ul>
+<hr>
+<h2>🎓 Reflexión Final: Mentalidad Desarrollada</h2>
+<h3>El Principio del Menor Privilegio Aplicado</h3>
+<blockquote>
+<p>&quot;Cada usuario debe tener exactamente los permisos necesarios para su trabajo, ni más ni menos.&quot;</p>
+</blockquote>
+<p>En este caso:</p>
+<ul>
+<li><strong>Usuarios necesitan</strong>: Ejecutar scripts para su trabajo diario</li>
+<li><strong>Usuarios NO necesitan</strong>: Modificar scripts del sistema</li>
+<li><strong>Root necesita</strong>: Control total para mantenimiento</li>
+</ul>
+<h3>Lecciones Clave</h3>
+<ol>
+<li><p><strong>Consistencia es Clave</strong>: Todos los scripts del sistema deben tener el mismo esquema de permisos.</p>
+</li>
+<li><p><strong>Grupos Facilitan la Gestión</strong>: Usar grupo <code>staff</code> permite agregar usuarios al grupo sin modificar permisos individuales.</p>
+</li>
+<li><p><strong>755 es el Estándar</strong>: Para scripts ejecutables del sistema, 755 es el permiso estándar (750 si solo ciertos grupos deben ejecutar).</p>
+</li>
+<li><p><strong>Verificación Doble</strong>: Siempre probar tanto la ejecución permitida como la modificación bloqueada.</p>
+</li>
+</ol>
+<h3>Permisos Comunes para Diferentes Escenarios</h3>
+<pre><code class="language-bash"># Scripts del sistema (como este reto)
+chmod 755 script.sh      # rwxr-xr-x - Ejecutable por todos
+
+# Scripts solo para administradores
+chmod 750 script.sh      # rwxr-x--- - Solo root y grupo
+
+# Scripts con datos sensibles (ej: contraseñas)
+chmod 700 script.sh      # rwx------ - Solo root
+
+# Scripts de configuración (no ejecutables)
+chmod 644 config.sh      # rw-r--r-- - Lectura universal, solo root escribe
+
+# Directorios de scripts
+chmod 755 /usr/local/scripts/   # drwxr-xr-x - Listable y usable por todos
+</code></pre>
+<hr>
+<h2>🚀 Siguientes Pasos</h2>
+<h3>Retos Relacionados</h3>
+<ul>
+<li><strong>Reto 10</strong>: Corrección de Permisos - Ajuste fino según tipo de archivo</li>
+<li><strong>Reto 02</strong>: Gestión de Grupos - Más sobre control de acceso basado en grupos</li>
+<li><strong>Reto 13</strong>: Restricción de Cron - Controlar acceso a programación</li>
+</ul>
+<h3>Escenarios de Expansión</h3>
+<ol>
+<li><p><strong>Integración con Sudo</strong>:</p>
+<pre><code class="language-bash"># Permitir que grupo staff ejecute scripts sin password
+# En /etc/sudoers:
+%staff ALL=(root) NOPASSWD: /usr/local/scripts/*.sh
+</code></pre>
+</li>
+<li><p><strong>Auditoría de Uso</strong>:</p>
+<pre><code class="language-bash"># Loggear quién ejecuta qué script
+# Agregar al inicio de cada script:
+echo &quot;$(date): $0 ejecutado por $(whoami)&quot; &gt;&gt; /var/log/scripts_usage.log
+</code></pre>
+</li>
+<li><p><strong>Control de Versiones</strong>:</p>
+<pre><code class="language-bash"># Crear directorio para versiones
+mkdir /usr/local/scripts/.versions
+# Backup antes de modificar
+cp /usr/local/scripts/deploy.sh /usr/local/scripts/.versions/deploy.sh.$(date +%Y%m%d)
+</code></pre>
+</li>
+</ol>
+<h3>Comandos Avanzados</h3>
+<pre><code class="language-bash"># Aplicar permisos recursivamente manteniendo directorios ejecutables
+find /usr/local/scripts -type f -name &quot;*.sh&quot; -exec chmod 755 {} \;
+find /usr/local/scripts -type d -exec chmod 755 {} \;
+
+# Verificar permisos inconsistentes
+find /usr/local/scripts -type f ! -perm 755 -ls
+
+# Restaurar permisos por defecto
+chmod -R u+rwX,go+rX,go-w /usr/local/scripts/
+
+# Verificar scripts sin shebang (problema de ejecución)
+for f in /usr/local/scripts/*.sh; do
+  head -1 &quot;$f&quot; | grep -q &quot;^#!&quot; || echo &quot;Sin shebang: $f&quot;
+done
+</code></pre>
+<hr>
+<h2>📚 Recursos y Referencias</h2>
+<h3>Documentación Oficial</h3>
+<ul>
+<li><a href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/configuring_basic_system_settings/assembly_managing-file-permissions_configuring-basic-system-settings">Linux File Permissions - Red Hat</a></li>
+<li><a href="https://man7.org/linux/man-pages/man1/chmod.1.html">Chmod Manual</a></li>
+<li><a href="https://man7.org/linux/man-pages/man1/chown.1.html">Chown Manual</a></li>
+</ul>
+<h3>Troubleshooting</h3>
+<table>
+<thead>
+<tr>
+<th>Síntoma</th>
+<th>Causa</th>
+<th>Solución</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&quot;Permission denied&quot; al ejecutar</td>
+<td>Sin permiso de ejecución</td>
+<td><code>chmod +x script.sh</code></td>
+</tr>
+<tr>
+<td>&quot;Permission denied&quot; al modificar como root</td>
+<td>Filesystem read-only</td>
+<td>Verificar montaje con <code>mount</code></td>
+</tr>
+<tr>
+<td>Script no aparece en ls</td>
+<td>Sin permiso de lectura en directorio</td>
+<td><code>chmod 755 /usr/local/scripts/</code></td>
+</tr>
+<tr>
+<td>Cambios de permisos no persisten</td>
+<td>SELinux/AppArmor</td>
+<td>Verificar con <code>ls -Z</code></td>
+</tr>
+<tr>
+<td>&quot;Operation not permitted&quot;</td>
+<td>No root</td>
+<td>Usar <code>sudo</code> para cambios</td>
+</tr>
+</tbody></table>
+<h3>Tabla de Referencia Rápida</h3>
+<table>
+<thead>
+<tr>
+<th>Permiso</th>
+<th>Numérico</th>
+<th>Uso Típico</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>rwxr-xr-x</td>
+<td>755</td>
+<td>Scripts ejecutables</td>
+</tr>
+<tr>
+<td>rwxr-x---</td>
+<td>750</td>
+<td>Scripts solo para grupo</td>
+</tr>
+<tr>
+<td>rw-r--r--</td>
+<td>644</td>
+<td>Archivos de configuración</td>
+</tr>
+<tr>
+<td>rwx------</td>
+<td>700</td>
+<td>Scripts con datos sensibles</td>
+</tr>
+<tr>
+<td>r--------</td>
+<td>400</td>
+<td>Archivos de solo lectura estricta</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>✅ Estado del Reto</h2>
+<p>🔒 <strong>BLOQUEADO</strong> - Requiere completar retos 4-6</p>
+<ul>
+<li>📅 Fecha planeada: Pendiente</li>
+<li>⏱️ Tiempo estimado: 20 minutos</li>
+<li>🎯 Dificultad: Fácil</li>
+<li>🖥️ Servidor objetivo: stapp03 (172.16.238.12)</li>
+</ul>
+<h3>Plan de Implementación</h3>
+<ol>
+<li>Verificar directorio y scripts existen</li>
+<li>Crear grupo staff si no existe</li>
+<li>Establecer ownership root:staff</li>
+<li>Configurar permisos 755 en todos los scripts</li>
+<li>Verificar permisos aplicados</li>
+<li>Probar ejecución como usuario regular</li>
+<li>Verificar que modificación está bloqueada</li>
+</ol>
+<h3>Criterios de Éxito</h3>
+<ul>
+<li>✅ Scripts con permisos 755 correctamente configurados</li>
+<li>✅ Ownership root:staff establecido</li>
+<li>✅ Ejecución funcional para todos los usuarios</li>
+<li>✅ Seguridad mantenida (solo root puede modificar)</li>
+<li>✅ Todos los scripts (.sh) con esquema consistente</li>
+</ul>
+<hr>
+<p><em>Documentación creada siguiendo estándares de SysAdmin - Seguridad Operacional</em></p>
+</div> </div> </article> <div id="modal-10-permisos-scripts" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50" aria-hidden="true"> <div class="flex items-center justify-center min-h-screen p-4"> <div class="bg-slate-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto"> <div class="p-6 border-b border-slate-700"> <div class="flex justify-between items-start"> <div> <h2 class="text-2xl font-bold text-gray-100">Reto 10: Script Execution Permissions - xFusionCorp Industries</h2> <div class="flex items-center gap-4 mt-2 text-sm"> <span class="capitalize bg-slate-700 px-2 py-1 rounded">linux</span> <span class="text-cyan-400">easy</span>  </div> </div> <button onclick="closeModal('10-permisos-scripts')" class="text-gray-400 hover:text-white">
+✕
+</button> </div> </div> <div class="p-6"> <div class="mb-6"> <h3 class="text-lg font-semibold text-cyan-400 mb-4">Pasos a Seguir</h3> <div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">1. La Problemática</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">2. Contexto de Seguridad</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">3. Infraestructura Objetivo</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">4. Requisitos Técnicos</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">5. Notación de Permisos</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">6. Permisos Numéricos vs Simbólicos</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">7. Jerarquía de Permisos para Scripts del Sistema</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">8. Archivos de Configuración Relacionados</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">9. Analogía: Biblioteca de Procedimientos</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">10. Fase 1: Verificación Pre-Implementación</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">11. 1 Acceso al Sistema</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>ssh banner@172.16.238.12
+sudo su -</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">12. 2 Verificar Estado Actual</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>ls -la /usr/local/scripts/
+ls -la /usr/local/scripts/*.sh 2&gt;/dev/null || echo &quot;No .sh files found&quot;
+ls -la /usr/local/scripts/ | grep -E &quot;(deploy|monitor|backup)&quot;
+getfacl /usr/local/scripts/* 2&gt;/dev/null || echo &quot;No ACLs configured&quot;</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">13. Fase 2: Crear Directorio y Scripts (Si es necesario)</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">14. 1 Crear Directorio de Scripts</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>mkdir -p /usr/local/scripts
+ls -la /usr/local/</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">15. 2 Crear Scripts de Ejemplo (Para Práctica)</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>cat &gt; /usr/local/scripts/deploy.sh &lt;&lt; &#39;EOF&#39;
+echo &quot;Iniciando despliegue de aplicación...&quot;
+echo &quot;Timestamp: $(date)&quot;
+echo &quot;Usuario: $(whoami)&quot;
+echo &quot;Despliegue completado exitosamente.&quot;
+EOF
+cat &gt; /usr/local/scripts/monitor.sh &lt;&lt; &#39;EOF&#39;
+echo &quot;Estado de servicios críticos:&quot;
+echo &quot;===========================&quot;
+systemctl status sshd --no-pager 2&gt;/dev/null || echo &quot;sshd: estado no disponible&quot;
+echo &quot;===========================&quot;
+echo &quot;Monitoreo completado: $(date)&quot;
+EOF
+cat &gt; /usr/local/scripts/backup.sh &lt;&lt; &#39;EOF&#39;
+echo &quot;Iniciando procedimiento de backup...&quot;
+echo &quot;Usuario ejecutando: $(whoami)&quot;
+echo &quot;Timestamp inicio: $(date)&quot;
+echo &quot;Backup completado: $(date)&quot;
+EOF
+chmod +x /usr/local/scripts/*.sh</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">16. Fase 3: Configurar Ownership Correcto</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">17. 1 Establecer Usuario y Grupo</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>getent group staff
+if ! getent group staff &gt; /dev/null; then
+groupadd staff
+fi
+chown -R root:staff /usr/local/scripts/
+ls -la /usr/local/scripts/</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">18. Fase 4: Configurar Permisos 755</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">19. 1 Aplicar Permisos</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>chmod 755 /usr/local/scripts/*.sh
+ls -la /usr/local/scripts/*.sh</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">20. 2 Verificar Permisos Detallados</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>for script in /usr/local/scripts/*.sh; do
+echo &quot;=== $script ===&quot;
+ls -la &quot;$script&quot;
+echo &quot;Permisos numéricos: $(stat -c %a &quot;$script&quot;)&quot;
+echo &quot;Owner: $(stat -c %U &quot;$script&quot;)&quot;
+echo &quot;Group: $(stat -c %G &quot;$script&quot;)&quot;
+echo &quot;&quot;
+done</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">21. Fase 5: Verificación de Funcionamiento</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">22. 1 Probar Ejecución como root</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>/usr/local/scripts/deploy.sh
+/usr/local/scripts/monitor.sh
+/usr/local/scripts/backup.sh</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">23. 2 Probar Ejecución como Usuario Regular</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>id someuser || useradd -m someuser
+su - someuser -c &quot;/usr/local/scripts/deploy.sh&quot;
+su - someuser -c &quot;/usr/local/scripts/monitor.sh&quot;
+su - someuser -c &quot;/usr/local/scripts/backup.sh&quot;</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">24. 3 Verificar Bloqueo de Modificación</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>su - someuser -c &quot;echo &#39;# test&#39; &gt;&gt; /usr/local/scripts/deploy.sh&quot;
+tail -5 /usr/local/scripts/deploy.sh</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">25. Fase 6: Verificación Exhaustiva</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">26. 1 Verificación de Permisos con find</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>echo &quot;Verificación de permisos:&quot;
+find /usr/local/scripts -name &quot;*.sh&quot; -type f -exec ls -la {} \;
+echo &quot;&quot;
+echo &quot;Verificación numérica:&quot;
+find /usr/local/scripts -name &quot;*.sh&quot; -type f -exec stat -c &quot;%n: %a %U:%G&quot; {} \;</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">27. 2 Script de Verificación Automatizado</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>cat &gt; /tmp/verify_scripts.sh &lt;&lt; &#39;EOF&#39;
+echo &quot;=== Verificación de Scripts del Sistema ===&quot;
+echo &quot;&quot;
+ERRORS=0
+for script in /usr/local/scripts/*.sh; do
+if [ -f &quot;$script&quot; ]; then
+echo &quot;Verificando: $script&quot;
+PERMS=$(stat -c %a &quot;$script&quot;)
+if [ &quot;$PERMS&quot; != &quot;755&quot; ]; then
+echo &quot;  ✗ Permisos incorrectos: $PERMS (esperado: 755)&quot;
+ERRORS=$((ERRORS + 1))
+else
+echo &quot;  ✓ Permisos correctos: $PERMS&quot;
+fi
+OWNER=$(stat -c %U &quot;$script&quot;)
+if [ &quot;$OWNER&quot; != &quot;root&quot; ]; then
+echo &quot;  ✗ Owner incorrecto: $OWNER (esperado: root)&quot;
+ERRORS=$((ERRORS + 1))
+else
+echo &quot;  ✓ Owner correcto: $OWNER&quot;
+fi
+GROUP=$(stat -c %G &quot;$script&quot;)
+if [ &quot;$GROUP&quot; != &quot;staff&quot; ]; then
+echo &quot;  ✗ Grupo incorrecto: $GROUP (esperado: staff)&quot;
+ERRORS=$((ERRORS + 1))
+else
+echo &quot;  ✓ Grupo correcto: $GROUP&quot;
+fi
+echo &quot;&quot;
+fi
+done
+if [ $ERRORS -eq 0 ]; then
+echo &quot;✓ Todos los scripts verificados correctamente&quot;
+exit 0
+else
+echo &quot;✗ Se encontraron $ERRORS errores&quot;
+exit 1
+fi
+EOF
+chmod +x /tmp/verify_scripts.sh
+/tmp/verify_scripts.sh</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">28. Resumen de Comandos</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>ls -la /usr/local/scripts/
+chown -R root:staff /usr/local/scripts/
+chmod 755 /usr/local/scripts/*.sh
+ls -la /usr/local/scripts/*.sh
+su - someuser -c &quot;/usr/local/scripts/deploy.sh&quot;
+su - someuser -c &quot;echo test &gt;&gt; /usr/local/scripts/deploy.sh&quot;  # Debe fallar</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">29. Arquitectura Implementada</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">30. Modelo de Permisos Resultante</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">31. Checklist de Verificación</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">32. El Principio del Menor Privilegio Aplicado</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">33. Lecciones Clave</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">34. Permisos Comunes para Diferentes Escenarios</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>chmod 755 script.sh      # rwxr-xr-x - Ejecutable por todos
+chmod 750 script.sh      # rwxr-x--- - Solo root y grupo
+chmod 700 script.sh      # rwx------ - Solo root
+chmod 644 config.sh      # rw-r--r-- - Lectura universal, solo root escribe
+chmod 755 /usr/local/scripts/   # drwxr-xr-x - Listable y usable por todos</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">35. Retos Relacionados</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">36. Escenarios de Expansión</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>%staff ALL=(root) NOPASSWD: /usr/local/scripts/*.sh</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">37. Comandos Avanzados</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>find /usr/local/scripts -type f -name &quot;*.sh&quot; -exec chmod 755 {} \;
+find /usr/local/scripts -type d -exec chmod 755 {} \;
+find /usr/local/scripts -type f ! -perm 755 -ls
+chmod -R u+rwX,go+rX,go-w /usr/local/scripts/
+for f in /usr/local/scripts/*.sh; do
+head -1 &quot;$f&quot; | grep -q &quot;^#!&quot; || echo &quot;Sin shebang: $f&quot;
+done</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">38. Documentación Oficial</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">39. Troubleshooting</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">40. Tabla de Referencia Rápida</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">41. Plan de Implementación</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">42. Criterios de Éxito</h4>   </div> </div>    </div> </div> </div> </div> <script type="module">document.addEventListener("click",e=>{const t=e.target;t.classList.contains("bg-black")&&(t.classList.add("hidden"),t.setAttribute("aria-hidden","true"))});</script> <!-- Navigation --> <div class="nav-buttons" data-astro-cid-i5n6fu6j> <a href="/challenges/linux/09-backup-desarrollador" class="nav-btn prev" data-astro-cid-i5n6fu6j> <span class="nav-icon" data-astro-cid-i5n6fu6j>←</span> <span class="nav-content" data-astro-cid-i5n6fu6j> <span class="nav-label" data-astro-cid-i5n6fu6j>Anterior</span> <span class="nav-title" data-astro-cid-i5n6fu6j>#09 Reto 09: Data Backup for Developer - xFu...</span> </span> </a> <a href="/challenges/linux/" class="nav-btn home" data-astro-cid-i5n6fu6j> <span class="nav-icon" data-astro-cid-i5n6fu6j>🐧</span> <span class="nav-content" data-astro-cid-i5n6fu6j> <span class="nav-label" data-astro-cid-i5n6fu6j>Volver</span> <span class="nav-title" data-astro-cid-i5n6fu6j>Todos los Retos</span> </span> </a> <a href="/challenges/linux/11-correccion-permisos" class="nav-btn next" data-astro-cid-i5n6fu6j> <span class="nav-content" data-astro-cid-i5n6fu6j> <span class="nav-label" data-astro-cid-i5n6fu6j>Siguiente</span> <span class="nav-title" data-astro-cid-i5n6fu6j>#11 Reto 11: File Permission Correction - xF...</span> </span> <span class="nav-icon" data-astro-cid-i5n6fu6j>→</span> </a> </div> </div> </main>  </main>  <script type="module">const e=document.getElementById("mobile-menu-btn"),n=document.getElementById("mobile-menu");e?.addEventListener("click",()=>{n?.classList.toggle("hidden")});</script></body></html> 

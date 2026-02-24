@@ -1,0 +1,412 @@
+<!DOCTYPE html><html lang="es" data-astro-cid-ouamjn2i> <head><meta charset="UTF-8"><meta name="description" content="Plataforma interactiva de desafíos técnicos - Linux, Docker, DevOps, CTF"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/challenges/favicon.svg"><meta name="generator" content="Astro v5.17.1"><meta name="theme-color" content="#4c80cc"><title>Reto 01: Creación de Usuario javed - xFusionCorp Industries - Linux Challenges</title><!-- Preconnect for fonts --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><!-- Script para prevenir flash de tema incorrecto --><script>
+      const theme = (() => {
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+          return localStorage.getItem('theme');
+        }
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          return 'dark';
+        }
+        return 'light';
+      })();
+      
+      if (theme === 'light') {
+        document.documentElement.classList.add('light');
+      } else {
+        document.documentElement.classList.add('dark');
+      }
+    </script><!-- Cache busting: Verificar versión y recargar si hay cambios --><script>
+      (function() {
+        const BUILD_VERSION = '1771938333648';
+        const CACHE_KEY = 'tech-challenges-build-version';
+        
+        // Verificar si hay nueva versión
+        const storedVersion = localStorage.getItem(CACHE_KEY);
+        
+        if (storedVersion && storedVersion !== BUILD_VERSION) {
+          // Nueva versión detectada, limpiar cache y recargar
+          console.log('🆕 Nueva versión detectada. Actualizando...');
+          if ('caches' in window) {
+            caches.keys().then(names => {
+              names.forEach(name => caches.delete(name));
+            });
+          }
+          localStorage.setItem(CACHE_KEY, BUILD_VERSION);
+          window.location.reload();
+        } else if (!storedVersion) {
+          localStorage.setItem(CACHE_KEY, BUILD_VERSION);
+        }
+      })();
+    </script><link rel="stylesheet" href="/challenges/_astro/_slug_-DHZt47Ra.css">
+<link rel="stylesheet" href="/challenges/_astro/_slug_-CaxYOu3g.css">
+<style>.nav-buttons[data-astro-cid-i5n6fu6j]{display:flex;justify-content:space-between;gap:1rem;margin-top:2rem;flex-wrap:wrap}.nav-btn[data-astro-cid-i5n6fu6j]{display:flex;align-items:center;gap:.75rem;padding:1rem 1.25rem;background:#1e293bcc;border:1px solid rgba(71,85,105,.3);border-radius:.75rem;text-decoration:none;transition:all .2s ease;flex:1;min-width:200px;max-width:280px}.nav-btn[data-astro-cid-i5n6fu6j]:hover:not(.disabled){background:#f973161a;border-color:#f973164d;transform:translateY(-2px)}.nav-btn[data-astro-cid-i5n6fu6j].disabled{opacity:.4;cursor:not-allowed;pointer-events:none}.nav-btn[data-astro-cid-i5n6fu6j].prev{text-align:left}.nav-btn[data-astro-cid-i5n6fu6j].next{text-align:right;justify-content:flex-end}.nav-btn[data-astro-cid-i5n6fu6j].home{justify-content:center;max-width:200px}.nav-icon[data-astro-cid-i5n6fu6j]{font-size:1.25rem;color:#f97316}.nav-content[data-astro-cid-i5n6fu6j]{display:flex;flex-direction:column;gap:.25rem}.nav-label[data-astro-cid-i5n6fu6j]{font-size:.7rem;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em}.nav-title[data-astro-cid-i5n6fu6j]{font-size:.875rem;color:#e2e8f0;font-weight:500}@media(max-width:768px){.nav-buttons[data-astro-cid-i5n6fu6j]{flex-direction:column}.nav-btn[data-astro-cid-i5n6fu6j]{max-width:100%}}.markdown-body{font-family:system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;line-height:1.8;color:#e5e7eb}.markdown-body h1{font-size:2rem;font-weight:700;color:#f97316;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid #374151}.markdown-body h2{font-size:1.5rem;font-weight:600;color:#22d3ee;margin:1.75rem 0 1rem;padding-bottom:.25rem}.markdown-body h3{font-size:1.25rem;font-weight:600;color:#a5f3fc;margin:1.5rem 0 .75rem}.markdown-body p{margin:.75rem 0;color:#d1d5db}.markdown-body strong{color:#fbbf24;font-weight:600}.markdown-body ul,.markdown-body ol{margin:.75rem 0;padding-left:1.5rem;color:#d1d5db}.markdown-body li{margin:.5rem 0;list-style-type:disc}.markdown-body table{width:100%;margin:1rem 0;border-collapse:collapse;font-size:.9rem}.markdown-body th,.markdown-body td{padding:.75rem;border:1px solid #374151;text-align:left}.markdown-body th{background:#37415180;color:#fbbf24;font-weight:600}.markdown-body td{color:#d1d5db}.markdown-body code{background:#06b6d426;color:#22d3ee;padding:.2rem .5rem;border-radius:.375rem;font-family:SF Mono,Monaco,Courier New,monospace;font-size:.875rem}.markdown-body pre{background:#0f172a;padding:1rem;border-radius:.75rem;overflow-x:auto;margin:1rem 0;border:1px solid #1e293b}.markdown-body pre code{background:transparent;padding:0;color:#a5b4fc}
+</style></head> <body class="min-h-screen flex flex-col" data-astro-cid-ouamjn2i> <!-- Header --> <header class="sticky top-0 z-50 border-b" style="background-color: var(--color-bg); border-color: var(--color-border);" data-astro-cid-ouamjn2i> <div class="container mx-auto px-4 py-4 flex items-center justify-between" data-astro-cid-ouamjn2i> <!-- Logo / Brand --> <a href="/challenges/" class="flex items-center gap-3 group" data-astro-cid-ouamjn2i> <span class="text-2xl" data-astro-cid-ouamjn2i>🚀</span> <span class="font-bold text-lg transition-colors group-hover:text-accent" style="color: var(--color-text);" data-astro-cid-ouamjn2i>
+Tech Challenges
+</span> </a> <!-- Navigation --> <nav class="hidden md:flex items-center gap-6" data-astro-cid-ouamjn2i> <a href="/challenges/" class="nav-link" data-astro-cid-ouamjn2i>Dashboard</a> <a href="/challenges/linux/" class="nav-link" data-astro-cid-ouamjn2i>Linux</a> <a href="/challenges/docker/" class="nav-link" data-astro-cid-ouamjn2i>Docker</a> <a href="/challenges/devops/" class="nav-link" data-astro-cid-ouamjn2i>DevOps</a> <a href="/challenges/ctf/" class="nav-link" data-astro-cid-ouamjn2i>CTF</a> <a href="/challenges/htb/" class="nav-link" data-astro-cid-ouamjn2i>HTB</a> </nav> <!-- Theme Toggle --> <div class="flex items-center gap-4" data-astro-cid-ouamjn2i> <button id="lang-toggle" class="lang-toggle" type="button" aria-label="Cambiar idioma" title="Cambiar idioma" data-astro-cid-lb7h3eps> <span class="lang-text" data-astro-cid-lb7h3eps>EN</span> </button>  <script type="module">const l={es:{"hero.badge":"Plataforma de Aprendizaje","hero.title.line1":"Domina Linux, Docker,","hero.title.line2":"DevOps & Security","hero.subtitle":"Plataforma interactiva con 70+ desafíos prácticos. Aprende haciendo, no solo leyendo.","hero.stat.completed":"Completados","hero.stat.progress":"Progreso","hero.stat.challenges":"Desafíos","progress.title":"Progreso General","progress.completed":"completados","progress.in_progress":"en progreso","progress.blocked":"bloqueados","programs.title":"Programas de Aprendizaje","programs.subtitle":"Selecciona un programa para ver sus desafíos","programs.completed":"Completados","programs.total":"Total","programs.view":"Ver desafíos","program.linux":"Linux","program.docker":"Docker","program.devops":"DevOps","program.ctf":"CTF","program.htb":"HTB Academy","program.linux.desc":"Administración de sistemas Linux, usuarios, permisos y automatización","program.docker.desc":"Containerización, orquestación y mejores prácticas de Docker","program.devops.desc":"CI/CD, automatización y cultura DevOps","program.ctf.desc":"Desafíos de seguridad: criptografía, web, forense y más","program.htb.desc":"Módulos de Hack The Box Academy completados","cert.title":"Certificaciones Obtenidas","cert.subtitle":"Reconocimientos oficiales de tu progreso","cert.docker.title":"Docker Certification","cert.docker.platform":"KodeKloud Engineer","cert.challenges":"Challenges","cert.verify":"Verificar certificado","activity.title":"Actividad Reciente","activity.subtitle":"Últimos desafíos completados","footer.update":"Última actualización"},en:{"hero.badge":"Learning Platform","hero.title.line1":"Master Linux, Docker,","hero.title.line2":"DevOps & Security","hero.subtitle":"Interactive platform with 70+ practical challenges. Learn by doing, not just reading.","hero.stat.completed":"Completed","hero.stat.progress":"Progress","hero.stat.challenges":"Challenges","progress.title":"Overall Progress","progress.completed":"completed","progress.in_progress":"in progress","progress.blocked":"blocked","programs.title":"Learning Programs","programs.subtitle":"Select a program to view its challenges","programs.completed":"Completed","programs.total":"Total","programs.view":"View challenges","program.linux":"Linux","program.docker":"Docker","program.devops":"DevOps","program.ctf":"CTF","program.htb":"HTB Academy","program.linux.desc":"Linux system administration, users, permissions and automation","program.docker.desc":"Containerization, orchestration and Docker best practices","program.devops.desc":"CI/CD, automation and DevOps culture","program.ctf.desc":"Security challenges: cryptography, web, forensics and more","program.htb.desc":"Completed Hack The Box Academy modules","cert.title":"Earned Certifications","cert.subtitle":"Official recognition of your progress","cert.docker.title":"Docker Certification","cert.docker.platform":"KodeKloud Engineer","cert.challenges":"Challenges","cert.verify":"Verify Certificate","activity.title":"Recent Activity","activity.subtitle":"Latest completed challenges","footer.update":"Last updated"}},i=document.getElementById("lang-toggle"),s=i?.querySelector(".lang-text");function c(){if(typeof localStorage<"u"){const e=localStorage.getItem("lang");if(e==="es"||e==="en")return e}return"es"}function d(e){typeof localStorage<"u"&&localStorage.setItem("lang",e)}function g(e){s&&(s.textContent=e==="es"?"EN":"ES")}function n(e){const t=l[e];document.querySelectorAll("[data-i18n]").forEach(o=>{const r=o.getAttribute("data-i18n");r&&t[r]&&(o.textContent=t[r])}),document.querySelectorAll("[data-i18n-program]").forEach(o=>{const r=o.getAttribute("data-i18n-program");if(r){const a=`program.${r}`;t[a]&&(o.textContent=t[a])}}),document.querySelectorAll("[data-i18n-program-desc]").forEach(o=>{const r=o.getAttribute("data-i18n-program-desc");if(r){const a=`program.${r}.desc`;t[a]&&(o.textContent=t[a])}}),document.documentElement.lang=e,g(e)}const p=c();n(p);i?.addEventListener("click",()=>{const t=c()==="es"?"en":"es";d(t),n(t)});</script> <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Cambiar tema" title="Cambiar tema claro/oscuro" data-astro-cid-x3pjskd3> <!-- Icono Sol (visible en tema oscuro) --> <svg class="icon-sun w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" data-astro-cid-x3pjskd3> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" data-astro-cid-x3pjskd3></path> </svg> <!-- Icono Luna (visible en tema claro) --> <svg class="icon-moon w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" data-astro-cid-x3pjskd3> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" data-astro-cid-x3pjskd3></path> </svg> </button>  <script type="module">const m=document.getElementById("theme-toggle");function c(){return typeof localStorage<"u"&&localStorage.getItem("theme")?localStorage.getItem("theme"):window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}function t(e){e==="dark"?(document.documentElement.classList.remove("light"),document.documentElement.classList.add("dark")):(document.documentElement.classList.remove("dark"),document.documentElement.classList.add("light")),localStorage.setItem("theme",e)}const d=c();d==="light"?document.documentElement.classList.add("light"):document.documentElement.classList.add("dark");m?.addEventListener("click",()=>{const n=(document.documentElement.classList.contains("light")?"light":"dark")==="dark"?"light":"dark";document.documentElement.classList.add("theme-transitioning"),t(n),setTimeout(()=>{document.documentElement.classList.remove("theme-transitioning")},300)});window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change",e=>{localStorage.getItem("theme")||t(e.matches?"dark":"light")});</script> <!-- Mobile Menu Button --> <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg border transition-colors" style="background-color: var(--color-bg-card); border-color: var(--color-border);" aria-label="Menú" data-astro-cid-ouamjn2i> <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-ouamjn2i> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" data-astro-cid-ouamjn2i></path> </svg> </button> </div> </div> <!-- Mobile Navigation --> <div id="mobile-menu" class="hidden md:hidden border-t" style="border-color: var(--color-border); background-color: var(--color-bg-card);" data-astro-cid-ouamjn2i> <nav class="container mx-auto px-4 py-4 flex flex-col gap-2" data-astro-cid-ouamjn2i> <a href="/challenges/" class="mobile-nav-link" data-astro-cid-ouamjn2i>Dashboard</a> <a href="/challenges/linux/" class="mobile-nav-link" data-astro-cid-ouamjn2i>🐧 Linux</a> <a href="/challenges/docker/" class="mobile-nav-link" data-astro-cid-ouamjn2i>🐳 Docker</a> <a href="/challenges/devops/" class="mobile-nav-link" data-astro-cid-ouamjn2i>⚙️ DevOps</a> <a href="/challenges/ctf/" class="mobile-nav-link" data-astro-cid-ouamjn2i>🚩 CTF</a> <a href="/challenges/htb/" class="mobile-nav-link" data-astro-cid-ouamjn2i>🎯 HTB</a> </nav> </div> </header> <!-- Main Content --> <main class="flex-1" data-astro-cid-ouamjn2i>   <main class="container mx-auto px-4 py-8" data-astro-cid-i5n6fu6j> <div class="max-w-4xl mx-auto" data-astro-cid-i5n6fu6j> <nav class="flex mb-6" aria-label="Breadcrumb"> <ol class="flex items-center space-x-2"> <li class="flex items-center">  <a href="/challenges" class="text-cyan-400 hover:text-cyan-300 transition-colors"> Challenges </a> </li><li class="flex items-center"> <span class="text-gray-500 mx-2">/</span> <a href="/challenges/linux" class="text-cyan-400 hover:text-cyan-300 transition-colors"> Linux </a> </li><li class="flex items-center"> <span class="text-gray-500 mx-2">/</span> <span class="text-gray-300 font-medium">Reto 01: Creación de Usuario javed - xFusionCorp Industries</span> </li> </ol> </nav> <article class="bg-slate-800 rounded-lg p-6 border border-slate-700" data-astro-cid-i5n6fu6j> <header class="mb-6" data-astro-cid-i5n6fu6j> <h1 class="text-3xl font-bold text-orange-400 mb-2" data-astro-cid-i5n6fu6j>Reto 01: Creación de Usuario javed - xFusionCorp Industries</h1> <div class="flex items-center gap-4 text-sm text-gray-400" data-astro-cid-i5n6fu6j> <span class="bg-orange-600 px-2 py-1 rounded text-xs" data-astro-cid-i5n6fu6j>Linux #01</span> <span class="capitalize" data-astro-cid-i5n6fu6j>easy</span> <span data-astro-cid-i5n6fu6j>2026-01-25</span> </div> </header> <div class="prose prose-invert max-w-none" data-astro-cid-i5n6fu6j> <div class="markdown-body" data-astro-cid-i5n6fu6j><h1>🎓 Clase 01: El Arte de la Gestión de Usuarios en Linux</h1>
+<h2>Pensando como un Administrador de Sistemas Senior</h2>
+<hr>
+<p>👨‍🏫 <strong>Del Instructor</strong>: Bienvenido a tu primera clase práctica. Soy tu instructor y durante los próximos minutos, voy a enseñarte a pensar como un <strong>SysAdmin profesional</strong>. No solo ejecutaremos comandos; entenderemos <em>por qué</em> los ejecutamos.</p>
+<blockquote>
+<p>💭 <strong>Mentalidad de SysAdmin</strong>: Un administrador de sistemas no es alguien que &quot;hace clic en botones&quot;. Es un profesional que comprende la arquitectura del sistema, anticipa problemas y construye infraestructura robusta. Antes de ejecutar cualquier comando, pregúntate: <em>&quot;¿Qué estoy cambiando? ¿Qué podría salir mal? ¿Cómo verifico que funcionó?&quot;</em></p>
+</blockquote>
+<hr>
+<h2>🎭 Escenario Real: Tu Primer Día en xFusionCorp</h2>
+<p>Imagina que acabas de ser contratado como Administrador de Sistemas Junior en <strong>xFusionCorp Industries</strong>. Es tu primer día y el Lead SysAdmin te asigna una tarea:</p>
+<blockquote>
+<p><em>&quot;El equipo de desarrollo web necesita un usuario llamado <strong>javed</strong> para desplegar su aplicación en el servidor stapp02. Necesitan UID 1467 y el home directory debe estar en <code>/var/www/javed</code>. El desarrollador jefe está esperando. ¿Puedes hacerlo?&quot;</em></p>
+</blockquote>
+<p><strong>Tu reacción como SysAdmin profesional:</strong></p>
+<p>🛑 <strong>ALTO</strong>. Antes de tocar el teclado, un buen administrador hace preguntas:</p>
+<ol>
+<li><strong>¿Por qué UID 1467 específicamente?</strong> → Puede ser un requisito de su aplicación o una política de la empresa</li>
+<li><strong>¿Por qué <code>/var/www/javed</code> y no <code>/home/javed</code>?</strong> → Las aplicaciones web a menudo necesitan estar en <code>/var/www/</code> por estándares de la industria</li>
+<li><strong>¿Ya verificaron que el UID 1467 no esté en uso?</strong> → Nunca asumas; siempre verificas</li>
+</ol>
+<p>Esta mentalidad de <strong>&quot;verificar antes de actuar&quot;</strong> es lo que separa a un script kiddie de un profesional.</p>
+<hr>
+<h2>🧠 La Arquitectura del Sistema: Entendiendo el /etc/passwd</h2>
+<p>Antes de crear usuarios, debes entender cómo Linux los gestiona internamente. Como SysAdmin, trabajas directamente con los archivos de configuración del sistema.</p>
+<h3>El Archivo /etc/passwd: La Base de Datos de Usuarios</h3>
+<p>Cada usuario en Linux está definido por una línea en <code>/etc/passwd</code>:</p>
+<pre><code>username:password:UID:GID:comment:home_directory:shell
+</code></pre>
+<p><strong>Ejemplo real:</strong></p>
+<pre><code>javed:x:1467:1467::/var/www/javed:/bin/bash
+│     │ │    │    │ │             │
+│     │ │    │    │ │             └─ Shell por defecto
+│     │ │    │    │ └─ Directorio home
+│     │ │    │    └─ Comentario (usualmente nombre completo)
+│     │ │    └─ Group ID (GID)
+│     │ └─ User ID (UID) ← ¡ESTO ES CRÍTICO!
+│     └─ Contraseña encriptada (x = en /etc/shadow)
+└─ Nombre de usuario
+</code></pre>
+<blockquote>
+<p>🎓 <strong>Lección del Instructor</strong>: El UID es el verdadero identificador del usuario. Linux no dice &quot;el usuario javed accedió&quot;; dice &quot;el UID 1467 accedió&quot;. Los nombres son solo etiquetas humanas para nosotros. Por eso los UIDs deben ser únicos: son la identidad real en el sistema.</p>
+</blockquote>
+<h3>¿Por Qué UID 1467?</h3>
+<p>En organizaciones grandes, los UIDs se asignan por rangos:</p>
+<ul>
+<li><strong>0-99</strong>: Usuarios del sistema (root, bin, daemon)</li>
+<li><strong>100-999</strong>: Cuentas de servicios (nginx, mysql, docker)</li>
+<li><strong>1000+</strong>: Usuarios humanos regulares</li>
+<li><strong>10000+</strong>: Aplicaciones específicas</li>
+</ul>
+<p>El <strong>1467</strong> probablemente está en un rango asignado al equipo de desarrollo web. Como SysAdmin, deberías tener documentación sobre estos rangos.</p>
+<hr>
+<h2>🛠️ La Implementación: Manos en el Código</h2>
+<h3>Paso 0: Recopilación de Información (Reconocimiento)</h3>
+<p>Antes de conectarte al servidor, documenta lo que sabes:</p>
+<table>
+<thead>
+<tr>
+<th>Información</th>
+<th>Valor</th>
+<th>Por qué importa</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Servidor</td>
+<td>stapp02</td>
+<td>Sabes dónde trabajar</td>
+</tr>
+<tr>
+<td>IP</td>
+<td>172.16.238.11</td>
+<td>Para conexión SSH</td>
+</tr>
+<tr>
+<td>Tu acceso</td>
+<td>steve / Am3ric@</td>
+<td>Credenciales iniciales</td>
+</tr>
+<tr>
+<td>Usuario objetivo</td>
+<td>javed</td>
+<td>Lo que debes crear</td>
+</tr>
+<tr>
+<td>UID requerido</td>
+<td>1467</td>
+<td>Debe ser exacto</td>
+</tr>
+<tr>
+<td>Home directory</td>
+<td>/var/www/javed</td>
+<td>No el default /home/javed</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>🔍 <strong>Mentalidad de Investigador</strong>: Un SysAdmin documenta todo. Cuando algo falla a las 3 AM, necesitas saber exactamente qué hiciste y por qué.</p>
+</blockquote>
+<h3>Paso 1: Acceso al Servidor</h3>
+<pre><code class="language-bash"># Conectamos vía SSH
+ssh steve@172.16.238.11
+</code></pre>
+<p><strong>¿Por qué SSH?</strong> SSH (Secure Shell) es el protocolo estándar para administración remota de servidores. Cifra todo el tráfico, incluyendo contraseñas. Nunca uses Telnet (no cifrado) o FTP (credenciales en texto plano).</p>
+<p>Una vez dentro, necesitas privilegios de administrador:</p>
+<pre><code class="language-bash"># Escalamos a root
+sudo su -
+</code></pre>
+<p><strong>Análisis del comando:</strong></p>
+<ul>
+<li><code>sudo</code>: Ejecuta como superusuario</li>
+<li><code>su</code>: Switch User (cambiar usuario)</li>
+<li><code>-</code>: Carga el entorno completo de root (variables, PATH, etc.)</li>
+</ul>
+<blockquote>
+<p>⚠️ <strong>Advertencia del Instructor</strong>: Trabajar como root es peligroso. Un error puede destruir el sistema. Por eso usamos <code>sudo</code> para comandos específicos, no sesiones root permanentes. En este caso, <code>useradd</code> requiere root, así que es aceptable.</p>
+</blockquote>
+<h3>Paso 2: Inteligencia y Verificación</h3>
+<p>Como SysAdmin profesional, nunca asumes. Siempre verificas el estado actual antes de hacer cambios:</p>
+<pre><code class="language-bash"># Verificación 1: ¿El usuario ya existe?
+id javed
+# Si existe, verás: uid=1467(javed) gid=1467(javed) groups=1467(javed)
+# Si NO existe: id: &#39;javed&#39;: no such user ← Esto es bueno
+
+# Verificación 2: ¿El UID 1467 ya está en uso?
+grep &quot;1467&quot; /etc/passwd
+# Si NO hay salida, el UID está disponible
+
+# Verificación 3: ¿El directorio /var/www/ existe?
+ls -ld /var/www/
+# Debería mostrar el directorio. Si no existe, lo crearemos.
+</code></pre>
+<blockquote>
+<p>🧠 <strong>Pensamiento Crítico</strong>: ¿Qué harías si <code>id javed</code> mostrara que el usuario ya existe con un UID diferente? ¿O si el UID 1467 ya está asignado a otro usuario? Estas son situaciones reales que enfrentarás. La respuesta: <strong>nunca sobrescribas sin consultar</strong>. Habla con el solicitante y documenta todo.</p>
+</blockquote>
+<h3>Paso 3: Creación del Usuario</h3>
+<p>Ahora ejecutamos el comando de creación:</p>
+<pre><code class="language-bash">useradd -u 1467 -d /var/www/javed -m javed
+</code></pre>
+<p><strong>Anatomía del comando:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Opción</th>
+<th>Significado</th>
+<th>Por qué lo usamos</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>-u 1467</code></td>
+<td>Especifica UID</td>
+<td>Requerimiento del equipo de desarrollo</td>
+</tr>
+<tr>
+<td><code>-d /var/www/javed</code></td>
+<td>Directorio home personalizado</td>
+<td>Estándar para aplicaciones web</td>
+</tr>
+<tr>
+<td><code>-m</code></td>
+<td>Crea el directorio home</td>
+<td>Sin esto, el usuario no tendría home</td>
+</tr>
+<tr>
+<td><code>javed</code></td>
+<td>Nombre de usuario</td>
+<td>Identificador humano</td>
+</tr>
+</tbody></table>
+<p><strong>¿Qué pasó detrás de escenas?</strong></p>
+<ol>
+<li>Linux asignó UID 1467 al usuario</li>
+<li>Creó un grupo con GID 1467 (mismo número por defecto)</li>
+<li>Creó el directorio <code>/var/www/javed</code></li>
+<li>Copió archivos de configuración desde <code>/etc/skel/</code> (.bashrc, .bash_profile, etc.)</li>
+<li>Registró todo en <code>/etc/passwd</code> y <code>/etc/group</code></li>
+</ol>
+<h3>Paso 4: Seguridad - Establecer Contraseña</h3>
+<p>Todo usuario necesita autenticación:</p>
+<pre><code class="language-bash">passwd javed
+</code></pre>
+<p>El sistema te pedirá la contraseña dos veces. <strong>Como SysAdmin</strong>, deberías:</p>
+<ul>
+<li>Usar contraseñas fuertes (12+ caracteres, mixtos)</li>
+<li>No usar información personal obvia</li>
+<li>Documentar la contraseña en un gestor seguro (HashiCorp Vault, 1Password, etc.)</li>
+<li>Forzar cambio en primer login: <code>passwd --expire javed</code></li>
+</ul>
+<blockquote>
+<p>🔐 <strong>Mejor Práctica</strong>: En producción, nunca sabes las contraseñas de usuarios. Configura autenticación por clave SSH y deshabilita contraseñas: <code>passwd -l javed</code> (bloquea contraseña).</p>
+</blockquote>
+<h3>Paso 5: Verificación Exhaustiva</h3>
+<p>Un profesional verifica tres veces. Nunca asumas que funcionó:</p>
+<pre><code class="language-bash"># Verificación 1: El usuario existe con UID correcto
+id javed
+# Salida esperada: uid=1467(javed) gid=1467(javed) groups=1467(javed)
+
+# Verificación 2: El home directory existe con permisos correctos
+ls -la /var/www/javed
+# Debería mostrar archivos .bashrc, .bash_profile, .bash_logout
+# Permisos: drwxr-x--- (propietario javed, grupo javed)
+
+# Verificación 3: Podemos cambiar al usuario
+su - javed
+# El prompt debería cambiar a: [javed@stapp02 ~]$
+# Verifica que estás en el directorio correcto:
+pwd
+# Salida: /var/www/javed
+
+# Verificación 4: Salir y volver a root
+exit
+</code></pre>
+<blockquote>
+<p>✅ <strong>Checklist del Profesional</strong>:</p>
+<ul>
+<li><input disabled="" type="checkbox"> Usuario existe en /etc/passwd</li>
+<li><input disabled="" type="checkbox"> UID es exactamente 1467</li>
+<li><input disabled="" type="checkbox"> GID coincide con UID</li>
+<li><input disabled="" type="checkbox"> Home directory existe en /var/www/javed</li>
+<li><input disabled="" type="checkbox"> Permisos son javed:javed</li>
+<li><input disabled="" type="checkbox"> Archivos de configuración copiados</li>
+<li><input disabled="" type="checkbox"> Puedo hacer su - javed sin errores</li>
+<li><input disabled="" type="checkbox"> pwd muestra /var/www/javed</li>
+</ul>
+</blockquote>
+<hr>
+<h2>🎯 Análisis Post-Implementación</h2>
+<h3>¿Qué acabas de construir?</h3>
+<p>Has creado una identidad digital completa en el sistema:</p>
+<ol>
+<li><strong>Identidad del Sistema</strong>: UID 1467</li>
+<li><strong>Espacio de Trabajo</strong>: /var/www/javed</li>
+<li><strong>Autenticación</strong>: Contraseña segura</li>
+<li><strong>Entorno</strong>: Shell bash con configuraciones estándar</li>
+</ol>
+<h3>Escenarios de Troubleshooting</h3>
+<p><strong>Problema</strong>: El equipo de desarrollo dice &quot;No podemos escribir en /var/www/javed&quot;</p>
+<p><strong>Diagnóstico como SysAdmin</strong>:</p>
+<pre><code class="language-bash"># Verificar permisos
+ls -la /var/www/ | grep javed
+# Si muestra: drwxr-x--- 2 javed javed
+# El problema: El directorio es 750 (rwxr-x---)
+# Otros usuarios no tienen permiso de escritura
+
+# Solución: Dependiendo del caso...
+# Opción A: Agregar desarrolladores al grupo javed
+usermod -aG javed dev1
+usermod -aG javed dev2
+
+# Opción B: Cambiar permisos (menos seguro)
+chmod 775 /var/www/javed
+
+# Opción C: Crear un grupo compartido
+</code></pre>
+<blockquote>
+<p>🎓 <strong>Lección</strong>: Los permisos son el 50% de la seguridad en Linux. Siempre verifica quién puede hacer qué.</p>
+</blockquote>
+<hr>
+<h2>🚀 Expandiendo tu Conocimiento</h2>
+<h3>Variaciones del Comando useradd</h3>
+<pre><code class="language-bash"># Crear usuario de servicio (sin login)
+useradd -r -s /sbin/nologin mysql
+# -r: UID de sistema (bajo número)
+# -s /sbin/nologin: No puede iniciar sesión interactiva
+
+# Crear con grupo secundario
+useradd -G developers,deployers -m javed
+# El usuario pertenece a su grupo primario (javed)
+# Y a grupos secundarios developers y deployers
+
+# Crear con fecha de expiración
+useradd -e 2025-12-31 -m contractor1
+# La cuenta expira el 31 de diciembre de 2025
+</code></pre>
+<h3>Comandos de Gestión Avanzada</h3>
+<pre><code class="language-bash"># Modificar usuario existente
+usermod -aG docker javed          # Agregar a grupo docker
+usermod -d /new/home -m javed     # Cambiar home directory
+usermod -L javed                   # Bloquear cuenta
+usermod -U javed                   # Desbloquear cuenta
+
+# Eliminar usuario (¡cuidado!)
+userdel javed                      # Elimina usuario, conserva home
+userdel -r javed                   # Elimina usuario Y home directory
+
+# Información detallada
+finger javed                       # Información del usuario
+chage -l javed                     # Política de contraseñas
+last javed                         # Historial de logins
+</code></pre>
+<hr>
+<h2>🎓 Reflexión Final: La Mentalidad SysAdmin</h2>
+<p>Después de este reto, has practicado más que comandos. Has desarrollado:</p>
+<ol>
+<li><strong>Pensamiento Crítico</strong>: Verificar antes de actuar</li>
+<li><strong>Documentación</strong>: Entender qué estás cambiando</li>
+<li><strong>Verificación</strong>: Confirmar que funcionó como esperabas</li>
+<li><strong>Seguridad</strong>: Trabajar con privilegios mínimos necesarios</li>
+<li><strong>Troubleshooting</strong>: Diagnosticar problemas sistemáticamente</li>
+</ol>
+<blockquote>
+<p>💡 <strong>Sabiduría de un SysAdmin Senior</strong>: <em>&quot;El mejor SysAdmin no es el que sabe más comandos, es el que sabe qué preguntas hacer antes de ejecutarlos. Un comando ejecutado sin pensar puede causar un outage de producción. Un comando ejecutado con comprensión completa construye infraestructura robusta.&quot;</em></p>
+</blockquote>
+<hr>
+<h2>📚 Recursos para Continuar tu Aprendizaje</h2>
+<ul>
+<li><strong>man useradd</strong>: Documentación completa del comando</li>
+<li><strong>man passwd</strong>: Gestión de contraseñas</li>
+<li><strong>man usermod</strong>: Modificación de usuarios</li>
+<li><strong>/etc/passwd format</strong>: Investiga los 7 campos</li>
+<li><strong>Linux User Management</strong>: Cómo funcionan UIDs/GIDs internamente</li>
+</ul>
+<hr>
+<h2>✅ Estado del Laboratorio</h2>
+<p><strong>COMPLETADO EXITOSAMENTE</strong> 🎉</p>
+<ul>
+<li>📅 Fecha de ejecución: 2025-01-25</li>
+<li>⏱️ Tiempo dedicado: 10-15 minutos</li>
+<li>🎯 Nivel: Fundamentos de Administración Linux</li>
+<li>💼 Habilidades: User Management, SSH, Privilege Escalation, Verification</li>
+</ul>
+<p><strong>Próximo Laboratorio</strong>: Gestión de Grupos y Permisos Avanzados</p>
+<hr>
+<p><em>Recuerda: En Linux, la terminal es tu canvas y los comandos son tu pincel. Pero un verdadero artista SysAdmin no solo pinta; entiende la química de los colores antes de mezclarlos.</em> 🐧🎨</p>
+<p><strong>¿Listo para tu próxima misión, futuro SysAdmin?</strong></p>
+</div> </div> </article> <div id="modal-01-creacion-usuarios" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50" aria-hidden="true"> <div class="flex items-center justify-center min-h-screen p-4"> <div class="bg-slate-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto"> <div class="p-6 border-b border-slate-700"> <div class="flex justify-between items-start"> <div> <h2 class="text-2xl font-bold text-gray-100">Reto 01: Creación de Usuario javed - xFusionCorp Industries</h2> <div class="flex items-center gap-4 mt-2 text-sm"> <span class="capitalize bg-slate-700 px-2 py-1 rounded">linux</span> <span class="text-cyan-400">easy</span>  </div> </div> <button onclick="closeModal('01-creacion-usuarios')" class="text-gray-400 hover:text-white">
+✕
+</button> </div> </div> <div class="p-6"> <div class="mb-6"> <h3 class="text-lg font-semibold text-cyan-400 mb-4">Pasos a Seguir</h3> <div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">1. El Archivo /etc/passwd: La Base de Datos de Usuarios</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">2. ¿Por Qué UID 1467?</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">3. Paso 0: Recopilación de Información (Reconocimiento)</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">4. Paso 1: Acceso al Servidor</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>ssh steve@172.16.238.11</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">5. Paso 2: Inteligencia y Verificación</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>id javed
+grep &quot;1467&quot; /etc/passwd
+ls -ld /var/www/</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">6. Paso 3: Creación del Usuario</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>useradd -u 1467 -d /var/www/javed -m javed</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">7. Paso 4: Seguridad - Establecer Contraseña</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>passwd javed</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">8. Paso 5: Verificación Exhaustiva</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>id javed
+ls -la /var/www/javed
+su - javed
+pwd
+exit</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">9. ¿Qué acabas de construir?</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">10. Escenarios de Troubleshooting</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>ls -la /var/www/ | grep javed
+usermod -aG javed dev1
+usermod -aG javed dev2
+chmod 775 /var/www/javed</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">11. Variaciones del Comando useradd</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>useradd -r -s /sbin/nologin mysql
+useradd -G developers,deployers -m javed
+useradd -e 2025-12-31 -m contractor1</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">12. Comandos de Gestión Avanzada</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>usermod -aG docker javed          # Agregar a grupo docker
+usermod -d /new/home -m javed     # Cambiar home directory
+usermod -L javed                   # Bloquear cuenta
+usermod -U javed                   # Desbloquear cuenta
+userdel javed                      # Elimina usuario, conserva home
+userdel -r javed                   # Elimina usuario Y home directory
+finger javed                       # Información del usuario
+chage -l javed                     # Política de contraseñas
+last javed                         # Historial de logins</code>
+                  </pre>  </div> </div>    </div> </div> </div> </div> <script type="module">document.addEventListener("click",e=>{const t=e.target;t.classList.contains("bg-black")&&(t.classList.add("hidden"),t.setAttribute("aria-hidden","true"))});</script> <!-- Navigation --> <div class="nav-buttons" data-astro-cid-i5n6fu6j> <span class="nav-btn disabled prev" data-astro-cid-i5n6fu6j> <span class="nav-icon" data-astro-cid-i5n6fu6j>←</span> <span class="nav-content" data-astro-cid-i5n6fu6j> <span class="nav-label" data-astro-cid-i5n6fu6j>Anterior</span> <span class="nav-title" data-astro-cid-i5n6fu6j>No hay reto anterior</span> </span> </span> <a href="/challenges/linux/" class="nav-btn home" data-astro-cid-i5n6fu6j> <span class="nav-icon" data-astro-cid-i5n6fu6j>🐧</span> <span class="nav-content" data-astro-cid-i5n6fu6j> <span class="nav-label" data-astro-cid-i5n6fu6j>Volver</span> <span class="nav-title" data-astro-cid-i5n6fu6j>Todos los Retos</span> </span> </a> <a href="/challenges/linux/02-gestion-grupos-xfusioncorp" class="nav-btn next" data-astro-cid-i5n6fu6j> <span class="nav-content" data-astro-cid-i5n6fu6j> <span class="nav-label" data-astro-cid-i5n6fu6j>Siguiente</span> <span class="nav-title" data-astro-cid-i5n6fu6j>#02 Reto 02: Gestión de Grupos nautilus_noc ...</span> </span> <span class="nav-icon" data-astro-cid-i5n6fu6j>→</span> </a> </div> </div> </main>  </main>  <script type="module">const e=document.getElementById("mobile-menu-btn"),n=document.getElementById("mobile-menu");e?.addEventListener("click",()=>{n?.classList.toggle("hidden")});</script></body></html> 

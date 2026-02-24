@@ -1,0 +1,748 @@
+<!DOCTYPE html><html lang="es" data-astro-cid-ouamjn2i> <head><meta charset="UTF-8"><meta name="description" content="Plataforma interactiva de desafíos técnicos - Linux, Docker, DevOps, CTF"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/challenges/favicon.svg"><meta name="generator" content="Astro v5.17.1"><meta name="theme-color" content="#4c80cc"><title>Reto 06: Temporary User Setup with Expiry - Usuario anita - Linux Challenges</title><!-- Preconnect for fonts --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><!-- Script para prevenir flash de tema incorrecto --><script>
+      const theme = (() => {
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+          return localStorage.getItem('theme');
+        }
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          return 'dark';
+        }
+        return 'light';
+      })();
+      
+      if (theme === 'light') {
+        document.documentElement.classList.add('light');
+      } else {
+        document.documentElement.classList.add('dark');
+      }
+    </script><!-- Cache busting: Verificar versión y recargar si hay cambios --><script>
+      (function() {
+        const BUILD_VERSION = '1771938333648';
+        const CACHE_KEY = 'tech-challenges-build-version';
+        
+        // Verificar si hay nueva versión
+        const storedVersion = localStorage.getItem(CACHE_KEY);
+        
+        if (storedVersion && storedVersion !== BUILD_VERSION) {
+          // Nueva versión detectada, limpiar cache y recargar
+          console.log('🆕 Nueva versión detectada. Actualizando...');
+          if ('caches' in window) {
+            caches.keys().then(names => {
+              names.forEach(name => caches.delete(name));
+            });
+          }
+          localStorage.setItem(CACHE_KEY, BUILD_VERSION);
+          window.location.reload();
+        } else if (!storedVersion) {
+          localStorage.setItem(CACHE_KEY, BUILD_VERSION);
+        }
+      })();
+    </script><link rel="stylesheet" href="/challenges/_astro/_slug_-DHZt47Ra.css">
+<link rel="stylesheet" href="/challenges/_astro/_slug_-CaxYOu3g.css">
+<style>.nav-buttons[data-astro-cid-i5n6fu6j]{display:flex;justify-content:space-between;gap:1rem;margin-top:2rem;flex-wrap:wrap}.nav-btn[data-astro-cid-i5n6fu6j]{display:flex;align-items:center;gap:.75rem;padding:1rem 1.25rem;background:#1e293bcc;border:1px solid rgba(71,85,105,.3);border-radius:.75rem;text-decoration:none;transition:all .2s ease;flex:1;min-width:200px;max-width:280px}.nav-btn[data-astro-cid-i5n6fu6j]:hover:not(.disabled){background:#f973161a;border-color:#f973164d;transform:translateY(-2px)}.nav-btn[data-astro-cid-i5n6fu6j].disabled{opacity:.4;cursor:not-allowed;pointer-events:none}.nav-btn[data-astro-cid-i5n6fu6j].prev{text-align:left}.nav-btn[data-astro-cid-i5n6fu6j].next{text-align:right;justify-content:flex-end}.nav-btn[data-astro-cid-i5n6fu6j].home{justify-content:center;max-width:200px}.nav-icon[data-astro-cid-i5n6fu6j]{font-size:1.25rem;color:#f97316}.nav-content[data-astro-cid-i5n6fu6j]{display:flex;flex-direction:column;gap:.25rem}.nav-label[data-astro-cid-i5n6fu6j]{font-size:.7rem;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em}.nav-title[data-astro-cid-i5n6fu6j]{font-size:.875rem;color:#e2e8f0;font-weight:500}@media(max-width:768px){.nav-buttons[data-astro-cid-i5n6fu6j]{flex-direction:column}.nav-btn[data-astro-cid-i5n6fu6j]{max-width:100%}}.markdown-body{font-family:system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;line-height:1.8;color:#e5e7eb}.markdown-body h1{font-size:2rem;font-weight:700;color:#f97316;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid #374151}.markdown-body h2{font-size:1.5rem;font-weight:600;color:#22d3ee;margin:1.75rem 0 1rem;padding-bottom:.25rem}.markdown-body h3{font-size:1.25rem;font-weight:600;color:#a5f3fc;margin:1.5rem 0 .75rem}.markdown-body p{margin:.75rem 0;color:#d1d5db}.markdown-body strong{color:#fbbf24;font-weight:600}.markdown-body ul,.markdown-body ol{margin:.75rem 0;padding-left:1.5rem;color:#d1d5db}.markdown-body li{margin:.5rem 0;list-style-type:disc}.markdown-body table{width:100%;margin:1rem 0;border-collapse:collapse;font-size:.9rem}.markdown-body th,.markdown-body td{padding:.75rem;border:1px solid #374151;text-align:left}.markdown-body th{background:#37415180;color:#fbbf24;font-weight:600}.markdown-body td{color:#d1d5db}.markdown-body code{background:#06b6d426;color:#22d3ee;padding:.2rem .5rem;border-radius:.375rem;font-family:SF Mono,Monaco,Courier New,monospace;font-size:.875rem}.markdown-body pre{background:#0f172a;padding:1rem;border-radius:.75rem;overflow-x:auto;margin:1rem 0;border:1px solid #1e293b}.markdown-body pre code{background:transparent;padding:0;color:#a5b4fc}
+</style></head> <body class="min-h-screen flex flex-col" data-astro-cid-ouamjn2i> <!-- Header --> <header class="sticky top-0 z-50 border-b" style="background-color: var(--color-bg); border-color: var(--color-border);" data-astro-cid-ouamjn2i> <div class="container mx-auto px-4 py-4 flex items-center justify-between" data-astro-cid-ouamjn2i> <!-- Logo / Brand --> <a href="/challenges/" class="flex items-center gap-3 group" data-astro-cid-ouamjn2i> <span class="text-2xl" data-astro-cid-ouamjn2i>🚀</span> <span class="font-bold text-lg transition-colors group-hover:text-accent" style="color: var(--color-text);" data-astro-cid-ouamjn2i>
+Tech Challenges
+</span> </a> <!-- Navigation --> <nav class="hidden md:flex items-center gap-6" data-astro-cid-ouamjn2i> <a href="/challenges/" class="nav-link" data-astro-cid-ouamjn2i>Dashboard</a> <a href="/challenges/linux/" class="nav-link" data-astro-cid-ouamjn2i>Linux</a> <a href="/challenges/docker/" class="nav-link" data-astro-cid-ouamjn2i>Docker</a> <a href="/challenges/devops/" class="nav-link" data-astro-cid-ouamjn2i>DevOps</a> <a href="/challenges/ctf/" class="nav-link" data-astro-cid-ouamjn2i>CTF</a> <a href="/challenges/htb/" class="nav-link" data-astro-cid-ouamjn2i>HTB</a> </nav> <!-- Theme Toggle --> <div class="flex items-center gap-4" data-astro-cid-ouamjn2i> <button id="lang-toggle" class="lang-toggle" type="button" aria-label="Cambiar idioma" title="Cambiar idioma" data-astro-cid-lb7h3eps> <span class="lang-text" data-astro-cid-lb7h3eps>EN</span> </button>  <script type="module">const l={es:{"hero.badge":"Plataforma de Aprendizaje","hero.title.line1":"Domina Linux, Docker,","hero.title.line2":"DevOps & Security","hero.subtitle":"Plataforma interactiva con 70+ desafíos prácticos. Aprende haciendo, no solo leyendo.","hero.stat.completed":"Completados","hero.stat.progress":"Progreso","hero.stat.challenges":"Desafíos","progress.title":"Progreso General","progress.completed":"completados","progress.in_progress":"en progreso","progress.blocked":"bloqueados","programs.title":"Programas de Aprendizaje","programs.subtitle":"Selecciona un programa para ver sus desafíos","programs.completed":"Completados","programs.total":"Total","programs.view":"Ver desafíos","program.linux":"Linux","program.docker":"Docker","program.devops":"DevOps","program.ctf":"CTF","program.htb":"HTB Academy","program.linux.desc":"Administración de sistemas Linux, usuarios, permisos y automatización","program.docker.desc":"Containerización, orquestación y mejores prácticas de Docker","program.devops.desc":"CI/CD, automatización y cultura DevOps","program.ctf.desc":"Desafíos de seguridad: criptografía, web, forense y más","program.htb.desc":"Módulos de Hack The Box Academy completados","cert.title":"Certificaciones Obtenidas","cert.subtitle":"Reconocimientos oficiales de tu progreso","cert.docker.title":"Docker Certification","cert.docker.platform":"KodeKloud Engineer","cert.challenges":"Challenges","cert.verify":"Verificar certificado","activity.title":"Actividad Reciente","activity.subtitle":"Últimos desafíos completados","footer.update":"Última actualización"},en:{"hero.badge":"Learning Platform","hero.title.line1":"Master Linux, Docker,","hero.title.line2":"DevOps & Security","hero.subtitle":"Interactive platform with 70+ practical challenges. Learn by doing, not just reading.","hero.stat.completed":"Completed","hero.stat.progress":"Progress","hero.stat.challenges":"Challenges","progress.title":"Overall Progress","progress.completed":"completed","progress.in_progress":"in progress","progress.blocked":"blocked","programs.title":"Learning Programs","programs.subtitle":"Select a program to view its challenges","programs.completed":"Completed","programs.total":"Total","programs.view":"View challenges","program.linux":"Linux","program.docker":"Docker","program.devops":"DevOps","program.ctf":"CTF","program.htb":"HTB Academy","program.linux.desc":"Linux system administration, users, permissions and automation","program.docker.desc":"Containerization, orchestration and Docker best practices","program.devops.desc":"CI/CD, automation and DevOps culture","program.ctf.desc":"Security challenges: cryptography, web, forensics and more","program.htb.desc":"Completed Hack The Box Academy modules","cert.title":"Earned Certifications","cert.subtitle":"Official recognition of your progress","cert.docker.title":"Docker Certification","cert.docker.platform":"KodeKloud Engineer","cert.challenges":"Challenges","cert.verify":"Verify Certificate","activity.title":"Recent Activity","activity.subtitle":"Latest completed challenges","footer.update":"Last updated"}},i=document.getElementById("lang-toggle"),s=i?.querySelector(".lang-text");function c(){if(typeof localStorage<"u"){const e=localStorage.getItem("lang");if(e==="es"||e==="en")return e}return"es"}function d(e){typeof localStorage<"u"&&localStorage.setItem("lang",e)}function g(e){s&&(s.textContent=e==="es"?"EN":"ES")}function n(e){const t=l[e];document.querySelectorAll("[data-i18n]").forEach(o=>{const r=o.getAttribute("data-i18n");r&&t[r]&&(o.textContent=t[r])}),document.querySelectorAll("[data-i18n-program]").forEach(o=>{const r=o.getAttribute("data-i18n-program");if(r){const a=`program.${r}`;t[a]&&(o.textContent=t[a])}}),document.querySelectorAll("[data-i18n-program-desc]").forEach(o=>{const r=o.getAttribute("data-i18n-program-desc");if(r){const a=`program.${r}.desc`;t[a]&&(o.textContent=t[a])}}),document.documentElement.lang=e,g(e)}const p=c();n(p);i?.addEventListener("click",()=>{const t=c()==="es"?"en":"es";d(t),n(t)});</script> <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Cambiar tema" title="Cambiar tema claro/oscuro" data-astro-cid-x3pjskd3> <!-- Icono Sol (visible en tema oscuro) --> <svg class="icon-sun w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" data-astro-cid-x3pjskd3> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" data-astro-cid-x3pjskd3></path> </svg> <!-- Icono Luna (visible en tema claro) --> <svg class="icon-moon w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" data-astro-cid-x3pjskd3> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" data-astro-cid-x3pjskd3></path> </svg> </button>  <script type="module">const m=document.getElementById("theme-toggle");function c(){return typeof localStorage<"u"&&localStorage.getItem("theme")?localStorage.getItem("theme"):window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}function t(e){e==="dark"?(document.documentElement.classList.remove("light"),document.documentElement.classList.add("dark")):(document.documentElement.classList.remove("dark"),document.documentElement.classList.add("light")),localStorage.setItem("theme",e)}const d=c();d==="light"?document.documentElement.classList.add("light"):document.documentElement.classList.add("dark");m?.addEventListener("click",()=>{const n=(document.documentElement.classList.contains("light")?"light":"dark")==="dark"?"light":"dark";document.documentElement.classList.add("theme-transitioning"),t(n),setTimeout(()=>{document.documentElement.classList.remove("theme-transitioning")},300)});window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change",e=>{localStorage.getItem("theme")||t(e.matches?"dark":"light")});</script> <!-- Mobile Menu Button --> <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg border transition-colors" style="background-color: var(--color-bg-card); border-color: var(--color-border);" aria-label="Menú" data-astro-cid-ouamjn2i> <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-ouamjn2i> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" data-astro-cid-ouamjn2i></path> </svg> </button> </div> </div> <!-- Mobile Navigation --> <div id="mobile-menu" class="hidden md:hidden border-t" style="border-color: var(--color-border); background-color: var(--color-bg-card);" data-astro-cid-ouamjn2i> <nav class="container mx-auto px-4 py-4 flex flex-col gap-2" data-astro-cid-ouamjn2i> <a href="/challenges/" class="mobile-nav-link" data-astro-cid-ouamjn2i>Dashboard</a> <a href="/challenges/linux/" class="mobile-nav-link" data-astro-cid-ouamjn2i>🐧 Linux</a> <a href="/challenges/docker/" class="mobile-nav-link" data-astro-cid-ouamjn2i>🐳 Docker</a> <a href="/challenges/devops/" class="mobile-nav-link" data-astro-cid-ouamjn2i>⚙️ DevOps</a> <a href="/challenges/ctf/" class="mobile-nav-link" data-astro-cid-ouamjn2i>🚩 CTF</a> <a href="/challenges/htb/" class="mobile-nav-link" data-astro-cid-ouamjn2i>🎯 HTB</a> </nav> </div> </header> <!-- Main Content --> <main class="flex-1" data-astro-cid-ouamjn2i>   <main class="container mx-auto px-4 py-8" data-astro-cid-i5n6fu6j> <div class="max-w-4xl mx-auto" data-astro-cid-i5n6fu6j> <nav class="flex mb-6" aria-label="Breadcrumb"> <ol class="flex items-center space-x-2"> <li class="flex items-center">  <a href="/challenges" class="text-cyan-400 hover:text-cyan-300 transition-colors"> Challenges </a> </li><li class="flex items-center"> <span class="text-gray-500 mx-2">/</span> <a href="/challenges/linux" class="text-cyan-400 hover:text-cyan-300 transition-colors"> Linux </a> </li><li class="flex items-center"> <span class="text-gray-500 mx-2">/</span> <span class="text-gray-300 font-medium">Reto 06: Temporary User Setup with Expiry - Usuario anita</span> </li> </ol> </nav> <article class="bg-slate-800 rounded-lg p-6 border border-slate-700" data-astro-cid-i5n6fu6j> <header class="mb-6" data-astro-cid-i5n6fu6j> <h1 class="text-3xl font-bold text-orange-400 mb-2" data-astro-cid-i5n6fu6j>Reto 06: Temporary User Setup with Expiry - Usuario anita</h1> <div class="flex items-center gap-4 text-sm text-gray-400" data-astro-cid-i5n6fu6j> <span class="bg-orange-600 px-2 py-1 rounded text-xs" data-astro-cid-i5n6fu6j>Linux #06</span> <span class="capitalize" data-astro-cid-i5n6fu6j>easy</span> <span data-astro-cid-i5n6fu6j>2025-01-25</span> </div> </header> <div class="prose prose-invert max-w-none" data-astro-cid-i5n6fu6j> <div class="markdown-body" data-astro-cid-i5n6fu6j><h1>Reto 06: Temporary User Setup with Expiry - Usuario anita</h1>
+<h2>Gestión Precisa de Accesos Temporales: Fechas Exactas y Cumplimiento</h2>
+<hr>
+<h2>🎓 Del Instructor</h2>
+<p>Bienvenido a tu sexto desafío como SysAdmin Senior en xFusionCorp. Este reto es una evolución del concepto de usuarios temporales: en lugar de una duración relativa (&quot;7 días&quot;), trabajaremos con <strong>fechas exactas</strong> de expiración.</p>
+<blockquote>
+<p>💭 <strong>Mentalidad de SysAdmin</strong>: &quot;En entornos empresariales, los accesos temporales se alinean con hitos de proyecto, no con duraciones arbitrarias. &#39;Expira el 7 de diciembre&#39; es más preciso que &#39;expira en 90 días&#39;.&quot;</p>
+</blockquote>
+<p>Este tipo de gestión es crítico para:</p>
+<ul>
+<li>Contratos con fechas de término definidas</li>
+<li>Cumplimiento normativo (SOX, HIPAA, GDPR)</li>
+<li>Auditorías que requieren trazabilidad exacta</li>
+<li>Integración con sistemas de gestión de proyectos</li>
+</ul>
+<hr>
+<h2>🎭 Escenario Real: Desarrolladora Anita - Proyecto Nautilus</h2>
+<p><strong>Empresa</strong>: xFusionCorp Industries<br><strong>Proyecto</strong>: Nautilus - Desarrollo de Nueva Funcionalidad<br><strong>Servidor</strong>: App Server 2 (stapp02)<br><strong>Tu rol</strong>: Senior System Administrator - Gestión de Identidades</p>
+<h3>La Problemática</h3>
+<p>Anita es una desarrolladora externa contratada específicamente para implementar un módulo crítico del proyecto Nautilus. Según el contrato firmado:</p>
+<ul>
+<li><strong>Inicio</strong>: 25 de enero de 2026</li>
+<li><strong>Término</strong>: 7 de diciembre de 2026</li>
+<li><strong>Duración</strong>: Aproximadamente 11 meses</li>
+<li><strong>Entregable final</strong>: 7 de diciembre de 2026</li>
+</ul>
+<p><strong>El requerimiento del Project Manager</strong>:</p>
+<blockquote>
+<p>&quot;Create a temporary user account with expiry date for time-limited access.&quot;</p>
+</blockquote>
+<h3>Contexto de Seguridad y Cumplimiento</h3>
+<p>Según políticas de xFusionCorp:</p>
+<ul>
+<li>El acceso debe terminar exactamente el día del fin de contrato</li>
+<li>No se permiten extensiones sin autorización formal</li>
+<li>El nombre de usuario debe seguir estándar en minúsculas</li>
+<li>La expiración debe ser documentable para auditorías</li>
+</ul>
+<h3>Infraestructura Objetivo</h3>
+<table>
+<thead>
+<tr>
+<th>Servidor</th>
+<th>IP</th>
+<th>Hostname</th>
+<th>Usuario Acceso</th>
+<th>Contraseña</th>
+<th>Propósito</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>stapp02</td>
+<td>172.16.238.11</td>
+<td>stapp02.stratos.xfusioncorp.com</td>
+<td>steve</td>
+<td>Am3ric@</td>
+<td>Nautilus App 2</td>
+</tr>
+</tbody></table>
+<h3>Requisitos Técnicos Específicos</h3>
+<ul>
+<li><strong>Usuario</strong>: <code>anita</code> (minúsculas, estándar corporativo)</li>
+<li><strong>Expiración exacta</strong>: 2026-12-07 (7 de diciembre de 2026)</li>
+<li><strong>Shell</strong>: <code>/bin/bash</code> (desarrollo interactivo)</li>
+<li><strong>Directorio home</strong>: Sí, para workspace de desarrollo</li>
+<li><strong>Servidor</strong>: App Server 2 (stapp02)</li>
+<li><strong>Propósito</strong>: Desarrollo temporal asignado al proyecto Nautilus</li>
+</ul>
+<hr>
+<h2>🧠 La Arquitectura: Fechas Exactas vs. Duraciones Relativas</h2>
+<h3>Comparativa de Enfoques</h3>
+<table>
+<thead>
+<tr>
+<th>Enfoque</th>
+<th>Uso</th>
+<th>Ejemplo</th>
+<th>Precisión</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Relativo</strong></td>
+<td>Accesos cortos, flexibles</td>
+<td>&quot;+7 días&quot;, &quot;+30 días&quot;</td>
+<td>Media</td>
+</tr>
+<tr>
+<td><strong>Absoluto</strong></td>
+<td>Contratos, proyectos</td>
+<td>&quot;2026-12-07&quot;</td>
+<td>Alta</td>
+</tr>
+</tbody></table>
+<h3>Ventajas de Fechas Exactas</h3>
+<ol>
+<li><strong>Cumplimiento Normativo</strong>: Los auditores prefieren fechas específicas sobre cálculos relativos</li>
+<li><strong>Sincronización con Contratos</strong>: Fecha de expiración = Fecha de término del contrato</li>
+<li><strong>Sin Ambigüedad</strong>: No hay confusiones con &quot;días hábiles&quot; vs. &quot;días calendario&quot;</li>
+<li><strong>Documentación Clara</strong>: &quot;Expira el 7 de diciembre&quot; es inequívoco</li>
+</ol>
+<h3>Formato de Fechas en Linux</h3>
+<p>Linux utiliza el formato <strong>ISO 8601</strong> (YYYY-MM-DD) para consistencia internacional:</p>
+<pre><code class="language-bash"># Formato ISO 8601 (recomendado)
+2026-12-07
+# ││││││└─ Día (01-31)
+# │││││└── Mes (01-12)
+# │││└───┴─ Año (YYYY)
+
+# Otros formatos aceptados (según locale)
+07/12/2026    # DD/MM/YYYY (Europa)
+12/07/2026    # MM/DD/YYYY (USA) - ¡Evitar, ambiguo!
+Dec 07 2026   # Formato legible
+</code></pre>
+<blockquote>
+<p>⚠️ <strong>Recomendación</strong>: Siempre usar formato YYYY-MM-DD para evitar confusiones internacionales.</p>
+</blockquote>
+<h3>Almacenamiento Interno en /etc/shadow</h3>
+<pre><code class="language-bash"># Ejemplo de entrada en /etc/shadow para anita
+anita:$6$...:19800:0:99999:7::20143:
+#                                     │
+#                                     └── Días desde 1970-01-01 hasta 2026-12-07
+
+# Cálculo:
+# 2026-12-07 = 20,143 días desde epoch (1970-01-01)
+</code></pre>
+<h3>Analogía: Fecha de Vencimiento en Pasaporte</h3>
+<ul>
+<li><strong>Acceso relativo (7 días)</strong>: &quot;Tu pasaporte expira una semana después de que lo recibas&quot;</li>
+<li><strong>Acceso absoluto (2026-12-07)</strong>: &quot;Tu pasaporte expira el 7 de diciembre de 2026&quot;</li>
+</ul>
+<p>La fecha absoluta es:</p>
+<ul>
+<li>Más fácil de recordar</li>
+<li>No depende de cuándo se emitió</li>
+<li>Coincide con documentación oficial</li>
+<li>Facilita la planificación</li>
+</ul>
+<hr>
+<h2>🛠️ Implementación Profesional</h2>
+<h3>Fase 1: Verificación Pre-Implementación</h3>
+<h4>1.1 Acceso al Sistema</h4>
+<pre><code class="language-bash"># Conexión al servidor objetivo
+ssh steve@172.16.238.11
+sudo su -
+</code></pre>
+<h4>1.2 Verificar Estado Actual</h4>
+<pre><code class="language-bash"># ¿Existe el usuario anita?
+id anita
+echo &quot;Exit code: $?&quot;  # 1 = no existe
+
+# Verificar formato de fecha del sistema
+date +%Y-%m-%d
+# Salida: 2026-01-29 (ejemplo)
+
+# Calcular días hasta expiración
+echo $(( ($(date -d &quot;2026-12-07&quot; +%s) - $(date +%s)) / 86400 ))
+# Salida: ~312 días
+</code></pre>
+<blockquote>
+<p>⚠️ <strong>Advertencia</strong>: Verifica que la fecha 2026-12-07 sea futura comparada con la fecha actual del sistema.</p>
+</blockquote>
+<h3>Fase 2: Creación del Usuario anita</h3>
+<h4>2.1 Crear Usuario Estándar</h4>
+<pre><code class="language-bash"># Crear usuario en minúsculas (estándar corporativo)
+useradd -m -s /bin/bash anita
+
+# Verificación inmediata
+id anita
+# Salida esperada: uid=1002(anita) gid=1002(anita) groups=1002(anita)
+
+# Verificar creación correcta
+grep anita /etc/passwd
+# Salida: anita:x:1002:1002::/home/anita:/bin/bash
+</code></pre>
+<blockquote>
+<p>💡 <strong>Nota técnica</strong>: El protocolo de xFusionCorp requiere nombres de usuario en minúsculas para consistencia y compatibilidad con sistemas case-sensitive.</p>
+</blockquote>
+<h4>2.2 Verificar Directorio Home</h4>
+<pre><code class="language-bash"># Confirmar directorio creado
+ls -la /home/anita
+# Debe mostrar: drwxr-x--- 2 anita anita 4096 ... /home/anita
+
+# Verificar permisos iniciales
+ls -la /home/anita/
+# Total 12
+# drwxr-x--- 2 anita anita 4096 ... .
+# drwxr-xr-x 4 root  root  4096 ... ..
+# -rw-r--r-- 1 anita anita  220 ... .bash_logout
+# -rw-r--r-- 1 anita anita 3771 ... .bashrc
+# -rw-r--r-- 1 anita anita  807 ... .profile
+</code></pre>
+<h3>Fase 3: Configuración de Expiración Exacta</h3>
+<h4>3.1 Configurar Fecha Específica con chage</h4>
+<pre><code class="language-bash"># Configurar expiración exacta: 7 de diciembre de 2026
+chage -E 2026-12-07 anita
+
+# Análisis del comando:
+# chage     → Cambiar aging de contraseña
+# -E        → Establecer fecha de expiración
+# 2026-12-07 → Fecha exacta en formato ISO 8601
+# anita     → Usuario objetivo
+
+# Alternativa usando expansión de comando (si fecha es dinámica)
+# chage -E $(date -d &quot;2026-12-07&quot; +%Y-%m-%d) anita
+</code></pre>
+<h4>3.2 Verificación Inmediata</h4>
+<pre><code class="language-bash"># Verificar configuración con chage
+chage -l anita
+
+# Salida esperada:
+# Last password change                    : Jan 29, 2026
+# Password expires                        : never
+# Password inactive                       : never
+# Account expires                         : Dec 07, 2026  ← ¡VERIFICAR!
+# Minimum number of days between password change      : 0
+# Maximum number of days between password change      : 99999
+# Number of days of warning before password expires   : 7
+</code></pre>
+<blockquote>
+<p>✅ <strong>Confirmación</strong>: La línea &quot;Account expires&quot; debe mostrar exactamente &quot;Dec 07, 2026&quot;</p>
+</blockquote>
+<h3>Fase 4: Configuración Adicional</h3>
+<h4>4.1 Establecer Contraseña</h4>
+<pre><code class="language-bash"># Establecer contraseña inicial segura
+passwd anita
+
+# Sistema solicitará:
+# Changing password for user anita.
+# New password: [Ingresar contraseña segura]
+# Retype new password: [Confirmar]
+# passwd: all authentication tokens updated successfully.
+</code></pre>
+<h4>4.2 Agregar Descripción (Opcional pero Recomendado)</h4>
+<pre><code class="language-bash"># Documentar propósito en GECOS
+usermod -c &quot;Temporary Developer - Project Nautilus - Expires 2026-12-07&quot; anita
+
+# Verificar
+grep anita /etc/passwd
+# Ahora muestra: anita:x:1002:1002:Temporary Developer - Project Nautilus - Expires 2026-12-07:/home/anita:/bin/bash
+</code></pre>
+<h3>Fase 5: Verificación Exhaustiva</h3>
+<h4>5.1 Verificación Completa con múltiples métodos</h4>
+<pre><code class="language-bash"># Método 1: chage -l
+echo &quot;=== Verificación con chage ===&quot;
+chage -l anita | grep &quot;Account expires&quot;
+
+# Método 2: getent passwd
+echo &quot;&quot;
+echo &quot;=== Verificación en /etc/passwd ===&quot;
+getent passwd anita
+
+# Método 3: id
+echo &quot;&quot;
+echo &quot;=== Verificación con id ===&quot;
+id anita
+
+# Método 4: Verificar directorio
+echo &quot;&quot;
+echo &quot;=== Verificación directorio home ===&quot;
+ls -la /home/anita
+
+# Método 5: Verificar en /etc/shadow
+echo &quot;&quot;
+echo &quot;=== Verificación en /etc/shadow ===&quot;
+grep anita /etc/shadow
+</code></pre>
+<h4>5.2 Prueba de Acceso</h4>
+<pre><code class="language-bash"># Probar login como anita
+su - anita
+
+# Dentro de la sesión:
+whoami        # Debe mostrar: anita
+id            # Debe mostrar UID/GID
+pwd           # Debe mostrar: /home/anita
+date          # Verificar fecha del sistema
+
+# Salir
+exit
+</code></pre>
+<h3>Resumen de Comandos</h3>
+<pre><code class="language-bash"># SECUENCIA COMPLETA
+
+# 1. Verificación inicial
+id anita
+getent passwd anita
+chage -l anita
+
+# 2. Creación del usuario
+useradd -m -s /bin/bash anita
+
+# 3. Configurar fecha de expiración específica
+chage -E 2026-12-07 anita
+
+# 4. Establecer contraseña
+passwd anita
+
+# 5. Agregar descripción
+usermod -c &quot;Temporary Developer - Project Nautilus&quot; anita
+
+# 6. Verificación final
+chage -l anita | grep &quot;Account expires&quot;
+getent passwd anita
+id anita
+ls -la /home/anita
+</code></pre>
+<hr>
+<h2>🎯 Análisis Post-Implementación: Lo Que Acabas de Construir</h2>
+<h3>Arquitectura Implementada</h3>
+<pre><code>┌─────────────────────────────────────────────────────────────────────────┐
+│                              stapp02                                     │
+│                    Nautilus App Server 2                                 │
+├─────────────────────────────────────────────────────────────────────────┤
+│                                                                          │
+│  Proyecto: Nautilus                                                      │
+│  Desarrolladora: anita                                                   │
+│  Timeline: 2026-01-29 hasta 2026-12-07                                   │
+│                                                                          │
+│  ┌──────────────────────────────────────────────────────────────────┐   │
+│  │                      Usuario: anita                               │   │
+│  ├──────────────────────────────────────────────────────────────────┤   │
+│  │                                                                   │   │
+│  │  📅 Timeline de Acceso:                                           │   │
+│  │                                                                   │   │
+│  │  Ene 2026  ████████████████████████████████████████████████████  │   │
+│  │  Feb 2026  ████████████████████████████████████████████████████  │   │
+│  │  Mar 2026  ████████████████████████████████████████████████████  │   │
+│  │  ...                                                                    │
+│  │  Nov 2026  ████████████████████████████████████████████████████  │   │
+│  │  Dic 01-06 ████████████████████████████████████████████████████  │   │
+│  │  Dic 07    ████████████████████████████████████████████████████  │   │
+│  │  Dic 08+   ❌ ACCESO BLOQUEADO AUTOMÁTICAMENTE                    │   │
+│  │                                                                   │   │
+│  │  🎯 Fecha Exacta de Expiración: 2026-12-07                        │   │
+│  │     • Formato ISO: YYYY-MM-DD                                     │   │
+│  │     • Formato legible: Dec 07, 2026                              │   │
+│  │     • Epoch: 20,143 días desde 1970-01-01                        │   │
+│  │                                                                   │   │
+│  │  📊 Características:                                              │   │
+│  │     • UID: 1002                                                   │   │
+│  │     • GID: 1002                                                   │   │
+│  │     • Shell: /bin/bash (desarrollo interactivo)                  │   │
+│  │     • Home: /home/anita (workspace de desarrollo)                │   │
+│  │     • Expiración: Automática, no requiere intervención           │   │
+│  │                                                                   │   │
+│  │  ✅ Configuración:                                                │   │
+│  │     /etc/shadow: anita:...:20143                                 │   │
+│  │     chage -l: Account expires: Dec 07, 2026                      │   │
+│  │                                                                   │   │
+│  └──────────────────────────────────────────────────────────────────┘   │
+│                                                                          │
+└─────────────────────────────────────────────────────────────────────────┘
+</code></pre>
+<h3>Comparativa: Acceso Temporal Relativo vs. Absoluto</h3>
+<table>
+<thead>
+<tr>
+<th>Característica</th>
+<th>Reto 05 (Relativo)</th>
+<th>Reto 06 (Absoluto)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Definición</strong></td>
+<td>+7 días desde creación</td>
+<td>2026-12-07 específico</td>
+</tr>
+<tr>
+<td><strong>Cálculo</strong></td>
+<td>Automático con <code>date -d</code></td>
+<td>Fecha hardcodeada</td>
+</tr>
+<tr>
+<td><strong>Uso típico</strong></td>
+<td>Accesos de soporte breve</td>
+<td>Contratos, proyectos</td>
+</tr>
+<tr>
+<td><strong>Auditoría</strong></td>
+<td>Requiere cálculo</td>
+<td>Fecha inequívoca</td>
+</tr>
+<tr>
+<td><strong>Flexibilidad</strong></td>
+<td>Alta</td>
+<td>Fija</td>
+</tr>
+<tr>
+<td><strong>Cumplimiento</strong></td>
+<td>Buena</td>
+<td>Excelente</td>
+</tr>
+</tbody></table>
+<h3>Checklist de Verificación</h3>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> Usuario <code>anita</code> creado en minúsculas (estándar)</li>
+<li><input checked="" disabled="" type="checkbox"> Directorio home <code>/home/anita</code> creado con permisos</li>
+<li><input checked="" disabled="" type="checkbox"> Shell interactivo <code>/bin/bash</code> configurado</li>
+<li><input checked="" disabled="" type="checkbox"> Expiración exacta configurada: <strong>Dec 07, 2026</strong></li>
+<li><input checked="" disabled="" type="checkbox"> UID/GID 1002:1002 asignado correctamente</li>
+<li><input checked="" disabled="" type="checkbox"> Verificación con <code>chage -l</code> exitosa</li>
+<li><input checked="" disabled="" type="checkbox"> Prueba de login funcional</li>
+<li><input checked="" disabled="" type="checkbox"> Documentación GECOS agregada</li>
+</ul>
+<hr>
+<h2>🎓 Reflexión Final: Mentalidad Desarrollada</h2>
+<h3>Precisión en la Gestión de Accesos</h3>
+<blockquote>
+<p>&quot;En auditorías, &#39;aproximadamente&#39; no existe. Las fechas exactas demuestran control y gobernanza.&quot;</p>
+</blockquote>
+<p>Este reto refuerza:</p>
+<ul>
+<li><strong>Formato ISO 8601</strong>: Estándar internacional sin ambigüedad</li>
+<li><strong>Documentación del Propósito</strong>: El campo GECOS conecta el usuario con el proyecto</li>
+<li><strong>Verificación Múltiple</strong>: <code>chage</code>, <code>getent</code>, <code>id</code>, y <code>/etc/shadow</code> deben coincidir</li>
+<li><strong>Consistencia de Estándares</strong>: Minúsculas para nombres de usuario</li>
+</ul>
+<h3>Lecciones Clave</h3>
+<ol>
+<li><p><strong>Fechas Exactas para Contratos</strong>: Cuando hay un contrato con fecha de término, la cuenta debe expirar exactamente esa fecha.</p>
+</li>
+<li><p><strong>Formato ISO 8601</strong>: YYYY-MM-DD elimina confusiones entre DD/MM/YYYY y MM/DD/YYYY.</p>
+</li>
+<li><p><strong>Verificación Inmediata</strong>: Siempre validar con <code>chage -l</code> inmediatamente después de configurar.</p>
+</li>
+<li><p><strong>Documentación del Contexto</strong>: El campo GECOS documenta no solo quién es, sino cuándo expira y por qué.</p>
+</li>
+</ol>
+<h3>Gestión de Fechas en Producción</h3>
+<pre><code class="language-bash"># Convertir fechas para cálculos
+expiry_epoch=$(date -d &quot;2026-12-07&quot; +%s)
+today_epoch=$(date +%s)
+days_remaining=$(( (expiry_epoch - today_epoch) / 86400 ))
+echo &quot;Días restantes: $days_remaining&quot;
+
+# Extender fecha de expiración (con autorización)
+chage -E 2026-12-31 anita  # Nueva fecha de término
+
+# Verificar todas las cuentas con expiración futura
+for user in $(awk -F: &#39;$8 &gt; 0 {print $1}&#39; /etc/shadow); do
+  expiry_date=$(chage -l $user 2&gt;/dev/null | grep &quot;Account expires&quot; | awk -F: &#39;{print $2}&#39; | xargs)
+  if [ ! -z &quot;$expiry_date&quot; ] &amp;&amp; [ &quot;$expiry_date&quot; != &quot;never&quot; ]; then
+    echo &quot;$user expira el: $expiry_date&quot;
+  fi
+done
+</code></pre>
+<hr>
+<h2>🚀 Siguientes Pasos</h2>
+<h3>Retos Relacionados</h3>
+<ul>
+<li><strong>Reto 05</strong>: Usuario Temporal con Expiración Relativa - Fundamentos</li>
+<li><strong>Reto 13</strong>: Restricción de Cron - Control de programación</li>
+<li><strong>Reto 09</strong>: Permisos de Scripts - Seguridad adicional</li>
+</ul>
+<h3>Escenarios de Expansión</h3>
+<ol>
+<li><p><strong>Integración con Proyecto</strong>:</p>
+<pre><code class="language-bash"># Crear estructura de proyecto
+mkdir -p /home/anita/project-nautilus
+chown anita:anita /home/anita/project-nautilus
+
+# Configurar git
+su - anita -c &quot;git config --global user.name &#39;Anita Developer&#39;&quot;
+su - anita -c &quot;git config --global user.email &#39;anita@xfusioncorp.com&#39;&quot;
+</code></pre>
+</li>
+<li><p><strong>Backup de Trabajo</strong>:</p>
+<pre><code class="language-bash"># Backup diario del trabajo de anita
+# En crontab de root
+0 23 * * * tar -czf /backup/anita/$(date +\%Y\%m\%d)_anita.tar.gz /home/anita/
+</code></pre>
+</li>
+<li><p><strong>Auditoría Pre-Expiración</strong>:</p>
+<pre><code class="language-bash"># Alerta 30 días antes de expiración
+# Script para ejecutar diariamente
+days_to_expiry=$(( ($(date -d &quot;2026-12-07&quot; +%s) - $(date +%s)) / 86400 ))
+if [ $days_to_expiry -eq 30 ]; then
+  echo &quot;ALERTA: Usuario anita expira en 30 días&quot; | mail -s &quot;Expiración Próxima&quot; admin@xfusioncorp.com
+fi
+</code></pre>
+</li>
+</ol>
+<h3>Comandos para Profundizar</h3>
+<pre><code class="language-bash"># Verificar todas las cuentas que expiran en 2026
+awk -F: &#39;$8 &gt; 0 {
+  cmd = &quot;date -d \&quot;1970-01-01 &quot; $8 &quot; days\&quot; +%Y-%m-%d&quot;
+  cmd | getline expiry
+  close(cmd)
+  if (expiry ~ /^2026/) print $1 &quot; expires &quot; expiry
+}&#39; /etc/shadow
+
+# Estadísticas de cuentas temporales
+echo &quot;Cuentas con expiración configurada:&quot;
+grep -v &#39;:never:&#39; /etc/shadow | awk -F: &#39;$8 &gt; 0 {count++} END {print count}&#39;
+
+# Fecha de expiración en formato legible desde shadow
+epoch_days=$(grep &quot;^anita:&quot; /etc/shadow | cut -d: -f9)
+date -d &quot;1970-01-01 +$epoch_days days&quot; +&quot;%B %d, %Y&quot;
+</code></pre>
+<hr>
+<h2>📚 Recursos y Referencias</h2>
+<h3>Documentación Oficial</h3>
+<ul>
+<li><a href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/configuring_basic_system_settings/assembly_managing-users-and-groups_configuring-basic-system-settings">Linux Password Aging - Red Hat</a></li>
+<li><a href="https://man7.org/linux/man-pages/man1/chage.1.html">Chage Manual</a></li>
+<li><a href="https://www.iso.org/iso-8601-date-and-time-format.html">ISO 8601 Date Format</a></li>
+</ul>
+<h3>Troubleshooting Común</h3>
+<table>
+<thead>
+<tr>
+<th>Síntoma</th>
+<th>Causa Probable</th>
+<th>Solución</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&quot;chage: invalid date&quot;</td>
+<td>Formato incorrecto</td>
+<td>Usar YYYY-MM-DD exclusivamente</td>
+</tr>
+<tr>
+<td>Fecha en chage no coincide</td>
+<td>Zona horaria</td>
+<td>Verificar <code>timedatectl</code></td>
+</tr>
+<tr>
+<td>&quot;Account expires: never&quot;</td>
+<td>No se aplicó cambio</td>
+<td>Reejecutar <code>chage -E</code></td>
+</tr>
+<tr>
+<td>Usuario con mayúsculas</td>
+<td>No siguió estándar</td>
+<td>Recrear con minúsculas</td>
+</tr>
+<tr>
+<td>Epoch incorrecto en shadow</td>
+<td>Cálculo manual erróneo</td>
+<td>Dejar que <code>chage</code> calcule automáticamente</td>
+</tr>
+</tbody></table>
+<h3>Mejores Prácticas</h3>
+<pre><code class="language-bash"># ✅ HACER:
+# Usar formato ISO 8601 siempre
+chage -E 2026-12-07 anita
+
+# Documentar contexto en GECOS
+usermod -c &quot;Project X - Expires 2026-12-07 - Manager: John Smith&quot; anita
+
+# Verificar inmediatamente después de configurar
+chage -l anita | grep &quot;Account expires&quot;
+
+# ❌ EVITAR:
+# Formatos ambiguos
+chage -E 12/07/2026 anita  # ¿Es julio o diciembre?
+
+# Olvidar establecer contraseña
+useradd -m anita &amp;&amp; chage -E 2026-12-07 anita
+# Falta: passwd anita
+
+# Fechas en el pasado
+chage -E 2020-01-01 anita  # ¡Expira inmediatamente!
+</code></pre>
+<hr>
+<h2>✅ Estado del Reto</h2>
+<p><strong>✅ COMPLETADO EXITOSAMENTE</strong> - 2026-01-29</p>
+<ul>
+<li>📅 Fecha de ejecución: 2026-01-29</li>
+<li>⏱️ Tiempo de ejecución: ~15 minutos</li>
+<li>🎯 Dificultad: Fácil</li>
+<li>🖥️ Servidor objetivo: stapp02 (172.16.238.11)</li>
+<li>👤 Usuario creado: anita</li>
+<li>📅 Fecha de expiración: 2026-12-07</li>
+</ul>
+<h3>Métricas de Éxito</h3>
+<p>✅ Usuario <code>anita</code> existe en <code>/etc/passwd</code><br>✅ Directorio home <code>/home/anita</code> creado con permisos<br>✅ Shell interactivo <code>/bin/bash</code> configurado<br>✅ Expiración exacta: <strong>Dec 07, 2026</strong><br>✅ UID/GID 1002:1002 asignado correctamente<br>✅ Todos los requisitos cumplidos</p>
+<h3>Lecciones Aprendidas</h3>
+<ol>
+<li><strong>Precisión en fechas</strong>: Formato YYYY-MM-DD es crítico</li>
+<li><strong>Consistencia de servidores</strong>: Verificar servidor exacto en requisito</li>
+<li><strong>Validación completa</strong>: No omitir pasos de verificación</li>
+<li><strong>Comandos de expiración</strong>: <code>chage -E</code> es fundamental para usuarios temporales</li>
+</ol>
+<hr>
+<p><em>Documentación creada siguiendo estándares de SysAdmin - Precisión y Cumplimiento</em></p>
+</div> </div> </article> <div id="modal-06-creacion-anita-temporal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50" aria-hidden="true"> <div class="flex items-center justify-center min-h-screen p-4"> <div class="bg-slate-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto"> <div class="p-6 border-b border-slate-700"> <div class="flex justify-between items-start"> <div> <h2 class="text-2xl font-bold text-gray-100">Reto 06: Temporary User Setup with Expiry - Usuario anita</h2> <div class="flex items-center gap-4 mt-2 text-sm"> <span class="capitalize bg-slate-700 px-2 py-1 rounded">linux</span> <span class="text-cyan-400">easy</span>  </div> </div> <button onclick="closeModal('06-creacion-anita-temporal')" class="text-gray-400 hover:text-white">
+✕
+</button> </div> </div> <div class="p-6"> <div class="mb-6"> <h3 class="text-lg font-semibold text-cyan-400 mb-4">Pasos a Seguir</h3> <div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">1. La Problemática</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">2. Contexto de Seguridad y Cumplimiento</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">3. Infraestructura Objetivo</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">4. Requisitos Técnicos Específicos</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">5. Comparativa de Enfoques</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">6. Ventajas de Fechas Exactas</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">7. Formato de Fechas en Linux</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>2026-12-07
+07/12/2026    # DD/MM/YYYY (Europa)
+12/07/2026    # MM/DD/YYYY (USA) - ¡Evitar, ambiguo!
+Dec 07 2026   # Formato legible</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">8. Almacenamiento Interno en /etc/shadow</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>anita:$6$...:19800:0:99999:7::20143:</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">9. Analogía: Fecha de Vencimiento en Pasaporte</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">10. Fase 1: Verificación Pre-Implementación</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">11. 1 Acceso al Sistema</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>ssh steve@172.16.238.11
+sudo su -</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">12. 2 Verificar Estado Actual</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>id anita
+echo &quot;Exit code: $?&quot;  # 1 = no existe
+date +%Y-%m-%d
+echo $(( ($(date -d &quot;2026-12-07&quot; +%s) - $(date +%s)) / 86400 ))</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">13. Fase 2: Creación del Usuario anita</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">14. 1 Crear Usuario Estándar</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>useradd -m -s /bin/bash anita
+id anita
+grep anita /etc/passwd</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">15. 2 Verificar Directorio Home</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>ls -la /home/anita
+ls -la /home/anita/</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">16. Fase 3: Configuración de Expiración Exacta</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">17. 1 Configurar Fecha Específica con chage</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>chage -E 2026-12-07 anita</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">18. 2 Verificación Inmediata</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>chage -l anita</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">19. Fase 4: Configuración Adicional</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">20. 1 Establecer Contraseña</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>passwd anita</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">21. 2 Agregar Descripción (Opcional pero Recomendado)</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>usermod -c &quot;Temporary Developer - Project Nautilus - Expires 2026-12-07&quot; anita
+grep anita /etc/passwd</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">22. Fase 5: Verificación Exhaustiva</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">23. 1 Verificación Completa con múltiples métodos</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>echo &quot;=== Verificación con chage ===&quot;
+chage -l anita | grep &quot;Account expires&quot;
+echo &quot;&quot;
+echo &quot;=== Verificación en /etc/passwd ===&quot;
+getent passwd anita
+echo &quot;&quot;
+echo &quot;=== Verificación con id ===&quot;
+id anita
+echo &quot;&quot;
+echo &quot;=== Verificación directorio home ===&quot;
+ls -la /home/anita
+echo &quot;&quot;
+echo &quot;=== Verificación en /etc/shadow ===&quot;
+grep anita /etc/shadow</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">24. 2 Prueba de Acceso</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>su - anita
+whoami        # Debe mostrar: anita
+id            # Debe mostrar UID/GID
+pwd           # Debe mostrar: /home/anita
+date          # Verificar fecha del sistema
+exit</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">25. Resumen de Comandos</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>id anita
+getent passwd anita
+chage -l anita
+useradd -m -s /bin/bash anita
+chage -E 2026-12-07 anita
+passwd anita
+usermod -c &quot;Temporary Developer - Project Nautilus&quot; anita
+chage -l anita | grep &quot;Account expires&quot;
+getent passwd anita
+id anita
+ls -la /home/anita</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">26. Arquitectura Implementada</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">27. Comparativa: Acceso Temporal Relativo vs. Absoluto</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">28. Checklist de Verificación</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">29. Precisión en la Gestión de Accesos</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">30. Lecciones Clave</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">31. Gestión de Fechas en Producción</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>expiry_epoch=$(date -d &quot;2026-12-07&quot; +%s)
+today_epoch=$(date +%s)
+days_remaining=$(( (expiry_epoch - today_epoch) / 86400 ))
+echo &quot;Días restantes: $days_remaining&quot;
+chage -E 2026-12-31 anita  # Nueva fecha de término
+for user in $(awk -F: &#39;$8 &gt; 0 {print $1}&#39; /etc/shadow); do
+expiry_date=$(chage -l $user 2&gt;/dev/null | grep &quot;Account expires&quot; | awk -F: &#39;{print $2}&#39; | xargs)
+if [ ! -z &quot;$expiry_date&quot; ] &amp;&amp; [ &quot;$expiry_date&quot; != &quot;never&quot; ]; then
+echo &quot;$user expira el: $expiry_date&quot;
+fi
+done</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">32. Retos Relacionados</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">33. Escenarios de Expansión</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>mkdir -p /home/anita/project-nautilus
+chown anita:anita /home/anita/project-nautilus
+su - anita -c &quot;git config --global user.name &#39;Anita Developer&#39;&quot;
+su - anita -c &quot;git config --global user.email &#39;anita@xfusioncorp.com&#39;&quot;</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">34. Comandos para Profundizar</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>awk -F: &#39;$8 &gt; 0 {
+cmd = &quot;date -d \&quot;1970-01-01 &quot; $8 &quot; days\&quot; +%Y-%m-%d&quot;
+cmd | getline expiry
+close(cmd)
+if (expiry ~ /^2026/) print $1 &quot; expires &quot; expiry
+}&#39; /etc/shadow
+echo &quot;Cuentas con expiración configurada:&quot;
+grep -v &#39;:never:&#39; /etc/shadow | awk -F: &#39;$8 &gt; 0 {count++} END {print count}&#39;
+epoch_days=$(grep &quot;^anita:&quot; /etc/shadow | cut -d: -f9)
+date -d &quot;1970-01-01 +$epoch_days days&quot; +&quot;%B %d, %Y&quot;</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">35. Documentación Oficial</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">36. Troubleshooting Común</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">37. Mejores Prácticas</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>chage -E 2026-12-07 anita
+usermod -c &quot;Project X - Expires 2026-12-07 - Manager: John Smith&quot; anita
+chage -l anita | grep &quot;Account expires&quot;
+chage -E 12/07/2026 anita  # ¿Es julio o diciembre?
+useradd -m anita &amp;&amp; chage -E 2026-12-07 anita
+chage -E 2020-01-01 anita  # ¡Expira inmediatamente!</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">38. Métricas de Éxito</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">39. Lecciones Aprendidas</h4>   </div> </div>    </div> </div> </div> </div> <script type="module">document.addEventListener("click",e=>{const t=e.target;t.classList.contains("bg-black")&&(t.classList.add("hidden"),t.setAttribute("aria-hidden","true"))});</script> <!-- Navigation --> <div class="nav-buttons" data-astro-cid-i5n6fu6j> <a href="/challenges/linux/05-usuario-temporal" class="nav-btn prev" data-astro-cid-i5n6fu6j> <span class="nav-icon" data-astro-cid-i5n6fu6j>←</span> <span class="nav-content" data-astro-cid-i5n6fu6j> <span class="nav-label" data-astro-cid-i5n6fu6j>Anterior</span> <span class="nav-title" data-astro-cid-i5n6fu6j>#05 Reto 05: Temporary User Setup with Expir...</span> </span> </a> <a href="/challenges/linux/" class="nav-btn home" data-astro-cid-i5n6fu6j> <span class="nav-icon" data-astro-cid-i5n6fu6j>🐧</span> <span class="nav-content" data-astro-cid-i5n6fu6j> <span class="nav-label" data-astro-cid-i5n6fu6j>Volver</span> <span class="nav-title" data-astro-cid-i5n6fu6j>Todos los Retos</span> </span> </a> <a href="/challenges/linux/07-transferencia-datos" class="nav-btn next" data-astro-cid-i5n6fu6j> <span class="nav-content" data-astro-cid-i5n6fu6j> <span class="nav-label" data-astro-cid-i5n6fu6j>Siguiente</span> <span class="nav-title" data-astro-cid-i5n6fu6j>#07 Reto 07: Linux User Data Transfer - xFus...</span> </span> <span class="nav-icon" data-astro-cid-i5n6fu6j>→</span> </a> </div> </div> </main>  </main>  <script type="module">const e=document.getElementById("mobile-menu-btn"),n=document.getElementById("mobile-menu");e?.addEventListener("click",()=>{n?.classList.toggle("hidden")});</script></body></html> 

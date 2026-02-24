@@ -1,0 +1,575 @@
+<!DOCTYPE html><html lang="es" data-astro-cid-ouamjn2i> <head><meta charset="UTF-8"><meta name="description" content="Plataforma interactiva de desafíos técnicos - Linux, Docker, DevOps, CTF"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.17.1"><meta name="theme-color" content="#4c80cc"><title>Reverse Engineering Basics - CTF Challenges</title><!-- Preconnect for fonts --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><!-- Script para prevenir flash de tema incorrecto --><script>
+      const theme = (() => {
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+          return localStorage.getItem('theme');
+        }
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          return 'dark';
+        }
+        return 'light';
+      })();
+      
+      if (theme === 'light') {
+        document.documentElement.classList.add('light');
+      } else {
+        document.documentElement.classList.add('dark');
+      }
+    </script><!-- Cache busting: Verificar versión y recargar si hay cambios --><script>
+      (function() {
+        const BUILD_VERSION = '1771614292958';
+        const CACHE_KEY = 'tech-challenges-build-version';
+        
+        // Verificar si hay nueva versión
+        const storedVersion = localStorage.getItem(CACHE_KEY);
+        
+        if (storedVersion && storedVersion !== BUILD_VERSION) {
+          // Nueva versión detectada, limpiar cache y recargar
+          console.log('🆕 Nueva versión detectada. Actualizando...');
+          if ('caches' in window) {
+            caches.keys().then(names => {
+              names.forEach(name => caches.delete(name));
+            });
+          }
+          localStorage.setItem(CACHE_KEY, BUILD_VERSION);
+          window.location.reload();
+        } else if (!storedVersion) {
+          localStorage.setItem(CACHE_KEY, BUILD_VERSION);
+        }
+      })();
+    </script><link rel="stylesheet" href="/challenges/_astro/_slug_-Bxg8atdN.css">
+<link rel="stylesheet" href="/challenges/_astro/_slug_-CaxYOu3g.css">
+<style>.nav-buttons[data-astro-cid-wdujc6bn]{display:flex;justify-content:space-between;gap:1rem;margin-top:2rem;flex-wrap:wrap}.nav-btn[data-astro-cid-wdujc6bn]{display:flex;align-items:center;gap:.75rem;padding:1rem 1.25rem;background:#1e293bcc;border:1px solid rgba(71,85,105,.3);border-radius:.75rem;text-decoration:none;transition:all .2s ease;flex:1;min-width:200px;max-width:280px}.nav-btn[data-astro-cid-wdujc6bn]:hover:not(.disabled){background:#22c55e1a;border-color:#22c55e4d;transform:translateY(-2px)}.nav-btn[data-astro-cid-wdujc6bn].disabled{opacity:.4;cursor:not-allowed;pointer-events:none}.nav-btn[data-astro-cid-wdujc6bn].prev{text-align:left}.nav-btn[data-astro-cid-wdujc6bn].next{text-align:right;justify-content:flex-end}.nav-btn[data-astro-cid-wdujc6bn].home{justify-content:center;max-width:200px}.nav-icon[data-astro-cid-wdujc6bn]{font-size:1.25rem;color:#22c55e}.nav-content[data-astro-cid-wdujc6bn]{display:flex;flex-direction:column;gap:.25rem}.nav-label[data-astro-cid-wdujc6bn]{font-size:.7rem;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em}.nav-title[data-astro-cid-wdujc6bn]{font-size:.875rem;color:#e2e8f0;font-weight:500}@media(max-width:768px){.nav-buttons[data-astro-cid-wdujc6bn]{flex-direction:column}.nav-btn[data-astro-cid-wdujc6bn]{max-width:100%}}
+</style></head> <body class="min-h-screen flex flex-col" data-astro-cid-ouamjn2i> <!-- Header --> <header class="sticky top-0 z-50 border-b" style="background-color: var(--color-bg); border-color: var(--color-border);" data-astro-cid-ouamjn2i> <div class="container mx-auto px-4 py-4 flex items-center justify-between" data-astro-cid-ouamjn2i> <!-- Logo / Brand --> <a href="/" class="flex items-center gap-3 group" data-astro-cid-ouamjn2i> <span class="text-2xl" data-astro-cid-ouamjn2i>🚀</span> <span class="font-bold text-lg transition-colors group-hover:text-accent" style="color: var(--color-text);" data-astro-cid-ouamjn2i>
+Tech Challenges
+</span> </a> <!-- Navigation --> <nav class="hidden md:flex items-center gap-6" data-astro-cid-ouamjn2i> <a href="/challenges/" class="nav-link" data-astro-cid-ouamjn2i>Dashboard</a> <a href="/challenges/linux/" class="nav-link" data-astro-cid-ouamjn2i>Linux</a> <a href="/challenges/docker/" class="nav-link" data-astro-cid-ouamjn2i>Docker</a> <a href="/challenges/devops/" class="nav-link" data-astro-cid-ouamjn2i>DevOps</a> <a href="/challenges/ctf/" class="nav-link" data-astro-cid-ouamjn2i>CTF</a> <a href="/challenges/htb/" class="nav-link" data-astro-cid-ouamjn2i>HTB</a> </nav> <!-- Theme Toggle --> <div class="flex items-center gap-4" data-astro-cid-ouamjn2i> <button id="lang-toggle" class="lang-toggle" type="button" aria-label="Cambiar idioma" title="Cambiar idioma" data-astro-cid-lb7h3eps> <span class="lang-text" data-astro-cid-lb7h3eps>EN</span> </button>  <script type="module">const l={es:{"hero.badge":"Plataforma de Aprendizaje","hero.title.line1":"Domina Linux, Docker,","hero.title.line2":"DevOps & Security","hero.subtitle":"Plataforma interactiva con 70+ desafíos prácticos. Aprende haciendo, no solo leyendo.","hero.stat.completed":"Completados","hero.stat.progress":"Progreso","hero.stat.challenges":"Desafíos","progress.title":"Progreso General","progress.completed":"completados","progress.in_progress":"en progreso","progress.blocked":"bloqueados","programs.title":"Programas de Aprendizaje","programs.subtitle":"Selecciona un programa para ver sus desafíos","programs.completed":"Completados","programs.total":"Total","programs.view":"Ver desafíos","program.linux":"Linux","program.docker":"Docker","program.devops":"DevOps","program.ctf":"CTF","program.htb":"HTB Academy","program.linux.desc":"Administración de sistemas Linux, usuarios, permisos y automatización","program.docker.desc":"Containerización, orquestación y mejores prácticas de Docker","program.devops.desc":"CI/CD, automatización y cultura DevOps","program.ctf.desc":"Desafíos de seguridad: criptografía, web, forense y más","program.htb.desc":"Módulos de Hack The Box Academy completados","cert.title":"Certificaciones Obtenidas","cert.subtitle":"Reconocimientos oficiales de tu progreso","cert.docker.title":"Docker Certification","cert.docker.platform":"KodeKloud Engineer","cert.challenges":"Challenges","cert.verify":"Verificar certificado","activity.title":"Actividad Reciente","activity.subtitle":"Últimos desafíos completados","footer.update":"Última actualización"},en:{"hero.badge":"Learning Platform","hero.title.line1":"Master Linux, Docker,","hero.title.line2":"DevOps & Security","hero.subtitle":"Interactive platform with 70+ practical challenges. Learn by doing, not just reading.","hero.stat.completed":"Completed","hero.stat.progress":"Progress","hero.stat.challenges":"Challenges","progress.title":"Overall Progress","progress.completed":"completed","progress.in_progress":"in progress","progress.blocked":"blocked","programs.title":"Learning Programs","programs.subtitle":"Select a program to view its challenges","programs.completed":"Completed","programs.total":"Total","programs.view":"View challenges","program.linux":"Linux","program.docker":"Docker","program.devops":"DevOps","program.ctf":"CTF","program.htb":"HTB Academy","program.linux.desc":"Linux system administration, users, permissions and automation","program.docker.desc":"Containerization, orchestration and Docker best practices","program.devops.desc":"CI/CD, automation and DevOps culture","program.ctf.desc":"Security challenges: cryptography, web, forensics and more","program.htb.desc":"Completed Hack The Box Academy modules","cert.title":"Earned Certifications","cert.subtitle":"Official recognition of your progress","cert.docker.title":"Docker Certification","cert.docker.platform":"KodeKloud Engineer","cert.challenges":"Challenges","cert.verify":"Verify Certificate","activity.title":"Recent Activity","activity.subtitle":"Latest completed challenges","footer.update":"Last updated"}},i=document.getElementById("lang-toggle"),s=i?.querySelector(".lang-text");function c(){if(typeof localStorage<"u"){const e=localStorage.getItem("lang");if(e==="es"||e==="en")return e}return"es"}function d(e){typeof localStorage<"u"&&localStorage.setItem("lang",e)}function g(e){s&&(s.textContent=e==="es"?"EN":"ES")}function n(e){const t=l[e];document.querySelectorAll("[data-i18n]").forEach(o=>{const r=o.getAttribute("data-i18n");r&&t[r]&&(o.textContent=t[r])}),document.querySelectorAll("[data-i18n-program]").forEach(o=>{const r=o.getAttribute("data-i18n-program");if(r){const a=`program.${r}`;t[a]&&(o.textContent=t[a])}}),document.querySelectorAll("[data-i18n-program-desc]").forEach(o=>{const r=o.getAttribute("data-i18n-program-desc");if(r){const a=`program.${r}.desc`;t[a]&&(o.textContent=t[a])}}),document.documentElement.lang=e,g(e)}const p=c();n(p);i?.addEventListener("click",()=>{const t=c()==="es"?"en":"es";d(t),n(t)});</script> <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Cambiar tema" title="Cambiar tema claro/oscuro" data-astro-cid-x3pjskd3> <!-- Icono Sol (visible en tema oscuro) --> <svg class="icon-sun w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" data-astro-cid-x3pjskd3> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" data-astro-cid-x3pjskd3></path> </svg> <!-- Icono Luna (visible en tema claro) --> <svg class="icon-moon w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" data-astro-cid-x3pjskd3> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" data-astro-cid-x3pjskd3></path> </svg> </button>  <script type="module">const m=document.getElementById("theme-toggle");function c(){return typeof localStorage<"u"&&localStorage.getItem("theme")?localStorage.getItem("theme"):window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}function t(e){e==="dark"?(document.documentElement.classList.remove("light"),document.documentElement.classList.add("dark")):(document.documentElement.classList.remove("dark"),document.documentElement.classList.add("light")),localStorage.setItem("theme",e)}const d=c();d==="light"?document.documentElement.classList.add("light"):document.documentElement.classList.add("dark");m?.addEventListener("click",()=>{const n=(document.documentElement.classList.contains("light")?"light":"dark")==="dark"?"light":"dark";document.documentElement.classList.add("theme-transitioning"),t(n),setTimeout(()=>{document.documentElement.classList.remove("theme-transitioning")},300)});window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change",e=>{localStorage.getItem("theme")||t(e.matches?"dark":"light")});</script> <!-- Mobile Menu Button --> <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg border transition-colors" style="background-color: var(--color-bg-card); border-color: var(--color-border);" aria-label="Menú" data-astro-cid-ouamjn2i> <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-ouamjn2i> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" data-astro-cid-ouamjn2i></path> </svg> </button> </div> </div> <!-- Mobile Navigation --> <div id="mobile-menu" class="hidden md:hidden border-t" style="border-color: var(--color-border); background-color: var(--color-bg-card);" data-astro-cid-ouamjn2i> <nav class="container mx-auto px-4 py-4 flex flex-col gap-2" data-astro-cid-ouamjn2i> <a href="/challenges/" class="mobile-nav-link" data-astro-cid-ouamjn2i>Dashboard</a> <a href="/challenges/linux/" class="mobile-nav-link" data-astro-cid-ouamjn2i>🐧 Linux</a> <a href="/challenges/docker/" class="mobile-nav-link" data-astro-cid-ouamjn2i>🐳 Docker</a> <a href="/challenges/devops/" class="mobile-nav-link" data-astro-cid-ouamjn2i>⚙️ DevOps</a> <a href="/challenges/ctf/" class="mobile-nav-link" data-astro-cid-ouamjn2i>🚩 CTF</a> <a href="/challenges/htb/" class="mobile-nav-link" data-astro-cid-ouamjn2i>🎯 HTB</a> </nav> </div> </header> <!-- Main Content --> <main class="flex-1" data-astro-cid-ouamjn2i>  <main class="container mx-auto px-4 py-8" data-astro-cid-wdujc6bn> <div class="max-w-4xl mx-auto" data-astro-cid-wdujc6bn> <div class="mb-6" data-astro-cid-wdujc6bn> <a href="/challenges" class="text-cyan-400 hover:text-cyan-300" data-astro-cid-wdujc6bn>← Volver al Dashboard</a> </div> <article class="bg-slate-800 rounded-lg p-6 border border-slate-700" data-astro-cid-wdujc6bn> <header class="mb-6" data-astro-cid-wdujc6bn> <h1 class="text-3xl font-bold text-orange-400 mb-2" data-astro-cid-wdujc6bn>Reverse Engineering Basics</h1> <div class="flex items-center gap-4 text-sm text-gray-400" data-astro-cid-wdujc6bn> <span class="bg-purple-600 px-2 py-1 rounded text-xs" data-astro-cid-wdujc6bn>CTF</span> <span class="capitalize" data-astro-cid-wdujc6bn>easy</span> <span data-astro-cid-wdujc6bn>2026-02-05</span> <span data-astro-cid-wdujc6bn>picoCTF</span> </div> </header> <div class="prose prose-invert max-w-none" data-astro-cid-wdujc6bn> <div data-astro-cid-wdujc6bn>
+
+# Reverse Engineering - Análisis de Binarios
+
+---
+
+👨‍🏫 **Del Instructor**: Ethical Hacker & Malware Analyst
+
+> 🎯 **Mentalidad de Hacker**: _"El código nunca miente. Si no entiendes cómo funciona, estás ciego. Los desarrolladores ocultan secretos en binarios pensando que nadie los encontrará. Tu trabajo es probarles que están equivocados."_
+
+---
+
+## 🎭 El Escenario: Análisis de Malware Sospechoso
+
+### Contexto de Incident Response
+
+Eres analista de malware en el SOC de una empresa financiera. Durante una investigación de incidente, encuentras un binario ejecutable sospechoso en la carpeta temp de un usuario:
+
+```
+/tmp/suspicious_binary
+```
+
+El archivo no está reconocido por tu antivirus. El usuario reporta que el programa le pide una "contraseña" y no hace nada si falla.
+
+**Tu misión como analista forense**:
+
+1. Identificar qué hace el binario sin ejecutarlo (análisis estático)
+2. Encontrar la contraseña hardcoded o el algoritmo de validación
+3. Documentar IOCs para detección futura
+
+---
+
+## 🧠 Fundamentos de Análisis: La Ciencia del Binario
+
+### ¿Qué es Reverse Engineering?
+
+El **ingeniería inversa** es el proceso de analizar un producto (binario) para comprender su diseño, arquitectura y funcionamiento interno, especialmente cuando no se dispone del código fuente.
+
+**Categorías de análisis**:
+
+1. **Estático**: Análisis sin ejecutar (strings, disassembly, decompilación)
+2. **Dinámico**: Análisis durante ejecución (debugging, tracing)
+3. **Híbrido**: Combinación de ambos
+
+**¿Por qué es crítico?**
+
+- Análisis de malware
+- Auditar software de terceros
+- Encontrar vulnerabilidades en binarios legacy
+- CTF challenges y bug bounty
+- Entender protecciones DRM
+
+### Arquitectura de un Binario ELF
+
+```
+┌─────────────────────────────────┐
+│           ELF Header            │
+├─────────────────────────────────┤
+│      Program Header Table       │
+├─────────────────────────────────┤
+│         .text (Código)          │
+├─────────────────────────────────┤
+│         .rodata (Strings)       │
+├─────────────────────────────────┤
+│         .data (Variables)       │
+├─────────────────────────────────┤
+│       .bss (Uninitialized)      │
+├─────────────────────────────────┤
+│       Section Header Table      │
+└─────────────────────────────────┘
+```
+
+---
+
+## 🔍 Metodología de Investigación
+
+### Fase 1: Reconocimiento y Clasificación
+
+```bash
+# Identificar tipo de archivo
+file suspicious_binary
+# Output: suspicious_binary: ELF 64-bit LSB executable
+
+# Verificar si está strippado (sin símbolos)
+file suspicious_binary | grep -i stripped
+
+# Obtener hashes para IOCs
+md5sum suspicious_binary
+sha256sum suspicious_binary
+
+# Análisis rápido con strings
+strings suspicious_binary | head -20
+strings suspicious_binary | tail -20
+
+# Buscar strings interesantes
+strings suspicious_binary | grep -i "password\|flag\|key\|secret"
+```
+
+### Fase 2: Análisis Estático Avanzado
+
+```bash
+# Análisis con objdump (disassembly)
+objdump -d suspicious_binary | less
+objdump -d suspicious_binary | grep -A 5 "call.*strcmp"
+
+# Análisis de secciones
+readelf -S suspicious_binary
+readelf -s suspicious_binary  # Símbolos
+
+# Análisis con radare2
+r2 -A suspicious_binary
+[0x00000000]> ii  # Imports
+[0x00000000]> iS  # Secciones
+[0x00000000]> s main
+[0x00000000]> pdf
+[0x00000000]> iz  # Strings
+
+# Análisis con Ghidra (GUI)
+# Importar binario → Auto analyze → Buscar función main
+```
+
+### Fase 3: Identificación de Lógica de Validación
+
+**Patrones comunes a buscar**:
+
+```c
+// Comparación de strings
+strcmp(user_input, "secret_password")
+strncmp(user_input, "secret_password", 16)
+
+// Comparación carácter por carácter
+for (i = 0; i < len; i++) {
+    if (input[i] != hardcoded[i]) {
+        return FAIL;
+    }
+}
+
+// XOR decoding
+for (i = 0; i < len; i++) {
+    decoded[i] = encoded[i] ^ key[i % key_len];
+}
+```
+
+### Fase 4: Extracción de la Contraseña/Flag
+
+```bash
+# Extraer strings después de cierto offset
+strings -t x suspicious_binary | grep "password"
+
+# Buscar en sección .rodata
+objdump -s -j .rodata suspicious_binary
+
+# Script para XOR decoding
+python3 << 'EOF'
+encoded = bytes.fromhex('1b2c3d4e5f')
+key = b'secret'
+decoded = bytes([encoded[i] ^ key[i % len(key)] for i in range(len(encoded))])
+print(decoded)
+EOF
+```
+
+---
+
+## 🛠️ Arsenal de Herramientas
+
+### Herramientas Esenciales
+
+| Herramienta   | Uso                       | Tipo            |
+| ------------- | ------------------------- | --------------- |
+| `strings`     | Extraer texto legible     | CLI             |
+| `objdump`     | Disassembly               | CLI             |
+| `radare2`     | Framework completo RE     | CLI             |
+| `Ghidra`      | Decompiler y disassembler | GUI             |
+| `IDA Pro`     | Disassembler profesional  | GUI (comercial) |
+| `binaryninja` | Análisis intermedio       | GUI             |
+| `cutter`      | GUI para radare2          | GUI             |
+| `rizin`       | Fork de radare2           | CLI             |
+
+### Script de Análisis Automatizado
+
+```python
+#!/usr/bin/env python3
+"""
+Binary Analyzer - Automated Reverse Engineering
+For educational purposes and authorized security testing
+"""
+
+import subprocess
+import re
+import sys
+from pathlib import Path
+
+class BinaryAnalyzer:
+    def __init__(self, binary_path):
+        self.binary_path = Path(binary_path)
+        self.findings = {
+            'strings': [],
+            'passwords': [],
+            'urls': [],
+            'ips': [],
+            'emails': [],
+            'suspicious_functions': []
+        }
+
+    def extract_strings(self, min_length=4):
+        """Extrae strings del binario"""
+        print(f"[*] Extrayendo strings de {self.binary_path}...")
+
+        try:
+            result = subprocess.run(
+                ['strings', '-n', str(min_length), str(self.binary_path)],
+                capture_output=True,
+                text=True,
+                timeout=30
+            )
+
+            all_strings = result.stdout.split('\n')
+
+            # Filtrar strings interesantes
+            self.findings['strings'] = all_strings
+
+            # Buscar contraseñas
+            password_patterns = [
+                r'password[:\s=]+(\S+)',
+                r'passwd[:\s=]+(\S+)',
+                r'pwd[:\s=]+(\S+)',
+                r'flag[:\s=]+(\S+)',
+                r'key[:\s=]+(\S+)',
+            ]
+
+            for string in all_strings:
+                for pattern in password_patterns:
+                    matches = re.findall(pattern, string, re.IGNORECASE)
+                    self.findings['passwords'].extend(matches)
+
+            # Buscar URLs
+            url_pattern = r'https?://[^\s<>"{}|\\^`\[\]]+'
+            for string in all_strings:
+                matches = re.findall(url_pattern, string)
+                self.findings['urls'].extend(matches)
+
+            # Buscar IPs
+            ip_pattern = r'\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b'
+            for string in all_strings:
+                matches = re.findall(ip_pattern, string)
+                self.findings['ips'].extend(matches)
+
+            # Buscar emails
+            email_pattern = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
+            for string in all_strings:
+                matches = re.findall(email_pattern, string)
+                self.findings['emails'].extend(matches)
+
+            print(f"[+] {len(all_strings)} strings extraídos")
+
+        except Exception as e:
+            print(f"[-] Error extrayendo strings: {e}")
+
+    def analyze_functions(self):
+        """Analiza funciones del binario con objdump"""
+        print(f"\n[*] Analizando funciones...")
+
+        try:
+            result = subprocess.run(
+                ['objdump', '-d', str(self.binary_path)],
+                capture_output=True,
+                text=True,
+                timeout=30
+            )
+
+            # Buscar funciones sospechosas
+            suspicious = ['strcmp', 'strncmp', 'memcmp', 'system', 'execve',
+                         'socket', 'connect', 'send', 'recv']
+
+            for func in suspicious:
+                if func in result.stdout:
+                    self.findings['suspicious_functions'].append(func)
+
+            print(f"[+] Funciones sospechosas: {self.findings['suspicious_functions']}")
+
+        except Exception as e:
+            print(f"[-] Error analizando funciones: {e}")
+
+    def generate_report(self):
+        """Genera reporte de hallazgos"""
+        print("\n" + "=" * 60)
+        print("REPORTE DE ANÁLISIS DE BINARIO")
+        print("=" * 60)
+
+        print(f"\n[+] Contraseñas/Flags encontradas:")
+        for pwd in set(self.findings['passwords']):
+            print(f"    - {pwd}")
+
+        print(f"\n[+] URLs encontradas:")
+        for url in set(self.findings['urls'][:10]):  # Limitar a 10
+            print(f"    - {url}")
+
+        print(f"\n[+] IPs encontradas:")
+        for ip in set(self.findings['ips']):
+            print(f"    - {ip}")
+
+        print(f"\n[+] Emails encontrados:")
+        for email in set(self.findings['emails']):
+            print(f"    - {email}")
+
+        print(f"\n[+] Funciones sospechosas:")
+        for func in self.findings['suspicious_functions']:
+            print(f"    - {func}")
+
+        print(f"\n[+] Strings interesantes (muestra):")
+        interesting = [s for s in self.findings['strings']
+                      if any(x in s.lower() for x in ['password', 'secret', 'key', 'flag', 'admin'])]
+        for s in interesting[:5]:
+            print(f"    - {s}")
+
+    def run_full_analysis(self):
+        """Ejecuta análisis completo"""
+        print(f"[+] Iniciando análisis de: {self.binary_path}")
+
+        if not self.binary_path.exists():
+            print(f"[-] Error: Archivo no encontrado")
+            return
+
+        self.extract_strings()
+        self.analyze_functions()
+        self.generate_report()
+
+if __name__ == "__main__":
+    if len(sys.argv) < 2:
+        print(f"Uso: {sys.argv[0]} <ruta_al_binario>")
+        sys.exit(1)
+
+    analyzer = BinaryAnalyzer(sys.argv[1])
+    analyzer.run_full_analysis()
+```
+
+### Uso del Script
+
+```bash
+# Ejecutar análisis
+chmod +x binary_analyzer.py
+python3 binary_analyzer.py suspicious_binary
+
+# Output esperado:
+# [+] Iniciando análisis de: suspicious_binary
+# [*] Extrayendo strings de suspicious_binary...
+# [+] 1234 strings extraídos
+#
+# [*] Analizando funciones...
+# [+] Funciones sospechosas: ['strcmp', 'system']
+#
+# ============================================================
+# REPORTE DE ANÁLISIS DE BINARIO
+# ============================================================
+#
+# [+] Contraseñas/Flags encontradas:
+#     - picoCTF{reverse_engineering_easy}
+# ...
+```
+
+### Flujo de Trabajo en Ghidra
+
+```bash
+# 1. Crear nuevo proyecto
+# File → New Project → Non-shared
+
+# 2. Importar binario
+# File → Import File → seleccionar binario
+
+# 3. Auto-analizar
+# Click derecho → Auto Analyze
+
+# 4. Buscar función main
+# Window → Functions → buscar "main"
+
+# 5. Decompilar
+# Click en función → Window → Decompile
+
+# 6. Buscar strings
+# Window → Defined Strings
+```
+
+---
+
+## 🎯 Lecciones del Mundo Real
+
+### Casos Documentados
+
+**Caso Stuxnet (2010)**:
+
+- Análisis de ingeniería inversa reveló ataque a sistemas SCADA
+- Zero-days en Windows para propagación
+- **Lección**: RE revela capacidades ocultas del malware
+
+**Caso WannaCry (2017)**:
+
+- Reverse engineering reveló killswitch (domain check)
+- Permite detener propagación
+- **Lección**: RE puede salvar infraestructura
+
+**Caso Pegasus (2021)**:
+
+- Análisis de binarios iOS reveló spyware gubernamental
+- Zero-click exploits
+- **Lección**: RE crítico para defensa móvil
+
+### Protecciones Anti-RE
+
+| Técnica             | Descripción         | Bypass                     |
+| ------------------- | ------------------- | -------------------------- |
+| Stripping           | Eliminar símbolos   | Análisis de patrones       |
+| Packing             | Comprimir/encriptar | Unpacking automático (UPX) |
+| Obfuscation         | Código confuso      | Deobfuscation manual       |
+| Anti-debugging      | Detectar debugger   | Parchear checks            |
+| Code virtualization | VM de bytecode      | Análisis de VM             |
+
+### Defensa y Detección
+
+**Prevenir la ingeniería inversa**:
+
+```bash
+# Stripping de símbolos
+strip binary
+
+# Ofuscación con Obfuscator-LLVM
+clang -mllvm -fla -mllvm -sub -mllvm -bcf programa.c
+
+# Packing con UPX
+upx -9 binary
+```
+
+**IOCs de malware**:
+
+- Binarios con strings encriptados/ofuscados
+- Llamadas a funciones sospechosas (system, execve, socket)
+- Secciones de código con alta entropía
+- Imports inusuales
+
+---
+
+## 🚀 Solución del Reto
+
+### Paso a Paso
+
+```bash
+# Paso 1: Extraer strings básicos
+strings binary | grep -i password
+
+# Paso 2: Buscar patrón de flag
+strings binary | grep -E 'picoCTF\{.*\}'
+
+# Paso 3: Análisis con objdump (si no está en strings)
+objdump -d binary | grep -A 10 -B 5 "password"
+
+# Paso 4: Si está codificado, usar radare2
+r2 -A binary
+> iz  # Ver strings en sección .rodata
+> s main
+> pdf  # Disassembly
+```
+
+### Flag
+
+```
+picoCTF{reverse_engineering_easy}
+```
+
+---
+
+## 📚 Recursos y Referencias
+
+- [Reverse Engineering for Beginners](https://beginners.re/)
+- [Radare2 Book](https://book.rada.re/)
+- [Ghidra Class](https://ghidra-sre.org/)
+- [CTF Wiki - Reverse Engineering](https://ctf-wiki.org/reverse/introduction/)
+- [Malware Analysis Tutorials](https://0xpat.github.io/Malware_development_part_1/)
+
+---
+
+**¿Listo para el siguiente reto?** → Prueba unpacking, análisis de malware, o reversing de protocolos de red.
+</div> </div> </article> <div id="modal-reversing/reversing-basics" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50" aria-hidden="true"> <div class="flex items-center justify-center min-h-screen p-4"> <div class="bg-slate-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto"> <div class="p-6 border-b border-slate-700"> <div class="flex justify-between items-start"> <div> <h2 class="text-2xl font-bold text-gray-100">Reverse Engineering Basics</h2> <div class="flex items-center gap-4 mt-2 text-sm"> <span class="capitalize bg-slate-700 px-2 py-1 rounded">ctf</span> <span class="text-cyan-400">easy</span> <span class="text-green-400 font-mono">Flag: picoCTF{reverse_engineering_easy}</span> </div> </div> <button onclick="closeModal('reversing/reversing-basics')" class="text-gray-400 hover:text-white">
+✕
+</button> </div> </div> <div class="p-6"> <div class="mb-6"> <h3 class="text-lg font-semibold text-cyan-400 mb-4">Pasos a Seguir</h3> <div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">1. Contexto de Incident Response</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">2. ¿Qué es Reverse Engineering?</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">3. Arquitectura de un Binario ELF</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">4. Fase 1: Reconocimiento y Clasificación</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>file suspicious_binary
+file suspicious_binary | grep -i stripped
+md5sum suspicious_binary
+sha256sum suspicious_binary
+strings suspicious_binary | head -20
+strings suspicious_binary | tail -20
+strings suspicious_binary | grep -i &quot;password\|flag\|key\|secret&quot;</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">5. Fase 2: Análisis Estático Avanzado</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>objdump -d suspicious_binary | less
+objdump -d suspicious_binary | grep -A 5 &quot;call.*strcmp&quot;
+readelf -S suspicious_binary
+readelf -s suspicious_binary  # Símbolos
+r2 -A suspicious_binary
+[0x00000000]&gt; ii  # Imports
+[0x00000000]&gt; iS  # Secciones
+[0x00000000]&gt; s main
+[0x00000000]&gt; pdf
+[0x00000000]&gt; iz  # Strings</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">6. Fase 3: Identificación de Lógica de Validación</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">7. Fase 4: Extracción de la Contraseña/Flag</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>strings -t x suspicious_binary | grep &quot;password&quot;
+objdump -s -j .rodata suspicious_binary
+python3 &lt;&lt; &#39;EOF&#39;
+encoded = bytes.fromhex(&#39;1b2c3d4e5f&#39;)
+key = b&#39;secret&#39;
+decoded = bytes([encoded[i] ^ key[i % len(key)] for i in range(len(encoded))])
+print(decoded)
+EOF</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">8. Herramientas Esenciales</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">9. Script de Análisis Automatizado</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">10. Uso del Script</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>chmod +x binary_analyzer.py
+python3 binary_analyzer.py suspicious_binary</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">11. Flujo de Trabajo en Ghidra</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">12. Casos Documentados</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">13. Protecciones Anti-RE</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">14. Defensa y Detección</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>strip binary
+clang -mllvm -fla -mllvm -sub -mllvm -bcf programa.c
+upx -9 binary</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">15. Paso a Paso</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>strings binary | grep -i password
+strings binary | grep -E &#39;picoCTF\{.*\}&#39;
+objdump -d binary | grep -A 10 -B 5 &quot;password&quot;
+r2 -A binary
+&gt; iz  # Ver strings en sección .rodata
+&gt; s main
+&gt; pdf  # Disassembly</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">16. Flag</h4>   </div> </div>    </div> </div> </div> </div> <script type="module">document.addEventListener("click",e=>{const t=e.target;t.classList.contains("bg-black")&&(t.classList.add("hidden"),t.setAttribute("aria-hidden","true"))});</script> <!-- Navigation --> <div class="nav-buttons" data-astro-cid-wdujc6bn> <a href="/challenges/ctf/reto03-steganography" class="nav-btn prev" data-astro-cid-wdujc6bn> <span class="nav-icon" data-astro-cid-wdujc6bn>←</span> <span class="nav-content" data-astro-cid-wdujc6bn> <span class="nav-label" data-astro-cid-wdujc6bn>Anterior</span> <span class="nav-title" data-astro-cid-wdujc6bn>Hidden in Image (Steganography)</span> </span> </a> <a href="/challenges/ctf/" class="nav-btn home" data-astro-cid-wdujc6bn> <span class="nav-icon" data-astro-cid-wdujc6bn>🚩</span> <span class="nav-content" data-astro-cid-wdujc6bn> <span class="nav-label" data-astro-cid-wdujc6bn>Volver</span> <span class="nav-title" data-astro-cid-wdujc6bn>Todos los Retos</span> </span> </a> <a href="/challenges/ctf/web/xss-basic" class="nav-btn next" data-astro-cid-wdujc6bn> <span class="nav-content" data-astro-cid-wdujc6bn> <span class="nav-label" data-astro-cid-wdujc6bn>Siguiente</span> <span class="nav-title" data-astro-cid-wdujc6bn>XSS Basic</span> </span> <span class="nav-icon" data-astro-cid-wdujc6bn>→</span> </a> </div> </div> </main>  </main>  <script type="module">const e=document.getElementById("mobile-menu-btn"),n=document.getElementById("mobile-menu");e?.addEventListener("click",()=>{n?.classList.toggle("hidden")});</script></body></html> 

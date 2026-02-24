@@ -1,0 +1,354 @@
+<!DOCTYPE html><html lang="es"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="Linux Fundamentals - Find Files and Directories - HTB Challenge"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><title>Linux Fundamentals - Find Files and Directories | HTB Challenge</title><link rel="stylesheet" href="/challenges/_astro/_slug_-Bxg8atdN.css">
+<style>.markdown-body{font-family:system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;line-height:1.8;color:#e5e7eb}.markdown-body h1{font-size:2rem;font-weight:700;color:#f97316;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid #374151}.markdown-body h2{font-size:1.5rem;font-weight:600;color:#22d3ee;margin:1.75rem 0 1rem;padding-bottom:.25rem}.markdown-body h3{font-size:1.25rem;font-weight:600;color:#a5f3fc;margin:1.5rem 0 .75rem}.markdown-body p{margin:.75rem 0;color:#d1d5db}.markdown-body strong{color:#fbbf24;font-weight:600}.markdown-body ul,.markdown-body ol{margin:.75rem 0;padding-left:1.5rem;color:#d1d5db}.markdown-body li{margin:.5rem 0;list-style-type:disc}.markdown-body table{width:100%;margin:1rem 0;border-collapse:collapse;font-size:.9rem}.markdown-body th,.markdown-body td{padding:.75rem;border:1px solid #374151;text-align:left}.markdown-body th{background:#37415180;color:#fbbf24;font-weight:600}.markdown-body td{color:#d1d5db}.markdown-body code{background:#06b6d426;color:#22d3ee;padding:.2rem .5rem;border-radius:.375rem;font-family:SF Mono,Monaco,Courier New,monospace;font-size:.875rem}.markdown-body pre{background:#0f172a;padding:1rem;border-radius:.75rem;overflow-x:auto;margin:1rem 0;border:1px solid #1e293b}.markdown-body pre code{background:transparent;padding:0;color:#a5b4fc}
+</style></head> <body class="bg-dark-bg text-gray-100 min-h-screen"> <header class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 border-b border-dark-border"> <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4"> <nav class="flex mb-6" aria-label="Breadcrumb"> <ol class="flex items-center space-x-2"> <li class="flex items-center">  <a href="/challenges" class="text-cyan-400 hover:text-cyan-300 transition-colors"> Challenges </a> </li><li class="flex items-center"> <span class="text-gray-500 mx-2">/</span> <a href="/challenges/htb" class="text-cyan-400 hover:text-cyan-300 transition-colors"> HTB </a> </li><li class="flex items-center"> <span class="text-gray-500 mx-2">/</span> <span class="text-gray-300 font-medium">Linux Fundamentals - Find Files and Directories</span> </li> </ol> </nav> </nav> <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12"> <div class="flex items-center space-x-4 mb-4"> <span class="px-4 py-2 bg-gradient-to-r from-green-500 to-teal-600 rounded-full text-lg font-bold text-white">
+🎯
+</span> <span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">✅ Completado</span> <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">⭐ easy</span> <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">HTB Academy</span> </div> <h1 class="text-4xl font-bold text-white mb-2">Linux Fundamentals - Find Files and Directories</h1> <p class="text-gray-400">HTB Challenge</p> </div> </header> <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12"> <article class="prose prose-invert max-w-none"> <div class="bg-dark-card rounded-xl border border-dark-border p-8">  <div class="flex flex-wrap gap-2 mb-6"> <span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#linux</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#find</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#locate</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#which</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#search</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#files</span> </div> <div class="markdown-body"><h1>Linux Fundamentals - Find Files and Directories</h1>
+<h2>Objetivo</h2>
+<p>Aprender a buscar archivos y directorios en Linux usando herramientas como <code>which</code>, <code>find</code> y <code>locate</code>. Dominar los filtros de búsqueda por nombre, tamaño, fecha y tipo.</p>
+<hr>
+<h2>Conexión al Target</h2>
+<pre><code class="language-bash">ssh htb-student@10.129.2.219
+# Password: HTB_@cademy_stdnt!
+</code></pre>
+<hr>
+<h2>Preguntas y Soluciones</h2>
+<h3>Question 1: Config File con Filtros</h3>
+<p><strong>Pregunta:</strong> What is the name of the config file that has been created after 2020-03-03 and is smaller than 28k but larger than 25k?</p>
+<p><strong>Solución:</strong></p>
+<pre><code class="language-bash">find / -type f -name &quot;*.conf&quot; -newermt 2020-03-03 -size +25k -size -28k 2&gt;/dev/null
+</code></pre>
+<p><strong>Output:</strong></p>
+<pre><code>/usr/share/drirc.d/00-mesa-defaults.conf
+</code></pre>
+<p><strong>Respuesta:</strong> <code>00-mesa-defaults.conf</code></p>
+<p><strong>Explicación:</strong></p>
+<ul>
+<li><code>-type f</code> - Buscar solo archivos (no directorios)</li>
+<li><code>-name &quot;*.conf&quot;</code> - Archivos con extensión .conf</li>
+<li><code>-newermt 2020-03-03</code> - Modificados después del 3 de marzo de 2020</li>
+<li><code>-size +25k</code> - Mayores a 25KB</li>
+<li><code>-size -28k</code> - Menores a 28KB</li>
+<li><code>2&gt;/dev/null</code> - Ocultar errores de permisos</li>
+</ul>
+<hr>
+<h3>Question 2: Contar Archivos .bak</h3>
+<p><strong>Pregunta:</strong> How many files exist on the system that have the &quot;.bak&quot; extension?</p>
+<p><strong>Solución:</strong></p>
+<pre><code class="language-bash">find / -type f -name &quot;*.bak&quot; 2&gt;/dev/null | wc -l
+</code></pre>
+<p><strong>Output:</strong></p>
+<pre><code>4
+</code></pre>
+<p><strong>Respuesta:</strong> <code>4</code></p>
+<p><strong>Explicación:</strong></p>
+<ul>
+<li><code>find / -type f -name &quot;*.bak&quot;</code> - Buscar todos los archivos .bak</li>
+<li><code>wc -l</code> - Contar líneas (cada archivo = una línea)</li>
+</ul>
+<hr>
+<h3>Question 3: Path del Binary xxd</h3>
+<p><strong>Pregunta:</strong> Submit the full path of the &quot;xxd&quot; binary.</p>
+<p><strong>Solución:</strong></p>
+<pre><code class="language-bash">which xxd
+</code></pre>
+<p><strong>Output:</strong></p>
+<pre><code>/usr/bin/xxd
+</code></pre>
+<p><strong>Respuesta:</strong> <code>/usr/bin/xxd</code></p>
+<p><strong>Alternativa:</strong></p>
+<pre><code class="language-bash">locate xxd | grep bin
+</code></pre>
+<hr>
+<h2>Conceptos Clave</h2>
+<h3>Comandos de Búsqueda</h3>
+<table>
+<thead>
+<tr>
+<th>Comando</th>
+<th>Descripción</th>
+<th>Velocidad</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>which</code></td>
+<td>Ubicar binarios ejecutables</td>
+<td>Muy rápido</td>
+</tr>
+<tr>
+<td><code>find</code></td>
+<td>Búsqueda avanzada con filtros</td>
+<td>Lento (escanea FS)</td>
+</tr>
+<tr>
+<td><code>locate</code></td>
+<td>Búsqueda en base de datos</td>
+<td>Muy rápido</td>
+</tr>
+<tr>
+<td><code>whereis</code></td>
+<td>Buscar binarios, fuentes y man</td>
+<td>Rápido</td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td>Mostrar tipo de comando</td>
+<td>Instantáneo</td>
+</tr>
+</tbody></table>
+<h3>Opciones de find</h3>
+<table>
+<thead>
+<tr>
+<th>Opción</th>
+<th>Descripción</th>
+<th>Ejemplo</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>-type f</code></td>
+<td>Solo archivos</td>
+<td><code>-type f</code></td>
+</tr>
+<tr>
+<td><code>-type d</code></td>
+<td>Solo directorios</td>
+<td><code>-type d</code></td>
+</tr>
+<tr>
+<td><code>-name</code></td>
+<td>Patrón de nombre</td>
+<td><code>-name &quot;*.conf&quot;</code></td>
+</tr>
+<tr>
+<td><code>-iname</code></td>
+<td>Nombre sin case sensitive</td>
+<td><code>-iname &quot;*.CONF&quot;</code></td>
+</tr>
+<tr>
+<td><code>-user</code></td>
+<td>Por propietario</td>
+<td><code>-user root</code></td>
+</tr>
+<tr>
+<td><code>-group</code></td>
+<td>Por grupo</td>
+<td><code>-group admin</code></td>
+</tr>
+<tr>
+<td><code>-perm</code></td>
+<td>Por permisos</td>
+<td><code>-perm 777</code></td>
+</tr>
+<tr>
+<td><code>-size</code></td>
+<td>Por tamaño</td>
+<td><code>-size +10M</code></td>
+</tr>
+<tr>
+<td><code>-mtime</code></td>
+<td>Días desde modificación</td>
+<td><code>-mtime -7</code></td>
+</tr>
+<tr>
+<td><code>-newermt</code></td>
+<td>Fecha específica</td>
+<td><code>-newermt 2020-03-03</code></td>
+</tr>
+<tr>
+<td><code>-exec</code></td>
+<td>Ejecutar comando</td>
+<td><code>-exec ls -l {} \;</code></td>
+</tr>
+</tbody></table>
+<h3>Operadores de Tamaño</h3>
+<table>
+<thead>
+<tr>
+<th>Sufijo</th>
+<th>Significado</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>b</code></td>
+<td>Bloques de 512 bytes (default)</td>
+</tr>
+<tr>
+<td><code>c</code></td>
+<td>Bytes</td>
+</tr>
+<tr>
+<td><code>w</code></td>
+<td>Words de 2 bytes</td>
+</tr>
+<tr>
+<td><code>k</code></td>
+<td>Kilobytes (1024 bytes)</td>
+</tr>
+<tr>
+<td><code>M</code></td>
+<td>Megabytes (1048576 bytes)</td>
+</tr>
+<tr>
+<td><code>G</code></td>
+<td>Gigabytes</td>
+</tr>
+</tbody></table>
+<h3>Operadores de Tiempo</h3>
+<table>
+<thead>
+<tr>
+<th>Opción</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>-atime</code></td>
+<td>Tiempo de acceso</td>
+</tr>
+<tr>
+<td><code>-mtime</code></td>
+<td>Tiempo de modificación</td>
+</tr>
+<tr>
+<td><code>-ctime</code></td>
+<td>Tiempo de cambio</td>
+</tr>
+<tr>
+<td><code>-amin</code></td>
+<td>Minutos desde acceso</td>
+</tr>
+<tr>
+<td><code>-mmin</code></td>
+<td>Minutos desde modificación</td>
+</tr>
+<tr>
+<td><code>-newermt</code></td>
+<td>Más nuevo que fecha</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>Ejemplos Prácticos</h2>
+<h3>Búsqueda por Nombre</h3>
+<pre><code class="language-bash"># Archivos con extensión .conf
+find / -name &quot;*.conf&quot; 2&gt;/dev/null
+
+# Directorios llamados &quot;backup&quot;
+find / -type d -name &quot;backup&quot; 2&gt;/dev/null
+
+# Archivos que contienen &quot;password&quot; en el nombre
+find / -name &quot;*password*&quot; 2&gt;/dev/null
+</code></pre>
+<h3>Búsqueda por Permisos</h3>
+<pre><code class="language-bash"># Archivos SUID
+find / -perm -4000 2&gt;/dev/null
+
+# Archivos escribibles por todos
+find / -perm -o+w 2&gt;/dev/null
+
+# Archivos con permisos 777
+find / -perm 777 2&gt;/dev/null
+</code></pre>
+<h3>Búsqueda por Tamaño</h3>
+<pre><code class="language-bash"># Archivos mayores a 100MB
+find / -size +100M 2&gt;/dev/null
+
+# Archivos vacíos
+find / -type f -empty 2&gt;/dev/null
+
+# Archivos entre 1MB y 10MB
+find / -size +1M -size -10M 2&gt;/dev/null
+</code></pre>
+<h3>Búsqueda por Usuario</h3>
+<pre><code class="language-bash"># Archivos de root
+find / -user root 2&gt;/dev/null
+
+# Archivos sin propietario
+find / -nouser 2&gt;/dev/null
+
+# Archivos del grupo sudo
+find / -group sudo 2&gt;/dev/null
+</code></pre>
+<h3>Búsqueda con Ejecución</h3>
+<pre><code class="language-bash"># Ejecutar ls -l en cada resultado
+find / -name &quot;*.conf&quot; -exec ls -l {} \; 2&gt;/dev/null
+
+# Buscar string en archivos
+find / -name &quot;*.log&quot; -exec grep -l &quot;error&quot; {} \; 2&gt;/dev/null
+
+# Eliminar archivos encontrados
+find /tmp -name &quot;*.tmp&quot; -exec rm {} \;
+</code></pre>
+<hr>
+<h2>Diferencias: find vs locate</h2>
+<table>
+<thead>
+<tr>
+<th>Característica</th>
+<th>find</th>
+<th>locate</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Velocidad</td>
+<td>Lento</td>
+<td>Muy rápido</td>
+</tr>
+<tr>
+<td>Base de datos</td>
+<td>No usa</td>
+<td>Usa DB local</td>
+</tr>
+<tr>
+<td>Actualización</td>
+<td>Tiempo real</td>
+<td>Requiere <code>updatedb</code></td>
+</tr>
+<tr>
+<td>Filtros</td>
+<td>Múltiples opciones</td>
+<td>Limitado</td>
+</tr>
+<tr>
+<td>Precisión</td>
+<td>100%</td>
+<td>Puede estar desactualizado</td>
+</tr>
+<tr>
+<td>Uso típico</td>
+<td>Búsquedas complejas</td>
+<td>Búsquedas rápidas</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>Lecciones Aprendidas</h2>
+<ol>
+<li><strong>find es poderoso:</strong> Permite combinar múltiples filtros</li>
+<li><strong>locate es rápido:</strong> Ideal para búsquedas rápidas si la DB está actualizada</li>
+<li><strong>which para binarios:</strong> Encuentra rápidamente ejecutables</li>
+<li><strong>2&gt;/dev/null:</strong> Esencial para ocultar errores de permisos</li>
+<li><strong>Combinar filtros:</strong> <code>-size +25k -size -28k</code> crea un rango</li>
+</ol>
+<hr>
+<h2>Referencias</h2>
+<ul>
+<li><a href="https://man7.org/linux/man-pages/man1/find.1.html">find(1) - Linux manual</a></li>
+<li><a href="https://man7.org/linux/man-pages/man1/locate.1.html">locate(1) - Linux manual</a></li>
+<li><a href="https://man7.org/linux/man-pages/man1/which.1.html">which(1) - Linux manual</a></li>
+</ul>
+<hr>
+<h2>Estado</h2>
+<p><strong>COMPLETADO</strong> ✓</p>
+<ul>
+<li>Fecha: 2026-02-20</li>
+<li>Módulo: Linux Fundamentals</li>
+<li>Sección: 10 - Find Files and Directories</li>
+<li>Respuestas correctas: 3/3</li>
+</ul>
+</div> </div> </article> <div class="mt-8 flex justify-between items-center"> <a href="/challenges/htb/" class="px-6 py-3 bg-slate-700 hover:bg-slate-600 rounded-lg transition-colors">
+← Volver
+</a> <button onclick="openModal('linux-fundamentals/find-files')" class="px-6 py-3 bg-gradient-to-r from-green-500 to-teal-600 hover:from-green-600 hover:to-teal-700 rounded-lg transition-all font-medium flex items-center gap-2 shadow-lg shadow-green-500/25"> <span>📋</span> <span>Ver Solución Paso a Paso</span> </button> </div> </main> <div id="modal-linux-fundamentals/find-files" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50" aria-hidden="true"> <div class="flex items-center justify-center min-h-screen p-4"> <div class="bg-slate-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto"> <div class="p-6 border-b border-slate-700"> <div class="flex justify-between items-start"> <div> <h2 class="text-2xl font-bold text-gray-100">Linux Fundamentals - Find Files and Directories</h2> <div class="flex items-center gap-4 mt-2 text-sm"> <span class="capitalize bg-slate-700 px-2 py-1 rounded">htb</span> <span class="text-cyan-400">easy</span>  </div> </div> <button onclick="closeModal('linux-fundamentals/find-files')" class="text-gray-400 hover:text-white">
+✕
+</button> </div> </div> <div class="p-6"> <div class="mb-6"> <h3 class="text-lg font-semibold text-cyan-400 mb-4">Pasos a Seguir</h3> <div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">1. Comandos de Solución</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>ssh htb-student@10.129.2.219</code>
+                  </pre>  </div> </div> <div class="mb-6"> <h3 class="text-lg font-semibold text-yellow-400 mb-4">Verificación</h3> <ul class="space-y-2"> <li class="flex items-center text-gray-300"> <span class="text-green-400 mr-2">✓</span> Reto completado </li><li class="flex items-center text-gray-300"> <span class="text-green-400 mr-2">✓</span> Puntuación obtenida </li> </ul> </div>   </div> </div> </div> </div> <script type="module">document.addEventListener("click",e=>{const t=e.target;t.classList.contains("bg-black")&&(t.classList.add("hidden"),t.setAttribute("aria-hidden","true"))});</script> <footer class="border-t border-dark-border mt-16"> <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center text-gray-500 text-sm"> <p>Technical Challenges Repository | HTB Challenge</p> </div> </footer> <script type="module">function e(d){const o=document.getElementById(`modal-${d}`);o&&(o.classList.remove("hidden"),document.body.style.overflow="hidden")}window.openModal=e;</script> </body> </html>

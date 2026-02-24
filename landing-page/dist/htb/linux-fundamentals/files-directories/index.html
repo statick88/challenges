@@ -1,0 +1,233 @@
+<!DOCTYPE html><html lang="es"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="Linux Fundamentals - Working with Files and Directories - HTB Challenge"><link rel="icon" type="image/svg+xml" href="/challenges/favicon.svg"><title>Linux Fundamentals - Working with Files and Directories | HTB Challenge</title><link rel="stylesheet" href="/challenges/_astro/_slug_-DHZt47Ra.css">
+<style>.markdown-body{font-family:system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;line-height:1.8;color:#e5e7eb}.markdown-body h1{font-size:2rem;font-weight:700;color:#f97316;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid #374151}.markdown-body h2{font-size:1.5rem;font-weight:600;color:#22d3ee;margin:1.75rem 0 1rem;padding-bottom:.25rem}.markdown-body h3{font-size:1.25rem;font-weight:600;color:#a5f3fc;margin:1.5rem 0 .75rem}.markdown-body p{margin:.75rem 0;color:#d1d5db}.markdown-body strong{color:#fbbf24;font-weight:600}.markdown-body ul,.markdown-body ol{margin:.75rem 0;padding-left:1.5rem;color:#d1d5db}.markdown-body li{margin:.5rem 0;list-style-type:disc}.markdown-body table{width:100%;margin:1rem 0;border-collapse:collapse;font-size:.9rem}.markdown-body th,.markdown-body td{padding:.75rem;border:1px solid #374151;text-align:left}.markdown-body th{background:#37415180;color:#fbbf24;font-weight:600}.markdown-body td{color:#d1d5db}.markdown-body code{background:#06b6d426;color:#22d3ee;padding:.2rem .5rem;border-radius:.375rem;font-family:SF Mono,Monaco,Courier New,monospace;font-size:.875rem}.markdown-body pre{background:#0f172a;padding:1rem;border-radius:.75rem;overflow-x:auto;margin:1rem 0;border:1px solid #1e293b}.markdown-body pre code{background:transparent;padding:0;color:#a5b4fc}
+</style></head> <body class="bg-slate-950 text-gray-100 min-h-screen"> <header class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 border-b border-slate-800"> <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4"> <nav class="flex mb-6" aria-label="Breadcrumb"> <ol class="flex items-center space-x-2"> <li class="flex items-center">  <a href="/challenges" class="text-cyan-400 hover:text-cyan-300 transition-colors"> Challenges </a> </li><li class="flex items-center"> <span class="text-gray-500 mx-2">/</span> <a href="/challenges/htb" class="text-cyan-400 hover:text-cyan-300 transition-colors"> HTB </a> </li><li class="flex items-center"> <span class="text-gray-500 mx-2">/</span> <span class="text-gray-300 font-medium">Linux Fundamentals - Working with Files and Directories</span> </li> </ol> </nav> </nav> <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12"> <div class="flex items-center space-x-4 mb-4"> <span class="px-4 py-2 bg-gradient-to-r from-green-500 to-teal-600 rounded-full text-lg font-bold text-white">
+🎯
+</span> <span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">✅ Completado</span> <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">⭐ easy</span> <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">HTB Academy</span> </div> <h1 class="text-4xl font-bold text-white mb-2">Linux Fundamentals - Working with Files and Directories</h1> <p class="text-gray-400">HTB Challenge</p> </div> </header> <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12"> <article class="prose prose-invert max-w-none"> <div class="bg-slate-900 rounded-xl border border-slate-800 p-8">  <div class="flex flex-wrap gap-2 mb-6"> <span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#linux</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#files</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#directories</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#touch</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#mkdir</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#mv</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#cp</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#ls</span> </div> <div class="markdown-body"><h1>Linux Fundamentals - Working with Files and Directories</h1>
+<h2>Objetivo</h2>
+<p>Aprender a crear, mover, copiar y manipular archivos y directorios en Linux. También aprender a identificar archivos por fecha de modificación y obtener información de inodos.</p>
+<hr>
+<h2>Conexión al Target</h2>
+<pre><code class="language-bash">ssh htb-student@10.129.2.219
+# Password: HTB_@cademy_stdnt!
+</code></pre>
+<hr>
+<h2>Preguntas y Soluciones</h2>
+<h3>Question 1: Last Modified File</h3>
+<p><strong>Pregunta:</strong> What is the name of the last modified file in the &quot;/var/backups&quot; directory?</p>
+<p><strong>Solución:</strong></p>
+<pre><code class="language-bash">ls -lt /var/backups
+</code></pre>
+<p><strong>Output:</strong></p>
+<pre><code>total 2160
+-rw-r--r-- 1 root root    41872 Nov 12  2020 apt.extended_states.0
+-rw-r--r-- 1 root root     4437 Nov 12  2020 apt.extended_states.1.gz
+-rw-r--r-- 1 root root   742750 Nov 11  2020 dpkg.status.0
+...
+</code></pre>
+<p><strong>Respuesta:</strong> <code>apt.extended_states.0</code></p>
+<p><strong>Explicación:</strong></p>
+<ul>
+<li><code>ls -l</code> muestra formato largo</li>
+<li><code>-t</code> ordena por tiempo de modificación (más reciente primero)</li>
+<li>El primer archivo listado es el último modificado</li>
+</ul>
+<hr>
+<h3>Question 2: Inode of shadow.bak</h3>
+<p><strong>Pregunta:</strong> What is the inode number of the &quot;shadow.bak&quot; file in the &quot;/var/backups&quot; directory?</p>
+<p><strong>Solución:</strong></p>
+<pre><code class="language-bash">ls -li /var/backups/shadow.bak
+</code></pre>
+<p><strong>Output:</strong></p>
+<pre><code>265293 -rw------- 1 root shadow 1362 Sep 23  2020 /var/backups/shadow.bak
+</code></pre>
+<p><strong>Respuesta:</strong> <code>265293</code></p>
+<p><strong>Explicación:</strong></p>
+<ul>
+<li><code>-i</code> muestra el inode number como primer campo</li>
+<li>El inode <code>265293</code> identifica únicamente este archivo en el filesystem</li>
+</ul>
+<hr>
+<h2>Conceptos Clave</h2>
+<h3>Comandos de Gestión de Archivos</h3>
+<table>
+<thead>
+<tr>
+<th>Comando</th>
+<th>Descripción</th>
+<th>Ejemplo</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>touch</code></td>
+<td>Crear archivo vacío</td>
+<td><code>touch archivo.txt</code></td>
+</tr>
+<tr>
+<td><code>mkdir</code></td>
+<td>Crear directorio</td>
+<td><code>mkdir documentos</code></td>
+</tr>
+<tr>
+<td><code>mkdir -p</code></td>
+<td>Crear ruta completa</td>
+<td><code>mkdir -p a/b/c</code></td>
+</tr>
+<tr>
+<td><code>mv</code></td>
+<td>Mover/renombrar</td>
+<td><code>mv old.txt new.txt</code></td>
+</tr>
+<tr>
+<td><code>cp</code></td>
+<td>Copiar archivo</td>
+<td><code>cp file.txt backup/</code></td>
+</tr>
+<tr>
+<td><code>cp -r</code></td>
+<td>Copiar directorio</td>
+<td><code>cp -r dir1 dir2</code></td>
+</tr>
+<tr>
+<td><code>rm</code></td>
+<td>Eliminar archivo</td>
+<td><code>rm archivo.txt</code></td>
+</tr>
+<tr>
+<td><code>rm -r</code></td>
+<td>Eliminar directorio</td>
+<td><code>rm -r directorio</code></td>
+</tr>
+<tr>
+<td><code>rmdir</code></td>
+<td>Eliminar dir vacío</td>
+<td><code>rmdir vacio</code></td>
+</tr>
+<tr>
+<td><code>tree</code></td>
+<td>Ver estructura</td>
+<td><code>tree .</code></td>
+</tr>
+</tbody></table>
+<h3>Opciones de ls para Ordenación</h3>
+<table>
+<thead>
+<tr>
+<th>Opción</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>-t</code></td>
+<td>Ordenar por tiempo (más reciente primero)</td>
+</tr>
+<tr>
+<td><code>-r</code></td>
+<td>Orden inverso</td>
+</tr>
+<tr>
+<td><code>-lt</code></td>
+<td>Listar por tiempo de modificación</td>
+</tr>
+<tr>
+<td><code>-ltr</code></td>
+<td>Listar por tiempo (más antiguo primero)</td>
+</tr>
+<tr>
+<td><code>-lS</code></td>
+<td>Listar por tamaño</td>
+</tr>
+<tr>
+<td><code>-lX</code></td>
+<td>Listar por extensión</td>
+</tr>
+</tbody></table>
+<h3>Directorio /var/backups</h3>
+<p>El directorio <code>/var/backups</code> contiene backups de configuraciones del sistema:</p>
+<ul>
+<li><code>shadow.bak</code> - Backup de contraseñas hasheadas</li>
+<li><code>passwd.bak</code> - Backup de usuarios</li>
+<li><code>group.bak</code> - Backup de grupos</li>
+<li><code>apt.extended_states.*</code> - Estados de paquetes APT</li>
+<li><code>dpkg.status.*</code> - Estados de paquetes dpkg</li>
+</ul>
+<p><strong>⚠️ Nota de seguridad:</strong> Estos archivos son críticos en auditorías y pueden contener información sensible para ataques de cracking de contraseñas.</p>
+<hr>
+<h2>Ejemplos Prácticos</h2>
+<h3>Crear Archivos y Directorios</h3>
+<pre><code class="language-bash"># Crear archivo vacío
+touch info.txt
+
+# Crear directorio
+mkdir Storage
+
+# Crear estructura anidada
+mkdir -p Storage/local/user/documents
+</code></pre>
+<h3>Mover y Renombrar</h3>
+<pre><code class="language-bash"># Renombrar archivo
+mv info.txt information.txt
+
+# Mover archivo a directorio
+mv information.txt Storage/
+
+# Mover múltiples archivos
+mv file1.txt file2.txt Storage/
+</code></pre>
+<h3>Copiar</h3>
+<pre><code class="language-bash"># Copiar archivo
+cp original.txt copia.txt
+
+# Copiar a directorio
+cp archivo.txt directorio/
+
+# Copiar directorio recursivamente
+cp -r origen/ destino/
+</code></pre>
+<h3>Eliminar</h3>
+<pre><code class="language-bash"># Eliminar archivo
+rm archivo.txt
+
+# Eliminar directorio vacío
+rmdir directorio_vacio
+
+# Eliminar directorio con contenido
+rm -r directorio/
+
+# Eliminar sin confirmación
+rm -rf directorio/
+</code></pre>
+<hr>
+<h2>Lecciones Aprendidas</h2>
+<ol>
+<li><strong>Ordenación por tiempo:</strong> <code>ls -lt</code> es esencial para encontrar archivos recientes</li>
+<li><strong>Inodos:</strong> Identifican únicamente archivos en el filesystem</li>
+<li><strong>mkdir -p:</strong> Crea directorios padres automáticamente</li>
+<li><strong>Backups sensibles:</strong> <code>/var/backups</code> puede contener información crítica</li>
+<li><strong>rm -rf:</strong> Usar con precaución, elimina sin confirmación</li>
+</ol>
+<hr>
+<h2>Referencias</h2>
+<ul>
+<li><a href="https://man7.org/linux/man-pages/man1/touch.1.html">touch(1) - Linux manual</a></li>
+<li><a href="https://man7.org/linux/man-pages/man1/mkdir.1.html">mkdir(1) - Linux manual</a></li>
+<li><a href="https://man7.org/linux/man-pages/man1/mv.1.html">mv(1) - Linux manual</a></li>
+<li><a href="https://man7.org/linux/man-pages/man1/cp.1.html">cp(1) - Linux manual</a></li>
+<li><a href="https://man7.org/linux/man-pages/man1/rm.1.html">rm(1) - Linux manual</a></li>
+</ul>
+<hr>
+<h2>Estado</h2>
+<p><strong>COMPLETADO</strong> ✓</p>
+<ul>
+<li>Fecha: 2026-02-20</li>
+<li>Módulo: Linux Fundamentals</li>
+<li>Sección: 8 - Working with Files and Directories</li>
+<li>Respuestas correctas: 2/2</li>
+</ul>
+</div> </div> </article> <div class="mt-8 flex justify-between items-center"> <a href="/challenges/htb/" class="px-6 py-3 bg-slate-700 hover:bg-slate-600 rounded-lg transition-colors">
+← Volver
+</a> <button onclick="openModal('linux-fundamentals/files-directories')" class="px-6 py-3 bg-gradient-to-r from-green-500 to-teal-600 hover:from-green-600 hover:to-teal-700 rounded-lg transition-all font-medium flex items-center gap-2 shadow-lg shadow-green-500/25"> <span>📋</span> <span>Ver Solución Paso a Paso</span> </button> </div> </main> <div id="modal-linux-fundamentals/files-directories" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50" aria-hidden="true"> <div class="flex items-center justify-center min-h-screen p-4"> <div class="bg-slate-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto"> <div class="p-6 border-b border-slate-700"> <div class="flex justify-between items-start"> <div> <h2 class="text-2xl font-bold text-gray-100">Linux Fundamentals - Working with Files and Directories</h2> <div class="flex items-center gap-4 mt-2 text-sm"> <span class="capitalize bg-slate-700 px-2 py-1 rounded">htb</span> <span class="text-cyan-400">easy</span>  </div> </div> <button onclick="closeModal('linux-fundamentals/files-directories')" class="text-gray-400 hover:text-white">
+✕
+</button> </div> </div> <div class="p-6"> <div class="mb-6"> <h3 class="text-lg font-semibold text-cyan-400 mb-4">Pasos a Seguir</h3> <div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">1. Comandos de Solución</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>ssh htb-student@10.129.2.219</code>
+                  </pre>  </div> </div> <div class="mb-6"> <h3 class="text-lg font-semibold text-yellow-400 mb-4">Verificación</h3> <ul class="space-y-2"> <li class="flex items-center text-gray-300"> <span class="text-green-400 mr-2">✓</span> Reto completado </li><li class="flex items-center text-gray-300"> <span class="text-green-400 mr-2">✓</span> Puntuación obtenida </li> </ul> </div>   </div> </div> </div> </div> <script type="module">document.addEventListener("click",e=>{const t=e.target;t.classList.contains("bg-black")&&(t.classList.add("hidden"),t.setAttribute("aria-hidden","true"))});</script> <footer class="border-t border-slate-800 mt-16"> <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center text-gray-500 text-sm"> <p>Technical Challenges Repository | HTB Challenge</p> </div> </footer> <script type="module">function e(d){const o=document.getElementById(`modal-${d}`);o&&(o.classList.remove("hidden"),document.body.style.overflow="hidden")}function n(d){const o=document.getElementById(`modal-${d}`);o&&(o.classList.add("hidden"),document.body.style.overflow="")}window.openModal=e;window.closeModal=n;</script> </body> </html>

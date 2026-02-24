@@ -1,0 +1,149 @@
+<!DOCTYPE html><html lang="es"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="Firewall and IDS/IPS Evasion - Medium Lab - HTB Challenge"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><title>Firewall and IDS/IPS Evasion - Medium Lab | HTB Challenge</title><link rel="stylesheet" href="/challenges/_astro/_slug_-Bxg8atdN.css">
+<style>.markdown-body{font-family:system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;line-height:1.8;color:#e5e7eb}.markdown-body h1{font-size:2rem;font-weight:700;color:#f97316;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid #374151}.markdown-body h2{font-size:1.5rem;font-weight:600;color:#22d3ee;margin:1.75rem 0 1rem;padding-bottom:.25rem}.markdown-body h3{font-size:1.25rem;font-weight:600;color:#a5f3fc;margin:1.5rem 0 .75rem}.markdown-body p{margin:.75rem 0;color:#d1d5db}.markdown-body strong{color:#fbbf24;font-weight:600}.markdown-body ul,.markdown-body ol{margin:.75rem 0;padding-left:1.5rem;color:#d1d5db}.markdown-body li{margin:.5rem 0;list-style-type:disc}.markdown-body table{width:100%;margin:1rem 0;border-collapse:collapse;font-size:.9rem}.markdown-body th,.markdown-body td{padding:.75rem;border:1px solid #374151;text-align:left}.markdown-body th{background:#37415180;color:#fbbf24;font-weight:600}.markdown-body td{color:#d1d5db}.markdown-body code{background:#06b6d426;color:#22d3ee;padding:.2rem .5rem;border-radius:.375rem;font-family:SF Mono,Monaco,Courier New,monospace;font-size:.875rem}.markdown-body pre{background:#0f172a;padding:1rem;border-radius:.75rem;overflow-x:auto;margin:1rem 0;border:1px solid #1e293b}.markdown-body pre code{background:transparent;padding:0;color:#a5b4fc}
+</style></head> <body class="bg-dark-bg text-gray-100 min-h-screen"> <header class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 border-b border-dark-border"> <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4"> <nav class="flex mb-6" aria-label="Breadcrumb"> <ol class="flex items-center space-x-2"> <li class="flex items-center">  <a href="/challenges" class="text-cyan-400 hover:text-cyan-300 transition-colors"> Challenges </a> </li><li class="flex items-center"> <span class="text-gray-500 mx-2">/</span> <a href="/challenges/htb" class="text-cyan-400 hover:text-cyan-300 transition-colors"> HTB </a> </li><li class="flex items-center"> <span class="text-gray-500 mx-2">/</span> <span class="text-gray-300 font-medium">Firewall and IDS/IPS Evasion - Medium Lab</span> </li> </ol> </nav> </nav> <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12"> <div class="flex items-center space-x-4 mb-4"> <span class="px-4 py-2 bg-gradient-to-r from-green-500 to-teal-600 rounded-full text-lg font-bold text-white">
+🎯
+</span> <span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">✅ Completado</span> <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">⭐ medium</span> <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">HTB Academy</span> </div> <h1 class="text-4xl font-bold text-white mb-2">Firewall and IDS/IPS Evasion - Medium Lab</h1> <p class="text-gray-400">HTB Challenge</p> </div> </header> <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12"> <article class="prose prose-invert max-w-none"> <div class="bg-dark-card rounded-xl border border-dark-border p-8"> <div class="mb-6 p-4 bg-red-500/10 border border-red-500/30 rounded-lg"> <p class="text-red-400 text-sm font-bold mb-2">🏴 Flag</p> <code class="text-red-300 font-mono text-lg">HTB{GoTtgUnyze9Psw4vGjcuMpHRp}</code> </div> <div class="flex flex-wrap gap-2 mb-6"> <span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#nmap</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#firewall</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#ids</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#ips</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#evasion</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#dns</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#udp</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#nslookup</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#dig</span> </div> <div class="markdown-body"><h1>Firewall and IDS/IPS Evasion - Medium Lab</h1>
+<h2>Objective</h2>
+<p>Find the DNS server version of a target with stricter IDS/IPS and firewall configurations.</p>
+<hr>
+<h2>Scenario</h2>
+<p>After the first test, administrators improved their security configurations. They mentioned the host as a &quot;publicly accessible server&quot; - suggesting DNS service (port 53/UDP) is likely open.</p>
+<p><strong>Key Requirement</strong>: Must use UDP protocol (DNS uses UDP 53 by default).</p>
+<hr>
+<h2>DNS Version Enumeration</h2>
+<h3>Method 1: nslookup (Passive - No Root Required)</h3>
+<pre><code class="language-bash">nslookup -type=txt -class=chaos version.bind 10.129.4.95
+</code></pre>
+<p>Output:</p>
+<pre><code>Server:		10.129.4.95
+Address:	10.129.4.95#53
+
+version.bind	text = &quot;HTB{GoTtgUnyze9Psw4vGjcuMpHRp}&quot;
+</code></pre>
+<p><strong>Result</strong>: Flag obtained immediately without triggering IDS/IPS.</p>
+<h3>Method 2: dig (Alternative)</h3>
+<pre><code class="language-bash">dig @10.129.4.95 version.bind chaos txt
+</code></pre>
+<hr>
+<h2>Answer</h2>
+<p><strong>DNS Server Version</strong>: <code>HTB{GoTtgUnyze9Psw4vGjcuMpHRp}</code></p>
+<hr>
+<h2>Technical Explanation</h2>
+<h3>What is version.bind?</h3>
+<ul>
+<li>Special DNS record in the <strong>CHAOS class</strong> (not IN/Internet class)</li>
+<li>Used by BIND DNS servers to report their version</li>
+<li>Security risk: attackers use it to identify vulnerable versions</li>
+</ul>
+<h3>Query Breakdown</h3>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>-type=txt</code></td>
+<td>Request TXT record type</td>
+</tr>
+<tr>
+<td><code>-class=chaos</code></td>
+<td>Use CHAOS class (not default Internet class)</td>
+</tr>
+<tr>
+<td><code>version.bind</code></td>
+<td>Special hostname for version query</td>
+</tr>
+<tr>
+<td><code>10.129.4.95</code></td>
+<td>Target DNS server</td>
+</tr>
+</tbody></table>
+<h3>Why This Works</h3>
+<ol>
+<li><strong>UDP Protocol</strong>: DNS queries use UDP by default</li>
+<li><strong>Passive</strong>: No port scanning, just a legitimate DNS query</li>
+<li><strong>CHAOS Class</strong>: Most DNS servers still respond to CHAOS queries</li>
+<li><strong>Public Server</strong>: Administrators must allow DNS queries for public access</li>
+</ol>
+<hr>
+<h2>Failed Nmap Attempt</h2>
+<pre><code class="language-bash">sudo nmap -sU -p 53 --script=dns-version-bind --source-port 53 10.129.4.95
+</code></pre>
+<p>Error:</p>
+<pre><code>NSE: failed to initialize the script engine:
+&#39;dns-version-bind&#39; did not match a category, filename, or directory
+</code></pre>
+<p><strong>Reason</strong>: On macOS Homebrew, the script name is <code>dns-version</code>, not <code>dns-version-bind</code>.</p>
+<p>Correct command:</p>
+<pre><code class="language-bash">sudo nmap -sU -p 53 --script=dns-version --source-port 53 10.129.4.95
+</code></pre>
+<hr>
+<h2>Evasion Techniques Used</h2>
+<table>
+<thead>
+<tr>
+<th>Technique</th>
+<th>Purpose</th>
+<th>Why It Worked</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>DNS query</td>
+<td>Legitimate traffic</td>
+<td>IDS doesn&#39;t flag normal DNS</td>
+</tr>
+<tr>
+<td>UDP protocol</td>
+<td>Required by challenge</td>
+<td>DNS uses UDP by default</td>
+</tr>
+<tr>
+<td>CHAOS class</td>
+<td>Version disclosure</td>
+<td>BIND servers respond</td>
+</tr>
+<tr>
+<td>nslookup/dig</td>
+<td>No port scanning</td>
+<td>Completely passive</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>Security Recommendations</h2>
+<p>For administrators to prevent this disclosure:</p>
+<pre><code class="language-bash"># In named.conf.options
+options {
+    version &quot;not disclosed&quot;;
+    # or completely disable
+    version none;
+}
+</code></pre>
+<hr>
+<h2>Key Learnings</h2>
+<ol>
+<li><strong>Passive DNS queries</strong> bypass IDS/IPS that focus on port scanning</li>
+<li><strong>version.bind</strong> is a legacy feature that should be disabled</li>
+<li><strong>nslookup/dig</strong> are quieter than Nmap for DNS enumeration</li>
+<li><strong>UDP scans</strong> require root privileges on most systems</li>
+<li><strong>Source port manipulation</strong> (<code>--source-port 53</code>) can bypass some firewalls</li>
+</ol>
+<hr>
+<h2>Status</h2>
+<p><strong>COMPLETED</strong></p>
+<ul>
+<li>Date: 2026-02-20</li>
+<li>Time: ~2 minutes</li>
+<li>Method: Passive DNS query (nslookup)</li>
+<li>Alerts triggered: 0</li>
+<li>Difficulty: Medium</li>
+</ul>
+</div> </div> </article> <div class="mt-8 flex justify-between items-center"> <a href="/challenges/htb/" class="px-6 py-3 bg-slate-700 hover:bg-slate-600 rounded-lg transition-colors">
+← Volver
+</a> <button onclick="openModal('network-enum/firewall-ids-evasion-medium')" class="px-6 py-3 bg-gradient-to-r from-green-500 to-teal-600 hover:from-green-600 hover:to-teal-700 rounded-lg transition-all font-medium flex items-center gap-2 shadow-lg shadow-green-500/25"> <span>📋</span> <span>Ver Solución Paso a Paso</span> </button> </div> </main> <div id="modal-network-enum/firewall-ids-evasion-medium" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50" aria-hidden="true"> <div class="flex items-center justify-center min-h-screen p-4"> <div class="bg-slate-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto"> <div class="p-6 border-b border-slate-700"> <div class="flex justify-between items-start"> <div> <h2 class="text-2xl font-bold text-gray-100">Firewall and IDS/IPS Evasion - Medium Lab</h2> <div class="flex items-center gap-4 mt-2 text-sm"> <span class="capitalize bg-slate-700 px-2 py-1 rounded">htb</span> <span class="text-cyan-400">medium</span> <span class="text-green-400 font-mono">Flag: HTB{GoTtgUnyze9Psw4vGjcuMpHRp}</span> </div> </div> <button onclick="closeModal('network-enum/firewall-ids-evasion-medium')" class="text-gray-400 hover:text-white">
+✕
+</button> </div> </div> <div class="p-6"> <div class="mb-6"> <h3 class="text-lg font-semibold text-cyan-400 mb-4">Pasos a Seguir</h3> <div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">1. Comandos de Solución</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>nslookup -type=txt -class=chaos version.bind 10.129.4.95</code>
+                  </pre>  </div> </div> <div class="mb-6"> <h3 class="text-lg font-semibold text-yellow-400 mb-4">Verificación</h3> <ul class="space-y-2"> <li class="flex items-center text-gray-300"> <span class="text-green-400 mr-2">✓</span> Reto completado </li><li class="flex items-center text-gray-300"> <span class="text-green-400 mr-2">✓</span> Puntuación obtenida </li> </ul> </div>   </div> </div> </div> </div> <script type="module">document.addEventListener("click",e=>{const t=e.target;t.classList.contains("bg-black")&&(t.classList.add("hidden"),t.setAttribute("aria-hidden","true"))});</script> <footer class="border-t border-dark-border mt-16"> <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center text-gray-500 text-sm"> <p>Technical Challenges Repository | HTB Challenge</p> </div> </footer> <script type="module">function e(d){const o=document.getElementById(`modal-${d}`);o&&(o.classList.remove("hidden"),document.body.style.overflow="hidden")}window.openModal=e;</script> </body> </html>

@@ -1,0 +1,668 @@
+<!DOCTYPE html><html lang="es" data-astro-cid-ouamjn2i> <head><meta charset="UTF-8"><meta name="description" content="Plataforma interactiva de desafíos técnicos - Linux, Docker, DevOps, CTF"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.17.1"><meta name="theme-color" content="#4c80cc"><title>Reto 05: Temporary User Setup with Expiry - xFusionCorp Industries - Linux Challenges</title><!-- Preconnect for fonts --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><!-- Script para prevenir flash de tema incorrecto --><script>
+      const theme = (() => {
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+          return localStorage.getItem('theme');
+        }
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          return 'dark';
+        }
+        return 'light';
+      })();
+      
+      if (theme === 'light') {
+        document.documentElement.classList.add('light');
+      } else {
+        document.documentElement.classList.add('dark');
+      }
+    </script><!-- Cache busting: Verificar versión y recargar si hay cambios --><script>
+      (function() {
+        const BUILD_VERSION = '1771614292958';
+        const CACHE_KEY = 'tech-challenges-build-version';
+        
+        // Verificar si hay nueva versión
+        const storedVersion = localStorage.getItem(CACHE_KEY);
+        
+        if (storedVersion && storedVersion !== BUILD_VERSION) {
+          // Nueva versión detectada, limpiar cache y recargar
+          console.log('🆕 Nueva versión detectada. Actualizando...');
+          if ('caches' in window) {
+            caches.keys().then(names => {
+              names.forEach(name => caches.delete(name));
+            });
+          }
+          localStorage.setItem(CACHE_KEY, BUILD_VERSION);
+          window.location.reload();
+        } else if (!storedVersion) {
+          localStorage.setItem(CACHE_KEY, BUILD_VERSION);
+        }
+      })();
+    </script><link rel="stylesheet" href="/challenges/_astro/_slug_-Bxg8atdN.css">
+<link rel="stylesheet" href="/challenges/_astro/_slug_-CaxYOu3g.css">
+<style>.nav-buttons[data-astro-cid-i5n6fu6j]{display:flex;justify-content:space-between;gap:1rem;margin-top:2rem;flex-wrap:wrap}.nav-btn[data-astro-cid-i5n6fu6j]{display:flex;align-items:center;gap:.75rem;padding:1rem 1.25rem;background:#1e293bcc;border:1px solid rgba(71,85,105,.3);border-radius:.75rem;text-decoration:none;transition:all .2s ease;flex:1;min-width:200px;max-width:280px}.nav-btn[data-astro-cid-i5n6fu6j]:hover:not(.disabled){background:#f973161a;border-color:#f973164d;transform:translateY(-2px)}.nav-btn[data-astro-cid-i5n6fu6j].disabled{opacity:.4;cursor:not-allowed;pointer-events:none}.nav-btn[data-astro-cid-i5n6fu6j].prev{text-align:left}.nav-btn[data-astro-cid-i5n6fu6j].next{text-align:right;justify-content:flex-end}.nav-btn[data-astro-cid-i5n6fu6j].home{justify-content:center;max-width:200px}.nav-icon[data-astro-cid-i5n6fu6j]{font-size:1.25rem;color:#f97316}.nav-content[data-astro-cid-i5n6fu6j]{display:flex;flex-direction:column;gap:.25rem}.nav-label[data-astro-cid-i5n6fu6j]{font-size:.7rem;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em}.nav-title[data-astro-cid-i5n6fu6j]{font-size:.875rem;color:#e2e8f0;font-weight:500}@media(max-width:768px){.nav-buttons[data-astro-cid-i5n6fu6j]{flex-direction:column}.nav-btn[data-astro-cid-i5n6fu6j]{max-width:100%}}.markdown-body{font-family:system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;line-height:1.8;color:#e5e7eb}.markdown-body h1{font-size:2rem;font-weight:700;color:#f97316;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid #374151}.markdown-body h2{font-size:1.5rem;font-weight:600;color:#22d3ee;margin:1.75rem 0 1rem;padding-bottom:.25rem}.markdown-body h3{font-size:1.25rem;font-weight:600;color:#a5f3fc;margin:1.5rem 0 .75rem}.markdown-body p{margin:.75rem 0;color:#d1d5db}.markdown-body strong{color:#fbbf24;font-weight:600}.markdown-body ul,.markdown-body ol{margin:.75rem 0;padding-left:1.5rem;color:#d1d5db}.markdown-body li{margin:.5rem 0;list-style-type:disc}.markdown-body table{width:100%;margin:1rem 0;border-collapse:collapse;font-size:.9rem}.markdown-body th,.markdown-body td{padding:.75rem;border:1px solid #374151;text-align:left}.markdown-body th{background:#37415180;color:#fbbf24;font-weight:600}.markdown-body td{color:#d1d5db}.markdown-body code{background:#06b6d426;color:#22d3ee;padding:.2rem .5rem;border-radius:.375rem;font-family:SF Mono,Monaco,Courier New,monospace;font-size:.875rem}.markdown-body pre{background:#0f172a;padding:1rem;border-radius:.75rem;overflow-x:auto;margin:1rem 0;border:1px solid #1e293b}.markdown-body pre code{background:transparent;padding:0;color:#a5b4fc}
+</style></head> <body class="min-h-screen flex flex-col" data-astro-cid-ouamjn2i> <!-- Header --> <header class="sticky top-0 z-50 border-b" style="background-color: var(--color-bg); border-color: var(--color-border);" data-astro-cid-ouamjn2i> <div class="container mx-auto px-4 py-4 flex items-center justify-between" data-astro-cid-ouamjn2i> <!-- Logo / Brand --> <a href="/" class="flex items-center gap-3 group" data-astro-cid-ouamjn2i> <span class="text-2xl" data-astro-cid-ouamjn2i>🚀</span> <span class="font-bold text-lg transition-colors group-hover:text-accent" style="color: var(--color-text);" data-astro-cid-ouamjn2i>
+Tech Challenges
+</span> </a> <!-- Navigation --> <nav class="hidden md:flex items-center gap-6" data-astro-cid-ouamjn2i> <a href="/challenges/" class="nav-link" data-astro-cid-ouamjn2i>Dashboard</a> <a href="/challenges/linux/" class="nav-link" data-astro-cid-ouamjn2i>Linux</a> <a href="/challenges/docker/" class="nav-link" data-astro-cid-ouamjn2i>Docker</a> <a href="/challenges/devops/" class="nav-link" data-astro-cid-ouamjn2i>DevOps</a> <a href="/challenges/ctf/" class="nav-link" data-astro-cid-ouamjn2i>CTF</a> <a href="/challenges/htb/" class="nav-link" data-astro-cid-ouamjn2i>HTB</a> </nav> <!-- Theme Toggle --> <div class="flex items-center gap-4" data-astro-cid-ouamjn2i> <button id="lang-toggle" class="lang-toggle" type="button" aria-label="Cambiar idioma" title="Cambiar idioma" data-astro-cid-lb7h3eps> <span class="lang-text" data-astro-cid-lb7h3eps>EN</span> </button>  <script type="module">const l={es:{"hero.badge":"Plataforma de Aprendizaje","hero.title.line1":"Domina Linux, Docker,","hero.title.line2":"DevOps & Security","hero.subtitle":"Plataforma interactiva con 70+ desafíos prácticos. Aprende haciendo, no solo leyendo.","hero.stat.completed":"Completados","hero.stat.progress":"Progreso","hero.stat.challenges":"Desafíos","progress.title":"Progreso General","progress.completed":"completados","progress.in_progress":"en progreso","progress.blocked":"bloqueados","programs.title":"Programas de Aprendizaje","programs.subtitle":"Selecciona un programa para ver sus desafíos","programs.completed":"Completados","programs.total":"Total","programs.view":"Ver desafíos","program.linux":"Linux","program.docker":"Docker","program.devops":"DevOps","program.ctf":"CTF","program.htb":"HTB Academy","program.linux.desc":"Administración de sistemas Linux, usuarios, permisos y automatización","program.docker.desc":"Containerización, orquestación y mejores prácticas de Docker","program.devops.desc":"CI/CD, automatización y cultura DevOps","program.ctf.desc":"Desafíos de seguridad: criptografía, web, forense y más","program.htb.desc":"Módulos de Hack The Box Academy completados","cert.title":"Certificaciones Obtenidas","cert.subtitle":"Reconocimientos oficiales de tu progreso","cert.docker.title":"Docker Certification","cert.docker.platform":"KodeKloud Engineer","cert.challenges":"Challenges","cert.verify":"Verificar certificado","activity.title":"Actividad Reciente","activity.subtitle":"Últimos desafíos completados","footer.update":"Última actualización"},en:{"hero.badge":"Learning Platform","hero.title.line1":"Master Linux, Docker,","hero.title.line2":"DevOps & Security","hero.subtitle":"Interactive platform with 70+ practical challenges. Learn by doing, not just reading.","hero.stat.completed":"Completed","hero.stat.progress":"Progress","hero.stat.challenges":"Challenges","progress.title":"Overall Progress","progress.completed":"completed","progress.in_progress":"in progress","progress.blocked":"blocked","programs.title":"Learning Programs","programs.subtitle":"Select a program to view its challenges","programs.completed":"Completed","programs.total":"Total","programs.view":"View challenges","program.linux":"Linux","program.docker":"Docker","program.devops":"DevOps","program.ctf":"CTF","program.htb":"HTB Academy","program.linux.desc":"Linux system administration, users, permissions and automation","program.docker.desc":"Containerization, orchestration and Docker best practices","program.devops.desc":"CI/CD, automation and DevOps culture","program.ctf.desc":"Security challenges: cryptography, web, forensics and more","program.htb.desc":"Completed Hack The Box Academy modules","cert.title":"Earned Certifications","cert.subtitle":"Official recognition of your progress","cert.docker.title":"Docker Certification","cert.docker.platform":"KodeKloud Engineer","cert.challenges":"Challenges","cert.verify":"Verify Certificate","activity.title":"Recent Activity","activity.subtitle":"Latest completed challenges","footer.update":"Last updated"}},i=document.getElementById("lang-toggle"),s=i?.querySelector(".lang-text");function c(){if(typeof localStorage<"u"){const e=localStorage.getItem("lang");if(e==="es"||e==="en")return e}return"es"}function d(e){typeof localStorage<"u"&&localStorage.setItem("lang",e)}function g(e){s&&(s.textContent=e==="es"?"EN":"ES")}function n(e){const t=l[e];document.querySelectorAll("[data-i18n]").forEach(o=>{const r=o.getAttribute("data-i18n");r&&t[r]&&(o.textContent=t[r])}),document.querySelectorAll("[data-i18n-program]").forEach(o=>{const r=o.getAttribute("data-i18n-program");if(r){const a=`program.${r}`;t[a]&&(o.textContent=t[a])}}),document.querySelectorAll("[data-i18n-program-desc]").forEach(o=>{const r=o.getAttribute("data-i18n-program-desc");if(r){const a=`program.${r}.desc`;t[a]&&(o.textContent=t[a])}}),document.documentElement.lang=e,g(e)}const p=c();n(p);i?.addEventListener("click",()=>{const t=c()==="es"?"en":"es";d(t),n(t)});</script> <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Cambiar tema" title="Cambiar tema claro/oscuro" data-astro-cid-x3pjskd3> <!-- Icono Sol (visible en tema oscuro) --> <svg class="icon-sun w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" data-astro-cid-x3pjskd3> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" data-astro-cid-x3pjskd3></path> </svg> <!-- Icono Luna (visible en tema claro) --> <svg class="icon-moon w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" data-astro-cid-x3pjskd3> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" data-astro-cid-x3pjskd3></path> </svg> </button>  <script type="module">const m=document.getElementById("theme-toggle");function c(){return typeof localStorage<"u"&&localStorage.getItem("theme")?localStorage.getItem("theme"):window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}function t(e){e==="dark"?(document.documentElement.classList.remove("light"),document.documentElement.classList.add("dark")):(document.documentElement.classList.remove("dark"),document.documentElement.classList.add("light")),localStorage.setItem("theme",e)}const d=c();d==="light"?document.documentElement.classList.add("light"):document.documentElement.classList.add("dark");m?.addEventListener("click",()=>{const n=(document.documentElement.classList.contains("light")?"light":"dark")==="dark"?"light":"dark";document.documentElement.classList.add("theme-transitioning"),t(n),setTimeout(()=>{document.documentElement.classList.remove("theme-transitioning")},300)});window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change",e=>{localStorage.getItem("theme")||t(e.matches?"dark":"light")});</script> <!-- Mobile Menu Button --> <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg border transition-colors" style="background-color: var(--color-bg-card); border-color: var(--color-border);" aria-label="Menú" data-astro-cid-ouamjn2i> <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-ouamjn2i> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" data-astro-cid-ouamjn2i></path> </svg> </button> </div> </div> <!-- Mobile Navigation --> <div id="mobile-menu" class="hidden md:hidden border-t" style="border-color: var(--color-border); background-color: var(--color-bg-card);" data-astro-cid-ouamjn2i> <nav class="container mx-auto px-4 py-4 flex flex-col gap-2" data-astro-cid-ouamjn2i> <a href="/challenges/" class="mobile-nav-link" data-astro-cid-ouamjn2i>Dashboard</a> <a href="/challenges/linux/" class="mobile-nav-link" data-astro-cid-ouamjn2i>🐧 Linux</a> <a href="/challenges/docker/" class="mobile-nav-link" data-astro-cid-ouamjn2i>🐳 Docker</a> <a href="/challenges/devops/" class="mobile-nav-link" data-astro-cid-ouamjn2i>⚙️ DevOps</a> <a href="/challenges/ctf/" class="mobile-nav-link" data-astro-cid-ouamjn2i>🚩 CTF</a> <a href="/challenges/htb/" class="mobile-nav-link" data-astro-cid-ouamjn2i>🎯 HTB</a> </nav> </div> </header> <!-- Main Content --> <main class="flex-1" data-astro-cid-ouamjn2i>   <main class="container mx-auto px-4 py-8" data-astro-cid-i5n6fu6j> <div class="max-w-4xl mx-auto" data-astro-cid-i5n6fu6j> <nav class="flex mb-6" aria-label="Breadcrumb"> <ol class="flex items-center space-x-2"> <li class="flex items-center">  <a href="/challenges" class="text-cyan-400 hover:text-cyan-300 transition-colors"> Challenges </a> </li><li class="flex items-center"> <span class="text-gray-500 mx-2">/</span> <a href="/challenges/linux" class="text-cyan-400 hover:text-cyan-300 transition-colors"> Linux </a> </li><li class="flex items-center"> <span class="text-gray-500 mx-2">/</span> <span class="text-gray-300 font-medium">Reto 05: Temporary User Setup with Expiry - xFusionCorp Industries</span> </li> </ol> </nav> <article class="bg-slate-800 rounded-lg p-6 border border-slate-700" data-astro-cid-i5n6fu6j> <header class="mb-6" data-astro-cid-i5n6fu6j> <h1 class="text-3xl font-bold text-orange-400 mb-2" data-astro-cid-i5n6fu6j>Reto 05: Temporary User Setup with Expiry - xFusionCorp Industries</h1> <div class="flex items-center gap-4 text-sm text-gray-400" data-astro-cid-i5n6fu6j> <span class="bg-orange-600 px-2 py-1 rounded text-xs" data-astro-cid-i5n6fu6j>Linux #05</span> <span class="capitalize" data-astro-cid-i5n6fu6j>easy</span> <span data-astro-cid-i5n6fu6j>2026-01-29</span> </div> </header> <div class="prose prose-invert max-w-none" data-astro-cid-i5n6fu6j> <div class="markdown-body" data-astro-cid-i5n6fu6j><h1>Reto 05: Temporary User Setup with Expiry - xFusionCorp Industries</h1>
+<h2>Gestión del Ciclo de Vida de Usuarios: Automatizando el Acceso Temporal</h2>
+<hr>
+<h2>🎓 Del Instructor</h2>
+<p>Bienvenido a tu quinto desafío como SysAdmin Senior en xFusionCorp. Hoy abordamos un aspecto crítico de la gobernanza de identidades: <strong>el acceso temporal automatizado</strong>.</p>
+<blockquote>
+<p>💭 <strong>Mentalidad de SysAdmin</strong>: &quot;El acceso temporal que no expira automáticamente es un acceso permanente olvidado. Un usuario temporal de hoy es una brecha de seguridad del mañana si no gestionamos su ciclo de vida.&quot;</p>
+</blockquote>
+<p>En entornos empresariales, los accesos temporales son comunes: consultores, contratistas, desarrolladores de proyectos específicos. El problema es que estos usuarios frecuentemente quedan activos después de que su necesidad expira, creando cuentas &quot;zombie&quot; que son vectores de ataque.</p>
+<p>La solución: <strong>automatizar la expiración desde el día cero</strong>.</p>
+<hr>
+<h2>🎭 Escenario Real: Consultoría Externa en Nautilus App 2</h2>
+<p><strong>Empresa</strong>: xFusionCorp Industries<br><strong>Proyecto</strong>: Nautilus - Auditoría de Seguridad Temporal<br><strong>Servidor</strong>: App Server 2 (stapp02)<br><strong>Tu rol</strong>: Senior System Administrator - Gobernanza de Identidades</p>
+<h3>La Problemática</h3>
+<p>Un consultor externo de ciberseguridad ha sido contratado para realizar una auditoría de 7 días en el servidor de aplicaciones. Según las políticas de seguridad de xFusionCorp:</p>
+<ul>
+<li>El acceso debe expirar automáticamente al finalizar el contrato</li>
+<li>No se permiten accesos extendidos sin re-autorización</li>
+<li>Todos los accesos temporales deben ser rastreables</li>
+</ul>
+<p><strong>El requerimiento del CISO</strong>:</p>
+<blockquote>
+<p>&quot;Create a temporary user with account expiry for time-limited access.&quot;</p>
+</blockquote>
+<h3>Contexto de Seguridad</h3>
+<p>El consultor necesita:</p>
+<ul>
+<li>✅ Acceso SSH interactivo durante 7 días</li>
+<li>✅ Capacidad de ejecutar scripts de auditoría</li>
+<li>✅ Almacenamiento temporal de resultados</li>
+</ul>
+<p>No debe tener:</p>
+<ul>
+<li>❌ Acceso después del día 7</li>
+<li>❌ Privilegios de administrador innecesarios</li>
+<li>❌ Capacidad de crear usuarios adicionales</li>
+</ul>
+<h3>Infraestructura Objetivo</h3>
+<table>
+<thead>
+<tr>
+<th>Servidor</th>
+<th>IP</th>
+<th>Hostname</th>
+<th>Usuario Acceso</th>
+<th>Contraseña</th>
+<th>Propósito</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>stapp02</td>
+<td>172.16.238.11</td>
+<td>stapp02.stratos.xfusioncorp.com</td>
+<td>steve</td>
+<td>Am3ric@</td>
+<td>Nautilus App 2</td>
+</tr>
+</tbody></table>
+<h3>Requisitos Técnicos</h3>
+<ul>
+<li><strong>Usuario</strong>: <code>temp_user</code></li>
+<li><strong>Expiración</strong>: 7 días desde la creación</li>
+<li><strong>Shell</strong>: <code>/bin/bash</code> (interactiva - necesita trabajar)</li>
+<li><strong>Directorio home</strong>: Sí (<code>/home/temp_user</code>)</li>
+<li><strong>Servidor</strong>: App Server 2 (stapp02)</li>
+<li><strong>Propósito</strong>: Acceso temporal para consultoría externa</li>
+</ul>
+<hr>
+<h2>🧠 La Arquitectura: Expiración de Cuentas en Linux</h2>
+<h3>¿Cómo Funciona la Expiración?</h3>
+<p>Linux utiliza un sistema de &quot;aging&quot; (envejecimiento) de contraseñas y cuentas gestionado por el comando <code>chage</code> (change age). Este sistema permite:</p>
+<ol>
+<li><strong>Expiración de cuenta completa</strong>: El usuario no puede iniciar sesión después de la fecha</li>
+<li><strong>Expiración de contraseña</strong>: El usuario debe cambiar su contraseña periódicamente</li>
+<li><strong>Periodo de advertencia</strong>: Avisar al usuario antes de la expiración</li>
+<li><strong>Periodo de gracia</strong>: Permitir acceso después de expiración (inseguro, no recomendado)</li>
+</ol>
+<h3>Archivos de Configuración</h3>
+<pre><code>/etc/shadow           # Almacena información de expiración
+/etc/login.defs       # Configuración por defecto de aging
+/etc/default/useradd  # Valores por defecto al crear usuarios
+</code></pre>
+<h3>Estructura de /etc/shadow</h3>
+<pre><code>username:password:lastchg:min:max:warn:inactive:expire:reserved
+     │        │       │    │   │    │      │       │      │
+     │        │       │    │   │    │      │       │      └── Reservado
+     │        │       │    │   │    │      │       └───────── Fecha expiración (días desde 1970-01-01)
+     │        │       │    │   │    │      └───────────────── Días inactividad antes de bloqueo
+     │        │       │    │   │    └──────────────────────── Días de advertencia
+     │        │       │    │   └───────────────────────────── Máximo días entre cambios de password
+     │        │       │    └───────────────────────────────── Mínimo días entre cambios de password
+     │        │       └────────────────────────────────────── Último cambio de password
+     │        └────────────────────────────────────────────── Hash de contraseña
+     └─────────────────────────────────────────────────────── Nombre de usuario
+</code></pre>
+<h3>Comando <code>chage</code> - Opciones Clave</h3>
+<table>
+<thead>
+<tr>
+<th>Opción</th>
+<th>Descripción</th>
+<th>Ejemplo</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>-E</code></td>
+<td>Fecha de expiración (YYYY-MM-DD)</td>
+<td><code>chage -E 2026-02-01 user</code></td>
+</tr>
+<tr>
+<td><code>-M</code></td>
+<td>Máximo días entre cambios de password</td>
+<td><code>chage -M 90 user</code></td>
+</tr>
+<tr>
+<td><code>-m</code></td>
+<td>Mínimo días entre cambios de password</td>
+<td><code>chage -m 7 user</code></td>
+</tr>
+<tr>
+<td><code>-W</code></td>
+<td>Días de advertencia antes de expiración</td>
+<td><code>chage -W 7 user</code></td>
+</tr>
+<tr>
+<td><code>-I</code></td>
+<td>Días de inactividad permitidos</td>
+<td><code>chage -I 30 user</code></td>
+</tr>
+<tr>
+<td><code>-l</code></td>
+<td>Listar información actual</td>
+<td><code>chage -l user</code></td>
+</tr>
+</tbody></table>
+<h3>Analogía: Tarjeta de Acceso Temporal de Hotel</h3>
+<ul>
+<li><strong>Usuario normal</strong>: Habitante permanente del hotel con tarjeta de acceso sin fecha de vencimiento</li>
+<li><strong>Usuario temporal (temp_user)</strong>: Huésped con tarjeta que deja de funcionar automáticamente a medianoche del día de checkout</li>
+<li><strong>Expiración</strong>: El sistema del hotel desactiva la tarjeta; no se requiere acción manual del recepcionista</li>
+</ul>
+<p>El consultor tiene su &quot;tarjeta&quot; (credenciales) que funcionan perfectamente durante 7 días. El día 8, simplemente deja de funcionar - no se le &quot;bloquea&quot;, no se le &quot;cancela&quot;, simplemente ya no puede entrar.</p>
+<hr>
+<h2>🛠️ Implementación Profesional</h2>
+<h3>Fase 1: Verificación Pre-Implementación</h3>
+<h4>1.1 Acceso al Sistema</h4>
+<pre><code class="language-bash"># Conexión al servidor
+ssh steve@172.16.238.11
+sudo su -
+</code></pre>
+<h4>1.2 Verificar Estado Actual</h4>
+<pre><code class="language-bash"># ¿Existe el usuario?
+id temp_user
+echo &quot;Exit code: $?&quot;  # 1 = no existe (correcto para crear)
+
+# Verificar comando chage disponible
+which chage
+chage --help | head -5
+
+# Verificar fecha actual
+date
+date +%Y-%m-%d  # Formato ISO recomendado
+</code></pre>
+<h3>Fase 2: Creación del Usuario Temporal</h3>
+<h4>2.1 Crear Usuario con Shell Interactivo</h4>
+<pre><code class="language-bash"># Crear usuario con home y shell bash
+useradd -m -s /bin/bash temp_user
+
+# Análisis de flags:
+# -m : Crear directorio home (/home/temp_user)
+# -s /bin/bash : Shell interactivo para trabajar
+# temp_user : Nombre descriptivo indicando propósito temporal
+</code></pre>
+<h4>2.2 Verificar Creación</h4>
+<pre><code class="language-bash"># Confirmar que existe
+id temp_user
+# Salida: uid=1002(temp_user) gid=1002(temp_user) groups=1002(temp_user)
+
+# Verificar shell y home
+grep temp_user /etc/passwd
+# Salida: temp_user:x:1002:1002::/home/temp_user:/bin/bash
+
+# Verificar directorio creado
+ls -la /home/temp_user
+</code></pre>
+<h3>Fase 3: Configuración de Expiración</h3>
+<h4>3.1 Calcular Fecha de Expiración</h4>
+<pre><code class="language-bash"># Calcular fecha exacta: hoy + 7 días
+# Método 1: Usando date
+date -d &quot;+7 days&quot; +%Y-%m-%d
+# Salida: 2025-02-01 (ejemplo)
+
+# Método 2: Especificar fecha exacta
+# Si hoy es 2025-01-25, 7 días después es 2025-02-01
+</code></pre>
+<h4>3.2 Configurar Expiración con chage</h4>
+<pre><code class="language-bash"># Configurar expiración para 7 días desde hoy
+chage -E $(date -d &quot;+7 days&quot; +%Y-%m-%d) temp_user
+
+# Análisis del comando:
+# chage       → Cambiar aging de contraseña
+# -E          → Establecer fecha de expiración (Expiry)
+# $(date...)  → Expansión de comando para calcular fecha
+# temp_user   → Usuario objetivo
+
+# Alternativa: Fecha específica explícita
+chage -E 2025-02-01 temp_user
+</code></pre>
+<blockquote>
+<p>💡 <strong>Nota técnica</strong>: La fecha se almacena internamente como días desde el 1 de enero de 1970 (epoch time). <code>chage</code> convierte automáticamente el formato legible.</p>
+</blockquote>
+<h4>3.3 Establecer Contraseña</h4>
+<pre><code class="language-bash"># Establecer contraseña inicial
+passwd temp_user
+
+# Ingresar contraseña temporal segura
+# El sistema pedirá cambiarla al primer login (opcional)
+</code></pre>
+<h3>Fase 4: Verificación Exhaustiva</h3>
+<h4>4.1 Verificar Configuración de Expiración</h4>
+<pre><code class="language-bash"># Ver información completa de aging
+chage -l temp_user
+
+# Salida esperada:
+# Last password change                    : Jan 25, 2025
+# Password expires                        : never
+# Password inactive                       : never
+# Account expires                         : Feb 01, 2025  ← ¡IMPORTANTE!
+# Minimum number of days between password change      : 0
+# Maximum number of days between password change      : 99999
+# Number of days of warning before password expires   : 7
+</code></pre>
+<h4>4.2 Verificar en /etc/shadow</h4>
+<pre><code class="language-bash"># Verificar directamente en shadow
+grep temp_user /etc/shadow
+
+# Salida típica:
+# temp_user:$6$rounds=5000$...:19800:0:99999:7::19807:
+#                                                      │
+#                                                      └── Días desde epoch para expiración
+
+# Calcular fecha desde epoch:
+date -d &quot;1970-01-01 +19807 days&quot; +%Y-%m-%d
+# Salida: 2025-02-01
+</code></pre>
+<h4>4.3 Prueba de Acceso (Antes de Expiración)</h4>
+<pre><code class="language-bash"># En otra terminal o como otro usuario, probar acceso
+ssh temp_user@172.16.238.11
+# Debe permitir login con contraseña establecida
+
+# Dentro de la sesión, verificar identidad
+whoami  # temp_user
+id      # uid=1002(temp_user) gid=1002(temp_user)
+</code></pre>
+<h3>Resumen de Comandos</h3>
+<pre><code class="language-bash"># SECUENCIA COMPLETA
+
+# 1. Verificación inicial
+id temp_user
+
+# 2. Creación del usuario
+useradd -m -s /bin/bash temp_user
+
+# 3. Establecer contraseña
+passwd temp_user
+
+# 4. Configurar fecha de expiración (7 días)
+chage -E $(date -d &quot;+7 days&quot; +%Y-%m-%d) temp_user
+
+# 5. Verificación final
+chage -l temp_user
+getent passwd temp_user
+
+# 6. Verificar acceso funciona
+su - temp_user
+exit
+</code></pre>
+<hr>
+<h2>🎯 Análisis Post-Implementación: Lo Que Acabas de Construir</h2>
+<h3>Arquitectura Implementada</h3>
+<pre><code>┌────────────────────────────────────────────────────────────┐
+│                       stapp02                               │
+│              Nautilus App Server 2                          │
+├────────────────────────────────────────────────────────────┤
+│                                                             │
+│  Fecha de creación: 2025-01-25                              │
+│  Fecha de expiración: 2025-02-01 (7 días después)          │
+│                                                             │
+│  ┌───────────────────────────────────────────────────────┐ │
+│  │              Usuario: temp_user                        │ │
+│  ├───────────────────────────────────────────────────────┤ │
+│  │                                                        │ │
+│  │  📅 Timeline de acceso:                                │ │
+│  │                                                        │ │
+│  │  Día 0 (Hoy)      ████████████████████████████████   │ │
+│  │  Día 1            ████████████████████████████████   │ │
+│  │  Día 2            ████████████████████████████████   │ │
+│  │  Día 3            ████████████████████████████████   │ │
+│  │  Día 4            ████████████████████████████████   │ │
+│  │  Día 5            ████████████████████████████████   │ │
+│  │  Día 6            ████████████████████████████████   │ │
+│  │  Día 7 (Último)   ████████████████████████████████   │ │
+│  │  Día 8            ❌ ACCESO BLOQUEADO AUTOMÁTICAMENTE │ │
+│  │                                                        │ │
+│  │  🔧 Mecanismo:                                         │ │
+│  │     /etc/shadow → campo expire = fecha en epoch        │ │
+│  │     PAM → verifica fecha antes de permitir login       │ │
+│  │                                                        │ │
+│  │  ✅ Características:                                   │ │
+│  │     • Shell: /bin/bash (trabajo interactivo)          │ │
+│  │     • Home: /home/temp_user                           │ │
+│  │     • Expiración automática: 2025-02-01               │ │
+│  │     • Sin intervención manual requerida               │ │
+│  │                                                        │ │
+│  └───────────────────────────────────────────────────────┘ │
+│                                                             │
+└────────────────────────────────────────────────────────────┘
+</code></pre>
+<h3>Beneficios de la Expiración Automática</h3>
+<table>
+<thead>
+<tr>
+<th>Aspecto</th>
+<th>Sin Expiración Automática</th>
+<th>Con Expiración Automática</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Gestión</strong></td>
+<td>Recordatorio manual en calendario</td>
+<td>Sistema gestiona automáticamente</td>
+</tr>
+<tr>
+<td><strong>Seguridad</strong></td>
+<td>Riesgo de olvidar desactivar</td>
+<td>Cuenta inactiva automáticamente</td>
+</tr>
+<tr>
+<td><strong>Auditoría</strong></td>
+<td>Seguimiento manual</td>
+<td>Fecha documentada en /etc/shadow</td>
+</tr>
+<tr>
+<td><strong>Cumplimiento</strong></td>
+<td>Difícil probar que se desactivó</td>
+<td>Registro automático de expiración</td>
+</tr>
+</tbody></table>
+<h3>Checklist de Verificación</h3>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> Usuario <code>temp_user</code> creado con home directory</li>
+<li><input checked="" disabled="" type="checkbox"> Shell <code>/bin/bash</code> configurado (interactivo)</li>
+<li><input checked="" disabled="" type="checkbox"> Contraseña establecida</li>
+<li><input checked="" disabled="" type="checkbox"> Fecha de expiración configurada: +7 días</li>
+<li><input checked="" disabled="" type="checkbox"> Verificación con <code>chage -l</code> muestra fecha correcta</li>
+<li><input checked="" disabled="" type="checkbox"> /etc/shadow actualizado con fecha en epoch</li>
+<li><input checked="" disabled="" type="checkbox"> Prueba de acceso exitosa antes de expiración</li>
+</ul>
+<hr>
+<h2>🎓 Reflexión Final: Mentalidad Desarrollada</h2>
+<h3>Automatización de Gobernanza</h3>
+<blockquote>
+<p>&quot;La seguridad que depende de recordatorios humanos es seguridad fallida.&quot;</p>
+</blockquote>
+<p>Este reto demuestra un principio de gobernanza de identidades:</p>
+<ul>
+<li><strong>Crear con expiración</strong>: Nunca crees acceso temporal sin fecha de expiración</li>
+<li><strong>Verificar antes de entregar</strong>: Confirma que la expiración está configurada</li>
+<li><strong>Documentar el propósito</strong>: El nombre <code>temp_user</code> indica claramente su naturaleza</li>
+<li><strong>Auditar regularmente</strong>: Usa <code>chage -l</code> para revisar cuentas temporales</li>
+</ul>
+<h3>Lecciones Clave</h3>
+<ol>
+<li><p><strong>Expiración desde el Día Cero</strong>: Configurar expiración durante la creación, no &quot;después&quot;.</p>
+</li>
+<li><p><strong>Fechas Calculadas vs. Fijas</strong>: Usar <code>date -d &quot;+7 days&quot;</code> es más mantenible que hardcodear fechas.</p>
+</li>
+<li><p><strong>Verificación Triple</strong>:</p>
+<ul>
+<li><code>chage -l</code> para información legible</li>
+<li><code>/etc/shadow</code> para confirmar almacenamiento</li>
+<li>Prueba de login para verificar funcionalidad</li>
+</ul>
+</li>
+<li><p><strong>Naming Matters</strong>: Un nombre como <code>temp_user</code> o <code>consultant_audit</code> comunica el propósito.</p>
+</li>
+</ol>
+<h3>Manejo de Cuentas Temporales en Producción</h3>
+<pre><code class="language-bash"># Listar todas las cuentas temporales próximas a expirar
+for user in $(awk -F: &#39;$8 &gt; 0 {print $1}&#39; /etc/shadow); do
+  expiry=$(chage -l $user 2&gt;/dev/null | grep &quot;Account expires&quot; | cut -d: -f2)
+  if [ ! -z &quot;$expiry&quot; ] &amp;&amp; [ &quot;$expiry&quot; != &quot; never&quot; ]; then
+    days_left=$(( ($(date -d &quot;$expiry&quot; +%s) - $(date +%s)) / 86400 ))
+    echo &quot;$user expira en $days_left días ($expiry)&quot;
+  fi
+done
+
+# Extender acceso temporal (si aplica)
+chage -E $(date -d &quot;+14 days&quot; +%Y-%m-%d) temp_user
+
+# Revocar acceso inmediatamente (si es necesario)
+chage -E 0 temp_user  # Expira inmediatamente
+# O mejor:
+usermod -L temp_user  # Bloquear cuenta
+</code></pre>
+<hr>
+<h2>🚀 Siguientes Pasos</h2>
+<h3>Retos Relacionados</h3>
+<ul>
+<li><strong>Reto 06</strong>: Usuario anita con Expiración Específica - Fechas exactas</li>
+<li><strong>Reto 04</strong>: Usuario sin Home - Optimización para servicios</li>
+<li><strong>Reto 13</strong>: Restricción de Cron - Controlar acceso a programación</li>
+</ul>
+<h3>Escenarios de Expansión</h3>
+<ol>
+<li><p><strong>Usuarios de Proyecto</strong>:</p>
+<pre><code class="language-bash"># Usuario para proyecto de 3 meses
+useradd -m -c &quot;Project X Developer - Expires 2025-04-25&quot; project_dev
+chage -E 2025-04-25 project_dev
+</code></pre>
+</li>
+<li><p><strong>Acceso de Emergencia</strong>:</p>
+<pre><code class="language-bash"># Acceso de 24 horas para soporte
+useradd -m -c &quot;Emergency Support - 24h&quot; emergency_support
+chage -E $(date -d &quot;+1 day&quot; +%Y-%m-%d) emergency_support
+</code></pre>
+</li>
+<li><p><strong>Auditoría Automática</strong>:</p>
+<pre><code class="language-bash"># Script para alertar sobre cuentas temporales
+# Agregar a cron diario
+</code></pre>
+</li>
+</ol>
+<h3>Comandos Avanzados</h3>
+<pre><code class="language-bash"># Ver usuarios que expiran esta semana
+awk -F: &#39;$8 &gt; 0 {
+  cmd = &quot;date -d \&quot;1970-01-01 &quot; $8 &quot; days\&quot; +%Y-%m-%d&quot;
+  cmd | getline expiry
+  close(cmd)
+  days = int((expiry - systime()) / 86400)
+  if (days &lt; 7 &amp;&amp; days &gt; 0) print $1 &quot; expires in &quot; days &quot; days&quot;
+}&#39; /etc/shadow
+
+# Configurar expiración de contraseña también
+chage -M 30 -W 7 temp_user  # Cambiar cada 30 días, advertir 7 días antes
+
+# Desactivar cuenta inmediatamente
+usermod --expiredate 1 temp_user  # Expiró ayer
+</code></pre>
+<hr>
+<h2>📚 Recursos y Referencias</h2>
+<h3>Documentación Oficial</h3>
+<ul>
+<li><a href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/configuring_basic_system_settings/assembly_managing-users-and-groups_configuring-basic-system-settings">Linux Password Aging - Red Hat</a></li>
+<li><a href="https://man7.org/linux/man-pages/man1/chage.1.html">Chage Manual</a></li>
+<li><a href="https://man7.org/linux/man-pages/man5/shadow.5.html">Shadow Password Suite</a></li>
+</ul>
+<h3>Troubleshooting Común</h3>
+<table>
+<thead>
+<tr>
+<th>Síntoma</th>
+<th>Causa</th>
+<th>Solución</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&quot;chage: invalid date&quot;</td>
+<td>Formato de fecha incorrecto</td>
+<td>Usar YYYY-MM-DD</td>
+</tr>
+<tr>
+<td>Usuario puede loguear después de fecha</td>
+<td>Zona horaria diferente</td>
+<td>Verificar <code>date</code> en servidor</td>
+</tr>
+<tr>
+<td>&quot;Account expires: never&quot;</td>
+<td>No se configuró expiración</td>
+<td>Ejecutar <code>chage -E</code> nuevamente</td>
+</tr>
+<tr>
+<td>Fecha en shadow no coincide</td>
+<td>Cálculo epoch incorrecto</td>
+<td>Usar <code>date -d</code> para verificar</td>
+</tr>
+</tbody></table>
+<h3>Mejores Prácticas</h3>
+<pre><code class="language-bash"># ✅ HACER:
+# Siempre configurar expiración al crear usuario temporal
+useradd -m temp_user &amp;&amp; chage -E $(date -d &quot;+7 days&quot; +%Y-%m-%d) temp_user
+
+# Documentar propósito en GECOS
+usermod -c &quot;Consultant - Expires 2025-02-01 - Project Audit&quot; temp_user
+
+# Verificar periódicamente cuentas temporales
+chage -l temp_user
+
+# ❌ EVITAR:
+# Crear usuario temporal sin fecha de expiración
+useradd -m temp_user  # ¡Peligro! Sin expiración
+
+# Hardcodear fechas
+chage -E 2025-02-01 temp_user  # Menos mantenible
+
+# Olvidar establecer contraseña
+# El usuario temporal debe poder acceder inicialmente
+</code></pre>
+<hr>
+<h2>✅ Estado del Reto</h2>
+<p>🔓 <strong>POR DESBLOQUEAR</strong> - Requiere completar retos 1-3</p>
+<ul>
+<li>📅 Fecha planeada: Pendiente</li>
+<li>⏱️ Tiempo estimado: 15 minutos</li>
+<li>🎯 Dificultad: Fácil</li>
+<li>🖥️ Servidor objetivo: stapp02 (172.16.238.11)</li>
+</ul>
+<h3>Plan de Implementación</h3>
+<ol>
+<li>Verificar acceso a stapp02</li>
+<li>Crear usuario <code>temp_user</code> con home y bash</li>
+<li>Configurar expiración a 7 días</li>
+<li>Establecer contraseña</li>
+<li>Verificar con <code>chage -l</code></li>
+<li>Probar acceso</li>
+</ol>
+<h3>Criterios de Éxito</h3>
+<ul>
+<li>✅ Usuario <code>temp_user</code> existe en <code>/etc/passwd</code></li>
+<li>✅ Directorio home <code>/home/temp_user</code> creado</li>
+<li>✅ <code>chage -l</code> muestra fecha de expiración específica</li>
+<li>✅ Acceso funciona antes de fecha de expiración</li>
+<li>✅ Acceso bloqueado automáticamente después de expiración</li>
+</ul>
+<hr>
+<p><em>Documentación creada siguiendo estándares de SysAdmin - Automatización de Gobernanza</em></p>
+</div> </div> </article> <div id="modal-05-usuario-temporal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50" aria-hidden="true"> <div class="flex items-center justify-center min-h-screen p-4"> <div class="bg-slate-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto"> <div class="p-6 border-b border-slate-700"> <div class="flex justify-between items-start"> <div> <h2 class="text-2xl font-bold text-gray-100">Reto 05: Temporary User Setup with Expiry - xFusionCorp Industries</h2> <div class="flex items-center gap-4 mt-2 text-sm"> <span class="capitalize bg-slate-700 px-2 py-1 rounded">linux</span> <span class="text-cyan-400">easy</span>  </div> </div> <button onclick="closeModal('05-usuario-temporal')" class="text-gray-400 hover:text-white">
+✕
+</button> </div> </div> <div class="p-6"> <div class="mb-6"> <h3 class="text-lg font-semibold text-cyan-400 mb-4">Pasos a Seguir</h3> <div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">1. La Problemática</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">2. Contexto de Seguridad</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">3. Infraestructura Objetivo</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">4. Requisitos Técnicos</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">5. ¿Cómo Funciona la Expiración?</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">6. Archivos de Configuración</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">7. Estructura de /etc/shadow</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">8. Comando `chage` - Opciones Clave</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">9. Analogía: Tarjeta de Acceso Temporal de Hotel</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">10. Fase 1: Verificación Pre-Implementación</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">11. 1 Acceso al Sistema</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>ssh steve@172.16.238.11
+sudo su -</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">12. 2 Verificar Estado Actual</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>id temp_user
+echo &quot;Exit code: $?&quot;  # 1 = no existe (correcto para crear)
+which chage
+chage --help | head -5
+date
+date +%Y-%m-%d  # Formato ISO recomendado</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">13. Fase 2: Creación del Usuario Temporal</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">14. 1 Crear Usuario con Shell Interactivo</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>useradd -m -s /bin/bash temp_user</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">15. 2 Verificar Creación</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>id temp_user
+grep temp_user /etc/passwd
+ls -la /home/temp_user</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">16. Fase 3: Configuración de Expiración</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">17. 1 Calcular Fecha de Expiración</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>date -d &quot;+7 days&quot; +%Y-%m-%d</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">18. 2 Configurar Expiración con chage</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>chage -E $(date -d &quot;+7 days&quot; +%Y-%m-%d) temp_user
+chage -E 2025-02-01 temp_user</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">19. 3 Establecer Contraseña</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>passwd temp_user</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">20. Fase 4: Verificación Exhaustiva</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">21. 1 Verificar Configuración de Expiración</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>chage -l temp_user</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">22. 2 Verificar en /etc/shadow</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>grep temp_user /etc/shadow
+date -d &quot;1970-01-01 +19807 days&quot; +%Y-%m-%d</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">23. 3 Prueba de Acceso (Antes de Expiración)</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>ssh temp_user@172.16.238.11
+whoami  # temp_user
+id      # uid=1002(temp_user) gid=1002(temp_user)</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">24. Resumen de Comandos</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>id temp_user
+useradd -m -s /bin/bash temp_user
+passwd temp_user
+chage -E $(date -d &quot;+7 days&quot; +%Y-%m-%d) temp_user
+chage -l temp_user
+getent passwd temp_user
+su - temp_user
+exit</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">25. Arquitectura Implementada</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">26. Beneficios de la Expiración Automática</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">27. Checklist de Verificación</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">28. Automatización de Gobernanza</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">29. Lecciones Clave</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">30. Manejo de Cuentas Temporales en Producción</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>for user in $(awk -F: &#39;$8 &gt; 0 {print $1}&#39; /etc/shadow); do
+expiry=$(chage -l $user 2&gt;/dev/null | grep &quot;Account expires&quot; | cut -d: -f2)
+if [ ! -z &quot;$expiry&quot; ] &amp;&amp; [ &quot;$expiry&quot; != &quot; never&quot; ]; then
+days_left=$(( ($(date -d &quot;$expiry&quot; +%s) - $(date +%s)) / 86400 ))
+echo &quot;$user expira en $days_left días ($expiry)&quot;
+fi
+done
+chage -E $(date -d &quot;+14 days&quot; +%Y-%m-%d) temp_user
+chage -E 0 temp_user  # Expira inmediatamente
+usermod -L temp_user  # Bloquear cuenta</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">31. Retos Relacionados</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">32. Escenarios de Expansión</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>useradd -m -c &quot;Project X Developer - Expires 2025-04-25&quot; project_dev
+chage -E 2025-04-25 project_dev</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">33. Comandos Avanzados</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>awk -F: &#39;$8 &gt; 0 {
+cmd = &quot;date -d \&quot;1970-01-01 &quot; $8 &quot; days\&quot; +%Y-%m-%d&quot;
+cmd | getline expiry
+close(cmd)
+days = int((expiry - systime()) / 86400)
+if (days &lt; 7 &amp;&amp; days &gt; 0) print $1 &quot; expires in &quot; days &quot; days&quot;
+}&#39; /etc/shadow
+chage -M 30 -W 7 temp_user  # Cambiar cada 30 días, advertir 7 días antes
+usermod --expiredate 1 temp_user  # Expiró ayer</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">34. Documentación Oficial</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">35. Troubleshooting Común</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">36. Mejores Prácticas</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>useradd -m temp_user &amp;&amp; chage -E $(date -d &quot;+7 days&quot; +%Y-%m-%d) temp_user
+usermod -c &quot;Consultant - Expires 2025-02-01 - Project Audit&quot; temp_user
+chage -l temp_user
+useradd -m temp_user  # ¡Peligro! Sin expiración
+chage -E 2025-02-01 temp_user  # Menos mantenible</code>
+                  </pre>  </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">37. Plan de Implementación</h4>   </div><div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">38. Criterios de Éxito</h4>   </div> </div>    </div> </div> </div> </div> <script type="module">document.addEventListener("click",e=>{const t=e.target;t.classList.contains("bg-black")&&(t.classList.add("hidden"),t.setAttribute("aria-hidden","true"))});</script> <!-- Navigation --> <div class="nav-buttons" data-astro-cid-i5n6fu6j> <a href="/challenges/linux/04-usuario-sin-home" class="nav-btn prev" data-astro-cid-i5n6fu6j> <span class="nav-icon" data-astro-cid-i5n6fu6j>←</span> <span class="nav-content" data-astro-cid-i5n6fu6j> <span class="nav-label" data-astro-cid-i5n6fu6j>Anterior</span> <span class="nav-title" data-astro-cid-i5n6fu6j>#04 Reto 04: Service User Creation without H...</span> </span> </a> <a href="/challenges/linux/" class="nav-btn home" data-astro-cid-i5n6fu6j> <span class="nav-icon" data-astro-cid-i5n6fu6j>🐧</span> <span class="nav-content" data-astro-cid-i5n6fu6j> <span class="nav-label" data-astro-cid-i5n6fu6j>Volver</span> <span class="nav-title" data-astro-cid-i5n6fu6j>Todos los Retos</span> </span> </a> <a href="/challenges/linux/06-creacion-anita-temporal" class="nav-btn next" data-astro-cid-i5n6fu6j> <span class="nav-content" data-astro-cid-i5n6fu6j> <span class="nav-label" data-astro-cid-i5n6fu6j>Siguiente</span> <span class="nav-title" data-astro-cid-i5n6fu6j>#06 Reto 06: Temporary User Setup with Expir...</span> </span> <span class="nav-icon" data-astro-cid-i5n6fu6j>→</span> </a> </div> </div> </main>  </main>  <script type="module">const e=document.getElementById("mobile-menu-btn"),n=document.getElementById("mobile-menu");e?.addEventListener("click",()=>{n?.classList.toggle("hidden")});</script></body></html> 

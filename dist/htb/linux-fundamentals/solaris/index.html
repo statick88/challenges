@@ -1,0 +1,236 @@
+<!DOCTYPE html><html lang="es"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="Linux Fundamentals - Linux Distributions vs Solaris - HTB Challenge"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><title>Linux Fundamentals - Linux Distributions vs Solaris | HTB Challenge</title><link rel="stylesheet" href="/challenges/_astro/_slug_-Bxg8atdN.css">
+<style>.markdown-body{font-family:system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;line-height:1.8;color:#e5e7eb}.markdown-body h1{font-size:2rem;font-weight:700;color:#f97316;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid #374151}.markdown-body h2{font-size:1.5rem;font-weight:600;color:#22d3ee;margin:1.75rem 0 1rem;padding-bottom:.25rem}.markdown-body h3{font-size:1.25rem;font-weight:600;color:#a5f3fc;margin:1.5rem 0 .75rem}.markdown-body p{margin:.75rem 0;color:#d1d5db}.markdown-body strong{color:#fbbf24;font-weight:600}.markdown-body ul,.markdown-body ol{margin:.75rem 0;padding-left:1.5rem;color:#d1d5db}.markdown-body li{margin:.5rem 0;list-style-type:disc}.markdown-body table{width:100%;margin:1rem 0;border-collapse:collapse;font-size:.9rem}.markdown-body th,.markdown-body td{padding:.75rem;border:1px solid #374151;text-align:left}.markdown-body th{background:#37415180;color:#fbbf24;font-weight:600}.markdown-body td{color:#d1d5db}.markdown-body code{background:#06b6d426;color:#22d3ee;padding:.2rem .5rem;border-radius:.375rem;font-family:SF Mono,Monaco,Courier New,monospace;font-size:.875rem}.markdown-body pre{background:#0f172a;padding:1rem;border-radius:.75rem;overflow-x:auto;margin:1rem 0;border:1px solid #1e293b}.markdown-body pre code{background:transparent;padding:0;color:#a5b4fc}
+</style></head> <body class="bg-dark-bg text-gray-100 min-h-screen"> <header class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 border-b border-dark-border"> <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4"> <nav class="flex mb-6" aria-label="Breadcrumb"> <ol class="flex items-center space-x-2"> <li class="flex items-center">  <a href="/challenges" class="text-cyan-400 hover:text-cyan-300 transition-colors"> Challenges </a> </li><li class="flex items-center"> <span class="text-gray-500 mx-2">/</span> <a href="/challenges/htb" class="text-cyan-400 hover:text-cyan-300 transition-colors"> HTB </a> </li><li class="flex items-center"> <span class="text-gray-500 mx-2">/</span> <span class="text-gray-300 font-medium">Linux Fundamentals - Linux Distributions vs Solaris</span> </li> </ol> </nav> </nav> <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12"> <div class="flex items-center space-x-4 mb-4"> <span class="px-4 py-2 bg-gradient-to-r from-green-500 to-teal-600 rounded-full text-lg font-bold text-white">
+🎯
+</span> <span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">✅ Completado</span> <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">⭐ easy</span> <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">HTB Academy</span> </div> <h1 class="text-4xl font-bold text-white mb-2">Linux Fundamentals - Linux Distributions vs Solaris</h1> <p class="text-gray-400">HTB Challenge</p> </div> </header> <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12"> <article class="prose prose-invert max-w-none"> <div class="bg-dark-card rounded-xl border border-dark-border p-8">  <div class="flex flex-wrap gap-2 mb-6"> <span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#linux</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#solaris</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#unix</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#comparison</span> </div> <div class="markdown-body"><h1>Linux Fundamentals - Linux Distributions vs Solaris</h1>
+<h2>Objetivo</h2>
+<p>Entender las diferencias entre distribuciones Linux y Solaris.</p>
+<hr>
+<h2>¿Qué es Solaris?</h2>
+<p>Solaris es un sistema operativo Unix propietario desarrollado por Sun Microsystems (ahora Oracle):</p>
+<ul>
+<li><strong>Propósito</strong>: Entornos empresariales críticos</li>
+<li><strong>Características</strong>: Robustez, escalabilidad, alta disponibilidad</li>
+<li><strong>Uso</strong>: Banca, finanzas, gobierno, data centers</li>
+</ul>
+<hr>
+<h2>Diferencias Clave</h2>
+<table>
+<thead>
+<tr>
+<th>Aspecto</th>
+<th>Linux</th>
+<th>Solaris</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Licencia</td>
+<td>Open Source</td>
+<td>Propietario</td>
+</tr>
+<tr>
+<td>Filesystem</td>
+<td>ext4, xfs, btrfs</td>
+<td>ZFS</td>
+</tr>
+<tr>
+<td>Service Manager</td>
+<td>systemd</td>
+<td>SMF</td>
+</tr>
+<tr>
+<td>Package Manager</td>
+<td>apt, yum, dnf</td>
+<td>IPS (pkg)</td>
+</tr>
+<tr>
+<td>Source Code</td>
+<td>Público</td>
+<td>Cerrado</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>Comparación de Comandos</h2>
+<h3>Información del Sistema</h3>
+<pre><code class="language-bash"># Linux
+uname -a
+
+# Solaris
+showrev -a
+</code></pre>
+<h3>Instalación de Paquetes</h3>
+<pre><code class="language-bash"># Linux (Ubuntu)
+sudo apt-get install apache2
+
+# Solaris
+pkgadd -d SUNWapchr
+</code></pre>
+<h3>Permisos SUID</h3>
+<pre><code class="language-bash"># Linux
+find / -perm 4000
+
+# Solaris
+find / -perm -4000
+</code></pre>
+<h3>NFS</h3>
+<pre><code class="language-bash"># Solaris - Compartir
+share -F nfs -o rw /export/home
+
+# Linux - Montar NFS
+mount -t nfs server:/share /mnt
+
+# Solaris - Montar NFS
+mount -F nfs server:/share /mnt
+</code></pre>
+<h3>Archivos Abiertos</h3>
+<pre><code class="language-bash"># Linux
+lsof -c apache2
+
+# Solaris
+pfiles `pgrep httpd`
+</code></pre>
+<h3>Trace de System Calls</h3>
+<pre><code class="language-bash"># Linux
+strace -p `pgrep apache2`
+
+# Solaris
+truss ls
+</code></pre>
+<hr>
+<h2>Estructura de Directorios Solaris</h2>
+<table>
+<thead>
+<tr>
+<th>Directorio</th>
+<th>Propósito</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>/</td>
+<td>Root</td>
+</tr>
+<tr>
+<td>/bin</td>
+<td>Binarios esenciales</td>
+</tr>
+<tr>
+<td>/boot</td>
+<td>Archivos de boot</td>
+</tr>
+<tr>
+<td>/dev</td>
+<td>Archivos de dispositivo</td>
+</tr>
+<tr>
+<td>/etc</td>
+<td>Configuración</td>
+</tr>
+<tr>
+<td>/home</td>
+<td>Directorios usuarios</td>
+</tr>
+<tr>
+<td>/kernel</td>
+<td>Módulos kernel</td>
+</tr>
+<tr>
+<td>/lib</td>
+<td>Bibliotecas</td>
+</tr>
+<tr>
+<td>/opt</td>
+<td>Software opcional</td>
+</tr>
+<tr>
+<td>/proc</td>
+<td>Info del kernel</td>
+</tr>
+<tr>
+<td>/sbin</td>
+<td>Binarios admin</td>
+</tr>
+<tr>
+<td>/usr</td>
+<td>Datos read-only</td>
+</tr>
+<tr>
+<td>/var</td>
+<td>Datos variables</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>Características Únicas de Solaris</h2>
+<h3>ZFS</h3>
+<ul>
+<li>Filesystem avanzado</li>
+<li>Snapshots nativos</li>
+<li>Compresión integrada</li>
+<li>Alto rendimiento</li>
+</ul>
+<h3>SMF (Service Management Facility)</h3>
+<pre><code class="language-bash"># Ver servicios
+svcs -a
+
+# Habilitar servicio
+svcadm enable servicio
+
+# Deshabilitar
+svcadm disable servicio
+</code></pre>
+<h3>RBAC</h3>
+<p>Role-Based Access Control nativo:</p>
+<ul>
+<li>Permisos granulares</li>
+<li>Sin necesidad de sudo tradicional</li>
+<li>Disponible desde Solaris 8</li>
+</ul>
+<hr>
+<h2>Casos de Uso en Pentesting</h2>
+<h3>Identificar Solaris</h3>
+<pre><code class="language-bash"># Detectar desde nmap
+nmap -O target
+
+# Banner grabbing
+nc target 22
+</code></pre>
+<h3>Explotación</h3>
+<p>Solaris puede tener:</p>
+<ul>
+<li>Vulnerabilidades específicas</li>
+<li>Versiones de software antiguas</li>
+<li>Configuraciones por defecto diferentes</li>
+</ul>
+<hr>
+<h2>Lecciones Aprendidas</h2>
+<ol>
+<li><strong>Solaris</strong>: Unix propietario para empresas</li>
+<li><strong>ZFS</strong>: Filesystem avanzado exclusivo</li>
+<li><strong>Comandos</strong>: Sintaxis diferente pero similar</li>
+<li><strong>RBAC</strong>: Control de acceso nativo</li>
+<li><strong>Pentesting</strong>: Identificar OS para exploits correctos</li>
+</ol>
+<hr>
+<h2>Referencias</h2>
+<ul>
+<li><a href="https://www.oracle.com/solaris/">Oracle Solaris</a></li>
+<li><a href="https://www.openindiana.org/">OpenSolaris</a></li>
+<li><a href="https://zfsonlinux.org/">ZFS on Linux</a></li>
+</ul>
+<hr>
+<h2>Estado</h2>
+<p><strong>COMPLETADO</strong> ✓</p>
+<ul>
+<li>Fecha: 2026-02-20</li>
+<li>Módulo: Linux Fundamentals</li>
+<li>Sección: 29 - Solaris</li>
+<li>Tipo: Teoría</li>
+</ul>
+</div> </div> </article> <div class="mt-8 flex justify-between items-center"> <a href="/challenges/htb/" class="px-6 py-3 bg-slate-700 hover:bg-slate-600 rounded-lg transition-colors">
+← Volver
+</a> <button onclick="openModal('linux-fundamentals/solaris')" class="px-6 py-3 bg-gradient-to-r from-green-500 to-teal-600 hover:from-green-600 hover:to-teal-700 rounded-lg transition-all font-medium flex items-center gap-2 shadow-lg shadow-green-500/25"> <span>📋</span> <span>Ver Solución Paso a Paso</span> </button> </div> </main> <div id="modal-linux-fundamentals/solaris" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50" aria-hidden="true"> <div class="flex items-center justify-center min-h-screen p-4"> <div class="bg-slate-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto"> <div class="p-6 border-b border-slate-700"> <div class="flex justify-between items-start"> <div> <h2 class="text-2xl font-bold text-gray-100">Linux Fundamentals - Linux Distributions vs Solaris</h2> <div class="flex items-center gap-4 mt-2 text-sm"> <span class="capitalize bg-slate-700 px-2 py-1 rounded">htb</span> <span class="text-cyan-400">easy</span>  </div> </div> <button onclick="closeModal('linux-fundamentals/solaris')" class="text-gray-400 hover:text-white">
+✕
+</button> </div> </div> <div class="p-6"> <div class="mb-6"> <h3 class="text-lg font-semibold text-cyan-400 mb-4">Pasos a Seguir</h3> <div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">1. Comandos de Solución</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>uname -a
+showrev -a</code>
+                  </pre>  </div> </div> <div class="mb-6"> <h3 class="text-lg font-semibold text-yellow-400 mb-4">Verificación</h3> <ul class="space-y-2"> <li class="flex items-center text-gray-300"> <span class="text-green-400 mr-2">✓</span> Reto completado </li><li class="flex items-center text-gray-300"> <span class="text-green-400 mr-2">✓</span> Puntuación obtenida </li> </ul> </div>   </div> </div> </div> </div> <script type="module">document.addEventListener("click",e=>{const t=e.target;t.classList.contains("bg-black")&&(t.classList.add("hidden"),t.setAttribute("aria-hidden","true"))});</script> <footer class="border-t border-dark-border mt-16"> <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center text-gray-500 text-sm"> <p>Technical Challenges Repository | HTB Challenge</p> </div> </footer> <script type="module">function e(d){const o=document.getElementById(`modal-${d}`);o&&(o.classList.remove("hidden"),document.body.style.overflow="hidden")}window.openModal=e;</script> </body> </html>

