@@ -2,6 +2,7 @@
 title: "Comparativa de Herramientas SDD"
 author: "Diego Saavedra"
 date: "2026-02-24"
+bibliography: references.bib
 ---
 
 # 🎓 Herramientas SDD: Kiro, Spec Kit, Tessl

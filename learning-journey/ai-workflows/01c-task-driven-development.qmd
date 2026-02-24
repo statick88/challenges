@@ -2,6 +2,7 @@
 title: "Task-Driven Development: La Metodología"
 author: "Diego Saavedra"
 date: "2026-02-24"
+bibliography: references.bib
 ---
 
 # 🎓 Task-Driven Development: De Vibe Coding a Productividad

@@ -2,6 +2,7 @@
 title: "Práctica Guiada: Health Endpoint con Kilocode CLI"
 author: "Diego Saavedra"
 date: "2026-02-24"
+bibliography: references.bib
 ---
 
 # 🎓 Práctica: Implementar Health Endpoint con SDD

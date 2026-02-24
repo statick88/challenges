@@ -2,6 +2,7 @@
 title: "Contexto Histórico: De Assembly a Vibe Coding"
 author: "Diego Saavedra"
 date: "2026-02-24"
+bibliography: references.bib
 ---
 
 # 🎓 De Assembly a Vibe Coding: 60 Años de Abstracción

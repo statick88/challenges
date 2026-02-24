@@ -2,6 +2,7 @@
 title: "Integración con MCP Servers"
 author: "Diego Saavedra"
 date: "2026-02-24"
+bibliography: references.bib
 ---
 
 # 🎓 MCP Servers: Potenciando SDD
@@ -14,7 +15,7 @@ date: "2026-02-24"
 
 ## 🧠 ¿Qué es MCP?
 
-**Model Context Protocol** es un protocolo abierto que permite:
+**Model Context Protocol** es un protocolo abierto que permite [@anthropic2025mcp]:
 
 1. **Tools**: Ejecutar comandos externos
 2. **Resources**: Acceder a archivos y datos
@@ -65,11 +66,33 @@ IA: [usa spec-coding-mcp para crear spec estructurado]
 
 ---
 
-### 2. Engram (Memoria Persistente)
+### 2. Engram (Memoria Persistente) {#engram}
 
-**Propósito**: Memoria a largo plazo entre sesiones
+**Propósito**: Memoria a largo plazo entre sesiones [@engram2025memory]
 
-**Instalación**:
+> "Your AI coding agent forgets everything when the session ends. Engram gives it a brain."
+> 
+> — Gentleman Programming [@engram2025brain]
+>
+> *"Tu agente de codificación con IA olvida todo cuando termina la sesión. Engram le da un cerebro."*
+
+#### Definición de Engram
+
+> "**engram** `/ˈen.ɡræm/` — *neuroscience*: the physical trace of a memory in the brain."
+>
+> *"**engram** `/ˈen.ɡræm/` — *neurociencia*: el rastro físico de un recuerdo en el cerebro."*
+>
+> — Gentleman Programming [@engram2025memory]
+
+#### Filosofía de Diseño
+
+> "Engram trusts the **agent** to decide what's worth remembering — not a firehose of raw tool calls."
+>
+> *"Engram confía en el **agente** para decidir qué vale la pena recordar — no una manguera de llamadas de herramientas en bruto."*
+>
+> — Gentleman Programming [@engram2025memory]
+
+#### Instalación
 
 ```json
 {
@@ -118,11 +141,19 @@ After archiving, use Engram to save:
 - Gotchas encountered
 ```
 
+#### Ventajas de Engram
+
+> "That's it. No Node.js, no Python, no Bun, no Docker, no ChromaDB, no vector database, no worker processes. **One binary, one SQLite file.**"
+>
+> *"Eso es todo. No Node.js, no Python, no Bun, no Docker, no ChromaDB, no base de datos vectorial, no procesos workers. **Un binario, un archivo SQLite.**"*
+>
+> — Gentleman Programming [@engram2025memory]
+
 ---
 
-### 3. Context7 (Documentación Actualizada)
+### 3. Context7 (Documentación Actualizada) {#context7}
 
-**Propósito**: Fetch de documentación actualizada
+**Propósito**: Fetch de documentación actualizada [@context7docs]
 
 **Instalación**:
 
@@ -158,7 +189,7 @@ IA: "Voy a verificar la API de Express 4.18"
 
 ## 📋 Configuración Completa
 
-### Kilocode: `~/.kilocode/mcp.json`
+### Kilocode: `~/.kilocode/mcp.json` {#kilocode-mcp}
 
 ```json
 {
@@ -184,7 +215,7 @@ IA: "Voy a verificar la API de Express 4.18"
 }
 ```
 
-### Opencode: `~/.config/opencode/opencode.json`
+### Opencode: `~/.config/opencode/opencode.json` {#opencode-mcp}
 
 ```json
 {
@@ -388,11 +419,18 @@ touch ~/.engram/memory.db
 
 ## 🎓 Lo Que Aprendiste
 
-1. **MCP** conecta IA con herramientas externas
+1. **MCP** conecta IA con herramientas externas [@anthropic2025mcp]
 2. **spec-coding-mcp** estructura especificaciones
-3. **Engram** persiste memoria entre sesiones
-4. **Context7** mantiene documentación actualizada
+3. **Engram** persiste memoria entre sesiones [@engram2025memory]
+4. **Context7** mantiene documentación actualizada [@context7docs]
 5. **Servidores custom** extienden capacidades
+
+---
+
+## 📖 Referencias
+
+::: {#refs}
+:::
 
 ---
 
@@ -402,6 +440,4 @@ Continúa con [Módulo 7: Patrones Avanzados](07-advanced-patterns.qmd) para apl
 
 ---
 
-*Módulo 5.0 | Duración: 45 min | Dificultad: 🔴 Avanzado*
-
-*Módulo 06 | © Diego Saavedra*
+*Módulo 6 | Duración: 45 min | Dificultad: 🔴 Avanzado | © Diego Saavedra*

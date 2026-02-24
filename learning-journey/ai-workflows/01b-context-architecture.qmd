@@ -2,6 +2,7 @@
 title: "Context Architecture vs Prompt Engineering"
 author: "Diego Saavedra"
 date: "2026-02-24"
+bibliography: references.bib
 ---
 
 # 🎓 Context Architecture: El Nuevo Paradigma

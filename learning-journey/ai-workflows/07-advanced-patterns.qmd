@@ -2,6 +2,7 @@
 title: "Patrones Avanzados de SDD"
 author: "Diego Saavedra"
 date: "2026-02-24"
+bibliography: references.bib
 ---
 
 # 🎓 SDD Avanzado: Patrones para Equipos
