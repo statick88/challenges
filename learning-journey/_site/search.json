@@ -42,46 +42,67 @@
     "text": "Revertir commits si las citas no generan hipervínculos"
   },
   {
-    "objectID": "openspec/changes/001-ieee-citations/tasks.html",
-    "href": "openspec/changes/001-ieee-citations/tasks.html",
-    "title": "Tasks: Sistema de Citas IEEE",
+    "objectID": "openspec/changes/001-ieee-citations/verification.html",
+    "href": "openspec/changes/001-ieee-citations/verification.html",
+    "title": "Verification: Sistema de Citas IEEE",
     "section": "",
-    "text": "1.1 Agregar link-citations: true a _quarto.yml\n1.2 Verificar que lang: es-ES está configurado\n\n\n\n\n\n2.1 Verificar formato IEEE de cada entrada BibTeX\n2.2 Agregar URLs completas y correctas\n2.3 Agregar entrada para @saavedra2026sdd (autor del curso)\n2.4 Verificar que cada entrada tiene: author, title, year, url\n\n\n\n\n\n3.1 00-contexto-historico.qmd: Citar @karpathy2025vibe en definición de vibe coding\n3.2 00-contexto-historico.qmd: Citar @yc2025ai en estadísticas YC\n3.3 01-intro-sdd.qmd: Citar @bockeler2025sdd en “3 niveles de SDD”\n3.4 01b-context-architecture.qmd: Citar @precursor2025manifesto en Context Architecture\n3.5 01b-context-architecture.qmd: Citar @strategyradar2025tdd en tipos de contexto\n3.6 01c-task-driven-development.qmd: Citar @strategyradar2025tdd en TDD metodología\n3.7 02-comparativa-herramientas.qmd: Citar @brooker2025kiro en sección Kiro\n3.8 02-comparativa-herramientas.qmd: Citar @delimarsky2025speckit en sección Spec Kit\n3.9 02-comparativa-herramientas.qmd: Citar @bockeler2025sdd en comparación\n3.10 06-mcp-integration.qmd: Citar @anthropic2025mcp en definición MCP\n3.11 06-mcp-integration.qmd: Citar @engram2025memory en sección Engram\n3.12 06-mcp-integration.qmd: Citar @saavedra2026sdd como autor del curso\n\n\n\n\n\n4.1 Renderizar proyecto completo\n4.2 Verificar hipervínculos en referencias HTML\n4.3 Verificar citas inline tienen links\n4.4 Verificar formato IEEE correcto\n\n\n\n\n\n5.1 Commit cambios a main\n5.2 Deploy a gh-pages"
+    "text": "Requirement\nStatus\nEvidence\n\n\n\n\nREQ-1: IEEE Nativo de Quarto\n✅ PASS\nlink-citations: true en _quarto.yml\n\n\nREQ-2: Hipervínculos en Referencias\n✅ PASS\nURLs son &lt;a href=\"...\"&gt; en HTML\n\n\nREQ-3: Citas Inline\n✅ PASS\n30+ citas inline en módulos\n\n\nREQ-4: Referencias IEEE Completas\n✅ PASS\n15 entradas en references.bib\n\n\nREQ-5: Narrativa Investigador\n✅ PASS\n“Del Investigador” en headers\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nScenario\nStatus\nEvidence\n\n\n\n\nSCENARIO-1: Usuario ve cita inline\n✅ PASS\n&lt;a href=\"#ref-karpathy2025vibe\"&gt;Karpathy 2025&lt;/a&gt;\n\n\nSCENARIO-2: Hipervínculos en referencias\n✅ PASS\n&lt;a href=\"https://x.com/...\"&gt; en refs\n\n\nSCENARIO-3: Múltiples citas\n✅ PASS\n[@bockeler2025sdd; @brooker2025kiro] funciona\n\n\n\n\n\n\n# Verificar citas inline\n$ grep -c \"\\[@\" ai-workflows/*.qmd\n30+ citas encontradas\n\n# Verificar hipervínculos en HTML\n$ grep -c '&lt;a href=\"#ref-' _site/ai-workflows/*.html\n30+ links encontrados\n\n# Verificar URLs clickeables\n$ grep -c '&lt;a href=\"https://' _site/ai-workflows/00-contexto-historico.html\n15+ URLs externas\n\n\n\n[1] A. Karpathy, \"Vibe Coding,\" Feb. 2025. [Online]. Available: https://x.com/...\n[2] B. Böckeler, \"Understanding Spec-Driven Development,\" Martin Fowler, Jan. 2025. [Online]. Available: https://martinfowler.com/...\n\n\n\n✅ VERIFIED - Sistema de citas IEEE implementado correctamente con hipervínculos funcionando."
   },
   {
-    "objectID": "openspec/changes/001-ieee-citations/tasks.html#phase-1-configuración-quarto",
-    "href": "openspec/changes/001-ieee-citations/tasks.html#phase-1-configuración-quarto",
-    "title": "Tasks: Sistema de Citas IEEE",
+    "objectID": "openspec/changes/001-ieee-citations/verification.html#requirements-coverage",
+    "href": "openspec/changes/001-ieee-citations/verification.html#requirements-coverage",
+    "title": "Verification: Sistema de Citas IEEE",
     "section": "",
-    "text": "1.1 Agregar link-citations: true a _quarto.yml\n1.2 Verificar que lang: es-ES está configurado"
+    "text": "Requirement\nStatus\nEvidence\n\n\n\n\nREQ-1: IEEE Nativo de Quarto\n✅ PASS\nlink-citations: true en _quarto.yml\n\n\nREQ-2: Hipervínculos en Referencias\n✅ PASS\nURLs son &lt;a href=\"...\"&gt; en HTML\n\n\nREQ-3: Citas Inline\n✅ PASS\n30+ citas inline en módulos\n\n\nREQ-4: Referencias IEEE Completas\n✅ PASS\n15 entradas en references.bib\n\n\nREQ-5: Narrativa Investigador\n✅ PASS\n“Del Investigador” en headers"
   },
   {
-    "objectID": "openspec/changes/001-ieee-citations/tasks.html#phase-2-actualizar-references.bib",
-    "href": "openspec/changes/001-ieee-citations/tasks.html#phase-2-actualizar-references.bib",
-    "title": "Tasks: Sistema de Citas IEEE",
+    "objectID": "openspec/changes/001-ieee-citations/verification.html#scenario-results",
+    "href": "openspec/changes/001-ieee-citations/verification.html#scenario-results",
+    "title": "Verification: Sistema de Citas IEEE",
     "section": "",
-    "text": "2.1 Verificar formato IEEE de cada entrada BibTeX\n2.2 Agregar URLs completas y correctas\n2.3 Agregar entrada para @saavedra2026sdd (autor del curso)\n2.4 Verificar que cada entrada tiene: author, title, year, url"
+    "text": "Scenario\nStatus\nEvidence\n\n\n\n\nSCENARIO-1: Usuario ve cita inline\n✅ PASS\n&lt;a href=\"#ref-karpathy2025vibe\"&gt;Karpathy 2025&lt;/a&gt;\n\n\nSCENARIO-2: Hipervínculos en referencias\n✅ PASS\n&lt;a href=\"https://x.com/...\"&gt; en refs\n\n\nSCENARIO-3: Múltiples citas\n✅ PASS\n[@bockeler2025sdd; @brooker2025kiro] funciona"
   },
   {
-    "objectID": "openspec/changes/001-ieee-citations/tasks.html#phase-3-citas-inline-en-módulos",
-    "href": "openspec/changes/001-ieee-citations/tasks.html#phase-3-citas-inline-en-módulos",
-    "title": "Tasks: Sistema de Citas IEEE",
+    "objectID": "openspec/changes/001-ieee-citations/verification.html#test-results",
+    "href": "openspec/changes/001-ieee-citations/verification.html#test-results",
+    "title": "Verification: Sistema de Citas IEEE",
     "section": "",
-    "text": "3.1 00-contexto-historico.qmd: Citar @karpathy2025vibe en definición de vibe coding\n3.2 00-contexto-historico.qmd: Citar @yc2025ai en estadísticas YC\n3.3 01-intro-sdd.qmd: Citar @bockeler2025sdd en “3 niveles de SDD”\n3.4 01b-context-architecture.qmd: Citar @precursor2025manifesto en Context Architecture\n3.5 01b-context-architecture.qmd: Citar @strategyradar2025tdd en tipos de contexto\n3.6 01c-task-driven-development.qmd: Citar @strategyradar2025tdd en TDD metodología\n3.7 02-comparativa-herramientas.qmd: Citar @brooker2025kiro en sección Kiro\n3.8 02-comparativa-herramientas.qmd: Citar @delimarsky2025speckit en sección Spec Kit\n3.9 02-comparativa-herramientas.qmd: Citar @bockeler2025sdd en comparación\n3.10 06-mcp-integration.qmd: Citar @anthropic2025mcp en definición MCP\n3.11 06-mcp-integration.qmd: Citar @engram2025memory en sección Engram\n3.12 06-mcp-integration.qmd: Citar @saavedra2026sdd como autor del curso"
+    "text": "# Verificar citas inline\n$ grep -c \"\\[@\" ai-workflows/*.qmd\n30+ citas encontradas\n\n# Verificar hipervínculos en HTML\n$ grep -c '&lt;a href=\"#ref-' _site/ai-workflows/*.html\n30+ links encontrados\n\n# Verificar URLs clickeables\n$ grep -c '&lt;a href=\"https://' _site/ai-workflows/00-contexto-historico.html\n15+ URLs externas"
   },
   {
-    "objectID": "openspec/changes/001-ieee-citations/tasks.html#phase-4-verificación",
-    "href": "openspec/changes/001-ieee-citations/tasks.html#phase-4-verificación",
-    "title": "Tasks: Sistema de Citas IEEE",
+    "objectID": "openspec/changes/001-ieee-citations/verification.html#formato-ieee-verificado",
+    "href": "openspec/changes/001-ieee-citations/verification.html#formato-ieee-verificado",
+    "title": "Verification: Sistema de Citas IEEE",
     "section": "",
-    "text": "4.1 Renderizar proyecto completo\n4.2 Verificar hipervínculos en referencias HTML\n4.3 Verificar citas inline tienen links\n4.4 Verificar formato IEEE correcto"
+    "text": "[1] A. Karpathy, \"Vibe Coding,\" Feb. 2025. [Online]. Available: https://x.com/...\n[2] B. Böckeler, \"Understanding Spec-Driven Development,\" Martin Fowler, Jan. 2025. [Online]. Available: https://martinfowler.com/..."
   },
   {
-    "objectID": "openspec/changes/001-ieee-citations/tasks.html#phase-5-deploy",
-    "href": "openspec/changes/001-ieee-citations/tasks.html#phase-5-deploy",
-    "title": "Tasks: Sistema de Citas IEEE",
+    "objectID": "openspec/changes/001-ieee-citations/verification.html#conclusión",
+    "href": "openspec/changes/001-ieee-citations/verification.html#conclusión",
+    "title": "Verification: Sistema de Citas IEEE",
     "section": "",
-    "text": "5.1 Commit cambios a main\n5.2 Deploy a gh-pages"
+    "text": "✅ VERIFIED - Sistema de citas IEEE implementado correctamente con hipervínculos funcionando."
+  },
+  {
+    "objectID": "openspec/changes/001-ieee-citations/spec.delta.html",
+    "href": "openspec/changes/001-ieee-citations/spec.delta.html",
+    "title": "Spec Delta: Sistema de Citas IEEE",
+    "section": "",
+    "text": "The system SHALL use Quarto’s native IEEE citation format. - MUST include csl: ieee.csl or use default IEEE style - MUST include link-citations: true for clickable references - MUST include bibliography: references.bib in each module\n\n\n\nThe system SHALL generate clickable links in the references section. - URLs MUST be clickable hyperlinks - DOIs MUST link to https://doi.org/{doi} - Online sources MUST show full URL as clickable link\n\n\n\nEach reference SHALL be cited where the concept is introduced. - NOT just at the end in a “References” section - MUST use [@citationkey] format inline - Multiple citations: [@cite1; @cite2]\n\n\n\nThe bibliography file SHALL include complete IEEE-formatted entries.\n\n\n\n\n\n\n\n\n\nCita\nAutor\nTítulo\nURL\n\n\n\n\n@karpathy2025vibe\nA. Karpathy\nVibe Coding\nhttps://x.com/karpathy/status/…\n\n\n@bockeler2025sdd\nB. Böckeler\nUnderstanding Spec-Driven Development\nhttps://martinfowler.com/articles/…\n\n\n@brooker2025kiro\nM. Brooker\nKiro and the Future of Development\nhttps://aws.amazon.com/blogs/developer/…\n\n\n@delimarsky2025speckit\nD. Delimarsky\nGitHub Spec Kit\nhttps://github.com/github/spec-kit\n\n\n@precursor2025manifesto\nPrecursor\nContext Architecture Manifesto\nhttps://precursor.dev/manifesto\n\n\n@strategyradar2025tdd\nStrategyRadar.ai\nTask-Driven Development with AI\nhttps://strategyradar.ai/guides/…\n\n\n@engram2025memory\nGentleman Programming\nEngram: Persistent Memory\nhttps://github.com/Gentleman-Programming/engram\n\n\n@anthropic2025mcp\nAnthropic\nModel Context Protocol\nhttps://modelcontextprotocol.io\n\n\n@yc2025ai\nY Combinator\nYC Winter 2025 Batch Statistics\nhttps://www.ycombinator.com/blog/…\n\n\n@saavedra2026sdd\nD. Saavedra\nSDD Course\nhttps://statick88.github.io\n\n\n\n\n\n\nContent SHALL maintain narrative of software researcher entering cybersecurity. - “Como investigador en desarrollo de software…” - Referencias a papers y fuentes académicas - Tono académico pero accesible\n\n\n\n\n\n\nGiven un usuario lee el módulo 00-contexto-historico.qmd When encuentra la definición de “vibe coding” Then ve la cita inline [@karpathy2025vibe] And puede hacer clic en la referencia al final para ir al tweet original\n\n\n\nGiven un usuario llega a la sección de referencias When ve la lista de referencias IEEE Then cada URL es un hipervínculo clickeable And el formato sigue IEEE (autor, título, año, URL)\n\n\n\nGiven el módulo 02-comparativa-herramientas.qmd When se comparan herramientas SDD Then se citan múltiples fuentes [@bockeler2025sdd; @brooker2025kiro; @delimarsky2025speckit]"
+  },
+  {
+    "objectID": "openspec/changes/001-ieee-citations/spec.delta.html#requirements",
+    "href": "openspec/changes/001-ieee-citations/spec.delta.html#requirements",
+    "title": "Spec Delta: Sistema de Citas IEEE",
+    "section": "",
+    "text": "The system SHALL use Quarto’s native IEEE citation format. - MUST include csl: ieee.csl or use default IEEE style - MUST include link-citations: true for clickable references - MUST include bibliography: references.bib in each module\n\n\n\nThe system SHALL generate clickable links in the references section. - URLs MUST be clickable hyperlinks - DOIs MUST link to https://doi.org/{doi} - Online sources MUST show full URL as clickable link\n\n\n\nEach reference SHALL be cited where the concept is introduced. - NOT just at the end in a “References” section - MUST use [@citationkey] format inline - Multiple citations: [@cite1; @cite2]\n\n\n\nThe bibliography file SHALL include complete IEEE-formatted entries.\n\n\n\n\n\n\n\n\n\nCita\nAutor\nTítulo\nURL\n\n\n\n\n@karpathy2025vibe\nA. Karpathy\nVibe Coding\nhttps://x.com/karpathy/status/…\n\n\n@bockeler2025sdd\nB. Böckeler\nUnderstanding Spec-Driven Development\nhttps://martinfowler.com/articles/…\n\n\n@brooker2025kiro\nM. Brooker\nKiro and the Future of Development\nhttps://aws.amazon.com/blogs/developer/…\n\n\n@delimarsky2025speckit\nD. Delimarsky\nGitHub Spec Kit\nhttps://github.com/github/spec-kit\n\n\n@precursor2025manifesto\nPrecursor\nContext Architecture Manifesto\nhttps://precursor.dev/manifesto\n\n\n@strategyradar2025tdd\nStrategyRadar.ai\nTask-Driven Development with AI\nhttps://strategyradar.ai/guides/…\n\n\n@engram2025memory\nGentleman Programming\nEngram: Persistent Memory\nhttps://github.com/Gentleman-Programming/engram\n\n\n@anthropic2025mcp\nAnthropic\nModel Context Protocol\nhttps://modelcontextprotocol.io\n\n\n@yc2025ai\nY Combinator\nYC Winter 2025 Batch Statistics\nhttps://www.ycombinator.com/blog/…\n\n\n@saavedra2026sdd\nD. Saavedra\nSDD Course\nhttps://statick88.github.io\n\n\n\n\n\n\nContent SHALL maintain narrative of software researcher entering cybersecurity. - “Como investigador en desarrollo de software…” - Referencias a papers y fuentes académicas - Tono académico pero accesible"
+  },
+  {
+    "objectID": "openspec/changes/001-ieee-citations/spec.delta.html#scenarios",
+    "href": "openspec/changes/001-ieee-citations/spec.delta.html#scenarios",
+    "title": "Spec Delta: Sistema de Citas IEEE",
+    "section": "",
+    "text": "Given un usuario lee el módulo 00-contexto-historico.qmd When encuentra la definición de “vibe coding” Then ve la cita inline [@karpathy2025vibe] And puede hacer clic en la referencia al final para ir al tweet original\n\n\n\nGiven un usuario llega a la sección de referencias When ve la lista de referencias IEEE Then cada URL es un hipervínculo clickeable And el formato sigue IEEE (autor, título, año, URL)\n\n\n\nGiven el módulo 02-comparativa-herramientas.qmd When se comparan herramientas SDD Then se citan múltiples fuentes [@bockeler2025sdd; @brooker2025kiro; @delimarsky2025speckit]"
   },
   {
     "objectID": "ai-workflows/01c-task-driven-development.html",
@@ -8876,25 +8897,102 @@
     "text": "Continúa con Módulo 5: Práctica Guiada para aplicar SDD en un proyecto real.\n\nMódulo 3.0 | Duración: 30 min | Dificultad: 🟡 Intermedio\nMódulo 04 | © Diego Saavedra"
   },
   {
-    "objectID": "openspec/changes/001-ieee-citations/spec.delta.html",
-    "href": "openspec/changes/001-ieee-citations/spec.delta.html",
-    "title": "Spec Delta: Sistema de Citas IEEE",
+    "objectID": "openspec/changes/001-ieee-citations/archive.html",
+    "href": "openspec/changes/001-ieee-citations/archive.html",
+    "title": "Archive: Sistema de Citas IEEE",
     "section": "",
-    "text": "The system SHALL use Quarto’s native IEEE citation format. - MUST include csl: ieee.csl or use default IEEE style - MUST include link-citations: true for clickable references - MUST include bibliography: references.bib in each module\n\n\n\nThe system SHALL generate clickable links in the references section. - URLs MUST be clickable hyperlinks - DOIs MUST link to https://doi.org/{doi} - Online sources MUST show full URL as clickable link\n\n\n\nEach reference SHALL be cited where the concept is introduced. - NOT just at the end in a “References” section - MUST use [@citationkey] format inline - Multiple citations: [@cite1; @cite2]\n\n\n\nThe bibliography file SHALL include complete IEEE-formatted entries.\n\n\n\n\n\n\n\n\n\nCita\nAutor\nTítulo\nURL\n\n\n\n\n@karpathy2025vibe\nA. Karpathy\nVibe Coding\nhttps://x.com/karpathy/status/…\n\n\n@bockeler2025sdd\nB. Böckeler\nUnderstanding Spec-Driven Development\nhttps://martinfowler.com/articles/…\n\n\n@brooker2025kiro\nM. Brooker\nKiro and the Future of Development\nhttps://aws.amazon.com/blogs/developer/…\n\n\n@delimarsky2025speckit\nD. Delimarsky\nGitHub Spec Kit\nhttps://github.com/github/spec-kit\n\n\n@precursor2025manifesto\nPrecursor\nContext Architecture Manifesto\nhttps://precursor.dev/manifesto\n\n\n@strategyradar2025tdd\nStrategyRadar.ai\nTask-Driven Development with AI\nhttps://strategyradar.ai/guides/…\n\n\n@engram2025memory\nGentleman Programming\nEngram: Persistent Memory\nhttps://github.com/Gentleman-Programming/engram\n\n\n@anthropic2025mcp\nAnthropic\nModel Context Protocol\nhttps://modelcontextprotocol.io\n\n\n@yc2025ai\nY Combinator\nYC Winter 2025 Batch Statistics\nhttps://www.ycombinator.com/blog/…\n\n\n@saavedra2026sdd\nD. Saavedra\nSDD Course\nhttps://statick88.github.io\n\n\n\n\n\n\nContent SHALL maintain narrative of software researcher entering cybersecurity. - “Como investigador en desarrollo de software…” - Referencias a papers y fuentes académicas - Tono académico pero accesible\n\n\n\n\n\n\nGiven un usuario lee el módulo 00-contexto-historico.qmd When encuentra la definición de “vibe coding” Then ve la cita inline [@karpathy2025vibe] And puede hacer clic en la referencia al final para ir al tweet original\n\n\n\nGiven un usuario llega a la sección de referencias When ve la lista de referencias IEEE Then cada URL es un hipervínculo clickeable And el formato sigue IEEE (autor, título, año, URL)\n\n\n\nGiven el módulo 02-comparativa-herramientas.qmd When se comparan herramientas SDD Then se citan múltiples fuentes [@bockeler2025sdd; @brooker2025kiro; @delimarsky2025speckit]"
+    "text": "Change ID: 001-ieee-citations Status: ✅ ARCHIVED Date: 2026-02-24\n\n\n\nImplementación exitosa del sistema de citas IEEE con hipervínculos para el curso SDD.\n\n\n\n\n\n\nArtefacto\nUbicación\n\n\n\n\nProposal\nopenspec/changes/001-ieee-citations/proposal.md\n\n\nSpec Delta\nopenspec/changes/001-ieee-citations/spec.delta.md\n\n\nDesign\nopenspec/changes/001-ieee-citations/design.md\n\n\nTasks\nopenspec/changes/001-ieee-citations/tasks.md\n\n\nVerification\nopenspec/changes/001-ieee-citations/verification.md\n\n\n\n\n\n\n\n\n\nArchivo\nCambio\n\n\n\n\n_quarto.yml\nAgregado link-citations: true\n\n\nai-workflows/references.bib\n15 entradas IEEE con URLs\n\n\nai-workflows/*.qmd\n30+ citas inline agregadas\n\n\n\n\n\n\n\n562975d8 - feat: implement IEEE citation system with hyperlink support\n3e0d899e - deploy: SDD course v3.2 with IEEE citation system\n\n\n\n\n\nCurso: https://statick88.github.io/challenges/learning-journey/ai-workflows/\nMódulo 00: https://statick88.github.io/challenges/learning-journey/ai-workflows/00-contexto-historico.html\n\n\n\n\n\nQuarto genera hipervínculos automáticamente con link-citations: true\nLas citas inline con [@key] generan links a la sección de referencias\nEl formato BibTeX @online funciona correctamente para IEEE\nLa narrativa de investigador mejora el tono académico del curso"
   },
   {
-    "objectID": "openspec/changes/001-ieee-citations/spec.delta.html#requirements",
-    "href": "openspec/changes/001-ieee-citations/spec.delta.html#requirements",
-    "title": "Spec Delta: Sistema de Citas IEEE",
+    "objectID": "openspec/changes/001-ieee-citations/archive.html#cambio-completado",
+    "href": "openspec/changes/001-ieee-citations/archive.html#cambio-completado",
+    "title": "Archive: Sistema de Citas IEEE",
     "section": "",
-    "text": "The system SHALL use Quarto’s native IEEE citation format. - MUST include csl: ieee.csl or use default IEEE style - MUST include link-citations: true for clickable references - MUST include bibliography: references.bib in each module\n\n\n\nThe system SHALL generate clickable links in the references section. - URLs MUST be clickable hyperlinks - DOIs MUST link to https://doi.org/{doi} - Online sources MUST show full URL as clickable link\n\n\n\nEach reference SHALL be cited where the concept is introduced. - NOT just at the end in a “References” section - MUST use [@citationkey] format inline - Multiple citations: [@cite1; @cite2]\n\n\n\nThe bibliography file SHALL include complete IEEE-formatted entries.\n\n\n\n\n\n\n\n\n\nCita\nAutor\nTítulo\nURL\n\n\n\n\n@karpathy2025vibe\nA. Karpathy\nVibe Coding\nhttps://x.com/karpathy/status/…\n\n\n@bockeler2025sdd\nB. Böckeler\nUnderstanding Spec-Driven Development\nhttps://martinfowler.com/articles/…\n\n\n@brooker2025kiro\nM. Brooker\nKiro and the Future of Development\nhttps://aws.amazon.com/blogs/developer/…\n\n\n@delimarsky2025speckit\nD. Delimarsky\nGitHub Spec Kit\nhttps://github.com/github/spec-kit\n\n\n@precursor2025manifesto\nPrecursor\nContext Architecture Manifesto\nhttps://precursor.dev/manifesto\n\n\n@strategyradar2025tdd\nStrategyRadar.ai\nTask-Driven Development with AI\nhttps://strategyradar.ai/guides/…\n\n\n@engram2025memory\nGentleman Programming\nEngram: Persistent Memory\nhttps://github.com/Gentleman-Programming/engram\n\n\n@anthropic2025mcp\nAnthropic\nModel Context Protocol\nhttps://modelcontextprotocol.io\n\n\n@yc2025ai\nY Combinator\nYC Winter 2025 Batch Statistics\nhttps://www.ycombinator.com/blog/…\n\n\n@saavedra2026sdd\nD. Saavedra\nSDD Course\nhttps://statick88.github.io\n\n\n\n\n\n\nContent SHALL maintain narrative of software researcher entering cybersecurity. - “Como investigador en desarrollo de software…” - Referencias a papers y fuentes académicas - Tono académico pero accesible"
+    "text": "Change ID: 001-ieee-citations Status: ✅ ARCHIVED Date: 2026-02-24"
   },
   {
-    "objectID": "openspec/changes/001-ieee-citations/spec.delta.html#scenarios",
-    "href": "openspec/changes/001-ieee-citations/spec.delta.html#scenarios",
-    "title": "Spec Delta: Sistema de Citas IEEE",
+    "objectID": "openspec/changes/001-ieee-citations/archive.html#resumen",
+    "href": "openspec/changes/001-ieee-citations/archive.html#resumen",
+    "title": "Archive: Sistema de Citas IEEE",
     "section": "",
-    "text": "Given un usuario lee el módulo 00-contexto-historico.qmd When encuentra la definición de “vibe coding” Then ve la cita inline [@karpathy2025vibe] And puede hacer clic en la referencia al final para ir al tweet original\n\n\n\nGiven un usuario llega a la sección de referencias When ve la lista de referencias IEEE Then cada URL es un hipervínculo clickeable And el formato sigue IEEE (autor, título, año, URL)\n\n\n\nGiven el módulo 02-comparativa-herramientas.qmd When se comparan herramientas SDD Then se citan múltiples fuentes [@bockeler2025sdd; @brooker2025kiro; @delimarsky2025speckit]"
+    "text": "Implementación exitosa del sistema de citas IEEE con hipervínculos para el curso SDD."
+  },
+  {
+    "objectID": "openspec/changes/001-ieee-citations/archive.html#artefactos-creados",
+    "href": "openspec/changes/001-ieee-citations/archive.html#artefactos-creados",
+    "title": "Archive: Sistema de Citas IEEE",
+    "section": "",
+    "text": "Artefacto\nUbicación\n\n\n\n\nProposal\nopenspec/changes/001-ieee-citations/proposal.md\n\n\nSpec Delta\nopenspec/changes/001-ieee-citations/spec.delta.md\n\n\nDesign\nopenspec/changes/001-ieee-citations/design.md\n\n\nTasks\nopenspec/changes/001-ieee-citations/tasks.md\n\n\nVerification\nopenspec/changes/001-ieee-citations/verification.md"
+  },
+  {
+    "objectID": "openspec/changes/001-ieee-citations/archive.html#cambios-en-código",
+    "href": "openspec/changes/001-ieee-citations/archive.html#cambios-en-código",
+    "title": "Archive: Sistema de Citas IEEE",
+    "section": "",
+    "text": "Archivo\nCambio\n\n\n\n\n_quarto.yml\nAgregado link-citations: true\n\n\nai-workflows/references.bib\n15 entradas IEEE con URLs\n\n\nai-workflows/*.qmd\n30+ citas inline agregadas"
+  },
+  {
+    "objectID": "openspec/changes/001-ieee-citations/archive.html#commits",
+    "href": "openspec/changes/001-ieee-citations/archive.html#commits",
+    "title": "Archive: Sistema de Citas IEEE",
+    "section": "",
+    "text": "562975d8 - feat: implement IEEE citation system with hyperlink support\n3e0d899e - deploy: SDD course v3.2 with IEEE citation system"
+  },
+  {
+    "objectID": "openspec/changes/001-ieee-citations/archive.html#urls-de-producción",
+    "href": "openspec/changes/001-ieee-citations/archive.html#urls-de-producción",
+    "title": "Archive: Sistema de Citas IEEE",
+    "section": "",
+    "text": "Curso: https://statick88.github.io/challenges/learning-journey/ai-workflows/\nMódulo 00: https://statick88.github.io/challenges/learning-journey/ai-workflows/00-contexto-historico.html"
+  },
+  {
+    "objectID": "openspec/changes/001-ieee-citations/archive.html#lecciones-aprendidas",
+    "href": "openspec/changes/001-ieee-citations/archive.html#lecciones-aprendidas",
+    "title": "Archive: Sistema de Citas IEEE",
+    "section": "",
+    "text": "Quarto genera hipervínculos automáticamente con link-citations: true\nLas citas inline con [@key] generan links a la sección de referencias\nEl formato BibTeX @online funciona correctamente para IEEE\nLa narrativa de investigador mejora el tono académico del curso"
+  },
+  {
+    "objectID": "openspec/changes/001-ieee-citations/tasks.html",
+    "href": "openspec/changes/001-ieee-citations/tasks.html",
+    "title": "Tasks: Sistema de Citas IEEE",
+    "section": "",
+    "text": "1.1 Agregar link-citations: true a _quarto.yml\n1.2 Verificar que lang: es-ES está configurado\n\n\n\n\n\n2.1 Verificar formato IEEE de cada entrada BibTeX\n2.2 Agregar URLs completas y correctas\n2.3 Agregar entrada para @saavedra2026sdd (autor del curso)\n2.4 Verificar que cada entrada tiene: author, title, year, url\n\n\n\n\n\n3.1 00-contexto-historico.qmd: Citar @karpathy2025vibe en definición de vibe coding\n3.2 00-contexto-historico.qmd: Citar @yc2025ai en estadísticas YC\n3.3 01-intro-sdd.qmd: Citar @bockeler2025sdd en “3 niveles de SDD”\n3.4 01b-context-architecture.qmd: Citar @precursor2025manifesto en Context Architecture\n3.5 01b-context-architecture.qmd: Citar @strategyradar2025tdd en tipos de contexto\n3.6 01c-task-driven-development.qmd: Citar @strategyradar2025tdd en TDD metodología\n3.7 02-comparativa-herramientas.qmd: Citar @brooker2025kiro en sección Kiro\n3.8 02-comparativa-herramientas.qmd: Citar @delimarsky2025speckit en sección Spec Kit\n3.9 02-comparativa-herramientas.qmd: Citar @bockeler2025sdd en comparación\n3.10 06-mcp-integration.qmd: Citar @anthropic2025mcp en definición MCP\n3.11 06-mcp-integration.qmd: Citar @engram2025memory en sección Engram\n3.12 06-mcp-integration.qmd: Citar @saavedra2026sdd como autor del curso\n\n\n\n\n\n4.1 Renderizar proyecto completo\n4.2 Verificar hipervínculos en referencias HTML\n4.3 Verificar citas inline tienen links\n4.4 Verificar formato IEEE correcto\n\n\n\n\n\n5.1 Commit cambios a main\n5.2 Deploy a gh-pages"
+  },
+  {
+    "objectID": "openspec/changes/001-ieee-citations/tasks.html#phase-1-configuración-quarto",
+    "href": "openspec/changes/001-ieee-citations/tasks.html#phase-1-configuración-quarto",
+    "title": "Tasks: Sistema de Citas IEEE",
+    "section": "",
+    "text": "1.1 Agregar link-citations: true a _quarto.yml\n1.2 Verificar que lang: es-ES está configurado"
+  },
+  {
+    "objectID": "openspec/changes/001-ieee-citations/tasks.html#phase-2-actualizar-references.bib",
+    "href": "openspec/changes/001-ieee-citations/tasks.html#phase-2-actualizar-references.bib",
+    "title": "Tasks: Sistema de Citas IEEE",
+    "section": "",
+    "text": "2.1 Verificar formato IEEE de cada entrada BibTeX\n2.2 Agregar URLs completas y correctas\n2.3 Agregar entrada para @saavedra2026sdd (autor del curso)\n2.4 Verificar que cada entrada tiene: author, title, year, url"
+  },
+  {
+    "objectID": "openspec/changes/001-ieee-citations/tasks.html#phase-3-citas-inline-en-módulos",
+    "href": "openspec/changes/001-ieee-citations/tasks.html#phase-3-citas-inline-en-módulos",
+    "title": "Tasks: Sistema de Citas IEEE",
+    "section": "",
+    "text": "3.1 00-contexto-historico.qmd: Citar @karpathy2025vibe en definición de vibe coding\n3.2 00-contexto-historico.qmd: Citar @yc2025ai en estadísticas YC\n3.3 01-intro-sdd.qmd: Citar @bockeler2025sdd en “3 niveles de SDD”\n3.4 01b-context-architecture.qmd: Citar @precursor2025manifesto en Context Architecture\n3.5 01b-context-architecture.qmd: Citar @strategyradar2025tdd en tipos de contexto\n3.6 01c-task-driven-development.qmd: Citar @strategyradar2025tdd en TDD metodología\n3.7 02-comparativa-herramientas.qmd: Citar @brooker2025kiro en sección Kiro\n3.8 02-comparativa-herramientas.qmd: Citar @delimarsky2025speckit en sección Spec Kit\n3.9 02-comparativa-herramientas.qmd: Citar @bockeler2025sdd en comparación\n3.10 06-mcp-integration.qmd: Citar @anthropic2025mcp en definición MCP\n3.11 06-mcp-integration.qmd: Citar @engram2025memory en sección Engram\n3.12 06-mcp-integration.qmd: Citar @saavedra2026sdd como autor del curso"
+  },
+  {
+    "objectID": "openspec/changes/001-ieee-citations/tasks.html#phase-4-verificación",
+    "href": "openspec/changes/001-ieee-citations/tasks.html#phase-4-verificación",
+    "title": "Tasks: Sistema de Citas IEEE",
+    "section": "",
+    "text": "4.1 Renderizar proyecto completo\n4.2 Verificar hipervínculos en referencias HTML\n4.3 Verificar citas inline tienen links\n4.4 Verificar formato IEEE correcto"
+  },
+  {
+    "objectID": "openspec/changes/001-ieee-citations/tasks.html#phase-5-deploy",
+    "href": "openspec/changes/001-ieee-citations/tasks.html#phase-5-deploy",
+    "title": "Tasks: Sistema de Citas IEEE",
+    "section": "",
+    "text": "5.1 Commit cambios a main\n5.2 Deploy a gh-pages"
   },
   {
     "objectID": "openspec/changes/001-ieee-citations/design.html",
