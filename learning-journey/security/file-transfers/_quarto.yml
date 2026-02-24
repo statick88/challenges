@@ -1,0 +1,32 @@
+project:
+  type: book
+  output-dir: _book
+
+book:
+  title: "File Transfers"
+  subtitle: "HTB Academy Course Notes"
+  author: "Diego Saavedra"
+  date: "2026-02-21"
+  chapters:
+    - index.qmd
+    - 01-introduction.qmd
+    - 02-windows-methods.qmd
+    - 03-linux-methods.qmd
+    - 04-code-transfers.qmd
+    - 05-misc-methods.qmd
+    - 06-protected-transfers.qmd
+    - 07-http-catch.qmd
+    - 08-lolbins.qmd
+    - 09-detection.qmd
+    - 10-evading-detection.qmd
+
+format:
+  html:
+    theme: darkly
+    toc: true
+    number-sections: true
+  epub:
+    toc: true
+    number-sections: true
+
+lang: es

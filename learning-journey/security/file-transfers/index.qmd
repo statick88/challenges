@@ -1,0 +1,67 @@
+---
+title: "File Transfers"
+subtitle: "HTB Academy Course Notes"
+author: "Diego Saavedra"
+date: "2026-02-21"
+---
+
+# Introduction
+
+Este documento contiene las notas del módulo **File Transfers** de HTB Academy.
+
+## Module Overview
+
+| Aspecto | Detalle |
+|---------|---------|
+| **Plataforma** | HTB Academy |
+| **Dificultad** | Medium |
+| **Tier** | 0 |
+| **Duración estimada** | 3 horas |
+| **Cubos** | 10 |
+| **Estado** | En Progreso |
+
+## Objetivos de Aprendizaje
+
+- Entender métodos de transferencia de archivos
+- Usar servidores web para transferencias
+- Detectar y evadir detección
+- Transferir archivos en Windows y Linux
+
+## Prerrequisitos
+
+- Introduction to Networking
+- Linux Fundamentals
+- Web Requests
+
+## Estructura del Módulo
+
+| Sección | Tema | Tipo |
+|---------|------|------|
+| 1 | Introduction | Teoría |
+| 2.1 | Windows File Transfer Methods | Práctica |
+| 2.2 | Linux File Transfer Methods | Práctica |
+| 2.3 | Transferring Files with Code | Teoría |
+| 2.4 | Miscellaneous File Transfer Methods | Teoría |
+| 2.5 | Protected File Transfers | Teoría |
+| 2.6 | Catching Files over HTTP/S | Práctica |
+| 2.7 | Living off The Land | Teoría |
+| 3.1 | Detection | Teoría |
+| 3.2 | Evading Detection | Teoría |
+
+## Ejercicios Completados
+
+| Ejercicio | Estado | Respuesta |
+|-----------|--------|-----------|
+| Q1: wget download | ✅ Completado | `b1a4ca918282fcd96004565521944a3b` |
+| Q2: hasher upload | ⏳ Pendiente | Requiere Pwnbox |
+| Optional Exercise | ⏳ Pendiente | Requiere Pwnbox |
+
+## Técnicas Cubiertas
+
+| Categoría | Métodos |
+|-----------|---------|
+| **Windows Download** | PowerShell WebClient, Invoke-WebRequest, SMB, FTP, Base64 |
+| **Windows Upload** | PowerShell, SMB, FTP, WebDAV |
+| **Linux Download** | wget, curl, scp, rsync |
+| **Linux Upload** | Python HTTP server, uploadserver, nc |
+| **LOLBins** | certutil, bitsadmin, regsvr32 |

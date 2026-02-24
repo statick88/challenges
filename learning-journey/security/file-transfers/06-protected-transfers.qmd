@@ -1,0 +1,221 @@
+# Transferencias Protegidas
+
+Métodos para transferir archivos de forma segura con encriptación y autenticación.
+
+## Encriptación con OpenSSL
+
+### Encriptar archivo antes de transferir
+
+```bash
+# Encriptar
+openssl enc -aes-256-cbc -salt -in file.txt -out file.enc -pass pass:password
+
+# Desencriptar
+openssl enc -d -aes-256-cbc -in file.enc -out file.txt -pass pass:password
+```
+
+### Transferencia encriptada directa
+
+**Receptor:**
+```bash
+openssl enc -d -aes-256-cbc -pass pass:password | nc -l -p 8000 > received_file
+```
+
+**Emisor:**
+```bash
+openssl enc -aes-256-cbc -pass pass:password -in file.txt | nc 192.168.1.100 8000
+```
+
+## GPG Encryption
+
+### Encriptar con contraseña simétrica
+
+```bash
+# Encriptar
+gpg -c --cipher-algo AES256 file.txt
+
+# Desencriptar
+gpg -d file.txt.gpg > file.txt
+```
+
+### Encriptar con clave pública
+
+```bash
+# Generar par de claves
+gpg --gen-key
+
+# Exportar clave pública
+gpg --export -a "user@example.com" > public.key
+
+# Importar clave pública
+gpg --import public.key
+
+# Encriptar
+gpg --encrypt --recipient "user@example.com" file.txt
+
+# Desencriptar
+gpg --decrypt file.txt.gpg > file.txt
+```
+
+## SCP sobre SSH
+
+### Transferencia básica
+
+```bash
+# Subir archivo
+scp file.txt user@target:/tmp/
+
+# Descargar archivo
+scp user@target:/tmp/file.txt .
+
+# Directorio completo
+scp -r directory/ user@target:/tmp/
+```
+
+### Con opciones específicas
+
+```bash
+# Limitar bandwidth
+scp -l 500 file.txt user@target:/tmp/  # 500 Kbps
+
+# Usar puerto específico
+scp -P 2222 file.txt user@target:/tmp/
+
+# Preservar atributos
+scp -p file.txt user@target:/tmp/
+```
+
+## SFTP
+
+### Sesión interactiva
+
+```bash
+sftp user@target
+
+sftp> put file.txt
+sftp> get remote_file.txt
+sftp> ls
+sftp> cd /tmp
+sftp> quit
+```
+
+### Transferencia directa
+
+```bash
+# Subir
+sftp user@target:/tmp/ <<< "put file.txt"
+
+# Batch mode
+sftp -b batch.txt user@target
+```
+
+## rsync sobre SSH
+
+### Sincronización básica
+
+```bash
+# Subir
+rsync -avz file.txt user@target:/tmp/
+
+# Descargar
+rsync -avz user@target:/tmp/file.txt .
+
+# Sincronizar directorios
+rsync -avz --progress local_dir/ user@target:/remote_dir/
+```
+
+### Opciones útiles
+
+```bash
+# Excluir archivos
+rsync -avz --exclude '*.log' dir/ user@target:/backup/
+
+# Mostrar progreso
+rsync -avz --progress large_file.iso user@target:/tmp/
+
+# Dry run
+rsync -avz --dry-run dir/ user@target:/backup/
+
+# Comprimir durante transferencia
+rsync -avz -z --compress-level=9 file.txt user@target:/tmp/
+```
+
+## HTTPS con Certificados
+
+### Servidor HTTPS con certificado autofirmado
+
+```bash
+# Generar certificado
+openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -nodes
+
+# Servidor Python HTTPS
+python3 -c "
+import http.server
+import ssl
+server = http.server.HTTPServer(('0.0.0.0', 443), http.server.SimpleHTTPRequestHandler)
+server.socket = ssl.wrap_socket(server.socket, certfile='cert.pem', keyfile='key.pem', server_side=True)
+server.serve_forever()
+"
+```
+
+### Cliente con verificación
+
+```bash
+# Descargar con verificación de certificado
+curl --cacert ca.crt https://192.168.1.100/file.txt
+
+# Ignorar certificado (no recomendado en producción)
+curl -k https://192.168.1.100/file.txt
+
+# wget
+wget --no-check-certificate https://192.168.1.100/file.txt
+```
+
+## Autenticación HTTP
+
+### Servidor con autenticación básica
+
+```python
+from http.server import HTTPServer, SimpleHTTPRequestHandler
+import baseauth
+
+class AuthHandler(SimpleHTTPRequestHandler):
+    def do_GET(self):
+        auth = self.headers.get('Authorization')
+        if auth is None:
+            self.send_response(401)
+            self.send_header('WWW-Authenticate', 'Basic realm="Protected"')
+            self.end_headers()
+            return
+        if not baseauth.check(auth, "admin", "secret123"):
+            self.send_response(403)
+            self.end_headers()
+            return
+        SimpleHTTPRequestHandler.do_GET(self)
+
+HTTPServer(('0.0.0.0', 80), AuthHandler).serve_forever()
+```
+
+### Cliente con autenticación
+
+```bash
+# curl
+curl -u admin:secret123 http://192.168.1.100/file.txt
+
+# wget
+wget --user=admin --password=secret123 http://192.168.1.100/file.txt
+
+# PowerShell
+Invoke-WebRequest -Uri 'http://192.168.1.100/file.txt' -Credential (Get-Credential)
+```
+
+## Resumen
+
+| Método | Encriptación | Autenticación | Uso |
+|--------|-------------|---------------|-----|
+| OpenSSL | AES-256 | Contraseña | Archivos sensibles |
+| GPG | AES-256/RSA | Clave pública | Intercambio seguro |
+| SCP | SSH | Clave/Password | Transferencias SSH |
+| SFTP | SSH | Clave/Password | Sesiones interactivas |
+| rsync | SSH | Clave/Password | Sincronización |
+| HTTPS | TLS | Certificados | Web seguro |

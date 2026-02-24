@@ -1,0 +1,140 @@
+# Linux File Transfer Methods
+
+Linux ofrece múltiples herramientas nativas para transferencia de archivos.
+
+## wget
+
+```bash
+# Descargar archivo
+wget https://example.com/file.txt
+
+# Especificar nombre de salida
+wget https://example.com/file.txt -O output.txt
+
+# Descargar directorio completo
+wget -r https://example.com/directory/
+
+# Continuar descarga interrumpida
+wget -c https://example.com/large_file.iso
+
+# Limitar velocidad
+wget --limit-rate=1M https://example.com/file.iso
+
+# Background download
+wget -b https://example.com/file.iso
+```
+
+## curl
+
+```bash
+# Descargar archivo
+curl https://example.com/file.txt -o file.txt
+
+# Mostrar en terminal
+curl https://example.com/file.txt
+
+# Seguir redirects
+curl -L https://example.com/file.txt
+
+# Subir archivo
+curl -T file.txt ftp://ftp.example.com/upload/
+
+# POST con archivo
+curl -X POST -F "file=@file.txt" https://example.com/upload
+
+# Descargar con progreso
+curl -O --progress-bar https://example.com/file.txt
+
+# Headers personalizados
+curl -H "Authorization: Bearer token" https://api.example.com/data
+```
+
+## scp (Secure Copy)
+
+```bash
+# Descargar de servidor remoto
+scp user@remote:/path/file.txt /local/path/
+
+# Subir a servidor remoto
+scp /local/file.txt user@remote:/path/
+
+# Copiar directorio completo
+scp -r user@remote:/path/directory/ /local/path/
+
+# Especificar puerto
+scp -P 2222 user@remote:/path/file.txt .
+
+# Preservar permisos y timestamps
+scp -p user@remote:/path/file.txt .
+```
+
+## rsync
+
+```bash
+# Sincronizar directorios
+rsync -avz /local/dir/ user@remote:/remote/dir/
+
+# Solo mostrar cambios (dry run)
+rsync -avzn /local/dir/ user@remote:/remote/dir/
+
+# Excluir archivos
+rsync -avz --exclude '*.log' /local/dir/ user@remote:/remote/dir/
+
+# Comprimir durante transferencia
+rsync -avz /local/dir/ user@remote:/remote/dir/
+
+# Mostrar progreso
+rsync -avz --progress /local/dir/ user@remote:/remote/dir/
+```
+
+## netcat (nc)
+
+```bash
+# Recibir archivo
+nc -l -p 8000 > received_file.txt
+
+# Enviar archivo
+nc 192.168.1.100 8000 < file.txt
+
+# Transferencia con compresión
+nc -l -p 8000 | gunzip > received_file.txt
+cat file.txt | gzip | nc 192.168.1.100 8000
+```
+
+## Base64
+
+```bash
+# Codificar archivo
+base64 file.txt > encoded.txt
+
+# Decodificar archivo
+base64 -d encoded.txt > decoded.txt
+
+# Copiar al clipboard
+base64 file.txt | xclip -selection clipboard
+```
+
+## Python HTTP Server
+
+```bash
+# Servidor simple
+python3 -m http.server 8000
+
+# Servidor con directorio específico
+python3 -m http.server 8000 --directory /path/to/serve
+
+# Servidor con upload
+pip3 install uploadserver
+python3 -m uploadserver 8000
+```
+
+## Resumen de Métodos
+
+| Herramienta | Puerto | Uso Principal |
+|-------------|--------|----------------|
+| wget | 80/443 | Download |
+| curl | 80/443/21 | Download/Upload |
+| scp | 22 | Secure transfer |
+| rsync | 22 | Sync directories |
+| nc | Any | Raw transfer |
+| Python HTTP | 8000 | Quick server |

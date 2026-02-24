@@ -1,0 +1,43 @@
+# Introduction
+
+Las transferencias de archivos son una parte fundamental de cualquier evaluación de seguridad.
+
+## Escenario Típico
+
+Durante un engagement, obtenemos RCE en un servidor IIS via file upload. Subimos un web shell y obtenemos reverse shell. Necesitamos transferir PowerUp.ps1 para enumeración, pero PowerShell está bloqueado. Encontramos SeImpersonatePrivilege y necesitamos transferir PrintSpoofer.
+
+**Desafíos comunes:**
+
+| Bloqueo | Solución |
+|---------|----------|
+| PowerShell bloqueado | Usar certutil, bitsadmin |
+| Web filtering | SMB, FTP, WebDAV |
+| Puerto 21 bloqueado | HTTP/S, SMB |
+| GitHub bloqueado | Servidor propio |
+
+## Amenaza Fileless
+
+El término "fileless" significa que la amenaza no viene en un archivo, sino que usa herramientas legítimas del sistema.
+
+**Ejemplo: Astaroth Attack**
+
+1. Email con LNK malicioso
+2. WMIC con /Format ejecuta JavaScript
+3. Bitsadmin descarga payloads
+4. Certutil decodifica base64 a DLLs
+5. regsvr32 carga DLLs
+6. Astaroth inyectado en Userinit
+
+## Consideraciones
+
+| Control | Impacto |
+|---------|---------|
+| Application Whitelisting | Bloquea ejecutables no autorizados |
+| AV/EDR | Detecta actividades sospechosas |
+| Firewall | Bloquea puertos específicos |
+| IDS/IPS | Monitorea tráfico inusual |
+| Web Filtering | Bloquea dominios/categorías |
+
+## Objetivo del Módulo
+
+Aprender técnicas que usan herramientas nativas del sistema operativo para transferir archivos, evadiendo controles de seguridad.

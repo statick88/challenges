@@ -1,0 +1,247 @@
+# Detección de Transferencias de Archivos
+
+Técnicas para detectar transferencias de archivos maliciosas en una red.
+
+## Detección por Red
+
+### Patrones de tráfico HTTP
+
+**Indicadores:**
+
+- Conexiones a puertos no estándar (HTTP en puertos diferentes a 80/443)
+- User-Agent strings inusuales o vacíos
+- Grandes volúmenes de datos hacia/desde IPs externas
+- Conexiones de corta duración con gran transferencia de datos
+
+**Herramientas:**
+
+```bash
+# Monitorizar conexiones activas
+netstat -antp | grep ESTABLISHED
+
+# Capturar tráfico
+tcpdump -i eth0 port 80 or port 443 -w http_traffic.pcap
+
+# Analizar con Zeek/Bro
+zeek -r http_traffic.pcap
+```
+
+### Detección de LOLBins
+
+**Eventos a monitorear:**
+
+```powershell
+# Event ID 1 - Process Creation (Sysmon)
+# certutil.exe con parámetros -urlcache, -split, -f
+
+# Event ID 3 - Network Connection (Sysmon)
+# bitsadmin.exe con conexiones salientes
+
+# Event ID 11 - File Creation (Sysmon)
+# Archivos descargados en ubicaciones inusuales
+```
+
+**Consulta de eventos:**
+
+```powershell
+# Buscar certutil con parámetros de descarga
+Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-Sysmon/Operational';ID=1} |
+    Where-Object {$_.Message -match 'certutil' -and $_.Message -match 'urlcache'}
+
+# Buscar bitsadmin
+Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-Sysmon/Operational';ID=3} |
+    Where-Object {$_.Message -match 'bitsadmin'}
+```
+
+### Patrones DNS sospechosos
+
+```bash
+# Consultas DNS largas (exfiltración)
+# Consultas a dominios recién registrados
+# Muchas consultas TXT (data exfil)
+
+# Zeek/Bro script para detectar
+event dns_request(c: connection, msg: dns_msg, q: dns_query)
+{
+    if (|q$query| > 50) {
+        Log::write(DNS_Exfil::LOG, [$ts=network_time(), $query=q$query, $src=c$id$orig_h]);
+    }
+}
+```
+
+## Detección por Host
+
+### Windows Defender ATP
+
+**Reglas de detección:**
+
+```kusto
+// Certutil download
+DeviceProcessEvents
+| where FileName =~ "certutil.exe"
+| where ProcessCommandLine has_any ("-urlcache", "-split", "-f")
+| project Timestamp, DeviceName, ProcessCommandLine
+
+// BITS job creation
+DeviceProcessEvents
+| where FileName =~ "bitsadmin.exe"
+| where ProcessCommandLine has_any ("/create", "/addfile", "/transfer")
+| project Timestamp, DeviceName, ProcessCommandLine
+
+// PowerShell download
+DeviceProcessEvents
+| where FileName =~ "powershell.exe"
+| where ProcessCommandLine has_any ("DownloadFile", "DownloadString", "Invoke-WebRequest")
+| project Timestamp, DeviceName, ProcessCommandLine
+```
+
+### Sysmon Configuration
+
+**Configuración recomendada:**
+
+```xml
+<Sysmon schemaversion="4.90">
+  <EventFiltering>
+    <!-- Process Creation -->
+    <ProcessCreate onmatch="include">
+      <Image condition="contains">certutil.exe</Image>
+      <Image condition="contains">bitsadmin.exe</Image>
+      <Image condition="contains">mshta.exe</Image>
+      <Image condition="contains">regsvr32.exe</Image>
+    </ProcessCreate>
+    
+    <!-- Network Connection -->
+    <NetworkConnect onmatch="include">
+      <Image condition="contains">certutil.exe</Image>
+      <Image condition="contains">bitsadmin.exe</Image>
+      <Image condition="contains">powershell.exe</Image>
+    </NetworkConnect>
+    
+    <!-- File Creation -->
+    <FileCreateTime onmatch="include">
+      <TargetFilename condition="contains">Downloads</TargetFilename>
+      <TargetFilename condition="contains">AppData\Local\Temp</TargetFilename>
+    </FileCreateTime>
+  </EventFiltering>
+</Sysmon>
+```
+
+### Linux Audit
+
+```bash
+# Configurar auditd para monitorear
+auditctl -w /usr/bin/wget -p x -k file_transfer
+auditctl -w /usr/bin/curl -p x -k file_transfer
+auditctl -w /usr/bin/scp -p x -k file_transfer
+
+# Buscar eventos
+ausearch -k file_transfer | aureport -x
+```
+
+## SIEM Detection Rules
+
+### Splunk
+
+```splunk
+# Detección de certutil download
+index=windows sourcetype=XmlWinEventLog:Microsoft-Windows-Sysmon/Operational EventCode=1
+(Image="*certutil.exe" AND CommandLine="*urlcache*")
+| stats count by Computer, User, CommandLine
+
+# Detección de datos exfiltration
+index=firewall dest_port=53
+| stats sum(bytes) as total_bytes by src_ip, dest_ip
+| where total_bytes > 10000000
+```
+
+### ELK Stack
+
+```json
+{
+  "query": {
+    "bool": {
+      "must": [
+        {"match": {"winlog.event_id": 1}},
+        {"match": {"winlog.event_data.Image": "certutil.exe"}},
+        {"match": {"winlog.event_data.CommandLine": "urlcache"}}
+      ]
+    }
+  }
+}
+```
+
+## Indicadores Comportamentales
+
+### Técnicas MITRE ATT&CK
+
+| Técnica | ID | Indicadores |
+|---------|-----|-------------|
+| Ingress Tool Transfer | T1105 | certutil, wget, curl, bitsadmin |
+| Exfiltration Over C2 Channel | T1041 | Tráfico HTTP no estándar |
+| Exfiltration Over Web Service | T1567 | Uploads a cloud storage |
+| Exfiltration Over Alternative Protocol | T1048 | DNS, ICMP, uncommon ports |
+
+### Patrones de comportamiento
+
+**Descarga:**
+
+- Proceso iniciando conexión de red que normalmente no lo hace
+- Archivo ejecutable descargado en directorio temporal
+- Uso de LOLBins con parámetros inusuales
+
+**Exfiltración:**
+
+- Grandes volúmenes de datos salientes
+- Conexiones a IPs/Dominios no clasificados
+- Transferencias fuera de horario laboral
+- Compresión antes de transferencia
+
+## Herramientas de Detección
+
+### Network Detection
+
+```bash
+# Suricata rules
+alert http any any -> any any (msg:"Certutil User-Agent"; content:"Microsoft-CryptoAPI"; flow:to_server; sid:1000001;)
+
+# Zeek/Bro
+event http_request(c: connection, method: string, original_URI: string, unescaped_URI: string, version: string)
+{
+    if (/Microsoft-CryptoAPI/ in c$http$user_agent) {
+        Log::write(LOLBins::LOG, [$ts=network_time(), $uri=original_URI, $ua=c$http$user_agent]);
+    }
+}
+```
+
+### Host Detection
+
+```powershell
+# Script de detección PowerShell
+$suspicious = @(
+    @{Name='certutil'; Args=@('-urlcache', '-split', '-f')},
+    @{Name='bitsadmin'; Args=@('/create', '/addfile', '/transfer')},
+    @{Name='mshta'; Args=@('http', 'https')}
+)
+
+foreach ($proc in Get-Process) {
+    foreach ($s in $suspicious) {
+        if ($proc.ProcessName -eq $s.Name) {
+            $cmdline = (Get-CimInstance Win32_Process -Filter "ProcessId=$($proc.Id)").CommandLine
+            foreach ($arg in $s.Args) {
+                if ($cmdline -match [regex]::Escape($arg)) {
+                    Write-Warning "Suspicious: $($proc.ProcessName) - $cmdline"
+                }
+            }
+        }
+    }
+}
+```
+
+## Resumen
+
+| Capa | Método | Herramientas |
+|------|--------|--------------|
+| Red | Análisis de tráfico | Zeek, Suricata, Wireshark |
+| Host | Monitoreo de procesos | Sysmon, auditd, EDR |
+| SIEM | Correlación de eventos | Splunk, ELK, Sentinel |
+| Comportamiento | Análisis ML/anomaly | UEBA, NDR |
