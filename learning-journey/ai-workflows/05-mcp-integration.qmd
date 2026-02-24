@@ -1,0 +1,404 @@
+---
+title: "Integración con MCP Servers"
+date: "2026-02-24"
+---
+
+# 🎓 MCP Servers: Potenciando SDD
+
+👨‍🏫 **Del Instructor**: Model Context Protocol (MCP) es el estándar que permite a los asistentes de IA conectarse a herramientas externas. Vamos a integrar servidores MCP que potencian SDD.
+
+> 💭 **Mentalidad de Integrador**: "Un agente de IA aislado es limitado. Con MCP, se conecta al ecosistema completo de herramientas."
+
+---
+
+## 🧠 ¿Qué es MCP?
+
+**Model Context Protocol** es un protocolo abierto que permite:
+
+1. **Tools**: Ejecutar comandos externos
+2. **Resources**: Acceder a archivos y datos
+3. **Prompts**: Templates de interacción
+
+### Analogía
+
+MCP es como USB para asistentes de IA:
+- **Sin MCP**: IA aislada, conocimiento limitado
+- **Con MCP**: IA conectada a bases de datos, APIs, herramientas
+
+---
+
+## 🛠️ MCP Servers para SDD
+
+### 1. spec-coding-mcp
+
+**Propósito**: Edición estructurada de especificaciones
+
+**Instalación**:
+
+```json
+{
+  "mcpServers": {
+    "spec-coding": {
+      "command": "npx",
+      "args": ["-y", "@kevinlin/spec-coding-mcp"]
+    }
+  }
+}
+```
+
+**Herramientas disponibles**:
+
+| Tool | Descripción |
+|------|-------------|
+| `create_spec` | Crear nueva especificación |
+| `update_spec` | Actualizar spec existente |
+| `validate_spec` | Validar formato de spec |
+| `merge_specs` | Combinar specs |
+
+**Uso en SDD**:
+
+```text
+Usuario: "Crear spec para health endpoint"
+IA: [usa spec-coding-mcp para crear spec estructurado]
+```
+
+---
+
+### 2. Engram (Memoria Persistente)
+
+**Propósito**: Memoria a largo plazo entre sesiones
+
+**Instalación**:
+
+```json
+{
+  "mcpServers": {
+    "engram": {
+      "command": "npx",
+      "args": ["-y", "engram-mcp"],
+      "env": {
+        "ENGRAM_DB_PATH": "~/.engram/memory.db"
+      }
+    }
+  }
+}
+```
+
+**Herramientas disponibles**:
+
+| Tool | Descripción |
+|------|-------------|
+| `remember` | Guardar información |
+| `recall` | Recuperar información |
+| `forget` | Eliminar información |
+| `list_memories` | Listar memorias |
+
+**Uso en SDD**:
+
+```text
+# Guardar patrón descubierto
+IA: [usa engram.remember]
+"Patrón: Health endpoints deben incluir version"
+
+# Recuperar en sesión futura
+IA: [usa engram.recall]
+"Recuerdo que decidimos incluir version en health checks"
+```
+
+**Integración con SDD**:
+
+```markdown
+# En sdd-archive skill:
+
+## Step: Save Learnings
+After archiving, use Engram to save:
+- Architecture decisions
+- Patterns discovered
+- Gotchas encountered
+```
+
+---
+
+### 3. Context7 (Documentación Actualizada)
+
+**Propósito**: Fetch de documentación actualizada
+
+**Instalación**:
+
+```json
+{
+  "mcpServers": {
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@context7/mcp-server"]
+    }
+  }
+}
+```
+
+**Herramientas disponibles**:
+
+| Tool | Descripción |
+|------|-------------|
+| `fetch_docs` | Obtener documentación |
+| `search_docs` | Buscar en documentación |
+| `get_examples` | Obtener ejemplos |
+
+**Uso en SDD**:
+
+```text
+# Durante sdd-design
+IA: "Voy a verificar la API de Express 4.18"
+[usa context7 para obtener docs actualizados]
+"La firma correcta es res.status(200).json(...)"
+```
+
+---
+
+## 📋 Configuración Completa
+
+### Kilocode: `~/.kilocode/mcp.json`
+
+```json
+{
+  "mcpServers": {
+    "spec-coding": {
+      "command": "npx",
+      "args": ["-y", "@kevinlin/spec-coding-mcp"],
+      "env": {}
+    },
+    "engram": {
+      "command": "npx",
+      "args": ["-y", "engram-mcp"],
+      "env": {
+        "ENGRAM_DB_PATH": "~/.engram/memory.db"
+      }
+    },
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@context7/mcp-server"],
+      "env": {}
+    }
+  }
+}
+```
+
+### Opencode: `~/.config/opencode/opencode.json`
+
+```json
+{
+  "model": "claude-sonnet-4-20250514",
+  "mcpServers": {
+    "spec-coding": {
+      "command": "npx",
+      "args": ["-y", "@kevinlin/spec-coding-mcp"]
+    },
+    "engram": {
+      "command": "npx",
+      "args": ["-y", "engram-mcp"],
+      "env": {
+        "ENGRAM_DB_PATH": "~/.engram/memory.db"
+      }
+    },
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@context7/mcp-server"]
+    }
+  }
+}
+```
+
+---
+
+## 🔄 Flujo SDD con MCP
+
+### INIT + Context7
+
+```text
+Usuario: /sdd:init
+
+IA:
+1. Detecta package.json
+2. [Context7] fetch_docs("express 4.18")
+3. Detecta que es Express con middleware pattern
+4. Crea config.yaml con contexto enriquecido
+```
+
+### SPEC + spec-coding-mcp
+
+```text
+Usuario: /sdd:spec
+
+IA:
+1. Lee proposal.md
+2. [spec-coding-mcp] create_spec({
+     name: "health-endpoint",
+     requirements: [...],
+     scenarios: [...]
+   })
+3. Valida formato con validate_spec
+```
+
+### ARCHIVE + Engram
+
+```text
+Usuario: /sdd:archive
+
+IA:
+1. Verifica tasks completas
+2. Merge specs
+3. [Engram] remember({
+     type: "pattern",
+     content: "Health endpoints sin auth para K8s",
+     tags: ["health", "kubernetes", "no-auth"]
+   })
+4. Mueve a archive/
+```
+
+---
+
+## 🛠️ MCP Server Personalizado para SDD
+
+### Crear: `sdd-mcp-server`
+
+**Propósito**: Herramientas específicas para SDD
+
+```typescript
+// sdd-mcp-server/index.ts
+import { Server } from "@modelcontextprotocol/sdk/server";
+
+const server = new Server({
+  name: "sdd-mcp-server",
+  version: "1.0.0",
+});
+
+// Tool: Create Change
+server.addTool({
+  name: "sdd_create_change",
+  description: "Create a new SDD change with all artifacts",
+  parameters: {
+    type: "object",
+    properties: {
+      name: { type: "string" },
+      intent: { type: "string" },
+      scope: { type: "array", items: { type: "string" } },
+    },
+  },
+  handler: async (params) => {
+    // Create proposal.md, spec.delta.md, etc.
+  },
+});
+
+// Tool: Verify Implementation
+server.addTool({
+  name: "sdd_verify",
+  description: "Verify implementation against specs",
+  handler: async () => {
+    // Compare code to specs
+    // Run tests
+    // Generate verification.md
+  },
+});
+
+// Tool: Next Phase
+server.addTool({
+  name: "sdd_next_phase",
+  description: "Determine and execute next SDD phase",
+  handler: async () => {
+    // Check current state
+    // Return next recommended action
+  },
+});
+```
+
+---
+
+## 📊 Comparación: Sin MCP vs Con MCP
+
+### Sin MCP
+
+```text
+IA: "Voy a crear el spec..."
+[Escribe manualmente]
+IA: "Recuerdo que hicimos algo similar..."
+[No tiene acceso a sesiones anteriores]
+IA: "Creo que la API es así..."
+[Conocimiento puede estar desactualizado]
+```
+
+### Con MCP
+
+```text
+IA: "Voy a crear el spec..."
+[spec-coding-mcp] Crea estructura validada
+IA: "Recuerdo que decidimos usar este patrón..."
+[Engram] Recupera decisión de sesión anterior
+IA: "Verifico la API actual..."
+[Context7] Obtiene documentación actualizada
+```
+
+---
+
+## ⚠️ Troubleshooting MCP
+
+### MCP Server No Conecta
+
+```bash
+# Verificar que npx puede ejecutar
+npx -y @kevinlin/spec-coding-mcp
+
+# Verificar variables de entorno
+echo $ENGRAM_DB_PATH
+
+# Reiniciar el agente
+# Kilocode: Cmd+Shift+P → Reload Window
+# Opencode: Ctrl+C y reiniciar
+```
+
+### Engram No Guarda
+
+```bash
+# Verificar permisos del directorio
+ls -la ~/.engram/
+
+# Crear si no existe
+mkdir -p ~/.engram
+touch ~/.engram/memory.db
+```
+
+### Context7 Timeout
+
+```bash
+# Aumentar timeout en config
+{
+  "mcpServers": {
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@context7/mcp-server"],
+      "env": {
+        "TIMEOUT_MS": "30000"
+      }
+    }
+  }
+}
+```
+
+---
+
+## 🎓 Lo Que Aprendiste
+
+1. **MCP** conecta IA con herramientas externas
+2. **spec-coding-mcp** estructura especificaciones
+3. **Engram** persiste memoria entre sesiones
+4. **Context7** mantiene documentación actualizada
+5. **Servidores custom** extienden capacidades
+
+---
+
+## 🚀 Siguiente Paso
+
+Continúa con [Módulo 6: Patrones Avanzados](06-advanced-patterns.qmd) para aplicar SDD en escenarios complejos.
+
+---
+
+*Módulo 5.0 | Duración: 45 min | Dificultad: 🔴 Avanzado*

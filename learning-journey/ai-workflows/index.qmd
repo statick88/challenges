@@ -1,0 +1,143 @@
+---
+title: "Spec-Driven Development con Asistentes de IA"
+subtitle: "Metodología estructurada para desarrollo asistido por IA"
+date: "2026-02-24"
+---
+
+# 🎓 Bienvenido al Curso de SDD con IA
+
+👨‍🏫 **Del Instructor**: Bienvenido a este curso práctico sobre Spec-Driven Development (SDD), una metodología que transforma cómo trabajamos con asistentes de IA para desarrollo de software.
+
+> 💭 **Mentalidad de Arquitecto**: "Un buen asistente de IA es como un junior brillante: necesita especificaciones claras para brillar, no instrucciones vagas para fallar."
+
+---
+
+## 🎯 ¿Por Qué Este Curso?
+
+Los asistentes de IA (Claude, GPT-4, etc.) han revolucionado el desarrollo, pero presentan desafíos:
+
+- **Alucinaciones**: Generan código incorrecto con confianza
+- **Inconsistencia**: Mismo prompt, diferentes resultados
+- **Falta de trazabilidad**: ¿Por qué se tomó esta decisión?
+- **Dificultad de revisión**: ¿El código cumple los requisitos?
+
+**SDD resuelve esto** proporcionando una estructura que guía tanto al humano como a la IA.
+
+---
+
+## 📚 Objetivos de Aprendizaje
+
+Al completar este curso, serás capaz de:
+
+1. **Comprender** la filosofía y workflow de SDD
+2. **Configurar** SDD en Kilocode y Opencode
+3. **Aplicar** el flujo completo en proyectos reales
+4. **Integrar** MCP servers para potenciar el workflow
+5. **Adaptar** SDD a diferentes contextos (brownfield, greenfield, equipo)
+
+---
+
+## 📋 Prerrequisitos
+
+| Conocimiento | Nivel Requerido |
+|--------------|-----------------|
+| Git básico | Intermedio |
+| Terminal/CLI | Básico |
+| JavaScript/Python | Básico |
+| Asistentes de IA | Principiante |
+
+### Herramientas Necesarias
+
+- **Kilocode** (extensión VS Code) o **Opencode** (CLI)
+- Node.js 18+ (para MCP servers)
+- Git
+- Cuenta de Claude API (recomendado)
+
+---
+
+## 🗺️ Estructura del Curso
+
+### Módulo 1: [Introducción a SDD](01-intro-sdd.qmd)
+
+- ¿Qué es Spec-Driven Development?
+- Filosofía: Specs primero, código después
+- Las 8 fases del workflow
+- Beneficios vs desarrollo tradicional
+
+### Módulo 2: [SDD en Kilocode](02-sdd-kilocode.qmd)
+
+- Estructura de skills
+- Comandos slash
+- Configuración MCP
+- Ejemplo práctico
+
+### Módulo 3: [SDD en Opencode](03-sdd-opencode.qmd)
+
+- Configuración del proyecto
+- Integración con MCP
+- Diferencias con Kilocode
+- Ejemplo práctico
+
+### Módulo 4: [Práctica Guiada](04-practica-sdd.qmd)
+
+- Caso real: API con health endpoint
+- Paso a paso por todas las fases
+- Verificación y archivado
+
+### Módulo 5: [Integración MCP](05-mcp-integration.qmd)
+
+- spec-coding-mcp
+- Engram (memoria persistente)
+- Context7 (documentación actualizada)
+
+### Módulo 6: [Patrones Avanzados](06-advanced-patterns.qmd)
+
+- Brownfield vs Greenfield
+- Trabajo en equipo
+- CI/CD integration
+- Troubleshooting común
+
+---
+
+## 📊 Progreso del Curso
+
+| Módulo | Duración Estimada | Dificultad |
+|--------|-------------------|------------|
+| 1. Introducción | 30 min | 🟢 Básico |
+| 2. Kilocode | 45 min | 🟡 Intermedio |
+| 3. Opencode | 30 min | 🟡 Intermedio |
+| 4. Práctica | 60 min | 🟡 Intermedio |
+| 5. MCP Integration | 45 min | 🔴 Avanzado |
+| 6. Patrones Avanzados | 45 min | 🔴 Avanzado |
+
+**Tiempo total estimado**: 4-5 horas
+
+---
+
+## 🎭 Escenario Real
+
+Imagina que lideras un equipo de desarrollo. Cada vez que un desarrollador usa IA para generar código:
+
+- ¿Cómo revisas que cumple los requisitos?
+- ¿Cómo aseguras consistencia entre tareas?
+- ¿Cómo mantienes historial de decisiones?
+
+**SDD es la respuesta**: especificaciones que sirven como contrato entre humanos y asistentes de IA.
+
+---
+
+## 🚀 Comenzando
+
+Dirígete al [Módulo 1: Introducción a SDD](01-intro-sdd.qmd) para comenzar tu journey.
+
+---
+
+## 📚 Recursos Adicionales
+
+- [OpenSpec Specification](https://github.com/github/spec-kit)
+- [Kilocode Documentation](https://kilocode.ai/docs)
+- [Model Context Protocol](https://modelcontextprotocol.io/)
+
+---
+
+*Curso v1.0 | Creado: 2026-02-24 | Autor: Gentleman Programming*

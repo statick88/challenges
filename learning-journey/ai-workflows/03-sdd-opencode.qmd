@@ -1,0 +1,364 @@
+---
+title: "Implementando SDD en Opencode"
+date: "2026-02-24"
+---
+
+# 🎓 SDD en Opencode: CLI Workflow
+
+👨‍🏫 **Del Instructor**: Opencode es un agente de IA para terminal que ofrece una experiencia diferente a Kilocode. Configuraremos SDD para trabajar desde CLI.
+
+> 💭 **Mentalidad de Terminal Power User**: "El CLI es tu hogar. Si puedes hacerlo desde terminal, hazlo. SDD no debería requerir un IDE."
+
+---
+
+## 🏗️ Arquitectura de Opencode
+
+### Diferencias con Kilocode
+
+| Aspecto | Kilocode | Opencode |
+|---------|----------|----------|
+| Interfaz | VS Code Extension | CLI |
+| Skills | `~/.kilocode/skills/` | `~/.opencode/skills/` |
+| MCP Config | `~/.kilocode/mcp.json` | `~/.config/opencode/opencode.json` |
+| Comandos | Archivos `.md` | Integrados en skills |
+
+### Estructura de Directorios
+
+```
+~/.config/opencode/
+├── opencode.json          # Config principal + MCP
+└── plugins/               # Plugins opcionales
+
+~/.opencode/
+└── skills/                # Skills globales
+    ├── sdd-init/
+    ├── sdd-propose/
+    └── ...
+```
+
+---
+
+## 🛠️ Configuración Paso a Paso
+
+### Paso 1: Crear Configuración Principal
+
+**Archivo**: `~/.config/opencode/opencode.json`
+
+```json
+{
+  "model": "claude-sonnet-4-20250514",
+  "provider": "anthropic",
+  "mcpServers": {
+    "spec-coding": {
+      "command": "npx",
+      "args": ["-y", "@kevinlin/spec-coding-mcp"],
+      "env": {}
+    },
+    "engram": {
+      "command": "npx",
+      "args": ["-y", "engram-mcp"],
+      "env": {
+        "ENGRAM_DB_PATH": "~/.engram/memory.db"
+      }
+    },
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@context7/mcp-server"],
+      "env": {}
+    }
+  },
+  "agents": {
+    "sdd-architect": {
+      "model": "claude-sonnet-4-20250514",
+      "systemPrompt": "Eres un arquitecto de software especializado en Spec-Driven Development...",
+      "skills": ["sdd-init", "sdd-propose", "sdd-spec", "sdd-design"]
+    },
+    "sdd-implementer": {
+      "model": "claude-sonnet-4-20250514",
+      "systemPrompt": "Eres un implementador que sigue especificaciones SDD...",
+      "skills": ["sdd-tasks", "sdd-apply", "sdd-verify"]
+    }
+  }
+}
+```
+
+### Paso 2: Crear Directorio de Skills
+
+```bash
+mkdir -p ~/.opencode/skills
+```
+
+### Paso 3: Symlinks a Skills Existentes
+
+```bash
+# Crear symlinks a skills compartidos
+for skill in sdd-init sdd-propose sdd-spec sdd-design sdd-tasks sdd-apply sdd-verify sdd-archive sdd-explore; do
+  ln -sf ~/.agents/skills/$skill ~/.opencode/skills/$skill
+done
+
+# Crear skill maestro
+mkdir -p ~/.opencode/skills/gentleman-sdd
+```
+
+### Paso 4: Skill Maestro para Opencode
+
+**Archivo**: `~/.opencode/skills/gentleman-sdd/SKILL.md`
+
+```markdown
+---
+name: gentleman-sdd
+description: >
+  Spec-Driven Development workflow for Opencode CLI.
+  Use: opencode --skill gentleman-sdd "initialize SDD in my project"
+license: MIT
+metadata:
+  author: gentleman-programming
+  version: "2.0"
+  platform: opencode
+---
+
+## Purpose
+
+Complete SDD workflow for terminal-based development.
+
+## Quick Commands
+
+### Initialize Project
+\`\`\`bash
+opencode "Initialize SDD in this project with openspec mode"
+\`\`\`
+
+### Create New Change
+\`\`\`bash
+opencode "Start SDD change for adding user authentication"
+\`\`\`
+
+### Continue Workflow
+\`\`\`bash
+opencode "Continue SDD workflow - write specs for current change"
+opencode "Continue SDD workflow - create design"
+opencode "Continue SDD workflow - break into tasks"
+opencode "Continue SDD workflow - implement next task"
+\`\`\`
+
+## Workflow Phases
+
+1. **INIT**: Detect project, create openspec/
+2. **PROPOSE**: Create proposal.md
+3. **SPEC**: Create spec.delta.md
+4. **DESIGN**: Create design.md
+5. **TASKS**: Create tasks.md
+6. **APPLY**: Implement code
+7. **VERIFY**: Run tests, check specs
+8. **ARCHIVE**: Merge and archive
+
+## Agent Selection
+
+- Use `sdd-architect` agent for specs and design
+- Use `sdd-implementer` agent for coding and testing
+```
+
+---
+
+## 💻 Uso desde CLI
+
+### Flujo de Trabajo Típico
+
+```bash
+# Navegar al proyecto
+cd ~/projects/my-api
+
+# Inicializar SDD
+opencode "Initialize SDD in this project"
+# Output: Creates openspec/config.yaml, openspec/specs/, openspec/changes/
+
+# Crear nuevo cambio
+opencode "Start SDD change: add health endpoint"
+# Output: Creates openspec/changes/001-add-health/proposal.md
+
+# Especificar requisitos
+opencode "Write SDD specs for the health endpoint change"
+# Output: Creates spec.delta.md with requirements
+
+# Diseñar solución
+opencode "Create SDD design for health endpoint"
+# Output: Creates design.md with architecture
+
+# Desglosar tareas
+opencode "Break down SDD tasks for implementation"
+# Output: Creates tasks.md with checklist
+
+# Implementar
+opencode "Implement SDD task 1.1"
+# Output: Implements code, marks task complete
+
+# Verificar
+opencode "Verify SDD implementation against specs"
+# Output: Creates verification.md
+
+# Archivar
+opencode "Archive SDD change"
+# Output: Moves to archive/, merges specs
+```
+
+---
+
+## 🔄 Integración con Git
+
+### Hooks Recomendados
+
+**Archivo**: `.git/hooks/pre-commit`
+
+```bash
+#!/bin/bash
+
+# Check for open SDD changes
+if [ -d "openspec/changes" ]; then
+  active_changes=$(ls -d openspec/changes/*/ 2>/dev/null | grep -v archive)
+  if [ ! -z "$active_changes" ]; then
+    echo "⚠️ Warning: Active SDD changes detected:"
+    echo "$active_changes"
+    echo ""
+    echo "Did you mean to commit before archiving?"
+    read -p "Continue anyway? (y/n) " -n 1 -r
+    echo
+    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+      exit 1
+    fi
+  fi
+fi
+```
+
+### Branch Naming Convention
+
+```bash
+# SDD changes follow naming pattern
+git checkout -b sdd/001-add-health-endpoint
+```
+
+---
+
+## 📊 Comparación: Kilocode vs Opencode
+
+### Cuándo Usar Kilocode
+
+- ✅ Trabajo en VS Code
+- ✅ Prefieres UI visual
+- ✅ Navegación de archivos integrada
+- ✅ Debugging paso a paso
+
+### Cuándo Usar Opencode
+
+- ✅ Trabajo en servidor remoto (SSH)
+- ✅ Pipelines CI/CD
+- ✅ Automatización de scripts
+- ✅ Integración con otras herramientas CLI
+
+### Flujo Híbrido
+
+```bash
+# Día 1: Inicio en VS Code con Kilocode
+# /sdd:init
+# /sdd:new feature-x
+# /sdd:spec
+
+# Día 2: Continúa desde terminal
+cd ~/projects/my-api
+opencode "Continue SDD workflow for feature-x"
+
+# Día 3: Vuelve a VS Code
+# /sdd:verify
+# /sdd:archive
+```
+
+---
+
+## 🎭 Escenario Real: CI/CD con SDD
+
+### GitHub Actions Integration
+
+**Archivo**: `.github/workflows/sdd-verify.yml`
+
+```yaml
+name: SDD Verification
+
+on:
+  pull_request:
+    paths:
+      - 'openspec/changes/**'
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Opencode
+        run: npm install -g opencode
+        
+      - name: Verify SDD Change
+        run: |
+          opencode --ci "Verify SDD implementation for PR changes"
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          
+      - name: Check Verification Status
+        run: |
+          if [ -f "openspec/changes/*/verification.md" ]; then
+            grep -q "✅ VERIFIED" openspec/changes/*/verification.md
+          fi
+```
+
+---
+
+## 🛠️ Troubleshooting
+
+### Skill No Encontrado
+
+```bash
+# Verificar symlink
+ls -la ~/.opencode/skills/sdd-init
+
+# Recrear si es necesario
+ln -sf ~/.agents/skills/sdd-init ~/.opencode/skills/sdd-init
+```
+
+### MCP Server No Conecta
+
+```bash
+# Verificar configuración
+cat ~/.config/opencode/opencode.json | jq '.mcpServers'
+
+# Probar MCP directamente
+npx -y @kevinlin/spec-coding-mcp
+```
+
+### Contexto No Detectado
+
+```bash
+# Verificar que existe openspec/
+ls openspec/
+
+# Re-inicializar si es necesario
+opencode "Re-initialize SDD, detect project context"
+```
+
+---
+
+## 🎓 Lo Que Aprendiste
+
+1. **Opencode** usa `~/.config/opencode/` para configuración
+2. **Skills** se comparten via symlinks con Kilocode
+3. **CLI workflow** es ideal para SSH y CI/CD
+4. **Agentes especializados** separan arquitectura de implementación
+5. **Git hooks** pueden validar cambios SDD
+
+---
+
+## 🚀 Siguiente Paso
+
+Continúa con [Módulo 4: Práctica Guiada](04-practica-sdd.qmd) para aplicar SDD en un proyecto real.
+
+---
+
+*Módulo 3.0 | Duración: 30 min | Dificultad: 🟡 Intermedio*

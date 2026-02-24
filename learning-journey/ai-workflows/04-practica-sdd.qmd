@@ -1,0 +1,500 @@
+---
+title: "Práctica Guiada: Health Endpoint"
+date: "2026-02-24"
+---
+
+# 🎓 Práctica: Implementar Health Endpoint con SDD
+
+👨‍🏫 **Del Instructor**: Aprender SDD leyendo es como aprender a nadar viendo videos. Vamos a practicar con un caso real: agregar un health endpoint a una API.
+
+> 💭 **Mentalidad de Practicante**: "La teoría sin práctica es entretenimiento. La práctica sin teoría es rutina. Juntas forman maestría."
+
+---
+
+## 🎭 El Escenario
+
+Eres desarrollador en un equipo que mantiene una API REST en Node.js/Express. El equipo de DevOps necesita un endpoint `/health` para:
+
+1. Kubernetes health checks
+2. Load balancer probes
+3. Monitoring alerts
+
+**Tu misión**: Implementar el endpoint siguiendo SDD.
+
+---
+
+## 📋 Prerrequisitos
+
+```bash
+# Crear proyecto de prueba
+mkdir sdd-practice
+cd sdd-practice
+
+# Inicializar proyecto Node.js
+npm init -y
+
+# Instalar Express
+npm install express
+
+# Instalar dependencias de desarrollo
+npm install --save-dev jest supertest
+```
+
+### Archivo Inicial: `src/app.js`
+
+```javascript
+const express = require("express");
+const app = express();
+
+module.exports = app;
+```
+
+---
+
+## 🔄 Fase 1: INIT
+
+### Comando
+
+```
+/sdd:init
+```
+
+### Lo que hace la IA
+
+1. Detecta: `package.json` → Node.js, Express
+2. Detecta: `scripts.test` → Jest
+3. Crea estructura `openspec/`
+
+### Resultado: `openspec/config.yaml`
+
+```yaml
+schema: spec-driven
+
+context: |
+  Tech stack: Node.js, Express.js
+  Architecture: REST API (minimal)
+  Testing: Jest
+  Style: None detected
+
+rules:
+  proposal:
+    - Include rollback plan
+    - Identify affected modules
+  specs:
+    - Use Given/When/Then format
+    - Use RFC 2119 keywords
+  tasks:
+    - Group by phase
+    - Use hierarchical numbering
+    - Completable in one session
+```
+
+### Verificación
+
+```bash
+ls openspec/
+# Output: config.yaml  specs/  changes/
+```
+
+---
+
+## 🔄 Fase 2: PROPOSE
+
+### Comando
+
+```
+/sdd:new add-health-endpoint
+```
+
+### Resultado: `openspec/changes/001-add-health-endpoint/proposal.md`
+
+```markdown
+# Proposal: Add Health Endpoint
+
+## Intent
+Add a /health endpoint for Kubernetes health checks, load balancer 
+probes, and monitoring systems.
+
+## Scope
+
+### In scope
+- GET /health endpoint
+- JSON response with status
+- Basic test coverage
+
+### Out of scope
+- Database connectivity check
+- External service dependencies
+- Authentication
+
+## Approach
+1. Add health route to app.js
+2. Return { status: "ok", timestamp }
+3. Add Jest test
+
+## Risks
+- Low risk: Simple endpoint, no side effects
+
+## Rollback
+Remove the route and test if issues arise.
+```
+
+### Tu Revisión
+
+¿Estás de acuerdo con el scope? ¿Falta algo?
+
+```markdown
+# Tu decisión: ✅ Aprobar / ❌ Modificar
+```
+
+---
+
+## 🔄 Fase 3: SPEC
+
+### Comando
+
+```
+/sdd:spec
+```
+
+### Resultado: `openspec/changes/001-add-health-endpoint/spec.delta.md`
+
+```markdown
+# Spec Delta: Add Health Endpoint
+
+## Requirements
+
+### REQ-1: Health Endpoint Availability
+The system SHALL provide a GET /health endpoint.
+MUST satisfy: Endpoint responds to GET requests at /health.
+
+### REQ-2: Health Response Format
+The system SHALL return a JSON response.
+MUST satisfy: Response includes status field with value "ok".
+MUST satisfy: Response includes timestamp in ISO 8601 format.
+
+### REQ-3: HTTP Status Code
+The system SHALL return HTTP 200 when healthy.
+MUST satisfy: Status code is 200 OK.
+
+## Scenarios
+
+### SCENARIO-1: Successful Health Check
+**Given** the API is running
+**When** a client requests GET /health
+**Then** the response status code is 200
+**And** the response body contains {"status": "ok"}
+
+### SCENARIO-2: Health Check Includes Timestamp
+**Given** the API is running
+**When** a client requests GET /health
+**Then** the response includes a valid ISO 8601 timestamp
+```
+
+### Tu Revisión
+
+¿Los requisitos son claros? ¿Los escenarios son testables?
+
+---
+
+## 🔄 Fase 4: DESIGN
+
+### Comando
+
+```
+/sdd:plan
+```
+
+### Resultado: `openspec/changes/001-add-health-endpoint/design.md`
+
+```markdown
+# Design: Add Health Endpoint
+
+## Architecture Decisions
+
+### ADR-1: Inline Route vs Separate Router
+**Context**: Should health endpoint be in app.js or separate file?
+**Decision**: Inline in app.js
+**Consequences**: Minimal change, easy to test, no new files
+
+### ADR-2: Response Format
+**Context**: What should the response include?
+**Decision**: { status: "ok", timestamp: "<ISO 8601>" }
+**Consequences**: Simple, extensible, standard format
+
+## Technical Approach
+
+### Components Affected
+- `src/app.js`: Add health route before other routes
+
+### API Changes
+```
+GET /health
+Response 200:
+{
+  "status": "ok",
+  "timestamp": "2026-02-24T10:00:00.000Z"
+}
+```
+
+### Sequence Diagram
+```
+Client -> API: GET /health
+API -> Client: 200 { status, timestamp }
+```
+
+## Implementation Notes
+- Use new Date().toISOString() for timestamp
+- No authentication required
+- Keep response minimal for fast response time
+```
+
+---
+
+## 🔄 Fase 5: TASKS
+
+### Comando
+
+```
+/sdd:tasks
+```
+
+### Resultado: `openspec/changes/001-add-health-endpoint/tasks.md`
+
+```markdown
+# Tasks: Add Health Endpoint
+
+## Phase 1: Implementation
+- [ ] 1.1 Add GET /health route in app.js
+- [ ] 1.2 Return JSON with status and timestamp
+
+## Phase 2: Testing
+- [ ] 2.1 Create test file tests/health.test.js
+- [ ] 2.2 Test SCENARIO-1: 200 response and status ok
+- [ ] 2.3 Test SCENARIO-2: Valid ISO 8601 timestamp
+
+## Phase 3: Verification
+- [ ] 3.1 Run all tests
+- [ ] 3.2 Verify against specs
+```
+
+---
+
+## 🔄 Fase 6: APPLY
+
+### Comando
+
+```
+/sdd:implement
+```
+
+### Resultado: Código Implementado
+
+**Archivo**: `src/app.js`
+
+```javascript
+const express = require("express");
+const app = express();
+
+app.get("/health", (req, res) => {
+  res.status(200).json({
+    status: "ok",
+    timestamp: new Date().toISOString()
+  });
+});
+
+module.exports = app;
+```
+
+**Archivo**: `tests/health.test.js`
+
+```javascript
+const request = require("supertest");
+const app = require("../src/app");
+
+describe("Health Endpoint", () => {
+  describe("SCENARIO-1: Successful Health Check", () => {
+    it("should return 200 status code", async () => {
+      const response = await request(app).get("/health");
+      expect(response.status).toBe(200);
+    });
+
+    it("should return status ok in response body", async () => {
+      const response = await request(app).get("/health");
+      expect(response.body.status).toBe("ok");
+    });
+  });
+
+  describe("SCENARIO-2: Health Check Includes Timestamp", () => {
+    it("should return a valid ISO 8601 timestamp", async () => {
+      const response = await request(app).get("/health");
+      const timestamp = response.body.timestamp;
+      
+      expect(timestamp).toBeDefined();
+      expect(new Date(timestamp).toISOString()).toBe(timestamp);
+    });
+  });
+});
+```
+
+### Tasks Actualizado
+
+```markdown
+## Phase 1: Implementation
+- [x] 1.1 Add GET /health route in app.js
+- [x] 1.2 Return JSON with status and timestamp
+
+## Phase 2: Testing
+- [x] 2.1 Create test file tests/health.test.js
+- [x] 2.2 Test SCENARIO-1: 200 response and status ok
+- [x] 2.3 Test SCENARIO-2: Valid ISO 8601 timestamp
+
+## Phase 3: Verification
+- [ ] 3.1 Run all tests
+- [ ] 3.2 Verify against specs
+```
+
+---
+
+## 🔄 Fase 7: VERIFY
+
+### Comando
+
+```
+/sdd:verify
+```
+
+### Ejecutar Tests
+
+```bash
+npm test
+```
+
+### Output
+
+```
+PASS tests/health.test.js
+  Health Endpoint
+    SCENARIO-1: Successful Health Check
+      ✓ should return 200 status code (8 ms)
+      ✓ should return status ok in response body (3 ms)
+    SCENARIO-2: Health Check Includes Timestamp
+      ✓ should return a valid ISO 8601 timestamp (1 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       3 passed, 3 total
+```
+
+### Resultado: `openspec/changes/001-add-health-endpoint/verification.md`
+
+```markdown
+# Verification: Add Health Endpoint
+
+## Requirements Coverage
+| Requirement | Status | Evidence |
+|-------------|--------|----------|
+| REQ-1 | ✅ PASS | GET /health implemented |
+| REQ-2 | ✅ PASS | Returns { status, timestamp } |
+| REQ-3 | ✅ PASS | Returns 200 |
+
+## Scenario Results
+| Scenario | Status | Evidence |
+|----------|--------|----------|
+| SCENARIO-1 | ✅ PASS | tests/health.test.js:7-14 |
+| SCENARIO-2 | ✅ PASS | tests/health.test.js:17-25 |
+
+## Test Results
+All 3 tests passing
+
+## Summary
+- **Status**: ✅ VERIFIED
+- **All Requirements**: Met
+- **All Scenarios**: Passed
+```
+
+---
+
+## 🔄 Fase 8: ARCHIVE
+
+### Comando
+
+```
+/sdd:archive
+```
+
+### Acciones
+
+1. Crea `openspec/specs/health.spec.md` (merge del delta)
+2. Mueve `openspec/changes/001-add-health-endpoint/` a `archive/`
+
+### Estructura Final
+
+```
+sdd-practice/
+├── openspec/
+│   ├── config.yaml
+│   ├── specs/
+│   │   └── health.spec.md          ← Source of truth
+│   └── changes/
+│       └── archive/
+│           └── 001-add-health-endpoint/
+│               ├── proposal.md
+│               ├── spec.delta.md
+│               ├── design.md
+│               ├── tasks.md
+│               └── verification.md
+├── src/
+│   └── app.js
+└── tests/
+    └── health.test.js
+```
+
+---
+
+## 📊 Resumen del Flujo
+
+| Fase | Artefacto | Duración |
+|------|-----------|----------|
+| INIT | config.yaml | 1 min |
+| PROPOSE | proposal.md | 3 min |
+| SPEC | spec.delta.md | 5 min |
+| DESIGN | design.md | 3 min |
+| TASKS | tasks.md | 2 min |
+| APPLY | código + tests | 5 min |
+| VERIFY | verification.md | 2 min |
+| ARCHIVE | specs/ + archive/ | 1 min |
+
+**Total**: ~22 minutos para un cambio simple
+
+---
+
+## 🎯 Ejercicio: Tu Turno
+
+Ahora practica tú mismo:
+
+1. Crea un nuevo proyecto vacío
+2. Inicializa SDD
+3. Propón un nuevo endpoint: GET /ready
+4. Completa el flujo SDD
+
+**Diferencia**: /ready debe verificar conexión a base de datos
+
+---
+
+## 🎓 Lo Que Aprendiste
+
+1. **Cada fase** produce artefactos específicos
+2. **Los specs** guían la implementación
+3. **Los tests** verifican contra escenarios
+4. **El archivo** preserva el historial
+5. **La trazabilidad** es automática
+
+---
+
+## 🚀 Siguiente Paso
+
+Continúa con [Módulo 5: Integración MCP](05-mcp-integration.qmd) para potenciar SDD con servidores MCP.
+
+---
+
+*Módulo 4.0 | Duración: 60 min | Dificultad: 🟡 Intermedio*

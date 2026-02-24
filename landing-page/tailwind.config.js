@@ -4,7 +4,7 @@ export default {
   darkMode: "class",
   theme: {
     extend: {
-      colors: {
+    colors: {
         // Paleta principal basada en statick88.github.io
         primary: {
           DEFAULT: "#0a0e1a",
@@ -30,12 +30,10 @@ export default {
           dark: "#000000",
           "dark-secondary": "#444444",
         },
-        // Dark theme colors (for challenge pages)
-        dark: {
-          bg: "#0a0e1a",
-          card: "#1b243d",
-          border: "#2a2a2a",
-        },
+        // Dark theme colors - named for bg-* class generation
+        "dark-bg": "#0a0e1a",
+        "dark-card": "#1b243d",
+        "dark-border": "#2a2a2a",
         // Colores de estado
         success: "#1a7f37",
         warning: "#f59e0b",

@@ -1,0 +1,404 @@
+---
+title: "Introducción a Spec-Driven Development"
+date: "2026-02-24"
+---
+
+# 🎓 Spec-Driven Development: La Metodología
+
+👨‍🏫 **Del Instructor**: Antes de escribir una sola línea de código con IA, necesitas entender POR QUÉ escribimos especificaciones primero. Esto no es burocracia, es ingeniería.
+
+> 💭 **Mentalidad de Arquitecto**: "El código es la última respuesta, no la primera pregunta. Primero define QUÉ, luego CÓMO."
+
+---
+
+## 🤔 El Problema con la IA
+
+### El Patrón Típico (Incorrecto)
+
+```text
+Usuario: "Agrega autenticación a mi app"
+IA: [genera 500 líneas de código]
+Usuario: "Eso no es lo que quería..."
+IA: [genera otras 500 líneas]
+Usuario: "Ahora está mejor pero falta..."
+```
+
+**Problemas**:
+
+1. ❌ Sin contexto claro → interpretaciones múltiples
+2. ❌ Sin trazabilidad → ¿por qué esta decisión?
+3. ❌ Sin verificación → ¿cumple los requisitos?
+4. ❌ Sin rollback → ¿cómo deshacer?
+
+### El Patrón SDD (Correcto)
+
+```text
+Usuario: /sdd:new add-user-authentication
+IA: [crea propuesta.md con intent, scope, approach]
+Usuario: [revisa y aprueba propuesta]
+IA: [crea spec.delta.md con requisitos]
+Usuario: [revisa y aprueba specs]
+IA: [crea design.md con arquitectura]
+Usuario: [revisa y aprueba diseño]
+IA: [crea tasks.md desglosado]
+Usuario: [aprueba tareas]
+IA: [implementa tarea por tarea, verificando]
+```
+
+---
+
+## 🧠 ¿Qué es SDD?
+
+**Spec-Driven Development** es una metodología donde:
+
+1. **Las especificaciones son primero-clase**: Tan importantes como el código
+2. **El workflow es estructurado**: Fases definidas con artefactos
+3. **La trazabilidad es automática**: Cada cambio tiene historial
+4. **La IA es guiada**: Contexto claro en cada interacción
+
+### Analogía: Arquitectura de Edificios
+
+| Fase | Arquitectura | SDD |
+|------|--------------|-----|
+| Concepto | Boceto inicial | `proposal.md` |
+| Planos | Blueprints detallados | `spec.delta.md` |
+| Ingeniería | Cálculos estructurales | `design.md` |
+| Construcción | Lista de tareas | `tasks.md` |
+| Ejecución | Obra | Implementación |
+| Inspección | Certificación | `verification.md` |
+| Archivo | Planos finales | `specs/*.spec.md` |
+
+---
+
+## 🔄 Las 8 Fases de SDD
+
+### 1. INIT - Inicialización
+
+**Propósito**: Preparar el proyecto para SDD
+
+**Artefacto**: `openspec/config.yaml`
+
+```yaml
+schema: spec-driven
+
+context: |
+  Tech stack: Node.js, Express
+  Architecture: REST API
+  Testing: Jest
+
+rules:
+  specs:
+    - Use Given/When/Then format
+    - Use RFC 2119 keywords (MUST, SHALL)
+```
+
+**Comando**: `/sdd:init`
+
+---
+
+### 2. EXPLORE - Exploración (Opcional)
+
+**Propósito**: Investigar antes de comprometerse
+
+**Artefacto**: Exploración inline o `exploration.md`
+
+**Cuándo usar**:
+
+- Requisitos poco claros
+- Múltiples opciones de implementación
+- Necesitas entender código existente
+
+**Comando**: `/sdd:explore <topic>`
+
+---
+
+### 3. PROPOSE - Propuesta
+
+**Propósito**: Definir QUÉ y POR QUÉ
+
+**Artefacto**: `openspec/changes/NNN-name/proposal.md`
+
+```markdown
+# Proposal: Add Health Endpoint
+
+## Intent
+Add /health for Kubernetes health checks
+
+## Scope
+In scope: GET /health, JSON response
+Out of scope: Database checks, auth
+
+## Approach
+Add route in app.js, minimal implementation
+
+## Risks
+Low - simple endpoint, no side effects
+
+## Rollback
+Remove route if issues arise
+```
+
+**Comando**: `/sdd:new <name>`
+
+---
+
+### 4. SPEC - Especificaciones
+
+**Propósito**: Definir comportamientos esperados
+
+**Artefacto**: `openspec/changes/NNN-name/spec.delta.md`
+
+```markdown
+# Spec Delta: Add Health Endpoint
+
+## Requirements
+
+### REQ-1: Endpoint Availability
+The system SHALL provide GET /health.
+MUST respond within 100ms.
+
+## Scenarios
+
+### SCENARIO-1: Healthy Response
+**Given** the API is running
+**When** GET /health is requested
+**Then** response is 200 OK
+**And** body contains { "status": "ok" }
+```
+
+**Comando**: `/sdd:spec`
+
+**Keywords RFC 2119**:
+
+| Keyword | Significado |
+|---------|-------------|
+| MUST | Requisito obligatorio |
+| SHALL | Comportamiento requerido |
+| SHOULD | Recomendado |
+| MAY | Opcional |
+
+---
+
+### 5. DESIGN - Diseño Técnico
+
+**Propósito**: Definir CÓMO implementar
+
+**Artefacto**: `openspec/changes/NNN-name/design.md`
+
+```markdown
+# Design: Add Health Endpoint
+
+## Architecture Decisions
+
+### ADR-1: Inline Route
+**Context**: Health check is simple
+**Decision**: Add directly in app.js
+**Consequences**: Minimal change, easy to test
+
+## Technical Approach
+
+### Components Affected
+- src/app.js: Add health route
+
+### Sequence Diagram
+Client -> API: GET /health
+API -> Client: 200 { status, timestamp }
+```
+
+**Comando**: `/sdd:plan` o `/sdd:design`
+
+---
+
+### 6. TASKS - Tareas
+
+**Propósito**: Desglosar en unidades completables
+
+**Artefacto**: `openspec/changes/NNN-name/tasks.md`
+
+```markdown
+# Tasks: Add Health Endpoint
+
+## Phase 1: Implementation
+- [ ] 1.1 Add GET /health route
+- [ ] 1.2 Return JSON with status
+
+## Phase 2: Testing
+- [ ] 2.1 Add Jest test
+- [ ] 2.2 Test 200 response
+- [ ] 2.3 Test JSON format
+```
+
+**Reglas de tareas**:
+
+- ✅ Completable en una sesión
+- ✅ Número jerárquico (1.1, 1.2)
+- ✅ Agrupadas por fase
+- ✅ Incluyen testing
+
+**Comando**: `/sdd:tasks`
+
+---
+
+### 7. APPLY - Implementación
+
+**Propósito**: Ejecutar las tareas
+
+**Comando**: `/sdd:implement [task-number]`
+
+**Proceso**:
+
+1. Lee specs y design
+2. Carga skills relevantes (react-19, typescript, etc.)
+3. Implementa siguiendo el diseño
+4. Marca tarea completada
+5. Continúa con siguiente tarea
+
+---
+
+### 8. VERIFY - Verificación
+
+**Propósito**: Validar contra especificaciones
+
+**Artefacto**: `openspec/changes/NNN-name/verification.md`
+
+```markdown
+# Verification: Add Health Endpoint
+
+## Requirements Coverage
+| Requirement | Status | Notes |
+|-------------|--------|-------|
+| REQ-1 | ✅ PASS | Implemented |
+
+## Scenario Results
+| Scenario | Status | Evidence |
+|----------|--------|----------|
+| SCENARIO-1 | ✅ PASS | tests/health.test.js |
+
+## Test Results
+All 3 tests passing
+```
+
+**Comando**: `/sdd:verify`
+
+---
+
+### 9. ARCHIVE - Archivado
+
+**Propósito**: Completar y merge specs
+
+**Comando**: `/sdd:archive`
+
+**Proceso**:
+
+1. Verifica tareas completas
+2. Merge spec.delta.md → specs/*.spec.md
+3. Mueve cambio a archive/
+4. Guarda aprendizajes en Engram
+
+---
+
+## 📁 Estructura de Directorios
+
+```
+project/
+├── openspec/
+│   ├── config.yaml              # Config del proyecto
+│   ├── specs/                   # Source of truth
+│   │   ├── core/
+│   │   │   └── auth.spec.md
+│   │   └── features/
+│   │       └── health.spec.md
+│   └── changes/                 # Cambios activos
+│       ├── 001-add-health/
+│       │   ├── proposal.md
+│       │   ├── spec.delta.md
+│       │   ├── design.md
+│       │   ├── tasks.md
+│       │   └── verification.md
+│       └── archive/             # Completados
+│           └── 001-add-health/
+└── src/                         # Código
+```
+
+---
+
+## 🎯 Beneficios de SDD
+
+### Para Desarrolladores
+
+| Beneficio | Descripción |
+|-----------|-------------|
+| Claridad | Sabes exactamente qué construir |
+| Trazabilidad | Historial de decisiones |
+| Consistencia | IA sigue patrones definidos |
+| Revisibilidad | Specs como contrato |
+
+### Para Equipos
+
+| Beneficio | Descripción |
+|-----------|-------------|
+| Onboarding | Nuevos miembros leen specs |
+| Code Review | Verificar contra specs |
+| Conocimiento | Specs como documentación viva |
+| Calidad | Tests derivados de scenarios |
+
+### Para Proyectos
+
+| Beneficio | Descripción |
+|-----------|-------------|
+| Mantenibilidad | Specs actualizan con código |
+| Onboarding | Contexto preservado |
+| Rollback | Cambios documentados |
+| Compliance | Auditoría disponible |
+
+---
+
+## 🎭 Escenario Real: Sin SDD vs Con SDD
+
+### Sin SDD
+
+```text
+Dev: "Claude, agrega login"
+Claude: [genera código]
+Dev: "No, quería OAuth"
+Claude: [regenera]
+Dev: "Pero falta el logout"
+Claude: [agrega más código]
+Dev: "Ahora hay bugs..."
+[Loop infinito de correcciones]
+```
+
+### Con SDD
+
+```text
+Dev: /sdd:new add-oauth-auth
+Claude: [crea propuesta con opciones OAuth]
+Dev: [revisa, ajusta scope]
+Claude: [crea specs con escenarios]
+Dev: [aprueba specs]
+Claude: [crea diseño con bibliotecas]
+Dev: [aprueba diseño]
+Claude: [implementa paso a paso]
+Dev: [verifica, archiva]
+[Resultado: código correcto primera vez]
+```
+
+---
+
+## 🎓 Lo Que Aprendiste
+
+1. **SDD** es una metodología donde specs son first-class
+2. **8 fases** estructuran el trabajo con IA
+3. **Cada fase** produce artefactos específicos
+4. **Trazabilidad** automática en cada cambio
+5. **IA guiada** reduce alucinaciones y aumenta calidad
+
+---
+
+## 🚀 Siguiente Paso
+
+Continúa con [Módulo 2: SDD en Kilocode](02-sdd-kilocode.qmd) para implementar esta metodología en tu editor.
+
+---
+
+*Módulo 1.0 | Duración: 30 min | Dificultad: 🟢 Básico*

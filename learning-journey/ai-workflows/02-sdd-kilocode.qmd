@@ -1,0 +1,461 @@
+---
+title: "Implementando SDD en Kilocode CLI"
+date: "2026-02-24"
+---
+
+# 🎓 SDD en Kilocode CLI: Configuración Práctica
+
+👨‍🏫 **Del Instructor**: Kilocode es un agente de IA para terminal que se integra perfectamente con Neovim. Aquí configuraremos el sistema SDD completo desde CLI.
+
+> 💭 **Mentalidad de CLI Power User**: "El terminal es tu hogar. Kilocode te da IA sin salir de tu flujo. Nvim para editar, Kilocode para generar."
+
+---
+
+## 🏗️ Arquitectura de Kilocode CLI
+
+### ¿Qué es Kilocode?
+
+Kilocode es un **agente de IA para terminal**, no una extensión de editor. Funciona como:
+
+```bash
+# Uso básico
+kilocode "tu prompt aquí"
+
+# Modo interactivo
+kilocode --interactive
+
+# Con contexto de proyecto
+kilocode --context .
+```
+
+### Estructura de Directorios
+
+```
+~/.kilocode/
+├── kilocode.json           # Configuración principal
+├── mcp.json                # MCP servers
+├── skills/                 # Skills globales
+│   ├── sdd-init/
+│   ├── sdd-propose/
+│   ├── gentleman-sdd/
+│   └── ...
+└── commands/               # Comandos slash
+    ├── sdd-init.md
+    ├── sdd-new.md
+    └── ...
+
+# Por proyecto
+./.kilocode/
+├── skills/                 # Skills del proyecto
+└── context.md              # Contexto específico
+```
+
+---
+
+## 🛠️ Instalación y Configuración
+
+### Paso 1: Instalar Kilocode
+
+```bash
+# Via npm
+npm install -g kilocode
+
+# Verificar instalación
+kilocode --version
+```
+
+### Paso 2: Configuración Principal
+
+**Archivo**: `~/.kilocode/kilocode.json`
+
+```json
+{
+  "model": "claude-sonnet-4-20250514",
+  "provider": "anthropic",
+  "apiKey": "${ANTHROPIC_API_KEY}",
+  "skillsDir": "~/.kilocode/skills",
+  "commandsDir": "~/.kilocode/commands",
+  "mcpConfig": "~/.kilocode/mcp.json",
+  "editor": "nvim",
+  "editorArgs": ["+{{line}}", "{{file}}"]
+}
+```
+
+### Paso 3: Crear Estructura de Skills
+
+```bash
+# Crear directorios
+mkdir -p ~/.kilocode/skills
+mkdir -p ~/.kilocode/commands
+
+# Crear symlinks a skills existentes
+for skill in sdd-init sdd-propose sdd-spec sdd-design sdd-tasks sdd-apply sdd-verify sdd-archive sdd-explore; do
+  ln -sf ~/.agents/skills/$skill ~/.kilocode/skills/$skill
+done
+
+# Crear skill maestro
+mkdir -p ~/.kilocode/skills/gentleman-sdd
+```
+
+---
+
+## 📋 Skill Maestro para Kilocode CLI
+
+**Archivo**: `~/.kilocode/skills/gentleman-sdd/SKILL.md`
+
+```markdown
+---
+name: gentleman-sdd
+description: >
+  Spec-Driven Development workflow for Kilocode CLI.
+  Use: kilocode --skill gentleman-sdd "tu instrucción"
+license: MIT
+metadata:
+  author: gentleman-programming
+  version: "2.0"
+  platform: kilocode-cli
+---
+
+## Purpose
+
+Complete SDD workflow for terminal-based development with Neovim.
+
+## Quick Commands
+
+### Initialize Project
+\`\`\`bash
+kilocode "Initialize SDD in this project"
+# o con skill explícito
+kilocode --skill sdd-init
+\`\`\`
+
+### Create New Change
+\`\`\`bash
+kilocode "Start SDD change for adding user authentication"
+\`\`\`
+
+### Continue Workflow
+\`\`\`bash
+kilocode "Continue SDD workflow - write specs"
+kilocode "Continue SDD workflow - create design"
+kilocode "Continue SDD workflow - implement next task"
+\`\`\`
+
+## Integration with Neovim
+
+### Opening Files
+Kilocode can open files in Neovim for review:
+\`\`\`bash
+kilocode "Open the spec file in nvim"
+\`\`\`
+
+### Workflow
+1. Kilocode genera artefactos SDD
+2. Abre en Neovim para revisión
+3. Continúa con siguiente fase
+
+## Persistence Modes
+
+Set in \`openspec/config.yaml\`:
+- \`openspec\` → Use openspec/ directory
+- \`engram\` → Persist to memory only
+\`\`\`
+
+---
+
+## 🛠️ Comandos Slash para Kilocode
+
+**Archivo**: `~/.kilocode/commands/sdd-init.md`
+
+```markdown
+# Initialize SDD in Project
+
+## Usage
+\`\`\`bash
+kilocode "/sdd-init"
+kilocode "/sdd-init --mode openspec"
+\`\`\`
+
+## What it does
+
+1. Detects project tech stack
+2. Creates openspec/ structure
+3. Generates config.yaml
+4. Returns summary
+
+## Load skill
+Uses the \`sdd-init\` skill.
+```
+
+**Archivo**: `~/.kilocode/commands/sdd-new.md`
+
+```markdown
+# Start New SDD Change
+
+## Usage
+\`\`\`bash
+kilocode "/sdd-new add-health-endpoint"
+\`\`\`
+
+## What it does
+
+1. Creates openspec/changes/NNN-name/
+2. Creates proposal.md
+3. Opens in nvim for review
+```
+
+### Crear todos los comandos
+
+```bash
+# Comandos SDD
+for cmd in sdd-init sdd-new sdd-explore sdd-spec sdd-plan sdd-tasks sdd-implement sdd-verify sdd-archive; do
+  cat > ~/.kilocode/commands/${cmd}.md << EOF
+# ${cmd^}
+
+## Usage
+\`\`\`bash
+kilocode "/${cmd}"
+\`\`\`
+
+## Loads skill: ${cmd//-/_}
+EOF
+done
+```
+
+---
+
+## 🔧 Configurar MCP Servers
+
+**Archivo**: `~/.kilocode/mcp.json`
+
+```json
+{
+  "mcpServers": {
+    "spec-coding": {
+      "command": "npx",
+      "args": ["-y", "@kevinlin/spec-coding-mcp"],
+      "env": {}
+    },
+    "engram": {
+      "command": "npx",
+      "args": ["-y", "engram-mcp"],
+      "env": {
+        "ENGRAM_DB_PATH": "~/.engram/memory.db"
+      }
+    },
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@context7/mcp-server"],
+      "env": {}
+    }
+  }
+}
+```
+
+---
+
+## 💻 Integración con Neovim
+
+### Configurar Neovim para SDD
+
+**Archivo**: `~/.config/nvim/lua/plugins/kilocode.lua`
+
+```lua
+-- Integración Kilocode + SDD
+vim.api.nvim_create_user_command('SddInit', function()
+  vim.fn.system('kilocode "/sdd-init"')
+  vim.cmd('edit openspec/config.yaml')
+end, {})
+
+vim.api.nvim_create_user_command('SddNew', function(opts)
+  local name = opts.args
+  vim.fn.system(string.format('kilocode "/sdd-new %s"', name))
+  vim.cmd('edit openspec/changes/')
+end, { nargs = 1 })
+
+vim.api.nvim_create_user_command('SddSpec', function()
+  vim.fn.system('kilocode "/sdd-spec"')
+  -- Buscar y abrir el spec delta más reciente
+  local spec_files = vim.fn.glob('openspec/changes/*/spec.delta.md', false, true)
+  if #spec_files > 0 then
+    vim.cmd('edit ' .. spec_files[#spec_files])
+  end
+end, {})
+
+vim.api.nvim_create_user_command('SddImplement', function()
+  vim.fn.system('kilocode "/sdd-implement"')
+end, {})
+
+vim.api.nvim_create_user_command('SddVerify', function()
+  vim.fn.system('kilocode "/sdd-verify"')
+  -- Abrir verification report
+  local verif_files = vim.fn.glob('openspec/changes/*/verification.md', false, true)
+  if #verif_files > 0 then
+    vim.cmd('edit ' .. verif_files[#verif_files])
+  end
+end, {})
+
+-- Atajos de teclado
+vim.keymap.set('n', '<leader>si', ':SddInit<CR>', { desc = 'SDD Init' })
+vim.keymap.set('n', '<leader>sn', ':SddNew ', { desc = 'SDD New Change' })
+vim.keymap.set('n', '<leader>ss', ':SddSpec<CR>', { desc = 'SDD Spec' })
+vim.keymap.set('n', '<leader>sp', ':SddPlan<CR>', { desc = 'SDD Plan' })
+vim.keymap.set('n', '<leader>st', ':SddTasks<CR>', { desc = 'SDD Tasks' })
+vim.keymap.set('n', '<leader>sm', ':SddImplement<CR>', { desc = 'SDD Implement' })
+vim.keymap.set('n', '<leader>sv', ':SddVerify<CR>', { desc = 'SDD Verify' })
+vim.keymap.set('n', '<leader>sa', ':SddArchive<CR>', { desc = 'SDD Archive' })
+```
+
+### Flujo de Trabajo Nvim + Kilocode
+
+```
+Nvim                    Terminal (Kilocode)
+  │                           │
+  ├─ :SddInit ────────────────┤
+  │  ← config.yaml            │
+  │                           │
+  ├─ :SddNew add-auth ────────┤
+  │  ← proposal.md            │
+  │  (edit & save)            │
+  │                           │
+  ├─ :SddSpec ────────────────┤
+  │  ← spec.delta.md          │
+  │  (review & save)          │
+  │                           │
+  ├─ :SddImplement ───────────┤
+  │  ← código generado        │
+  │  (review in Nvim)         │
+  │                           │
+  └─ :SddVerify ──────────────┤
+     ← verification.md        │
+```
+
+---
+
+## 💻 Uso desde CLI
+
+### Flujo Completo SDD
+
+```bash
+# Navegar al proyecto
+cd ~/projects/my-api
+
+# 1. Inicializar SDD
+kilocode "Initialize SDD in this project"
+# Output: Creates openspec/
+
+# 2. Crear nuevo cambio
+kilocode "Start SDD change: add health endpoint"
+# Output: Creates proposal.md
+
+# 3. Revisar en Nvim
+nvim openspec/changes/001-add-health/proposal.md
+
+# 4. Especificar requisitos
+kilocode "Write SDD specs for health endpoint"
+# Output: Creates spec.delta.md
+
+# 5. Revisar specs
+nvim openspec/changes/001-add-health/spec.delta.md
+
+# 6. Crear diseño
+kilocode "Create SDD design for health endpoint"
+
+# 7. Implementar
+kilocode "Implement SDD tasks for health endpoint"
+
+# 8. Verificar
+kilocode "Verify SDD implementation"
+
+# 9. Archivar
+kilocode "Archive SDD change"
+```
+
+---
+
+## 📋 Checklist de Verificación
+
+```bash
+# Verificar estructura completa
+echo "=== Skills ===" && ls -la ~/.kilocode/skills/
+echo "=== Commands ===" && ls -la ~/.kilocode/commands/
+echo "=== MCP Config ===" && cat ~/.kilocode/mcp.json
+echo "=== Main Config ===" && cat ~/.kilocode/kilocode.json
+```
+
+### Output Esperado
+
+```
+~/.kilocode/skills/
+├── gentleman-sdd/
+│   └── SKILL.md
+├── sdd-init -> ~/.agents/skills/sdd-init
+├── sdd-propose -> ~/.agents/skills/sdd-propose
+└── ...
+
+~/.kilocode/commands/
+├── sdd-init.md
+├── sdd-new.md
+├── sdd-spec.md
+└── ...
+```
+
+---
+
+## ⚠️ Notas Importantes
+
+### Recarga de Skills
+
+Los skills se cargan al iniciar Kilocode. Si modificas skills:
+
+```bash
+# Reiniciar sesión de Kilocode
+# Si está en modo interactivo: Ctrl+C y reiniciar
+kilocode --reload-skills
+```
+
+### Name Matching en Skills
+
+```markdown
+❌ INCORRECTO:
+# Directorio: sdd-init
+---
+name: sdd_initialize  # No coincide
+---
+
+✅ CORRECTO:
+# Directorio: sdd-init  
+---
+name: sdd-init        # Coincide exactamente
+---
+```
+
+### Editor Configurado
+
+```json
+// En kilocode.json
+{
+  "editor": "nvim",
+  "editorArgs": ["+{{line}}", "{{file}}"]
+}
+```
+
+---
+
+## 🎓 Lo Que Aprendiste
+
+1. **Kilocode** es un CLI, no extensión de editor
+2. **Skills** se definen en `~/.kilocode/skills/`
+3. **Comandos** son archivos `.md` en `commands/`
+4. **Integración Nvim** via comandos personalizados
+5. **MCP servers** se configuran en `mcp.json`
+
+---
+
+## 🚀 Siguiente Paso
+
+Continúa con [Módulo 3: SDD en Opencode](03-sdd-opencode.qmd) para comparar con otro CLI alternativo.
+
+---
+
+*Módulo 2.0 | Duración: 45 min | Dificultad: 🟡 Intermedio*
