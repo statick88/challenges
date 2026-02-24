@@ -1,13 +1,13 @@
 ---
 title: "Journey de Aprendizaje DevOps & Security"
-subtitle: "De fundamentos Linux a HTB Academy"
-date: "2026-02-19"
+subtitle: "De fundamentos Linux a HTB Academy y AI Workflows"
+date: "2026-02-24"
 lang: es
 ---
 
 # Bienvenido a Mi Journey de Aprendizaje
 
-Este sitio documenta mi camino a través de **administración de sistemas Linux**, **contenedores Docker**, **prácticas DevOps**, y **desafíos de ciberseguridad/CTF**.
+Este sitio documenta mi camino a través de **administración de sistemas Linux**, **contenedores Docker**, **prácticas DevOps**, **desafíos de ciberseguridad/CTF**, y **flujos de desarrollo asistidos por IA**.
 
 ## 🎯 Propósito
 
@@ -22,15 +22,15 @@ Este journey sirve dos propósitos:
 <div class="progress-container">
   <div class="progress-header">
     <span class="progress-label">Completado Total</span>
-    <span class="progress-value">48%</span>
+    <span class="progress-value">69%</span>
   </div>
   <div class="progress-bar-bg">
-    <div class="progress-bar-fill" style="width: 48%;"></div>
+    <div class="progress-bar-fill" style="width: 69%;"></div>
   </div>
   <div class="progress-stats">
-    <span>✅ 29 completados</span>
-    <span>📋 31 restantes</span>
-    <span>🎯 60 total</span>
+    <span>✅ 54 completados</span>
+    <span>📋 24 restantes</span>
+    <span>🎯 78 total</span>
   </div>
 </div>
 ```
@@ -43,13 +43,13 @@ Este journey sirve dos propósitos:
 <div class="skill-card">
   <div class="skill-header">
     <span class="skill-icon">🐧</span>
-    <span class="skill-name">Fundamentos Linux</span>
-    <span class="skill-percent">45%</span>
+    <span class="skill-name">Linux</span>
+    <span class="skill-percent">48%</span>
   </div>
   <div class="progress-bar-bg">
-    <div class="progress-bar-fill linux" style="width: 45%;"></div>
+    <div class="progress-bar-fill linux" style="width: 48%;"></div>
   </div>
-  <div class="skill-details">9/20 desafíos completados</div>
+  <div class="skill-details">10/21 desafíos (11 bloqueados)</div>
 </div>
 
 <div class="skill-card">
@@ -61,31 +61,55 @@ Este journey sirve dos propósitos:
   <div class="progress-bar-bg">
     <div class="progress-bar-fill docker" style="width: 100%;"></div>
   </div>
-  <div class="skill-details">6/6 desafíos completados</div>
+  <div class="skill-details">6/6 desafíos · Certificado</div>
 </div>
 
 <div class="skill-card">
   <div class="skill-header">
     <span class="skill-icon">⚙️</span>
     <span class="skill-name">DevOps</span>
-    <span class="skill-percent">50%</span>
+    <span class="skill-percent">100%</span>
   </div>
   <div class="progress-bar-bg">
-    <div class="progress-bar-fill devops" style="width: 50%;"></div>
+    <div class="progress-bar-fill devops" style="width: 100%;"></div>
   </div>
-  <div class="skill-details">8/16 desafíos completados</div>
+  <div class="skill-details">10/10 días completados</div>
 </div>
 
 <div class="skill-card">
   <div class="skill-header">
-    <span class="skill-icon">🔒</span>
-    <span class="skill-name">Seguridad</span>
-    <span class="skill-percent">43%</span>
+    <span class="skill-icon">🎯</span>
+    <span class="skill-name">HTB Academy</span>
+    <span class="skill-percent">87%</span>
   </div>
   <div class="progress-bar-bg">
-    <div class="progress-bar-fill security" style="width: 43%;"></div>
+    <div class="progress-bar-fill security" style="width: 87%;"></div>
   </div>
-  <div class="skill-details">5/12 desafíos completados</div>
+  <div class="skill-details">26/30 desafíos completados</div>
+</div>
+
+<div class="skill-card">
+  <div class="skill-header">
+    <span class="skill-icon">🚩</span>
+    <span class="skill-name">CTF</span>
+    <span class="skill-percent">18%</span>
+  </div>
+  <div class="progress-bar-bg">
+    <div class="progress-bar-fill ctf" style="width: 18%;"></div>
+  </div>
+  <div class="skill-details">2/11 flags capturadas</div>
+</div>
+
+<div class="skill-card">
+  <div class="skill-header">
+    <span class="skill-icon">🤖</span>
+    <span class="skill-name">AI Workflows</span>
+    <span class="skill-percent">Nuevo</span>
+  </div>
+  <div class="progress-bar-bg">
+    <div class="progress-bar-fill ai" style="width: 100%;"></div>
+  </div>
+  <div class="skill-details">Curso SDD disponible</div>
 </div>
 
 </div>
@@ -109,7 +133,16 @@ Este journey sirve dos propósitos:
   <div class="path-marker">✓</div>
   <div class="path-content">
     <h4>Fase 2: Contenedores</h4>
-    <p>Fundamentos de Docker, volúmenes, redes</p>
+    <p>Docker: instalación, volúmenes, redes, troubleshooting</p>
+    <span class="path-status completed">Certificado KodeKloud</span>
+  </div>
+</div>
+
+<div class="path-item completed">
+  <div class="path-marker">✓</div>
+  <div class="path-content">
+    <h4>Fase 3: Prácticas DevOps</h4>
+    <p>100 Days DevOps: Ansible, Cron, MariaDB, CI/CD</p>
     <span class="path-status completed">Completado</span>
   </div>
 </div>
@@ -117,27 +150,27 @@ Este journey sirve dos propósitos:
 <div class="path-item in-progress">
   <div class="path-marker">◐</div>
   <div class="path-content">
-    <h4>Fase 3: Prácticas DevOps</h4>
-    <p>Ansible, Cron, MariaDB, CI/CD básico</p>
-    <span class="path-status in-progress">En Progreso - 50%</span>
+    <h4>Fase 4: Ciberseguridad</h4>
+    <p>HTB Academy: Nmap, FFUF, Buffer Overflow, File Transfers</p>
+    <span class="path-status in-progress">En Progreso - 87%</span>
+  </div>
+</div>
+
+<div class="path-item in-progress">
+  <div class="path-marker">◐</div>
+  <div class="path-content">
+    <h4>Fase 5: Desarrollo con IA</h4>
+    <p>Spec-Driven Development, Kilocode, MCP Servers</p>
+    <span class="path-status in-progress">Curso Disponible</span>
   </div>
 </div>
 
 <div class="path-item">
   <div class="path-marker">○</div>
   <div class="path-content">
-    <h4>Fase 4: Fundamentos de Seguridad</h4>
-    <p>CTF básico, forense, seguridad web, HTB Academy</p>
-    <span class="path-status">No Iniciado</span>
-  </div>
-</div>
-
-<div class="path-item">
-  <div class="path-marker">○</div>
-  <div class="path-content">
-    <h4>Fase 5: Temas Avanzados</h4>
+    <h4>Fase 6: Temas Avanzados</h4>
     <p>Kubernetes, networking avanzado, pentesting</p>
-    <span class="path-status">No Iniciado</span>
+    <span class="path-status">Pendiente</span>
   </div>
 </div>
 
@@ -146,31 +179,75 @@ Este journey sirve dos propósitos:
 
 ## 📚 Estructura
 
-El journey de aprendizaje está organizado en cuatro áreas principales:
+El journey de aprendizaje está organizado en seis áreas principales:
 
 ### [Fundamentos](foundations/index.qmd) 🐧
-Fundamentos de administración de sistemas Linux
+
+Fundamentos de administración de sistemas Linux:
+- Gestión de usuarios y permisos
+- Seguridad y hardening básico
+- Networking y servicios
 
 ### [Contenedores](containers/index.qmd) 🐳
-Docker y contenerización
+
+Docker y contenerización:
+- Instalación y configuración
+- Gestión de contenedores
+- Volúmenes, redes, troubleshooting
 
 ### [Prácticas DevOps](devops-practices/index.qmd) ⚙️
-Herramientas y metodologías DevOps
+
+Herramientas y metodologías DevOps:
+- 100 Days DevOps Challenge
+- Ansible, Cron, MariaDB
+- CI/CD básico
 
 ### [Seguridad](security/index.qmd) 🔒
-Fundamentos de ciberseguridad
+
+Ciberseguridad práctica:
+- HTB Academy (Nmap, FFUF, Buffer Overflow, File Transfers)
+- CTF Challenges (crypto, forensics, web, pwn)
+- Certificaciones y logros
+
+### [AI Workflows](../ai-workflows/index.qmd) 🤖 🆕
+
+Spec-Driven Development con asistentes de IA:
+- **Módulo 0**: Contexto Histórico (60 años de abstracción)
+- **Módulo 1**: Introducción a SDD (3 niveles, 8 fases)
+- **Módulo 1B**: Context Architecture vs Prompt Engineering
+- **Módulo 1C**: Task-Driven Development
+- **Módulo 2**: Comparativa de Herramientas (Kiro, Spec Kit, Tessl)
+- **Módulo 3**: SDD en Kilocode CLI
+- **Módulo 4**: SDD en Opencode
+- **Módulo 5**: Práctica Guiada
+- **Módulo 6**: Integración MCP
+- **Módulo 7**: Patrones Avanzados
+
+## 🏆 Certificaciones y Logros
+
+| Certificación | Plataforma | Fecha |
+|---------------|------------|-------|
+| Docker Fundamentals | KodeKloud | Feb 2026 |
+| Linux Fundamentals | HTB Academy | Feb 2026 |
+| Network Enumeration with Nmap | HTB Academy | Feb 2026 |
+| FFUF - Web Fuzzing | HTB Academy | Feb 2026 |
+| Stack-Based Buffer Overflows | HTB Academy | Feb 2026 |
+| Web Requests - HTTP | HTB Academy | Feb 2026 |
 
 ## 🛠️ Matriz de Habilidades
 
 | Habilidad | Nivel | Estado |
 |-----------|-------|--------|
-| Administración Linux | 🟢 Intermedio | En Progreso |
-| Docker & Contenedores | 🟢 Intermedio | Certificado |
-| Ansible | 🔵 Básico | Aprendiendo |
-| Bash Scripting | 🟢 Intermedio | Completado |
-| Seguridad de Redes | 🔵 Básico | Aprendiendo |
-| Resolución CTF | 🔵 Básico | Iniciado |
-| HTB Academy | 🔵 Básico | Iniciado |
+| Administración Linux | 🟢 Intermedio | HTB Academy Completed |
+| Docker & Contenedores | 🟢 Intermedio | ✅ KodeKloud Certified |
+| Ansible | 🟢 Intermedio | Completado |
+| Bash Scripting | 🟢 Intermedio | Práctico |
+| Nmap & Network Enumeration | 🟢 Intermedio | HTB Academy Completed |
+| Web Security (FFUF) | 🔵 Básico | HTB Academy Completed |
+| Buffer Overflow | 🔵 Básico | HTB Academy Completed |
+| CTF Problem Solving | 🔵 Básico | En Progreso |
+| AI-Assisted Development | 🔵 Básico | Aprendiendo |
+| SDD (Spec-Driven Development) | 🔵 Básico | Aprendiendo |
 
 ## 🔗 Navegación
 
@@ -178,7 +255,7 @@ Usa la barra lateral para navegar entre secciones, o haz clic en los enlaces de 
 
 ---
 
-*Este journey se actualiza continuamente a medida que se completan nuevos desafíos.*
+*Este journey se actualiza continuamente. Última actualización: 24 de febrero de 2026*
 
 ```{=html}
 <style>
@@ -233,7 +310,7 @@ Usa la barra lateral para navegar entre secciones, o haz clic en los enlaces de 
 
 .skills-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 1rem;
   margin: 1.5rem 0;
 }
@@ -267,21 +344,12 @@ Usa la barra lateral para navegar entre secciones, o haz clic en los enlaces de 
   color: #22d3ee;
 }
 
-.skill-card .progress-bar-fill.linux {
-  background: linear-gradient(90deg, #f97316 0%, #ea580c 100%);
-}
-
-.skill-card .progress-bar-fill.docker {
-  background: linear-gradient(90deg, #3b82f6 0%, #2563eb 100%);
-}
-
-.skill-card .progress-bar-fill.devops {
-  background: linear-gradient(90deg, #a855f7 0%, #9333ea 100%);
-}
-
-.skill-card .progress-bar-fill.security {
-  background: linear-gradient(90deg, #22c55e 0%, #16a34a 100%);
-}
+.skill-card .progress-bar-fill.linux { background: linear-gradient(90deg, #f97316, #ea580c); }
+.skill-card .progress-bar-fill.docker { background: linear-gradient(90deg, #3b82f6, #2563eb); }
+.skill-card .progress-bar-fill.devops { background: linear-gradient(90deg, #a855f7, #9333ea); }
+.skill-card .progress-bar-fill.security { background: linear-gradient(90deg, #10b981, #059669); }
+.skill-card .progress-bar-fill.ctf { background: linear-gradient(90deg, #ef4444, #dc2626); }
+.skill-card .progress-bar-fill.ai { background: linear-gradient(90deg, #8b5cf6, #7c3aed); }
 
 .skill-details {
   font-size: 0.8rem;
@@ -354,3 +422,4 @@ Usa la barra lateral para navegar entre secciones, o haz clic en los enlaces de 
   color: #f59e0b;
 }
 </style>
+```

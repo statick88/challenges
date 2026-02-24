@@ -3,6 +3,7 @@ title: "Spec-Driven Development con Asistentes de IA"
 subtitle: "Metodología estructurada para desarrollo asistido por IA en CLI"
 author: "Diego Saavedra"
 date: "2026-02-24"
+bibliography: references.bib
 ---
 
 # 🎓 Bienvenido al Curso de SDD con IA
@@ -15,7 +16,13 @@ date: "2026-02-24"
 
 ## 🎯 ¿Por Qué Este Curso?
 
-En febrero 2025, Andrej Karpathy definió "vibe coding" como la práctica de generar código con IA sin entenderlo completamente. El resultado: **25% de startups YC tienen 95% código IA generado**.
+En febrero 2025, Andrej Karpathy definió "vibe coding" como la práctica de generar código con IA sin entenderlo completamente. El resultado: **25% de startups YC tienen 95% código IA generado** [@yc2025ai].
+
+> "There's a new kind of coding I call 'vibe coding', where you fully give in to the vibes, embrace exponentials, and forget that the code even exists."
+> 
+> — Andrej Karpathy [@karpathy2025vibe]
+>
+> *"Hay un nuevo tipo de codificación que llamo 'vibe coding', donde te entregas completamente a las vibras, abrazas los exponenciales y olvidas que el código siquiera existe."*
 
 Pero hay un problema:
 
@@ -54,7 +61,7 @@ Al completar este curso, serás capaz de:
 
 ### Herramientas Necesarias
 
-- **Kilocode CLI** o **Opencode**
+- **Kilocode CLI** o **Opencode** [@kilocodedocs; @opencodedocs]
 - **Neovim** (editor de código)
 - Node.js 18+ (para MCP servers)
 - Git
@@ -95,8 +102,8 @@ Al completar este curso, serás capaz de:
 
 ### Módulo 2: [Comparativa de Herramientas](02-comparativa-herramientas.qmd) 🆕
 
-- Kiro (AWS): Requirements → Design → Tasks
-- GitHub Spec Kit: Constitution + Memory Bank
+- Kiro (AWS): Requirements → Design → Tasks [@brooker2025kiro]
+- GitHub Spec Kit: Constitution + Memory Bank [@delimarsky2025speckit]
 - Tessl Framework: Spec-as-source
 - Cuándo usar cada una
 
@@ -120,8 +127,8 @@ Al completar este curso, serás capaz de:
 ### Módulo 6: [Integración MCP](06-mcp-integration.qmd)
 
 - spec-coding-mcp
-- Engram (memoria persistente)
-- Context7 (documentación actualizada)
+- Engram (memoria persistente) [@engram2025memory]
+- Context7 (documentación actualizada) [@context7docs]
 
 ### Módulo 7: [Patrones Avanzados](07-advanced-patterns.qmd)
 
@@ -200,24 +207,6 @@ Dirígete al [Módulo 0: Contexto Histórico](00-contexto-historico.qmd) para co
 
 ---
 
-## 📚 Referencias
-
-[1] A. Karpathy, "Vibe Coding," X/Twitter, Feb. 2025. [Online]. Available: https://x.com/karpathy
-
-[2] B. Böckeler, "Understanding Spec-Driven Development," Martin Fowler's Blog, 2025. [Online]. Available: https://martinfowler.com
-
-[3] M. Brooker, "Kiro and the Future of Development," AWS Blog, 2025. [Online]. Available: https://aws.amazon.com/blogs
-
-[4] D. Delimarsky, "GitHub Spec Kit: Constitution and Memory Bank," Microsoft GitHub, 2025. [Online]. Available: https://github.com/github/spec-kit
-
-[5] Precursor, "The Precursor Manifesto: Context Architecture," 2025. [Online]. Available: https://precursor.dev
-
-[6] StrategyRadar.ai, "Task-Driven Development with AI: The Complete Guide," 2025. [Online]. Available: https://strategyradar.ai
-
-[7] D. Saavedra, "Spec-Driven Development con Asistentes de IA: Metodología estructurada para desarrollo asistido por IA en CLI," DevOps & Security Learning Journey, Feb. 2026. [Online]. Available: https://statick88.github.io
-
----
-
 ## 👨‍🏫 Sobre el Autor
 
 **Diego Saavedra** es Software Developer FullStack, Móvil e IA con más de 10 años de experiencia. Docente universitario en ESPE, UIDE, IST Juan Montalvo, Abacom y Codings Academy. Explorador del ecosistema de seguridad informática desde una perspectiva de desarrollo seguro.
@@ -226,6 +215,13 @@ Dirígete al [Módulo 0: Contexto Histórico](00-contexto-historico.qmd) para co
 - 🔗 [LinkedIn](https://www.linkedin.com/in/diego-saavedra-developer/)
 - 🐙 [GitHub](https://github.com/statick88)
 - 🌐 [Portfolio](https://statick88.github.io)
+
+---
+
+## 📖 Referencias
+
+::: {#refs}
+:::
 
 ---
 

