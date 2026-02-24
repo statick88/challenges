@@ -30,6 +30,12 @@ export default {
           dark: "#000000",
           "dark-secondary": "#444444",
         },
+        // Dark theme colors (for challenge pages)
+        dark: {
+          bg: "#0a0e1a",
+          card: "#1b243d",
+          border: "#2a2a2a",
+        },
         // Colores de estado
         success: "#1a7f37",
         warning: "#f59e0b",
