@@ -1,5 +1,5 @@
 ---
-title: "Reto 19: Filtrado y Copia de Archivos de Usuario - Nautilus App Server 2"
+title: "Reto 20: Filtrado y Copia de Archivos de Usuario - Nautilus App Server 2"
 category: linux
 difficulty: medium
 tags:
@@ -13,7 +13,7 @@ date: 2026-02-20
 status: completed
 ---
 
-# Reto 19: Filtrado y Copia de Archivos de Usuario - Nautilus App Server 2
+# Reto 20: Filtrado y Copia de Archivos de Usuario - Nautilus App Server 2
 
 ## Gestión de Datos de Usuarios en Servidores de Producción
 

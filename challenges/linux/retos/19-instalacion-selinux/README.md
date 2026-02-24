@@ -1,5 +1,5 @@
 ---
-title: "Reto 18: SELinux Installation and Configuration - xFusionCorp Industries"
+title: "Reto 19: SELinux Installation and Configuration - xFusionCorp Industries"
 category: linux
 difficulty: hard
 tags:
@@ -12,7 +12,7 @@ date: 2025-01-25
 status: blocked
 ---
 
-# Reto 18: SELinux Installation and Configuration - xFusionCorp Industries
+# Reto 19: SELinux Installation and Configuration - xFusionCorp Industries
 
 ## SELinux: Seguridad de Acceso Obligatorio a Nivel de Kernel
 

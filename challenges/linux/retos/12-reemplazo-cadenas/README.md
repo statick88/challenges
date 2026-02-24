@@ -1,5 +1,5 @@
 ---
-title: "Reto 11: String Replacement - xFusionCorp Industries"
+title: "Reto 12: String Replacement - xFusionCorp Industries"
 category: linux
 difficulty: easy
 tags:
@@ -12,7 +12,7 @@ date: 2025-01-25
 status: blocked
 ---
 
-# Reto 11: String Replacement - xFusionCorp Industries
+# Reto 12: String Replacement - xFusionCorp Industries
 
 ## Edición de Configuraciones: Precisión, Backup y Validación
 

@@ -1,5 +1,5 @@
 ---
-title: "Reto 20: Disable Direct Root SSH Login - xFusionCorp Industries"
+title: "Reto 21: Disable Direct Root SSH Login - xFusionCorp Industries"
 category: linux
 difficulty: easy
 tags:
@@ -11,7 +11,7 @@ date: 2026-02-21
 status: completed
 ---
 
-# Reto 20: Disable Direct Root SSH Login - xFusionCorp Industries
+# Reto 21: Disable Direct Root SSH Login - xFusionCorp Industries
 
 ## Hardening SSH: Bloqueando el Acceso Directo de Root
 

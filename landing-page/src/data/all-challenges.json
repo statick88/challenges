@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-02-24T06:05:23.071Z",
+  "lastUpdated": "2026-02-24T06:16:41.740Z",
   "linux": [
     {
       "id": "01-creacion-usuarios",
@@ -56,139 +56,139 @@
       "path": "/challenges/linux/06-creacion-anita-temporal"
     },
     {
-      "id": "06-transferencia-datos",
-      "title": "Reto 06: Linux User Data Transfer - xFusionCorp Industries",
+      "id": "07-transferencia-datos",
+      "title": "Reto 07: Linux User Data Transfer - xFusionCorp Industries",
       "status": "completed",
       "difficulty": "easy",
       "date": "2026-02-20",
-      "excerpt": "Reto 06: Linux User Data Transfer - xFusionCorp Industries",
-      "path": "/challenges/linux/06-transferencia-datos"
+      "excerpt": "Reto 07: Linux User Data Transfer - xFusionCorp Industries",
+      "path": "/challenges/linux/07-transferencia-datos"
     },
     {
-      "id": "07-ssh-root-seguro",
-      "title": "Reto 07: Secure Root SSH Access - xFusionCorp Industries",
+      "id": "08-ssh-root-seguro",
+      "title": "Reto 08: Secure Root SSH Access - xFusionCorp Industries",
       "status": "blocked",
       "difficulty": "easy",
       "date": "2025-01-25",
-      "excerpt": "Reto 07: Secure Root SSH Access - xFusionCorp Industries",
-      "path": "/challenges/linux/07-ssh-root-seguro"
+      "excerpt": "Reto 08: Secure Root SSH Access - xFusionCorp Industries",
+      "path": "/challenges/linux/08-ssh-root-seguro"
     },
     {
-      "id": "08-backup-desarrollador",
-      "title": "Reto 08: Data Backup for Developer - xFusionCorp Industries",
+      "id": "09-backup-desarrollador",
+      "title": "Reto 09: Data Backup for Developer - xFusionCorp Industries",
       "status": "completed",
       "difficulty": "easy",
       "date": "2025-01-25",
-      "excerpt": "Reto 08: Data Backup for Developer - xFusionCorp Industries",
-      "path": "/challenges/linux/08-backup-desarrollador"
+      "excerpt": "Reto 09: Data Backup for Developer - xFusionCorp Industries",
+      "path": "/challenges/linux/09-backup-desarrollador"
     },
     {
-      "id": "09-permisos-scripts",
-      "title": "Reto 09: Script Execution Permissions - xFusionCorp Industries",
+      "id": "10-permisos-scripts",
+      "title": "Reto 10: Script Execution Permissions - xFusionCorp Industries",
       "status": "blocked",
       "difficulty": "easy",
       "date": "2025-01-25",
-      "excerpt": "Reto 09: Script Execution Permissions - xFusionCorp Industries",
-      "path": "/challenges/linux/09-permisos-scripts"
+      "excerpt": "Reto 10: Script Execution Permissions - xFusionCorp Industries",
+      "path": "/challenges/linux/10-permisos-scripts"
     },
     {
-      "id": "10-correccion-permisos",
-      "title": "Reto 10: File Permission Correction - xFusionCorp Industries",
+      "id": "11-correccion-permisos",
+      "title": "Reto 11: File Permission Correction - xFusionCorp Industries",
       "status": "blocked",
       "difficulty": "easy",
       "date": "2025-01-25",
-      "excerpt": "Reto 10: File Permission Correction - xFusionCorp Industries",
-      "path": "/challenges/linux/10-correccion-permisos"
+      "excerpt": "Reto 11: File Permission Correction - xFusionCorp Industries",
+      "path": "/challenges/linux/11-correccion-permisos"
     },
     {
-      "id": "11-reemplazo-cadenas",
-      "title": "Reto 11: String Replacement - xFusionCorp Industries",
+      "id": "12-reemplazo-cadenas",
+      "title": "Reto 12: String Replacement - xFusionCorp Industries",
       "status": "blocked",
       "difficulty": "easy",
       "date": "2025-01-25",
-      "excerpt": "Reto 11: String Replacement - xFusionCorp Industries",
-      "path": "/challenges/linux/11-reemplazo-cadenas"
+      "excerpt": "Reto 12: String Replacement - xFusionCorp Industries",
+      "path": "/challenges/linux/12-reemplazo-cadenas"
     },
     {
-      "id": "12-transferencia-segura",
-      "title": "Reto 12: Secure Data Transfer - xFusionCorp Industries",
+      "id": "13-transferencia-segura",
+      "title": "Reto 13: Secure Data Transfer - xFusionCorp Industries",
       "status": "blocked",
       "difficulty": "easy",
       "date": "2025-01-25",
-      "excerpt": "Reto 12: Secure Data Transfer - xFusionCorp Industries",
-      "path": "/challenges/linux/12-transferencia-segura"
+      "excerpt": "Reto 13: Secure Data Transfer - xFusionCorp Industries",
+      "path": "/challenges/linux/13-transferencia-segura"
     },
     {
-      "id": "13-restriccion-cron",
-      "title": "Reto 13: Restrict Cron Access - xFusionCorp Industries",
+      "id": "14-restriccion-cron",
+      "title": "Reto 14: Restrict Cron Access - xFusionCorp Industries",
       "status": "blocked",
       "difficulty": "hard",
       "date": "2025-01-25",
-      "excerpt": "Reto 13: Restrict Cron Access - xFusionCorp Industries",
-      "path": "/challenges/linux/13-restriccion-cron"
+      "excerpt": "Reto 14: Restrict Cron Access - xFusionCorp Industries",
+      "path": "/challenges/linux/14-restriccion-cron"
     },
     {
-      "id": "14-config-gui-default",
-      "title": "Reto 14: Default GUI Boot Configuration - xFusionCorp Industries",
+      "id": "15-config-gui-default",
+      "title": "Reto 15: Default GUI Boot Configuration - xFusionCorp Industries",
       "status": "blocked",
       "difficulty": "easy",
       "date": "2025-01-25",
-      "excerpt": "Reto 14: Default GUI Boot Configuration - xFusionCorp Industries",
-      "path": "/challenges/linux/14-config-gui-default"
+      "excerpt": "Reto 15: Default GUI Boot Configuration - xFusionCorp Industries",
+      "path": "/challenges/linux/15-config-gui-default"
     },
     {
-      "id": "15-configuracion-timezone",
-      "title": "Reto 15: Timezone Alignment - xFusionCorp Industries",
+      "id": "16-configuracion-timezone",
+      "title": "Reto 16: Timezone Alignment - xFusionCorp Industries",
       "status": "blocked",
       "difficulty": "easy",
       "date": "2025-01-25",
-      "excerpt": "Reto 15: Timezone Alignment - xFusionCorp Industries",
-      "path": "/challenges/linux/15-configuracion-timezone"
+      "excerpt": "Reto 16: Timezone Alignment - xFusionCorp Industries",
+      "path": "/challenges/linux/16-configuracion-timezone"
     },
     {
-      "id": "16-configuracion-firewall",
-      "title": "Reto 16: Firewall Configuration - xFusionCorp Industries",
+      "id": "17-configuracion-firewall",
+      "title": "Reto 17: Firewall Configuration - xFusionCorp Industries",
       "status": "blocked",
       "difficulty": "hard",
       "date": "2025-01-25",
-      "excerpt": "Reto 16: Firewall Configuration - xFusionCorp Industries",
-      "path": "/challenges/linux/16-configuracion-firewall"
+      "excerpt": "Reto 17: Firewall Configuration - xFusionCorp Industries",
+      "path": "/challenges/linux/17-configuracion-firewall"
     },
     {
-      "id": "17-ajuste-limites-procesos",
-      "title": "Reto 17: Process Limit Adjustment - xFusionCorp Industries",
+      "id": "18-ajuste-limites-procesos",
+      "title": "Reto 18: Process Limit Adjustment - xFusionCorp Industries",
       "status": "blocked",
       "difficulty": "hard",
       "date": "2025-01-25",
-      "excerpt": "Reto 17: Process Limit Adjustment - xFusionCorp Industries",
-      "path": "/challenges/linux/17-ajuste-limites-procesos"
+      "excerpt": "Reto 18: Process Limit Adjustment - xFusionCorp Industries",
+      "path": "/challenges/linux/18-ajuste-limites-procesos"
     },
     {
-      "id": "18-instalacion-selinux",
-      "title": "Reto 18: SELinux Installation and Configuration - xFusionCorp Industries",
+      "id": "19-instalacion-selinux",
+      "title": "Reto 19: SELinux Installation and Configuration - xFusionCorp Industries",
       "status": "blocked",
       "difficulty": "hard",
       "date": "2025-01-25",
-      "excerpt": "Reto 18: SELinux Installation and Configuration - xFusionCorp Industries",
-      "path": "/challenges/linux/18-instalacion-selinux"
+      "excerpt": "Reto 19: SELinux Installation and Configuration - xFusionCorp Industries",
+      "path": "/challenges/linux/19-instalacion-selinux"
     },
     {
-      "id": "19-filtrado-archivos-usuario",
-      "title": "Reto 19: Filtrado y Copia de Archivos de Usuario - Nautilus App Server 2",
+      "id": "20-filtrado-archivos-usuario",
+      "title": "Reto 20: Filtrado y Copia de Archivos de Usuario - Nautilus App Server 2",
       "status": "completed",
       "difficulty": "medium",
       "date": "2026-02-20",
-      "excerpt": "Reto 19: Filtrado y Copia de Archivos de Usuario - Nautilus App Server 2",
-      "path": "/challenges/linux/19-filtrado-archivos-usuario"
+      "excerpt": "Reto 20: Filtrado y Copia de Archivos de Usuario - Nautilus App Server 2",
+      "path": "/challenges/linux/20-filtrado-archivos-usuario"
     },
     {
-      "id": "20-disable-root-ssh-login",
-      "title": "Reto 20: Disable Direct Root SSH Login - xFusionCorp Industries",
+      "id": "21-disable-root-ssh-login",
+      "title": "Reto 21: Disable Direct Root SSH Login - xFusionCorp Industries",
       "status": "completed",
       "difficulty": "easy",
       "date": "2026-02-21",
-      "excerpt": "Reto 20: Disable Direct Root SSH Login - xFusionCorp Industries",
-      "path": "/challenges/linux/20-disable-root-ssh-login"
+      "excerpt": "Reto 21: Disable Direct Root SSH Login - xFusionCorp Industries",
+      "path": "/challenges/linux/21-disable-root-ssh-login"
     }
   ],
   "docker": [

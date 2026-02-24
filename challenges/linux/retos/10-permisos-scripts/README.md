@@ -1,5 +1,5 @@
 ---
-title: "Reto 09: Script Execution Permissions - xFusionCorp Industries"
+title: "Reto 10: Script Execution Permissions - xFusionCorp Industries"
 category: linux
 difficulty: easy
 tags:
@@ -12,7 +12,7 @@ date: 2025-01-25
 status: blocked
 ---
 
-# Reto 09: Script Execution Permissions - xFusionCorp Industries
+# Reto 10: Script Execution Permissions - xFusionCorp Industries
 
 ## Control de Acceso a Scripts del Sistema: Seguridad Operacional
 

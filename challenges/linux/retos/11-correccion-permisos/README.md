@@ -1,5 +1,5 @@
 ---
-title: "Reto 10: File Permission Correction - xFusionCorp Industries"
+title: "Reto 11: File Permission Correction - xFusionCorp Industries"
 category: linux
 difficulty: easy
 tags:
@@ -12,7 +12,7 @@ date: 2025-01-25
 status: blocked
 ---
 
-# Reto 10: File Permission Correction - xFusionCorp Industries
+# Reto 11: File Permission Correction - xFusionCorp Industries
 
 ## Corrección Masiva de Permisos: Automatización de Seguridad
 

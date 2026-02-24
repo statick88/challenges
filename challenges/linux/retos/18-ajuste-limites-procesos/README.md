@@ -1,5 +1,5 @@
 ---
-title: "Reto 17: Process Limit Adjustment - xFusionCorp Industries"
+title: "Reto 18: Process Limit Adjustment - xFusionCorp Industries"
 category: linux
 difficulty: hard
 tags:
@@ -12,7 +12,7 @@ date: 2025-01-25
 status: blocked
 ---
 
-# Reto 17: Process Limit Adjustment - xFusionCorp Industries
+# Reto 18: Process Limit Adjustment - xFusionCorp Industries
 
 ## Control de Recursos del Sistema: Previniendo Agotamiento
 

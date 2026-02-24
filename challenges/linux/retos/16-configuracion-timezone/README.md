@@ -1,5 +1,5 @@
 ---
-title: "Reto 15: Timezone Alignment - xFusionCorp Industries"
+title: "Reto 16: Timezone Alignment - xFusionCorp Industries"
 category: linux
 difficulty: easy
 tags:
@@ -12,7 +12,7 @@ date: 2025-01-25
 status: blocked
 ---
 
-# Reto 15: Timezone Alignment - xFusionCorp Industries
+# Reto 16: Timezone Alignment - xFusionCorp Industries
 
 ## Sincronización de Zona Horaria: Consistencia en Sistemas Distribuidos
 

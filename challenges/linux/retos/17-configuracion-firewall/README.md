@@ -1,5 +1,5 @@
 ---
-title: "Reto 16: Firewall Configuration - xFusionCorp Industries"
+title: "Reto 17: Firewall Configuration - xFusionCorp Industries"
 category: linux
 difficulty: hard
 tags:
@@ -12,7 +12,7 @@ date: 2025-01-25
 status: blocked
 ---
 
-# Reto 16: Firewall Configuration - xFusionCorp Industries
+# Reto 17: Firewall Configuration - xFusionCorp Industries
 
 ## Configuración de Firewall: El Perímetro de Defensa del Sistema
 

@@ -9,6 +9,49 @@ Bienvenido a la sección de **Ciberseguridad**. Aquí encontrarás cursos comple
 
 ## Cursos Disponibles
 
+### Introduction to Networking
+
+Curso completo de fundamentos de redes desde HTB Academy. Aprende el modelo OSI, TCP/IP, direccionamiento IP y topologías de red esenciales para profesionales de seguridad informática.
+
+[**Acceder al Curso de Networking →**](networking-fundamentals/index.html)
+
+**Contenido del curso:**
+
+- Network Types (WAN, LAN, WLAN, VPN)
+- Networking Topologies (Star, Ring, Mesh, Tree)
+- Proxies (Forward, Reverse, Transparent)
+- OSI Model - Las 7 capas
+- TCP/IP Model - Las 4 capas
+- IP Addresses y Subnetting
+
+**Progreso del curso:** 0% ⏳
+
+---
+
+### Linux Fundamentals
+
+Curso completo de fundamentos de Linux desde HTB Academy. Aprende navegación del sistema, gestión de archivos y directorios, permisos, gestión de usuarios y servicios del sistema.
+
+[**Acceder al Curso de Linux Fundamentals →**](linux-fundamentals/index.html)
+
+**Contenido del curso:**
+
+- Linux Structure y Distributions
+- Shell Introduction y Navigation
+- Working with Files and Directories
+- Find Files y Filter Contents
+- User Management y Permissions
+- Service and Process Management
+- Network Services y Web Services
+- File System Management
+- 30 secciones completas
+
+**Progreso del curso:** 100% ✅
+
+**Achievement:** https://academy.hackthebox.com/achievement/2300153/18
+
+---
+
 ### Network Enumeration with Nmap
 
 Curso completo de enumeración de redes con Nmap, desde conceptos básicos hasta técnicas avanzadas de evasión de firewalls e IDS/IPS.
@@ -56,6 +99,25 @@ Curso completo de HTTP y cURL desde HTB Academy. Aprende los fundamentos del pro
 | `HTB{crud_4p!_m4n!pul4t0r}` | CRUD API |
 
 **Achievement:** https://academy.hackthebox.com/achievement/2300153/35
+
+---
+
+### File Transfers
+
+Curso completo de transferencia de archivos desde HTB Academy. Aprende métodos de transferencia en Windows y Linux, evasión de detección y técnicas Living off The Land.
+
+[**Acceder al Curso de File Transfers →**](file-transfers/index.html)
+
+**Contenido del curso:**
+
+- Windows File Transfer Methods (PowerShell, SMB, FTP)
+- Linux File Transfer Methods (wget, curl, scp, rsync)
+- Transferring Files with Code
+- Protected File Transfers
+- Detection y Evading Detection
+- Living off The Land (LOLBins)
+
+**Progreso del curso:** 10% ⏳
 
 ---
 

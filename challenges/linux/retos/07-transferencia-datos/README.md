@@ -1,5 +1,5 @@
 ---
-title: "Reto 06: Linux User Data Transfer - xFusionCorp Industries"
+title: "Reto 07: Linux User Data Transfer - xFusionCorp Industries"
 category: linux
 difficulty: easy
 tags:
@@ -12,7 +12,7 @@ date: 2026-02-20
 status: completed
 ---
 
-# Reto 06: Linux User Data Transfer - xFusionCorp Industries
+# Reto 07: Linux User Data Transfer - xFusionCorp Industries
 
 ## Migración de Datos entre Sistemas: Preservación y Verificación
 

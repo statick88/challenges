@@ -1,5 +1,5 @@
 ---
-title: "Reto 13: Restrict Cron Access - xFusionCorp Industries"
+title: "Reto 14: Restrict Cron Access - xFusionCorp Industries"
 category: linux
 difficulty: hard
 tags:
@@ -12,7 +12,7 @@ date: 2025-01-25
 status: blocked
 ---
 
-# Reto 13: Restrict Cron Access - xFusionCorp Industries
+# Reto 14: Restrict Cron Access - xFusionCorp Industries
 
 ## Control de Acceso a Cron: Previniendo Abuso del Programador de Tareas
 

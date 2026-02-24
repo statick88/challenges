@@ -1,5 +1,5 @@
 ---
-title: "Reto 08: Data Backup for Developer - xFusionCorp Industries"
+title: "Reto 09: Data Backup for Developer - xFusionCorp Industries"
 category: linux
 difficulty: easy
 tags:
@@ -12,7 +12,7 @@ date: 2025-01-25
 status: completed
 ---
 
-# Reto 08: Data Backup for Developer - xFusionCorp Industries
+# Reto 09: Data Backup for Developer - xFusionCorp Industries
 
 ## Automatización de Backups: El Seguro de Vida de los Datos
 

@@ -1,5 +1,5 @@
 ---
-title: "Reto 14: Default GUI Boot Configuration - xFusionCorp Industries"
+title: "Reto 15: Default GUI Boot Configuration - xFusionCorp Industries"
 category: linux
 difficulty: easy
 tags:
@@ -12,7 +12,7 @@ date: 2025-01-25
 status: blocked
 ---
 
-# Reto 14: Default GUI Boot Configuration - xFusionCorp Industries
+# Reto 15: Default GUI Boot Configuration - xFusionCorp Industries
 
 ## Configuración del Target de Boot: Entornos Desktop vs Server
 
