@@ -600,6 +600,83 @@ const skillColors: string[] = [
     color: #22c55e;
     border-color: rgba(34, 197, 94, 0.5);
   }
+
+  .badge {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+  }
+
+  .badge-unlocked {
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.2) 0%, rgba(16, 185, 129, 0.2) 100%);
+    border: 1px solid rgba(34, 197, 94, 0.4);
+    color: #22c55e;
+  }
+
+  .badge-locked {
+    background: rgba(71, 85, 105, 0.2);
+    border: 1px solid rgba(71, 85, 105, 0.3);
+    color: #64748b;
+    opacity: 0.6;
+  }
+
+  .category-filter-btn {
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    background: rgba(30, 41, 59, 0.8);
+    color: #94a3b8;
+    border: 1px solid rgba(71, 85, 105, 0.3);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .category-filter-btn:hover {
+    background: rgba(51, 65, 85, 0.8);
+    color: #e2e8f0;
+  }
+
+  .category-filter-btn.active {
+    background: rgba(34, 197, 94, 0.2);
+    color: #22c55e;
+    border-color: rgba(34, 197, 94, 0.5);
+  }
+
+  .difficulty-filter-btn {
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    background: rgba(30, 41, 59, 0.8);
+    color: #94a3b8;
+    border: 1px solid rgba(71, 85, 105, 0.3);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .difficulty-filter-btn:hover {
+    background: rgba(51, 65, 85, 0.8);
+    color: #e2e8f0;
+  }
+
+  .difficulty-filter-btn.active {
+    background: rgba(34, 197, 94, 0.2);
+    color: #22c55e;
+    border-color: rgba(34, 197, 94, 0.5);
+  }
+
+  .category-progress-card {
+    background: rgba(30, 41, 59, 0.8);
+    border: 1px solid rgba(71, 85, 105, 0.3);
+    border-radius: 0.75rem;
+    padding: 1rem;
+  }
 </style>
 
 <script>

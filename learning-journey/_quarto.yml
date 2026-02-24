@@ -34,6 +34,8 @@ website:
         href: https://github.com/statick88/challenges
         icon: github
 
+lang: es
+
 format:
   html:
     theme: solar

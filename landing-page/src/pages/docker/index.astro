@@ -153,8 +153,8 @@ const skillColors = [
     
     <!-- Quick Actions -->
     <div class="mb-8 flex gap-4 flex-wrap">
-      <button class="action-btn" onclick="document.getElementById('architecture-view').scrollIntoView({behavior: 'smooth'})">
-        🏗️ Ver Arquitectura de Contenedores
+      <button class="action-btn" onclick="document.getElementById('docker-stats').scrollIntoView({behavior: 'smooth'})">
+        📊 Ver Estadísticas Docker
       </button>
       <button class="action-btn" onclick="document.getElementById('production-readiness').scrollIntoView({behavior: 'smooth'})">
         🚀 Checklist de Producción
@@ -165,7 +165,7 @@ const skillColors = [
     </div>
     
     <!-- Docker Quick Stats -->
-    <div class="mb-8">
+    <div class="mb-8" id="docker-stats">
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
         <div class="bg-slate-800/50 rounded-lg p-4 text-center">
           <div class="text-3xl mb-2">🐳</div>
