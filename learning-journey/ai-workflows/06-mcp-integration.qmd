@@ -7,9 +7,9 @@ bibliography: references.bib
 
 # 🎓 MCP Servers: Potenciando SDD
 
-👨‍🏫 **Del Instructor**: Model Context Protocol (MCP) es el estándar que permite a los asistentes de IA conectarse a herramientas externas. Vamos a integrar servidores MCP que potencian SDD.
+👨‍🏫 **Del Investigador**: Como investigador en desarrollo de software incursionando en ciberseguridad, he encontrado que Model Context Protocol (MCP) representa un estándar crítico para la extensibilidad de agentes IA. La literatura indica que MCP permite integraciones que potencian significativamente las capacidades de SDD.
 
-> 💭 **Mentalidad de Integrador**: "Un agente de IA aislado es limitado. Con MCP, se conecta al ecosistema completo de herramientas."
+> 💭 **Mentalidad de Investigador**: "La evidencia sugiere que un agente de IA aislado tiene capacidades limitadas. Con MCP, se conecta al ecosistema completo de herramientas, multiplicando su efectividad."
 
 ---
 
@@ -417,13 +417,14 @@ touch ~/.engram/memory.db
 
 ---
 
-## 🎓 Lo Que Aprendiste
+## 🎓 Síntesis de la Investigación
 
-1. **MCP** conecta IA con herramientas externas [@anthropic2025mcp]
-2. **spec-coding-mcp** estructura especificaciones
+1. **MCP** conecta IA con herramientas externas según Anthropic [@anthropic2025mcp]
+2. **spec-coding-mcp** estructura especificaciones de manera sistemática
 3. **Engram** persiste memoria entre sesiones [@engram2025memory]
 4. **Context7** mantiene documentación actualizada [@context7docs]
-5. **Servidores custom** extienden capacidades
+5. **Servidores custom** extienden capacidades del agente
+6. **Metodología SDD** integrada con MCP [@saavedra2026sdd]
 
 ---
 
@@ -437,6 +438,12 @@ touch ~/.engram/memory.db
 ## 🚀 Siguiente Paso
 
 Continúa con [Módulo 7: Patrones Avanzados](07-advanced-patterns.qmd) para aplicar SDD en escenarios complejos.
+
+---
+
+## 📚 Referencias Adicionales
+
+Para una discusión más amplia sobre metodologías SDD y su implementación práctica, consultar Saavedra (2026) [@saavedra2026sdd].
 
 ---
 

@@ -7,9 +7,9 @@ bibliography: references.bib
 
 # 🎓 Herramientas SDD: Kiro, Spec Kit, Tessl
 
-👨‍🏫 **Del Instructor**: Tres herramientas lideran el movimiento SDD, cada una con filosofía diferente. Entender sus diferencias te ayudará a elegir la adecuada para tu contexto.
+👨‍🏫 **Del Investigador**: Como investigador en desarrollo de software, he analizado las principales herramientas SDD disponibles. Según la literatura, tres plataformas lideran este movimiento, cada una con filosofías distintas que merecen análisis comparativo.
 
-> 💭 **Mentalidad de Arquitecto**: "No hay herramienta perfecta. Hay herramienta correcta para el contexto correcto. Conoce tus opciones."
+> 💭 **Mentalidad de Investigador**: "La evidencia empírica sugiere que no existe una herramienta perfecta, sino la herramienta correcta para el contexto correcto. Un investigador debe conocer todas sus opciones."
 
 ---
 
@@ -579,13 +579,13 @@ project/
 
 ---
 
-## 🎓 Lo Que Aprendiste
+## 🎓 Síntesis de la Investigación
 
-1. **Kiro** es intuitivo pero puede ser overkill
-2. **Spec Kit** es poderoso pero verboso
-3. **Tessl** es experimental pero visionario
-4. **Cada herramienta** tiene su sweet spot
-5. **Híbrido** combina lo mejor de cada una
+1. **Kiro** es intuitivo pero puede ser overkill según [@brooker2025kiro]
+2. **Spec Kit** es poderoso pero verboso según [@delimarsky2025speckit]
+3. **Tessl** es experimental pero visionario en su enfoque
+4. **Cada herramienta** tiene su sweet spot según [@bockeler2025sdd]
+5. **Híbrido** combina lo mejor de cada metodología
 
 ---
 

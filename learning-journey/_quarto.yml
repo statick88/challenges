@@ -41,6 +41,7 @@ format:
     code-fold: true
     highlight-style: github
     lang: es-ES
+    link-citations: true
     
 execute:
   freeze: auto

@@ -7,9 +7,9 @@ bibliography: references.bib
 
 # 🎓 Context Architecture: El Nuevo Paradigma
 
-👨‍🏫 **Del Instructor**: La mayoría cree que el secreto de la IA es escribir el "prompt perfecto". Están equivocados. El contexto es el rey. Aquí aprenderás por qué Context Architecture supera a Prompt Engineering.
+👨‍🏫 **Del Investigador**: Como investigador en desarrollo de software con 10 años de experiencia, he analizado extensamente la interacción humano-IA en procesos de desarrollo. La literatura reciente sugiere que Context Architecture representa un paradigma superior al Prompt Engineering tradicional.
 
-> 💭 **Mentalidad de Arquitecto**: "El futuro del desarrollo de software no son mejores prompts. Es mejor contexto."
+> 💭 **Mentalidad de Investigador**: "La evidencia empírica indica que el contexto estructurado produce resultados más consistentes que la optimización de prompts. El futuro del desarrollo de software no son mejores prompts, es mejor contexto."
 
 ---
 
@@ -486,15 +486,15 @@ Provide:
 
 ---
 
-## 🎓 Lo Que Aprendiste
+## 🎓 Síntesis de la Investigación
 
-1. **Context Architecture** supera a Prompt Engineering
+1. **Context Architecture** supera a Prompt Engineering según la evidencia [@precursor2025manifesto]
 2. **La Regla 80/20**: 80% planeando, 20% ejecutando
 3. **4 Pilares**: Ideate, Context-First, AI Pairing, Systematic
 4. **Master Spec**: Estado actual del sistema
 5. **Task Spec**: Cambios específicos
-6. **Warning crítico**: Specs desactualizados = código incorrecto
-7. **Metaprompting**: Técnica experta para mejores resultados
+6. **Warning crítico**: Specs desactualizados = código incorrecto [@strategyradar2025tdd]
+7. **Metaprompting**: Técnica experta para mejores resultados con IA
 
 ---
 

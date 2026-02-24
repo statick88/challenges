@@ -7,9 +7,9 @@ bibliography: references.bib
 
 # 🎓 Spec-Driven Development: La Metodología
 
-👨‍🏫 **Del Instructor**: Antes de escribir una sola línea de código con IA, necesitas entender POR QUÉ escribimos especificaciones primero. Esto no es burocracia, es ingeniería.
+👨‍🏫 **Del Investigador**: Como investigador en desarrollo de software, he analizado múltiples metodologías de desarrollo. La evidencia empírica sugiere que SDD no es burocracia, sino ingeniería sistemática aplicada a la generación de código con IA.
 
-> 💭 **Mentalidad de Arquitecto**: "El código es la última respuesta, no la primera pregunta. Primero define QUÉ, luego CÓMO."
+> 💭 **Mentalidad de Investigador**: "Según los principios de ingeniería de software establecidos, la especificación precede a la implementación. La literatura académica respalda este enfoque."
 
 ---
 
@@ -387,13 +387,13 @@ Dev: [verifica, archiva]
 
 ---
 
-## 🎓 Lo Que Aprendiste
+## 🎓 Síntesis de la Investigación
 
-1. **SDD** es una metodología donde specs son first-class
-2. **8 fases** estructuran el trabajo con IA
-3. **Cada fase** produce artefactos específicos
-4. **Trazabilidad** automática en cada cambio
-5. **IA guiada** reduce alucinaciones y aumenta calidad
+1. **SDD** es una metodología donde las especificaciones son artefactos de primera clase
+2. **8 fases** estructuran el trabajo con IA de manera sistemática
+3. **Cada fase** produce artefactos específicos documentados
+4. **Trazabilidad** automática en cada cambio del sistema
+5. **IA guiada** reduce alucinaciones y aumenta calidad según estudios [@bockeler2025sdd]
 
 ---
 

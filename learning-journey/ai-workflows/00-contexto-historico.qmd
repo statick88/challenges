@@ -7,9 +7,9 @@ bibliography: references.bib
 
 # 🎓 De Assembly a Vibe Coding: 60 Años de Abstracción
 
-👨‍🏫 **Del Instructor**: Antes de entender Spec-Driven Development, necesitas comprender de dónde venimos. En 60 años, la programación ha evolucionado desde instrucciones de máquina hasta descripciones en lenguaje natural. SDD es el siguiente paso lógico.
+👨‍🏫 **Del Investigador**: Como investigador en desarrollo de software con 10 años de experiencia, he observado cómo la programación ha evolucionado durante seis décadas. Desde mi perspectiva académica, SDD representa la siguiente abstracción lógica en la evolución del software.
 
-> 💭 **Mentalidad de Historiador**: "Quien no conoce su historia está condenado a repetirla. Vibe coding sin entender SDD es como programar en assembly cuando existe Python."
+> 💭 **Mentalidad de Investigador**: "Según la literatura histórica, cada paradigma de programación emerge de las limitaciones del anterior. La evidencia sugiere que SDD es la respuesta natural al caos del vibe coding."
 
 ---
 
@@ -128,7 +128,7 @@ Vibe Coding = Aceptar código generado sin entenderlo completamente
 | Generas código, lo pruebas, lo modificas | ❌ NO |
 
 > "If an LLM wrote every line of your code, but you reviewed it, tested it, and understood it all, that's NOT vibe coding — that's using an LLM as a writing assistant."
-> — Simon Willison
+> — Simon Willison [@willison2025vibe]
 
 ### Estadísticas Impactantes
 
@@ -317,14 +317,14 @@ Falta una "visión completa" de QUÉ se está construyendo
 
 ---
 
-## 🎓 Lo Que Aprendiste
+## 🎓 Síntesis de la Investigación
 
-1. **60 años de abstracción** nos han llevado de assembly a specs
+1. **60 años de abstracción** han llevado a la programación de assembly a specs
 2. **SQL demostró** que la programación declarativa funciona en dominios específicos
-3. **MDD y 4GL** fallaron por falta de flexibilidad
-4. **Vibe Coding** es rápido pero riesgoso para producción
-5. **SDD** es la evolución natural: especificaciones como "North Star"
-6. **No es binario**: Hay un espectro de opciones según el contexto
+3. **MDD y 4GL** fallaron por falta de flexibilidad según la literatura
+4. **Vibe Coding** presenta velocidad pero riesgo para producción [@karpathy2025vibe]
+5. **SDD** es la evolución natural: especificaciones como "North Star" [@brooker2025kiro]
+6. **No es binario**: La evidencia muestra un espectro de opciones según el contexto
 
 ---
 

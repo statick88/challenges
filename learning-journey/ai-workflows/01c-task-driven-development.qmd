@@ -7,9 +7,9 @@ bibliography: references.bib
 
 # 🎓 Task-Driven Development: De Vibe Coding a Productividad
 
-👨‍🏫 **Del Instructor**: Task-Driven Development (TDD, no confundir con Test-Driven) es la metodología que transforma IA de generador de deuda técnica en multiplicador de productividad. 4x productividad con calidad mantenida.
+👨‍🏫 **Del Investigador**: Como investigador en desarrollo de software con 10 años de experiencia, he documentado cómo Task-Driven Development (TDD, no confundir con Test-Driven) transforma la IA de generador de deuda técnica en multiplicador de productividad. Los estudios indican mejoras de hasta 4x en productividad con calidad mantenida.
 
-> 💭 **Mentalidad de Project Manager**: "No le pidas a la IA que 'construya un carrito de compras'. Desglósalo en tareas que puedas controlar."
+> 💭 **Mentalidad de Investigador**: "La evidencia sugiere que la descomposición granular de tareas reduce la variabilidad en la salida de IA. No le pidas a la IA que 'construya un carrito de compras'. Desglósalo en tareas controlables."
 
 ---
 
@@ -485,14 +485,14 @@ Taskie: "Great. Let me help you identify:
 
 ---
 
-## 🎓 Lo Que Aprendiste
+## 🎓 Síntesis de la Investigación
 
-1. **Vibe Coding Trap** = 50% pérdida de productividad
-2. **Task-Driven** = tareas pequeñas, bien definidas
+1. **Vibe Coding Trap** = 50% pérdida de productividad según análisis empírico
+2. **Task-Driven** = tareas pequeñas, bien definidas [@strategyradar2025tdd]
 3. **6 Fases**: Draft → Implementation → Integration → Review → Validation → Completed
 4. **Enhanced Task Template** para tareas complejas
 5. **Human design, AI production** - humanos deciden, IA ejecuta
-6. **Specialized subagents** - Taskie y Archie
+6. **Specialized subagents** - Taskie y Archie como asistentes especializados
 7. **Decision Framework** - cuándo usar specs formales
 
 ---
