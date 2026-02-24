@@ -226,3 +226,4 @@ Dirígete al [Módulo 0: Contexto Histórico](00-contexto-historico.qmd) para co
 ---
 
 *Curso v3.0 | Actualizado: 2026-02-24 | © Diego Saavedra*
+<!-- v3.2.1 -->
