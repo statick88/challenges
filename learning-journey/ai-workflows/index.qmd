@@ -1,6 +1,7 @@
 ---
 title: "Spec-Driven Development con Asistentes de IA"
 subtitle: "Metodología estructurada para desarrollo asistido por IA en CLI"
+author: "Diego Saavedra"
 date: "2026-02-24"
 ---
 
@@ -199,23 +200,33 @@ Dirígete al [Módulo 0: Contexto Histórico](00-contexto-historico.qmd) para co
 
 ---
 
-## 📚 Fuentes y Referencias
+## 📚 Referencias
 
-### Primarias
+[1] A. Karpathy, "Vibe Coding," X/Twitter, Feb. 2025. [Online]. Available: https://x.com/karpathy
 
-- Karpathy, A. (2025). "Vibe Coding" - X/Twitter
-- Böckeler, B. (2025). "Understanding Spec-Driven Development" - Martin Fowler
-- Brooker, M. (2025). "Kiro and the Future" - AWS
-- Delimarsky, D. (2025). "Spec Kit" - Microsoft
-- Precursor Manifesto (2025). "Context Architecture"
-- StrategyRadar.ai (2025). "Task-Driven Development with AI"
+[2] B. Böckeler, "Understanding Spec-Driven Development," Martin Fowler's Blog, 2025. [Online]. Available: https://martinfowler.com
 
-### Estadísticas
+[3] M. Brooker, "Kiro and the Future of Development," AWS Blog, 2025. [Online]. Available: https://aws.amazon.com/blogs
 
-- Y Combinator Winter 2025: 25% startups con 95% código IA
-- ArXiv studies on LLM code quality
-- GitHub research on AI-assisted development
+[4] D. Delimarsky, "GitHub Spec Kit: Constitution and Memory Bank," Microsoft GitHub, 2025. [Online]. Available: https://github.com/github/spec-kit
+
+[5] Precursor, "The Precursor Manifesto: Context Architecture," 2025. [Online]. Available: https://precursor.dev
+
+[6] StrategyRadar.ai, "Task-Driven Development with AI: The Complete Guide," 2025. [Online]. Available: https://strategyradar.ai
+
+[7] D. Saavedra, "Spec-Driven Development con Asistentes de IA: Metodología estructurada para desarrollo asistido por IA en CLI," DevOps & Security Learning Journey, Feb. 2026. [Online]. Available: https://statick88.github.io
 
 ---
 
-*Curso v3.0 | Actualizado: 2026-02-24 | Autor: Gentleman Programming*
+## 👨‍🏫 Sobre el Autor
+
+**Diego Saavedra** es Software Developer FullStack, Móvil e IA con más de 10 años de experiencia. Docente universitario en ESPE, UIDE, IST Juan Montalvo, Abacom y Codings Academy. Explorador del ecosistema de seguridad informática desde una perspectiva de desarrollo seguro.
+
+- 📧 dsaavedra88@gmail.com
+- 🔗 [LinkedIn](https://www.linkedin.com/in/diego-saavedra-developer/)
+- 🐙 [GitHub](https://github.com/statick88)
+- 🌐 [Portfolio](https://statick88.github.io)
+
+---
+
+*Curso v3.0 | Actualizado: 2026-02-24 | © Diego Saavedra*

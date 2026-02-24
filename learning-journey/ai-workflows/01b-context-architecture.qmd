@@ -1,5 +1,6 @@
 ---
 title: "Context Architecture vs Prompt Engineering"
+author: "Diego Saavedra"
 date: "2026-02-24"
 ---
 
@@ -503,3 +504,5 @@ Continúa con [Módulo 1C: Task-Driven Development](01c-task-driven-development.
 ---
 
 *Módulo 1B | Duración: 45 min | Dificultad: 🟡 Intermedio*
+
+*Módulo 01b | © Diego Saavedra*

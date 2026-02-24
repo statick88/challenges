@@ -1,5 +1,6 @@
 ---
 title: "Implementando SDD en Kilocode CLI"
+author: "Diego Saavedra"
 date: "2026-02-24"
 ---
 
@@ -459,3 +460,5 @@ Continúa con [Módulo 4: SDD en Opencode](04-sdd-opencode.qmd) para comparar co
 ---
 
 *Módulo 2.0 | Duración: 45 min | Dificultad: 🟡 Intermedio*
+
+*Módulo 03 | © Diego Saavedra*

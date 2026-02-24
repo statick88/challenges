@@ -1,5 +1,6 @@
 ---
 title: "Introducción a Spec-Driven Development"
+author: "Diego Saavedra"
 date: "2026-02-24"
 ---
 
@@ -607,3 +608,5 @@ Spec: Define comportamiento antes
 ## 🚀 Siguiente Paso
 
 Continúa con [Módulo 1B: Context Architecture](01b-context-architecture.qmd) para profundizar en la arquitectura de contexto.
+
+*Módulo 01 | © Diego Saavedra*

@@ -1,5 +1,6 @@
 ---
 title: "Contexto Histórico: De Assembly a Vibe Coding"
+author: "Diego Saavedra"
 date: "2026-02-24"
 ---
 
@@ -343,3 +344,5 @@ Continúa con [Módulo 1: Introducción a SDD](01-intro-sdd.qmd) para entender l
 ---
 
 *Módulo 0.1 | Duración: 45 min | Dificultad: 🟢 Básico*
+
+*Módulo 00 | © Diego Saavedra*

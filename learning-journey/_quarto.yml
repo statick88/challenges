@@ -34,14 +34,13 @@ website:
         href: https://github.com/statick88/challenges
         icon: github
 
-lang: es
-
 format:
   html:
     theme: solar
     toc: true
     code-fold: true
     highlight-style: github
+    lang: es-ES
     
 execute:
   freeze: auto

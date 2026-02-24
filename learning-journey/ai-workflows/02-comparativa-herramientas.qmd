@@ -1,5 +1,6 @@
 ---
 title: "Comparativa de Herramientas SDD"
+author: "Diego Saavedra"
 date: "2026-02-24"
 ---
 
@@ -604,3 +605,5 @@ Continúa con [Módulo 3: SDD en Kilocode CLI](03-sdd-kilocode.qmd) para impleme
 ---
 
 *Módulo 2.0 | Duración: 45 min | Dificultad: 🟡 Intermedio*
+
+*Módulo 02 | © Diego Saavedra*

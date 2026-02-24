@@ -1,5 +1,6 @@
 ---
 title: "Práctica Guiada: Health Endpoint con Kilocode CLI"
+author: "Diego Saavedra"
 date: "2026-02-24"
 ---
 
@@ -621,3 +622,5 @@ Continúa con [Módulo 6: Integración MCP](06-mcp-integration.qmd) para potenci
 ---
 
 *Módulo 4.0 | Duración: 60 min | Dificultad: 🟡 Intermedio*
+
+*Módulo 05 | © Diego Saavedra*

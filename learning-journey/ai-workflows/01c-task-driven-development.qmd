@@ -1,5 +1,6 @@
 ---
 title: "Task-Driven Development: La Metodología"
+author: "Diego Saavedra"
 date: "2026-02-24"
 ---
 
@@ -502,3 +503,5 @@ Continúa con [Módulo 2: Comparativa de Herramientas](02-comparativa-herramient
 ---
 
 *Módulo 1C | Duración: 45 min | Dificultad: 🟡 Intermedio*
+
+*Módulo 01c | © Diego Saavedra*

@@ -1,5 +1,6 @@
 ---
 title: "Implementando SDD en Opencode"
+author: "Diego Saavedra"
 date: "2026-02-24"
 ---
 
@@ -362,3 +363,5 @@ Continúa con [Módulo 5: Práctica Guiada](05-practica-sdd.qmd) para aplicar SD
 ---
 
 *Módulo 3.0 | Duración: 30 min | Dificultad: 🟡 Intermedio*
+
+*Módulo 04 | © Diego Saavedra*

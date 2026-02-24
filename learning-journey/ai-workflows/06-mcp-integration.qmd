@@ -1,5 +1,6 @@
 ---
 title: "Integración con MCP Servers"
+author: "Diego Saavedra"
 date: "2026-02-24"
 ---
 
@@ -402,3 +403,5 @@ Continúa con [Módulo 7: Patrones Avanzados](07-advanced-patterns.qmd) para apl
 ---
 
 *Módulo 5.0 | Duración: 45 min | Dificultad: 🔴 Avanzado*
+
+*Módulo 06 | © Diego Saavedra*

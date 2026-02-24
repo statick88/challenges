@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="../es" xml:lang="../es"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es-ES" xml:lang="es-ES"><head>
 
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.8.26">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2026-02-24">
+<meta name="author" content="Diego Saavedra">
 
 <title>Spec-Driven Development con Asistentes de IA – DevOps &amp; Security Learning Journey</title>
 <style>
@@ -56,17 +56,17 @@ ul.task-list li input[type="checkbox"] {
   ],
   "show-item-context": false,
   "language": {
-    "search-no-results-text": "No results",
-    "search-matching-documents-text": "matching documents",
-    "search-copy-link-title": "Copy link to search",
-    "search-hide-matches-text": "Hide additional matches",
-    "search-more-match-text": "more match in this document",
-    "search-more-matches-text": "more matches in this document",
-    "search-clear-button-title": "Clear",
+    "search-no-results-text": "No se han encontrado resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
     "search-text-placeholder": "",
-    "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit",
-    "search-label": "Search"
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
   }
 }</script>
 
@@ -84,8 +84,8 @@ ul.task-list li input[type="checkbox"] {
     <span class="navbar-title">DevOps &amp; Security Learning Journey</span>
     </a>
   </div>
-            <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+            <div id="quarto-search" class="" title="Buscar"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Navegación de palanca" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -153,7 +153,7 @@ ul.task-list li input[type="checkbox"] {
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
+    <h2 id="toc-title">En esta página</h2>
    
   <ul>
   <li><a href="#bienvenido-al-curso-de-sdd-con-ia" id="toc-bienvenido-al-curso-de-sdd-con-ia" class="nav-link active" data-scroll-target="#bienvenido-al-curso-de-sdd-con-ia">🎓 Bienvenido al Curso de SDD con IA</a>
@@ -181,11 +181,8 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#stack-tecnológico-del-curso" id="toc-stack-tecnológico-del-curso" class="nav-link" data-scroll-target="#stack-tecnológico-del-curso">🛠️ Stack Tecnológico del Curso</a></li>
   <li><a href="#escenario-real" id="toc-escenario-real" class="nav-link" data-scroll-target="#escenario-real">🎭 Escenario Real</a></li>
   <li><a href="#comenzando" id="toc-comenzando" class="nav-link" data-scroll-target="#comenzando">🚀 Comenzando</a></li>
-  <li><a href="#fuentes-y-referencias" id="toc-fuentes-y-referencias" class="nav-link" data-scroll-target="#fuentes-y-referencias">📚 Fuentes y Referencias</a>
-  <ul class="collapse">
-  <li><a href="#primarias" id="toc-primarias" class="nav-link" data-scroll-target="#primarias">Primarias</a></li>
-  <li><a href="#estadísticas" id="toc-estadísticas" class="nav-link" data-scroll-target="#estadísticas">Estadísticas</a></li>
-  </ul></li>
+  <li><a href="#referencias" id="toc-referencias" class="nav-link" data-scroll-target="#referencias">📚 Referencias</a></li>
+  <li><a href="#sobre-el-autor" id="toc-sobre-el-autor" class="nav-link" data-scroll-target="#sobre-el-autor">👨‍🏫 Sobre el Autor</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -203,11 +200,17 @@ ul.task-list li input[type="checkbox"] {
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Autor/a</div>
+    <div class="quarto-title-meta-contents">
+             <p>Diego Saavedra </p>
+          </div>
+  </div>
     
     <div>
-    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-heading">Fecha de publicación</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">February 24, 2026</p>
+      <p class="date">24 de febrero de 2026</p>
     </div>
   </div>
   
@@ -507,31 +510,30 @@ ul.task-list li input[type="checkbox"] {
 <p>Dirígete al <a href="../ai-workflows/00-contexto-historico.html">Módulo 0: Contexto Histórico</a> para comenzar tu journey desde los orígenes hasta el estado del arte.</p>
 <hr>
 </section>
-<section id="fuentes-y-referencias" class="level2">
-<h2 class="anchored" data-anchor-id="fuentes-y-referencias">📚 Fuentes y Referencias</h2>
-<section id="primarias" class="level3">
-<h3 class="anchored" data-anchor-id="primarias">Primarias</h3>
-<ul>
-<li>Karpathy, A. (2025). “Vibe Coding” - X/Twitter</li>
-<li>Böckeler, B. (2025). “Understanding Spec-Driven Development” - Martin Fowler</li>
-<li>Brooker, M. (2025). “Kiro and the Future” - AWS</li>
-<li>Delimarsky, D. (2025). “Spec Kit” - Microsoft</li>
-<li>Precursor Manifesto (2025). “Context Architecture”</li>
-<li>StrategyRadar.ai (2025). “Task-Driven Development with AI”</li>
-</ul>
+<section id="referencias" class="level2">
+<h2 class="anchored" data-anchor-id="referencias">📚 Referencias</h2>
+<p>[1] A. Karpathy, “Vibe Coding,” X/Twitter, Feb.&nbsp;2025. [Online]. Available: https://x.com/karpathy</p>
+<p>[2] B. Böckeler, “Understanding Spec-Driven Development,” Martin Fowler’s Blog, 2025. [Online]. Available: https://martinfowler.com</p>
+<p>[3] M. Brooker, “Kiro and the Future of Development,” AWS Blog, 2025. [Online]. Available: https://aws.amazon.com/blogs</p>
+<p>[4] D. Delimarsky, “GitHub Spec Kit: Constitution and Memory Bank,” Microsoft GitHub, 2025. [Online]. Available: https://github.com/github/spec-kit</p>
+<p>[5] Precursor, “The Precursor Manifesto: Context Architecture,” 2025. [Online]. Available: https://precursor.dev</p>
+<p>[6] StrategyRadar.ai, “Task-Driven Development with AI: The Complete Guide,” 2025. [Online]. Available: https://strategyradar.ai</p>
+<p>[7] D. Saavedra, “Spec-Driven Development con Asistentes de IA: Metodología estructurada para desarrollo asistido por IA en CLI,” DevOps &amp; Security Learning Journey, Feb.&nbsp;2026. [Online]. Available: https://statick88.github.io</p>
+<hr>
 </section>
-<section id="estadísticas" class="level3">
-<h3 class="anchored" data-anchor-id="estadísticas">Estadísticas</h3>
+<section id="sobre-el-autor" class="level2">
+<h2 class="anchored" data-anchor-id="sobre-el-autor">👨‍🏫 Sobre el Autor</h2>
+<p><strong>Diego Saavedra</strong> es Software Developer FullStack, Móvil e IA con más de 10 años de experiencia. Docente universitario en ESPE, UIDE, IST Juan Montalvo, Abacom y Codings Academy. Explorador del ecosistema de seguridad informática desde una perspectiva de desarrollo seguro.</p>
 <ul>
-<li>Y Combinator Winter 2025: 25% startups con 95% código IA</li>
-<li>ArXiv studies on LLM code quality</li>
-<li>GitHub research on AI-assisted development</li>
+<li>📧 dsaavedra88@gmail.com</li>
+<li>🔗 <a href="https://www.linkedin.com/in/diego-saavedra-developer/">LinkedIn</a></li>
+<li>🐙 <a href="https://github.com/statick88">GitHub</a></li>
+<li>🌐 <a href="https://statick88.github.io">Portfolio</a></li>
 </ul>
 <hr>
-<p><em>Curso v3.0 | Actualizado: 2026-02-24 | Autor: Gentleman Programming</em></p>
+<p><em>Curso v3.0 | Actualizado: 2026-02-24 | © Diego Saavedra</em></p>
 
 
-</section>
 </section>
 </section>
 
@@ -561,12 +563,12 @@ ul.task-list li input[type="checkbox"] {
       // flash "checked"
       button.classList.add('code-copy-button-checked');
       var currentTitle = button.getAttribute("title");
-      button.setAttribute("title", "Copied!");
+      button.setAttribute("title", "Copiado");
       let tooltip;
       if (window.bootstrap) {
         button.setAttribute("data-bs-toggle", "tooltip");
         button.setAttribute("data-bs-placement", "left");
-        button.setAttribute("data-bs-title", "Copied!");
+        button.setAttribute("data-bs-title", "Copiado");
         tooltip = new bootstrap.Tooltip(button, 
           { trigger: "manual", 
             customClass: "code-copy-button-tooltip",

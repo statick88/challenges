@@ -1,5 +1,6 @@
 ---
 title: "Patrones Avanzados de SDD"
+author: "Diego Saavedra"
 date: "2026-02-24"
 ---
 
@@ -883,3 +884,5 @@ Tessl Registry (en desarrollo)
 *Módulo 7.0 | Duración: 60 min | Dificultad: 🔴 Avanzado*
 
 *Total del Curso: ~7 horas*
+
+*Módulo 07 | © Diego Saavedra*
