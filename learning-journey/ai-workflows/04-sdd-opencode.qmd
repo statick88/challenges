@@ -19,7 +19,7 @@ bibliography: references.bib
 
 | Aspecto | Kilocode | Opencode |
 |---------|----------|----------|
-| Interfaz | VS Code Extension | CLI |
+| Interfaz | CLI | CLI |
 | Skills | `~/.kilocode/skills/` | `~/.opencode/skills/` |
 | MCP Config | `~/.kilocode/mcp.json` | `~/.config/opencode/opencode.json` |
 | Comandos | Archivos `.md` | Integrados en skills |
@@ -244,10 +244,9 @@ git checkout -b sdd/001-add-health-endpoint
 
 ### Cuándo Usar Kilocode
 
-- ✅ Trabajo en VS Code
-- ✅ Prefieres UI visual
-- ✅ Navegación de archivos integrada
-- ✅ Debugging paso a paso
+- ✅ Integración con Neovim
+- ✅ Preferencia por Kilocode ecosystem
+- ✅ Skills personalizados
 
 ### Cuándo Usar Opencode
 
@@ -259,7 +258,7 @@ git checkout -b sdd/001-add-health-endpoint
 ### Flujo Híbrido
 
 ```bash
-# Día 1: Inicio en VS Code con Kilocode
+# Día 1: Inicio con Kilocode
 # /sdd:init
 # /sdd:new feature-x
 # /sdd:spec
@@ -268,7 +267,7 @@ git checkout -b sdd/001-add-health-endpoint
 cd ~/projects/my-api
 opencode "Continue SDD workflow for feature-x"
 
-# Día 3: Vuelve a VS Code
+# Día 3: Vuelve a Kilocode
 # /sdd:verify
 # /sdd:archive
 ```

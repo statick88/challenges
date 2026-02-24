@@ -38,7 +38,7 @@ AI: [regenera código, inconsistente con lo anterior]
 | Sin versionado | El contexto "desaparece" en chat history |
 
 > **We're building the most important part of our development process on the most ephemeral medium possible.**
-> — Precursor Manifesto
+> — Precursor Manifesto [@precursor2025manifesto]
 
 ---
 
@@ -230,7 +230,7 @@ Task Spec ───────┘
 
 ## 📊 Estructura de Context Documents
 
-### Tipos de Contexto (StrategyRadar)
+### Tipos de Contexto (StrategyRadar) [@strategyradar2025tdd]
 
 | Tipo | Propósito | Ejemplo |
 |------|-----------|---------|

@@ -25,7 +25,7 @@ bibliography: references.bib
 
 ## 🔧 Kiro (AWS)
 
-### Filosofía
+### Filosofía [@brooker2025kiro]
 
 Kiro nace de la experiencia de Amazon con **"Working Backwards"**:
 
@@ -128,14 +128,14 @@ Response: { status: string, timestamp: ISO8601 }
 | Ventajas | Desventajas |
 |----------|-------------|
 | ✅ Workflow intuitivo | ❌ Overkill para bugs pequeños |
-| ✅ Integración VS Code | ❌ Solo spec-first (no spec-as-source) |
+| ✅ Integración con IDE | ❌ Solo spec-first (no spec-as-source) |
 | ✅ UI de progreso de tareas | ❌ Genera specs muy verbosas |
 | ✅ Basado en prácticas AWS | ❌ Sin soporte para proyectos legacy |
 
 ### Cuándo Usar Kiro
 
 - ✅ Features nuevos de tamaño medio/grande
-- ✅ Equipos que usan VS Code
+- ✅ Equipos con IDE moderno
 - ✅ Proyectos greenfield
 - ❌ Bug fixes simples
 - ❌ Proyectos legacy con specs retrospectivos
@@ -144,7 +144,7 @@ Response: { status: string, timestamp: ISO8601 }
 
 ## 🐙 GitHub Spec Kit
 
-### Filosofía
+### Filosofía [@delimarsky2025speckit]
 
 Spec Kit es **agent-agnostic**: funciona con cualquier asistente de IA.
 
@@ -451,7 +451,7 @@ tessl sync
 
 ## 📊 Comparativa Detallada
 
-### Nivel de Abstracción
+### Nivel de Abstracción [@bockeler2025sdd]
 
 ```
 Spec Kit ────────▶ Spec-first (specs desaparecen después)
@@ -520,7 +520,7 @@ Fácil ────────────────────────�
 │ Equipo pequeño     │ Spec Kit (estándares claros)     │
 │ Equipo grande      │ Spec Kit + constitution estricta │
 │ Múltiples AI tools │ Spec Kit (agent-agnostic)        │
-│ Solo VS Code       │ Kiro (mejor integración)         │
+│ Solo CLI           │ Kiro o Spec Kit                  │
 └────────────────────┴──────────────────────────────────┘
 ```
 

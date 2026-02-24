@@ -56,7 +56,27 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -384,7 +404,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="qué-es-vibe-coding">¿Qué es Vibe Coding?</h3>
 <p><strong>Andrej Karpathy</strong> (febrero 2025):</p>
 <blockquote class="blockquote">
-<p>“There’s a new kind of coding I call ‘vibe coding’, where you fully give in to the vibes, embrace exponentials, and forget that the code even exists.”</p>
+<p>“There’s a new kind of coding I call ‘vibe coding’, where you fully give in to the vibes, embrace exponentials, and forget that the code even exists.” <span class="citation" data-cites="karpathy2025vibe">(<a href="#ref-karpathy2025vibe" role="doc-biblioref">Karpathy 2025</a>)</span></p>
 </blockquote>
 <p><strong>Definición operativa:</strong></p>
 <pre class="text"><code>Vibe Coding = Aceptar código generado sin entenderlo completamente</code></pre>
@@ -429,7 +449,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tbody>
 <tr class="odd">
 <td>Startups YC Winter 2025 con 95% código IA</td>
-<td><strong>25%</strong></td>
+<td><strong>25%</strong> <span class="citation" data-cites="yc2025ai">(<a href="#ref-yc2025ai" role="doc-biblioref">Y Combinator 2025</a>)</span></td>
 </tr>
 <tr class="even">
 <td>Tiempo para crear app “LunchBox Buddy”</td>
@@ -706,10 +726,18 @@ Falta una "visión completa" de QUÉ se está construyendo</code></pre>
 <p><em>Módulo 00 | © Diego Saavedra</em></p>
 
 
+
 </section>
 </section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">Referencias</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-karpathy2025vibe" class="csl-entry" role="listitem">
+Karpathy, Andrej. 2025. <span>«Vibe Coding»</span>. febrero de 2025. <a href="https://x.com/karpathy/status/1886192175589794371">https://x.com/karpathy/status/1886192175589794371</a>.
+</div>
+<div id="ref-yc2025ai" class="csl-entry" role="listitem">
+Y Combinator. 2025. <span>«YC Winter 2025 Batch Statistics»</span>. Y Combinator. febrero de 2025. <a href="https://www.ycombinator.com/blog/yc-winter-2025-batch">https://www.ycombinator.com/blog/yc-winter-2025-batch</a>.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";

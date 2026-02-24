@@ -56,7 +56,27 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -711,25 +731,25 @@ IA: [implementa tarea por tarea, verificando]</code></pre>
 <h2 class="anchored" data-anchor-id="escenario-real-sin-sdd-vs-con-sdd">🎭 Escenario Real: Sin SDD vs Con SDD</h2>
 <section id="sin-sdd" class="level3">
 <h3 class="anchored" data-anchor-id="sin-sdd">Sin SDD</h3>
-<pre class="text"><code>Dev: "Claude, agrega login"
-Claude: [genera código]
+<pre class="text"><code>Dev: "Agrega login"
+Agente: [genera código]
 Dev: "No, quería OAuth"
-Claude: [regenera]
+Agente: [regenera]
 Dev: "Pero falta el logout"
-Claude: [agrega más código]
+Agente: [agrega más código]
 Dev: "Ahora hay bugs..."
 [Loop infinito de correcciones]</code></pre>
 </section>
 <section id="con-sdd" class="level3">
 <h3 class="anchored" data-anchor-id="con-sdd">Con SDD</h3>
 <pre class="text"><code>Dev: /sdd:new add-oauth-auth
-Claude: [crea propuesta con opciones OAuth]
+Agente: [crea propuesta con opciones OAuth]
 Dev: [revisa, ajusta scope]
-Claude: [crea specs con escenarios]
+Agente: [crea specs con escenarios]
 Dev: [aprueba specs]
-Claude: [crea diseño con bibliotecas]
+Agente: [crea diseño con bibliotecas]
 Dev: [aprueba diseño]
-Claude: [implementa paso a paso]
+Agente: [implementa paso a paso]
 Dev: [verifica, archiva]
 [Resultado: código correcto primera vez]</code></pre>
 <hr>
@@ -755,7 +775,7 @@ Dev: [verifica, archiva]
 </section>
 <section id="los-3-niveles-de-sdd" class="level2">
 <h2 class="anchored" data-anchor-id="los-3-niveles-de-sdd">📊 Los 3 Niveles de SDD</h2>
-<p>Birgitta Böckeler (Thoughtworks) identificó tres niveles de implementación:</p>
+<p>Birgitta Böckeler (Thoughtworks) identificó tres niveles de implementación <span class="citation" data-cites="bockeler2025sdd">(<a href="#ref-bockeler2025sdd" role="doc-biblioref">Böckeler 2025</a>)</span>:</p>
 <section id="nivel-1-spec-first" class="level3">
 <h3 class="anchored" data-anchor-id="nivel-1-spec-first">Nivel 1: Spec-First</h3>
 <pre><code>Spec → Implementación → Spec descartada</code></pre>
@@ -947,10 +967,15 @@ Spec: Define comportamiento antes
 <p><em>Módulo 01 | © Diego Saavedra</em></p>
 
 
+
 </section>
 </section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">Referencias</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-bockeler2025sdd" class="csl-entry" role="listitem">
+Böckeler, Birgitta. 2025. <span>«Understanding Spec-Driven Development»</span>. Martin Fowler. enero de 2025. <a href="https://martinfowler.com/articles/spec-driven-development.html">https://martinfowler.com/articles/spec-driven-development.html</a>.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";

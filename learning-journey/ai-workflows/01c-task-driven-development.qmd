@@ -51,7 +51,7 @@ bibliography: references.bib
 
 ### Definición
 
-**Task-Driven Development** significa descomponer el trabajo en tareas pequeñas y bien definidas que reducen la complejidad y el alcance de cada cambio.
+**Task-Driven Development** [@strategyradar2025tdd] significa descomponer el trabajo en tareas pequeñas y bien definidas que reducen la complejidad y el alcance de cada cambio.
 
 ### Ejemplo: De Gran a Granular
 
@@ -426,7 +426,7 @@ Archie helps you:
 ### Cómo Usarlos
 
 ```text
-# Con Claude Code o similar
+# Con Kilocode o similar
 
 You: "@Taskie help me create a task for adding OAuth to my app"
 

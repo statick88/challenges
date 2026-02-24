@@ -111,7 +111,7 @@ UML Models → Code Generation → Deploy
 
 **Andrej Karpathy** (febrero 2025):
 
-> "There's a new kind of coding I call 'vibe coding', where you fully give in to the vibes, embrace exponentials, and forget that the code even exists."
+> "There's a new kind of coding I call 'vibe coding', where you fully give in to the vibes, embrace exponentials, and forget that the code even exists." [@karpathy2025vibe]
 
 **Definición operativa:**
 
@@ -134,7 +134,7 @@ Vibe Coding = Aceptar código generado sin entenderlo completamente
 
 | Métrica | Valor |
 |---------|-------|
-| Startups YC Winter 2025 con 95% código IA | **25%** |
+| Startups YC Winter 2025 con 95% código IA | **25%** [@yc2025ai] |
 | Tiempo para crear app "LunchBox Buddy" | ~1 hora |
 | Calidad de código vibe-coded | Variable |
 | Adecuado para producción | ⚠️ Riesgoso |

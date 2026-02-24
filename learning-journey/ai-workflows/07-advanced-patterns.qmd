@@ -470,7 +470,7 @@ echo "Total Specs: $specs"
 │              Context Window Limits                       │
 ├─────────────────────────────────────────────────────────┤
 │                                                          │
-│  Claude 3.5 Sonnet: 200K tokens (~150K palabras)        │
+│  Modelos de LLM (Claude, GPT-4, etc.): 128K-200K tokens │
 │  GPT-4 Turbo: 128K tokens (~96K palabras)               │
 │                                                          │
 │  Un proyecto típico:                                     │
@@ -505,7 +505,7 @@ def select_relevant_specs(query, all_specs):
     return relevant[:MAX_SPECS]
 ```
 
-**Claude Code usa grep-based retrieval**:
+**Los agentes CLI usan grep-based retrieval**:
 
 ```bash
 # Simplificado pero efectivo
@@ -776,7 +776,7 @@ git submodule add git@github.com:org/specs.git shared-specs
 #### 2. IDE Team Features
 
 ```
-Cursor Teams / VS Code Settings Sync
+Config compartida entre agentes
 ├── .cursorrules (compartido)
 ├── specs/ (compartido)
 └── skills/ (compartido)

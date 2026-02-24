@@ -360,12 +360,12 @@ project/
 ### Sin SDD
 
 ```text
-Dev: "Claude, agrega login"
-Claude: [genera código]
+Dev: "Agrega login"
+Agente: [genera código]
 Dev: "No, quería OAuth"
-Claude: [regenera]
+Agente: [regenera]
 Dev: "Pero falta el logout"
-Claude: [agrega más código]
+Agente: [agrega más código]
 Dev: "Ahora hay bugs..."
 [Loop infinito de correcciones]
 ```
@@ -374,13 +374,13 @@ Dev: "Ahora hay bugs..."
 
 ```text
 Dev: /sdd:new add-oauth-auth
-Claude: [crea propuesta con opciones OAuth]
+Agente: [crea propuesta con opciones OAuth]
 Dev: [revisa, ajusta scope]
-Claude: [crea specs con escenarios]
+Agente: [crea specs con escenarios]
 Dev: [aprueba specs]
-Claude: [crea diseño con bibliotecas]
+Agente: [crea diseño con bibliotecas]
 Dev: [aprueba diseño]
-Claude: [implementa paso a paso]
+Agente: [implementa paso a paso]
 Dev: [verifica, archiva]
 [Resultado: código correcto primera vez]
 ```
@@ -409,7 +409,7 @@ Continúa con [Módulo 1B: Context Architecture](01b-context-architecture.qmd) p
 
 ## 📊 Los 3 Niveles de SDD
 
-Birgitta Böckeler (Thoughtworks) identificó tres niveles de implementación:
+Birgitta Böckeler (Thoughtworks) identificó tres niveles de implementación [@bockeler2025sdd]:
 
 ### Nivel 1: Spec-First
 

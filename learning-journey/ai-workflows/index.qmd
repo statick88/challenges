@@ -65,7 +65,7 @@ Al completar este curso, serás capaz de:
 - **Neovim** (editor de código)
 - Node.js 18+ (para MCP servers)
 - Git
-- Cuenta de Claude API (recomendado)
+- API key del proveedor de LLM (Anthropic, OpenAI, etc.)
 
 ---
 
@@ -163,25 +163,25 @@ Al completar este curso, serás capaz de:
 
 ```
 ┌─────────────────────────────────────────────┐
-│              Asistentes de IA               │
-│         (Claude, GPT-4, Gemini)             │
+│              Modelos de LLM                  │
+│         (Anthropic, OpenAI, etc.)            │
 └─────────────────────────────────────────────┘
-                    │
-        ┌───────────┴───────────┐
-        ▼                       ▼
-┌───────────────┐       ┌───────────────┐
-│  Kilocode CLI │       │   Opencode    │
-│   (Agent 1)   │       │  (Agent 2)    │
-└───────────────┘       └───────────────┘
-        │                       │
-        └───────────┬───────────┘
-                    │
-        ┌───────────┴───────────┐
-        ▼                       ▼
-┌───────────────┐       ┌───────────────┐
-│   Neovim      │       │  MCP Servers  │
-│   (Editor)    │       │ (Extensions)  │
-└───────────────┘       └───────────────┘
+                      │
+          ┌───────────┴───────────┐
+          ▼                       ▼
+  ┌───────────────┐       ┌───────────────┐
+  │  Kilocode CLI │       │   Opencode    │
+  │   (CLI #1)    │       │   (CLI #2)    │
+  └───────────────┘       └───────────────┘
+          │                       │
+          └───────────┬───────────┘
+                      │
+          ┌───────────┴───────────┐
+          ▼                       ▼
+  ┌───────────────┐       ┌───────────────┐
+  │   Neovim      │       │  MCP Servers  │
+  │   (Editor)    │       │ (Extensions)  │
+  └───────────────┘       └───────────────┘
 ```
 
 ---

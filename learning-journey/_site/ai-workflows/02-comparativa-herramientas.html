@@ -56,7 +56,27 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -196,7 +216,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#vista-general" id="toc-vista-general" class="nav-link" data-scroll-target="#vista-general">📊 Vista General</a></li>
   <li><a href="#kiro-aws" id="toc-kiro-aws" class="nav-link" data-scroll-target="#kiro-aws">🔧 Kiro (AWS)</a>
   <ul class="collapse">
-  <li><a href="#filosofía" id="toc-filosofía" class="nav-link" data-scroll-target="#filosofía">Filosofía</a></li>
+  <li><a href="#filosofía-brooker2025kiro" id="toc-filosofía-brooker2025kiro" class="nav-link" data-scroll-target="#filosofía-brooker2025kiro">Filosofía <span class="citation" data-cites="brooker2025kiro">(Brooker 2025)</span></a></li>
   <li><a href="#workflow-requirements-design-tasks" id="toc-workflow-requirements-design-tasks" class="nav-link" data-scroll-target="#workflow-requirements-design-tasks">Workflow: Requirements → Design → Tasks</a></li>
   <li><a href="#estructura-de-archivos" id="toc-estructura-de-archivos" class="nav-link" data-scroll-target="#estructura-de-archivos">Estructura de Archivos</a></li>
   <li><a href="#ejemplo-requirements.md" id="toc-ejemplo-requirements.md" class="nav-link" data-scroll-target="#ejemplo-requirements.md">Ejemplo: Requirements.md</a></li>
@@ -206,7 +226,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#github-spec-kit" id="toc-github-spec-kit" class="nav-link" data-scroll-target="#github-spec-kit">🐙 GitHub Spec Kit</a>
   <ul class="collapse">
-  <li><a href="#filosofía-1" id="toc-filosofía-1" class="nav-link" data-scroll-target="#filosofía-1">Filosofía</a></li>
+  <li><a href="#filosofía-delimarsky2025speckit" id="toc-filosofía-delimarsky2025speckit" class="nav-link" data-scroll-target="#filosofía-delimarsky2025speckit">Filosofía <span class="citation" data-cites="delimarsky2025speckit">(Delimarsky 2025)</span></a></li>
   <li><a href="#workflow-constitution-specify-plan-tasks" id="toc-workflow-constitution-specify-plan-tasks" class="nav-link" data-scroll-target="#workflow-constitution-specify-plan-tasks">Workflow: Constitution → Specify → Plan → Tasks</a></li>
   <li><a href="#estructura-de-archivos-1" id="toc-estructura-de-archivos-1" class="nav-link" data-scroll-target="#estructura-de-archivos-1">Estructura de Archivos</a></li>
   <li><a href="#constitution.md-el-corazón" id="toc-constitution.md-el-corazón" class="nav-link" data-scroll-target="#constitution.md-el-corazón">Constitution.md: El Corazón</a></li>
@@ -217,7 +237,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#tessl-framework" id="toc-tessl-framework" class="nav-link" data-scroll-target="#tessl-framework">🧬 Tessl Framework</a>
   <ul class="collapse">
-  <li><a href="#filosofía-2" id="toc-filosofía-2" class="nav-link" data-scroll-target="#filosofía-2">Filosofía</a></li>
+  <li><a href="#filosofía" id="toc-filosofía" class="nav-link" data-scroll-target="#filosofía">Filosofía</a></li>
   <li><a href="#workflow-spec-build-code" id="toc-workflow-spec-build-code" class="nav-link" data-scroll-target="#workflow-spec-build-code">Workflow: Spec → Build → Code</a></li>
   <li><a href="#ejemplo-spec-code" id="toc-ejemplo-spec-code" class="nav-link" data-scroll-target="#ejemplo-spec-code">Ejemplo: Spec → Code</a></li>
   <li><a href="#estructura" id="toc-estructura" class="nav-link" data-scroll-target="#estructura">Estructura</a></li>
@@ -227,7 +247,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#comparativa-detallada" id="toc-comparativa-detallada" class="nav-link" data-scroll-target="#comparativa-detallada">📊 Comparativa Detallada</a>
   <ul class="collapse">
-  <li><a href="#nivel-de-abstracción" id="toc-nivel-de-abstracción" class="nav-link" data-scroll-target="#nivel-de-abstracción">Nivel de Abstracción</a></li>
+  <li><a href="#nivel-de-abstracción-bockeler2025sdd" id="toc-nivel-de-abstracción-bockeler2025sdd" class="nav-link" data-scroll-target="#nivel-de-abstracción-bockeler2025sdd">Nivel de Abstracción <span class="citation" data-cites="bockeler2025sdd">(Böckeler 2025)</span></a></li>
   <li><a href="#verbosidad-de-archivos" id="toc-verbosidad-de-archivos" class="nav-link" data-scroll-target="#verbosidad-de-archivos">Verbosidad de Archivos</a></li>
   <li><a href="#soporte-para-brownfield" id="toc-soporte-para-brownfield" class="nav-link" data-scroll-target="#soporte-para-brownfield">Soporte para Brownfield</a></li>
   <li><a href="#curva-de-aprendizaje" id="toc-curva-de-aprendizaje" class="nav-link" data-scroll-target="#curva-de-aprendizaje">Curva de Aprendizaje</a></li>
@@ -327,8 +347,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="kiro-aws" class="level2">
 <h2 class="anchored" data-anchor-id="kiro-aws">🔧 Kiro (AWS)</h2>
-<section id="filosofía" class="level3">
-<h3 class="anchored" data-anchor-id="filosofía">Filosofía</h3>
+<section id="filosofía-brooker2025kiro" class="level3">
+<h3 class="anchored" data-anchor-id="filosofía-brooker2025kiro">Filosofía <span class="citation" data-cites="brooker2025kiro">(<a href="#ref-brooker2025kiro" role="doc-biblioref">Brooker 2025</a>)</span></h3>
 <p>Kiro nace de la experiencia de Amazon con <strong>“Working Backwards”</strong>:</p>
 <ol type="1">
 <li>Escribir press release antes de construir</li>
@@ -433,7 +453,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>❌ Overkill para bugs pequeños</td>
 </tr>
 <tr class="even">
-<td>✅ Integración VS Code</td>
+<td>✅ Integración con IDE</td>
 <td>❌ Solo spec-first (no spec-as-source)</td>
 </tr>
 <tr class="odd">
@@ -451,7 +471,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="cuándo-usar-kiro">Cuándo Usar Kiro</h3>
 <ul>
 <li>✅ Features nuevos de tamaño medio/grande</li>
-<li>✅ Equipos que usan VS Code</li>
+<li>✅ Equipos con IDE moderno</li>
 <li>✅ Proyectos greenfield</li>
 <li>❌ Bug fixes simples</li>
 <li>❌ Proyectos legacy con specs retrospectivos</li>
@@ -461,8 +481,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="github-spec-kit" class="level2">
 <h2 class="anchored" data-anchor-id="github-spec-kit">🐙 GitHub Spec Kit</h2>
-<section id="filosofía-1" class="level3">
-<h3 class="anchored" data-anchor-id="filosofía-1">Filosofía</h3>
+<section id="filosofía-delimarsky2025speckit" class="level3">
+<h3 class="anchored" data-anchor-id="filosofía-delimarsky2025speckit">Filosofía <span class="citation" data-cites="delimarsky2025speckit">(<a href="#ref-delimarsky2025speckit" role="doc-biblioref">Delimarsky 2025</a>)</span></h3>
 <p>Spec Kit es <strong>agent-agnostic</strong>: funciona con cualquier asistente de IA.</p>
 <p>Conceptos clave:</p>
 <ol type="1">
@@ -659,8 +679,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="tessl-framework" class="level2">
 <h2 class="anchored" data-anchor-id="tessl-framework">🧬 Tessl Framework</h2>
-<section id="filosofía-2" class="level3">
-<h3 class="anchored" data-anchor-id="filosofía-2">Filosofía</h3>
+<section id="filosofía" class="level3">
+<h3 class="anchored" data-anchor-id="filosofía">Filosofía</h3>
 <p>Tessl es el más radical: <strong>Spec-as-source</strong>.</p>
 <pre class="text"><code>El humano SOLO edita specs
 El código es GENERATED FROM SPEC - DO NOT EDIT</code></pre>
@@ -786,8 +806,8 @@ El código es GENERATED FROM SPEC - DO NOT EDIT</code></pre>
 </section>
 <section id="comparativa-detallada" class="level2">
 <h2 class="anchored" data-anchor-id="comparativa-detallada">📊 Comparativa Detallada</h2>
-<section id="nivel-de-abstracción" class="level3">
-<h3 class="anchored" data-anchor-id="nivel-de-abstracción">Nivel de Abstracción</h3>
+<section id="nivel-de-abstracción-bockeler2025sdd" class="level3">
+<h3 class="anchored" data-anchor-id="nivel-de-abstracción-bockeler2025sdd">Nivel de Abstracción <span class="citation" data-cites="bockeler2025sdd">(<a href="#ref-bockeler2025sdd" role="doc-biblioref">Böckeler 2025</a>)</span></h3>
 <pre><code>Spec Kit ────────▶ Spec-first (specs desaparecen después)
          │
          └── Specs guían, luego se archivan
@@ -894,7 +914,7 @@ Tessl ───────────▶ Spec-as-source (specs SON el código)
 │ Equipo pequeño     │ Spec Kit (estándares claros)     │
 │ Equipo grande      │ Spec Kit + constitution estricta │
 │ Múltiples AI tools │ Spec Kit (agent-agnostic)        │
-│ Solo VS Code       │ Kiro (mejor integración)         │
+│ Solo CLI           │ Kiro o Spec Kit                  │
 └────────────────────┴──────────────────────────────────┘</code></pre>
 </section>
 <section id="por-tipo-de-cambio" class="level3">
@@ -975,10 +995,21 @@ Tessl ───────────▶ Spec-as-source (specs SON el código)
 <p><em>Módulo 02 | © Diego Saavedra</em></p>
 
 
+
 </section>
 </section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">Referencias</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-bockeler2025sdd" class="csl-entry" role="listitem">
+Böckeler, Birgitta. 2025. <span>«Understanding Spec-Driven Development»</span>. Martin Fowler. enero de 2025. <a href="https://martinfowler.com/articles/spec-driven-development.html">https://martinfowler.com/articles/spec-driven-development.html</a>.
+</div>
+<div id="ref-brooker2025kiro" class="csl-entry" role="listitem">
+Brooker, Marc. 2025. <span>«Kiro and the Future of Development»</span>. Amazon Web Services. enero de 2025. <a href="https://aws.amazon.com/blogs/developer/kiro-spec-driven-development/">https://aws.amazon.com/blogs/developer/kiro-spec-driven-development/</a>.
+</div>
+<div id="ref-delimarsky2025speckit" class="csl-entry" role="listitem">
+Delimarsky, Denis. 2025. <span>«GitHub Spec Kit: Constitution and Memory Bank for AI-Assisted Development»</span>. GitHub. febrero de 2025. <a href="https://github.com/github/spec-kit">https://github.com/github/spec-kit</a>.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
