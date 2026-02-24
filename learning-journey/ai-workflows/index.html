@@ -21,7 +21,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -181,8 +201,8 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#stack-tecnológico-del-curso" id="toc-stack-tecnológico-del-curso" class="nav-link" data-scroll-target="#stack-tecnológico-del-curso">🛠️ Stack Tecnológico del Curso</a></li>
   <li><a href="#escenario-real" id="toc-escenario-real" class="nav-link" data-scroll-target="#escenario-real">🎭 Escenario Real</a></li>
   <li><a href="#comenzando" id="toc-comenzando" class="nav-link" data-scroll-target="#comenzando">🚀 Comenzando</a></li>
-  <li><a href="#referencias" id="toc-referencias" class="nav-link" data-scroll-target="#referencias">📚 Referencias</a></li>
   <li><a href="#sobre-el-autor" id="toc-sobre-el-autor" class="nav-link" data-scroll-target="#sobre-el-autor">👨‍🏫 Sobre el Autor</a></li>
+  <li><a href="#referencias" id="toc-referencias" class="nav-link" data-scroll-target="#referencias">📖 Referencias</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -231,7 +251,12 @@ ul.task-list li input[type="checkbox"] {
 <hr>
 <section id="por-qué-este-curso" class="level2">
 <h2 class="anchored" data-anchor-id="por-qué-este-curso">🎯 ¿Por Qué Este Curso?</h2>
-<p>En febrero 2025, Andrej Karpathy definió “vibe coding” como la práctica de generar código con IA sin entenderlo completamente. El resultado: <strong>25% de startups YC tienen 95% código IA generado</strong>.</p>
+<p>En febrero 2025, Andrej Karpathy definió “vibe coding” como la práctica de generar código con IA sin entenderlo completamente. El resultado: <strong>25% de startups YC tienen 95% código IA generado</strong> <span class="citation" data-cites="yc2025ai">(<a href="#ref-yc2025ai" role="doc-biblioref">Y Combinator 2025</a>)</span>.</p>
+<blockquote class="blockquote">
+<p>“There’s a new kind of coding I call ‘vibe coding’, where you fully give in to the vibes, embrace exponentials, and forget that the code even exists.”</p>
+<p>— Andrej Karpathy <span class="citation" data-cites="karpathy2025vibe">(<a href="#ref-karpathy2025vibe" role="doc-biblioref">Karpathy 2025</a>)</span></p>
+<p><em>“Hay un nuevo tipo de codificación que llamo ‘vibe coding’, donde te entregas completamente a las vibras, abrazas los exponenciales y olvidas que el código siquiera existe.”</em></p>
+</blockquote>
 <p>Pero hay un problema:</p>
 <ul>
 <li><strong>Alucinaciones</strong>: IA genera código incorrecto con confianza</li>
@@ -291,7 +316,7 @@ ul.task-list li input[type="checkbox"] {
 <section id="herramientas-necesarias" class="level3">
 <h3 class="anchored" data-anchor-id="herramientas-necesarias">Herramientas Necesarias</h3>
 <ul>
-<li><strong>Kilocode CLI</strong> o <strong>Opencode</strong></li>
+<li><strong>Kilocode CLI</strong> o <strong>Opencode</strong> <span class="citation" data-cites="kilocodedocs opencodedocs">(<a href="#ref-kilocodedocs" role="doc-biblioref">Kilocode 2025</a>; <a href="#ref-opencodedocs" role="doc-biblioref">OpenCode 2025</a>)</span></li>
 <li><strong>Neovim</strong> (editor de código)</li>
 <li>Node.js 18+ (para MCP servers)</li>
 <li>Git</li>
@@ -342,8 +367,8 @@ ul.task-list li input[type="checkbox"] {
 <section id="módulo-2-comparativa-de-herramientas" class="level3">
 <h3 class="anchored" data-anchor-id="módulo-2-comparativa-de-herramientas">Módulo 2: <a href="../ai-workflows/02-comparativa-herramientas.html">Comparativa de Herramientas</a> 🆕</h3>
 <ul>
-<li>Kiro (AWS): Requirements → Design → Tasks</li>
-<li>GitHub Spec Kit: Constitution + Memory Bank</li>
+<li>Kiro (AWS): Requirements → Design → Tasks <span class="citation" data-cites="brooker2025kiro">(<a href="#ref-brooker2025kiro" role="doc-biblioref">Brooker 2025</a>)</span></li>
+<li>GitHub Spec Kit: Constitution + Memory Bank <span class="citation" data-cites="delimarsky2025speckit">(<a href="#ref-delimarsky2025speckit" role="doc-biblioref">Delimarsky 2025</a>)</span></li>
 <li>Tessl Framework: Spec-as-source</li>
 <li>Cuándo usar cada una</li>
 </ul>
@@ -375,8 +400,8 @@ ul.task-list li input[type="checkbox"] {
 <h3 class="anchored" data-anchor-id="módulo-6-integración-mcp">Módulo 6: <a href="../ai-workflows/06-mcp-integration.html">Integración MCP</a></h3>
 <ul>
 <li>spec-coding-mcp</li>
-<li>Engram (memoria persistente)</li>
-<li>Context7 (documentación actualizada)</li>
+<li>Engram (memoria persistente) <span class="citation" data-cites="engram2025memory">(<a href="#ref-engram2025memory" role="doc-biblioref">Gentleman Programming 2025</a>)</span></li>
+<li>Context7 (documentación actualizada) <span class="citation" data-cites="context7docs">(<a href="#ref-context7docs" role="doc-biblioref">Context7 2025</a>)</span></li>
 </ul>
 </section>
 <section id="módulo-7-patrones-avanzados" class="level3">
@@ -510,17 +535,6 @@ ul.task-list li input[type="checkbox"] {
 <p>Dirígete al <a href="../ai-workflows/00-contexto-historico.html">Módulo 0: Contexto Histórico</a> para comenzar tu journey desde los orígenes hasta el estado del arte.</p>
 <hr>
 </section>
-<section id="referencias" class="level2">
-<h2 class="anchored" data-anchor-id="referencias">📚 Referencias</h2>
-<p>[1] A. Karpathy, “Vibe Coding,” X/Twitter, Feb.&nbsp;2025. [Online]. Available: https://x.com/karpathy</p>
-<p>[2] B. Böckeler, “Understanding Spec-Driven Development,” Martin Fowler’s Blog, 2025. [Online]. Available: https://martinfowler.com</p>
-<p>[3] M. Brooker, “Kiro and the Future of Development,” AWS Blog, 2025. [Online]. Available: https://aws.amazon.com/blogs</p>
-<p>[4] D. Delimarsky, “GitHub Spec Kit: Constitution and Memory Bank,” Microsoft GitHub, 2025. [Online]. Available: https://github.com/github/spec-kit</p>
-<p>[5] Precursor, “The Precursor Manifesto: Context Architecture,” 2025. [Online]. Available: https://precursor.dev</p>
-<p>[6] StrategyRadar.ai, “Task-Driven Development with AI: The Complete Guide,” 2025. [Online]. Available: https://strategyradar.ai</p>
-<p>[7] D. Saavedra, “Spec-Driven Development con Asistentes de IA: Metodología estructurada para desarrollo asistido por IA en CLI,” DevOps &amp; Security Learning Journey, Feb.&nbsp;2026. [Online]. Available: https://statick88.github.io</p>
-<hr>
-</section>
 <section id="sobre-el-autor" class="level2">
 <h2 class="anchored" data-anchor-id="sobre-el-autor">👨‍🏫 Sobre el Autor</h2>
 <p><strong>Diego Saavedra</strong> es Software Developer FullStack, Móvil e IA con más de 10 años de experiencia. Docente universitario en ESPE, UIDE, IST Juan Montalvo, Abacom y Codings Academy. Explorador del ecosistema de seguridad informática desde una perspectiva de desarrollo seguro.</p>
@@ -530,6 +544,36 @@ ul.task-list li input[type="checkbox"] {
 <li>🐙 <a href="https://github.com/statick88">GitHub</a></li>
 <li>🌐 <a href="https://statick88.github.io">Portfolio</a></li>
 </ul>
+<hr>
+</section>
+<section id="referencias" class="level2">
+<h2 class="anchored" data-anchor-id="referencias">📖 Referencias</h2>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-brooker2025kiro" class="csl-entry" role="listitem">
+Brooker, Marc. 2025. <span>«Kiro and the Future of Development»</span>. Amazon Web Services. enero de 2025. <a href="https://aws.amazon.com/blogs/developer/kiro-spec-driven-development/">https://aws.amazon.com/blogs/developer/kiro-spec-driven-development/</a>.
+</div>
+<div id="ref-context7docs" class="csl-entry" role="listitem">
+Context7. 2025. <span>«Context7: Up-to-Date Documentation for AI Code Editors»</span>. 2025. <a href="https://context7.com">https://context7.com</a>.
+</div>
+<div id="ref-delimarsky2025speckit" class="csl-entry" role="listitem">
+Delimarsky, Denis. 2025. <span>«GitHub Spec Kit: Constitution and Memory Bank for AI-Assisted Development»</span>. GitHub. febrero de 2025. <a href="https://github.com/github/spec-kit">https://github.com/github/spec-kit</a>.
+</div>
+<div id="ref-engram2025memory" class="csl-entry" role="listitem">
+Gentleman Programming. 2025. <span>«Engram: Persistent Memory for AI Coding Agents»</span>. febrero de 2025. <a href="https://github.com/Gentleman-Programming/engram">https://github.com/Gentleman-Programming/engram</a>.
+</div>
+<div id="ref-karpathy2025vibe" class="csl-entry" role="listitem">
+Karpathy, Andrej. 2025. <span>«Vibe Coding»</span>. febrero de 2025. <a href="https://x.com/karpathy/status/1886192175589794371">https://x.com/karpathy/status/1886192175589794371</a>.
+</div>
+<div id="ref-kilocodedocs" class="csl-entry" role="listitem">
+Kilocode. 2025. <span>«Kilocode CLI: AI-Powered Development Assistant»</span>. 2025. <a href="https://github.com/kilocode/cli">https://github.com/kilocode/cli</a>.
+</div>
+<div id="ref-opencodedocs" class="csl-entry" role="listitem">
+OpenCode. 2025. <span>«OpenCode: Open Source AI Coding Assistant»</span>. 2025. <a href="https://github.com/opencode-ai/opencode">https://github.com/opencode-ai/opencode</a>.
+</div>
+<div id="ref-yc2025ai" class="csl-entry" role="listitem">
+Y Combinator. 2025. <span>«YC Winter 2025 Batch Statistics»</span>. Y Combinator. febrero de 2025. <a href="https://www.ycombinator.com/blog/yc-winter-2025-batch">https://www.ycombinator.com/blog/yc-winter-2025-batch</a>.
+</div>
+</div>
 <hr>
 <p><em>Curso v3.0 | Actualizado: 2026-02-24 | © Diego Saavedra</em></p>
 

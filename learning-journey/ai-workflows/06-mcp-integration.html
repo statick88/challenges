@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="../es" xml:lang="../es"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es-ES" xml:lang="es-ES"><head>
 
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.8.26">
@@ -56,7 +56,27 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -91,17 +111,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   ],
   "show-item-context": false,
   "language": {
-    "search-no-results-text": "No results",
-    "search-matching-documents-text": "matching documents",
-    "search-copy-link-title": "Copy link to search",
-    "search-hide-matches-text": "Hide additional matches",
-    "search-more-match-text": "more match in this document",
-    "search-more-matches-text": "more matches in this document",
-    "search-clear-button-title": "Clear",
+    "search-no-results-text": "No se han encontrado resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
     "search-text-placeholder": "",
-    "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit",
-    "search-label": "Search"
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
   }
 }</script>
 
@@ -119,8 +139,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <span class="navbar-title">DevOps &amp; Security Learning Journey</span>
     </a>
   </div>
-            <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+            <div id="quarto-search" class="" title="Buscar"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Navegación de palanca" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -188,7 +208,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
+    <h2 id="toc-title">En esta página</h2>
    
   <ul>
   <li><a href="#mcp-servers-potenciando-sdd" id="toc-mcp-servers-potenciando-sdd" class="nav-link active" data-scroll-target="#mcp-servers-potenciando-sdd">🎓 MCP Servers: Potenciando SDD</a>
@@ -200,13 +220,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#mcp-servers-para-sdd" id="toc-mcp-servers-para-sdd" class="nav-link" data-scroll-target="#mcp-servers-para-sdd">🛠️ MCP Servers para SDD</a>
   <ul class="collapse">
   <li><a href="#spec-coding-mcp" id="toc-spec-coding-mcp" class="nav-link" data-scroll-target="#spec-coding-mcp">1. spec-coding-mcp</a></li>
-  <li><a href="#engram-memoria-persistente" id="toc-engram-memoria-persistente" class="nav-link" data-scroll-target="#engram-memoria-persistente">2. Engram (Memoria Persistente)</a></li>
-  <li><a href="#context7-documentación-actualizada" id="toc-context7-documentación-actualizada" class="nav-link" data-scroll-target="#context7-documentación-actualizada">3. Context7 (Documentación Actualizada)</a></li>
+  <li><a href="#engram" id="toc-engram" class="nav-link" data-scroll-target="#engram">2. Engram (Memoria Persistente)</a></li>
+  <li><a href="#context7" id="toc-context7" class="nav-link" data-scroll-target="#context7">3. Context7 (Documentación Actualizada)</a></li>
   </ul></li>
   <li><a href="#configuración-completa" id="toc-configuración-completa" class="nav-link" data-scroll-target="#configuración-completa">📋 Configuración Completa</a>
   <ul class="collapse">
-  <li><a href="#kilocode-.kilocodemcp.json" id="toc-kilocode-.kilocodemcp.json" class="nav-link" data-scroll-target="#kilocode-.kilocodemcp.json">Kilocode: <code>~/.kilocode/mcp.json</code></a></li>
-  <li><a href="#opencode-.configopencodeopencode.json" id="toc-opencode-.configopencodeopencode.json" class="nav-link" data-scroll-target="#opencode-.configopencodeopencode.json">Opencode: <code>~/.config/opencode/opencode.json</code></a></li>
+  <li><a href="#kilocode-mcp" id="toc-kilocode-mcp" class="nav-link" data-scroll-target="#kilocode-mcp">Kilocode: <code>~/.kilocode/mcp.json</code></a></li>
+  <li><a href="#opencode-mcp" id="toc-opencode-mcp" class="nav-link" data-scroll-target="#opencode-mcp">Opencode: <code>~/.config/opencode/opencode.json</code></a></li>
   </ul></li>
   <li><a href="#flujo-sdd-con-mcp" id="toc-flujo-sdd-con-mcp" class="nav-link" data-scroll-target="#flujo-sdd-con-mcp">🔄 Flujo SDD con MCP</a>
   <ul class="collapse">
@@ -230,6 +250,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#context7-timeout" id="toc-context7-timeout" class="nav-link" data-scroll-target="#context7-timeout">Context7 Timeout</a></li>
   </ul></li>
   <li><a href="#lo-que-aprendiste" id="toc-lo-que-aprendiste" class="nav-link" data-scroll-target="#lo-que-aprendiste">🎓 Lo Que Aprendiste</a></li>
+  <li><a href="#referencias" id="toc-referencias" class="nav-link" data-scroll-target="#referencias">📖 Referencias</a></li>
   <li><a href="#siguiente-paso" id="toc-siguiente-paso" class="nav-link" data-scroll-target="#siguiente-paso">🚀 Siguiente Paso</a></li>
   </ul></li>
   </ul>
@@ -248,14 +269,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="quarto-title-meta">
 
     <div>
-    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-heading">Autor/a</div>
     <div class="quarto-title-meta-contents">
              <p>Diego Saavedra </p>
           </div>
   </div>
     
     <div>
-    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-heading">Fecha de publicación</div>
     <div class="quarto-title-meta-contents">
       <p class="date">24 de febrero de 2026</p>
     </div>
@@ -278,7 +299,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <hr>
 <section id="qué-es-mcp" class="level2">
 <h2 class="anchored" data-anchor-id="qué-es-mcp">🧠 ¿Qué es MCP?</h2>
-<p><strong>Model Context Protocol</strong> es un protocolo abierto que permite:</p>
+<p><strong>Model Context Protocol</strong> es un protocolo abierto que permite <span class="citation" data-cites="anthropic2025mcp">(<a href="#ref-anthropic2025mcp" role="doc-biblioref">Anthropic 2024</a>)</span>:</p>
 <ol type="1">
 <li><strong>Tools</strong>: Ejecutar comandos externos</li>
 <li><strong>Resources</strong>: Acceder a archivos y datos</li>
@@ -303,7 +324,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"args"</span><span class="fu">:</span> <span class="ot">[</span><span class="st">"-y"</span><span class="ot">,</span> <span class="st">"@kevinlin/spec-coding-mcp"</span><span class="ot">]</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>Herramientas disponibles</strong>:</p>
 <table class="caption-top table">
 <thead>
@@ -336,10 +357,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 IA: [usa spec-coding-mcp para crear spec estructurado]</code></pre>
 <hr>
 </section>
-<section id="engram-memoria-persistente" class="level3">
-<h3 class="anchored" data-anchor-id="engram-memoria-persistente">2. Engram (Memoria Persistente)</h3>
-<p><strong>Propósito</strong>: Memoria a largo plazo entre sesiones</p>
-<p><strong>Instalación</strong>:</p>
+<section id="engram" class="level3">
+<h3 class="anchored" data-anchor-id="engram">2. Engram (Memoria Persistente)</h3>
+<p><strong>Propósito</strong>: Memoria a largo plazo entre sesiones <span class="citation" data-cites="engram2025memory">(<a href="#ref-engram2025memory" role="doc-biblioref">Gentleman Programming 2025a</a>)</span></p>
+<blockquote class="blockquote">
+<p>“Your AI coding agent forgets everything when the session ends. Engram gives it a brain.”</p>
+<p>— Gentleman Programming <span class="citation" data-cites="engram2025brain">(<a href="#ref-engram2025brain" role="doc-biblioref">Gentleman Programming 2025b</a>)</span></p>
+<p><em>“Tu agente de codificación con IA olvida todo cuando termina la sesión. Engram le da un cerebro.”</em></p>
+</blockquote>
+<section id="definición-de-engram" class="level4">
+<h4 class="anchored" data-anchor-id="definición-de-engram">Definición de Engram</h4>
+<blockquote class="blockquote">
+<p>“<strong>engram</strong> <code>/ˈen.ɡræm/</code> — <em>neuroscience</em>: the physical trace of a memory in the brain.”</p>
+<p><em>“<strong>engram</strong> <code>/ˈen.ɡræm/</code> — <em>neurociencia</em>: el rastro físico de un recuerdo en el cerebro.”</em></p>
+<p>— Gentleman Programming <span class="citation" data-cites="engram2025memory">(<a href="#ref-engram2025memory" role="doc-biblioref">Gentleman Programming 2025a</a>)</span></p>
+</blockquote>
+</section>
+<section id="filosofía-de-diseño" class="level4">
+<h4 class="anchored" data-anchor-id="filosofía-de-diseño">Filosofía de Diseño</h4>
+<blockquote class="blockquote">
+<p>“Engram trusts the <strong>agent</strong> to decide what’s worth remembering — not a firehose of raw tool calls.”</p>
+<p><em>“Engram confía en el <strong>agente</strong> para decidir qué vale la pena recordar — no una manguera de llamadas de herramientas en bruto.”</em></p>
+<p>— Gentleman Programming <span class="citation" data-cites="engram2025memory">(<a href="#ref-engram2025memory" role="doc-biblioref">Gentleman Programming 2025a</a>)</span></p>
+</blockquote>
+</section>
+<section id="instalación" class="level4">
+<h4 class="anchored" data-anchor-id="instalación">Instalación</h4>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"mcpServers"</span><span class="fu">:</span> <span class="fu">{</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"engram"</span><span class="fu">:</span> <span class="fu">{</span></span>
@@ -350,7 +393,7 @@ IA: [usa spec-coding-mcp para crear spec estructurado]</code></pre>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>Herramientas disponibles</strong>:</p>
 <table class="caption-top table">
 <thead>
@@ -393,12 +436,21 @@ IA: [usa engram.recall]
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>After archiving, use Engram to save:</span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Architecture decisions</span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Patterns discovered</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Gotchas encountered</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Gotchas encountered</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="ventajas-de-engram" class="level4">
+<h4 class="anchored" data-anchor-id="ventajas-de-engram">Ventajas de Engram</h4>
+<blockquote class="blockquote">
+<p>“That’s it. No Node.js, no Python, no Bun, no Docker, no ChromaDB, no vector database, no worker processes. <strong>One binary, one SQLite file.</strong>”</p>
+<p><em>“Eso es todo. No Node.js, no Python, no Bun, no Docker, no ChromaDB, no base de datos vectorial, no procesos workers. <strong>Un binario, un archivo SQLite.</strong>”</em></p>
+<p>— Gentleman Programming <span class="citation" data-cites="engram2025memory">(<a href="#ref-engram2025memory" role="doc-biblioref">Gentleman Programming 2025a</a>)</span></p>
+</blockquote>
 <hr>
 </section>
-<section id="context7-documentación-actualizada" class="level3">
-<h3 class="anchored" data-anchor-id="context7-documentación-actualizada">3. Context7 (Documentación Actualizada)</h3>
-<p><strong>Propósito</strong>: Fetch de documentación actualizada</p>
+</section>
+<section id="context7" class="level3">
+<h3 class="anchored" data-anchor-id="context7">3. Context7 (Documentación Actualizada)</h3>
+<p><strong>Propósito</strong>: Fetch de documentación actualizada <span class="citation" data-cites="context7docs">(<a href="#ref-context7docs" role="doc-biblioref">Context7 2025</a>)</span></p>
 <p><strong>Instalación</strong>:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"mcpServers"</span><span class="fu">:</span> <span class="fu">{</span></span>
@@ -407,7 +459,7 @@ IA: [usa engram.recall]
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"args"</span><span class="fu">:</span> <span class="ot">[</span><span class="st">"-y"</span><span class="ot">,</span> <span class="st">"@context7/mcp-server"</span><span class="ot">]</span></span>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>Herramientas disponibles</strong>:</p>
 <table class="caption-top table">
 <thead>
@@ -441,8 +493,8 @@ IA: "Voy a verificar la API de Express 4.18"
 </section>
 <section id="configuración-completa" class="level2">
 <h2 class="anchored" data-anchor-id="configuración-completa">📋 Configuración Completa</h2>
-<section id="kilocode-.kilocodemcp.json" class="level3">
-<h3 class="anchored" data-anchor-id="kilocode-.kilocodemcp.json">Kilocode: <code>~/.kilocode/mcp.json</code></h3>
+<section id="kilocode-mcp" class="level3">
+<h3 class="anchored" data-anchor-id="kilocode-mcp">Kilocode: <code>~/.kilocode/mcp.json</code></h3>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"mcpServers"</span><span class="fu">:</span> <span class="fu">{</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"spec-coding"</span><span class="fu">:</span> <span class="fu">{</span></span>
@@ -463,10 +515,10 @@ IA: "Voy a verificar la API de Express 4.18"
 <span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"env"</span><span class="fu">:</span> <span class="fu">{}</span></span>
 <span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
 <span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
-<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="opencode-.configopencodeopencode.json" class="level3">
-<h3 class="anchored" data-anchor-id="opencode-.configopencodeopencode.json">Opencode: <code>~/.config/opencode/opencode.json</code></h3>
+<section id="opencode-mcp" class="level3">
+<h3 class="anchored" data-anchor-id="opencode-mcp">Opencode: <code>~/.config/opencode/opencode.json</code></h3>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"model"</span><span class="fu">:</span> <span class="st">"claude-sonnet-4-20250514"</span><span class="fu">,</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"mcpServers"</span><span class="fu">:</span> <span class="fu">{</span></span>
@@ -486,7 +538,7 @@ IA: "Voy a verificar la API de Express 4.18"
 <span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"args"</span><span class="fu">:</span> <span class="ot">[</span><span class="st">"-y"</span><span class="ot">,</span> <span class="st">"@context7/mcp-server"</span><span class="ot">]</span></span>
 <span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
 <span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
-<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <hr>
 </section>
 </section>
@@ -580,7 +632,7 @@ IA:
 <span id="cb13-42"><a href="#cb13-42" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Check current state</span></span>
 <span id="cb13-43"><a href="#cb13-43" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Return next recommended action</span></span>
 <span id="cb13-44"><a href="#cb13-44" aria-hidden="true" tabindex="-1"></a>  }<span class="op">,</span></span>
-<span id="cb13-45"><a href="#cb13-45" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb13-45"><a href="#cb13-45" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <hr>
 </section>
 </section>
@@ -618,7 +670,7 @@ IA: "Verifico la API actual..."
 <span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Reiniciar el agente</span></span>
 <span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Kilocode: Cmd+Shift+P → Reload Window</span></span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Opencode: Ctrl+C y reiniciar</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Opencode: Ctrl+C y reiniciar</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="engram-no-guarda" class="level3">
 <h3 class="anchored" data-anchor-id="engram-no-guarda">Engram No Guarda</h3>
@@ -627,7 +679,7 @@ IA: "Verifico la API actual..."
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Crear si no existe</span></span>
 <span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> ~/.engram</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="fu">touch</span> ~/.engram/memory.db</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="fu">touch</span> ~/.engram/memory.db</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="context7-timeout" class="level3">
 <h3 class="anchored" data-anchor-id="context7-timeout">Context7 Timeout</h3>
@@ -642,27 +694,44 @@ IA: "Verifico la API actual..."
 <span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>      <span class="kw">}</span></span>
 <span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    <span class="er">}</span></span>
 <span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span></span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="er">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="er">}</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <hr>
 </section>
 </section>
 <section id="lo-que-aprendiste" class="level2">
 <h2 class="anchored" data-anchor-id="lo-que-aprendiste">🎓 Lo Que Aprendiste</h2>
 <ol type="1">
-<li><strong>MCP</strong> conecta IA con herramientas externas</li>
+<li><strong>MCP</strong> conecta IA con herramientas externas <span class="citation" data-cites="anthropic2025mcp">(<a href="#ref-anthropic2025mcp" role="doc-biblioref">Anthropic 2024</a>)</span></li>
 <li><strong>spec-coding-mcp</strong> estructura especificaciones</li>
-<li><strong>Engram</strong> persiste memoria entre sesiones</li>
-<li><strong>Context7</strong> mantiene documentación actualizada</li>
+<li><strong>Engram</strong> persiste memoria entre sesiones <span class="citation" data-cites="engram2025memory">(<a href="#ref-engram2025memory" role="doc-biblioref">Gentleman Programming 2025a</a>)</span></li>
+<li><strong>Context7</strong> mantiene documentación actualizada <span class="citation" data-cites="context7docs">(<a href="#ref-context7docs" role="doc-biblioref">Context7 2025</a>)</span></li>
 <li><strong>Servidores custom</strong> extienden capacidades</li>
 </ol>
+<hr>
+</section>
+<section id="referencias" class="level2">
+<h2 class="anchored" data-anchor-id="referencias">📖 Referencias</h2>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-anthropic2025mcp" class="csl-entry" role="listitem">
+Anthropic. 2024. <span>«Model Context Protocol: Connecting AI Assistants to Systems»</span>. Anthropic. noviembre de 2024. <a href="https://modelcontextprotocol.io">https://modelcontextprotocol.io</a>.
+</div>
+<div id="ref-context7docs" class="csl-entry" role="listitem">
+Context7. 2025. <span>«Context7: Up-to-Date Documentation for AI Code Editors»</span>. 2025. <a href="https://context7.com">https://context7.com</a>.
+</div>
+<div id="ref-engram2025memory" class="csl-entry" role="listitem">
+Gentleman Programming. 2025a. <span>«Engram: Persistent Memory for AI Coding Agents»</span>. febrero de 2025. <a href="https://github.com/Gentleman-Programming/engram">https://github.com/Gentleman-Programming/engram</a>.
+</div>
+<div id="ref-engram2025brain" class="csl-entry" role="listitem">
+———. 2025b. <span>«Your AI Coding Agent Forgets Everything When the Session Ends. Engram Gives It a Brain»</span>. febrero de 2025. <a href="https://github.com/Gentleman-Programming/engram">https://github.com/Gentleman-Programming/engram</a>.
+</div>
+</div>
 <hr>
 </section>
 <section id="siguiente-paso" class="level2">
 <h2 class="anchored" data-anchor-id="siguiente-paso">🚀 Siguiente Paso</h2>
 <p>Continúa con <a href="../ai-workflows/07-advanced-patterns.html">Módulo 7: Patrones Avanzados</a> para aplicar SDD en escenarios complejos.</p>
 <hr>
-<p><em>Módulo 5.0 | Duración: 45 min | Dificultad: 🔴 Avanzado</em></p>
-<p><em>Módulo 06 | © Diego Saavedra</em></p>
+<p><em>Módulo 6 | Duración: 45 min | Dificultad: 🔴 Avanzado | © Diego Saavedra</em></p>
 
 
 </section>
@@ -694,12 +763,12 @@ IA: "Verifico la API actual..."
       // flash "checked"
       button.classList.add('code-copy-button-checked');
       var currentTitle = button.getAttribute("title");
-      button.setAttribute("title", "Copied!");
+      button.setAttribute("title", "Copiado");
       let tooltip;
       if (window.bootstrap) {
         button.setAttribute("data-bs-toggle", "tooltip");
         button.setAttribute("data-bs-placement", "left");
-        button.setAttribute("data-bs-title", "Copied!");
+        button.setAttribute("data-bs-title", "Copiado");
         tooltip = new bootstrap.Tooltip(button, 
           { trigger: "manual", 
             customClass: "code-copy-button-tooltip",
