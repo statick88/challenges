@@ -397,8 +397,213 @@ Dev: [verifica, archiva]
 
 ## 🚀 Siguiente Paso
 
-Continúa con [Módulo 2: SDD en Kilocode](02-sdd-kilocode.qmd) para implementar esta metodología en tu editor.
+Continúa con [Módulo 1B: Context Architecture](01b-context-architecture.qmd) para profundizar en la arquitectura de contexto.
 
 ---
 
 *Módulo 1.0 | Duración: 30 min | Dificultad: 🟢 Básico*
+
+---
+
+## 📊 Los 3 Niveles de SDD
+
+Birgitta Böckeler (Thoughtworks) identificó tres niveles de implementación:
+
+### Nivel 1: Spec-First
+
+```
+Spec → Implementación → Spec descartada
+```
+
+**Características**:
+- Specs se escriben antes del código
+- Sirven como guía durante la implementación
+- Se descartan o archivan después
+
+**Cuándo usar**:
+- Features nuevas
+- Proyectos greenfield
+- Cambios aislados
+
+### Nivel 2: Spec-Anchored
+
+```
+Spec → Implementación → Spec persiste → Actualizaciones
+```
+
+**Características**:
+- Specs viven junto al código
+- Se actualizan cuando cambia la funcionalidad
+- Son "source of truth" persistente
+
+**Cuándo usar**:
+- Features críticas del sistema
+- APIs públicas
+- Componentes compartidos
+
+### Nivel 3: Spec-as-Source
+
+```
+Spec (editado por humanos) → Código generado
+```
+
+**Características**:
+- Humanos SOLO editan specs
+- Código es generado automáticamente
+- Código lleva comentario `// GENERATED FROM SPEC - DO NOT EDIT`
+
+**Cuándo usar**:
+- Componentes bien definidos
+- APIs con contratos estables
+- Experimental (todavía madurando)
+
+### Comparación de Niveles
+
+| Nivel | Edición Humana | Trazabilidad | Mantenibilidad | Madurez |
+|-------|----------------|--------------|----------------|---------|
+| Spec-First | Código + Spec | Temporal | Media | Alta |
+| Spec-Anchored | Código + Spec | Permanente | Alta | Media |
+| Spec-as-Source | Solo Spec | Total | Variable | Baja |
+
+---
+
+## 📝 Tipos de Specs
+
+Patrick Debois (AI Native Dev) identifica 4 tipos:
+
+### 1. Specs Funcionales/Técnicos
+
+```markdown
+# Feature: Health Endpoint
+
+## Requirements
+- GET /health returns 200 OK
+- Response includes status and timestamp
+
+## Acceptance Criteria
+GIVEN API is running
+WHEN GET /health
+THEN 200 OK with { status: "ok" }
+```
+
+**Propósito**: Describir QUÉ hace el sistema
+
+### 2. Specs de Identidad de Agente
+
+```markdown
+# Agent: Code Reviewer
+
+## Role
+You are a senior code reviewer...
+
+## Capabilities
+- Review code for patterns
+- Suggest improvements
+- Check security issues
+
+## Boundaries
+- DO NOT modify code directly
+- ONLY suggest changes
+```
+
+**Propósito**: Definir personalidad y límites del agente
+
+### 3. Specs de Workflow/Tareas
+
+```markdown
+# Workflow: Feature Development
+
+## Steps
+1. Create proposal
+2. Write specs
+3. Design architecture
+4. Break into tasks
+5. Implement
+6. Verify
+7. Archive
+```
+
+**Propósito**: Describir procesos y secuencias
+
+### 4. Specs de Conocimiento/Uso
+
+```markdown
+# Knowledge: Authentication Patterns
+
+## OAuth 2.0 Flow
+- Authorization Code for web apps
+- PKCE for SPAs
+- Client Credentials for services
+
+## Session Management
+- JWT for stateless
+- Redis for stateful
+```
+
+**Propósito**: Capturar conocimiento del dominio
+
+---
+
+## ⚠️ Desafíos de SDD
+
+### Context Window Constraints
+
+**Problema**: Demasiados specs sobrecargan el contexto del LLM
+
+**Soluciones**:
+- RAG/Context selection
+- Subagentes con contexto específico
+- AST parsing + LSP integration
+
+### Escribir Buenas Specs
+
+**Problema**: Los desarrolladores no están acostumbrados a escribir requisitos precisos
+
+**Soluciones**:
+- Templates estandarizados
+- Checklists de validación
+- Iteración basada en feedback del agente
+
+### Spec vs Memory Bank
+
+| Memory Bank | Spec |
+|-------------|------|
+| Contexto global | Contexto específico |
+| Reglas del proyecto | Requisitos de feature |
+| Persistente | Temporal o persistente |
+| AGENTS.md | spec.md |
+
+---
+
+## 🔗 Specs vs Otros Conceptos
+
+### Spec vs Prompt
+
+```text
+Prompt: "Add a health endpoint"
+→ Instrucción única, sin estructura
+
+Spec: Documento estructurado con requisitos
+→ Fuente de verdad, persistente, versionable
+```
+
+### Spec vs Test
+
+```text
+Test: Verifica comportamiento después
+→ "¿Funciona como esperado?"
+
+Spec: Define comportamiento antes
+→ "¿Qué se espera que haga?"
+```
+
+**SDD + TDD = Mejor juntos**:
+1. Spec define QUÉ
+2. Tests verifican QUÉ
+3. Implementación es CÓMO
+
+---
+
+## 🚀 Siguiente Paso
+
+Continúa con [Módulo 1B: Context Architecture](01b-context-architecture.qmd) para profundizar en la arquitectura de contexto.

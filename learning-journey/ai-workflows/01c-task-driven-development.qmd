@@ -1,0 +1,504 @@
+---
+title: "Task-Driven Development: La Metodología"
+date: "2026-02-24"
+---
+
+# 🎓 Task-Driven Development: De Vibe Coding a Productividad
+
+👨‍🏫 **Del Instructor**: Task-Driven Development (TDD, no confundir con Test-Driven) es la metodología que transforma IA de generador de deuda técnica en multiplicador de productividad. 4x productividad con calidad mantenida.
+
+> 💭 **Mentalidad de Project Manager**: "No le pidas a la IA que 'construya un carrito de compras'. Desglósalo en tareas que puedas controlar."
+
+---
+
+## ❌ El Vibe Coding Trap
+
+### ¿Qué es el Vibe Coding Trap?
+
+```text
+┌─────────────────────────────────────────────────────────┐
+│                 VIBE CODING TRAP                         │
+├─────────────────────────────────────────────────────────┤
+│                                                          │
+│  Developer: "Build a complete shopping cart system"     │
+│                                                          │
+│  AI: [genera 2000 líneas de código]                     │
+│                                                          │
+│  Developer: [sin entender el código]                    │
+│             [tests fallan]                               │
+│             [bugs en producción]                         │
+│             [debugging por horas]                        │
+│                                                          │
+│  Resultado: 50% pérdida de productividad                │
+│                                                          │
+└─────────────────────────────────────────────────────────┘
+```
+
+### El Costo Real
+
+| Métrica | Vibe Coding | Task-Driven + Spec-Driven |
+|---------|-------------|---------------------------|
+| Productividad | -50% | **+400%** |
+| Calidad de código | Variable | Consistente |
+| Debugging time | Alto | Mínimo |
+| Onboarding | Imposible | Leer tasks |
+
+---
+
+## ✅ Task-Driven Development
+
+### Definición
+
+**Task-Driven Development** significa descomponer el trabajo en tareas pequeñas y bien definidas que reducen la complejidad y el alcance de cada cambio.
+
+### Ejemplo: De Gran a Granular
+
+```text
+❌ Una gran tarea:
+"Build a complete shopping cart system"
+
+✅ Tareas desglosadas:
+Task 1: Create cart database schema
+Task 2: Implement add-to-cart functionality
+Task 3: Create cart view and edit features
+Task 4: Add cart persistence for logged-in users
+Task 5: Implement cart-to-order conversion
+Task 6: Add inventory reservation
+Task 7: Build cart abandonment email flow
+```
+
+### Características de una Buena Tarea
+
+| Característica | Descripción |
+|----------------|-------------|
+| **Single objective** | Una cosa por tarea |
+| **Independently testable** | Se puede probar sola |
+| **Reversible** | Se puede deshacer sin romper nada |
+| **Reviewable** | Un humano puede revisarla en < 30 min |
+| **Completable in one session** | No deja trabajo a medias |
+
+---
+
+## 🔄 Las 6 Fases del Ciclo de Vida de una Tarea
+
+```
+timeline
+    title Task Lifecycle Phases
+    section Draft
+        Initial planning : Requirements gathering
+        : Define scope
+    section Implementation  
+        Active coding : AI generates code
+        : Human reviews
+    section Integration Testing
+        Verify integration : Test with system
+        : Check dependencies
+    section Code Review
+        Human review : Validate architecture
+        : Check conventions
+    section Validation
+        Check criteria : Confirm quality
+        : Run tests
+    section Completed
+        Task integrated : Update master spec
+        : Archive task
+```
+
+### Fase 1: Draft
+
+**Qué ocurre**:
+- Planning inicial
+- Requisitos gathering
+- Definir alcance
+- Crear task spec (si complejidad lo requiere)
+
+**Output**: Task definition con acceptance criteria
+
+### Fase 2: Implementation
+
+**Qué ocurre**:
+- AI genera código usando context docs
+- Human revisa cada cambio
+- Decisiones de arquitectura por humano
+- AI asiste, no dicta
+
+**Output**: Código funcional
+
+### Fase 3: Integration Testing
+
+**Qué ocurre**:
+- Verificar que funciona con sistema existente
+- Test de dependencias
+- Test de edge cases
+
+**Output**: Tests pasando
+
+### Fase 4: Code Review
+
+**Qué ocurre**:
+- Human review del código generado
+- Validar alineación con master spec
+- Verificar edge cases
+- Chequear convenciones
+
+**Output**: Código aprobado
+
+### Fase 5: Validation
+
+**Qué ocurre**:
+- Confirmar acceptance criteria
+- Verificar non-functional requirements
+- Performance, security checks
+
+**Output**: Validación completa
+
+### Fase 6: Completed
+
+**Qué ocurre**:
+- Merge a main
+- Update master spec
+- Archive task spec
+- Celebrate 🎉
+
+**Output**: Sistema actualizado
+
+---
+
+## 📊 Flujo Completo: Tasks + Context
+
+```
+┌─────────────────────────────────────────────────────────┐
+│              TASK-DRIVEN WORKFLOW                        │
+├─────────────────────────────────────────────────────────┤
+│                                                          │
+│   ┌──────────────────┐                                  │
+│   │ Context Documents│                                  │
+│   │ (Master Spec +   │                                  │
+│   │  Conventions)    │                                  │
+│   └────────┬─────────┘                                  │
+│            │                                             │
+│            │ provides context for all tasks             │
+│            ▼                                             │
+│   ┌────────┬────────┬────────┬────────┐                │
+│   │ Task 1 │ Task 2 │ Task 3 │ Task 4 │                │
+│   │ Cart   │ Add    │ Cart   │ Bug    │                │
+│   │ Infra  │ to Cart│ Mgmt   │ Fix    │                │
+│   └───┬────┴───┬────┴───┬────┴───┬────┘                │
+│       │        │        │        │                      │
+│       ▼        ▼        ▼        ▼                      │
+│   ┌────────┬────────┬────────┬────────┐                │
+│   │ Code 1 │ Code 2 │ Code 3 │ Code 4 │                │
+│   └────────┴────────┴────────┴────────┘                │
+│            │                                             │
+│            │ updates                                     │
+│            ▼                                             │
+│   ┌──────────────────┐                                  │
+│   │ Master Spec v2   │  ← Living document               │
+│   └──────────────────┘                                  │
+│                                                          │
+└─────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 📝 Enhanced Task Template
+
+### Cuándo Usarlo
+
+| Complejidad | Enfoque |
+|-------------|---------|
+| Simple (bug fix) | Descripción en 2-3 párrafos |
+| Media (feature chica) | Template simplificado |
+| Alta (feature compleja) | Enhanced Task Template completo |
+
+### Template Completo
+
+```markdown
+# [Task Name]
+
+**Status**: DRAFT
+**Type**: Improvement | Bugfix | Feature | Refactor | Documentation
+**Date Created**: YYYY-MM-DD HH:MM
+**Date Completed**: TBD
+**Related Specs**: [Links to master specs]
+
+## Problem Statement
+[What the user explicitly stated - no assumptions]
+
+### Non-Functional Requirements
+[Technical requirements that must be fulfilled]
+
+### AI Agent Insights
+[Additional insights from AI - NOT part of user requirements]
+
+## System Impact
+- **Actors involved**: [User, Admin, System, ExternalService]
+- **Actions to implement**: [What actions]
+- **Flows affected**: [LoginFlow, CheckoutFlow]
+- **Entity changes needed**: [Which data models]
+- **Flow changes needed**: [Which processes]
+- **Integration changes needed**: [External systems]
+- **New specifications required**: [List new specs]
+
+## Software Architecture
+
+### API
+[Endpoints added or modified]
+
+### Events
+[Event-driven interactions]
+
+### Frontend
+[UI components and state]
+
+### Backend
+[Services and business logic]
+
+### Data
+[Database schema changes]
+
+## Technical Solution Overview
+[Implementation details, key algorithms, testing approach]
+
+## Log
+[Track decisions and phase transitions with timestamps]
+
+## Acceptance Criteria
+- [ ] [Specific measurable outcome 1]
+- [ ] [Specific measurable outcome 2]
+- [ ] All tests pass
+- [ ] Code review approved
+- [ ] Documentation updated
+```
+
+---
+
+## 🎯 Ejemplo Práctico: Shopping Cart
+
+### Task 1: Cart Infrastructure
+
+```markdown
+# Task 1: Cart Infrastructure
+
+**Status**: DRAFT
+**Type**: Feature
+**Date Created**: 2026-02-24 09:00
+
+## Problem Statement
+Users need to add products to a cart before checkout.
+The cart must persist across sessions for logged-in users.
+
+### Non-Functional Requirements
+- Response time < 100ms for cart operations
+- Support up to 100 items per cart
+- Real-time inventory sync
+
+## System Impact
+- **Actors involved**: User, System, InventoryService
+- **Actions**: Add, remove, update quantity
+- **Flows affected**: BrowsingFlow, CheckoutFlow
+- **Entity changes**: Cart, CartItem (new)
+- **Integration**: Inventory service for stock checks
+
+## Software Architecture
+
+### Data
+```
+Cart
+├── id: UUID
+├── user_id: UUID (nullable for guest)
+├── session_id: UUID (for guests)
+├── created_at: Timestamp
+├── updated_at: Timestamp
+└── items: CartItem[]
+
+CartItem
+├── id: UUID
+├── cart_id: UUID (FK)
+├── product_id: UUID (FK)
+├── quantity: Integer
+└── unit_price: Decimal
+```
+
+### API
+```
+GET    /api/v1/cart          # Get current cart
+POST   /api/v1/cart/items    # Add item
+PATCH  /api/v1/cart/items/:id # Update quantity
+DELETE /api/v1/cart/items/:id # Remove item
+```
+
+## Acceptance Criteria
+- [ ] Cart schema created with migrations
+- [ ] Repository pattern implemented
+- [ ] API endpoints functional
+- [ ] Unit tests > 80% coverage
+- [ ] Integration tests passing
+- [ ] Code review approved
+```
+
+### Task 2: Add to Cart Flow
+
+```markdown
+# Task 2: Add to Cart Flow
+
+**Status**: PENDING (wait for Task 1)
+**Type**: Feature
+**Date Created**: 2026-02-24 10:00
+
+## Problem Statement
+Users need to add products to their cart from product pages
+with inventory validation.
+
+## System Impact
+- **Actors**: User, System, InventoryService
+- **Flows affected**: ProductDetailFlow
+- **Integration**: Inventory service for stock check
+
+## Acceptance Criteria
+- [ ] Add to cart button on product page
+- [ ] Inventory check before adding
+- [ ] Error message if out of stock
+- [ ] Cart badge updates in real-time
+- [ ] Quantity validation (max 10 per product)
+```
+
+---
+
+## 👥 Human Design, AI Production
+
+### Principio Fundamental
+
+**Humanos diseñan, IA produce.**
+
+### Qué Hacen los Humanos
+
+| Responsabilidad | Descripción |
+|-----------------|-------------|
+| Strategic thinking | Business logic, trade-offs |
+| System design | Architecture decisions |
+| Problem decomposition | Task breakdown |
+| Requirements analysis | Edge case identification |
+| Design reasoning | Why decisions were made |
+| **ALL reasoning and decision-making** | Human controls |
+
+### Qué Hace la IA
+
+| Responsabilidad | Descripción |
+|-----------------|-------------|
+| Content production | Code, docs, tests |
+| Pattern application | Consistency enforcement |
+| Repetitive tasks | Boilerplate, migrations |
+| Refactoring | Code optimization |
+| Specification maintenance | Keeping docs in sync |
+| **NO reasoning, only execution** | AI assists |
+
+---
+
+## 🤖 Specialized Subagents
+
+### Task Coordinator Agent (Taskie)
+
+**Propósito**: Coordinar el ciclo de vida de tareas
+
+```text
+Taskie helps you:
+- Implement Enhanced Task Template
+- Guide through lifecycle phases
+- Ensure task completeness
+- Track phase transitions
+```
+
+### Architecture Specialist Agent (Archie)
+
+**Propósito**: Asistir con especificaciones técnicas
+
+```text
+Archie helps you:
+- Design software architecture
+- Create entity models
+- Generate technical specs
+- Provide solution guidance
+```
+
+### Cómo Usarlos
+
+```text
+# Con Claude Code o similar
+
+You: "@Taskie help me create a task for adding OAuth to my app"
+
+Taskie: "I'll guide you through the Enhanced Task Template.
+First, what's the problem statement?"
+
+You: "Users want to login with Google"
+
+Taskie: "Great. Let me help you identify:
+- Actors involved: User, System, Google OAuth
+- Flows affected: LoginFlow, RegistrationFlow
+- System Impact: User entity needs google_id field
+..."
+```
+
+---
+
+## 📊 Decision Framework: ¿Cuándo Necesitas Specs?
+
+```
+┌─────────────────────────────────────────────────────────┐
+│         DECISION FRAMEWORK: SPEC NEED                   │
+├─────────────────────────────────────────────────────────┤
+│                                                          │
+│  ¿Puedes explicar la tarea en 2-3 párrafos claros?      │
+│                                                          │
+│        ┌───────────┐                                     │
+│        │   START   │                                     │
+│        └─────┬─────┘                                     │
+│              │                                            │
+│              ▼                                            │
+│        ┌───────────┐                                     │
+│        │  ¿Simple? │                                     │
+│        └─────┬─────┘                                     │
+│              │                                            │
+│        ┌─────┴─────┐                                     │
+│        │           │                                      │
+│       YES         NO                                      │
+│        │           │                                      │
+│        ▼           ▼                                      │
+│   ┌─────────┐ ┌─────────────┐                           │
+│   │ Clear   │ │ Use Enhanced │                           │
+│   │ descrip │ │ Task Template│                           │
+│   │ -tion   │ │             │                           │
+│   └─────────┘ └─────────────┘                           │
+│                                                          │
+│  Examples:                                               │
+│  Simple: "Fix session timeout bug - users getting       │
+│           logged out after 10min instead of 30min"      │
+│                                                          │
+│  Complex: "Implement shopping cart persistence with     │
+│           30-day expiration"                             │
+│                                                          │
+└─────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 🎓 Lo Que Aprendiste
+
+1. **Vibe Coding Trap** = 50% pérdida de productividad
+2. **Task-Driven** = tareas pequeñas, bien definidas
+3. **6 Fases**: Draft → Implementation → Integration → Review → Validation → Completed
+4. **Enhanced Task Template** para tareas complejas
+5. **Human design, AI production** - humanos deciden, IA ejecuta
+6. **Specialized subagents** - Taskie y Archie
+7. **Decision Framework** - cuándo usar specs formales
+
+---
+
+## 🚀 Siguiente Paso
+
+Continúa con [Módulo 2: Comparativa de Herramientas](02-comparativa-herramientas.qmd) para implementar estas metodologías.
+
+---
+
+*Módulo 1C | Duración: 45 min | Dificultad: 🟡 Intermedio*

@@ -1,0 +1,1380 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2026-02-24">
+
+<title>Comparativa de Herramientas SDD – DevOps &amp; Security Learning Journey</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-7ac2f9da8c2617a4fdd15004b4601015.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-3dad1a9f078d91cda5f1887d21eb11b5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">DevOps &amp; Security Learning Journey</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../foundations/index.html"> 
+<span class="menu-text">Foundations</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../containers/index.html"> 
+<span class="menu-text">Containers</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../devops-practices/index.html"> 
+<span class="menu-text">DevOps</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../security/index.html"> 
+<span class="menu-text">Security</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../ai-workflows/index.html"> 
+<span class="menu-text">AI Workflows</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../roadmap/index.html"> 
+<span class="menu-text">Roadmap</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-language" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Language</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-language">    
+        <li>
+    <a class="dropdown-item" href="../es/index.html">
+ <span class="dropdown-text">Español</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../index.html">
+ <span class="dropdown-text">English</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="https://github.com/statick88/challenges"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text">GitHub</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#herramientas-sdd-kiro-spec-kit-tessl" id="toc-herramientas-sdd-kiro-spec-kit-tessl" class="nav-link active" data-scroll-target="#herramientas-sdd-kiro-spec-kit-tessl">🎓 Herramientas SDD: Kiro, Spec Kit, Tessl</a>
+  <ul class="collapse">
+  <li><a href="#vista-general" id="toc-vista-general" class="nav-link" data-scroll-target="#vista-general">📊 Vista General</a></li>
+  <li><a href="#kiro-aws" id="toc-kiro-aws" class="nav-link" data-scroll-target="#kiro-aws">🔧 Kiro (AWS)</a>
+  <ul class="collapse">
+  <li><a href="#filosofía" id="toc-filosofía" class="nav-link" data-scroll-target="#filosofía">Filosofía</a></li>
+  <li><a href="#workflow-requirements-design-tasks" id="toc-workflow-requirements-design-tasks" class="nav-link" data-scroll-target="#workflow-requirements-design-tasks">Workflow: Requirements → Design → Tasks</a></li>
+  <li><a href="#estructura-de-archivos" id="toc-estructura-de-archivos" class="nav-link" data-scroll-target="#estructura-de-archivos">Estructura de Archivos</a></li>
+  <li><a href="#ejemplo-requirements.md" id="toc-ejemplo-requirements.md" class="nav-link" data-scroll-target="#ejemplo-requirements.md">Ejemplo: Requirements.md</a></li>
+  <li><a href="#ejemplo-design.md" id="toc-ejemplo-design.md" class="nav-link" data-scroll-target="#ejemplo-design.md">Ejemplo: Design.md</a></li>
+  <li><a href="#pros-y-contras" id="toc-pros-y-contras" class="nav-link" data-scroll-target="#pros-y-contras">Pros y Contras</a></li>
+  <li><a href="#cuándo-usar-kiro" id="toc-cuándo-usar-kiro" class="nav-link" data-scroll-target="#cuándo-usar-kiro">Cuándo Usar Kiro</a></li>
+  </ul></li>
+  <li><a href="#github-spec-kit" id="toc-github-spec-kit" class="nav-link" data-scroll-target="#github-spec-kit">🐙 GitHub Spec Kit</a>
+  <ul class="collapse">
+  <li><a href="#filosofía-1" id="toc-filosofía-1" class="nav-link" data-scroll-target="#filosofía-1">Filosofía</a></li>
+  <li><a href="#workflow-constitution-specify-plan-tasks" id="toc-workflow-constitution-specify-plan-tasks" class="nav-link" data-scroll-target="#workflow-constitution-specify-plan-tasks">Workflow: Constitution → Specify → Plan → Tasks</a></li>
+  <li><a href="#estructura-de-archivos-1" id="toc-estructura-de-archivos-1" class="nav-link" data-scroll-target="#estructura-de-archivos-1">Estructura de Archivos</a></li>
+  <li><a href="#constitution.md-el-corazón" id="toc-constitution.md-el-corazón" class="nav-link" data-scroll-target="#constitution.md-el-corazón">Constitution.md: El Corazón</a></li>
+  <li><a href="#slash-commands" id="toc-slash-commands" class="nav-link" data-scroll-target="#slash-commands">Slash Commands</a></li>
+  <li><a href="#ejemplo-tasks.md" id="toc-ejemplo-tasks.md" class="nav-link" data-scroll-target="#ejemplo-tasks.md">Ejemplo: Tasks.md</a></li>
+  <li><a href="#pros-y-contras-1" id="toc-pros-y-contras-1" class="nav-link" data-scroll-target="#pros-y-contras-1">Pros y Contras</a></li>
+  <li><a href="#cuándo-usar-spec-kit" id="toc-cuándo-usar-spec-kit" class="nav-link" data-scroll-target="#cuándo-usar-spec-kit">Cuándo Usar Spec Kit</a></li>
+  </ul></li>
+  <li><a href="#tessl-framework" id="toc-tessl-framework" class="nav-link" data-scroll-target="#tessl-framework">🧬 Tessl Framework</a>
+  <ul class="collapse">
+  <li><a href="#filosofía-2" id="toc-filosofía-2" class="nav-link" data-scroll-target="#filosofía-2">Filosofía</a></li>
+  <li><a href="#workflow-spec-build-code" id="toc-workflow-spec-build-code" class="nav-link" data-scroll-target="#workflow-spec-build-code">Workflow: Spec → Build → Code</a></li>
+  <li><a href="#ejemplo-spec-code" id="toc-ejemplo-spec-code" class="nav-link" data-scroll-target="#ejemplo-spec-code">Ejemplo: Spec → Code</a></li>
+  <li><a href="#estructura" id="toc-estructura" class="nav-link" data-scroll-target="#estructura">Estructura</a></li>
+  <li><a href="#comandos-cli" id="toc-comandos-cli" class="nav-link" data-scroll-target="#comandos-cli">Comandos CLI</a></li>
+  <li><a href="#pros-y-contras-2" id="toc-pros-y-contras-2" class="nav-link" data-scroll-target="#pros-y-contras-2">Pros y Contras</a></li>
+  <li><a href="#cuándo-usar-tessl" id="toc-cuándo-usar-tessl" class="nav-link" data-scroll-target="#cuándo-usar-tessl">Cuándo Usar Tessl</a></li>
+  </ul></li>
+  <li><a href="#comparativa-detallada" id="toc-comparativa-detallada" class="nav-link" data-scroll-target="#comparativa-detallada">📊 Comparativa Detallada</a>
+  <ul class="collapse">
+  <li><a href="#nivel-de-abstracción" id="toc-nivel-de-abstracción" class="nav-link" data-scroll-target="#nivel-de-abstracción">Nivel de Abstracción</a></li>
+  <li><a href="#verbosidad-de-archivos" id="toc-verbosidad-de-archivos" class="nav-link" data-scroll-target="#verbosidad-de-archivos">Verbosidad de Archivos</a></li>
+  <li><a href="#soporte-para-brownfield" id="toc-soporte-para-brownfield" class="nav-link" data-scroll-target="#soporte-para-brownfield">Soporte para Brownfield</a></li>
+  <li><a href="#curva-de-aprendizaje" id="toc-curva-de-aprendizaje" class="nav-link" data-scroll-target="#curva-de-aprendizaje">Curva de Aprendizaje</a></li>
+  </ul></li>
+  <li><a href="#cuál-elegir" id="toc-cuál-elegir" class="nav-link" data-scroll-target="#cuál-elegir">🎯 ¿Cuál Elegir?</a>
+  <ul class="collapse">
+  <li><a href="#por-tamaño-de-proyecto" id="toc-por-tamaño-de-proyecto" class="nav-link" data-scroll-target="#por-tamaño-de-proyecto">Por Tamaño de Proyecto</a></li>
+  <li><a href="#por-equipo" id="toc-por-equipo" class="nav-link" data-scroll-target="#por-equipo">Por Equipo</a></li>
+  <li><a href="#por-tipo-de-cambio" id="toc-por-tipo-de-cambio" class="nav-link" data-scroll-target="#por-tipo-de-cambio">Por Tipo de Cambio</a></li>
+  </ul></li>
+  <li><a href="#híbrido-nuestro-enfoque-recomendado" id="toc-híbrido-nuestro-enfoque-recomendado" class="nav-link" data-scroll-target="#híbrido-nuestro-enfoque-recomendado">🔗 Híbrido: Nuestro Enfoque Recomendado</a>
+  <ul class="collapse">
+  <li><a href="#estructura-híbrida" id="toc-estructura-híbrida" class="nav-link" data-scroll-target="#estructura-híbrida">Estructura Híbrida</a></li>
+  <li><a href="#workflow-híbrido" id="toc-workflow-híbrido" class="nav-link" data-scroll-target="#workflow-híbrido">Workflow Híbrido</a></li>
+  </ul></li>
+  <li><a href="#lo-que-aprendiste" id="toc-lo-que-aprendiste" class="nav-link" data-scroll-target="#lo-que-aprendiste">🎓 Lo Que Aprendiste</a></li>
+  <li><a href="#siguiente-paso" id="toc-siguiente-paso" class="nav-link" data-scroll-target="#siguiente-paso">🚀 Siguiente Paso</a></li>
+  <li><a href="#referencias" id="toc-referencias" class="nav-link" data-scroll-target="#referencias">📚 Referencias</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Comparativa de Herramientas SDD</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">February 24, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="herramientas-sdd-kiro-spec-kit-tessl" class="level1">
+<h1>🎓 Herramientas SDD: Kiro, Spec Kit, Tessl</h1>
+<p>👨‍🏫 <strong>Del Instructor</strong>: Tres herramientas lideran el movimiento SDD, cada una con filosofía diferente. Entender sus diferencias te ayudará a elegir la adecuada para tu contexto.</p>
+<blockquote class="blockquote">
+<p>💭 <strong>Mentalidad de Arquitecto</strong>: “No hay herramienta perfecta. Hay herramienta correcta para el contexto correcto. Conoce tus opciones.”</p>
+</blockquote>
+<hr>
+<section id="vista-general" class="level2">
+<h2 class="anchored" data-anchor-id="vista-general">📊 Vista General</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Herramienta</th>
+<th>Desarrollador</th>
+<th>Filosofía</th>
+<th>Nivel SDD</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Kiro</strong></td>
+<td>AWS</td>
+<td>Spec-first + Design</td>
+<td>Spec-anchored</td>
+</tr>
+<tr class="even">
+<td><strong>Spec Kit</strong></td>
+<td>GitHub</td>
+<td>Constitution + Memory</td>
+<td>Spec-first</td>
+</tr>
+<tr class="odd">
+<td><strong>Tessl Framework</strong></td>
+<td>Tessl</td>
+<td>Spec-as-source</td>
+<td>Spec-as-source</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="kiro-aws" class="level2">
+<h2 class="anchored" data-anchor-id="kiro-aws">🔧 Kiro (AWS)</h2>
+<section id="filosofía" class="level3">
+<h3 class="anchored" data-anchor-id="filosofía">Filosofía</h3>
+<p>Kiro nace de la experiencia de Amazon con <strong>“Working Backwards”</strong>:</p>
+<ol type="1">
+<li>Escribir press release antes de construir</li>
+<li>Especificaciones como source of truth</li>
+<li>Specs como “North Star” para agentes IA</li>
+</ol>
+</section>
+<section id="workflow-requirements-design-tasks" class="level3">
+<h3 class="anchored" data-anchor-id="workflow-requirements-design-tasks">Workflow: Requirements → Design → Tasks</h3>
+<pre><code>┌─────────────────────────────────────────────────────────┐
+│                     KIRO WORKFLOW                        │
+├─────────────────────────────────────────────────────────┤
+│                                                          │
+│  ┌──────────────┐    ┌──────────────┐    ┌───────────┐ │
+│  │ requirements │ ─▶ │   design.md  │ ─▶ │ tasks.md  │ │
+│  │     .md      │    │              │    │           │ │
+│  └──────────────┘    └──────────────┘    └───────────┘ │
+│         │                   │                  │        │
+│         ▼                   ▼                  ▼        │
+│    User Stories       Architecture         Task UI     │
+│    Acceptance         Sequence Diags       Progress    │
+│    Criteria           ADRs                 Tracking    │
+│                                                          │
+└─────────────────────────────────────────────────────────┘</code></pre>
+</section>
+<section id="estructura-de-archivos" class="level3">
+<h3 class="anchored" data-anchor-id="estructura-de-archivos">Estructura de Archivos</h3>
+<pre><code>project/
+├── steering/                  # Memory Bank
+│   ├── product.md            # Qué es el producto
+│   ├── tech.md               # Stack tecnológico
+│   └── structure.md          # Arquitectura
+└── specs/
+    └── &lt;feature-name&gt;/
+        ├── requirements.md   # User stories + acceptance criteria
+        ├── design.md         # Technical design
+        └── tasks.md          # Implementation tasks</code></pre>
+</section>
+<section id="ejemplo-requirements.md" class="level3">
+<h3 class="anchored" data-anchor-id="ejemplo-requirements.md">Ejemplo: Requirements.md</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Requirements: Health Endpoint</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## User Story 1: Health Check for Kubernetes</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>As a DevOps engineer, I want to check if the API is running</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>So that Kubernetes can manage pod lifecycle.</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">### Acceptance Criteria</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>GIVEN the API is deployed</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>WHEN I request GET /health</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>THEN I receive 200 OK</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>AND the response contains {"status": "ok"}</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="fu">## User Story 2: Response Time Under 100ms</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>As a platform engineer, I want health checks to be fast</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>So that load balancers don't timeout.</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="fu">### Acceptance Criteria</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>GIVEN the API is under normal load</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>WHEN I request GET /health</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>THEN response time is under 100ms</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="ejemplo-design.md" class="level3">
+<h3 class="anchored" data-anchor-id="ejemplo-design.md">Ejemplo: Design.md</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Design: Health Endpoint</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## Component Architecture</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="sc">\`\`\`</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>┌─────────────────────────────────────┐</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>│           API Gateway               │</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>├─────────────────────────────────────┤</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>│  GET /health → HealthController     │</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>└─────────────────────────────────────┘</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="sc">\`\`\`</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="fu">## Architecture Decision Records</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="fu">### ADR-001: Inline Route</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>**Context**: Simple health check</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>**Decision**: Add route directly in app.js</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>**Consequences**: Minimal change, easy to test</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data Models</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>Response: { status: string, timestamp: ISO8601 }</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="fu">## Error Handling</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>No errors expected for healthy state</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Return 503 if database unreachable (future)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="pros-y-contras" class="level3">
+<h3 class="anchored" data-anchor-id="pros-y-contras">Pros y Contras</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Ventajas</th>
+<th>Desventajas</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>✅ Workflow intuitivo</td>
+<td>❌ Overkill para bugs pequeños</td>
+</tr>
+<tr class="even">
+<td>✅ Integración VS Code</td>
+<td>❌ Solo spec-first (no spec-as-source)</td>
+</tr>
+<tr class="odd">
+<td>✅ UI de progreso de tareas</td>
+<td>❌ Genera specs muy verbosas</td>
+</tr>
+<tr class="even">
+<td>✅ Basado en prácticas AWS</td>
+<td>❌ Sin soporte para proyectos legacy</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="cuándo-usar-kiro" class="level3">
+<h3 class="anchored" data-anchor-id="cuándo-usar-kiro">Cuándo Usar Kiro</h3>
+<ul>
+<li>✅ Features nuevos de tamaño medio/grande</li>
+<li>✅ Equipos que usan VS Code</li>
+<li>✅ Proyectos greenfield</li>
+<li>❌ Bug fixes simples</li>
+<li>❌ Proyectos legacy con specs retrospectivos</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="github-spec-kit" class="level2">
+<h2 class="anchored" data-anchor-id="github-spec-kit">🐙 GitHub Spec Kit</h2>
+<section id="filosofía-1" class="level3">
+<h3 class="anchored" data-anchor-id="filosofía-1">Filosofía</h3>
+<p>Spec Kit es <strong>agent-agnostic</strong>: funciona con cualquier asistente de IA.</p>
+<p>Conceptos clave:</p>
+<ol type="1">
+<li><strong>Constitution</strong>: Principios inmutables del proyecto</li>
+<li><strong>Memory Bank</strong>: Contexto persistente</li>
+<li><strong>Slash Commands</strong>: <code>/specify</code>, <code>/plan</code>, <code>/tasks</code></li>
+</ol>
+</section>
+<section id="workflow-constitution-specify-plan-tasks" class="level3">
+<h3 class="anchored" data-anchor-id="workflow-constitution-specify-plan-tasks">Workflow: Constitution → Specify → Plan → Tasks</h3>
+<pre><code>┌─────────────────────────────────────────────────────────┐
+│                   SPEC KIT WORKFLOW                      │
+├─────────────────────────────────────────────────────────┤
+│                                                          │
+│  ┌──────────────┐                                       │
+│  │ constitution │ ← Principios inmutables               │
+│  │     .md      │                                       │
+│  └──────────────┘                                       │
+│         │                                               │
+│         ▼                                               │
+│  ┌──────────────┐    ┌──────────────┐    ┌───────────┐ │
+│  │  /specify    │ ─▶ │    /plan     │ ─▶ │   /tasks  │ │
+│  │  spec.md     │    │  plan.md     │    │ tasks.md  │ │
+│  └──────────────┘    └──────────────┘    └───────────┘ │
+│                                                          │
+└─────────────────────────────────────────────────────────┘</code></pre>
+</section>
+<section id="estructura-de-archivos-1" class="level3">
+<h3 class="anchored" data-anchor-id="estructura-de-archivos-1">Estructura de Archivos</h3>
+<pre><code>project/
+├── .github/
+│   └── prompts/
+│       ├── specify.prompt.md    # Comando /specify
+│       ├── plan.prompt.md       # Comando /plan
+│       └── tasks.prompt.md      # Comando /tasks
+├── .specify/
+│   ├── memory/
+│   │   ├── constitution.md      # Principios del proyecto
+│   │   └── constitution_update_checklist.md
+│   ├── scripts/
+│   │   └── powershell/          # Scripts de automatización
+│   └── templates/
+│       ├── spec-template.md
+│       ├── plan-template.md
+│       └── tasks-template.md
+└── specs/
+    └── 001-feature-name/
+        ├── spec.md              # Qué y por qué
+        ├── plan.md              # Cómo
+        ├── tasks.md             # Pasos
+        ├── research.md          # Investigación
+        ├── api.md               # Contratos API
+        └── data-model.md        # Modelos de datos</code></pre>
+</section>
+<section id="constitution.md-el-corazón" class="level3">
+<h3 class="anchored" data-anchor-id="constitution.md-el-corazón">Constitution.md: El Corazón</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Project Constitution</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## Architecture Principles</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Use hexagonal architecture</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Domain logic isolated from infrastructure</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>All external dependencies behind interfaces</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="fu">## Technology Standards</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Language: TypeScript 5.x</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Framework: Node.js 20+</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Testing: Jest with 80% coverage minimum</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Linting: ESLint with strict config</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="fu">## API Design</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>RESTful endpoints</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Version in URL: /api/v1/</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>OpenAPI 3.0 documentation required</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="fu">## Security</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>No credentials in code</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Environment variables for secrets</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Input validation on all endpoints</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="fu">## Testing Requirements</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Unit tests for all services</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Integration tests for API endpoints</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>E2E tests for critical paths</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="slash-commands" class="level3">
+<h3 class="anchored" data-anchor-id="slash-commands">Slash Commands</h3>
+<section id="specify" class="level4">
+<h4 class="anchored" data-anchor-id="specify"><code>/specify</code></h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># En GitHub Copilot:</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ex">/specify</span> NG Pokedex is an application for Pokémon fans...</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Genera:</strong></p>
+<ul>
+<li><code>specs/001-ng-pokedex/spec.md</code></li>
+<li>User stories</li>
+<li>Acceptance criteria</li>
+<li>Key entities</li>
+<li>Validation checklist</li>
+</ul>
+</section>
+<section id="plan" class="level4">
+<h4 class="anchored" data-anchor-id="plan"><code>/plan</code></h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># En GitHub Copilot:</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">/plan</span> Angular 20 with Material Design, PokeAPI V2, localStorage...</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Genera:</strong></p>
+<ul>
+<li><code>plan.md</code> con arquitectura</li>
+<li><code>research.md</code> con decisiones</li>
+<li><code>quickstart.md</code> para setup</li>
+<li><code>data-model.md</code> con entidades</li>
+</ul>
+</section>
+<section id="tasks" class="level4">
+<h4 class="anchored" data-anchor-id="tasks"><code>/tasks</code></h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># En GitHub Copilot:</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="ex">/tasks</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Genera:</strong></p>
+<ul>
+<li><code>tasks.md</code> con fases</li>
+<li>Tasks con IDs únicos (T001, T002…)</li>
+<li>Dependencias entre tareas</li>
+<li>Estimación de tiempo</li>
+</ul>
+</section>
+</section>
+<section id="ejemplo-tasks.md" class="level3">
+<h3 class="anchored" data-anchor-id="ejemplo-tasks.md">Ejemplo: Tasks.md</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Implementation Tasks</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## Phase 1: Setup</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="va">[ ]</span> T001: Initialize Angular project</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="va">[ ]</span> T002: Configure Material Design</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="va">[ ]</span> T003: Setup ESLint and Prettier</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="fu">## Phase 2: TDD Foundation</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="va">[ ]</span> T004: Write tests for Pokemon service</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="va">[ ]</span> T005: Write tests for Favorites service</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="va">[ ]</span> T006: Write tests for Search component</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="fu">## Phase 3: Implementation</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="va">[ ]</span> T007: Implement Pokemon service</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="va">[ ]</span> T008: Implement Favorites service</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="va">[ ]</span> T009: Implement Search component</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="fu">## Validation Checklist</span></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="va">[x]</span> All tasks specify exact file path</span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="va">[x]</span> Tests come before implementation</span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="va">[x]</span> Constitutional compliance verified</span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="va">[x]</span> No task modifies same file as another <span class="co">[</span><span class="ot">P</span><span class="co">]</span> task</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="pros-y-contras-1" class="level3">
+<h3 class="anchored" data-anchor-id="pros-y-contras-1">Pros y Contras</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Ventajas</th>
+<th>Desventajas</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>✅ Agent-agnostic</td>
+<td>❌ Genera MUCHOS archivos</td>
+</tr>
+<tr class="even">
+<td>✅ Constitution como guardrails</td>
+<td>❌ Archivos repetitivos</td>
+</tr>
+<tr class="odd">
+<td>✅ Scripts de automatización</td>
+<td>❌ Curva de aprendizaje</td>
+</tr>
+<tr class="even">
+<td>✅ Branch por feature</td>
+<td>❌ Pobre para brownfield</td>
+</tr>
+<tr class="odd">
+<td>✅ Cross-platform (POSIX + PowerShell)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="cuándo-usar-spec-kit" class="level3">
+<h3 class="anchored" data-anchor-id="cuándo-usar-spec-kit">Cuándo Usar Spec Kit</h3>
+<ul>
+<li>✅ Equipos con múltiples AI tools</li>
+<li>✅ Proyectos con estándares estrictos</li>
+<li>✅ Features medianas/grandes</li>
+<li>❌ Cambios rápidos/iterativos</li>
+<li>❌ Proyectos sin constitución definida</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="tessl-framework" class="level2">
+<h2 class="anchored" data-anchor-id="tessl-framework">🧬 Tessl Framework</h2>
+<section id="filosofía-2" class="level3">
+<h3 class="anchored" data-anchor-id="filosofía-2">Filosofía</h3>
+<p>Tessl es el más radical: <strong>Spec-as-source</strong>.</p>
+<pre class="text"><code>El humano SOLO edita specs
+El código es GENERATED FROM SPEC - DO NOT EDIT</code></pre>
+</section>
+<section id="workflow-spec-build-code" class="level3">
+<h3 class="anchored" data-anchor-id="workflow-spec-build-code">Workflow: Spec → Build → Code</h3>
+<pre><code>┌─────────────────────────────────────────────────────────┐
+│                   TESSL WORKFLOW                         │
+├─────────────────────────────────────────────────────────┤
+│                                                          │
+│  ┌──────────────┐         ┌──────────────┐             │
+│  │  health.     │ ──────▶ │  health.js   │             │
+│  │  spec.md     │  build  │  // GENERATED│             │
+│  └──────────────┘         └──────────────┘             │
+│         │                        ▲                      │
+│         │                        │                      │
+│         ▼                        │                      │
+│  ┌──────────────┐                │                      │
+│  │   Human      │                │                      │
+│  │   edits      │                │                      │
+│  │   spec only  │────────────────┘                      │
+│  └──────────────┘                                       │
+│                                                          │
+└─────────────────────────────────────────────────────────┘</code></pre>
+</section>
+<section id="ejemplo-spec-code" class="level3">
+<h3 class="anchored" data-anchor-id="ejemplo-spec-code">Ejemplo: Spec → Code</h3>
+<p><strong>health.spec.md:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Health Endpoint Spec</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## @generate</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="fu">## API</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>GET /health → 200 { status: "ok", timestamp: ISO8601 }</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="fu">## Behavior</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>Returns current health status of the API.</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="fu">## @test</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Test: Returns 200 when healthy</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Test: Includes valid ISO timestamp</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Generated health.js:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">// GENERATED FROM SPEC - DO NOT EDIT</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co">// Spec: health.spec.md</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">getHealth</span>() {</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> {</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">status</span><span class="op">:</span> <span class="st">"ok"</span><span class="op">,</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">timestamp</span><span class="op">:</span> <span class="kw">new</span> <span class="bu">Date</span>()<span class="op">.</span><span class="fu">toISOString</span>()</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  }<span class="op">;</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>module<span class="op">.</span><span class="at">exports</span> <span class="op">=</span> { getHealth }<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="estructura" class="level3">
+<h3 class="anchored" data-anchor-id="estructura">Estructura</h3>
+<pre><code>project/
+├── .tessl/
+│   └── framework/
+│       ├── config.yaml
+│       └── templates/
+├── KNOWLEDGE.md              # Memory bank
+├── AGENTS.md                 # Agent instructions
+└── specs/
+    ├── health.spec.md
+    ├── user-auth.spec.md
+    └── api-gateway.spec.md</code></pre>
+</section>
+<section id="comandos-cli" class="level3">
+<h3 class="anchored" data-anchor-id="comandos-cli">Comandos CLI</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Inicializar proyecto</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="ex">tessl</span> init my-project</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Generar spec desde código existente</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="ex">tessl</span> document <span class="at">--code</span> health.js</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Generar código desde spec</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="ex">tessl</span> build health.spec.md</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Sincronizar specs ↔ código</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="ex">tessl</span> sync</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="pros-y-contras-2" class="level3">
+<h3 class="anchored" data-anchor-id="pros-y-contras-2">Pros y Contras</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Ventajas</th>
+<th>Desventajas</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>✅ Spec como único source</td>
+<td>❌ Muy experimental</td>
+</tr>
+<tr class="even">
+<td>✅ 1:1 mapping spec→code</td>
+<td>❌ No aplica a todos los patrones</td>
+</tr>
+<tr class="odd">
+<td>✅ No determinismo controlado</td>
+<td>❌ Requiere specs muy específicos</td>
+</tr>
+<tr class="even">
+<td>✅ Ideal para componentes</td>
+<td>❌ Limitado para lógica compleja</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="cuándo-usar-tessl" class="level3">
+<h3 class="anchored" data-anchor-id="cuándo-usar-tessl">Cuándo Usar Tessl</h3>
+<ul>
+<li>✅ Componentes bien definidos</li>
+<li>✅ APIs con contratos claros</li>
+<li>✅ Experimentación con spec-as-source</li>
+<li>❌ Lógica de negocio compleja</li>
+<li>❌ Proyectos con múltiples colaboradores en código</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="comparativa-detallada" class="level2">
+<h2 class="anchored" data-anchor-id="comparativa-detallada">📊 Comparativa Detallada</h2>
+<section id="nivel-de-abstracción" class="level3">
+<h3 class="anchored" data-anchor-id="nivel-de-abstracción">Nivel de Abstracción</h3>
+<pre><code>Spec Kit ────────▶ Spec-first (specs desaparecen después)
+         │
+         └── Specs guían, luego se archivan
+
+Kiro ────────────▶ Spec-anchored (specs persisten)
+         │
+         └── Specs viven junto al código
+
+Tessl ───────────▶ Spec-as-source (specs SON el código)
+         │
+         └── Solo editas specs, código es generado</code></pre>
+</section>
+<section id="verbosidad-de-archivos" class="level3">
+<h3 class="anchored" data-anchor-id="verbosidad-de-archivos">Verbosidad de Archivos</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Herramienta</th>
+<th>Archivos por Feature</th>
+<th>Verbosidad</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Kiro</td>
+<td>3</td>
+<td>Media</td>
+</tr>
+<tr class="even">
+<td>Spec Kit</td>
+<td>8+</td>
+<td>Alta</td>
+</tr>
+<tr class="odd">
+<td>Tessl</td>
+<td>1-2</td>
+<td>Baja</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="soporte-para-brownfield" class="level3">
+<h3 class="anchored" data-anchor-id="soporte-para-brownfield">Soporte para Brownfield</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Herramienta</th>
+<th>Greenfield</th>
+<th>Brownfield</th>
+<th>Legacy</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Kiro</td>
+<td>✅ Excelente</td>
+<td>⚠️ Parcial</td>
+<td>❌ Pobre</td>
+</tr>
+<tr class="even">
+<td>Spec Kit</td>
+<td>✅ Excelente</td>
+<td>⚠️ Parcial</td>
+<td>❌ Pobre</td>
+</tr>
+<tr class="odd">
+<td>Tessl</td>
+<td>✅ Excelente</td>
+<td>⚠️ Parcial</td>
+<td>❌ Pobre</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="curva-de-aprendizaje" class="level3">
+<h3 class="anchored" data-anchor-id="curva-de-aprendizaje">Curva de Aprendizaje</h3>
+<pre><code>Fácil ────────────────────────────────────────── Difícil
+
+   Tessl ◀──────────── Kiro ◀──────────── Spec Kit
+   
+   (1 spec)            (3 archivos)      (8+ archivos)</code></pre>
+<hr>
+</section>
+</section>
+<section id="cuál-elegir" class="level2">
+<h2 class="anchored" data-anchor-id="cuál-elegir">🎯 ¿Cuál Elegir?</h2>
+<section id="por-tamaño-de-proyecto" class="level3">
+<h3 class="anchored" data-anchor-id="por-tamaño-de-proyecto">Por Tamaño de Proyecto</h3>
+<pre><code>┌─────────────┬─────────────────────────────────────────┐
+│ Tamaño      │ Recomendación                           │
+├─────────────┼─────────────────────────────────────────┤
+│ Small fix   │ Vibe coding → Spec Kit mínimo          │
+│ Feature     │ Kiro (simple) o Spec Kit (estructurado)│
+│ Large app   │ Spec Kit con constitution completo     │
+│ Component   │ Tessl para spec-as-source              │
+└─────────────┴─────────────────────────────────────────┘</code></pre>
+</section>
+<section id="por-equipo" class="level3">
+<h3 class="anchored" data-anchor-id="por-equipo">Por Equipo</h3>
+<pre><code>┌────────────────────┬──────────────────────────────────┐
+│ Contexto           │ Recomendación                    │
+├────────────────────┼──────────────────────────────────┤
+│ Solo developer     │ Kiro (más simple)                │
+│ Equipo pequeño     │ Spec Kit (estándares claros)     │
+│ Equipo grande      │ Spec Kit + constitution estricta │
+│ Múltiples AI tools │ Spec Kit (agent-agnostic)        │
+│ Solo VS Code       │ Kiro (mejor integración)         │
+└────────────────────┴──────────────────────────────────┘</code></pre>
+</section>
+<section id="por-tipo-de-cambio" class="level3">
+<h3 class="anchored" data-anchor-id="por-tipo-de-cambio">Por Tipo de Cambio</h3>
+<pre><code>┌─────────────────┬───────────────────────────────────────┐
+│ Tipo            │ Herramienta                           │
+├─────────────────┼───────────────────────────────────────┤
+│ Bug fix simple  │ Skip SDD → Direct fix                 │
+│ Feature nueva   │ Kiro o Spec Kit                       │
+│ Refactor mayor  │ Spec Kit con spec retrospectivo       │
+│ API nueva       │ Kiro (requisitos claros)              │
+│ Componente UI   │ Tessl (spec-as-source)                │
+│ Migración       │ Spec Kit + research.md extenso        │
+└─────────────────┴───────────────────────────────────────┘</code></pre>
+<hr>
+</section>
+</section>
+<section id="híbrido-nuestro-enfoque-recomendado" class="level2">
+<h2 class="anchored" data-anchor-id="híbrido-nuestro-enfoque-recomendado">🔗 Híbrido: Nuestro Enfoque Recomendado</h2>
+<p>Combinamos lo mejor de cada herramienta:</p>
+<section id="estructura-híbrida" class="level3">
+<h3 class="anchored" data-anchor-id="estructura-híbrida">Estructura Híbrida</h3>
+<pre><code>project/
+├── openspec/
+│   ├── config.yaml           # Configuración SDD
+│   ├── specs/                # Source of truth (Tessl style)
+│   │   └── health.spec.md
+│   └── changes/              # Cambios activos (Spec Kit style)
+│       └── 001-add-health/
+│           ├── proposal.md   # Intent (Kiro style)
+│           ├── spec.delta.md # Requisitos
+│           ├── design.md     # Arquitectura (Kiro style)
+│           └── tasks.md      # Implementación
+└── .kilocode/
+    ├── mcp.json              # MCP servers
+    └── skills/               # Skills personalizados</code></pre>
+</section>
+<section id="workflow-híbrido" class="level3">
+<h3 class="anchored" data-anchor-id="workflow-híbrido">Workflow Híbrido</h3>
+<pre><code>1. INIT: Crear openspec/ con config.yaml
+2. PROPOSE: proposal.md (inspirado en Kiro)
+3. SPEC: spec.delta.md (Spec Kit style)
+4. DESIGN: design.md con ADRs (Kiro style)
+5. TASKS: tasks.md jerárquico (Spec Kit style)
+6. IMPLEMENT: Código con verificación
+7. VERIFY: Tests + validación
+8. ARCHIVE: Merge a specs/ (Tessl style)</code></pre>
+<hr>
+</section>
+</section>
+<section id="lo-que-aprendiste" class="level2">
+<h2 class="anchored" data-anchor-id="lo-que-aprendiste">🎓 Lo Que Aprendiste</h2>
+<ol type="1">
+<li><strong>Kiro</strong> es intuitivo pero puede ser overkill</li>
+<li><strong>Spec Kit</strong> es poderoso pero verboso</li>
+<li><strong>Tessl</strong> es experimental pero visionario</li>
+<li><strong>Cada herramienta</strong> tiene su sweet spot</li>
+<li><strong>Híbrido</strong> combina lo mejor de cada una</li>
+</ol>
+<hr>
+</section>
+<section id="siguiente-paso" class="level2">
+<h2 class="anchored" data-anchor-id="siguiente-paso">🚀 Siguiente Paso</h2>
+<p>Continúa con <a href="../ai-workflows/03-sdd-kilocode.html">Módulo 3: SDD en Kilocode CLI</a> para implementar el enfoque híbrido.</p>
+<hr>
+</section>
+<section id="referencias" class="level2">
+<h2 class="anchored" data-anchor-id="referencias">📚 Referencias</h2>
+<ul>
+<li>Böckeler, B. (2025). “Understanding Spec-Driven-Development: Kiro, spec-kit, and Tessl” - Martin Fowler</li>
+<li>Brooker, M. (2025). “Kiro and the future of AI spec-driven software development”</li>
+<li>Delimarsky, D. (2025). “Diving Into Spec-Driven Development With GitHub Spec Kit” - Microsoft</li>
+<li>Sogl, D. (2025). “Spec Driven Development: A initial review” - DEV Community</li>
+<li>Debois, P. (2025). “Spec-Driven Development: 10 things you need to know” - AI Native Dev</li>
+</ul>
+<hr>
+<p><em>Módulo 2.0 | Duración: 45 min | Dificultad: 🟡 Intermedio</em></p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

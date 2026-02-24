@@ -6,9 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Diego Saavedra">
 <meta name="dcterms.date" content="2026-02-24">
+<meta name="description" content="Tutorial práctico para almacenar y recuperar claves privadas RSA de forma segura usando macOS Keychain">
 
-<title>DevOps &amp; Security Learning Journey</title>
+<title>El Problema con Keychain y Claves PEM – DevOps &amp; Security Learning Journey</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,27 +23,62 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-7ac2f9da8c2617a4fdd15004b4601015.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-3dad1a9f078d91cda5f1887d21eb11b5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-7ac2f9da8c2617a4fdd15004b4601015.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-3dad1a9f078d91cda5f1887d21eb11b5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -80,7 +117,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">DevOps &amp; Security Learning Journey</span>
     </a>
   </div>
@@ -91,31 +128,31 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./foundations/index.html"> 
+    <a class="nav-link" href="../../foundations/index.html"> 
 <span class="menu-text">Foundations</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./containers/index.html"> 
+    <a class="nav-link" href="../../containers/index.html"> 
 <span class="menu-text">Containers</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./devops-practices/index.html"> 
+    <a class="nav-link" href="../../devops-practices/index.html"> 
 <span class="menu-text">DevOps</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./security/index.html"> 
+    <a class="nav-link" href="../../security/index.html"> 
 <span class="menu-text">Security</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./ai-workflows/index.html"> 
+    <a class="nav-link" href="../../ai-workflows/index.html"> 
 <span class="menu-text">AI Workflows</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./roadmap/index.html"> 
+    <a class="nav-link" href="../../roadmap/index.html"> 
 <span class="menu-text">Roadmap</span></a>
   </li>  
 </ul>
@@ -126,11 +163,11 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-language">    
         <li>
-    <a class="dropdown-item" href="./es/index.html">
+    <a class="dropdown-item" href="../../es/index.html">
  <span class="dropdown-text">Español</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./index.html">
+    <a class="dropdown-item" href="../../index.html">
  <span class="dropdown-text">English</span></a>
   </li>  
     </ul>
@@ -156,31 +193,17 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#welcome-to-my-learning-journey" id="toc-welcome-to-my-learning-journey" class="nav-link active" data-scroll-target="#welcome-to-my-learning-journey">Welcome to My Learning Journey</a>
+  <li><a href="#objetivo" id="toc-objetivo" class="nav-link active" data-scroll-target="#objetivo">Objetivo</a></li>
+  <li><a href="#el-comando-problemático" id="toc-el-comando-problemático" class="nav-link" data-scroll-target="#el-comando-problemático">El Comando Problemático</a></li>
+  <li><a href="#análisis-del-comportamiento" id="toc-análisis-del-comportamiento" class="nav-link" data-scroll-target="#análisis-del-comportamiento">Análisis del Comportamiento</a></li>
+  <li><a href="#demostración-del-problema" id="toc-demostración-del-problema" class="nav-link" data-scroll-target="#demostración-del-problema">Demostración del Problema</a></li>
+  <li><a href="#explicación-técnica" id="toc-explicación-técnica" class="nav-link" data-scroll-target="#explicación-técnica">Explicación Técnica</a>
   <ul class="collapse">
-  <li><a href="#purpose" id="toc-purpose" class="nav-link" data-scroll-target="#purpose">Purpose</a></li>
-  <li><a href="#overall-progress" id="toc-overall-progress" class="nav-link" data-scroll-target="#overall-progress">Overall Progress</a></li>
-  <li><a href="#progress-by-area" id="toc-progress-by-area" class="nav-link" data-scroll-target="#progress-by-area">Progress by Area</a></li>
-  <li><a href="#learning-path" id="toc-learning-path" class="nav-link" data-scroll-target="#learning-path">Learning Path</a>
-  <ul class="collapse">
-  <li><a href="#phase-1-linux-fundamentals" id="toc-phase-1-linux-fundamentals" class="nav-link" data-scroll-target="#phase-1-linux-fundamentals">Phase 1: Linux Fundamentals ✅</a></li>
-  <li><a href="#phase-2-containerization" id="toc-phase-2-containerization" class="nav-link" data-scroll-target="#phase-2-containerization">Phase 2: Containerization ✅</a></li>
-  <li><a href="#phase-3-devops-practices" id="toc-phase-3-devops-practices" class="nav-link" data-scroll-target="#phase-3-devops-practices">Phase 3: DevOps Practices 🔄</a></li>
-  <li><a href="#phase-4-security-fundamentals" id="toc-phase-4-security-fundamentals" class="nav-link" data-scroll-target="#phase-4-security-fundamentals">Phase 4: Security Fundamentals 🔄</a></li>
-  <li><a href="#phase-5-ai-assisted-development" id="toc-phase-5-ai-assisted-development" class="nav-link" data-scroll-target="#phase-5-ai-assisted-development">Phase 5: AI-Assisted Development 🆕</a></li>
-  <li><a href="#phase-6-advanced-topics" id="toc-phase-6-advanced-topics" class="nav-link" data-scroll-target="#phase-6-advanced-topics">Phase 6: Advanced Topics ⏳</a></li>
+  <li><a href="#por-qué-hexadecimal" id="toc-por-qué-hexadecimal" class="nav-link" data-scroll-target="#por-qué-hexadecimal">¿Por qué hexadecimal?</a></li>
+  <li><a href="#el-problema-con-esta-conversión" id="toc-el-problema-con-esta-conversión" class="nav-link" data-scroll-target="#el-problema-con-esta-conversión">El problema con esta conversión</a></li>
+  <li><a href="#comparación-visual" id="toc-comparación-visual" class="nav-link" data-scroll-target="#comparación-visual">Comparación visual</a></li>
   </ul></li>
-  <li><a href="#structure" id="toc-structure" class="nav-link" data-scroll-target="#structure">Structure</a>
-  <ul class="collapse">
-  <li><a href="#foundations" id="toc-foundations" class="nav-link" data-scroll-target="#foundations">Foundations</a></li>
-  <li><a href="#containers" id="toc-containers" class="nav-link" data-scroll-target="#containers">Containers</a></li>
-  <li><a href="#devops-practices" id="toc-devops-practices" class="nav-link" data-scroll-target="#devops-practices">DevOps Practices</a></li>
-  <li><a href="#security" id="toc-security" class="nav-link" data-scroll-target="#security">Security</a></li>
-  <li><a href="#ai-workflows" id="toc-ai-workflows" class="nav-link" data-scroll-target="#ai-workflows">AI Workflows 🆕</a></li>
-  </ul></li>
-  <li><a href="#skills-matrix" id="toc-skills-matrix" class="nav-link" data-scroll-target="#skills-matrix">Skills Matrix</a></li>
-  <li><a href="#navigation" id="toc-navigation" class="nav-link" data-scroll-target="#navigation">Navigation</a></li>
-  </ul></li>
+  <li><a href="#qué-aprendimos" id="toc-qué-aprendimos" class="nav-link" data-scroll-target="#qué-aprendimos">¿Qué Aprendimos?</a></li>
   </ul>
 </nav>
     </div>
@@ -189,14 +212,31 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">DevOps &amp; Security Learning Journey</h1>
-<p class="subtitle lead">From Linux fundamentals to HTB Academy and AI Workflows</p>
-</div>
+<h1 class="title">El Problema con Keychain y Claves PEM</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">security</div>
+    <div class="quarto-category">rsa</div>
+    <div class="quarto-category">encryption</div>
+    <div class="quarto-category">macos</div>
+    <div class="quarto-category">keychain</div>
+  </div>
+  </div>
 
+<div>
+  <div class="description">
+    Tutorial práctico para almacenar y recuperar claves privadas RSA de forma segura usando macOS Keychain
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Diego Saavedra </p>
+          </div>
+  </div>
     
     <div>
     <div class="quarto-title-meta-heading">Published</div>
@@ -213,211 +253,128 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="welcome-to-my-learning-journey" class="level1">
-<h1>Welcome to My Learning Journey</h1>
-<p>This website documents my path through <strong>Linux system administration</strong>, <strong>Docker containerization</strong>, <strong>DevOps practices</strong>, <strong>Cybersecurity/CTF challenges</strong>, and <strong>AI-assisted development workflows</strong>.</p>
-<section id="purpose" class="level2">
-<h2 class="anchored" data-anchor-id="purpose">Purpose</h2>
-<p>This journey serves two purposes:</p>
-<ol type="1">
-<li><strong>Personal Progress Tracking</strong> - A visual record of what I’ve learned and completed</li>
-<li><strong>Learning Guide for Others</strong> - A structured path that others can follow to build similar skills</li>
-</ol>
-</section>
-<section id="overall-progress" class="level2">
-<h2 class="anchored" data-anchor-id="overall-progress">Overall Progress</h2>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Metric</th>
-<th>Value</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>Total Completion</strong></td>
-<td>55%</td>
-</tr>
-<tr class="even">
-<td><strong>Completed</strong></td>
-<td>34 challenges</td>
-</tr>
-<tr class="odd">
-<td><strong>Remaining</strong></td>
-<td>28 challenges</td>
-</tr>
-<tr class="even">
-<td><strong>Total</strong></td>
-<td>62 challenges</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="progress-by-area" class="level2">
-<h2 class="anchored" data-anchor-id="progress-by-area">Progress by Area</h2>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Area</th>
-<th>Progress</th>
-<th>Status</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>🐧 <strong>Linux Foundations</strong></td>
-<td>50% (9/20)</td>
-<td>In Progress</td>
-</tr>
-<tr class="even">
-<td>🐳 <strong>Docker</strong></td>
-<td>100% (6/6)</td>
-<td>✅ Completed</td>
-</tr>
-<tr class="odd">
-<td>⚙️ <strong>DevOps</strong></td>
-<td>50% (8/16)</td>
-<td>In Progress</td>
-</tr>
-<tr class="even">
-<td>🔒 <strong>Security</strong></td>
-<td>58% (7/12)</td>
-<td>In Progress</td>
-</tr>
-<tr class="odd">
-<td>🤖 <strong>AI Workflows</strong></td>
-<td>New</td>
-<td>🆕 Course Available</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="learning-path" class="level2">
-<h2 class="anchored" data-anchor-id="learning-path">Learning Path</h2>
-<section id="phase-1-linux-fundamentals" class="level3">
-<h3 class="anchored" data-anchor-id="phase-1-linux-fundamentals">Phase 1: Linux Fundamentals ✅</h3>
-<p>User management, permissions, networking, shell scripting</p>
-</section>
-<section id="phase-2-containerization" class="level3">
-<h3 class="anchored" data-anchor-id="phase-2-containerization">Phase 2: Containerization ✅</h3>
-<p>Docker basics, volumes, networks, troubleshooting</p>
-</section>
-<section id="phase-3-devops-practices" class="level3">
-<h3 class="anchored" data-anchor-id="phase-3-devops-practices">Phase 3: DevOps Practices 🔄</h3>
-<p>Ansible, Cron, MariaDB, CI/CD basics — <em>In Progress (50%)</em></p>
-</section>
-<section id="phase-4-security-fundamentals" class="level3">
-<h3 class="anchored" data-anchor-id="phase-4-security-fundamentals">Phase 4: Security Fundamentals 🔄</h3>
-<p>CTF basics, forensics, web security, HTB Academy — <em>In Progress</em></p>
-</section>
-<section id="phase-5-ai-assisted-development" class="level3">
-<h3 class="anchored" data-anchor-id="phase-5-ai-assisted-development">Phase 5: AI-Assisted Development 🆕</h3>
-<p>Spec-Driven Development, Kilocode CLI, Opencode, MCP Integration — <em>Course Available</em></p>
-</section>
-<section id="phase-6-advanced-topics" class="level3">
-<h3 class="anchored" data-anchor-id="phase-6-advanced-topics">Phase 6: Advanced Topics ⏳</h3>
-<p>Kubernetes, advanced networking, penetration testing</p>
-</section>
-</section>
-<section id="structure" class="level2">
-<h2 class="anchored" data-anchor-id="structure">Structure</h2>
-<p>The learning journey is organized into main areas:</p>
-<section id="foundations" class="level3">
-<h3 class="anchored" data-anchor-id="foundations"><a href="./foundations/index.html">Foundations</a></h3>
-<p>Linux system administration fundamentals</p>
-</section>
-<section id="containers" class="level3">
-<h3 class="anchored" data-anchor-id="containers"><a href="./containers/index.html">Containers</a></h3>
-<p>Docker and containerization</p>
-</section>
-<section id="devops-practices" class="level3">
-<h3 class="anchored" data-anchor-id="devops-practices"><a href="./devops-practices/index.html">DevOps Practices</a></h3>
-<p>DevOps tools and methodologies</p>
-</section>
-<section id="security" class="level3">
-<h3 class="anchored" data-anchor-id="security"><a href="./security/index.html">Security</a></h3>
-<p>Cybersecurity fundamentals</p>
-</section>
-<section id="ai-workflows" class="level3">
-<h3 class="anchored" data-anchor-id="ai-workflows"><a href="./ai-workflows/index.html">AI Workflows</a> 🆕</h3>
-<p>Spec-Driven Development with AI assistants:</p>
+<section id="objetivo" class="level2">
+<h2 class="anchored" data-anchor-id="objetivo">Objetivo</h2>
+<p>En esta lección aprenderás:</p>
 <ul>
-<li><strong>Module 1</strong>: Introduction to SDD</li>
-<li><strong>Module 2</strong>: Kilocode CLI Setup</li>
-<li><strong>Module 3</strong>: Opencode Integration</li>
-<li><strong>Module 4</strong>: Guided Practice</li>
-<li><strong>Module 5</strong>: MCP Servers</li>
-<li><strong>Module 6</strong>: Advanced Patterns</li>
+<li>Por qué <code>security add-generic-password</code> no funciona correctamente con claves PEM</li>
+<li>Cómo Keychain interpreta los caracteres de nueva línea</li>
+<li>La diferencia entre datos binarios y textuales en macOS Keychain</li>
 </ul>
 </section>
+<section id="el-comando-problemático" class="level2">
+<h2 class="anchored" data-anchor-id="el-comando-problemático">El Comando Problemático</h2>
+<p>Cuando intentamos almacenar una clave privada RSA en macOS Keychain, el enfoque intuitivo sería:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Este comando NO funciona correctamente</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">security</span> add-generic-password <span class="dt">\</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-a</span> <span class="st">"</span><span class="va">$USER</span><span class="st">"</span> <span class="dt">\</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">-s</span> <span class="st">"my-rsa-key"</span> <span class="dt">\</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">-w</span> <span class="st">"</span><span class="va">$(</span><span class="fu">cat</span> ~/.ssh/id_rsa<span class="va">)</span><span class="st">"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Parece lógico: leemos el contenido del archivo y lo pasamos como contraseña. Pero hay un problema fundamental.</p>
 </section>
-<section id="skills-matrix" class="level2">
-<h2 class="anchored" data-anchor-id="skills-matrix">Skills Matrix</h2>
+<section id="análisis-del-comportamiento" class="level2">
+<h2 class="anchored" data-anchor-id="análisis-del-comportamiento">Análisis del Comportamiento</h2>
+<p>El problema radica en cómo <code>security</code> maneja el parámetro <code>-w</code>:</p>
+<ol type="1">
+<li><strong>PEM contiene newlines</strong>: Las claves PEM tienen múltiples líneas con caracteres <code>\n</code></li>
+<li><strong>Keychain trata newlines como binario</strong>: El comando <code>security</code> interpreta cualquier caracter especial como dato binario</li>
+<li><strong>Conversión automática a hexadecimal</strong>: Keychain convierte los datos “binarios” a representación hexadecimal</li>
+</ol>
+</section>
+<section id="demostración-del-problema" class="level2">
+<h2 class="anchored" data-anchor-id="demostración-del-problema">Demostración del Problema</h2>
+<p>Veamos qué sucede realmente:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Almacenar una clave PEM directamente</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">security</span> add-generic-password <span class="dt">\</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-a</span> <span class="st">"</span><span class="va">$USER</span><span class="st">"</span> <span class="dt">\</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">-s</span> <span class="st">"test-key-direct"</span> <span class="dt">\</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">-w</span> <span class="st">"</span><span class="va">$(</span><span class="fu">cat</span> ~/.ssh/test_key.pem<span class="va">)</span><span class="st">"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Al recuperar la clave:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">security</span> find-generic-password <span class="dt">\</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">-a</span> <span class="st">"</span><span class="va">$USER</span><span class="st">"</span> <span class="dt">\</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-s</span> <span class="st">"test-key-direct"</span> <span class="dt">\</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">-w</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Salida problemática:</strong></p>
+<pre><code>2d2d2d2d2d424547494e205253412050524956415445204b4559...</code></pre>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>¡Atención!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>La salida NO es tu clave PEM. Es una representación hexadecimal de los bytes. Cada par de caracteres representa un byte en formato hex. Por ejemplo:</p>
+<ul>
+<li><code>2d</code> = <code>-</code> (guion)</li>
+<li><code>42</code> = <code>B</code></li>
+<li><code>45</code> = <code>E</code></li>
+<li><code>47</code> = <code>G</code></li>
+</ul>
+<p>Intentar usar esta salida como clave resultará en errores de formato.</p>
+</div>
+</div>
+</section>
+<section id="explicación-técnica" class="level2">
+<h2 class="anchored" data-anchor-id="explicación-técnica">Explicación Técnica</h2>
+<section id="por-qué-hexadecimal" class="level3">
+<h3 class="anchored" data-anchor-id="por-qué-hexadecimal">¿Por qué hexadecimal?</h3>
+<p>El comando <code>security</code> detectó caracteres no imprimibles (newlines <code>\n</code> = <code>0x0a</code>) y decidió:</p>
+<ol type="1">
+<li>El dato es “binario”</li>
+<li>Debe almacenarse como bytes raw</li>
+<li>Al recuperarse, se muestra en hexadecimal para visualización segura</li>
+</ol>
+</section>
+<section id="el-problema-con-esta-conversión" class="level3">
+<h3 class="anchored" data-anchor-id="el-problema-con-esta-conversión">El problema con esta conversión</h3>
+<pre><code>Clave original:  "-----BEGIN RSA PRIVATE KEY-----\n..."
+Almacenada como: [bytes raw con newlines]
+Recuperada como: "2d2d2d2d2d42454749..." (hexadecimal)</code></pre>
+<p>El resultado <strong>no es utilizable</strong> directamente con herramientas como <code>openssl</code> o <code>ssh</code>.</p>
+</section>
+<section id="comparación-visual" class="level3">
+<h3 class="anchored" data-anchor-id="comparación-visual">Comparación visual</h3>
 <table class="caption-top table">
 <thead>
 <tr class="header">
-<th>Skill</th>
-<th>Level</th>
-<th>Status</th>
+<th>Formato</th>
+<th>Ejemplo</th>
+<th>Utilizable</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Linux System Administration</td>
-<td>Intermediate</td>
-<td>In Progress</td>
+<td>PEM original</td>
+<td><code>-----BEGIN RSA...</code></td>
+<td>Sí</td>
 </tr>
 <tr class="even">
-<td>Docker &amp; Containers</td>
-<td>Intermediate</td>
-<td>Certified</td>
+<td>Hexadecimal</td>
+<td><code>2d2d2d2d...</code></td>
+<td>No</td>
 </tr>
 <tr class="odd">
-<td>Ansible</td>
-<td>Basic</td>
-<td>Learning</td>
-</tr>
-<tr class="even">
-<td>Bash Scripting</td>
-<td>Intermediate</td>
-<td>Completed</td>
-</tr>
-<tr class="odd">
-<td>Network Security</td>
-<td>Basic</td>
-<td>Learning</td>
-</tr>
-<tr class="even">
-<td>CTF Problem Solving</td>
-<td>Basic</td>
-<td>Started</td>
-</tr>
-<tr class="odd">
-<td>HTB Academy</td>
-<td>Intermediate</td>
-<td>3 Modules Completed</td>
-</tr>
-<tr class="even">
-<td>AI-Assisted Development</td>
-<td>Beginner</td>
-<td>Learning</td>
-</tr>
-<tr class="odd">
-<td>SDD (Spec-Driven Development)</td>
-<td>Beginner</td>
-<td>Learning</td>
+<td>Base64</td>
+<td><code>LS0tLS1CRUdJTi...</code></td>
+<td>Sí (reversible)</td>
 </tr>
 </tbody>
 </table>
 </section>
-<section id="navigation" class="level2">
-<h2 class="anchored" data-anchor-id="navigation">Navigation</h2>
-<p>Use the sidebar to navigate between sections, or click on the section links above.</p>
-<hr>
-<p><em>This journey is continuously updated as new challenges are completed.</em></p>
-
-
 </section>
+<section id="qué-aprendimos" class="level2">
+<h2 class="anchored" data-anchor-id="qué-aprendimos">¿Qué Aprendimos?</h2>
+<ol type="1">
+<li><strong>Keychain y texto multi-línea no son amigos</strong>: Los newlines causan conversión a hexadecimal</li>
+<li><strong>El resultado hexadecimal es inútil</strong>: No podemos usarlo directamente</li>
+<li><strong>Necesitamos una transformación</strong>: Debemos convertir la clave a un formato de línea única</li>
+</ol>
+<p>En la siguiente lección veremos cómo <strong>Base64</strong> resuelve este problema elegantemente.</p>
+
+
 </section>
 
 </main> <!-- /main -->

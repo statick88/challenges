@@ -1,0 +1,505 @@
+---
+title: "Context Architecture vs Prompt Engineering"
+date: "2026-02-24"
+---
+
+# 🎓 Context Architecture: El Nuevo Paradigma
+
+👨‍🏫 **Del Instructor**: La mayoría cree que el secreto de la IA es escribir el "prompt perfecto". Están equivocados. El contexto es el rey. Aquí aprenderás por qué Context Architecture supera a Prompt Engineering.
+
+> 💭 **Mentalidad de Arquitecto**: "El futuro del desarrollo de software no son mejores prompts. Es mejor contexto."
+
+---
+
+## ❌ El Error Fundamental
+
+### El Patrón Típico
+
+```text
+Developer: "Build me a todo app"
+AI: [genera código]
+Developer: "Hmm, pero quiero OAuth"
+AI: [regenera código]
+Developer: "Y también necesito offline mode"
+AI: [regenera código, inconsistente con lo anterior]
+...
+→ Caos técnico
+```
+
+### ¿Por Qué Falla?
+
+| Causa | Efecto |
+|-------|--------|
+| Sin estructura | Código inconsistente |
+| Sin persistencia | Cada sesión empieza de cero |
+| Sin trazabilidad | Nadie sabe por qué se decidió X |
+| Sin versionado | El contexto "desaparece" en chat history |
+
+> **We're building the most important part of our development process on the most ephemeral medium possible.**
+> — Precursor Manifesto
+
+---
+
+## 🏗️ Context Architecture: La Solución
+
+### Definición
+
+**Context Architecture** trata el contexto como un artefacto de ingeniería de primera clase:
+
+- Versionado en Git
+- Peer-reviewed como código
+- Estructurado para consumo de IA
+- Mantenido sistemáticamente
+
+### Comparación
+
+| Aspecto | Prompt Engineering | Context Architecture |
+|---------|-------------------|---------------------|
+| **Medio** | Chat ephemeral | Git-versioned files |
+| **Escalabilidad** | No escala | Escala con el equipo |
+| **Consistencia** | Variable | Predecible |
+| **Onboarding** | Imposible | Leer context docs |
+| **Mantenimiento** | No existe | Evoluciona con el proyecto |
+
+### La Regla 80/20
+
+```
+┌─────────────────────────────────────────────────────────┐
+│                  REGLA 80/20                            │
+├─────────────────────────────────────────────────────────┤
+│                                                          │
+│  ❌ Enfoque actual:                                      │
+│     20% pensando → 80% debuggeando caos de IA          │
+│                                                          │
+│  ✅ Enfoque Context Architecture:                        │
+│     80% planeando con contexto → 20% ejecutando         │
+│                                                          │
+└─────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 📐 The Precursor Methodology
+
+### Los 4 Pilares
+
+```
+┌─────────────────────────────────────────────────────────┐
+│               PRECURSOR METHODOLOGY                      │
+├─────────────────────────────────────────────────────────┤
+│                                                          │
+│  1. IDEATE with AI                                      │
+│     └── Workshop requirements con IA                    │
+│                                                          │
+│  2. CONTEXT-FIRST Architecture                          │
+│     └── Crear JSON context docs como artefactos         │
+│                                                          │
+│  3. AI PAIRING                                          │
+│     └── Usar IA junto con context docs                  │
+│                                                          │
+│  4. SYSTEMATIC Execution                                │
+│     └── Seguir proceso, no improvisar                   │
+│                                                          │
+└─────────────────────────────────────────────────────────┘
+```
+
+### Pilar 1: Ideate with AI
+
+**Antes de escribir código, workshop con IA:**
+
+```text
+❌ Mal:
+"Build a todo app"
+
+✅ Bien:
+"I'm building a task management system. Let me workshop 
+the requirements with you:
+- Who are the users?
+- What edge cases exist?
+- What are the non-functional requirements?
+- What constraints apply?"
+```
+
+**Output**: Requirements refinados, edge cases identificados, supuestos claros
+
+### Pilar 2: Context-First Architecture
+
+**Crear documentos de contexto como artefactos de ingeniería:**
+
+```json
+// context/architecture.json
+{
+  "project": {
+    "name": "TaskMaster",
+    "version": "2.1.0",
+    "tech_stack": ["Node.js", "PostgreSQL", "Redis"]
+  },
+  "patterns": {
+    "api": "REST with OpenAPI 3.0",
+    "auth": "JWT + OAuth2",
+    "testing": "Jest + Supertest"
+  },
+  "conventions": {
+    "naming": "camelCase for variables, PascalCase for classes",
+    "file_structure": "feature-based"
+  }
+}
+```
+
+**Principios**:
+
+1. Machine-optimized (JSON/YAML)
+2. Version-controlled
+3. Peer-reviewed
+4. Comprehensive
+
+### Pilar 3: AI Pairing
+
+**Usar IA junto con contexto, no aislada:**
+
+```text
+Context Doc ─────┐
+                 ├──▶ AI Assistant ──▶ Quality Code
+Task Spec ───────┘
+```
+
+**Regla**: "No context-free prompting. No starting from scratch each session."
+
+### Pilar 4: Systematic Execution
+
+**Seguir proceso, no improvisar:**
+
+```text
+1. Read context docs
+2. Create/update task spec
+3. Generate with AI
+4. Review generated code
+5. Validate against specs
+6. Update context docs
+```
+
+---
+
+## 🔄 Context Architecture vs Prompt Engineering
+
+### Prompt Engineering: El Dead End
+
+```text
+┌─────────────────────────────────────────────────────────┐
+│           POR QUÉ PROMPT ENGINEERING FALLA               │
+├─────────────────────────────────────────────────────────┤
+│                                                          │
+│  1. Optimiza para una sola interacción                  │
+│     └── Software = miles de interacciones               │
+│                                                          │
+│  2. No es reproducible                                  │
+│     └── Mismo prompt ≠ mismo resultado                  │
+│                                                          │
+│  3. No transfiere conocimiento                          │
+│     └── Cada sesión empieza de cero                     │
+│                                                          │
+│  4. No escala con equipos                               │
+│     └── Cada developer tiene sus "prompts secretos"     │
+│                                                          │
+│  Conclusion: Prompt engineering es duct tape             │
+│              Context architecture es infrastructure      │
+│                                                          │
+└─────────────────────────────────────────────────────────┘
+```
+
+### Context Architecture: El Foundation
+
+```text
+┌─────────────────────────────────────────────────────────┐
+│           VENTAJAS DE CONTEXT ARCHITECTURE               │
+├─────────────────────────────────────────────────────────┤
+│                                                          │
+│  ✅ Funciona con múltiples modelos de IA                │
+│  ✅ Funciona con múltiples developers                   │
+│  ✅ Funciona a través de fases del proyecto             │
+│  ✅ Construye conocimiento institucional                │
+│  ✅ Onboarding: leer context docs                       │
+│  ✅ Product managers entienden decisiones técnicas       │
+│                                                          │
+└─────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 📊 Estructura de Context Documents
+
+### Tipos de Contexto (StrategyRadar)
+
+| Tipo | Propósito | Ejemplo |
+|------|-----------|---------|
+| **Business Context** | Reglas de negocio | "Orders > $100 require approval" |
+| **Functional Context** | Flujos de usuario | Login flow, Checkout flow |
+| **Technical Strategy** | Decisiones arquitecturales | "Use PostgreSQL for OLTP" |
+| **Technical Context** | Estructura del proyecto | File layout, naming conventions |
+
+### Master Spec vs Task Spec
+
+```
+┌─────────────────────────────────────────────────────────┐
+│                    MASTER SPEC                           │
+│                                                          │
+│  "Cómo funciona el sistema AHORA"                        │
+│  - Estado completo actual                               │
+│  - Arquitectura vigente                                 │
+│  - Patrones en uso                                      │
+│  - Convenciones del equipo                              │
+│                                                          │
+│  └── Living document, se actualiza con cada cambio      │
+│                                                          │
+└─────────────────────────────────────────────────────────┘
+                          │
+                          │ provides context for
+                          ▼
+┌─────────────────────────────────────────────────────────┐
+│                    TASK SPEC                             │
+│                                                          │
+│  "Qué estoy cambiando"                                   │
+│  - Requisitos específicos del cambio                    │
+│  - Impacto en sistema                                   │
+│  - Solución técnica                                     │
+│                                                          │
+│  └── Temporal, se archiva al completar                 │
+│                                                          │
+└─────────────────────────────────────────────────────────┘
+```
+
+### Ejemplo: Master Spec
+
+```yaml
+# context/master-spec.yaml
+project:
+  name: E-Commerce Platform
+  version: 3.2.1
+  
+architecture:
+  pattern: Microservices
+  services:
+    - name: user-service
+      port: 3001
+      database: PostgreSQL
+    - name: order-service
+      port: 3002
+      database: PostgreSQL
+    - name: inventory-service
+      port: 3003
+      database: Redis + PostgreSQL
+      
+patterns:
+  api:
+    style: REST
+    versioning: URL path (/api/v1/)
+    auth: JWT + API Gateway
+    
+  data:
+    orm: TypeORM
+    migrations: Flyway
+    
+  testing:
+    unit: Jest
+    e2e: Cypress
+    coverage_threshold: 80%
+    
+conventions:
+  naming:
+    files: kebab-case
+    variables: camelCase
+    classes: PascalCase
+    constants: SCREAMING_SNAKE_CASE
+    
+  structure:
+    feature_based: true
+    max_file_lines: 300
+```
+
+---
+
+## 🛠️ Implementación Práctica
+
+### Paso 1: Crear Context Directory
+
+```bash
+mkdir -p context/
+touch context/master-spec.yaml
+touch context/conventions.yaml
+touch context/decisions.yaml
+```
+
+### Paso 2: Documentar Estado Actual
+
+```yaml
+# context/master-spec.yaml (v1)
+project:
+  name: My Project
+  tech_stack: [Node.js, Express, PostgreSQL]
+  
+current_state:
+  auth: "JWT + bcrypt"
+  api_style: "REST"
+  testing: "Jest"
+```
+
+### Paso 3: Crear Task Spec
+
+```yaml
+# openspec/changes/001-add-oauth/spec.yaml
+change:
+  type: feature
+  affects: [auth, user-service]
+  
+requirements:
+  - Add Google OAuth provider
+  - Maintain existing JWT auth
+  - Link OAuth accounts to existing users
+  
+context_used:
+  - context/master-spec.yaml#auth
+  - context/conventions.yaml#api
+```
+
+### Paso 4: AI Pairing Session
+
+```text
+Prompt a IA:
+"Read context/master-spec.yaml and openspec/changes/001-add-oauth/spec.yaml.
+Implement Google OAuth following the patterns in master-spec.
+Maintain existing JWT auth as fallback."
+```
+
+### Paso 5: Update Master Spec
+
+```yaml
+# context/master-spec.yaml (v2)
+project:
+  name: My Project
+  tech_stack: [Node.js, Express, PostgreSQL]
+  
+current_state:
+  auth: "JWT + bcrypt + Google OAuth"  # UPDATED
+  api_style: "REST"
+  testing: "Jest"
+```
+
+---
+
+## ⚠️ El Warning Crítico
+
+> **WARNING: Keep Specs Up-to-Date**
+> 
+> Unlike human developers who can identify outdated documentation, 
+> AI agents trust your specifications as source of truth.
+> 
+> Outdated specs don't just create confusion—they actively generate 
+> INCORRECT code.
+> 
+> — StrategyRadar.ai
+
+### Ejemplo del Desastre
+
+```yaml
+# context/master-spec.yaml (OUTDATED)
+api:
+  style: REST  # Pero en realidad migraron a GraphQL hace 3 meses
+
+# Resultado:
+# IA genera código REST para una API que ya es GraphQL
+# → Horas de debugging
+# → Confusión del equipo
+# → Desconfianza en IA
+```
+
+### Regla de Oro
+
+```text
+Si cambias el código, actualiza el context doc.
+Si no actualizas el context doc, no hagas commit.
+```
+
+---
+
+## 🎯 Metaprompting: La Técnica Experta
+
+### ¿Qué es Metaprompting?
+
+**Metaprompting** es pedirle a la IA que piense como experto antes de responder:
+
+```text
+❌ Prompt directo:
+"Add OAuth to my app"
+
+✅ Metaprompt:
+"Before answering, think like a Security Architect with 15 years 
+of experience. Consider:
+- Threat model
+- Attack vectors
+- Compliance requirements
+Then provide your recommendation."
+```
+
+### La Técnica del Experto
+
+```text
+Step 1: Define el rol
+"You are a Senior Architect specializing in authentication systems"
+
+Step 2: Establece contexto
+"The project uses Node.js, PostgreSQL, and serves 100K daily users"
+
+Step 3: Pide análisis
+"First, analyze the security implications. Then propose solutions."
+
+Step 4: Solicita trade-offs
+"For each solution, list pros/cons and your recommendation"
+```
+
+### Ejemplo Completo
+
+```text
+Prompt:
+"You are a Principal Engineer at a fintech company. 
+We need to add rate limiting to our API.
+
+Context:
+- Node.js + Express
+- 50 endpoints
+- 10K requests/minute peak
+- Must comply with PCI-DSS
+
+Before proposing a solution:
+1. Analyze threat model
+2. Consider scalability
+3. Evaluate libraries vs custom solution
+4. Think about monitoring and alerting
+
+Provide:
+- Recommended approach
+- Implementation phases
+- Monitoring strategy
+- Rollback plan"
+```
+
+---
+
+## 🎓 Lo Que Aprendiste
+
+1. **Context Architecture** supera a Prompt Engineering
+2. **La Regla 80/20**: 80% planeando, 20% ejecutando
+3. **4 Pilares**: Ideate, Context-First, AI Pairing, Systematic
+4. **Master Spec**: Estado actual del sistema
+5. **Task Spec**: Cambios específicos
+6. **Warning crítico**: Specs desactualizados = código incorrecto
+7. **Metaprompting**: Técnica experta para mejores resultados
+
+---
+
+## 🚀 Siguiente Paso
+
+Continúa con [Módulo 1C: Task-Driven Development](01c-task-driven-development.qmd) para aprender el flujo de trabajo basado en tareas.
+
+---
+
+*Módulo 1B | Duración: 45 min | Dificultad: 🟡 Intermedio*

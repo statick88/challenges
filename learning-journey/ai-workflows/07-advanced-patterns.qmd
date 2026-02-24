@@ -1,0 +1,885 @@
+---
+title: "Patrones Avanzados de SDD"
+date: "2026-02-24"
+---
+
+# 🎓 SDD Avanzado: Patrones para Equipos
+
+👨‍🏫 **Del Instructor**: Ya dominas el flujo básico. Ahora veremos cómo escalar SDD para proyectos reales: brownfield, equipos grandes, y CI/CD.
+
+> 💭 **Mentalidad de Tech Lead**: "La metodología que funciona para un desarrollador debe escalar para un equipo de 50, o no es metodología, es hobby."
+
+---
+
+## 🏗️ Brownfield vs Greenfield
+
+### Greenfield (Proyecto Nuevo)
+
+**Características**:
+
+- Sin código legacy
+- Sin restricciones arquitecturales
+- Stack moderno por defecto
+
+**SDD Approach**:
+
+```text
+/sdd:init --mode openspec
+→ Detecta: Sin tech stack
+→ Pregunta: ¿Qué stack prefieres?
+→ Crea config.yaml limpio
+```
+
+**Ventajas**:
+
+- ✅ Specs definen arquitectura desde cero
+- ✅ Sin conflictos con código existente
+- ✅ Testing setup limpio
+
+---
+
+### Brownfield (Proyecto Existente)
+
+**Características**:
+
+- Código legacy
+- Restricciones arquitecturales
+- Tests existentes (o ninguno)
+
+**SDD Approach**:
+
+```text
+/sdd:init --mode openspec
+→ Detecta: PHP 7.4, Laravel 5, MySQL
+→ Detecta: Sin tests
+→ Crea config.yaml con restricciones
+
+rules:
+  apply:
+    - Follow existing Laravel patterns
+    - Use Eloquent ORM (no raw SQL)
+    - PHP 7.4 compatible (no typed properties)
+```
+
+**Desafíos y Soluciones**:
+
+| Desafío | Solución |
+|---------|----------|
+| Sin tests | Fase de testing explícita en tasks |
+| Código legacy | Refactor gradual, spec primero |
+| Documentación faltante | EXPLORE antes de cada cambio |
+
+**Patrón: Spec Retrospectivo**
+
+```markdown
+# Para código existente sin specs
+
+/sdd:explore current-auth-flow
+→ Documenta lo que existe
+
+/sdd:spec --retrospective
+→ Crea spec para código existente
+→ Útil como baseline para refactors
+```
+
+---
+
+## 👥 SDD en Equipo
+
+### Configuración Compartida
+
+**Archivo**: `.kilocode/skills/project-conventions/SKILL.md`
+
+```markdown
+---
+name: project-conventions
+description: Team-specific coding conventions for SDD
+---
+
+## Code Style
+
+- Use TypeScript strict mode
+- Prefer const over let
+- Arrow functions for callbacks
+
+## Naming Conventions
+
+- Components: PascalCase
+- Functions: camelCase
+- Files: kebab-case
+
+## Testing Requirements
+
+- All changes MUST have tests
+- Coverage threshold: 80%
+```
+
+### Review Process
+
+**GitHub PR Template**: `.github/pull_request_template.md`
+
+```markdown
+## SDD Change: [Change Name]
+
+### Spec Link
+Link to openspec/changes/NNN-name/spec.delta.md
+
+### Requirements Coverage
+| Requirement | Implemented | Tests |
+|-------------|-------------|-------|
+| REQ-1 | ✅ | test_name |
+
+### Verification
+- [ ] All tests passing
+- [ ] Verification report created
+- [ ] Specs archived
+
+### Checklist
+- [ ] Follows team conventions
+- [ ] No breaking changes (or documented)
+- [ ] Ready for /sdd:archive after merge
+```
+
+### Flujo de Equipo
+
+```mermaid
+graph LR
+    A[Dev 1: /sdd:new] --> B[Dev 2: Review proposal]
+    B --> C[Dev 1: /sdd:spec]
+    C --> D[Dev 2: Review specs]
+    D --> E[Dev 1: /sdd:plan]
+    E --> F[Team: Design review]
+    F --> G[Dev 1: /sdd:tasks]
+    G --> H[Dev 1: /sdd:implement]
+    H --> I[Dev 2: Code review]
+    I --> J[CI: /sdd:verify]
+    J --> K[Lead: /sdd:archive]
+```
+
+---
+
+## 🔄 CI/CD Integration
+
+### GitHub Actions
+
+**Archivo**: `.github/workflows/sdd-check.yml`
+
+```yaml
+name: SDD Verification
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'openspec/changes/**'
+      - 'src/**'
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Check SDD structure
+        run: |
+          if [ -d "openspec/changes" ]; then
+            active=$(find openspec/changes -mindepth 1 -maxdepth 1 -type d | grep -v archive | wc -l)
+            if [ "$active" -gt 0 ]; then
+              echo "Active SDD change detected"
+              echo "Change: $(ls openspec/changes | grep -v archive)"
+            fi
+          fi
+          
+      - name: Run tests
+        run: npm test
+        
+      - name: Verify specs coverage
+        run: |
+          if [ -f "openspec/changes/*/verification.md" ]; then
+            grep -q "✅ VERIFIED" openspec/changes/*/verification.md || exit 1
+          fi
+```
+
+### Pre-commit Hook
+
+**Archivo**: `.git/hooks/pre-commit`
+
+```bash
+#!/bin/bash
+
+# Check for incomplete SDD changes
+if [ -d "openspec/changes" ]; then
+  for change in openspec/changes/*/; do
+    # Skip archive
+    if [[ "$change" == *"archive"* ]]; then
+      continue
+    fi
+    
+    # Check for required files
+    if [ ! -f "$change/tasks.md" ]; then
+      echo "❌ Error: $change missing tasks.md"
+      echo "Run /sdd:tasks first"
+      exit 1
+    fi
+    
+    # Check for incomplete tasks
+    if grep -q "\- \[ \]" "$change/tasks.md"; then
+      echo "⚠️  Warning: Incomplete tasks in $change"
+      incomplete=$(grep "\- \[ \]" "$change/tasks.md")
+      echo "$incomplete"
+    fi
+  done
+fi
+
+# Check for verification
+if [ -d "openspec/changes" ]; then
+  for change in openspec/changes/*/; do
+    if [[ "$change" == *"archive"* ]]; then
+      continue
+    fi
+    
+    if [ ! -f "$change/verification.md" ]; then
+      echo "⚠️  Warning: $change not verified"
+      echo "Run /sdd:verify before committing"
+    fi
+  done
+fi
+```
+
+---
+
+## 🎯 Patrones por Tipo de Cambio
+
+### Feature Nueva
+
+```text
+/sdd:new add-feature-x
+/sdd:spec       → Define requisitos nuevos
+/sdd:plan       → Arquitectura para feature
+/sdd:tasks      → Implementation + tests
+/sdd:implement  → Build feature
+/sdd:verify     → Test feature
+/sdd:archive    → Document feature
+```
+
+### Bug Fix
+
+```text
+/sdd:explore bug-description
+→ Documenta el bug actual
+/sdd:new fix-bug-x
+/sdd:spec       → Define comportamiento esperado
+/sdd:plan       → Análisis de root cause
+/sdd:tasks      → Fix + regression test
+/sdd:implement  → Apply fix
+/sdd:verify     → Verify fix + no regressions
+/sdd:archive    → Document fix
+```
+
+### Refactor
+
+```text
+/sdd:explore current-implementation
+→ Documenta estado actual
+/sdd:new refactor-module-x
+/sdd:spec       → Define comportamiento PRESERVADO
+→ "System SHALL behave identically"
+/sdd:plan       → Nueva arquitectura
+/sdd:tasks      → Refactor + migration
+/sdd:implement  → Incremental refactor
+/sdd:verify     → Behavior unchanged
+/sdd:archive    → Document new architecture
+```
+
+### Performance Improvement
+
+```text
+/sdd:explore performance-bottleneck
+→ Identifica el problema
+/sdd:new optimize-query-x
+/sdd:spec       → Define métricas target
+→ "Response time SHALL be < 100ms"
+/sdd:plan       → Optimization approach
+/sdd:tasks      → Optimize + benchmark
+/sdd:implement  → Apply optimization
+/sdd:verify     → Measure performance
+/sdd:archive    → Document improvements
+```
+
+---
+
+## 🛠️ Troubleshooting Común
+
+### "La IA no sigue los specs"
+
+**Causa**: Specs demasiado abstractos
+
+**Solución**:
+
+```markdown
+❌ Mal:
+"The system SHALL be fast"
+
+✅ Bien:
+"The system SHALL respond to GET /api/users within 100ms 
+for datasets up to 10,000 records"
+```
+
+### "Demasiados cambios en un solo proposal"
+
+**Causa**: Scope mal definido
+
+**Solución**:
+
+```markdown
+# En lugar de:
+/sdd:new redesign-auth-system
+
+# Dividir en:
+/sdd:new add-oauth-provider
+/sdd:new migrate-password-hashing
+/sdd:new add-session-management
+```
+
+### "Tests no cubren los escenarios"
+
+**Causa**: Specs y tests desconectados
+
+**Solución**:
+
+```markdown
+# En tasks.md, explícitamente conectar:
+- [ ] 2.1 Test SCENARIO-1: 200 response
+  - Create test in tests/health.test.js
+  - Test name: "SCENARIO-1: should return 200"
+```
+
+### "Conflicto entre developers"
+
+**Causa**: Falta de comunicación en specs
+
+**Solución**:
+
+```markdown
+# Añadir sección de ownership en spec:
+## Ownership
+- Author: @developer1
+- Reviewers: @developer2, @lead
+- Approved: 2026-02-24
+```
+
+---
+
+## 📊 Métricas de SDD
+
+### KPIs Recomendados
+
+| Métrica | Target | Cómo medir |
+|---------|--------|------------|
+| Spec Coverage | 100% | Todo código tiene spec |
+| Verification Pass Rate | > 95% | Tests pasan en CI |
+| Change Completion Time | < 2h | Tiempo de proposal a archive |
+| Rework Rate | < 10% | Cambios después de archive |
+
+### Dashboard de Salud
+
+```bash
+# Script: sdd-health-check.sh
+#!/bin/bash
+
+echo "## SDD Health Report"
+echo ""
+
+# Active changes
+active=$(find openspec/changes -mindepth 1 -maxdepth 1 -type d | grep -v archive | wc -l)
+echo "Active Changes: $active"
+
+# Unverified changes
+unverified=0
+for change in openspec/changes/*/; do
+  if [[ "$change" != *"archive"* ]] && [ ! -f "$change/verification.md" ]; then
+    ((unverified++))
+  fi
+done
+echo "Unverified Changes: $unverified"
+
+# Archived changes
+archived=$(ls openspec/changes/archive 2>/dev/null | wc -l)
+echo "Archived Changes: $archived"
+
+# Specs count
+specs=$(find openspec/specs -name "*.spec.md" | wc -l)
+echo "Total Specs: $specs"
+```
+
+---
+
+## 🎓 Lo Que Aprendiste
+
+1. **Brownfield** requiere adaptación a restricciones existentes
+2. **Equipos** necesitan convenciones compartidas
+3. **CI/CD** automatiza verificación de specs
+4. **Tipos de cambio** tienen patrones específicos
+5. **Métricas** miden salud del proceso SDD
+
+---
+
+## 🚀 Próximos Pasos
+
+1. Implementa SDD en tu proyecto actual
+2. Configura CI/CD con verificación
+3. Comparte este curso con tu equipo
+4. Contribuye con mejoras al skill set
+
+---
+
+## 📚 Referencias
+
+- [OpenSpec Specification](https://github.com/github/spec-kit)
+- [Model Context Protocol](https://modelcontextprotocol.io/)
+- [Kilocode Documentation](https://kilocode.ai/docs)
+
+---
+
+*Curso Completado 🎉*
+
+*Módulo 6.0 | Duración: 45 min | Dificultad: 🔴 Avanzado*
+
+*Total del Curso: ~4.5 horas*
+
+---
+
+## 🧠 Context Window Management
+
+### El Problema Real
+
+**Demasiados specs sobrecargan el contexto del LLM:**
+
+```
+┌─────────────────────────────────────────────────────────┐
+│              Context Window Limits                       │
+├─────────────────────────────────────────────────────────┤
+│                                                          │
+│  Claude 3.5 Sonnet: 200K tokens (~150K palabras)        │
+│  GPT-4 Turbo: 128K tokens (~96K palabras)               │
+│                                                          │
+│  Un proyecto típico:                                     │
+│  - 50 specs × 2000 tokens = 100K tokens                 │
+│  - Memory bank = 20K tokens                             │
+│  - Código relevante = 30K tokens                        │
+│  - Prompt actual = 10K tokens                           │
+│  ─────────────────────────────────────                  │
+│  Total: 160K tokens (¡sobre el límite!)                │
+│                                                          │
+└─────────────────────────────────────────────────────────┘
+```
+
+### Soluciones
+
+#### 1. RAG / Context Selection
+
+```python
+# Selección inteligente de specs relevantes
+def select_relevant_specs(query, all_specs):
+    """
+    Usa embeddings para encontrar specs relevantes
+    """
+    query_embedding = embed(query)
+    
+    relevant = []
+    for spec in all_specs:
+        similarity = cosine_similarity(query_embedding, spec.embedding)
+        if similarity > THRESHOLD:
+            relevant.append(spec)
+    
+    return relevant[:MAX_SPECS]
+```
+
+**Claude Code usa grep-based retrieval**:
+
+```bash
+# Simplificado pero efectivo
+grep -r "authentication" openspec/specs/
+# Solo carga specs que mencionan "authentication"
+```
+
+#### 2. Subagentes con Contexto Específico
+
+```yaml
+# Configuración de subagentes
+agents:
+  auth-specialist:
+    context:
+      - openspec/specs/core/auth.spec.md
+      - openspec/specs/features/oauth.spec.md
+    skills:
+      - security
+      - api-design
+      
+  ui-specialist:
+    context:
+      - openspec/specs/ui/design-system.spec.md
+      - openspec/specs/ui/components.spec.md
+    skills:
+      - react-19
+      - tailwind-4
+```
+
+#### 3. AST Parsing + LSP Integration
+
+```python
+# Conectar specs con código via AST
+class SpecCodeLinker:
+    def link_spec_to_code(self, spec_path):
+        """
+        Parse spec, find related code files
+        """
+        spec = parse_spec(spec_path)
+        
+        for entity in spec.entities:
+            # Use LSP to find definitions
+            locations = lsp.find_definitions(entity.name)
+            entity.code_locations = locations
+        
+        return spec
+```
+
+### Mejores Prácticas
+
+| Práctica | Descripción |
+|----------|-------------|
+| **Specs modulares** | Un spec = una feature/componente |
+| **Information architecture** | Organizar specs por dominio |
+| **Lazy loading** | Solo cargar specs cuando se necesiten |
+| **Compression** | Resumir specs antiguas |
+
+---
+
+## 📊 Spec Evals: Evaluando Calidad de Specs
+
+### ¿Qué es un Spec Eval?
+
+Similar a test coverage, pero para especificaciones:
+
+```python
+class SpecEvaluator:
+    def evaluate(self, spec_path):
+        return {
+            "completeness": self.check_completeness(spec),
+            "testability": self.check_testability(spec),
+            "clarity": self.check_clarity(spec),
+            "consistency": self.check_consistency(spec),
+            "maintainability": self.check_maintainability(spec)
+        }
+```
+
+### Métricas de Spec Quality
+
+| Métrica | Cómo medir | Target |
+|---------|------------|--------|
+| **Completeness** | % de campos requeridos llenos | > 95% |
+| **Testability** | % de requisitos con acceptance criteria | > 90% |
+| **Clarity** | Ausencia de términos ambiguos | 100% |
+| **Consistency** | Terminología consistente | 100% |
+| **Traceability** | Links a código relacionado | > 80% |
+
+### Ejemplo: Spec Eval Report
+
+```markdown
+# Spec Eval: authentication.spec.md
+
+## Summary
+- **Overall Score**: 87/100 ✅
+
+## Details
+
+| Metric | Score | Notes |
+|--------|-------|-------|
+| Completeness | 95% | Missing: error handling |
+| Testability | 90% | All scenarios have criteria |
+| Clarity | 85% | "Fast" is ambiguous in REQ-3 |
+| Consistency | 88% | Mixed "user" vs "customer" |
+| Traceability | 75% | Missing links to models |
+
+## Recommendations
+1. Clarify response time target (replace "fast" with "< 200ms")
+2. Add error handling scenarios
+3. Link to User model in data-model.md
+```
+
+### Spec Eval Automation
+
+```yaml
+# .github/workflows/spec-eval.yml
+name: Spec Quality Check
+
+on:
+  pull_request:
+    paths:
+      - 'openspec/**/*.md'
+
+jobs:
+  evaluate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Run Spec Evals
+        run: |
+          for spec in openspec/specs/**/*.spec.md; do
+            python scripts/spec_eval.py "$spec" --min-score 80
+          done
+```
+
+---
+
+## 🏛️ Legacy Applications con SDD
+
+### El Desafío
+
+```
+┌─────────────────────────────────────────────────────────┐
+│                  Legacy App Challenges                   │
+├─────────────────────────────────────────────────────────┤
+│                                                          │
+│  ❌ Sin specs existentes                                │
+│  ❌ Código spaghetti                                    │
+│  ❌ Sin tests                                           │
+│  ❌ Documentación obsoleta                              │
+│  ❌ Tech stack antiguo                                  │
+│  ❌ Múltiples capas de "fixes"                          │
+│                                                          │
+└─────────────────────────────────────────────────────────┘
+```
+
+### Estrategia: Strangler Pattern
+
+```text
+1. Spec new features with SDD
+2. Spec refactored modules
+3. Gradually "strangle" legacy code
+```
+
+```
+┌──────────────────────────────────────────────────────────┐
+│                   Strangler Pattern                       │
+├──────────────────────────────────────────────────────────┤
+│                                                           │
+│   Legacy System          New SDD System                   │
+│   ┌───────────┐         ┌───────────┐                    │
+│   │ Module A  │ ──────▶ │ Spec A    │ ──────▶ Code A     │
+│   │ Module B  │         │ (empty)   │                    │
+│   │ Module C  │ ──────▶ │ Spec C    │ ──────▶ Code C     │
+│   └───────────┘         └───────────┘                    │
+│        │                       │                          │
+│        ▼                       ▼                          │
+│   Deprecated             Active Development                │
+│                                                           │
+└──────────────────────────────────────────────────────────┘
+```
+
+### Spec Retrospectivo
+
+```bash
+# Generar spec desde código existente
+kilocode "Document current authentication flow as spec"
+
+# O con Tessl
+tessl document --code auth.js
+```
+
+**Output: spec.retrospective.md**
+
+```markdown
+# Spec (Retrospective): Authentication
+
+## Current Behavior (as observed)
+
+### Flow
+1. User enters credentials
+2. Server validates against database
+3. Session created in Redis
+4. Cookie set with session ID
+
+### Observed Patterns
+- Uses bcrypt for passwords
+- Sessions expire after 24h
+- No OAuth support
+
+## Identified Gaps
+- No rate limiting
+- No MFA
+- Passwords not hashed with modern algorithms
+
+## Recommended Improvements
+- [ ] Add rate limiting
+- [ ] Implement MFA
+- [ ] Migrate to Argon2
+```
+
+### Legacy-Specific Rules
+
+```yaml
+# openspec/config.yaml para legacy
+rules:
+  proposal:
+    - Document impact on existing code
+    - Include rollback strategy
+    - Identify dependencies on legacy modules
+    
+  apply:
+    - Preserve backward compatibility
+    - Add tests before modifying legacy code
+    - Use feature flags for gradual rollout
+    
+  verify:
+    - Run legacy test suite (if exists)
+    - Manual QA for affected legacy flows
+    - Monitor error rates post-deployment
+```
+
+---
+
+## 📦 Spec Registries: El Futuro
+
+### Analogía con NPM
+
+```bash
+# npm para código
+npm install express
+
+# spec registry para specs (futuro)
+spec install authentication-oauth
+spec install rest-api-patterns
+spec install react-component-lifecycle
+```
+
+### Tipos de Registros
+
+#### 1. Git Submodules (Hoy)
+
+```bash
+# Compartir specs entre proyectos
+git submodule add git@github.com:org/specs.git shared-specs
+```
+
+#### 2. IDE Team Features
+
+```
+Cursor Teams / VS Code Settings Sync
+├── .cursorrules (compartido)
+├── specs/ (compartido)
+└── skills/ (compartido)
+```
+
+#### 3. Package Repositories (Futuro)
+
+```yaml
+# spec-registry.yaml
+registry: https://specs.tessl.io
+
+dependencies:
+  auth:
+    spec: authentication-oauth@2.1.0
+    scope: core
+    
+  api:
+    spec: rest-api-best-practices@1.0.0
+    scope: features
+```
+
+#### 4. Public Registries
+
+```
+Tessl Registry (en desarrollo)
+├── authentication/
+│   ├── oauth2/
+│   ├── jwt/
+│   └── session/
+├── api-design/
+│   ├── rest/
+│   ├── graphql/
+│   └── grpc/
+└── security/
+    ├── input-validation/
+    ├── rate-limiting/
+    └── encryption/
+```
+
+### Beneficios
+
+| Beneficio | Descripción |
+|-----------|-------------|
+| **Reutilización** | No reinventar specs para patrones comunes |
+| **Calidad** | Specs probadas por la comunidad |
+| **Consistencia** | Estándares compartidos entre proyectos |
+| **Onboarding** | Nuevos devs leen specs estándar |
+
+---
+
+## 🔮 El Futuro de SDD
+
+### Tendencias Emergentes
+
+1. **Spec Evals como Standard**
+   - Métricas de calidad automatizadas
+   - Coverage reports para specs
+
+2. **Spec-as-Source madurando**
+   - Mejor generación de código
+   - Más determinismo
+   - Tooling mejorado
+
+3. **Multi-Agent Workflows**
+   - Agentes especializados por dominio
+   - Coordinación entre agentes
+
+4. **IDE Integration Profunda**
+   - Specs como first-class citizens
+   - Autocomplete desde specs
+   - Refactoring aware de specs
+
+### Lo Que Falta
+
+| Área | Estado | Qué Falta |
+|------|--------|-----------|
+| **Spec Evals** | Temprano | Métricas estandarizadas |
+| **Registries** | Experimental | Infraestructura pública |
+| **Spec-as-Source** | Beta | Determinismo, tooling |
+| **Multi-Agent** | Muy temprano | Orquestación madura |
+
+---
+
+## 🎓 Lo Que Aprendiste (Resumen Completo)
+
+1. **Context Windows** requieren manejo activo de specs
+2. **Spec Evals** miden calidad de especificaciones
+3. **Legacy Apps** pueden adoptar SDD gradualmente
+4. **Strangler Pattern** permite migración progresiva
+5. **Spec Registries** serán como npm para specs
+6. **El futuro** incluye multi-agent y tooling mejorado
+
+---
+
+## 📚 Referencias Adicionales
+
+- Debois, P. (2025). "Spec-Driven Development: 10 things you need to know" - AI Native Dev
+- Fowler, M. (2025). "Strangler Fig Application" - martinfowler.com
+- Tessl Documentation - docs.tessl.io
+- Kiro Documentation - kiro.dev/docs
+
+---
+
+*Curso Completado 🎉*
+
+*Módulo 7.0 | Duración: 60 min | Dificultad: 🔴 Avanzado*
+
+*Total del Curso: ~7 horas*

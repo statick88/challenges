@@ -1,0 +1,606 @@
+---
+title: "Comparativa de Herramientas SDD"
+date: "2026-02-24"
+---
+
+# 🎓 Herramientas SDD: Kiro, Spec Kit, Tessl
+
+👨‍🏫 **Del Instructor**: Tres herramientas lideran el movimiento SDD, cada una con filosofía diferente. Entender sus diferencias te ayudará a elegir la adecuada para tu contexto.
+
+> 💭 **Mentalidad de Arquitecto**: "No hay herramienta perfecta. Hay herramienta correcta para el contexto correcto. Conoce tus opciones."
+
+---
+
+## 📊 Vista General
+
+| Herramienta | Desarrollador | Filosofía | Nivel SDD |
+|-------------|---------------|-----------|-----------|
+| **Kiro** | AWS | Spec-first + Design | Spec-anchored |
+| **Spec Kit** | GitHub | Constitution + Memory | Spec-first |
+| **Tessl Framework** | Tessl | Spec-as-source | Spec-as-source |
+
+---
+
+## 🔧 Kiro (AWS)
+
+### Filosofía
+
+Kiro nace de la experiencia de Amazon con **"Working Backwards"**:
+
+1. Escribir press release antes de construir
+2. Especificaciones como source of truth
+3. Specs como "North Star" para agentes IA
+
+### Workflow: Requirements → Design → Tasks
+
+```
+┌─────────────────────────────────────────────────────────┐
+│                     KIRO WORKFLOW                        │
+├─────────────────────────────────────────────────────────┤
+│                                                          │
+│  ┌──────────────┐    ┌──────────────┐    ┌───────────┐ │
+│  │ requirements │ ─▶ │   design.md  │ ─▶ │ tasks.md  │ │
+│  │     .md      │    │              │    │           │ │
+│  └──────────────┘    └──────────────┘    └───────────┘ │
+│         │                   │                  │        │
+│         ▼                   ▼                  ▼        │
+│    User Stories       Architecture         Task UI     │
+│    Acceptance         Sequence Diags       Progress    │
+│    Criteria           ADRs                 Tracking    │
+│                                                          │
+└─────────────────────────────────────────────────────────┘
+```
+
+### Estructura de Archivos
+
+```
+project/
+├── steering/                  # Memory Bank
+│   ├── product.md            # Qué es el producto
+│   ├── tech.md               # Stack tecnológico
+│   └── structure.md          # Arquitectura
+└── specs/
+    └── <feature-name>/
+        ├── requirements.md   # User stories + acceptance criteria
+        ├── design.md         # Technical design
+        └── tasks.md          # Implementation tasks
+```
+
+### Ejemplo: Requirements.md
+
+```markdown
+# Requirements: Health Endpoint
+
+## User Story 1: Health Check for Kubernetes
+As a DevOps engineer, I want to check if the API is running
+So that Kubernetes can manage pod lifecycle.
+
+### Acceptance Criteria
+GIVEN the API is deployed
+WHEN I request GET /health
+THEN I receive 200 OK
+AND the response contains {"status": "ok"}
+
+## User Story 2: Response Time Under 100ms
+As a platform engineer, I want health checks to be fast
+So that load balancers don't timeout.
+
+### Acceptance Criteria
+GIVEN the API is under normal load
+WHEN I request GET /health
+THEN response time is under 100ms
+```
+
+### Ejemplo: Design.md
+
+```markdown
+# Design: Health Endpoint
+
+## Component Architecture
+
+\`\`\`
+┌─────────────────────────────────────┐
+│           API Gateway               │
+├─────────────────────────────────────┤
+│  GET /health → HealthController     │
+└─────────────────────────────────────┘
+\`\`\`
+
+## Architecture Decision Records
+
+### ADR-001: Inline Route
+**Context**: Simple health check
+**Decision**: Add route directly in app.js
+**Consequences**: Minimal change, easy to test
+
+## Data Models
+Response: { status: string, timestamp: ISO8601 }
+
+## Error Handling
+- No errors expected for healthy state
+- Return 503 if database unreachable (future)
+```
+
+### Pros y Contras
+
+| Ventajas | Desventajas |
+|----------|-------------|
+| ✅ Workflow intuitivo | ❌ Overkill para bugs pequeños |
+| ✅ Integración VS Code | ❌ Solo spec-first (no spec-as-source) |
+| ✅ UI de progreso de tareas | ❌ Genera specs muy verbosas |
+| ✅ Basado en prácticas AWS | ❌ Sin soporte para proyectos legacy |
+
+### Cuándo Usar Kiro
+
+- ✅ Features nuevos de tamaño medio/grande
+- ✅ Equipos que usan VS Code
+- ✅ Proyectos greenfield
+- ❌ Bug fixes simples
+- ❌ Proyectos legacy con specs retrospectivos
+
+---
+
+## 🐙 GitHub Spec Kit
+
+### Filosofía
+
+Spec Kit es **agent-agnostic**: funciona con cualquier asistente de IA.
+
+Conceptos clave:
+
+1. **Constitution**: Principios inmutables del proyecto
+2. **Memory Bank**: Contexto persistente
+3. **Slash Commands**: `/specify`, `/plan`, `/tasks`
+
+### Workflow: Constitution → Specify → Plan → Tasks
+
+```
+┌─────────────────────────────────────────────────────────┐
+│                   SPEC KIT WORKFLOW                      │
+├─────────────────────────────────────────────────────────┤
+│                                                          │
+│  ┌──────────────┐                                       │
+│  │ constitution │ ← Principios inmutables               │
+│  │     .md      │                                       │
+│  └──────────────┘                                       │
+│         │                                               │
+│         ▼                                               │
+│  ┌──────────────┐    ┌──────────────┐    ┌───────────┐ │
+│  │  /specify    │ ─▶ │    /plan     │ ─▶ │   /tasks  │ │
+│  │  spec.md     │    │  plan.md     │    │ tasks.md  │ │
+│  └──────────────┘    └──────────────┘    └───────────┘ │
+│                                                          │
+└─────────────────────────────────────────────────────────┘
+```
+
+### Estructura de Archivos
+
+```
+project/
+├── .github/
+│   └── prompts/
+│       ├── specify.prompt.md    # Comando /specify
+│       ├── plan.prompt.md       # Comando /plan
+│       └── tasks.prompt.md      # Comando /tasks
+├── .specify/
+│   ├── memory/
+│   │   ├── constitution.md      # Principios del proyecto
+│   │   └── constitution_update_checklist.md
+│   ├── scripts/
+│   │   └── powershell/          # Scripts de automatización
+│   └── templates/
+│       ├── spec-template.md
+│       ├── plan-template.md
+│       └── tasks-template.md
+└── specs/
+    └── 001-feature-name/
+        ├── spec.md              # Qué y por qué
+        ├── plan.md              # Cómo
+        ├── tasks.md             # Pasos
+        ├── research.md          # Investigación
+        ├── api.md               # Contratos API
+        └── data-model.md        # Modelos de datos
+```
+
+### Constitution.md: El Corazón
+
+```markdown
+# Project Constitution
+
+## Architecture Principles
+- Use hexagonal architecture
+- Domain logic isolated from infrastructure
+- All external dependencies behind interfaces
+
+## Technology Standards
+- Language: TypeScript 5.x
+- Framework: Node.js 20+
+- Testing: Jest with 80% coverage minimum
+- Linting: ESLint with strict config
+
+## API Design
+- RESTful endpoints
+- Version in URL: /api/v1/
+- OpenAPI 3.0 documentation required
+
+## Security
+- No credentials in code
+- Environment variables for secrets
+- Input validation on all endpoints
+
+## Testing Requirements
+- Unit tests for all services
+- Integration tests for API endpoints
+- E2E tests for critical paths
+```
+
+### Slash Commands
+
+#### `/specify`
+
+```bash
+# En GitHub Copilot:
+/specify NG Pokedex is an application for Pokémon fans...
+```
+
+**Genera:**
+
+- `specs/001-ng-pokedex/spec.md`
+- User stories
+- Acceptance criteria
+- Key entities
+- Validation checklist
+
+#### `/plan`
+
+```bash
+# En GitHub Copilot:
+/plan Angular 20 with Material Design, PokeAPI V2, localStorage...
+```
+
+**Genera:**
+
+- `plan.md` con arquitectura
+- `research.md` con decisiones
+- `quickstart.md` para setup
+- `data-model.md` con entidades
+
+#### `/tasks`
+
+```bash
+# En GitHub Copilot:
+/tasks
+```
+
+**Genera:**
+
+- `tasks.md` con fases
+- Tasks con IDs únicos (T001, T002...)
+- Dependencias entre tareas
+- Estimación de tiempo
+
+### Ejemplo: Tasks.md
+
+```markdown
+# Implementation Tasks
+
+## Phase 1: Setup
+- [ ] T001: Initialize Angular project
+- [ ] T002: Configure Material Design
+- [ ] T003: Setup ESLint and Prettier
+
+## Phase 2: TDD Foundation
+- [ ] T004: Write tests for Pokemon service
+- [ ] T005: Write tests for Favorites service
+- [ ] T006: Write tests for Search component
+
+## Phase 3: Implementation
+- [ ] T007: Implement Pokemon service
+- [ ] T008: Implement Favorites service
+- [ ] T009: Implement Search component
+
+## Validation Checklist
+- [x] All tasks specify exact file path
+- [x] Tests come before implementation
+- [x] Constitutional compliance verified
+- [x] No task modifies same file as another [P] task
+```
+
+### Pros y Contras
+
+| Ventajas | Desventajas |
+|----------|-------------|
+| ✅ Agent-agnostic | ❌ Genera MUCHOS archivos |
+| ✅ Constitution como guardrails | ❌ Archivos repetitivos |
+| ✅ Scripts de automatización | ❌ Curva de aprendizaje |
+| ✅ Branch por feature | ❌ Pobre para brownfield |
+| ✅ Cross-platform (POSIX + PowerShell) | |
+
+### Cuándo Usar Spec Kit
+
+- ✅ Equipos con múltiples AI tools
+- ✅ Proyectos con estándares estrictos
+- ✅ Features medianas/grandes
+- ❌ Cambios rápidos/iterativos
+- ❌ Proyectos sin constitución definida
+
+---
+
+## 🧬 Tessl Framework
+
+### Filosofía
+
+Tessl es el más radical: **Spec-as-source**.
+
+```text
+El humano SOLO edita specs
+El código es GENERATED FROM SPEC - DO NOT EDIT
+```
+
+### Workflow: Spec → Build → Code
+
+```
+┌─────────────────────────────────────────────────────────┐
+│                   TESSL WORKFLOW                         │
+├─────────────────────────────────────────────────────────┤
+│                                                          │
+│  ┌──────────────┐         ┌──────────────┐             │
+│  │  health.     │ ──────▶ │  health.js   │             │
+│  │  spec.md     │  build  │  // GENERATED│             │
+│  └──────────────┘         └──────────────┘             │
+│         │                        ▲                      │
+│         │                        │                      │
+│         ▼                        │                      │
+│  ┌──────────────┐                │                      │
+│  │   Human      │                │                      │
+│  │   edits      │                │                      │
+│  │   spec only  │────────────────┘                      │
+│  └──────────────┘                                       │
+│                                                          │
+└─────────────────────────────────────────────────────────┘
+```
+
+### Ejemplo: Spec → Code
+
+**health.spec.md:**
+
+```markdown
+# Health Endpoint Spec
+
+## @generate
+
+## API
+GET /health → 200 { status: "ok", timestamp: ISO8601 }
+
+## Behavior
+Returns current health status of the API.
+
+## @test
+- Test: Returns 200 when healthy
+- Test: Includes valid ISO timestamp
+```
+
+**Generated health.js:**
+
+```javascript
+// GENERATED FROM SPEC - DO NOT EDIT
+// Spec: health.spec.md
+
+function getHealth() {
+  return {
+    status: "ok",
+    timestamp: new Date().toISOString()
+  };
+}
+
+module.exports = { getHealth };
+```
+
+### Estructura
+
+```
+project/
+├── .tessl/
+│   └── framework/
+│       ├── config.yaml
+│       └── templates/
+├── KNOWLEDGE.md              # Memory bank
+├── AGENTS.md                 # Agent instructions
+└── specs/
+    ├── health.spec.md
+    ├── user-auth.spec.md
+    └── api-gateway.spec.md
+```
+
+### Comandos CLI
+
+```bash
+# Inicializar proyecto
+tessl init my-project
+
+# Generar spec desde código existente
+tessl document --code health.js
+
+# Generar código desde spec
+tessl build health.spec.md
+
+# Sincronizar specs ↔ código
+tessl sync
+```
+
+### Pros y Contras
+
+| Ventajas | Desventajas |
+|----------|-------------|
+| ✅ Spec como único source | ❌ Muy experimental |
+| ✅ 1:1 mapping spec→code | ❌ No aplica a todos los patrones |
+| ✅ No determinismo controlado | ❌ Requiere specs muy específicos |
+| ✅ Ideal para componentes | ❌ Limitado para lógica compleja |
+
+### Cuándo Usar Tessl
+
+- ✅ Componentes bien definidos
+- ✅ APIs con contratos claros
+- ✅ Experimentación con spec-as-source
+- ❌ Lógica de negocio compleja
+- ❌ Proyectos con múltiples colaboradores en código
+
+---
+
+## 📊 Comparativa Detallada
+
+### Nivel de Abstracción
+
+```
+Spec Kit ────────▶ Spec-first (specs desaparecen después)
+         │
+         └── Specs guían, luego se archivan
+
+Kiro ────────────▶ Spec-anchored (specs persisten)
+         │
+         └── Specs viven junto al código
+
+Tessl ───────────▶ Spec-as-source (specs SON el código)
+         │
+         └── Solo editas specs, código es generado
+```
+
+### Verbosidad de Archivos
+
+| Herramienta | Archivos por Feature | Verbosidad |
+|-------------|---------------------|------------|
+| Kiro | 3 | Media |
+| Spec Kit | 8+ | Alta |
+| Tessl | 1-2 | Baja |
+
+### Soporte para Brownfield
+
+| Herramienta | Greenfield | Brownfield | Legacy |
+|-------------|------------|------------|--------|
+| Kiro | ✅ Excelente | ⚠️ Parcial | ❌ Pobre |
+| Spec Kit | ✅ Excelente | ⚠️ Parcial | ❌ Pobre |
+| Tessl | ✅ Excelente | ⚠️ Parcial | ❌ Pobre |
+
+### Curva de Aprendizaje
+
+```
+Fácil ────────────────────────────────────────── Difícil
+
+   Tessl ◀──────────── Kiro ◀──────────── Spec Kit
+   
+   (1 spec)            (3 archivos)      (8+ archivos)
+```
+
+---
+
+## 🎯 ¿Cuál Elegir?
+
+### Por Tamaño de Proyecto
+
+```
+┌─────────────┬─────────────────────────────────────────┐
+│ Tamaño      │ Recomendación                           │
+├─────────────┼─────────────────────────────────────────┤
+│ Small fix   │ Vibe coding → Spec Kit mínimo          │
+│ Feature     │ Kiro (simple) o Spec Kit (estructurado)│
+│ Large app   │ Spec Kit con constitution completo     │
+│ Component   │ Tessl para spec-as-source              │
+└─────────────┴─────────────────────────────────────────┘
+```
+
+### Por Equipo
+
+```
+┌────────────────────┬──────────────────────────────────┐
+│ Contexto           │ Recomendación                    │
+├────────────────────┼──────────────────────────────────┤
+│ Solo developer     │ Kiro (más simple)                │
+│ Equipo pequeño     │ Spec Kit (estándares claros)     │
+│ Equipo grande      │ Spec Kit + constitution estricta │
+│ Múltiples AI tools │ Spec Kit (agent-agnostic)        │
+│ Solo VS Code       │ Kiro (mejor integración)         │
+└────────────────────┴──────────────────────────────────┘
+```
+
+### Por Tipo de Cambio
+
+```
+┌─────────────────┬───────────────────────────────────────┐
+│ Tipo            │ Herramienta                           │
+├─────────────────┼───────────────────────────────────────┤
+│ Bug fix simple  │ Skip SDD → Direct fix                 │
+│ Feature nueva   │ Kiro o Spec Kit                       │
+│ Refactor mayor  │ Spec Kit con spec retrospectivo       │
+│ API nueva       │ Kiro (requisitos claros)              │
+│ Componente UI   │ Tessl (spec-as-source)                │
+│ Migración       │ Spec Kit + research.md extenso        │
+└─────────────────┴───────────────────────────────────────┘
+```
+
+---
+
+## 🔗 Híbrido: Nuestro Enfoque Recomendado
+
+Combinamos lo mejor de cada herramienta:
+
+### Estructura Híbrida
+
+```
+project/
+├── openspec/
+│   ├── config.yaml           # Configuración SDD
+│   ├── specs/                # Source of truth (Tessl style)
+│   │   └── health.spec.md
+│   └── changes/              # Cambios activos (Spec Kit style)
+│       └── 001-add-health/
+│           ├── proposal.md   # Intent (Kiro style)
+│           ├── spec.delta.md # Requisitos
+│           ├── design.md     # Arquitectura (Kiro style)
+│           └── tasks.md      # Implementación
+└── .kilocode/
+    ├── mcp.json              # MCP servers
+    └── skills/               # Skills personalizados
+```
+
+### Workflow Híbrido
+
+```
+1. INIT: Crear openspec/ con config.yaml
+2. PROPOSE: proposal.md (inspirado en Kiro)
+3. SPEC: spec.delta.md (Spec Kit style)
+4. DESIGN: design.md con ADRs (Kiro style)
+5. TASKS: tasks.md jerárquico (Spec Kit style)
+6. IMPLEMENT: Código con verificación
+7. VERIFY: Tests + validación
+8. ARCHIVE: Merge a specs/ (Tessl style)
+```
+
+---
+
+## 🎓 Lo Que Aprendiste
+
+1. **Kiro** es intuitivo pero puede ser overkill
+2. **Spec Kit** es poderoso pero verboso
+3. **Tessl** es experimental pero visionario
+4. **Cada herramienta** tiene su sweet spot
+5. **Híbrido** combina lo mejor de cada una
+
+---
+
+## 🚀 Siguiente Paso
+
+Continúa con [Módulo 3: SDD en Kilocode CLI](03-sdd-kilocode.qmd) para implementar el enfoque híbrido.
+
+---
+
+## 📚 Referencias
+
+- Böckeler, B. (2025). "Understanding Spec-Driven-Development: Kiro, spec-kit, and Tessl" - Martin Fowler
+- Brooker, M. (2025). "Kiro and the future of AI spec-driven software development"
+- Delimarsky, D. (2025). "Diving Into Spec-Driven Development With GitHub Spec Kit" - Microsoft
+- Sogl, D. (2025). "Spec Driven Development: A initial review" - DEV Community
+- Debois, P. (2025). "Spec-Driven Development: 10 things you need to know" - AI Native Dev
+
+---
+
+*Módulo 2.0 | Duración: 45 min | Dificultad: 🟡 Intermedio*

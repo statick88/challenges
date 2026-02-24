@@ -6,7 +6,7 @@ date: "2026-02-24"
 
 # 🎓 Bienvenido al Curso de SDD con IA
 
-👨‍🏫 **Del Instructor**: Bienvenido a este curso práctico sobre Spec-Driven Development (SDD), una metodología que transforma cómo trabajamos con asistentes de IA para desarrollo de software, usando CLI y Neovim.
+👨‍🏫 **Del Instructor**: Este curso te guiará desde la historia de la programación hasta las técnicas más avanzadas de Spec-Driven Development con Kilocode CLI y Neovim.
 
 > 💭 **Mentalidad de Arquitecto**: "Un buen asistente de IA es como un junior brillante: necesita especificaciones claras para brillar, no instrucciones vagas para fallar."
 
@@ -14,14 +14,16 @@ date: "2026-02-24"
 
 ## 🎯 ¿Por Qué Este Curso?
 
-Los asistentes de IA (Claude, GPT-4, etc.) han revolucionado el desarrollo, pero presentan desafíos:
+En febrero 2025, Andrej Karpathy definió "vibe coding" como la práctica de generar código con IA sin entenderlo completamente. El resultado: **25% de startups YC tienen 95% código IA generado**.
 
-- **Alucinaciones**: Generan código incorrecto con confianza
+Pero hay un problema:
+
+- **Alucinaciones**: IA genera código incorrecto con confianza
 - **Inconsistencia**: Mismo prompt, diferentes resultados
 - **Falta de trazabilidad**: ¿Por qué se tomó esta decisión?
-- **Dificultad de revisión**: ¿El código cumple los requisitos?
+- **Dificultad de mantenimiento**: Código sin documentación
 
-**SDD resuelve esto** proporcionando una estructura que guía tanto al humano como a la IA.
+**SDD resuelve esto** proporcionando especificaciones estructuradas que guían tanto al humano como a la IA.
 
 ---
 
@@ -29,11 +31,13 @@ Los asistentes de IA (Claude, GPT-4, etc.) han revolucionado el desarrollo, pero
 
 Al completar este curso, serás capaz de:
 
-1. **Comprender** la filosofía y workflow de SDD
-2. **Configurar** SDD en Kilocode CLI y Opencode
-3. **Integrar** el flujo con Neovim
-4. **Aplicar** el flujo completo en proyectos reales
-5. **Configurar** MCP servers para potenciar el workflow
+1. **Comprender** la evolución desde assembly hasta specs
+2. **Diferenciar** vibe coding de SDD
+3. **Aplicar** Context Architecture y Task-Driven Development
+4. **Comparar** herramientas: Kiro, Spec Kit, Tessl
+5. **Implementar** SDD en Kilocode CLI + Neovim
+6. **Configurar** MCP servers para potenciar el workflow
+7. **Aplicar** patrones avanzados en proyectos reales
 
 ---
 
@@ -59,72 +63,91 @@ Al completar este curso, serás capaz de:
 
 ## 🗺️ Estructura del Curso
 
+### Módulo 0: [Contexto Histórico](00-contexto-historico.qmd) 🆕
+
+- 60 años de abstracción en programación
+- Vibe Coding: definición, uso, riesgos
+- La evolución natural hacia SDD
+
 ### Módulo 1: [Introducción a SDD](01-intro-sdd.qmd)
 
 - ¿Qué es Spec-Driven Development?
-- Filosofía: Specs primero, código después
+- 3 niveles: spec-first, spec-anchored, spec-as-source
 - Las 8 fases del workflow
-- Beneficios vs desarrollo tradicional
+- Tipos de especificaciones
 
-### Módulo 2: [SDD en Kilocode CLI](02-sdd-kilocode.qmd)
+### Módulo 1B: [Context Architecture vs Prompt Engineering](01b-context-architecture.qmd) 🆕
+
+- Por qué Prompt Engineering es un dead end
+- Context Architecture: contexto como artefacto de ingeniería
+- La Regla 80/20: 80% planeando, 20% ejecutando
+- Master Spec vs Task Spec
+- Metaprompting: técnica experta
+
+### Módulo 1C: [Task-Driven Development](01c-task-driven-development.qmd) 🆕
+
+- El Vibe Coding Trap: 50% pérdida de productividad
+- Las 6 fases del ciclo de vida de una tarea
+- Enhanced Task Template para tareas complejas
+- Human design, AI production
+- Specialized subagents: Taskie y Archie
+
+### Módulo 2: [Comparativa de Herramientas](02-comparativa-herramientas.qmd) 🆕
+
+- Kiro (AWS): Requirements → Design → Tasks
+- GitHub Spec Kit: Constitution + Memory Bank
+- Tessl Framework: Spec-as-source
+- Cuándo usar cada una
+
+### Módulo 3: [SDD en Kilocode CLI](03-sdd-kilocode.qmd)
 
 - Configuración CLI
 - Estructura de skills
 - Integración con Neovim
-- Configuración MCP
 
-### Módulo 3: [SDD en Opencode](03-sdd-opencode.qmd)
+### Módulo 4: [SDD en Opencode](04-sdd-opencode.qmd)
 
 - Configuración del proyecto
-- Integración con MCP
 - Diferencias con Kilocode
-- Ejemplo práctico
 
-### Módulo 4: [Práctica Guiada](04-practica-sdd.qmd)
+### Módulo 5: [Práctica Guiada](05-practica-sdd.qmd)
 
-- Caso real: API con health endpoint
-- Paso a paso con Kilocode CLI + Nvim
+- Caso real: Health endpoint
+- Paso a paso con CLI + Nvim
 - Verificación y archivado
 
-### Módulo 5: [Integración MCP](05-mcp-integration.qmd)
+### Módulo 6: [Integración MCP](06-mcp-integration.qmd)
 
 - spec-coding-mcp
 - Engram (memoria persistente)
 - Context7 (documentación actualizada)
 
-### Módulo 6: [Patrones Avanzados](06-advanced-patterns.qmd)
+### Módulo 7: [Patrones Avanzados](07-advanced-patterns.qmd)
 
+- Context window management
 - Brownfield vs Greenfield
-- Trabajo en equipo
-- CI/CD integration
-- Troubleshooting común
+- Spec evals y calidad
+- Legacy applications
+- Spec Registries
 
 ---
 
 ## 📊 Progreso del Curso
 
-| Módulo | Duración Estimada | Dificultad |
-|--------|-------------------|------------|
-| 1. Introducción | 30 min | 🟢 Básico |
-| 2. Kilocode CLI | 45 min | 🟡 Intermedio |
-| 3. Opencode | 30 min | 🟡 Intermedio |
-| 4. Práctica | 60 min | 🟡 Intermedio |
-| 5. MCP Integration | 45 min | 🔴 Avanzado |
-| 6. Patrones Avanzados | 45 min | 🔴 Avanzado |
+| Módulo | Duración | Dificultad | Estado |
+|--------|----------|------------|--------|
+| 0. Contexto Histórico | 45 min | 🟢 Básico | 🆕 Nuevo |
+| 1. Introducción a SDD | 30 min | 🟢 Básico | ✅ |
+| 1B. Context Architecture | 45 min | 🟡 Intermedio | 🆕 Nuevo |
+| 1C. Task-Driven Development | 45 min | 🟡 Intermedio | 🆕 Nuevo |
+| 2. Comparativa Herramientas | 45 min | 🟡 Intermedio | 🆕 Nuevo |
+| 3. Kilocode CLI | 45 min | 🟡 Intermedio | ✅ |
+| 4. Opencode | 30 min | 🟡 Intermedio | ✅ |
+| 5. Práctica Guiada | 60 min | 🟡 Intermedio | ✅ |
+| 6. MCP Integration | 45 min | 🔴 Avanzado | ✅ |
+| 7. Patrones Avanzados | 60 min | 🔴 Avanzado | 🔄 Ampliado |
 
-**Tiempo total estimado**: 4-5 horas
-
----
-
-## 🎭 Escenario Real
-
-Imagina que lideras un equipo de desarrollo. Cada vez que un desarrollador usa IA para generar código:
-
-- ¿Cómo revisas que cumple los requisitos?
-- ¿Cómo aseguras consistencia entre tareas?
-- ¿Cómo mantienes historial de decisiones?
-
-**SDD es la respuesta**: especificaciones que sirven como contrato entre humanos y asistentes de IA.
+**Tiempo total estimado**: 8-9 horas
 
 ---
 
@@ -155,18 +178,44 @@ Imagina que lideras un equipo de desarrollo. Cada vez que un desarrollador usa I
 
 ---
 
+## 🎭 Escenario Real
+
+Eres desarrollador en un equipo. Tu empresa adoptó IA para desarrollo:
+
+- **Semana 1**: "¡Wow! La IA genera código súper rápido"
+- **Semana 4**: "¿Por qué este código no funciona como esperábamos?"
+- **Semana 8**: "Nadie entiende cómo funciona el módulo de pagos"
+- **Semana 12**: "¿Quién decidió usar esta biblioteca? ¿Por qué?"
+
+**Sin SDD**: Caos técnico, deuda invisible, inconsistencia
+
+**Con SDD**: Trazabilidad, decisiones documentadas, código predecible
+
+---
+
 ## 🚀 Comenzando
 
-Dirígete al [Módulo 1: Introducción a SDD](01-intro-sdd.qmd) para comenzar tu journey.
+Dirígete al [Módulo 0: Contexto Histórico](00-contexto-historico.qmd) para comenzar tu journey desde los orígenes hasta el estado del arte.
 
 ---
 
-## 📚 Recursos Adicionales
+## 📚 Fuentes y Referencias
 
-- [OpenSpec Specification](https://github.com/github/spec-kit)
-- [Neovim Documentation](https://neovim.io/doc/)
-- [Model Context Protocol](https://modelcontextprotocol.io/)
+### Primarias
+
+- Karpathy, A. (2025). "Vibe Coding" - X/Twitter
+- Böckeler, B. (2025). "Understanding Spec-Driven Development" - Martin Fowler
+- Brooker, M. (2025). "Kiro and the Future" - AWS
+- Delimarsky, D. (2025). "Spec Kit" - Microsoft
+- Precursor Manifesto (2025). "Context Architecture"
+- StrategyRadar.ai (2025). "Task-Driven Development with AI"
+
+### Estadísticas
+
+- Y Combinator Winter 2025: 25% startups con 95% código IA
+- ArXiv studies on LLM code quality
+- GitHub research on AI-assisted development
 
 ---
 
-*Curso v1.0 | Creado: 2026-02-24 | Autor: Gentleman Programming*
+*Curso v3.0 | Actualizado: 2026-02-24 | Autor: Gentleman Programming*

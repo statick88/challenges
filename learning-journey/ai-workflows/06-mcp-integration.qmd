@@ -397,7 +397,7 @@ touch ~/.engram/memory.db
 
 ## 🚀 Siguiente Paso
 
-Continúa con [Módulo 6: Patrones Avanzados](06-advanced-patterns.qmd) para aplicar SDD en escenarios complejos.
+Continúa con [Módulo 7: Patrones Avanzados](07-advanced-patterns.qmd) para aplicar SDD en escenarios complejos.
 
 ---
 

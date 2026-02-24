@@ -1,0 +1,1261 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2026-02-24">
+
+<title>Práctica Guiada: Health Endpoint con Kilocode CLI – DevOps &amp; Security Learning Journey</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-7ac2f9da8c2617a4fdd15004b4601015.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-3dad1a9f078d91cda5f1887d21eb11b5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">DevOps &amp; Security Learning Journey</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../foundations/index.html"> 
+<span class="menu-text">Foundations</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../containers/index.html"> 
+<span class="menu-text">Containers</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../devops-practices/index.html"> 
+<span class="menu-text">DevOps</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../security/index.html"> 
+<span class="menu-text">Security</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../ai-workflows/index.html"> 
+<span class="menu-text">AI Workflows</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../roadmap/index.html"> 
+<span class="menu-text">Roadmap</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-language" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Language</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-language">    
+        <li>
+    <a class="dropdown-item" href="../es/index.html">
+ <span class="dropdown-text">Español</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../index.html">
+ <span class="dropdown-text">English</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="https://github.com/statick88/challenges"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text">GitHub</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#práctica-implementar-health-endpoint-con-sdd" id="toc-práctica-implementar-health-endpoint-con-sdd" class="nav-link active" data-scroll-target="#práctica-implementar-health-endpoint-con-sdd">🎓 Práctica: Implementar Health Endpoint con SDD</a>
+  <ul class="collapse">
+  <li><a href="#el-escenario" id="toc-el-escenario" class="nav-link" data-scroll-target="#el-escenario">🎭 El Escenario</a></li>
+  <li><a href="#prerrequisitos" id="toc-prerrequisitos" class="nav-link" data-scroll-target="#prerrequisitos">📋 Prerrequisitos</a>
+  <ul class="collapse">
+  <li><a href="#archivo-inicial-srcapp.js" id="toc-archivo-inicial-srcapp.js" class="nav-link" data-scroll-target="#archivo-inicial-srcapp.js">Archivo Inicial: <code>src/app.js</code></a></li>
+  </ul></li>
+  <li><a href="#fase-1-init" id="toc-fase-1-init" class="nav-link" data-scroll-target="#fase-1-init">🔄 Fase 1: INIT</a>
+  <ul class="collapse">
+  <li><a href="#comando-cli" id="toc-comando-cli" class="nav-link" data-scroll-target="#comando-cli">Comando CLI</a></li>
+  <li><a href="#output-de-kilocode" id="toc-output-de-kilocode" class="nav-link" data-scroll-target="#output-de-kilocode">Output de Kilocode</a></li>
+  <li><a href="#revisar-en-nvim" id="toc-revisar-en-nvim" class="nav-link" data-scroll-target="#revisar-en-nvim">Revisar en Nvim</a></li>
+  </ul></li>
+  <li><a href="#fase-2-propose" id="toc-fase-2-propose" class="nav-link" data-scroll-target="#fase-2-propose">🔄 Fase 2: PROPOSE</a>
+  <ul class="collapse">
+  <li><a href="#comando-cli-1" id="toc-comando-cli-1" class="nav-link" data-scroll-target="#comando-cli-1">Comando CLI</a></li>
+  <li><a href="#output" id="toc-output" class="nav-link" data-scroll-target="#output">Output</a></li>
+  <li><a href="#revisar-y-editar-en-nvim" id="toc-revisar-y-editar-en-nvim" class="nav-link" data-scroll-target="#revisar-y-editar-en-nvim">Revisar y Editar en Nvim</a></li>
+  </ul></li>
+  <li><a href="#fase-3-spec" id="toc-fase-3-spec" class="nav-link" data-scroll-target="#fase-3-spec">🔄 Fase 3: SPEC</a>
+  <ul class="collapse">
+  <li><a href="#comando-cli-2" id="toc-comando-cli-2" class="nav-link" data-scroll-target="#comando-cli-2">Comando CLI</a></li>
+  <li><a href="#output-1" id="toc-output-1" class="nav-link" data-scroll-target="#output-1">Output</a></li>
+  <li><a href="#revisar-en-nvim-1" id="toc-revisar-en-nvim-1" class="nav-link" data-scroll-target="#revisar-en-nvim-1">Revisar en Nvim</a></li>
+  </ul></li>
+  <li><a href="#fase-4-design" id="toc-fase-4-design" class="nav-link" data-scroll-target="#fase-4-design">🔄 Fase 4: DESIGN</a>
+  <ul class="collapse">
+  <li><a href="#comando-cli-3" id="toc-comando-cli-3" class="nav-link" data-scroll-target="#comando-cli-3">Comando CLI</a></li>
+  <li><a href="#output-2" id="toc-output-2" class="nav-link" data-scroll-target="#output-2">Output</a></li>
+  <li><a href="#revisar-en-nvim-2" id="toc-revisar-en-nvim-2" class="nav-link" data-scroll-target="#revisar-en-nvim-2">Revisar en Nvim</a></li>
+  </ul></li>
+  <li><a href="#fase-5-tasks" id="toc-fase-5-tasks" class="nav-link" data-scroll-target="#fase-5-tasks">🔄 Fase 5: TASKS</a>
+  <ul class="collapse">
+  <li><a href="#comando-cli-4" id="toc-comando-cli-4" class="nav-link" data-scroll-target="#comando-cli-4">Comando CLI</a></li>
+  <li><a href="#output-3" id="toc-output-3" class="nav-link" data-scroll-target="#output-3">Output</a></li>
+  </ul></li>
+  <li><a href="#fase-6-apply" id="toc-fase-6-apply" class="nav-link" data-scroll-target="#fase-6-apply">🔄 Fase 6: APPLY</a>
+  <ul class="collapse">
+  <li><a href="#comando-cli-5" id="toc-comando-cli-5" class="nav-link" data-scroll-target="#comando-cli-5">Comando CLI</a></li>
+  <li><a href="#output-4" id="toc-output-4" class="nav-link" data-scroll-target="#output-4">Output</a></li>
+  <li><a href="#revisar-código-en-nvim" id="toc-revisar-código-en-nvim" class="nav-link" data-scroll-target="#revisar-código-en-nvim">Revisar Código en Nvim</a></li>
+  <li><a href="#implementar-tests" id="toc-implementar-tests" class="nav-link" data-scroll-target="#implementar-tests">Implementar Tests</a></li>
+  <li><a href="#revisar-tests-en-nvim" id="toc-revisar-tests-en-nvim" class="nav-link" data-scroll-target="#revisar-tests-en-nvim">Revisar Tests en Nvim</a></li>
+  </ul></li>
+  <li><a href="#fase-7-verify" id="toc-fase-7-verify" class="nav-link" data-scroll-target="#fase-7-verify">🔄 Fase 7: VERIFY</a>
+  <ul class="collapse">
+  <li><a href="#ejecutar-tests" id="toc-ejecutar-tests" class="nav-link" data-scroll-target="#ejecutar-tests">Ejecutar Tests</a></li>
+  <li><a href="#output-5" id="toc-output-5" class="nav-link" data-scroll-target="#output-5">Output</a></li>
+  <li><a href="#comando-cli-6" id="toc-comando-cli-6" class="nav-link" data-scroll-target="#comando-cli-6">Comando CLI</a></li>
+  <li><a href="#output-6" id="toc-output-6" class="nav-link" data-scroll-target="#output-6">Output</a></li>
+  </ul></li>
+  <li><a href="#fase-8-archive" id="toc-fase-8-archive" class="nav-link" data-scroll-target="#fase-8-archive">🔄 Fase 8: ARCHIVE</a>
+  <ul class="collapse">
+  <li><a href="#comando-cli-7" id="toc-comando-cli-7" class="nav-link" data-scroll-target="#comando-cli-7">Comando CLI</a></li>
+  <li><a href="#output-7" id="toc-output-7" class="nav-link" data-scroll-target="#output-7">Output</a></li>
+  </ul></li>
+  <li><a href="#estructura-final-del-proyecto" id="toc-estructura-final-del-proyecto" class="nav-link" data-scroll-target="#estructura-final-del-proyecto">📁 Estructura Final del Proyecto</a></li>
+  <li><a href="#atajos-nvim-para-sdd" id="toc-atajos-nvim-para-sdd" class="nav-link" data-scroll-target="#atajos-nvim-para-sdd">🎯 Atajos Nvim para SDD</a></li>
+  <li><a href="#verificar-el-endpoint" id="toc-verificar-el-endpoint" class="nav-link" data-scroll-target="#verificar-el-endpoint">🧪 Verificar el Endpoint</a>
+  <ul class="collapse">
+  <li><a href="#crear-servidor-de-prueba" id="toc-crear-servidor-de-prueba" class="nav-link" data-scroll-target="#crear-servidor-de-prueba">Crear servidor de prueba</a></li>
+  <li><a href="#ejecutar-y-probar" id="toc-ejecutar-y-probar" class="nav-link" data-scroll-target="#ejecutar-y-probar">Ejecutar y probar</a></li>
+  </ul></li>
+  <li><a href="#resumen-del-flujo-cli" id="toc-resumen-del-flujo-cli" class="nav-link" data-scroll-target="#resumen-del-flujo-cli">📊 Resumen del Flujo CLI</a></li>
+  <li><a href="#ejercicio-tu-turno" id="toc-ejercicio-tu-turno" class="nav-link" data-scroll-target="#ejercicio-tu-turno">🎯 Ejercicio: Tu Turno</a></li>
+  <li><a href="#lo-que-aprendiste" id="toc-lo-que-aprendiste" class="nav-link" data-scroll-target="#lo-que-aprendiste">🎓 Lo Que Aprendiste</a></li>
+  <li><a href="#siguiente-paso" id="toc-siguiente-paso" class="nav-link" data-scroll-target="#siguiente-paso">🚀 Siguiente Paso</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Práctica Guiada: Health Endpoint con Kilocode CLI</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">February 24, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="práctica-implementar-health-endpoint-con-sdd" class="level1">
+<h1>🎓 Práctica: Implementar Health Endpoint con SDD</h1>
+<p>👨‍🏫 <strong>Del Instructor</strong>: Aprender SDD leyendo es como aprender a nadar viendo videos. Vamos a practicar con un caso real: agregar un health endpoint a una API usando Kilocode CLI y Neovim.</p>
+<blockquote class="blockquote">
+<p>💭 <strong>Mentalidad de Practicante</strong>: “La teoría sin práctica es entretenimiento. La práctica sin teoría es rutina. Juntas forman maestría.”</p>
+</blockquote>
+<hr>
+<section id="el-escenario" class="level2">
+<h2 class="anchored" data-anchor-id="el-escenario">🎭 El Escenario</h2>
+<p>Eres desarrollador en un equipo que mantiene una API REST en Node.js/Express. El equipo de DevOps necesita un endpoint <code>/health</code> para:</p>
+<ol type="1">
+<li>Kubernetes health checks</li>
+<li>Load balancer probes</li>
+<li>Monitoring alerts</li>
+</ol>
+<p><strong>Tu misión</strong>: Implementar el endpoint siguiendo SDD con Kilocode CLI y Nvim.</p>
+<hr>
+</section>
+<section id="prerrequisitos" class="level2">
+<h2 class="anchored" data-anchor-id="prerrequisitos">📋 Prerrequisitos</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Crear proyecto de prueba</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> sdd-practice</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> sdd-practice</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Inicializar proyecto Node.js</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> init <span class="at">-y</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Instalar Express</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> install express</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Instalar dependencias de desarrollo</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> install <span class="at">--save-dev</span> jest supertest</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Configurar script de test</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> pkg set scripts.test=<span class="st">"jest"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="archivo-inicial-srcapp.js" class="level3">
+<h3 class="anchored" data-anchor-id="archivo-inicial-srcapp.js">Archivo Inicial: <code>src/app.js</code></h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> src</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="op">&gt;</span> src/app.js <span class="op">&lt;&lt; 'EOF'</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="st">const express = require("express");</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="st">const app = express();</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="st">module.exports = app;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="op">EOF</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+</section>
+<section id="fase-1-init" class="level2">
+<h2 class="anchored" data-anchor-id="fase-1-init">🔄 Fase 1: INIT</h2>
+<section id="comando-cli" class="level3">
+<h3 class="anchored" data-anchor-id="comando-cli">Comando CLI</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kilocode</span> <span class="st">"Initialize SDD in this project with openspec mode"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="output-de-kilocode" class="level3">
+<h3 class="anchored" data-anchor-id="output-de-kilocode">Output de Kilocode</h3>
+<pre><code>Detecting project context...
+- Found: package.json
+- Tech stack: Node.js, Express.js
+- Testing: Jest
+- Architecture: REST API (minimal)
+
+Creating openspec/ structure...
+✓ openspec/config.yaml
+✓ openspec/specs/
+✓ openspec/changes/
+✓ openspec/changes/archive/
+
+## SDD Initialized
+
+**Project**: sdd-practice
+**Stack**: Node.js, Express.js
+**Location**: openspec/
+
+### Next Steps
+Ready to start a change: kilocode "Start SDD change for &lt;name&gt;"</code></pre>
+</section>
+<section id="revisar-en-nvim" class="level3">
+<h3 class="anchored" data-anchor-id="revisar-en-nvim">Revisar en Nvim</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">nvim</span> openspec/config.yaml</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+</section>
+<section id="fase-2-propose" class="level2">
+<h2 class="anchored" data-anchor-id="fase-2-propose">🔄 Fase 2: PROPOSE</h2>
+<section id="comando-cli-1" class="level3">
+<h3 class="anchored" data-anchor-id="comando-cli-1">Comando CLI</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kilocode</span> <span class="st">"Start SDD change for add-health-endpoint"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="output" class="level3">
+<h3 class="anchored" data-anchor-id="output">Output</h3>
+<pre><code>Creating change proposal...
+
+✓ Created: openspec/changes/001-add-health-endpoint/proposal.md
+
+## Proposal: Add Health Endpoint
+
+### Intent
+Add a /health endpoint for Kubernetes health checks.
+
+### Scope
+In: GET /health, JSON response
+Out: Database checks, authentication
+
+### Next Steps
+Review proposal.md and run: kilocode "Write SDD specs"</code></pre>
+</section>
+<section id="revisar-y-editar-en-nvim" class="level3">
+<h3 class="anchored" data-anchor-id="revisar-y-editar-en-nvim">Revisar y Editar en Nvim</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">nvim</span> openspec/changes/001-add-health-endpoint/proposal.md</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Contenido generado</strong>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Proposal: Add Health Endpoint</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## Intent</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>Add a /health endpoint for Kubernetes health checks, load balancer </span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>probes, and monitoring systems.</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="fu">## Scope</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="fu">### In scope</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>GET /health endpoint</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>JSON response with status</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Basic test coverage</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="fu">### Out of scope</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Database connectivity check</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>External service dependencies</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Authentication</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="fu">## Approach</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Add health route to app.js</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Return { status: "ok", timestamp }</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Add Jest test</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a><span class="fu">## Risks</span></span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Low risk: Simple endpoint, no side effects</span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a><span class="fu">## Rollback</span></span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>Remove the route and test if issues arise.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+</section>
+<section id="fase-3-spec" class="level2">
+<h2 class="anchored" data-anchor-id="fase-3-spec">🔄 Fase 3: SPEC</h2>
+<section id="comando-cli-2" class="level3">
+<h3 class="anchored" data-anchor-id="comando-cli-2">Comando CLI</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kilocode</span> <span class="st">"Write SDD specs for health endpoint"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="output-1" class="level3">
+<h3 class="anchored" data-anchor-id="output-1">Output</h3>
+<pre><code>Reading proposal...
+Generating specifications...
+
+✓ Created: openspec/changes/001-add-health-endpoint/spec.delta.md
+
+## Specs Generated
+
+- REQ-1: Health Endpoint Availability
+- REQ-2: Health Response Format
+- REQ-3: HTTP Status Code
+- SCENARIO-1: Successful Health Check
+- SCENARIO-2: Health Check Includes Timestamp
+
+### Next Steps
+Review spec.delta.md and run: kilocode "Create SDD design"</code></pre>
+</section>
+<section id="revisar-en-nvim-1" class="level3">
+<h3 class="anchored" data-anchor-id="revisar-en-nvim-1">Revisar en Nvim</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">nvim</span> openspec/changes/001-add-health-endpoint/spec.delta.md</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Contenido</strong>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Spec Delta: Add Health Endpoint</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## Requirements</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="fu">### REQ-1: Health Endpoint Availability</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>The system SHALL provide a GET /health endpoint.</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>MUST satisfy: Endpoint responds to GET requests at /health.</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="fu">### REQ-2: Health Response Format</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>The system SHALL return a JSON response.</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>MUST satisfy: Response includes status field with value "ok".</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>MUST satisfy: Response includes timestamp in ISO 8601 format.</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="fu">### REQ-3: HTTP Status Code</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>The system SHALL return HTTP 200 when healthy.</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="fu">## Scenarios</span></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a><span class="fu">### SCENARIO-1: Successful Health Check</span></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>**Given** the API is running</span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>**When** a client requests GET /health</span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>**Then** the response status code is 200</span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>**And** the response body contains {"status": "ok"}</span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a><span class="fu">### SCENARIO-2: Health Check Includes Timestamp</span></span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>**Given** the API is running</span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>**When** a client requests GET /health</span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>**Then** the response includes a valid ISO 8601 timestamp</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+</section>
+<section id="fase-4-design" class="level2">
+<h2 class="anchored" data-anchor-id="fase-4-design">🔄 Fase 4: DESIGN</h2>
+<section id="comando-cli-3" class="level3">
+<h3 class="anchored" data-anchor-id="comando-cli-3">Comando CLI</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kilocode</span> <span class="st">"Create SDD design for health endpoint"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="output-2" class="level3">
+<h3 class="anchored" data-anchor-id="output-2">Output</h3>
+<pre><code>Reading specs...
+Creating technical design...
+
+✓ Created: openspec/changes/001-add-health-endpoint/design.md
+
+## Design Summary
+
+- ADR-1: Inline route in app.js
+- Response: { status: "ok", timestamp: ISO8601 }
+- No authentication required</code></pre>
+</section>
+<section id="revisar-en-nvim-2" class="level3">
+<h3 class="anchored" data-anchor-id="revisar-en-nvim-2">Revisar en Nvim</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">nvim</span> openspec/changes/001-add-health-endpoint/design.md</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+</section>
+<section id="fase-5-tasks" class="level2">
+<h2 class="anchored" data-anchor-id="fase-5-tasks">🔄 Fase 5: TASKS</h2>
+<section id="comando-cli-4" class="level3">
+<h3 class="anchored" data-anchor-id="comando-cli-4">Comando CLI</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kilocode</span> <span class="st">"Break down SDD tasks for health endpoint"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="output-3" class="level3">
+<h3 class="anchored" data-anchor-id="output-3">Output</h3>
+<pre><code>Generating implementation tasks...
+
+✓ Created: openspec/changes/001-add-health-endpoint/tasks.md
+
+## Tasks
+
+### Phase 1: Implementation
+- [ ] 1.1 Add GET /health route
+- [ ] 1.2 Return JSON response
+
+### Phase 2: Testing
+- [ ] 2.1 Create test file
+- [ ] 2.2 Test scenario 1
+- [ ] 2.3 Test scenario 2
+
+### Phase 3: Verification
+- [ ] 3.1 Run tests
+- [ ] 3.2 Verify against specs</code></pre>
+<hr>
+</section>
+</section>
+<section id="fase-6-apply" class="level2">
+<h2 class="anchored" data-anchor-id="fase-6-apply">🔄 Fase 6: APPLY</h2>
+<section id="comando-cli-5" class="level3">
+<h3 class="anchored" data-anchor-id="comando-cli-5">Comando CLI</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kilocode</span> <span class="st">"Implement SDD task 1.1 and 1.2"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="output-4" class="level3">
+<h3 class="anchored" data-anchor-id="output-4">Output</h3>
+<pre><code>Implementing Phase 1 tasks...
+
+✓ Modified: src/app.js
+  - Added GET /health route
+  - Returns { status: "ok", timestamp }
+
+✓ Updated: tasks.md
+  - [x] 1.1 Add GET /health route
+  - [x] 1.2 Return JSON response</code></pre>
+</section>
+<section id="revisar-código-en-nvim" class="level3">
+<h3 class="anchored" data-anchor-id="revisar-código-en-nvim">Revisar Código en Nvim</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="ex">nvim</span> src/app.js</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Código generado</strong>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> express <span class="op">=</span> <span class="pp">require</span>(<span class="st">"express"</span>)<span class="op">;</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> app <span class="op">=</span> <span class="fu">express</span>()<span class="op">;</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>app<span class="op">.</span><span class="fu">get</span>(<span class="st">"/health"</span><span class="op">,</span> (req<span class="op">,</span> res) <span class="kw">=&gt;</span> {</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  res<span class="op">.</span><span class="fu">status</span>(<span class="dv">200</span>)<span class="op">.</span><span class="fu">json</span>({</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">status</span><span class="op">:</span> <span class="st">"ok"</span><span class="op">,</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">timestamp</span><span class="op">:</span> <span class="kw">new</span> <span class="bu">Date</span>()<span class="op">.</span><span class="fu">toISOString</span>()</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>module<span class="op">.</span><span class="at">exports</span> <span class="op">=</span> app<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="implementar-tests" class="level3">
+<h3 class="anchored" data-anchor-id="implementar-tests">Implementar Tests</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kilocode</span> <span class="st">"Implement SDD tasks 2.1, 2.2, 2.3"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Output</strong>:</p>
+<pre><code>Creating tests...
+
+✓ Created: tests/health.test.js
+
+✓ Updated: tasks.md
+  - [x] 2.1 Create test file
+  - [x] 2.2 Test scenario 1
+  - [x] 2.3 Test scenario 2</code></pre>
+</section>
+<section id="revisar-tests-en-nvim" class="level3">
+<h3 class="anchored" data-anchor-id="revisar-tests-en-nvim">Revisar Tests en Nvim</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="ex">nvim</span> tests/health.test.js</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Contenido</strong>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> request <span class="op">=</span> <span class="pp">require</span>(<span class="st">"supertest"</span>)<span class="op">;</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> app <span class="op">=</span> <span class="pp">require</span>(<span class="st">"../src/app"</span>)<span class="op">;</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="fu">describe</span>(<span class="st">"Health Endpoint"</span><span class="op">,</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">describe</span>(<span class="st">"SCENARIO-1: Successful Health Check"</span><span class="op">,</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">it</span>(<span class="st">"should return 200 status code"</span><span class="op">,</span> <span class="kw">async</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>      <span class="kw">const</span> response <span class="op">=</span> <span class="cf">await</span> <span class="fu">request</span>(app)<span class="op">.</span><span class="fu">get</span>(<span class="st">"/health"</span>)<span class="op">;</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">expect</span>(response<span class="op">.</span><span class="at">status</span>)<span class="op">.</span><span class="fu">toBe</span>(<span class="dv">200</span>)<span class="op">;</span></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>    })<span class="op">;</span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">it</span>(<span class="st">"should return status ok in response body"</span><span class="op">,</span> <span class="kw">async</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>      <span class="kw">const</span> response <span class="op">=</span> <span class="cf">await</span> <span class="fu">request</span>(app)<span class="op">.</span><span class="fu">get</span>(<span class="st">"/health"</span>)<span class="op">;</span></span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>      <span class="fu">expect</span>(response<span class="op">.</span><span class="at">body</span><span class="op">.</span><span class="at">status</span>)<span class="op">.</span><span class="fu">toBe</span>(<span class="st">"ok"</span>)<span class="op">;</span></span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>    })<span class="op">;</span></span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">describe</span>(<span class="st">"SCENARIO-2: Health Check Includes Timestamp"</span><span class="op">,</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">it</span>(<span class="st">"should return a valid ISO 8601 timestamp"</span><span class="op">,</span> <span class="kw">async</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a>      <span class="kw">const</span> response <span class="op">=</span> <span class="cf">await</span> <span class="fu">request</span>(app)<span class="op">.</span><span class="fu">get</span>(<span class="st">"/health"</span>)<span class="op">;</span></span>
+<span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a>      <span class="kw">const</span> timestamp <span class="op">=</span> response<span class="op">.</span><span class="at">body</span><span class="op">.</span><span class="at">timestamp</span><span class="op">;</span></span>
+<span id="cb26-21"><a href="#cb26-21" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb26-22"><a href="#cb26-22" aria-hidden="true" tabindex="-1"></a>      <span class="fu">expect</span>(timestamp)<span class="op">.</span><span class="fu">toBeDefined</span>()<span class="op">;</span></span>
+<span id="cb26-23"><a href="#cb26-23" aria-hidden="true" tabindex="-1"></a>      <span class="fu">expect</span>(<span class="kw">new</span> <span class="bu">Date</span>(timestamp)<span class="op">.</span><span class="fu">toISOString</span>())<span class="op">.</span><span class="fu">toBe</span>(timestamp)<span class="op">;</span></span>
+<span id="cb26-24"><a href="#cb26-24" aria-hidden="true" tabindex="-1"></a>    })<span class="op">;</span></span>
+<span id="cb26-25"><a href="#cb26-25" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb26-26"><a href="#cb26-26" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+</section>
+<section id="fase-7-verify" class="level2">
+<h2 class="anchored" data-anchor-id="fase-7-verify">🔄 Fase 7: VERIFY</h2>
+<section id="ejecutar-tests" class="level3">
+<h3 class="anchored" data-anchor-id="ejecutar-tests">Ejecutar Tests</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> test</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="output-5" class="level3">
+<h3 class="anchored" data-anchor-id="output-5">Output</h3>
+<pre><code>PASS tests/health.test.js
+  Health Endpoint
+    SCENARIO-1: Successful Health Check
+      ✓ should return 200 status code (8 ms)
+      ✓ should return status ok in response body (3 ms)
+    SCENARIO-2: Health Check Includes Timestamp
+      ✓ should return a valid ISO 8601 timestamp (1 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       3 passed, 3 total</code></pre>
+</section>
+<section id="comando-cli-6" class="level3">
+<h3 class="anchored" data-anchor-id="comando-cli-6">Comando CLI</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kilocode</span> <span class="st">"Verify SDD implementation against specs"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="output-6" class="level3">
+<h3 class="anchored" data-anchor-id="output-6">Output</h3>
+<pre><code>Running verification...
+
+✓ Created: openspec/changes/001-add-health-endpoint/verification.md
+
+## Verification Report
+
+| Requirement | Status |
+|-------------|--------|
+| REQ-1 | ✅ PASS |
+| REQ-2 | ✅ PASS |
+| REQ-3 | ✅ PASS |
+
+| Scenario | Status |
+|----------|--------|
+| SCENARIO-1 | ✅ PASS |
+| SCENARIO-2 | ✅ PASS |
+
+**Status: ✅ VERIFIED**</code></pre>
+<hr>
+</section>
+</section>
+<section id="fase-8-archive" class="level2">
+<h2 class="anchored" data-anchor-id="fase-8-archive">🔄 Fase 8: ARCHIVE</h2>
+<section id="comando-cli-7" class="level3">
+<h3 class="anchored" data-anchor-id="comando-cli-7">Comando CLI</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kilocode</span> <span class="st">"Archive SDD change"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="output-7" class="level3">
+<h3 class="anchored" data-anchor-id="output-7">Output</h3>
+<pre><code>Archiving change...
+
+✓ Merged spec.delta.md → openspec/specs/health.spec.md
+✓ Moved to: openspec/changes/archive/001-add-health-endpoint/
+
+## Archive Complete
+
+Source of truth: openspec/specs/health.spec.md
+Archive: openspec/changes/archive/001-add-health-endpoint/</code></pre>
+<hr>
+</section>
+</section>
+<section id="estructura-final-del-proyecto" class="level2">
+<h2 class="anchored" data-anchor-id="estructura-final-del-proyecto">📁 Estructura Final del Proyecto</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="ex">tree</span> <span class="at">-I</span> node_modules</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<pre><code>sdd-practice/
+├── openspec/
+│   ├── config.yaml
+│   ├── specs/
+│   │   └── health.spec.md          ← Source of truth
+│   └── changes/
+│       └── archive/
+│           └── 001-add-health-endpoint/
+│               ├── proposal.md
+│               ├── spec.delta.md
+│               ├── design.md
+│               ├── tasks.md
+│               └── verification.md
+├── src/
+│   └── app.js                      ← Implementation
+├── tests/
+│   └── health.test.js              ← Tests
+├── package.json
+└── package-lock.json</code></pre>
+<hr>
+</section>
+<section id="atajos-nvim-para-sdd" class="level2">
+<h2 class="anchored" data-anchor-id="atajos-nvim-para-sdd">🎯 Atajos Nvim para SDD</h2>
+<p>Si configuraste los comandos de Neovim:</p>
+<pre class="vim"><code>" Flujo rápido
+&lt;leader&gt;si    " SDD Init
+&lt;leader&gt;sn    " SDD New (pedirá nombre)
+&lt;leader&gt;ss    " SDD Spec
+&lt;leader&gt;sp    " SDD Plan/Design
+&lt;leader&gt;st    " SDD Tasks
+&lt;leader&gt;sm    " SDD Implement
+&lt;leader&gt;sv    " SDD Verify
+&lt;leader&gt;sa    " SDD Archive</code></pre>
+<hr>
+</section>
+<section id="verificar-el-endpoint" class="level2">
+<h2 class="anchored" data-anchor-id="verificar-el-endpoint">🧪 Verificar el Endpoint</h2>
+<section id="crear-servidor-de-prueba" class="level3">
+<h3 class="anchored" data-anchor-id="crear-servidor-de-prueba">Crear servidor de prueba</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="op">&gt;</span> server.js <span class="op">&lt;&lt; 'EOF'</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="st">const app = require("./src/app");</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="st">const PORT = 3000;</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="st">app.listen(PORT, () =&gt; {</span></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a><span class="st">  console.log(`Server: http://localhost:${PORT}`);</span></span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a><span class="st">  console.log(`Health: http://localhost:${PORT}/health`);</span></span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a><span class="st">});</span></span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a><span class="op">EOF</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="ejecutar-y-probar" class="level3">
+<h3 class="anchored" data-anchor-id="ejecutar-y-probar">Ejecutar y probar</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Terminal 1: Iniciar servidor</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="ex">node</span> server.js</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Terminal 2: Probar endpoint</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> http://localhost:3000/health <span class="kw">|</span> <span class="ex">jq</span> .</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Output esperado</strong>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb38"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"status"</span><span class="fu">:</span> <span class="st">"ok"</span><span class="fu">,</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"timestamp"</span><span class="fu">:</span> <span class="st">"2026-02-24T10:30:00.000Z"</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+</section>
+<section id="resumen-del-flujo-cli" class="level2">
+<h2 class="anchored" data-anchor-id="resumen-del-flujo-cli">📊 Resumen del Flujo CLI</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Fase</th>
+<th>Comando Kilocode</th>
+<th>Artefacto</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>INIT</td>
+<td><code>kilocode "Initialize SDD"</code></td>
+<td>config.yaml</td>
+</tr>
+<tr class="even">
+<td>PROPOSE</td>
+<td><code>kilocode "Start SDD change..."</code></td>
+<td>proposal.md</td>
+</tr>
+<tr class="odd">
+<td>SPEC</td>
+<td><code>kilocode "Write SDD specs"</code></td>
+<td>spec.delta.md</td>
+</tr>
+<tr class="even">
+<td>DESIGN</td>
+<td><code>kilocode "Create SDD design"</code></td>
+<td>design.md</td>
+</tr>
+<tr class="odd">
+<td>TASKS</td>
+<td><code>kilocode "Break down SDD tasks"</code></td>
+<td>tasks.md</td>
+</tr>
+<tr class="even">
+<td>APPLY</td>
+<td><code>kilocode "Implement SDD..."</code></td>
+<td>código + tests</td>
+</tr>
+<tr class="odd">
+<td>VERIFY</td>
+<td><code>kilocode "Verify SDD..."</code></td>
+<td>verification.md</td>
+</tr>
+<tr class="even">
+<td>ARCHIVE</td>
+<td><code>kilocode "Archive SDD change"</code></td>
+<td>specs/ + archive/</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Total</strong>: ~20 minutos para un cambio simple</p>
+<hr>
+</section>
+<section id="ejercicio-tu-turno" class="level2">
+<h2 class="anchored" data-anchor-id="ejercicio-tu-turno">🎯 Ejercicio: Tu Turno</h2>
+<p>Ahora practica tú mismo:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb39"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Crear nuevo proyecto</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> sdd-practice-2 <span class="kw">&amp;&amp;</span> <span class="bu">cd</span> sdd-practice-2</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> init <span class="at">-y</span></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> install express</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Implementar: GET /ready endpoint</span></span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Debe verificar conexión a base de datos</span></span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a><span class="co"># (simular con variable de entorno DB_CONNECTED=true)</span></span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Flujo SDD completo</span></span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a><span class="ex">kilocode</span> <span class="st">"Initialize SDD"</span></span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a><span class="ex">kilocode</span> <span class="st">"Start SDD change for add-ready-endpoint"</span></span>
+<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a><span class="co"># ... continuar el flujo</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+<section id="lo-que-aprendiste" class="level2">
+<h2 class="anchored" data-anchor-id="lo-que-aprendiste">🎓 Lo Que Aprendiste</h2>
+<ol type="1">
+<li><strong>Kilocode CLI</strong> ejecuta SDD desde terminal</li>
+<li><strong>Nvim</strong> revisa y edita artefactos generados</li>
+<li><strong>Cada fase</strong> tiene comandos específicos</li>
+<li><strong>El flujo</strong> es rápido y repetible</li>
+<li><strong>La trazabilidad</strong> es automática</li>
+</ol>
+<hr>
+</section>
+<section id="siguiente-paso" class="level2">
+<h2 class="anchored" data-anchor-id="siguiente-paso">🚀 Siguiente Paso</h2>
+<p>Continúa con <a href="../ai-workflows/06-mcp-integration.html">Módulo 6: Integración MCP</a> para potenciar SDD con servidores MCP.</p>
+<hr>
+<p><em>Módulo 4.0 | Duración: 60 min | Dificultad: 🟡 Intermedio</em></p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

@@ -616,7 +616,7 @@ kilocode "Start SDD change for add-ready-endpoint"
 
 ## 🚀 Siguiente Paso
 
-Continúa con [Módulo 5: Integración MCP](05-mcp-integration.qmd) para potenciar SDD con servidores MCP.
+Continúa con [Módulo 6: Integración MCP](06-mcp-integration.qmd) para potenciar SDD con servidores MCP.
 
 ---
 

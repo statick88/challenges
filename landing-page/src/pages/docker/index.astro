@@ -164,42 +164,28 @@ const skillColors = [
       </button>
     </div>
     
-    <!-- Docker Architecture Overview -->
-    <div class="mb-8" id="architecture-view">
-      <h2 class="text-xl font-bold mb-4" style="color: var(--color-text);">
-        🏗️ Arquitectura de Contenedores
-      </h2>
-      <div class="architecture-diagram">
-        <div class="arch-layer">
-          <div class="arch-label">Aplicación</div>
-          <div class="arch-boxes">
-            {challenges.filter(c => c.status === 'completed').map((c, idx) => (
-              <div class="arch-box completed" title={c.title}>
-                <span class="arch-icon">📦</span>
-                <span class="arch-text">App {idx + 1}</span>
-              </div>
-            )).slice(0, 4)}
-          </div>
+    <!-- Docker Quick Stats -->
+    <div class="mb-8">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="bg-slate-800/50 rounded-lg p-4 text-center">
+          <div class="text-3xl mb-2">🐳</div>
+          <div class="text-2xl font-bold text-cyan-400">{completed}/{total}</div>
+          <div class="text-sm text-gray-400">Challenges</div>
         </div>
-        <div class="arch-arrow">↓</div>
-        <div class="arch-layer">
-          <div class="arch-label">Docker Engine</div>
-          <div class="arch-boxes">
-            <div class="arch-box engine">
-              <span class="arch-icon">🐳</span>
-              <span class="arch-text">Docker</span>
-            </div>
-          </div>
+        <div class="bg-slate-800/50 rounded-lg p-4 text-center">
+          <div class="text-3xl mb-2">📦</div>
+          <div class="text-2xl font-bold text-green-400">{percentage}%</div>
+          <div class="text-sm text-gray-400">Completado</div>
         </div>
-        <div class="arch-arrow">↓</div>
-        <div class="arch-layer">
-          <div class="arch-label">Sistema Operativo</div>
-          <div class="arch-boxes">
-            <div class="arch-box os">
-              <span class="arch-icon">💻</span>
-              <span class="arch-text">Linux Kernel</span>
-            </div>
-          </div>
+        <div class="bg-slate-800/50 rounded-lg p-4 text-center">
+          <div class="text-3xl mb-2">🏆</div>
+          <div class="text-2xl font-bold text-yellow-400">1</div>
+          <div class="text-sm text-gray-400">Certificación</div>
+        </div>
+        <div class="bg-slate-800/50 rounded-lg p-4 text-center">
+          <div class="text-3xl mb-2">⚡</div>
+          <div class="text-2xl font-bold text-purple-400">100%</div>
+          <div class="text-sm text-gray-400">Score</div>
         </div>
       </div>
     </div>
@@ -360,10 +346,10 @@ const skillColors = [
       <div class="certification-card">
         <div class="cert-image-container">
           <img 
-            src="/certificates/kodekloud-docker-certificate.png" 
+            src="/challenges/certificates/kodekloud-docker-certificate.png" 
             alt="KodeKloud Docker Certificate" 
             class="cert-image"
-            onclick="window.open('/certificates/kodekloud-docker-certificate.png', '_blank')"
+            onclick="window.open('/challenges/certificates/kodekloud-docker-certificate.png', '_blank')"
           />
         </div>
         <div class="cert-details">
@@ -388,7 +374,7 @@ const skillColors = [
                class="cert-btn primary">
               🔍 Verify Certificate
             </a>
-            <a href="/certificates/kodekloud-docker-certificate.pdf" 
+            <a href="/challenges/certificates/kodekloud-docker-certificate.pdf" 
                target="_blank" 
                class="cert-btn secondary">
               📄 Download PDF

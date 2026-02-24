@@ -357,7 +357,7 @@ opencode "Re-initialize SDD, detect project context"
 
 ## 🚀 Siguiente Paso
 
-Continúa con [Módulo 4: Práctica Guiada](04-practica-sdd.qmd) para aplicar SDD en un proyecto real.
+Continúa con [Módulo 5: Práctica Guiada](05-practica-sdd.qmd) para aplicar SDD en un proyecto real.
 
 ---
 

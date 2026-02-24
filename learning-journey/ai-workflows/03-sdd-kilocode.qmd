@@ -454,7 +454,7 @@ name: sdd-init        # Coincide exactamente
 
 ## 🚀 Siguiente Paso
 
-Continúa con [Módulo 3: SDD en Opencode](03-sdd-opencode.qmd) para comparar con otro CLI alternativo.
+Continúa con [Módulo 4: SDD en Opencode](04-sdd-opencode.qmd) para comparar con otro CLI alternativo.
 
 ---
 

@@ -1,0 +1,1634 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2026-02-24">
+
+<title>Patrones Avanzados de SDD – DevOps &amp; Security Learning Journey</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-7ac2f9da8c2617a4fdd15004b4601015.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-3dad1a9f078d91cda5f1887d21eb11b5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">DevOps &amp; Security Learning Journey</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../foundations/index.html"> 
+<span class="menu-text">Foundations</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../containers/index.html"> 
+<span class="menu-text">Containers</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../devops-practices/index.html"> 
+<span class="menu-text">DevOps</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../security/index.html"> 
+<span class="menu-text">Security</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../ai-workflows/index.html"> 
+<span class="menu-text">AI Workflows</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../roadmap/index.html"> 
+<span class="menu-text">Roadmap</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-language" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Language</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-language">    
+        <li>
+    <a class="dropdown-item" href="../es/index.html">
+ <span class="dropdown-text">Español</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../index.html">
+ <span class="dropdown-text">English</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="https://github.com/statick88/challenges"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text">GitHub</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#sdd-avanzado-patrones-para-equipos" id="toc-sdd-avanzado-patrones-para-equipos" class="nav-link active" data-scroll-target="#sdd-avanzado-patrones-para-equipos">🎓 SDD Avanzado: Patrones para Equipos</a>
+  <ul class="collapse">
+  <li><a href="#brownfield-vs-greenfield" id="toc-brownfield-vs-greenfield" class="nav-link" data-scroll-target="#brownfield-vs-greenfield">🏗️ Brownfield vs Greenfield</a>
+  <ul class="collapse">
+  <li><a href="#greenfield-proyecto-nuevo" id="toc-greenfield-proyecto-nuevo" class="nav-link" data-scroll-target="#greenfield-proyecto-nuevo">Greenfield (Proyecto Nuevo)</a></li>
+  <li><a href="#brownfield-proyecto-existente" id="toc-brownfield-proyecto-existente" class="nav-link" data-scroll-target="#brownfield-proyecto-existente">Brownfield (Proyecto Existente)</a></li>
+  </ul></li>
+  <li><a href="#sdd-en-equipo" id="toc-sdd-en-equipo" class="nav-link" data-scroll-target="#sdd-en-equipo">👥 SDD en Equipo</a>
+  <ul class="collapse">
+  <li><a href="#configuración-compartida" id="toc-configuración-compartida" class="nav-link" data-scroll-target="#configuración-compartida">Configuración Compartida</a></li>
+  <li><a href="#review-process" id="toc-review-process" class="nav-link" data-scroll-target="#review-process">Review Process</a></li>
+  <li><a href="#flujo-de-equipo" id="toc-flujo-de-equipo" class="nav-link" data-scroll-target="#flujo-de-equipo">Flujo de Equipo</a></li>
+  </ul></li>
+  <li><a href="#cicd-integration" id="toc-cicd-integration" class="nav-link" data-scroll-target="#cicd-integration">🔄 CI/CD Integration</a>
+  <ul class="collapse">
+  <li><a href="#github-actions" id="toc-github-actions" class="nav-link" data-scroll-target="#github-actions">GitHub Actions</a></li>
+  <li><a href="#pre-commit-hook" id="toc-pre-commit-hook" class="nav-link" data-scroll-target="#pre-commit-hook">Pre-commit Hook</a></li>
+  </ul></li>
+  <li><a href="#patrones-por-tipo-de-cambio" id="toc-patrones-por-tipo-de-cambio" class="nav-link" data-scroll-target="#patrones-por-tipo-de-cambio">🎯 Patrones por Tipo de Cambio</a>
+  <ul class="collapse">
+  <li><a href="#feature-nueva" id="toc-feature-nueva" class="nav-link" data-scroll-target="#feature-nueva">Feature Nueva</a></li>
+  <li><a href="#bug-fix" id="toc-bug-fix" class="nav-link" data-scroll-target="#bug-fix">Bug Fix</a></li>
+  <li><a href="#refactor" id="toc-refactor" class="nav-link" data-scroll-target="#refactor">Refactor</a></li>
+  <li><a href="#performance-improvement" id="toc-performance-improvement" class="nav-link" data-scroll-target="#performance-improvement">Performance Improvement</a></li>
+  </ul></li>
+  <li><a href="#troubleshooting-común" id="toc-troubleshooting-común" class="nav-link" data-scroll-target="#troubleshooting-común">🛠️ Troubleshooting Común</a>
+  <ul class="collapse">
+  <li><a href="#la-ia-no-sigue-los-specs" id="toc-la-ia-no-sigue-los-specs" class="nav-link" data-scroll-target="#la-ia-no-sigue-los-specs">“La IA no sigue los specs”</a></li>
+  <li><a href="#demasiados-cambios-en-un-solo-proposal" id="toc-demasiados-cambios-en-un-solo-proposal" class="nav-link" data-scroll-target="#demasiados-cambios-en-un-solo-proposal">“Demasiados cambios en un solo proposal”</a></li>
+  <li><a href="#tests-no-cubren-los-escenarios" id="toc-tests-no-cubren-los-escenarios" class="nav-link" data-scroll-target="#tests-no-cubren-los-escenarios">“Tests no cubren los escenarios”</a></li>
+  <li><a href="#conflicto-entre-developers" id="toc-conflicto-entre-developers" class="nav-link" data-scroll-target="#conflicto-entre-developers">“Conflicto entre developers”</a></li>
+  </ul></li>
+  <li><a href="#métricas-de-sdd" id="toc-métricas-de-sdd" class="nav-link" data-scroll-target="#métricas-de-sdd">📊 Métricas de SDD</a>
+  <ul class="collapse">
+  <li><a href="#kpis-recomendados" id="toc-kpis-recomendados" class="nav-link" data-scroll-target="#kpis-recomendados">KPIs Recomendados</a></li>
+  <li><a href="#dashboard-de-salud" id="toc-dashboard-de-salud" class="nav-link" data-scroll-target="#dashboard-de-salud">Dashboard de Salud</a></li>
+  </ul></li>
+  <li><a href="#lo-que-aprendiste" id="toc-lo-que-aprendiste" class="nav-link" data-scroll-target="#lo-que-aprendiste">🎓 Lo Que Aprendiste</a></li>
+  <li><a href="#próximos-pasos" id="toc-próximos-pasos" class="nav-link" data-scroll-target="#próximos-pasos">🚀 Próximos Pasos</a></li>
+  <li><a href="#referencias" id="toc-referencias" class="nav-link" data-scroll-target="#referencias">📚 Referencias</a></li>
+  <li><a href="#context-window-management" id="toc-context-window-management" class="nav-link" data-scroll-target="#context-window-management">🧠 Context Window Management</a>
+  <ul class="collapse">
+  <li><a href="#el-problema-real" id="toc-el-problema-real" class="nav-link" data-scroll-target="#el-problema-real">El Problema Real</a></li>
+  <li><a href="#soluciones" id="toc-soluciones" class="nav-link" data-scroll-target="#soluciones">Soluciones</a></li>
+  <li><a href="#mejores-prácticas" id="toc-mejores-prácticas" class="nav-link" data-scroll-target="#mejores-prácticas">Mejores Prácticas</a></li>
+  </ul></li>
+  <li><a href="#spec-evals-evaluando-calidad-de-specs" id="toc-spec-evals-evaluando-calidad-de-specs" class="nav-link" data-scroll-target="#spec-evals-evaluando-calidad-de-specs">📊 Spec Evals: Evaluando Calidad de Specs</a>
+  <ul class="collapse">
+  <li><a href="#qué-es-un-spec-eval" id="toc-qué-es-un-spec-eval" class="nav-link" data-scroll-target="#qué-es-un-spec-eval">¿Qué es un Spec Eval?</a></li>
+  <li><a href="#métricas-de-spec-quality" id="toc-métricas-de-spec-quality" class="nav-link" data-scroll-target="#métricas-de-spec-quality">Métricas de Spec Quality</a></li>
+  <li><a href="#ejemplo-spec-eval-report" id="toc-ejemplo-spec-eval-report" class="nav-link" data-scroll-target="#ejemplo-spec-eval-report">Ejemplo: Spec Eval Report</a></li>
+  <li><a href="#spec-eval-automation" id="toc-spec-eval-automation" class="nav-link" data-scroll-target="#spec-eval-automation">Spec Eval Automation</a></li>
+  </ul></li>
+  <li><a href="#legacy-applications-con-sdd" id="toc-legacy-applications-con-sdd" class="nav-link" data-scroll-target="#legacy-applications-con-sdd">🏛️ Legacy Applications con SDD</a>
+  <ul class="collapse">
+  <li><a href="#el-desafío" id="toc-el-desafío" class="nav-link" data-scroll-target="#el-desafío">El Desafío</a></li>
+  <li><a href="#estrategia-strangler-pattern" id="toc-estrategia-strangler-pattern" class="nav-link" data-scroll-target="#estrategia-strangler-pattern">Estrategia: Strangler Pattern</a></li>
+  <li><a href="#spec-retrospectivo" id="toc-spec-retrospectivo" class="nav-link" data-scroll-target="#spec-retrospectivo">Spec Retrospectivo</a></li>
+  <li><a href="#legacy-specific-rules" id="toc-legacy-specific-rules" class="nav-link" data-scroll-target="#legacy-specific-rules">Legacy-Specific Rules</a></li>
+  </ul></li>
+  <li><a href="#spec-registries-el-futuro" id="toc-spec-registries-el-futuro" class="nav-link" data-scroll-target="#spec-registries-el-futuro">📦 Spec Registries: El Futuro</a>
+  <ul class="collapse">
+  <li><a href="#analogía-con-npm" id="toc-analogía-con-npm" class="nav-link" data-scroll-target="#analogía-con-npm">Analogía con NPM</a></li>
+  <li><a href="#tipos-de-registros" id="toc-tipos-de-registros" class="nav-link" data-scroll-target="#tipos-de-registros">Tipos de Registros</a></li>
+  <li><a href="#beneficios" id="toc-beneficios" class="nav-link" data-scroll-target="#beneficios">Beneficios</a></li>
+  </ul></li>
+  <li><a href="#el-futuro-de-sdd" id="toc-el-futuro-de-sdd" class="nav-link" data-scroll-target="#el-futuro-de-sdd">🔮 El Futuro de SDD</a>
+  <ul class="collapse">
+  <li><a href="#tendencias-emergentes" id="toc-tendencias-emergentes" class="nav-link" data-scroll-target="#tendencias-emergentes">Tendencias Emergentes</a></li>
+  <li><a href="#lo-que-falta" id="toc-lo-que-falta" class="nav-link" data-scroll-target="#lo-que-falta">Lo Que Falta</a></li>
+  </ul></li>
+  <li><a href="#lo-que-aprendiste-resumen-completo" id="toc-lo-que-aprendiste-resumen-completo" class="nav-link" data-scroll-target="#lo-que-aprendiste-resumen-completo">🎓 Lo Que Aprendiste (Resumen Completo)</a></li>
+  <li><a href="#referencias-adicionales" id="toc-referencias-adicionales" class="nav-link" data-scroll-target="#referencias-adicionales">📚 Referencias Adicionales</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Patrones Avanzados de SDD</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">February 24, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="sdd-avanzado-patrones-para-equipos" class="level1">
+<h1>🎓 SDD Avanzado: Patrones para Equipos</h1>
+<p>👨‍🏫 <strong>Del Instructor</strong>: Ya dominas el flujo básico. Ahora veremos cómo escalar SDD para proyectos reales: brownfield, equipos grandes, y CI/CD.</p>
+<blockquote class="blockquote">
+<p>💭 <strong>Mentalidad de Tech Lead</strong>: “La metodología que funciona para un desarrollador debe escalar para un equipo de 50, o no es metodología, es hobby.”</p>
+</blockquote>
+<hr>
+<section id="brownfield-vs-greenfield" class="level2">
+<h2 class="anchored" data-anchor-id="brownfield-vs-greenfield">🏗️ Brownfield vs Greenfield</h2>
+<section id="greenfield-proyecto-nuevo" class="level3">
+<h3 class="anchored" data-anchor-id="greenfield-proyecto-nuevo">Greenfield (Proyecto Nuevo)</h3>
+<p><strong>Características</strong>:</p>
+<ul>
+<li>Sin código legacy</li>
+<li>Sin restricciones arquitecturales</li>
+<li>Stack moderno por defecto</li>
+</ul>
+<p><strong>SDD Approach</strong>:</p>
+<pre class="text"><code>/sdd:init --mode openspec
+→ Detecta: Sin tech stack
+→ Pregunta: ¿Qué stack prefieres?
+→ Crea config.yaml limpio</code></pre>
+<p><strong>Ventajas</strong>:</p>
+<ul>
+<li>✅ Specs definen arquitectura desde cero</li>
+<li>✅ Sin conflictos con código existente</li>
+<li>✅ Testing setup limpio</li>
+</ul>
+<hr>
+</section>
+<section id="brownfield-proyecto-existente" class="level3">
+<h3 class="anchored" data-anchor-id="brownfield-proyecto-existente">Brownfield (Proyecto Existente)</h3>
+<p><strong>Características</strong>:</p>
+<ul>
+<li>Código legacy</li>
+<li>Restricciones arquitecturales</li>
+<li>Tests existentes (o ninguno)</li>
+</ul>
+<p><strong>SDD Approach</strong>:</p>
+<pre class="text"><code>/sdd:init --mode openspec
+→ Detecta: PHP 7.4, Laravel 5, MySQL
+→ Detecta: Sin tests
+→ Crea config.yaml con restricciones
+
+rules:
+  apply:
+    - Follow existing Laravel patterns
+    - Use Eloquent ORM (no raw SQL)
+    - PHP 7.4 compatible (no typed properties)</code></pre>
+<p><strong>Desafíos y Soluciones</strong>:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Desafío</th>
+<th>Solución</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Sin tests</td>
+<td>Fase de testing explícita en tasks</td>
+</tr>
+<tr class="even">
+<td>Código legacy</td>
+<td>Refactor gradual, spec primero</td>
+</tr>
+<tr class="odd">
+<td>Documentación faltante</td>
+<td>EXPLORE antes de cada cambio</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Patrón: Spec Retrospectivo</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Para código existente sin specs</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>/sdd:explore current-auth-flow</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>→ Documenta lo que existe</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>/sdd:spec --retrospective</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>→ Crea spec para código existente</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>→ Útil como baseline para refactors</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+</section>
+<section id="sdd-en-equipo" class="level2">
+<h2 class="anchored" data-anchor-id="sdd-en-equipo">👥 SDD en Equipo</h2>
+<section id="configuración-compartida" class="level3">
+<h3 class="anchored" data-anchor-id="configuración-compartida">Configuración Compartida</h3>
+<p><strong>Archivo</strong>: <code>.kilocode/skills/project-conventions/SKILL.md</code></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="an">name:</span><span class="co"> project-conventions</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="an">description:</span><span class="co"> Team-specific coding conventions for SDD</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">## Code Style</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Use TypeScript strict mode</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Prefer const over let</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Arrow functions for callbacks</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="fu">## Naming Conventions</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Components: PascalCase</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Functions: camelCase</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Files: kebab-case</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="fu">## Testing Requirements</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>All changes MUST have tests</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Coverage threshold: 80%</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="review-process" class="level3">
+<h3 class="anchored" data-anchor-id="review-process">Review Process</h3>
+<p><strong>GitHub PR Template</strong>: <code>.github/pull_request_template.md</code></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## SDD Change: [Change Name]</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">### Spec Link</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>Link to openspec/changes/NNN-name/spec.delta.md</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">### Requirements Coverage</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Requirement <span class="pp">|</span> Implemented <span class="pp">|</span> Tests <span class="pp">|</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="pp">|-------------|-------------|-------|</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> REQ-1 <span class="pp">|</span> ✅ <span class="pp">|</span> test_name <span class="pp">|</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="fu">### Verification</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="va">[ ]</span> All tests passing</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="va">[ ]</span> Verification report created</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="va">[ ]</span> Specs archived</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="fu">### Checklist</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="va">[ ]</span> Follows team conventions</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="va">[ ]</span> No breaking changes (or documented)</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="va">[ ]</span> Ready for /sdd:archive after merge</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="flujo-de-equipo" class="level3">
+<h3 class="anchored" data-anchor-id="flujo-de-equipo">Flujo de Equipo</h3>
+<pre class="mermaid"><code>graph LR
+    A[Dev 1: /sdd:new] --&gt; B[Dev 2: Review proposal]
+    B --&gt; C[Dev 1: /sdd:spec]
+    C --&gt; D[Dev 2: Review specs]
+    D --&gt; E[Dev 1: /sdd:plan]
+    E --&gt; F[Team: Design review]
+    F --&gt; G[Dev 1: /sdd:tasks]
+    G --&gt; H[Dev 1: /sdd:implement]
+    H --&gt; I[Dev 2: Code review]
+    I --&gt; J[CI: /sdd:verify]
+    J --&gt; K[Lead: /sdd:archive]</code></pre>
+<hr>
+</section>
+</section>
+<section id="cicd-integration" class="level2">
+<h2 class="anchored" data-anchor-id="cicd-integration">🔄 CI/CD Integration</h2>
+<section id="github-actions" class="level3">
+<h3 class="anchored" data-anchor-id="github-actions">GitHub Actions</h3>
+<p><strong>Archivo</strong>: <code>.github/workflows/sdd-check.yml</code></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">name</span><span class="kw">:</span><span class="at"> SDD Verification</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">on</span><span class="kw">:</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">pull_request</span><span class="kw">:</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">branches</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">main</span><span class="kw">]</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">paths</span><span class="kw">:</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">'openspec/changes/**'</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">'src/**'</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="fu">jobs</span><span class="kw">:</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">verify</span><span class="kw">:</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">runs-on</span><span class="kw">:</span><span class="at"> ubuntu-latest</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">steps</span><span class="kw">:</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> actions/checkout@v4</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="at">      </span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Setup Node.js</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> actions/setup-node@v4</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="fu">node-version</span><span class="kw">:</span><span class="at"> </span><span class="st">'20'</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="at">          </span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Install dependencies</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">run</span><span class="kw">:</span><span class="at"> npm ci</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="at">        </span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Check SDD structure</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="fu">        run</span><span class="kw">: </span><span class="ch">|</span></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>          if [ -d "openspec/changes" ]; then</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>            active=$(find openspec/changes -mindepth 1 -maxdepth 1 -type d | grep -v archive | wc -l)</span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>            if [ "$active" -gt 0 ]; then</span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>              echo "Active SDD change detected"</span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>              echo "Change: $(ls openspec/changes | grep -v archive)"</span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>            fi</span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>          fi</span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>          </span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Run tests</span></span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">run</span><span class="kw">:</span><span class="at"> npm test</span></span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a><span class="at">        </span></span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Verify specs coverage</span></span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a><span class="fu">        run</span><span class="kw">: </span><span class="ch">|</span></span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>          if [ -f "openspec/changes/*/verification.md" ]; then</span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>            grep -q "✅ VERIFIED" openspec/changes/*/verification.md || exit 1</span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>          fi</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="pre-commit-hook" class="level3">
+<h3 class="anchored" data-anchor-id="pre-commit-hook">Pre-commit Hook</h3>
+<p><strong>Archivo</strong>: <code>.git/hooks/pre-commit</code></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Check for incomplete SDD changes</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">[</span> <span class="ot">-d</span> <span class="st">"openspec/changes"</span> <span class="bu">]</span><span class="kw">;</span> <span class="cf">then</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> change <span class="kw">in</span> openspec/changes/<span class="pp">*</span>/<span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Skip archive</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">[[</span> <span class="st">"</span><span class="va">$change</span><span class="st">"</span> <span class="ot">==</span> <span class="pp">*</span><span class="st">"archive"</span><span class="pp">*</span> <span class="kw">]];</span> <span class="cf">then</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>      <span class="cf">continue</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">fi</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Check for required files</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">[</span> <span class="ot">!</span> <span class="ot">-f</span> <span class="st">"</span><span class="va">$change</span><span class="st">/tasks.md"</span> <span class="bu">]</span><span class="kw">;</span> <span class="cf">then</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>      <span class="bu">echo</span> <span class="st">"❌ Error: </span><span class="va">$change</span><span class="st"> missing tasks.md"</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>      <span class="bu">echo</span> <span class="st">"Run /sdd:tasks first"</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>      <span class="bu">exit</span> 1</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">fi</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Check for incomplete tasks</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="fu">grep</span> <span class="at">-q</span> <span class="st">"\- \[ \]"</span> <span class="st">"</span><span class="va">$change</span><span class="st">/tasks.md"</span><span class="kw">;</span> <span class="cf">then</span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>      <span class="bu">echo</span> <span class="st">"⚠️  Warning: Incomplete tasks in </span><span class="va">$change</span><span class="st">"</span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>      <span class="va">incomplete</span><span class="op">=</span><span class="va">$(</span><span class="fu">grep</span> <span class="st">"\- \[ \]"</span> <span class="st">"</span><span class="va">$change</span><span class="st">/tasks.md"</span><span class="va">)</span></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>      <span class="bu">echo</span> <span class="st">"</span><span class="va">$incomplete</span><span class="st">"</span></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">fi</span></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>  <span class="cf">done</span></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a><span class="cf">fi</span></span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Check for verification</span></span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">[</span> <span class="ot">-d</span> <span class="st">"openspec/changes"</span> <span class="bu">]</span><span class="kw">;</span> <span class="cf">then</span></span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> change <span class="kw">in</span> openspec/changes/<span class="pp">*</span>/<span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">[[</span> <span class="st">"</span><span class="va">$change</span><span class="st">"</span> <span class="ot">==</span> <span class="pp">*</span><span class="st">"archive"</span><span class="pp">*</span> <span class="kw">]];</span> <span class="cf">then</span></span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>      <span class="cf">continue</span></span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>    <span class="cf">fi</span></span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">[</span> <span class="ot">!</span> <span class="ot">-f</span> <span class="st">"</span><span class="va">$change</span><span class="st">/verification.md"</span> <span class="bu">]</span><span class="kw">;</span> <span class="cf">then</span></span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a>      <span class="bu">echo</span> <span class="st">"⚠️  Warning: </span><span class="va">$change</span><span class="st"> not verified"</span></span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a>      <span class="bu">echo</span> <span class="st">"Run /sdd:verify before committing"</span></span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>    <span class="cf">fi</span></span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a>  <span class="cf">done</span></span>
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a><span class="cf">fi</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+</section>
+<section id="patrones-por-tipo-de-cambio" class="level2">
+<h2 class="anchored" data-anchor-id="patrones-por-tipo-de-cambio">🎯 Patrones por Tipo de Cambio</h2>
+<section id="feature-nueva" class="level3">
+<h3 class="anchored" data-anchor-id="feature-nueva">Feature Nueva</h3>
+<pre class="text"><code>/sdd:new add-feature-x
+/sdd:spec       → Define requisitos nuevos
+/sdd:plan       → Arquitectura para feature
+/sdd:tasks      → Implementation + tests
+/sdd:implement  → Build feature
+/sdd:verify     → Test feature
+/sdd:archive    → Document feature</code></pre>
+</section>
+<section id="bug-fix" class="level3">
+<h3 class="anchored" data-anchor-id="bug-fix">Bug Fix</h3>
+<pre class="text"><code>/sdd:explore bug-description
+→ Documenta el bug actual
+/sdd:new fix-bug-x
+/sdd:spec       → Define comportamiento esperado
+/sdd:plan       → Análisis de root cause
+/sdd:tasks      → Fix + regression test
+/sdd:implement  → Apply fix
+/sdd:verify     → Verify fix + no regressions
+/sdd:archive    → Document fix</code></pre>
+</section>
+<section id="refactor" class="level3">
+<h3 class="anchored" data-anchor-id="refactor">Refactor</h3>
+<pre class="text"><code>/sdd:explore current-implementation
+→ Documenta estado actual
+/sdd:new refactor-module-x
+/sdd:spec       → Define comportamiento PRESERVADO
+→ "System SHALL behave identically"
+/sdd:plan       → Nueva arquitectura
+/sdd:tasks      → Refactor + migration
+/sdd:implement  → Incremental refactor
+/sdd:verify     → Behavior unchanged
+/sdd:archive    → Document new architecture</code></pre>
+</section>
+<section id="performance-improvement" class="level3">
+<h3 class="anchored" data-anchor-id="performance-improvement">Performance Improvement</h3>
+<pre class="text"><code>/sdd:explore performance-bottleneck
+→ Identifica el problema
+/sdd:new optimize-query-x
+/sdd:spec       → Define métricas target
+→ "Response time SHALL be &lt; 100ms"
+/sdd:plan       → Optimization approach
+/sdd:tasks      → Optimize + benchmark
+/sdd:implement  → Apply optimization
+/sdd:verify     → Measure performance
+/sdd:archive    → Document improvements</code></pre>
+<hr>
+</section>
+</section>
+<section id="troubleshooting-común" class="level2">
+<h2 class="anchored" data-anchor-id="troubleshooting-común">🛠️ Troubleshooting Común</h2>
+<section id="la-ia-no-sigue-los-specs" class="level3">
+<h3 class="anchored" data-anchor-id="la-ia-no-sigue-los-specs">“La IA no sigue los specs”</h3>
+<p><strong>Causa</strong>: Specs demasiado abstractos</p>
+<p><strong>Solución</strong>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>❌ Mal:</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>"The system SHALL be fast"</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>✅ Bien:</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>"The system SHALL respond to GET /api/users within 100ms </span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>for datasets up to 10,000 records"</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="demasiados-cambios-en-un-solo-proposal" class="level3">
+<h3 class="anchored" data-anchor-id="demasiados-cambios-en-un-solo-proposal">“Demasiados cambios en un solo proposal”</h3>
+<p><strong>Causa</strong>: Scope mal definido</p>
+<p><strong>Solución</strong>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># En lugar de:</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>/sdd:new redesign-auth-system</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="fu"># Dividir en:</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>/sdd:new add-oauth-provider</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>/sdd:new migrate-password-hashing</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>/sdd:new add-session-management</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="tests-no-cubren-los-escenarios" class="level3">
+<h3 class="anchored" data-anchor-id="tests-no-cubren-los-escenarios">“Tests no cubren los escenarios”</h3>
+<p><strong>Causa</strong>: Specs y tests desconectados</p>
+<p><strong>Solución</strong>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># En tasks.md, explícitamente conectar:</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="va">[ ]</span> 2.1 Test SCENARIO-1: 200 response</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Create test in tests/health.test.js</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Test name: "SCENARIO-1: should return 200"</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="conflicto-entre-developers" class="level3">
+<h3 class="anchored" data-anchor-id="conflicto-entre-developers">“Conflicto entre developers”</h3>
+<p><strong>Causa</strong>: Falta de comunicación en specs</p>
+<p><strong>Solución</strong>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Añadir sección de ownership en spec:</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">## Ownership</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Author: @developer1</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Reviewers: @developer2, @lead</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Approved: 2026-02-24</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+</section>
+<section id="métricas-de-sdd" class="level2">
+<h2 class="anchored" data-anchor-id="métricas-de-sdd">📊 Métricas de SDD</h2>
+<section id="kpis-recomendados" class="level3">
+<h3 class="anchored" data-anchor-id="kpis-recomendados">KPIs Recomendados</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Métrica</th>
+<th>Target</th>
+<th>Cómo medir</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Spec Coverage</td>
+<td>100%</td>
+<td>Todo código tiene spec</td>
+</tr>
+<tr class="even">
+<td>Verification Pass Rate</td>
+<td>&gt; 95%</td>
+<td>Tests pasan en CI</td>
+</tr>
+<tr class="odd">
+<td>Change Completion Time</td>
+<td>&lt; 2h</td>
+<td>Tiempo de proposal a archive</td>
+</tr>
+<tr class="even">
+<td>Rework Rate</td>
+<td>&lt; 10%</td>
+<td>Cambios después de archive</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="dashboard-de-salud" class="level3">
+<h3 class="anchored" data-anchor-id="dashboard-de-salud">Dashboard de Salud</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Script: sdd-health-check.sh</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"## SDD Health Report"</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">""</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Active changes</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="va">active</span><span class="op">=</span><span class="va">$(</span><span class="fu">find</span> openspec/changes <span class="at">-mindepth</span> 1 <span class="at">-maxdepth</span> 1 <span class="at">-type</span> d <span class="kw">|</span> <span class="fu">grep</span> <span class="at">-v</span> archive <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span><span class="va">)</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Active Changes: </span><span class="va">$active</span><span class="st">"</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Unverified changes</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="va">unverified</span><span class="op">=</span>0</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> change <span class="kw">in</span> openspec/changes/<span class="pp">*</span>/<span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="kw">[[</span> <span class="st">"</span><span class="va">$change</span><span class="st">"</span> <span class="ot">!=</span> <span class="pp">*</span><span class="st">"archive"</span><span class="pp">*</span> <span class="kw">]]</span> <span class="kw">&amp;&amp;</span> <span class="bu">[</span> <span class="ot">!</span> <span class="ot">-f</span> <span class="st">"</span><span class="va">$change</span><span class="st">/verification.md"</span> <span class="bu">]</span><span class="kw">;</span> <span class="cf">then</span></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">((</span><span class="va">unverified</span><span class="op">++</span><span class="kw">))</span></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>  <span class="cf">fi</span></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Unverified Changes: </span><span class="va">$unverified</span><span class="st">"</span></span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Archived changes</span></span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a><span class="va">archived</span><span class="op">=</span><span class="va">$(</span><span class="fu">ls</span> openspec/changes/archive <span class="dv">2</span><span class="op">&gt;</span>/dev/null <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span><span class="va">)</span></span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Archived Changes: </span><span class="va">$archived</span><span class="st">"</span></span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Specs count</span></span>
+<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a><span class="va">specs</span><span class="op">=</span><span class="va">$(</span><span class="fu">find</span> openspec/specs <span class="at">-name</span> <span class="st">"*.spec.md"</span> <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span><span class="va">)</span></span>
+<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Total Specs: </span><span class="va">$specs</span><span class="st">"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+</section>
+<section id="lo-que-aprendiste" class="level2">
+<h2 class="anchored" data-anchor-id="lo-que-aprendiste">🎓 Lo Que Aprendiste</h2>
+<ol type="1">
+<li><strong>Brownfield</strong> requiere adaptación a restricciones existentes</li>
+<li><strong>Equipos</strong> necesitan convenciones compartidas</li>
+<li><strong>CI/CD</strong> automatiza verificación de specs</li>
+<li><strong>Tipos de cambio</strong> tienen patrones específicos</li>
+<li><strong>Métricas</strong> miden salud del proceso SDD</li>
+</ol>
+<hr>
+</section>
+<section id="próximos-pasos" class="level2">
+<h2 class="anchored" data-anchor-id="próximos-pasos">🚀 Próximos Pasos</h2>
+<ol type="1">
+<li>Implementa SDD en tu proyecto actual</li>
+<li>Configura CI/CD con verificación</li>
+<li>Comparte este curso con tu equipo</li>
+<li>Contribuye con mejoras al skill set</li>
+</ol>
+<hr>
+</section>
+<section id="referencias" class="level2">
+<h2 class="anchored" data-anchor-id="referencias">📚 Referencias</h2>
+<ul>
+<li><a href="https://github.com/github/spec-kit">OpenSpec Specification</a></li>
+<li><a href="https://modelcontextprotocol.io/">Model Context Protocol</a></li>
+<li><a href="https://kilocode.ai/docs">Kilocode Documentation</a></li>
+</ul>
+<hr>
+<p><em>Curso Completado 🎉</em></p>
+<p><em>Módulo 6.0 | Duración: 45 min | Dificultad: 🔴 Avanzado</em></p>
+<p><em>Total del Curso: ~4.5 horas</em></p>
+<hr>
+</section>
+<section id="context-window-management" class="level2">
+<h2 class="anchored" data-anchor-id="context-window-management">🧠 Context Window Management</h2>
+<section id="el-problema-real" class="level3">
+<h3 class="anchored" data-anchor-id="el-problema-real">El Problema Real</h3>
+<p><strong>Demasiados specs sobrecargan el contexto del LLM:</strong></p>
+<pre><code>┌─────────────────────────────────────────────────────────┐
+│              Context Window Limits                       │
+├─────────────────────────────────────────────────────────┤
+│                                                          │
+│  Claude 3.5 Sonnet: 200K tokens (~150K palabras)        │
+│  GPT-4 Turbo: 128K tokens (~96K palabras)               │
+│                                                          │
+│  Un proyecto típico:                                     │
+│  - 50 specs × 2000 tokens = 100K tokens                 │
+│  - Memory bank = 20K tokens                             │
+│  - Código relevante = 30K tokens                        │
+│  - Prompt actual = 10K tokens                           │
+│  ─────────────────────────────────────                  │
+│  Total: 160K tokens (¡sobre el límite!)                │
+│                                                          │
+└─────────────────────────────────────────────────────────┘</code></pre>
+</section>
+<section id="soluciones" class="level3">
+<h3 class="anchored" data-anchor-id="soluciones">Soluciones</h3>
+<section id="rag-context-selection" class="level4">
+<h4 class="anchored" data-anchor-id="rag-context-selection">1. RAG / Context Selection</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Selección inteligente de specs relevantes</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> select_relevant_specs(query, all_specs):</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co">    Usa embeddings para encontrar specs relevantes</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    query_embedding <span class="op">=</span> embed(query)</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    relevant <span class="op">=</span> []</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> spec <span class="kw">in</span> all_specs:</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>        similarity <span class="op">=</span> cosine_similarity(query_embedding, spec.embedding)</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> similarity <span class="op">&gt;</span> THRESHOLD:</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>            relevant.append(spec)</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> relevant[:MAX_SPECS]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Claude Code usa grep-based retrieval</strong>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Simplificado pero efectivo</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-r</span> <span class="st">"authentication"</span> openspec/specs/</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Solo carga specs que mencionan "authentication"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="subagentes-con-contexto-específico" class="level4">
+<h4 class="anchored" data-anchor-id="subagentes-con-contexto-específico">2. Subagentes con Contexto Específico</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Configuración de subagentes</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">agents</span><span class="kw">:</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">auth-specialist</span><span class="kw">:</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">context</span><span class="kw">:</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> openspec/specs/core/auth.spec.md</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> openspec/specs/features/oauth.spec.md</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">skills</span><span class="kw">:</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> security</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> api-design</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="at">      </span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">ui-specialist</span><span class="kw">:</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">context</span><span class="kw">:</span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> openspec/specs/ui/design-system.spec.md</span></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> openspec/specs/ui/components.spec.md</span></span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">skills</span><span class="kw">:</span></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> react-19</span></span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> tailwind-4</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="ast-parsing-lsp-integration" class="level4">
+<h4 class="anchored" data-anchor-id="ast-parsing-lsp-integration">3. AST Parsing + LSP Integration</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Conectar specs con código via AST</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> SpecCodeLinker:</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> link_spec_to_code(<span class="va">self</span>, spec_path):</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>        <span class="co">"""</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="co">        Parse spec, find related code files</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="co">        """</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>        spec <span class="op">=</span> parse_spec(spec_path)</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> entity <span class="kw">in</span> spec.entities:</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Use LSP to find definitions</span></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>            locations <span class="op">=</span> lsp.find_definitions(entity.name)</span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>            entity.code_locations <span class="op">=</span> locations</span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> spec</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="mejores-prácticas" class="level3">
+<h3 class="anchored" data-anchor-id="mejores-prácticas">Mejores Prácticas</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Práctica</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Specs modulares</strong></td>
+<td>Un spec = una feature/componente</td>
+</tr>
+<tr class="even">
+<td><strong>Information architecture</strong></td>
+<td>Organizar specs por dominio</td>
+</tr>
+<tr class="odd">
+<td><strong>Lazy loading</strong></td>
+<td>Solo cargar specs cuando se necesiten</td>
+</tr>
+<tr class="even">
+<td><strong>Compression</strong></td>
+<td>Resumir specs antiguas</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+</section>
+<section id="spec-evals-evaluando-calidad-de-specs" class="level2">
+<h2 class="anchored" data-anchor-id="spec-evals-evaluando-calidad-de-specs">📊 Spec Evals: Evaluando Calidad de Specs</h2>
+<section id="qué-es-un-spec-eval" class="level3">
+<h3 class="anchored" data-anchor-id="qué-es-un-spec-eval">¿Qué es un Spec Eval?</h3>
+<p>Similar a test coverage, pero para especificaciones:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> SpecEvaluator:</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> evaluate(<span class="va">self</span>, spec_path):</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> {</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>            <span class="st">"completeness"</span>: <span class="va">self</span>.check_completeness(spec),</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>            <span class="st">"testability"</span>: <span class="va">self</span>.check_testability(spec),</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>            <span class="st">"clarity"</span>: <span class="va">self</span>.check_clarity(spec),</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>            <span class="st">"consistency"</span>: <span class="va">self</span>.check_consistency(spec),</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>            <span class="st">"maintainability"</span>: <span class="va">self</span>.check_maintainability(spec)</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>        }</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="métricas-de-spec-quality" class="level3">
+<h3 class="anchored" data-anchor-id="métricas-de-spec-quality">Métricas de Spec Quality</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Métrica</th>
+<th>Cómo medir</th>
+<th>Target</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Completeness</strong></td>
+<td>% de campos requeridos llenos</td>
+<td>&gt; 95%</td>
+</tr>
+<tr class="even">
+<td><strong>Testability</strong></td>
+<td>% de requisitos con acceptance criteria</td>
+<td>&gt; 90%</td>
+</tr>
+<tr class="odd">
+<td><strong>Clarity</strong></td>
+<td>Ausencia de términos ambiguos</td>
+<td>100%</td>
+</tr>
+<tr class="even">
+<td><strong>Consistency</strong></td>
+<td>Terminología consistente</td>
+<td>100%</td>
+</tr>
+<tr class="odd">
+<td><strong>Traceability</strong></td>
+<td>Links a código relacionado</td>
+<td>&gt; 80%</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="ejemplo-spec-eval-report" class="level3">
+<h3 class="anchored" data-anchor-id="ejemplo-spec-eval-report">Ejemplo: Spec Eval Report</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Spec Eval: authentication.spec.md</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## Summary</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Overall Score**: 87/100 ✅</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="fu">## Details</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Metric <span class="pp">|</span> Score <span class="pp">|</span> Notes <span class="pp">|</span></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="pp">|--------|-------|-------|</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Completeness <span class="pp">|</span> 95% <span class="pp">|</span> Missing: error handling <span class="pp">|</span></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Testability <span class="pp">|</span> 90% <span class="pp">|</span> All scenarios have criteria <span class="pp">|</span></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Clarity <span class="pp">|</span> 85% <span class="pp">|</span> "Fast" is ambiguous in REQ-3 <span class="pp">|</span></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Consistency <span class="pp">|</span> 88% <span class="pp">|</span> Mixed "user" vs "customer" <span class="pp">|</span></span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Traceability <span class="pp">|</span> 75% <span class="pp">|</span> Missing links to models <span class="pp">|</span></span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a><span class="fu">## Recommendations</span></span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Clarify response time target (replace "fast" with "&lt; 200ms")</span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Add error handling scenarios</span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Link to User model in data-model.md</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="spec-eval-automation" class="level3">
+<h3 class="anchored" data-anchor-id="spec-eval-automation">Spec Eval Automation</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># .github/workflows/spec-eval.yml</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">name</span><span class="kw">:</span><span class="at"> Spec Quality Check</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="fu">on</span><span class="kw">:</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">pull_request</span><span class="kw">:</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">paths</span><span class="kw">:</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">'openspec/**/*.md'</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="fu">jobs</span><span class="kw">:</span></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">evaluate</span><span class="kw">:</span></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">runs-on</span><span class="kw">:</span><span class="at"> ubuntu-latest</span></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">steps</span><span class="kw">:</span></span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> actions/checkout@v4</span></span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a><span class="at">      </span></span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Run Spec Evals</span></span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a><span class="fu">        run</span><span class="kw">: </span><span class="ch">|</span></span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>          for spec in openspec/specs/**/*.spec.md; do</span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a>            python scripts/spec_eval.py "$spec" --min-score 80</span>
+<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a>          done</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+</section>
+<section id="legacy-applications-con-sdd" class="level2">
+<h2 class="anchored" data-anchor-id="legacy-applications-con-sdd">🏛️ Legacy Applications con SDD</h2>
+<section id="el-desafío" class="level3">
+<h3 class="anchored" data-anchor-id="el-desafío">El Desafío</h3>
+<pre><code>┌─────────────────────────────────────────────────────────┐
+│                  Legacy App Challenges                   │
+├─────────────────────────────────────────────────────────┤
+│                                                          │
+│  ❌ Sin specs existentes                                │
+│  ❌ Código spaghetti                                    │
+│  ❌ Sin tests                                           │
+│  ❌ Documentación obsoleta                              │
+│  ❌ Tech stack antiguo                                  │
+│  ❌ Múltiples capas de "fixes"                          │
+│                                                          │
+└─────────────────────────────────────────────────────────┘</code></pre>
+</section>
+<section id="estrategia-strangler-pattern" class="level3">
+<h3 class="anchored" data-anchor-id="estrategia-strangler-pattern">Estrategia: Strangler Pattern</h3>
+<pre class="text"><code>1. Spec new features with SDD
+2. Spec refactored modules
+3. Gradually "strangle" legacy code</code></pre>
+<pre><code>┌──────────────────────────────────────────────────────────┐
+│                   Strangler Pattern                       │
+├──────────────────────────────────────────────────────────┤
+│                                                           │
+│   Legacy System          New SDD System                   │
+│   ┌───────────┐         ┌───────────┐                    │
+│   │ Module A  │ ──────▶ │ Spec A    │ ──────▶ Code A     │
+│   │ Module B  │         │ (empty)   │                    │
+│   │ Module C  │ ──────▶ │ Spec C    │ ──────▶ Code C     │
+│   └───────────┘         └───────────┘                    │
+│        │                       │                          │
+│        ▼                       ▼                          │
+│   Deprecated             Active Development                │
+│                                                           │
+└──────────────────────────────────────────────────────────┘</code></pre>
+</section>
+<section id="spec-retrospectivo" class="level3">
+<h3 class="anchored" data-anchor-id="spec-retrospectivo">Spec Retrospectivo</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generar spec desde código existente</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="ex">kilocode</span> <span class="st">"Document current authentication flow as spec"</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="co"># O con Tessl</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="ex">tessl</span> document <span class="at">--code</span> auth.js</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Output: spec.retrospective.md</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Spec (Retrospective): Authentication</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## Current Behavior (as observed)</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="fu">### Flow</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>User enters credentials</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Server validates against database</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Session created in Redis</span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Cookie set with session ID</span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a><span class="fu">### Observed Patterns</span></span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Uses bcrypt for passwords</span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Sessions expire after 24h</span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>No OAuth support</span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a><span class="fu">## Identified Gaps</span></span>
+<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>No rate limiting</span>
+<span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>No MFA</span>
+<span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Passwords not hashed with modern algorithms</span>
+<span id="cb30-20"><a href="#cb30-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-21"><a href="#cb30-21" aria-hidden="true" tabindex="-1"></a><span class="fu">## Recommended Improvements</span></span>
+<span id="cb30-22"><a href="#cb30-22" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="va">[ ]</span> Add rate limiting</span>
+<span id="cb30-23"><a href="#cb30-23" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="va">[ ]</span> Implement MFA</span>
+<span id="cb30-24"><a href="#cb30-24" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="va">[ ]</span> Migrate to Argon2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="legacy-specific-rules" class="level3">
+<h3 class="anchored" data-anchor-id="legacy-specific-rules">Legacy-Specific Rules</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># openspec/config.yaml para legacy</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rules</span><span class="kw">:</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">proposal</span><span class="kw">:</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> Document impact on existing code</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> Include rollback strategy</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> Identify dependencies on legacy modules</span></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">apply</span><span class="kw">:</span></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> Preserve backward compatibility</span></span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> Add tests before modifying legacy code</span></span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> Use feature flags for gradual rollout</span></span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a><span class="at">    </span></span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">verify</span><span class="kw">:</span></span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> Run legacy test suite (if exists)</span></span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> Manual QA for affected legacy flows</span></span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> Monitor error rates post-deployment</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+</section>
+<section id="spec-registries-el-futuro" class="level2">
+<h2 class="anchored" data-anchor-id="spec-registries-el-futuro">📦 Spec Registries: El Futuro</h2>
+<section id="analogía-con-npm" class="level3">
+<h3 class="anchored" data-anchor-id="analogía-con-npm">Analogía con NPM</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># npm para código</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> install express</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="co"># spec registry para specs (futuro)</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="ex">spec</span> install authentication-oauth</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="ex">spec</span> install rest-api-patterns</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="ex">spec</span> install react-component-lifecycle</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="tipos-de-registros" class="level3">
+<h3 class="anchored" data-anchor-id="tipos-de-registros">Tipos de Registros</h3>
+<section id="git-submodules-hoy" class="level4">
+<h4 class="anchored" data-anchor-id="git-submodules-hoy">1. Git Submodules (Hoy)</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compartir specs entre proyectos</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> submodule add git@github.com:org/specs.git shared-specs</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="ide-team-features" class="level4">
+<h4 class="anchored" data-anchor-id="ide-team-features">2. IDE Team Features</h4>
+<pre><code>Cursor Teams / VS Code Settings Sync
+├── .cursorrules (compartido)
+├── specs/ (compartido)
+└── skills/ (compartido)</code></pre>
+</section>
+<section id="package-repositories-futuro" class="level4">
+<h4 class="anchored" data-anchor-id="package-repositories-futuro">3. Package Repositories (Futuro)</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># spec-registry.yaml</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">registry</span><span class="kw">:</span><span class="at"> https://specs.tessl.io</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="fu">dependencies</span><span class="kw">:</span></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">auth</span><span class="kw">:</span></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">spec</span><span class="kw">:</span><span class="at"> authentication-oauth@2.1.0</span></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">scope</span><span class="kw">:</span><span class="at"> core</span></span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span></span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">api</span><span class="kw">:</span></span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">spec</span><span class="kw">:</span><span class="at"> rest-api-best-practices@1.0.0</span></span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">scope</span><span class="kw">:</span><span class="at"> features</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="public-registries" class="level4">
+<h4 class="anchored" data-anchor-id="public-registries">4. Public Registries</h4>
+<pre><code>Tessl Registry (en desarrollo)
+├── authentication/
+│   ├── oauth2/
+│   ├── jwt/
+│   └── session/
+├── api-design/
+│   ├── rest/
+│   ├── graphql/
+│   └── grpc/
+└── security/
+    ├── input-validation/
+    ├── rate-limiting/
+    └── encryption/</code></pre>
+</section>
+</section>
+<section id="beneficios" class="level3">
+<h3 class="anchored" data-anchor-id="beneficios">Beneficios</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Beneficio</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Reutilización</strong></td>
+<td>No reinventar specs para patrones comunes</td>
+</tr>
+<tr class="even">
+<td><strong>Calidad</strong></td>
+<td>Specs probadas por la comunidad</td>
+</tr>
+<tr class="odd">
+<td><strong>Consistencia</strong></td>
+<td>Estándares compartidos entre proyectos</td>
+</tr>
+<tr class="even">
+<td><strong>Onboarding</strong></td>
+<td>Nuevos devs leen specs estándar</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+</section>
+<section id="el-futuro-de-sdd" class="level2">
+<h2 class="anchored" data-anchor-id="el-futuro-de-sdd">🔮 El Futuro de SDD</h2>
+<section id="tendencias-emergentes" class="level3">
+<h3 class="anchored" data-anchor-id="tendencias-emergentes">Tendencias Emergentes</h3>
+<ol type="1">
+<li><strong>Spec Evals como Standard</strong>
+<ul>
+<li>Métricas de calidad automatizadas</li>
+<li>Coverage reports para specs</li>
+</ul></li>
+<li><strong>Spec-as-Source madurando</strong>
+<ul>
+<li>Mejor generación de código</li>
+<li>Más determinismo</li>
+<li>Tooling mejorado</li>
+</ul></li>
+<li><strong>Multi-Agent Workflows</strong>
+<ul>
+<li>Agentes especializados por dominio</li>
+<li>Coordinación entre agentes</li>
+</ul></li>
+<li><strong>IDE Integration Profunda</strong>
+<ul>
+<li>Specs como first-class citizens</li>
+<li>Autocomplete desde specs</li>
+<li>Refactoring aware de specs</li>
+</ul></li>
+</ol>
+</section>
+<section id="lo-que-falta" class="level3">
+<h3 class="anchored" data-anchor-id="lo-que-falta">Lo Que Falta</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Área</th>
+<th>Estado</th>
+<th>Qué Falta</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Spec Evals</strong></td>
+<td>Temprano</td>
+<td>Métricas estandarizadas</td>
+</tr>
+<tr class="even">
+<td><strong>Registries</strong></td>
+<td>Experimental</td>
+<td>Infraestructura pública</td>
+</tr>
+<tr class="odd">
+<td><strong>Spec-as-Source</strong></td>
+<td>Beta</td>
+<td>Determinismo, tooling</td>
+</tr>
+<tr class="even">
+<td><strong>Multi-Agent</strong></td>
+<td>Muy temprano</td>
+<td>Orquestación madura</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+</section>
+<section id="lo-que-aprendiste-resumen-completo" class="level2">
+<h2 class="anchored" data-anchor-id="lo-que-aprendiste-resumen-completo">🎓 Lo Que Aprendiste (Resumen Completo)</h2>
+<ol type="1">
+<li><strong>Context Windows</strong> requieren manejo activo de specs</li>
+<li><strong>Spec Evals</strong> miden calidad de especificaciones</li>
+<li><strong>Legacy Apps</strong> pueden adoptar SDD gradualmente</li>
+<li><strong>Strangler Pattern</strong> permite migración progresiva</li>
+<li><strong>Spec Registries</strong> serán como npm para specs</li>
+<li><strong>El futuro</strong> incluye multi-agent y tooling mejorado</li>
+</ol>
+<hr>
+</section>
+<section id="referencias-adicionales" class="level2">
+<h2 class="anchored" data-anchor-id="referencias-adicionales">📚 Referencias Adicionales</h2>
+<ul>
+<li>Debois, P. (2025). “Spec-Driven Development: 10 things you need to know” - AI Native Dev</li>
+<li>Fowler, M. (2025). “Strangler Fig Application” - martinfowler.com</li>
+<li>Tessl Documentation - docs.tessl.io</li>
+<li>Kiro Documentation - kiro.dev/docs</li>
+</ul>
+<hr>
+<p><em>Curso Completado 🎉</em></p>
+<p><em>Módulo 7.0 | Duración: 60 min | Dificultad: 🔴 Avanzado</em></p>
+<p><em>Total del Curso: ~7 horas</em></p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

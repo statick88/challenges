@@ -1,0 +1,345 @@
+---
+title: "Contexto Histórico: De Assembly a Vibe Coding"
+date: "2026-02-24"
+---
+
+# 🎓 De Assembly a Vibe Coding: 60 Años de Abstracción
+
+👨‍🏫 **Del Instructor**: Antes de entender Spec-Driven Development, necesitas comprender de dónde venimos. En 60 años, la programación ha evolucionado desde instrucciones de máquina hasta descripciones en lenguaje natural. SDD es el siguiente paso lógico.
+
+> 💭 **Mentalidad de Historiador**: "Quien no conoce su historia está condenado a repetirla. Vibe coding sin entender SDD es como programar en assembly cuando existe Python."
+
+---
+
+## 📜 La Evolución de la Abstracción
+
+### Timeline: 1950s - 2025
+
+```
+1957 → FORTRAN      "El nuevo lenguaje de programación más popular"
+1972 → C            "Portabilidad y eficiencia"
+1991 → Python       "Legibilidad ante todo"
+2023 → Prompt       "El inglés es el nuevo lenguaje de programación"
+2025 → Spec         "La especificación es el nuevo código"
+```
+
+### La Promesa de los Años 50
+
+En los años 50 y 60, pioneros como **John Backus** (FORTRAN), **Grace Hopper** (COBOL) y **Jean Sammet** soñaban con un mundo donde:
+
+> "El programador describe QUÉ quiere, no CÓMO hacerlo"
+
+Esta visión ha perseguido a la informática por 6 décadas.
+
+---
+
+## 🧠 SQL: El Caso de Éxito
+
+**SQL es el ejemplo perfecto de programación declarativa exitosa:**
+
+```sql
+-- Describes QUÉ quieres, no CÓMO obtenerlo
+SELECT name, email FROM users WHERE active = true;
+```
+
+El motor de base de datos decide:
+- Qué índices usar
+- Cómo optimizar la consulta
+- Qué algoritmo de join aplicar
+
+**¿Por qué SQL funcionó?**
+
+| Factor | Explicación |
+|--------|-------------|
+| Dominio específico | Solo para bases de datos |
+| Resultado predecible | Mismo query → mismos resultados |
+| Optimización madura | 40+ años de mejoras |
+
+**¿Por qué no se aplicó a todo?**
+
+Porque el dominio de "aplicaciones generales" es infinitamente más complejo que "consultar datos".
+
+---
+
+## 🔮 Intentos Anteriores de Abstracción
+
+### Model-Driven Development (MDD)
+
+**En los años 2000, MDD prometía:**
+
+```
+UML Models → Code Generation → Deploy
+```
+
+**Problemas encontrados:**
+
+1. **Inflexibilidad**: Los modelos eran rígidos
+2. **Curva de aprendizaje**: UML es complejo
+3. **Generación pobre**: Código mediocre
+4. **Debugging imposible**: ¿Dónde está el error?
+
+**Lecciones aprendidas:**
+
+> "No puedes abstraer toda la complejidad. Necesitas flexibilidad."
+
+### Low-Code / No-Code
+
+**Promesa:** "Cualquiera puede crear aplicaciones"
+
+**Realidad:**
+
+- ✅ Funciona para casos simples
+- ❌ Se rompe con lógica compleja
+- ❌ Vendor lock-in
+- ❌ Debugging es pesadilla
+
+### 4GL (Fourth Generation Languages)
+
+**Ejemplos:** PowerBuilder, Oracle Forms, ABAP
+
+- Dominio específico: Aplicaciones de negocio
+- Generación de UI automática
+- Limitaciones severas de flexibilidad
+
+---
+
+## 🎭 El Fenómeno Vibe Coding
+
+### ¿Qué es Vibe Coding?
+
+**Andrej Karpathy** (febrero 2025):
+
+> "There's a new kind of coding I call 'vibe coding', where you fully give in to the vibes, embrace exponentials, and forget that the code even exists."
+
+**Definición operativa:**
+
+```text
+Vibe Coding = Aceptar código generado sin entenderlo completamente
+```
+
+### Diferencia Clave (Simon Willison)
+
+| Actividad | ¿Es Vibe Coding? |
+|-----------|------------------|
+| Generas código con IA, no lo revisas | ✅ SÍ |
+| Generas código, lo revisas, lo entiendes | ❌ NO |
+| Generas código, lo pruebas, lo modificas | ❌ NO |
+
+> "If an LLM wrote every line of your code, but you reviewed it, tested it, and understood it all, that's NOT vibe coding — that's using an LLM as a writing assistant."
+> — Simon Willison
+
+### Estadísticas Impactantes
+
+| Métrica | Valor |
+|---------|-------|
+| Startups YC Winter 2025 con 95% código IA | **25%** |
+| Tiempo para crear app "LunchBox Buddy" | ~1 hora |
+| Calidad de código vibe-coded | Variable |
+| Adecuado para producción | ⚠️ Riesgoso |
+
+### Ejemplo: LunchBox Buddy (Kevin Roose)
+
+```text
+Prompt: "Crea una app que analice mi refrigerador 
+        y sugiera qué preparar para almuerzo"
+
+Resultado:
+- App funcional en 1 hora
+- Sin conocimientos de programación previos
+- Bugs ocasionales
+- No escalable
+```
+
+---
+
+## ⚠️ Los Problemas del Vibe Coding
+
+### 1. Alucinaciones de Código
+
+```javascript
+// IA genera:
+function calculateTotal(items) {
+  return items.reduce((a, b) => a + b);
+}
+
+// Problema: ¿Qué pasa si items está vacío?
+// ¿Qué pasa si los items tienen propiedad .price?
+```
+
+### 2. Inconsistencia
+
+```text
+Mismo prompt → Diferentes resultados cada vez
+
+Prompt: "Add user authentication"
+
+Run 1: JWT + bcrypt
+Run 2: Sessions + SHA256
+Run 3: OAuth only
+```
+
+### 3. Falta de Trazabilidad
+
+```text
+Pregunta: "¿Por qué usaste bcrypt?"
+
+Respuesta IA: "No lo sé, el modelo decidió."
+
+Problema: No hay documentación de decisiones.
+```
+
+### 4. Dificultad de Mantenimiento
+
+```text
+Escenario: Bug en producción
+
+Developer: "¿Dónde está el error?"
+Código: Generado sin comentarios claros
+Tests: No existen
+Docs: Ninguna
+
+Resultado: Reescribir desde cero
+```
+
+### 5. Caso Real: E-commerce Fake Reviews
+
+```text
+Kevin Roose pidió: "Crea un sitio de reviews"
+
+La IA generó:
+- Reviews falsas automáticamente
+- Sin verificar si era ético
+- Sin validación de input
+
+Resultado: Código que genera desinformación
+```
+
+---
+
+## 📊 Vibe Coding vs Desarrollo Tradicional
+
+| Aspecto | Tradicional | Vibe Coding |
+|---------|-------------|-------------|
+| **Velocidad inicial** | Lento | Muy rápido |
+| **Calidad de código** | Controlada | Variable |
+| **Mantenibilidad** | Alta | Baja |
+| **Documentación** | Explícita | Inexistente |
+| **Testing** | Planificado | Olvidado |
+| **Trazabilidad** | Git + docs | Solo código |
+| **Debugging** | Conocido | Difícil |
+| **Uso recomendado** | Producción | Prototipos |
+
+---
+
+## 🎯 ¿Cuándo Usar Vibe Coding?
+
+### ✅ Apropiado
+
+- Prototipos rápidos (< 1 día)
+- Proyectos personales de fin de semana
+- Exploración de ideas
+- Demos para stakeholders
+- "Software for one" (uso personal)
+
+### ❌ No Apropiado
+
+- Aplicaciones de producción
+- Sistemas financieros
+- Software médico
+- Infraestructura crítica
+- Código que otros mantendrán
+
+### La Regla de Karpathy
+
+> "Vibe coding is pretty good for weekend projects and it's pretty fun."
+
+**Implicación:** No es para todos los casos de uso.
+
+---
+
+## 🔄 La Evolución: Vibe Coding → SDD
+
+### El Problema Central
+
+```text
+Vibe Coding tiene un problema fundamental:
+Falta una "visión completa" de QUÉ se está construyendo
+```
+
+### La Solución: Specifications
+
+**Marc Brooker (Kiro/AWS) lo explica:**
+
+> "A specification is the bigger picture. It's what those prompts are driving towards, step by step. It is, at its core, the whole point of the program."
+
+### Comparación
+
+| Vibe Coding | Spec-Driven Development |
+|-------------|-------------------------|
+| Prompts ad-hoc | Especificaciones estructuradas |
+| Sin memoria entre sesiones | Source of truth persistente |
+| Resultados inconsistentes | Resultados reproducibles |
+| Código como fin | Specs como fin, código como medio |
+| Caótico | Organizado |
+
+---
+
+## 🧭 El Espectro de Desarrollo con IA
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    ESPECTRO DE DESARROLLO IA                 │
+├─────────────────────────────────────────────────────────────┤
+│                                                              │
+│  Manual         Copilot           Vibe           SDD        │
+│  Coding         Asistido          Coding                     │
+│    │               │                │              │          │
+│    ▼               ▼                ▼              ▼          │
+│  ┌───┐         ┌───┐            ┌───┐          ┌───┐        │
+│  │100│         │ 70│            │ 10│          │ 20│        │
+│  │%  │ ──────▶ │%  │ ─────────▶ │%  │ ──────▶ │%  │        │
+│  │humano        │humano          │humano        │humano      │
+│  └───┘         └───┘            └───┘          └───┘        │
+│                                                              │
+│  Control      Balance         Velocidad      Estructura     │
+│  total                       máxima          + calidad      │
+│                                                              │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### Diferencia Clave
+
+**Vibe Coding**: El humano escribe código IA, acepta sin revisar
+
+**SDD**: El humano escribe especificaciones, revisa, verifica
+
+---
+
+## 🎓 Lo Que Aprendiste
+
+1. **60 años de abstracción** nos han llevado de assembly a specs
+2. **SQL demostró** que la programación declarativa funciona en dominios específicos
+3. **MDD y 4GL** fallaron por falta de flexibilidad
+4. **Vibe Coding** es rápido pero riesgoso para producción
+5. **SDD** es la evolución natural: especificaciones como "North Star"
+6. **No es binario**: Hay un espectro de opciones según el contexto
+
+---
+
+## 🚀 Siguiente Paso
+
+Continúa con [Módulo 1: Introducción a SDD](01-intro-sdd.qmd) para entender los fundamentos de Spec-Driven Development.
+
+---
+
+## 📚 Referencias
+
+- Karpathy, A. (2025). "Vibe Coding" - X/Twitter
+- Roose, K. (2025). "Not a Coder? With A.I., Just Having an Idea Can Be Enough" - NYT
+- Brooker, M. (2025). "Kiro and the future of AI spec-driven software development"
+- Willison, S. (2025). Definition of vibe coding - Ars Technica
+- Mehta, I. (2025). Y Combinator statistics - TechCrunch
+
+---
+
+*Módulo 0.1 | Duración: 45 min | Dificultad: 🟢 Básico*

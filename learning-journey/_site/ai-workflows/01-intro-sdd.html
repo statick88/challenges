@@ -1,0 +1,1352 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2026-02-24">
+
+<title>Introducción a Spec-Driven Development – DevOps &amp; Security Learning Journey</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-7ac2f9da8c2617a4fdd15004b4601015.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-3dad1a9f078d91cda5f1887d21eb11b5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">DevOps &amp; Security Learning Journey</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../foundations/index.html"> 
+<span class="menu-text">Foundations</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../containers/index.html"> 
+<span class="menu-text">Containers</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../devops-practices/index.html"> 
+<span class="menu-text">DevOps</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../security/index.html"> 
+<span class="menu-text">Security</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../ai-workflows/index.html"> 
+<span class="menu-text">AI Workflows</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../roadmap/index.html"> 
+<span class="menu-text">Roadmap</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-language" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Language</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-language">    
+        <li>
+    <a class="dropdown-item" href="../es/index.html">
+ <span class="dropdown-text">Español</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../index.html">
+ <span class="dropdown-text">English</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="https://github.com/statick88/challenges"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text">GitHub</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#spec-driven-development-la-metodología" id="toc-spec-driven-development-la-metodología" class="nav-link active" data-scroll-target="#spec-driven-development-la-metodología">🎓 Spec-Driven Development: La Metodología</a>
+  <ul class="collapse">
+  <li><a href="#el-problema-con-la-ia" id="toc-el-problema-con-la-ia" class="nav-link" data-scroll-target="#el-problema-con-la-ia">🤔 El Problema con la IA</a>
+  <ul class="collapse">
+  <li><a href="#el-patrón-típico-incorrecto" id="toc-el-patrón-típico-incorrecto" class="nav-link" data-scroll-target="#el-patrón-típico-incorrecto">El Patrón Típico (Incorrecto)</a></li>
+  <li><a href="#el-patrón-sdd-correcto" id="toc-el-patrón-sdd-correcto" class="nav-link" data-scroll-target="#el-patrón-sdd-correcto">El Patrón SDD (Correcto)</a></li>
+  </ul></li>
+  <li><a href="#qué-es-sdd" id="toc-qué-es-sdd" class="nav-link" data-scroll-target="#qué-es-sdd">🧠 ¿Qué es SDD?</a>
+  <ul class="collapse">
+  <li><a href="#analogía-arquitectura-de-edificios" id="toc-analogía-arquitectura-de-edificios" class="nav-link" data-scroll-target="#analogía-arquitectura-de-edificios">Analogía: Arquitectura de Edificios</a></li>
+  </ul></li>
+  <li><a href="#las-8-fases-de-sdd" id="toc-las-8-fases-de-sdd" class="nav-link" data-scroll-target="#las-8-fases-de-sdd">🔄 Las 8 Fases de SDD</a>
+  <ul class="collapse">
+  <li><a href="#init---inicialización" id="toc-init---inicialización" class="nav-link" data-scroll-target="#init---inicialización">1. INIT - Inicialización</a></li>
+  <li><a href="#explore---exploración-opcional" id="toc-explore---exploración-opcional" class="nav-link" data-scroll-target="#explore---exploración-opcional">2. EXPLORE - Exploración (Opcional)</a></li>
+  <li><a href="#propose---propuesta" id="toc-propose---propuesta" class="nav-link" data-scroll-target="#propose---propuesta">3. PROPOSE - Propuesta</a></li>
+  <li><a href="#spec---especificaciones" id="toc-spec---especificaciones" class="nav-link" data-scroll-target="#spec---especificaciones">4. SPEC - Especificaciones</a></li>
+  <li><a href="#design---diseño-técnico" id="toc-design---diseño-técnico" class="nav-link" data-scroll-target="#design---diseño-técnico">5. DESIGN - Diseño Técnico</a></li>
+  <li><a href="#tasks---tareas" id="toc-tasks---tareas" class="nav-link" data-scroll-target="#tasks---tareas">6. TASKS - Tareas</a></li>
+  <li><a href="#apply---implementación" id="toc-apply---implementación" class="nav-link" data-scroll-target="#apply---implementación">7. APPLY - Implementación</a></li>
+  <li><a href="#verify---verificación" id="toc-verify---verificación" class="nav-link" data-scroll-target="#verify---verificación">8. VERIFY - Verificación</a></li>
+  <li><a href="#archive---archivado" id="toc-archive---archivado" class="nav-link" data-scroll-target="#archive---archivado">9. ARCHIVE - Archivado</a></li>
+  </ul></li>
+  <li><a href="#estructura-de-directorios" id="toc-estructura-de-directorios" class="nav-link" data-scroll-target="#estructura-de-directorios">📁 Estructura de Directorios</a></li>
+  <li><a href="#beneficios-de-sdd" id="toc-beneficios-de-sdd" class="nav-link" data-scroll-target="#beneficios-de-sdd">🎯 Beneficios de SDD</a>
+  <ul class="collapse">
+  <li><a href="#para-desarrolladores" id="toc-para-desarrolladores" class="nav-link" data-scroll-target="#para-desarrolladores">Para Desarrolladores</a></li>
+  <li><a href="#para-equipos" id="toc-para-equipos" class="nav-link" data-scroll-target="#para-equipos">Para Equipos</a></li>
+  <li><a href="#para-proyectos" id="toc-para-proyectos" class="nav-link" data-scroll-target="#para-proyectos">Para Proyectos</a></li>
+  </ul></li>
+  <li><a href="#escenario-real-sin-sdd-vs-con-sdd" id="toc-escenario-real-sin-sdd-vs-con-sdd" class="nav-link" data-scroll-target="#escenario-real-sin-sdd-vs-con-sdd">🎭 Escenario Real: Sin SDD vs Con SDD</a>
+  <ul class="collapse">
+  <li><a href="#sin-sdd" id="toc-sin-sdd" class="nav-link" data-scroll-target="#sin-sdd">Sin SDD</a></li>
+  <li><a href="#con-sdd" id="toc-con-sdd" class="nav-link" data-scroll-target="#con-sdd">Con SDD</a></li>
+  </ul></li>
+  <li><a href="#lo-que-aprendiste" id="toc-lo-que-aprendiste" class="nav-link" data-scroll-target="#lo-que-aprendiste">🎓 Lo Que Aprendiste</a></li>
+  <li><a href="#siguiente-paso" id="toc-siguiente-paso" class="nav-link" data-scroll-target="#siguiente-paso">🚀 Siguiente Paso</a></li>
+  <li><a href="#los-3-niveles-de-sdd" id="toc-los-3-niveles-de-sdd" class="nav-link" data-scroll-target="#los-3-niveles-de-sdd">📊 Los 3 Niveles de SDD</a>
+  <ul class="collapse">
+  <li><a href="#nivel-1-spec-first" id="toc-nivel-1-spec-first" class="nav-link" data-scroll-target="#nivel-1-spec-first">Nivel 1: Spec-First</a></li>
+  <li><a href="#nivel-2-spec-anchored" id="toc-nivel-2-spec-anchored" class="nav-link" data-scroll-target="#nivel-2-spec-anchored">Nivel 2: Spec-Anchored</a></li>
+  <li><a href="#nivel-3-spec-as-source" id="toc-nivel-3-spec-as-source" class="nav-link" data-scroll-target="#nivel-3-spec-as-source">Nivel 3: Spec-as-Source</a></li>
+  <li><a href="#comparación-de-niveles" id="toc-comparación-de-niveles" class="nav-link" data-scroll-target="#comparación-de-niveles">Comparación de Niveles</a></li>
+  </ul></li>
+  <li><a href="#tipos-de-specs" id="toc-tipos-de-specs" class="nav-link" data-scroll-target="#tipos-de-specs">📝 Tipos de Specs</a>
+  <ul class="collapse">
+  <li><a href="#specs-funcionalestécnicos" id="toc-specs-funcionalestécnicos" class="nav-link" data-scroll-target="#specs-funcionalestécnicos">1. Specs Funcionales/Técnicos</a></li>
+  <li><a href="#specs-de-identidad-de-agente" id="toc-specs-de-identidad-de-agente" class="nav-link" data-scroll-target="#specs-de-identidad-de-agente">2. Specs de Identidad de Agente</a></li>
+  <li><a href="#specs-de-workflowtareas" id="toc-specs-de-workflowtareas" class="nav-link" data-scroll-target="#specs-de-workflowtareas">3. Specs de Workflow/Tareas</a></li>
+  <li><a href="#specs-de-conocimientouso" id="toc-specs-de-conocimientouso" class="nav-link" data-scroll-target="#specs-de-conocimientouso">4. Specs de Conocimiento/Uso</a></li>
+  </ul></li>
+  <li><a href="#desafíos-de-sdd" id="toc-desafíos-de-sdd" class="nav-link" data-scroll-target="#desafíos-de-sdd">⚠️ Desafíos de SDD</a>
+  <ul class="collapse">
+  <li><a href="#context-window-constraints" id="toc-context-window-constraints" class="nav-link" data-scroll-target="#context-window-constraints">Context Window Constraints</a></li>
+  <li><a href="#escribir-buenas-specs" id="toc-escribir-buenas-specs" class="nav-link" data-scroll-target="#escribir-buenas-specs">Escribir Buenas Specs</a></li>
+  <li><a href="#spec-vs-memory-bank" id="toc-spec-vs-memory-bank" class="nav-link" data-scroll-target="#spec-vs-memory-bank">Spec vs Memory Bank</a></li>
+  </ul></li>
+  <li><a href="#specs-vs-otros-conceptos" id="toc-specs-vs-otros-conceptos" class="nav-link" data-scroll-target="#specs-vs-otros-conceptos">🔗 Specs vs Otros Conceptos</a>
+  <ul class="collapse">
+  <li><a href="#spec-vs-prompt" id="toc-spec-vs-prompt" class="nav-link" data-scroll-target="#spec-vs-prompt">Spec vs Prompt</a></li>
+  <li><a href="#spec-vs-test" id="toc-spec-vs-test" class="nav-link" data-scroll-target="#spec-vs-test">Spec vs Test</a></li>
+  </ul></li>
+  <li><a href="#siguiente-paso-1" id="toc-siguiente-paso-1" class="nav-link" data-scroll-target="#siguiente-paso-1">🚀 Siguiente Paso</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Introducción a Spec-Driven Development</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">February 24, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="spec-driven-development-la-metodología" class="level1">
+<h1>🎓 Spec-Driven Development: La Metodología</h1>
+<p>👨‍🏫 <strong>Del Instructor</strong>: Antes de escribir una sola línea de código con IA, necesitas entender POR QUÉ escribimos especificaciones primero. Esto no es burocracia, es ingeniería.</p>
+<blockquote class="blockquote">
+<p>💭 <strong>Mentalidad de Arquitecto</strong>: “El código es la última respuesta, no la primera pregunta. Primero define QUÉ, luego CÓMO.”</p>
+</blockquote>
+<hr>
+<section id="el-problema-con-la-ia" class="level2">
+<h2 class="anchored" data-anchor-id="el-problema-con-la-ia">🤔 El Problema con la IA</h2>
+<section id="el-patrón-típico-incorrecto" class="level3">
+<h3 class="anchored" data-anchor-id="el-patrón-típico-incorrecto">El Patrón Típico (Incorrecto)</h3>
+<pre class="text"><code>Usuario: "Agrega autenticación a mi app"
+IA: [genera 500 líneas de código]
+Usuario: "Eso no es lo que quería..."
+IA: [genera otras 500 líneas]
+Usuario: "Ahora está mejor pero falta..."</code></pre>
+<p><strong>Problemas</strong>:</p>
+<ol type="1">
+<li>❌ Sin contexto claro → interpretaciones múltiples</li>
+<li>❌ Sin trazabilidad → ¿por qué esta decisión?</li>
+<li>❌ Sin verificación → ¿cumple los requisitos?</li>
+<li>❌ Sin rollback → ¿cómo deshacer?</li>
+</ol>
+</section>
+<section id="el-patrón-sdd-correcto" class="level3">
+<h3 class="anchored" data-anchor-id="el-patrón-sdd-correcto">El Patrón SDD (Correcto)</h3>
+<pre class="text"><code>Usuario: /sdd:new add-user-authentication
+IA: [crea propuesta.md con intent, scope, approach]
+Usuario: [revisa y aprueba propuesta]
+IA: [crea spec.delta.md con requisitos]
+Usuario: [revisa y aprueba specs]
+IA: [crea design.md con arquitectura]
+Usuario: [revisa y aprueba diseño]
+IA: [crea tasks.md desglosado]
+Usuario: [aprueba tareas]
+IA: [implementa tarea por tarea, verificando]</code></pre>
+<hr>
+</section>
+</section>
+<section id="qué-es-sdd" class="level2">
+<h2 class="anchored" data-anchor-id="qué-es-sdd">🧠 ¿Qué es SDD?</h2>
+<p><strong>Spec-Driven Development</strong> es una metodología donde:</p>
+<ol type="1">
+<li><strong>Las especificaciones son primero-clase</strong>: Tan importantes como el código</li>
+<li><strong>El workflow es estructurado</strong>: Fases definidas con artefactos</li>
+<li><strong>La trazabilidad es automática</strong>: Cada cambio tiene historial</li>
+<li><strong>La IA es guiada</strong>: Contexto claro en cada interacción</li>
+</ol>
+<section id="analogía-arquitectura-de-edificios" class="level3">
+<h3 class="anchored" data-anchor-id="analogía-arquitectura-de-edificios">Analogía: Arquitectura de Edificios</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Fase</th>
+<th>Arquitectura</th>
+<th>SDD</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Concepto</td>
+<td>Boceto inicial</td>
+<td><code>proposal.md</code></td>
+</tr>
+<tr class="even">
+<td>Planos</td>
+<td>Blueprints detallados</td>
+<td><code>spec.delta.md</code></td>
+</tr>
+<tr class="odd">
+<td>Ingeniería</td>
+<td>Cálculos estructurales</td>
+<td><code>design.md</code></td>
+</tr>
+<tr class="even">
+<td>Construcción</td>
+<td>Lista de tareas</td>
+<td><code>tasks.md</code></td>
+</tr>
+<tr class="odd">
+<td>Ejecución</td>
+<td>Obra</td>
+<td>Implementación</td>
+</tr>
+<tr class="even">
+<td>Inspección</td>
+<td>Certificación</td>
+<td><code>verification.md</code></td>
+</tr>
+<tr class="odd">
+<td>Archivo</td>
+<td>Planos finales</td>
+<td><code>specs/*.spec.md</code></td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+</section>
+<section id="las-8-fases-de-sdd" class="level2">
+<h2 class="anchored" data-anchor-id="las-8-fases-de-sdd">🔄 Las 8 Fases de SDD</h2>
+<section id="init---inicialización" class="level3">
+<h3 class="anchored" data-anchor-id="init---inicialización">1. INIT - Inicialización</h3>
+<p><strong>Propósito</strong>: Preparar el proyecto para SDD</p>
+<p><strong>Artefacto</strong>: <code>openspec/config.yaml</code></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">schema</span><span class="kw">:</span><span class="at"> spec-driven</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">context</span><span class="kw">: </span><span class="ch">|</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  Tech stack: Node.js, Express</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  Architecture: REST API</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  Testing: Jest</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">rules</span><span class="kw">:</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">specs</span><span class="kw">:</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> Use Given/When/Then format</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> Use RFC 2119 keywords (MUST, SHALL)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Comando</strong>: <code>/sdd:init</code></p>
+<hr>
+</section>
+<section id="explore---exploración-opcional" class="level3">
+<h3 class="anchored" data-anchor-id="explore---exploración-opcional">2. EXPLORE - Exploración (Opcional)</h3>
+<p><strong>Propósito</strong>: Investigar antes de comprometerse</p>
+<p><strong>Artefacto</strong>: Exploración inline o <code>exploration.md</code></p>
+<p><strong>Cuándo usar</strong>:</p>
+<ul>
+<li>Requisitos poco claros</li>
+<li>Múltiples opciones de implementación</li>
+<li>Necesitas entender código existente</li>
+</ul>
+<p><strong>Comando</strong>: <code>/sdd:explore &lt;topic&gt;</code></p>
+<hr>
+</section>
+<section id="propose---propuesta" class="level3">
+<h3 class="anchored" data-anchor-id="propose---propuesta">3. PROPOSE - Propuesta</h3>
+<p><strong>Propósito</strong>: Definir QUÉ y POR QUÉ</p>
+<p><strong>Artefacto</strong>: <code>openspec/changes/NNN-name/proposal.md</code></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Proposal: Add Health Endpoint</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## Intent</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>Add /health for Kubernetes health checks</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">## Scope</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>In scope: GET /health, JSON response</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>Out of scope: Database checks, auth</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="fu">## Approach</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>Add route in app.js, minimal implementation</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="fu">## Risks</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>Low - simple endpoint, no side effects</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="fu">## Rollback</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>Remove route if issues arise</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Comando</strong>: <code>/sdd:new &lt;name&gt;</code></p>
+<hr>
+</section>
+<section id="spec---especificaciones" class="level3">
+<h3 class="anchored" data-anchor-id="spec---especificaciones">4. SPEC - Especificaciones</h3>
+<p><strong>Propósito</strong>: Definir comportamientos esperados</p>
+<p><strong>Artefacto</strong>: <code>openspec/changes/NNN-name/spec.delta.md</code></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Spec Delta: Add Health Endpoint</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## Requirements</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">### REQ-1: Endpoint Availability</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>The system SHALL provide GET /health.</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>MUST respond within 100ms.</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="fu">## Scenarios</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="fu">### SCENARIO-1: Healthy Response</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>**Given** the API is running</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>**When** GET /health is requested</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>**Then** response is 200 OK</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>**And** body contains { "status": "ok" }</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Comando</strong>: <code>/sdd:spec</code></p>
+<p><strong>Keywords RFC 2119</strong>:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Keyword</th>
+<th>Significado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>MUST</td>
+<td>Requisito obligatorio</td>
+</tr>
+<tr class="even">
+<td>SHALL</td>
+<td>Comportamiento requerido</td>
+</tr>
+<tr class="odd">
+<td>SHOULD</td>
+<td>Recomendado</td>
+</tr>
+<tr class="even">
+<td>MAY</td>
+<td>Opcional</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="design---diseño-técnico" class="level3">
+<h3 class="anchored" data-anchor-id="design---diseño-técnico">5. DESIGN - Diseño Técnico</h3>
+<p><strong>Propósito</strong>: Definir CÓMO implementar</p>
+<p><strong>Artefacto</strong>: <code>openspec/changes/NNN-name/design.md</code></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Design: Add Health Endpoint</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## Architecture Decisions</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">### ADR-1: Inline Route</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>**Context**: Health check is simple</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>**Decision**: Add directly in app.js</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>**Consequences**: Minimal change, easy to test</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="fu">## Technical Approach</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="fu">### Components Affected</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>src/app.js: Add health route</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="fu">### Sequence Diagram</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>Client -&gt; API: GET /health</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>API -&gt; Client: 200 { status, timestamp }</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Comando</strong>: <code>/sdd:plan</code> o <code>/sdd:design</code></p>
+<hr>
+</section>
+<section id="tasks---tareas" class="level3">
+<h3 class="anchored" data-anchor-id="tasks---tareas">6. TASKS - Tareas</h3>
+<p><strong>Propósito</strong>: Desglosar en unidades completables</p>
+<p><strong>Artefacto</strong>: <code>openspec/changes/NNN-name/tasks.md</code></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Tasks: Add Health Endpoint</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## Phase 1: Implementation</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="va">[ ]</span> 1.1 Add GET /health route</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="va">[ ]</span> 1.2 Return JSON with status</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="fu">## Phase 2: Testing</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="va">[ ]</span> 2.1 Add Jest test</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="va">[ ]</span> 2.2 Test 200 response</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="va">[ ]</span> 2.3 Test JSON format</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Reglas de tareas</strong>:</p>
+<ul>
+<li>✅ Completable en una sesión</li>
+<li>✅ Número jerárquico (1.1, 1.2)</li>
+<li>✅ Agrupadas por fase</li>
+<li>✅ Incluyen testing</li>
+</ul>
+<p><strong>Comando</strong>: <code>/sdd:tasks</code></p>
+<hr>
+</section>
+<section id="apply---implementación" class="level3">
+<h3 class="anchored" data-anchor-id="apply---implementación">7. APPLY - Implementación</h3>
+<p><strong>Propósito</strong>: Ejecutar las tareas</p>
+<p><strong>Comando</strong>: <code>/sdd:implement [task-number]</code></p>
+<p><strong>Proceso</strong>:</p>
+<ol type="1">
+<li>Lee specs y design</li>
+<li>Carga skills relevantes (react-19, typescript, etc.)</li>
+<li>Implementa siguiendo el diseño</li>
+<li>Marca tarea completada</li>
+<li>Continúa con siguiente tarea</li>
+</ol>
+<hr>
+</section>
+<section id="verify---verificación" class="level3">
+<h3 class="anchored" data-anchor-id="verify---verificación">8. VERIFY - Verificación</h3>
+<p><strong>Propósito</strong>: Validar contra especificaciones</p>
+<p><strong>Artefacto</strong>: <code>openspec/changes/NNN-name/verification.md</code></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Verification: Add Health Endpoint</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## Requirements Coverage</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Requirement <span class="pp">|</span> Status <span class="pp">|</span> Notes <span class="pp">|</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="pp">|-------------|--------|-------|</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> REQ-1 <span class="pp">|</span> ✅ PASS <span class="pp">|</span> Implemented <span class="pp">|</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="fu">## Scenario Results</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Scenario <span class="pp">|</span> Status <span class="pp">|</span> Evidence <span class="pp">|</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="pp">|----------|--------|----------|</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> SCENARIO-1 <span class="pp">|</span> ✅ PASS <span class="pp">|</span> tests/health.test.js <span class="pp">|</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="fu">## Test Results</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>All 3 tests passing</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Comando</strong>: <code>/sdd:verify</code></p>
+<hr>
+</section>
+<section id="archive---archivado" class="level3">
+<h3 class="anchored" data-anchor-id="archive---archivado">9. ARCHIVE - Archivado</h3>
+<p><strong>Propósito</strong>: Completar y merge specs</p>
+<p><strong>Comando</strong>: <code>/sdd:archive</code></p>
+<p><strong>Proceso</strong>:</p>
+<ol type="1">
+<li>Verifica tareas completas</li>
+<li>Merge spec.delta.md → specs/*.spec.md</li>
+<li>Mueve cambio a archive/</li>
+<li>Guarda aprendizajes en Engram</li>
+</ol>
+<hr>
+</section>
+</section>
+<section id="estructura-de-directorios" class="level2">
+<h2 class="anchored" data-anchor-id="estructura-de-directorios">📁 Estructura de Directorios</h2>
+<pre><code>project/
+├── openspec/
+│   ├── config.yaml              # Config del proyecto
+│   ├── specs/                   # Source of truth
+│   │   ├── core/
+│   │   │   └── auth.spec.md
+│   │   └── features/
+│   │       └── health.spec.md
+│   └── changes/                 # Cambios activos
+│       ├── 001-add-health/
+│       │   ├── proposal.md
+│       │   ├── spec.delta.md
+│       │   ├── design.md
+│       │   ├── tasks.md
+│       │   └── verification.md
+│       └── archive/             # Completados
+│           └── 001-add-health/
+└── src/                         # Código</code></pre>
+<hr>
+</section>
+<section id="beneficios-de-sdd" class="level2">
+<h2 class="anchored" data-anchor-id="beneficios-de-sdd">🎯 Beneficios de SDD</h2>
+<section id="para-desarrolladores" class="level3">
+<h3 class="anchored" data-anchor-id="para-desarrolladores">Para Desarrolladores</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Beneficio</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Claridad</td>
+<td>Sabes exactamente qué construir</td>
+</tr>
+<tr class="even">
+<td>Trazabilidad</td>
+<td>Historial de decisiones</td>
+</tr>
+<tr class="odd">
+<td>Consistencia</td>
+<td>IA sigue patrones definidos</td>
+</tr>
+<tr class="even">
+<td>Revisibilidad</td>
+<td>Specs como contrato</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="para-equipos" class="level3">
+<h3 class="anchored" data-anchor-id="para-equipos">Para Equipos</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Beneficio</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Onboarding</td>
+<td>Nuevos miembros leen specs</td>
+</tr>
+<tr class="even">
+<td>Code Review</td>
+<td>Verificar contra specs</td>
+</tr>
+<tr class="odd">
+<td>Conocimiento</td>
+<td>Specs como documentación viva</td>
+</tr>
+<tr class="even">
+<td>Calidad</td>
+<td>Tests derivados de scenarios</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="para-proyectos" class="level3">
+<h3 class="anchored" data-anchor-id="para-proyectos">Para Proyectos</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Beneficio</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Mantenibilidad</td>
+<td>Specs actualizan con código</td>
+</tr>
+<tr class="even">
+<td>Onboarding</td>
+<td>Contexto preservado</td>
+</tr>
+<tr class="odd">
+<td>Rollback</td>
+<td>Cambios documentados</td>
+</tr>
+<tr class="even">
+<td>Compliance</td>
+<td>Auditoría disponible</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+</section>
+<section id="escenario-real-sin-sdd-vs-con-sdd" class="level2">
+<h2 class="anchored" data-anchor-id="escenario-real-sin-sdd-vs-con-sdd">🎭 Escenario Real: Sin SDD vs Con SDD</h2>
+<section id="sin-sdd" class="level3">
+<h3 class="anchored" data-anchor-id="sin-sdd">Sin SDD</h3>
+<pre class="text"><code>Dev: "Claude, agrega login"
+Claude: [genera código]
+Dev: "No, quería OAuth"
+Claude: [regenera]
+Dev: "Pero falta el logout"
+Claude: [agrega más código]
+Dev: "Ahora hay bugs..."
+[Loop infinito de correcciones]</code></pre>
+</section>
+<section id="con-sdd" class="level3">
+<h3 class="anchored" data-anchor-id="con-sdd">Con SDD</h3>
+<pre class="text"><code>Dev: /sdd:new add-oauth-auth
+Claude: [crea propuesta con opciones OAuth]
+Dev: [revisa, ajusta scope]
+Claude: [crea specs con escenarios]
+Dev: [aprueba specs]
+Claude: [crea diseño con bibliotecas]
+Dev: [aprueba diseño]
+Claude: [implementa paso a paso]
+Dev: [verifica, archiva]
+[Resultado: código correcto primera vez]</code></pre>
+<hr>
+</section>
+</section>
+<section id="lo-que-aprendiste" class="level2">
+<h2 class="anchored" data-anchor-id="lo-que-aprendiste">🎓 Lo Que Aprendiste</h2>
+<ol type="1">
+<li><strong>SDD</strong> es una metodología donde specs son first-class</li>
+<li><strong>8 fases</strong> estructuran el trabajo con IA</li>
+<li><strong>Cada fase</strong> produce artefactos específicos</li>
+<li><strong>Trazabilidad</strong> automática en cada cambio</li>
+<li><strong>IA guiada</strong> reduce alucinaciones y aumenta calidad</li>
+</ol>
+<hr>
+</section>
+<section id="siguiente-paso" class="level2">
+<h2 class="anchored" data-anchor-id="siguiente-paso">🚀 Siguiente Paso</h2>
+<p>Continúa con <a href="../ai-workflows/01b-context-architecture.html">Módulo 1B: Context Architecture</a> para profundizar en la arquitectura de contexto.</p>
+<hr>
+<p><em>Módulo 1.0 | Duración: 30 min | Dificultad: 🟢 Básico</em></p>
+<hr>
+</section>
+<section id="los-3-niveles-de-sdd" class="level2">
+<h2 class="anchored" data-anchor-id="los-3-niveles-de-sdd">📊 Los 3 Niveles de SDD</h2>
+<p>Birgitta Böckeler (Thoughtworks) identificó tres niveles de implementación:</p>
+<section id="nivel-1-spec-first" class="level3">
+<h3 class="anchored" data-anchor-id="nivel-1-spec-first">Nivel 1: Spec-First</h3>
+<pre><code>Spec → Implementación → Spec descartada</code></pre>
+<p><strong>Características</strong>: - Specs se escriben antes del código - Sirven como guía durante la implementación - Se descartan o archivan después</p>
+<p><strong>Cuándo usar</strong>: - Features nuevas - Proyectos greenfield - Cambios aislados</p>
+</section>
+<section id="nivel-2-spec-anchored" class="level3">
+<h3 class="anchored" data-anchor-id="nivel-2-spec-anchored">Nivel 2: Spec-Anchored</h3>
+<pre><code>Spec → Implementación → Spec persiste → Actualizaciones</code></pre>
+<p><strong>Características</strong>: - Specs viven junto al código - Se actualizan cuando cambia la funcionalidad - Son “source of truth” persistente</p>
+<p><strong>Cuándo usar</strong>: - Features críticas del sistema - APIs públicas - Componentes compartidos</p>
+</section>
+<section id="nivel-3-spec-as-source" class="level3">
+<h3 class="anchored" data-anchor-id="nivel-3-spec-as-source">Nivel 3: Spec-as-Source</h3>
+<pre><code>Spec (editado por humanos) → Código generado</code></pre>
+<p><strong>Características</strong>: - Humanos SOLO editan specs - Código es generado automáticamente - Código lleva comentario <code>// GENERATED FROM SPEC - DO NOT EDIT</code></p>
+<p><strong>Cuándo usar</strong>: - Componentes bien definidos - APIs con contratos estables - Experimental (todavía madurando)</p>
+</section>
+<section id="comparación-de-niveles" class="level3">
+<h3 class="anchored" data-anchor-id="comparación-de-niveles">Comparación de Niveles</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Nivel</th>
+<th>Edición Humana</th>
+<th>Trazabilidad</th>
+<th>Mantenibilidad</th>
+<th>Madurez</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Spec-First</td>
+<td>Código + Spec</td>
+<td>Temporal</td>
+<td>Media</td>
+<td>Alta</td>
+</tr>
+<tr class="even">
+<td>Spec-Anchored</td>
+<td>Código + Spec</td>
+<td>Permanente</td>
+<td>Alta</td>
+<td>Media</td>
+</tr>
+<tr class="odd">
+<td>Spec-as-Source</td>
+<td>Solo Spec</td>
+<td>Total</td>
+<td>Variable</td>
+<td>Baja</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+</section>
+<section id="tipos-de-specs" class="level2">
+<h2 class="anchored" data-anchor-id="tipos-de-specs">📝 Tipos de Specs</h2>
+<p>Patrick Debois (AI Native Dev) identifica 4 tipos:</p>
+<section id="specs-funcionalestécnicos" class="level3">
+<h3 class="anchored" data-anchor-id="specs-funcionalestécnicos">1. Specs Funcionales/Técnicos</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Feature: Health Endpoint</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## Requirements</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>GET /health returns 200 OK</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Response includes status and timestamp</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="fu">## Acceptance Criteria</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>GIVEN API is running</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>WHEN GET /health</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>THEN 200 OK with { status: "ok" }</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Propósito</strong>: Describir QUÉ hace el sistema</p>
+</section>
+<section id="specs-de-identidad-de-agente" class="level3">
+<h3 class="anchored" data-anchor-id="specs-de-identidad-de-agente">2. Specs de Identidad de Agente</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Agent: Code Reviewer</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## Role</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>You are a senior code reviewer...</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="fu">## Capabilities</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Review code for patterns</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Suggest improvements</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Check security issues</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="fu">## Boundaries</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>DO NOT modify code directly</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ONLY suggest changes</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Propósito</strong>: Definir personalidad y límites del agente</p>
+</section>
+<section id="specs-de-workflowtareas" class="level3">
+<h3 class="anchored" data-anchor-id="specs-de-workflowtareas">3. Specs de Workflow/Tareas</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Workflow: Feature Development</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## Steps</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Create proposal</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Write specs</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Design architecture</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Break into tasks</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>Implement</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="ss">6. </span>Verify</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="ss">7. </span>Archive</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Propósito</strong>: Describir procesos y secuencias</p>
+</section>
+<section id="specs-de-conocimientouso" class="level3">
+<h3 class="anchored" data-anchor-id="specs-de-conocimientouso">4. Specs de Conocimiento/Uso</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Knowledge: Authentication Patterns</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## OAuth 2.0 Flow</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Authorization Code for web apps</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>PKCE for SPAs</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Client Credentials for services</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="fu">## Session Management</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>JWT for stateless</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Redis for stateful</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Propósito</strong>: Capturar conocimiento del dominio</p>
+<hr>
+</section>
+</section>
+<section id="desafíos-de-sdd" class="level2">
+<h2 class="anchored" data-anchor-id="desafíos-de-sdd">⚠️ Desafíos de SDD</h2>
+<section id="context-window-constraints" class="level3">
+<h3 class="anchored" data-anchor-id="context-window-constraints">Context Window Constraints</h3>
+<p><strong>Problema</strong>: Demasiados specs sobrecargan el contexto del LLM</p>
+<p><strong>Soluciones</strong>: - RAG/Context selection - Subagentes con contexto específico - AST parsing + LSP integration</p>
+</section>
+<section id="escribir-buenas-specs" class="level3">
+<h3 class="anchored" data-anchor-id="escribir-buenas-specs">Escribir Buenas Specs</h3>
+<p><strong>Problema</strong>: Los desarrolladores no están acostumbrados a escribir requisitos precisos</p>
+<p><strong>Soluciones</strong>: - Templates estandarizados - Checklists de validación - Iteración basada en feedback del agente</p>
+</section>
+<section id="spec-vs-memory-bank" class="level3">
+<h3 class="anchored" data-anchor-id="spec-vs-memory-bank">Spec vs Memory Bank</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Memory Bank</th>
+<th>Spec</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Contexto global</td>
+<td>Contexto específico</td>
+</tr>
+<tr class="even">
+<td>Reglas del proyecto</td>
+<td>Requisitos de feature</td>
+</tr>
+<tr class="odd">
+<td>Persistente</td>
+<td>Temporal o persistente</td>
+</tr>
+<tr class="even">
+<td>AGENTS.md</td>
+<td>spec.md</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+</section>
+<section id="specs-vs-otros-conceptos" class="level2">
+<h2 class="anchored" data-anchor-id="specs-vs-otros-conceptos">🔗 Specs vs Otros Conceptos</h2>
+<section id="spec-vs-prompt" class="level3">
+<h3 class="anchored" data-anchor-id="spec-vs-prompt">Spec vs Prompt</h3>
+<pre class="text"><code>Prompt: "Add a health endpoint"
+→ Instrucción única, sin estructura
+
+Spec: Documento estructurado con requisitos
+→ Fuente de verdad, persistente, versionable</code></pre>
+</section>
+<section id="spec-vs-test" class="level3">
+<h3 class="anchored" data-anchor-id="spec-vs-test">Spec vs Test</h3>
+<pre class="text"><code>Test: Verifica comportamiento después
+→ "¿Funciona como esperado?"
+
+Spec: Define comportamiento antes
+→ "¿Qué se espera que haga?"</code></pre>
+<p><strong>SDD + TDD = Mejor juntos</strong>: 1. Spec define QUÉ 2. Tests verifican QUÉ 3. Implementación es CÓMO</p>
+<hr>
+</section>
+</section>
+<section id="siguiente-paso-1" class="level2">
+<h2 class="anchored" data-anchor-id="siguiente-paso-1">🚀 Siguiente Paso</h2>
+<p>Continúa con <a href="../ai-workflows/01b-context-architecture.html">Módulo 1B: Context Architecture</a> para profundizar en la arquitectura de contexto.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
