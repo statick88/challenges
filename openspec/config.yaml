@@ -1,0 +1,37 @@
+schema: spec-driven
+
+context: |
+  Tech stack: Astro 5.17, Quarto, Tailwind CSS 3.4, TypeScript, marked.js
+  Architecture: Static site generator + documentation site, multi-program learning platform
+  Testing: Validation scripts (validate-structure, validate-frontmatter, validate-consistency)
+  Style: Prettier with astro plugin, Markdown with front matter schema
+  Content: Linux, Docker, DevOps, CTF, HTB Academy courses
+
+rules:
+  proposal:
+    - Include rollback plan for risky changes
+    - Identify affected modules (challenges/, learning-journey/, landing-page/)
+    - Consider impact on both Astro dashboard and Quarto documentation
+  specs:
+    - Use Given/When/Then format for scenarios
+    - Use RFC 2119 keywords (MUST, SHALL, SHOULD, MAY)
+    - Define front matter schema for new content types
+  design:
+    - Document how changes affect both SSG outputs (dist/ and _site/)
+    - Include navigation structure changes if applicable
+    - Consider GitHub Actions CI/CD pipeline impact
+  tasks:
+    - Group tasks by phase (content, infrastructure, validation)
+    - Use hierarchical numbering (1.1, 1.2, etc.)
+    - Keep tasks completable in one session
+  apply:
+    - Follow existing content patterns and narrative styles (AGENTS.md)
+    - Maintain naming conventions per category (linux, docker, devops, ctf)
+    - Run validation after content changes
+  verify:
+    - Run npm run validate:all after changes
+    - Run npm run build to verify build succeeds
+    - Check markdown rendering with marked.js
+  archive:
+    - Update security/index.qmd if adding new courses
+    - Warn before merging destructive deltas
