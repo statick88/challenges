@@ -70,58 +70,71 @@ jobs:
         with:
           path: ./landing-page/dist
 
-  test:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-
-      - name: Install dependencies
-        working-directory: ./landing-page
-        run: npm ci
-
-      - name: Install Playwright browsers
-        working-directory: ./landing-page
-        run: npx playwright install --with-deps chromium
-
-      - name: Build for testing
-        working-directory: ./landing-page
-        run: npm run build
-        env:
-          GITHUB_PAGES: "true"
-
-      - name: Run E2E tests
-        working-directory: ./landing-page
-        run: npx playwright test --reporter=list
-
-      - name: Upload test results
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: playwright-report
-          path: landing-page/playwright-report/
-          retention-days: 7
+  # NOTE: E2E tests disabled - no test files exist in landing-page/tests/
+  # To enable in the future:
+  # 1. Add test files to landing-page/tests/e2e/
+  # 2. Add @playwright/test to landing-page/package.json devDependencies
+  # 3. Uncomment the test job below
+  # test:
+  #   runs-on: ubuntu-latest
+  #   needs: build
+  #   steps:
+  #     - name: Checkout repository
+  #       uses: actions/checkout@v4
+  #
+  #     - name: Setup Node.js
+  #       uses: actions/setup-node@v4
+  #       with:
+  #         node-version: "20"
+  #
+  #     - name: Install dependencies
+  #       working-directory: ./landing-page
+  #       run: npm ci
+  #
+  #     - name: Install Playwright browsers
+  #       working-directory: ./landing-page
+  #       run: npx playwright install --with-deps chromium
+  #
+  #     - name: Build for testing
+  #       working-directory: ./landing-page
+  #       run: npm run build
+  #       env:
+  #         GITHUB_PAGES: "true"
+  #
+  #     - name: Run E2E tests
+  #       working-directory: ./landing-page
+  #       run: npx playwright test --reporter=list
+  #
+  #     - name: Upload test results
+  #       if: always()
+  #       uses: actions/upload-artifact@v4
+  #       with:
+  #         name: playwright-report
+  #         path: landing-page/playwright-report/
+  #         retention-days: 7
 
   deploy:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    needs: [build, test]
+    needs: [build]
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
 
+  # NOTE: E2E tests disabled - no test files exist in landing-page/tests/
+  # To enable: add @playwright/test to dependencies and create test files
+  # test:
+  #   runs-on: ubuntu-latest
+  #   needs: build
+  #   steps:
+  #     ...
+
   notify:
     runs-on: ubuntu-latest
-    needs: [build, test, deploy]
+    needs: [build, deploy]
     if: success()
     steps:
       - name: Get updated stats
