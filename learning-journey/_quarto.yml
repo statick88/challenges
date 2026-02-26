@@ -42,6 +42,8 @@ format:
     highlight-style: github
     lang: es-ES
     link-citations: true
+    bibliography: references.bib
+    csl: ieee.csl
     
 execute:
   freeze: auto

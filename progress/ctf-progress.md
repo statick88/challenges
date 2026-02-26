@@ -85,7 +85,7 @@
 
 - [🚩 Índice de Retos CTF](../challenges/ctf/README.md)
 - [📊 Progreso General](./overview.md)
-- [📝 Plantilla de Writeup CTF](../templates/ctf-writeup-template.md)
+- [📝 Plantilla de Writeup CTF](../landing-page/templates/ctf-writeup-template.md)
 
 ---
 

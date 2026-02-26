@@ -169,8 +169,8 @@ technical-challenges/
 - [⚙️ DevOps 100 Days](./challenges/devops/README.md) - Daily DevOps challenges
 
 ### 📝 Resources
-- [📋 Challenge Templates](./templates/) - Documentation templates
-- [📖 Command Reference](./templates/command-reference.md) - Command cheat sheet
+- [📋 Challenge Templates](./landing-page/templates/) - Documentation templates
+- [📖 Command Reference](./landing-page/templates/command-reference.md) - Command cheat sheet
 - [🎯 Best Practices](./docs/best-practices.md) - Learning methodology
 
 ---

@@ -95,7 +95,7 @@ cursos/
 ## 🔗 Quick Links
 
 ### Dashboards
-- [Landing Page](./landing-page/dist/) - Interactive progress dashboard
+- [Landing Page](./landing-page/) - Interactive progress dashboard (source)
 - [Learning Journey](./learning-journey/) - Quarto documentation site
 
 ### Course Notes

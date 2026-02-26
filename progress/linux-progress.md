@@ -216,9 +216,9 @@
 
 ### 📚 Command References
 
-- [`useradd` manual](../templates/command-reference.md#user-management)
-- [`groupadd` guide](../templates/command-reference.md#group-management)
-- [`chmod` reference](../templates/command-reference.md#permissions)
+- [`useradd` manual](../landing-page/templates/command-reference.md#user-management)
+- [`groupadd` guide](../landing-page/templates/command-reference.md#group-management)
+- [`chmod` reference](../landing-page/templates/command-reference.md#permissions)
 
 ### 🎓 Learning Materials
 

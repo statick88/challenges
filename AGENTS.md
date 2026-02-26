@@ -61,6 +61,313 @@ technical-challenges/
 
 ---
 
+## 🎯 Spec-Driven Development (SDD) - Gentleman Programming
+
+> 📚 **Basado en**: Gentleman Programming Book - "Cómo ser TONY STARK con IA"
+> 
+> El SDD es una metodología que combina Spec-Driven Development con Agentes IA, Subagentes y Memoria Persistente para crear un flujo de trabajo profesional de desarrollo de software.
+
+### **Filosofía SDD**
+
+Según el **Gentleman Programming Book**, el desarrollo de software con IA requiere un enfoque sistemático donde la especificación precede a la implementación. Este enfoque garantiza que:
+
+1. **La IA nunca假设 (Assumes)** - Siempre trabaja con specs documentadas
+2. **El cambio es trazable** - Cada modificación pasa por un proceso formal
+3. **El conocimiento persiste** - Las decisiones se guardan en memoria para referencia futura
+4. **La verificación es automática** - La implementación se valida contra specs antes de archivar
+
+> 💡 **Cita del Gentleman Programming Book**: *"El agente que asume es el enemigo de la calidad. Un agente profesional trabaja con specs, no con suposiciones."*
+
+---
+
+### **Flujo SDD Completo**
+
+El flujo SDD sigue el ciclo: **Proposal → Specs → Design → Tasks → Apply → Verify → Archive**
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                           FLUJO SDD - GENTLEMAN PROGRAMMING                  │
+│                                                                              │
+│   ┌─────────┐    ┌─────────┐    ┌─────────┐    ┌─────────┐                │
+│   │ PROPOSE │───►│  SPEC   │───►│ DESIGN  │───►│  TASKS  │                │
+│   └─────────┘    └─────────┘    └─────────┘    └─────────┘                │
+│        │                                               │                    │
+│        │                                               ▼                    │
+│        │                                        ┌─────────┐                │
+│        │                                        │  APPLY  │                │
+│        │                                        └─────────┘                │
+│        │                                               │                    │
+│        │                                               ▼                    │
+│        │                                        ┌─────────┐                │
+│        └───────────────────────────────────────►│ VERIFY  │                │
+│                                                 └─────────┘                │
+│                                                        │                    │
+│                                                        ▼                    │
+│                                                 ┌─────────┐                │
+│                                                 │ ARCHIVE │                │
+│                                                 └─────────┘                │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+### **Comandos SDD**
+
+| Comando | Propósito | Skill SDD |
+|---------|-----------|------------|
+| `/sdd:init` | Inicializar openspec/ en el proyecto | `sdd-init` |
+| `/sdd:explore <topic>` | Explorar ideas e investigar | `sdd-explore` |
+| `/sdd:new <change-name>` | Crear nueva propuesta de cambio | `sdd-propose` |
+| `/sdd:spec` | Escribir especificaciones (delta specs) | `sdd-spec` |
+| `/sdd:design` | Crear documento de diseño técnico | `sdd-design` |
+| `/sdd:tasks` | Desglosar en tareas ejecutables | `sdd-tasks` |
+| `/sdd:ff <name>` | Fast-forward: crear todos los artifacts | - |
+| `/sdd:apply` | Implementar las tareas | `sdd-apply` |
+| `/sdd:verify` | Validar implementación vs specs | `sdd-verify` |
+| `/sdd:archive` | Sincronizar specs y archivar cambio | `sdd-archive` |
+
+---
+
+### **Estructura openspec/**
+
+```
+proyecto/
+└── openspec/
+    ├── config.yaml                 # Configuración del proyecto SDD
+    ├── specs/                     # Specs principales (fuente de verdad)
+    │   └── {domain}/
+    │       └── spec.md
+    ├── design/                    # Documentos de diseño
+    │   └── {domain}/
+    │       └── design.md
+    └── changes/                   # Cambios en progreso y archivados
+        ├── {change-name}/
+        │   ├── proposal.md        # Intención del cambio
+        │   ├── specs/            # Delta specs (específicos del cambio)
+        │   │   └── {domain}/
+        │   │       └── spec.md
+        │   ├── design.md         # Diseño del cambio
+        │   ├── tasks.md          # Checklist de tareas
+        │   └── verify-report.md   # Reporte de verificación
+        └── archive/              # Cambios completados
+            └── YYYY-MM-DD-{change-name}/
+```
+
+---
+
+### **Protocolo de Memoria (Engram)**
+
+> 📚 **Referencia**: Gentleman Programming Book - Capítulo de Memoria Persistente
+
+El protocolo de memoria es **OBLIGATORIO** según las prácticas de Gentleman Programming. El agente debe guardar en Engram:
+
+#### **Cuándo Guardar (OBLIGATORIO)**
+
+1. **Decisiones de Arquitectura**:
+   ```typescript
+   // Guardar con: mem_save
+   {
+     title: "Chose Zustand over Redux",
+     type: "decision",
+     content: "**What**: Replaced express-session with jsonwebtoken\n**Why**: Session storage doesn't scale\n**Learned**: Must set httpOnly and secure flags"
+   }
+   ```
+
+2. **Bugs Encontrados y Fixes**:
+   ```typescript
+   {
+     title: "Fixed N+1 query in UserList",
+     type: "bugfix",
+     content: "**What**: Added eager loading with include()\n**Where**: src/store/user.ts"
+   }
+   ```
+
+3. **Patrones Establecidos**:
+   ```typescript
+   {
+     title: "Naming convention: use camelCase for APIs",
+     type: "pattern"
+   }
+   ```
+
+4. **Preferencias del Usuario**:
+   ```typescript
+   {
+     title: "User prefers Tailwind over CSS modules",
+     type: "preference",
+     scope: "personal"
+   }
+   ```
+
+#### **Cuándo Buscar**
+
+- El usuario pregunta: "¿recuerdas cómo...?"
+- Antes de empezar tarea similar a trabajo anterior
+- Cuando el usuario menciona tema sin contexto
+
+#### **Session Summary (OBLIGATORIO)**
+
+Al terminar cada sesión, el agente debe llamar a `mem_session_summary`:
+
+```markdown
+## Goal
+[Qué estábamos trabajando]
+
+## Instructions
+[Preferencias descubiertas]
+
+## Discoveries
+- [Hallazgos técnicos, gotchas]
+
+## Accomplished
+- ✅ [Tarea completada 1]
+- ✅ [Tarea completada 2]
+
+## Next Steps
+- [Qué falta por hacer]
+
+## Relevant Files
+- path/to/file.ts — [qué hace]
+```
+
+> 💡 **Cita del Gentleman Programming Book**: *"La memoria es lo que diferencia a un agente profesional de uno amateur. Sin memoria, cada sesión empieza desde cero."*
+
+---
+
+### **Skills SDD Disponibles**
+
+| Skill | Ubicación | Propósito |
+|-------|----------|-----------|
+| `sdd-init` | `~/.claude/skills/sdd-init/` | Bootstrap de openspec/ |
+| `sdd-propose` | `~/.claude/skills/sdd-propose/` | Crear propuesta de cambio |
+| `sdd-spec` | `~/.claude/skills/sdd-spec/` | Escribir especificaciones |
+| `sdd-explore` | `~/.claude/skills/sdd-explore/` | Investigar código existente |
+| `sdd-design` | `~/.claude/skills/sdd-design/` | Diseño técnico |
+| `sdd-tasks` | `~/.claude/skills/sdd-tasks/` | Desglose de tareas |
+| `sdd-apply` | `~/.claude/skills/sdd-apply/` | Implementar tareas |
+| `sdd-verify` | `~/.claude/skills/sdd-verify/` | Validar vs specs |
+| `sdd-archive` | `~/.claude/skills/sdd-archive/` | Archivar cambio |
+
+---
+
+### **Ejemplo Práctico: tailscale-mesh-network**
+
+A continuación un ejemplo real de cómo se aplicó SDD en este proyecto:
+
+#### **1. Proposal** (`sdd-propose`)
+```markdown
+# Proposal: Tailscale Mesh Network for Multi-VM Environment
+
+## Intent
+Establecer una red privada mesh entre MacBook Pro, Kali Linux VM y Debian VM...
+
+## Scope
+- Instalar y configurar Tailscale en las 3 máquinas
+- Configurar SSH con autenticación de clave pública
+- Documentar la topología de red
+```
+
+#### **2. Specs** (`sdd-spec`)
+```markdown
+# Delta for Tailscale Mesh Network
+
+## ADDED Requirements
+
+### Requirement: Tailscale Mesh VPN Connectivity
+The system MUST provide a mesh VPN network...
+
+#### Scenario: All nodes register with Tailscale network
+- GIVEN Tailscale is installed on all nodes
+- WHEN each node executes `tailscale up --authkey=<auth-key>`
+- THEN each node receives a unique Tailscale IP
+```
+
+#### **3. Design** (`sdd-design`)
+```markdown
+# Design: Tailscale Mesh Network
+
+## Technical Approach
+Usar Tailscale como overlay network para crear una mesh VPN...
+
+## Architecture Decisions
+- **Decision**: Tailscale vs ZeroTier vs WireGuard
+- **Choice**: Tailscale
+- **Rationale**: NAT traversal automático, setup simplificado con auth keys
+```
+
+#### **4. Tasks** (`sdd-tasks`)
+```markdown
+## Phase 1: Network Diagnostics
+- [x] 1.1 Escanear red local desde Mac
+- [x] 1.2 Verificar tabla ARP
+
+## Phase 2: Firewall Configuration
+- [x] 2.1 Verificar estado de UFW
+- [ ] 2.2 Configurar reglas de firewall
+```
+
+#### **5. Verify Report** (`sdd-verify`)
+```markdown
+## Verification Report
+
+### Completeness
+| Tasks Total | Completed | Incomplete |
+|-------------|-----------|------------|
+| 26          | 17        | 9          |
+
+### Verdict: ⚠️ PASS WITH WARNINGS
+```
+
+#### **6. Archive**
+- Specs delta → se copian a `openspec/specs/network/spec.md`
+- Change folder → se mueve a `openspec/changes/archive/YYYY-MM-DD-{change-name}/`
+
+---
+
+### **Integración con Engram**
+
+Según el **Gentleman Programming Book**, el agente debe:
+
+1. **Guardar automáticamente** cada decisión de implementación
+2. **Buscar proactivamente** antes de empezar trabajo similar
+3. **Al final de sesión**, siempre hacer `mem_session_summary`
+
+```bash
+# Verificar que Engram esté corriendo
+curl http://127.0.0.1:7437/health
+
+# Ver contexto reciente
+engram context
+
+# Buscar decisiones previas
+engram search "tailscale"
+```
+
+---
+
+### **Mejores Prácticas SDD**
+
+> 📚 **Basado en**: Gentleman Programming Book - Best Practices
+
+1. **Nuncaarchivar sin verificar** - Siempre ejecutar `sdd-verify` antes de archivar
+2. **Mantener specs sincronizadas** - Los cambios deben reflejarse en specs principales
+3. **Documentar el estado real** - Las tasks deben reflejar el estado actual de implementación
+4. **Usar memoria proactivamente** - Buscar decisiones previas antes de asumir
+5. **Nunca asumir** - Si hay duda, preguntar al usuario o buscar en memoria
+
+---
+
+### **Referencias**
+
+- **Gentleman Programming Book**: "Cómo ser TONY STARK con IA: Agentes, Subagentes, Memoria y Skills"
+- **Video Original**: https://youtu.be/SOxuW5K2FFY
+- **Engram**: https://github.com/Gentleman-Programming/engram
+- **MCP Spec**: https://modelcontextprotocol.io
+- **Skills SDD**: `~/.claude/skills/sdd-*/`
+- **Configuración Local**: `~/.config/opencode/GENTLEMAN_FLOW_SETUP.md`
+
+---
+
 ## 🎨 Narrative Style Guidelines
 
 ### **Role-Based Storytelling**
@@ -768,7 +1075,7 @@ PUBLIC_SITE_URL=http://localhost:4322
 - [Astro Docs](https://docs.astro.build)
 - [Tailwind CSS](https://tailwindcss.com)
 - [Marked.js](https://marked.js.org)
-- [Challenge Narrative Templates](./templates/)
+- [Challenge Narrative Templates](./landing-page/templates/)
 
 ### **Scripts Reference**
 
@@ -780,4 +1087,5 @@ PUBLIC_SITE_URL=http://localhost:4322
 
 ---
 
-_AGENTS.md v2.1 | Last Updated: 2026-02-11 | Repository: Technical Challenges_
+_AGENTS.md v2.2 | Last Updated: 2026-02-26 | Repository: Technical Challenges_
+_Compatible con SDD + Gentleman Programming Book_

@@ -225,9 +225,10 @@
 
 ### 📊 Analytics & Reports
 
-- [📈 Learning Analytics Dashboard](./analytics.md)
-- [🎯 Goal Tracking](./goals.md)
-- [🏅 Achievement System](./achievements.md)
+> ⚠️ Los siguientes archivos aún no han sido implementados:
+> - 📈 Learning Analytics Dashboard (`./analytics.md`) - Pendiente
+> - 🎯 Goal Tracking (`./goals.md`) - Pendiente  
+> - 🏅 Achievement System (`./achievements.md`) - Pendiente
 
 ---
 
