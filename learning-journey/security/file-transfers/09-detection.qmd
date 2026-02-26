@@ -1,3 +1,7 @@
+---
+bibliography: ../../references.bib
+---
+
 # Detección de Transferencias de Archivos
 
 Técnicas para detectar transferencias de archivos maliciosas en una red.
@@ -176,10 +180,10 @@ index=firewall dest_port=53
 
 | Técnica | ID | Indicadores |
 |---------|-----|-------------|
-| Ingress Tool Transfer | T1105 | certutil, wget, curl, bitsadmin |
-| Exfiltration Over C2 Channel | T1041 | Tráfico HTTP no estándar |
-| Exfiltration Over Web Service | T1567 | Uploads a cloud storage |
-| Exfiltration Over Alternative Protocol | T1048 | DNS, ICMP, uncommon ports |
+| Ingress Tool Transfer | T1105 [@mitreT1105] | certutil, wget, curl, bitsadmin |
+| Exfiltration Over C2 Channel | T1041 [@mitreT1041] | Tráfico HTTP no estándar |
+| Exfiltration Over Web Service | T1567 [@mitreT1567] | Uploads a cloud storage |
+| Exfiltration Over Alternative Protocol | T1048 [@mitreT1048] | DNS, ICMP, uncommon ports |
 
 ### Patrones de comportamiento
 

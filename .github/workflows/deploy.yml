@@ -10,6 +10,7 @@ on:
       - "landing-page/src/**"
       - "landing-page/scripts/**"
       - "landing-page/package.json"
+      - "landing-page/package-lock.json"
       - "landing-page/tailwind.config.js"
       - "learning-journey/**"
       - ".github/workflows/deploy.yml"

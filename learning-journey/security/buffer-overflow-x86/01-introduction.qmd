@@ -1,3 +1,7 @@
+---
+bibliography: ../../references.bib
+---
+
 # Buffer Overflows Overview
 
 Los buffer overflows son vulnerabilidades comunes en aplicaciones de software que pueden ser explotadas para lograr ejecución remota de código (RCE) o realizar ataques de Denegación de Servicio (DoS).
@@ -23,11 +27,11 @@ Un buffer overflow puede:
 
 ## Ejemplos Históricos
 
-### CVE-2021-3156
+### CVE-2021-3156 [@cve20213156]
 
 Heap-Based Buffer Overflow en sudo - demuestra que estas vulnerabilidades siguen siendo relevantes.
 
-### CVE-2017-12542
+### CVE-2017-12542 [@cve201712542]
 
 HP iLO Management - Buffer overflow en HTTP Header con solo 29 caracteres, causando bypass de autenticación.
 
