@@ -7,6 +7,23 @@ context: |
   Style: Prettier with astro plugin, Markdown with front matter schema
   Content: Linux, Docker, DevOps, CTF, HTB Academy courses
 
+skill_router:
+  file: "openspec/skill-router.yaml"
+  strategy: "minimal-load"
+  limits:
+    max_concurrent_skills: 3
+    max_heavy_skills: 1
+    max_active_mcp_servers: 2
+  defaults:
+    orchestrator: "sdd-orchestrator"
+    memory: "engram"
+    docs: "context7"
+  enforcement:
+    - "Load only required skills per SDD phase"
+    - "Unload phase-specific skills after each phase completion"
+    - "Prefer canonical skill source: ~/.agents/skills/sdd-*"
+    - "Fallback to ~/.kilocode/skills and ~/.claude/skills only if canonical is unavailable"
+
 rules:
   proposal:
     - Include rollback plan for risky changes

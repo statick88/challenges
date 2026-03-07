@@ -1,0 +1,19 @@
+# GGA Config - cursos (Astro + TypeScript + Tailwind)
+
+# AI Provider
+PROVIDER="claude"
+
+# Files to review
+FILE_PATTERNS="*.ts,*.tsx,*.astro,*.js,*.jsx"
+
+# Files to exclude
+EXCLUDE_PATTERNS="*.test.ts,*.spec.ts,*.d.ts,dist/*,node_modules/*"
+
+# Rules file
+RULES_FILE="AGENTS.md"
+
+# Strict mode
+STRICT_MODE="true"
+
+# Timeout
+TIMEOUT="300"

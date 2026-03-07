@@ -1,0 +1,93 @@
+version: 1
+name: sdd-skill-router
+
+objective: >-
+  Optimize skill and MCP usage across all supported AI agents while preserving
+  full Spec-Driven Development workflow compatibility.
+
+canonical_sources:
+  primary: ~/.agents/skills
+  mirrors:
+    - ~/.kilocode/skills
+    - ~/.claude/skills
+
+resource_policy:
+  max_concurrent_skills: 3
+  max_heavy_skills: 1
+  max_active_mcp_servers: 2
+  skill_timeout_minutes: 25
+  unload_after_phase: true
+
+mcp_policy:
+  default:
+    - engram
+  optional:
+    - context7
+    - spec-coding
+  activation:
+    engram: "Always active for memory continuity"
+    context7: "Activate only for framework/library documentation lookups"
+    spec-coding: "Activate only for spec validation and SDD artifact checks"
+
+sdd_phase_routing:
+  sdd:init:
+    skills: [sdd-init]
+    mcp: [engram]
+  sdd:explore:
+    skills: [sdd-explore]
+    mcp: [engram, context7]
+  sdd:new:
+    skills: [sdd-propose]
+    mcp: [engram]
+  sdd:spec:
+    skills: [sdd-spec]
+    mcp: [engram, spec-coding]
+  sdd:design:
+    skills: [sdd-design]
+    mcp: [engram, context7]
+  sdd:tasks:
+    skills: [sdd-tasks]
+    mcp: [engram]
+  sdd:apply:
+    skills: [sdd-apply]
+    mcp: [engram]
+  sdd:verify:
+    skills: [sdd-verify]
+    mcp: [engram, spec-coding]
+  sdd:archive:
+    skills: [sdd-archive]
+    mcp: [engram]
+
+agent_overrides:
+  codex:
+    orchestrator_skill: ~/.codex/skills/kilo
+    policy: "Use canonical SDD skills from ~/.agents/skills/sdd-*"
+  claude:
+    orchestrator_skill: ~/.claude/AGENTS.md
+    policy: "Use ~/.claude/skills/sdd-* mirror if present"
+  kilocode:
+    orchestrator_skill: ~/.kilocode/custom_modes.yaml#sdd
+    policy: "Use ~/.kilocode/skills/sdd-* mirror if present"
+  opencode:
+    orchestrator_skill: ~/.codex/skills/opencode
+    policy: "Delegate SDD phases to canonical ~/.agents/skills/sdd-*"
+  amp:
+    orchestrator_skill: ~/.codex/skills/amp
+    policy: "Delegate SDD phases to canonical ~/.agents/skills/sdd-*"
+
+fast_path_profiles:
+  docs_only:
+    allowed_skills: [sdd-spec, sdd-design]
+    mcp: [engram]
+  implementation_only:
+    allowed_skills: [sdd-apply, sdd-verify]
+    mcp: [engram]
+  emergency_fix:
+    allowed_skills: [sdd-explore, sdd-apply, sdd-verify]
+    mcp: [engram]
+
+validation_checks:
+  - "Do not run /sdd:apply without tasks.md"
+  - "Do not run /sdd:archive without verify-report.md"
+  - "Fail if more than 3 skills are loaded concurrently"
+  - "Fail if heavy skill count exceeds policy"

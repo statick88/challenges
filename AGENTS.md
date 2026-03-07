@@ -71,7 +71,7 @@ technical-challenges/
 
 Según el **Gentleman Programming Book**, el desarrollo de software con IA requiere un enfoque sistemático donde la especificación precede a la implementación. Este enfoque garantiza que:
 
-1. **La IA nunca假设 (Assumes)** - Siempre trabaja con specs documentadas
+1. **La IA nunca asume** - Siempre trabaja con specs documentadas
 2. **El cambio es trazable** - Cada modificación pasa por un proceso formal
 3. **El conocimiento persiste** - Las decisiones se guardan en memoria para referencia futura
 4. **La verificación es automática** - La implementación se valida contra specs antes de archivar
@@ -236,17 +236,54 @@ Al terminar cada sesión, el agente debe llamar a `mem_session_summary`:
 
 ### **Skills SDD Disponibles**
 
-| Skill | Ubicación | Propósito |
-|-------|----------|-----------|
-| `sdd-init` | `~/.claude/skills/sdd-init/` | Bootstrap de openspec/ |
-| `sdd-propose` | `~/.claude/skills/sdd-propose/` | Crear propuesta de cambio |
-| `sdd-spec` | `~/.claude/skills/sdd-spec/` | Escribir especificaciones |
-| `sdd-explore` | `~/.claude/skills/sdd-explore/` | Investigar código existente |
-| `sdd-design` | `~/.claude/skills/sdd-design/` | Diseño técnico |
-| `sdd-tasks` | `~/.claude/skills/sdd-tasks/` | Desglose de tareas |
-| `sdd-apply` | `~/.claude/skills/sdd-apply/` | Implementar tareas |
-| `sdd-verify` | `~/.claude/skills/sdd-verify/` | Validar vs specs |
-| `sdd-archive` | `~/.claude/skills/sdd-archive/` | Archivar cambio |
+| Skill Canonical | Fuente primaria | Espejos compatibles | Propósito |
+|-------|----------|-----------|-----------|
+| `sdd-init` | `~/.agents/skills/sdd-init/` | `~/.kilocode/skills/sdd-init/`, `~/.claude/skills/sdd-init/` | Bootstrap de openspec/ |
+| `sdd-explore` | `~/.agents/skills/sdd-explore/` | `~/.kilocode/skills/sdd-explore/`, `~/.claude/skills/sdd-explore/` | Investigar código existente |
+| `sdd-propose` | `~/.agents/skills/sdd-propose/` | `~/.kilocode/skills/sdd-propose/`, `~/.claude/skills/sdd-propose/` | Crear propuesta de cambio |
+| `sdd-spec` | `~/.agents/skills/sdd-spec/` | `~/.kilocode/skills/sdd-spec/`, `~/.claude/skills/sdd-spec/` | Escribir especificaciones |
+| `sdd-design` | `~/.agents/skills/sdd-design/` | `~/.kilocode/skills/sdd-design/`, `~/.claude/skills/sdd-design/` | Diseño técnico |
+| `sdd-tasks` | `~/.agents/skills/sdd-tasks/` | `~/.kilocode/skills/sdd-tasks/`, `~/.claude/skills/sdd-tasks/` | Desglose de tareas |
+| `sdd-apply` | `~/.agents/skills/sdd-apply/` | `~/.kilocode/skills/sdd-apply/`, `~/.claude/skills/sdd-apply/` | Implementar tareas |
+| `sdd-verify` | `~/.agents/skills/sdd-verify/` | `~/.kilocode/skills/sdd-verify/`, `~/.claude/skills/sdd-verify/` | Validar vs specs |
+| `sdd-archive` | `~/.agents/skills/sdd-archive/` | `~/.kilocode/skills/sdd-archive/`, `~/.claude/skills/sdd-archive/` | Archivar cambio |
+
+---
+
+### **Matriz SDD Multi-Agente (gentle-ai + openspec)**
+
+`gentle-ai` estandariza el workflow SDD para que el mismo proceso funcione con cualquier agente de codificación.
+
+| Agente IA | Entrada principal | Skills/Config recomendada | Resultado |
+|-----------|-------------------|---------------------------|-----------|
+| **Codex** | `AGENTS.md` + `openspec/` | `~/.agents/skills/sdd-*` y/o `~/.codex/skills/*` | Mismo flujo SDD completo |
+| **Claude Code** | `~/.claude/AGENTS.md` + `openspec/` | `~/.claude/skills/sdd-*` (sync con `~/.agents/skills`) | Mismo flujo SDD completo |
+| **Kilo Code** | `~/.kilocode/custom_modes.yaml` + `openspec/` | `~/.kilocode/skills/sdd-*` | Mismo flujo SDD completo |
+| **OpenCode** | Config de OpenCode + `openspec/` | `~/.codex/skills/opencode` + `~/.agents/skills/sdd-*` | Mismo flujo SDD completo |
+| **Amp** | Config de Amp + `openspec/` | `~/.codex/skills/amp` + `~/.agents/skills/sdd-*` | Mismo flujo SDD completo |
+
+#### **Reglas de Organización Unificadas**
+
+1. **Un solo estándar de specs**: todas las decisiones viven en `openspec/` (fuente de verdad).
+2. **Un solo set canonical de skills SDD**: mantener `~/.agents/skills/sdd-*` como base y sincronizar espejos.
+3. **Mismos comandos en todos los agentes**: `/sdd:init`, `/sdd:new`, `/sdd:spec`, `/sdd:design`, `/sdd:tasks`, `/sdd:apply`, `/sdd:verify`, `/sdd:archive`.
+4. **Memoria persistente transversal**: usar Engram MCP para decisiones, bugs, patrones y preferencias.
+5. **Verificación obligatoria**: no archivar cambios sin `sdd-verify`.
+
+#### **Resource-Aware Skill Loading (Refactor 2026)**
+
+Para optimizar recursos (tokens, latencia y contexto), el enrutamiento de skills queda centralizado en:
+
+- `openspec/skill-router.yaml`
+- `openspec/config.yaml` (`skill_router.strategy: minimal-load`)
+
+Política mínima obligatoria:
+
+1. Cargar máximo `3` skills concurrentes.
+2. Activar máximo `2` MCP servers simultáneamente.
+3. Mantener `engram` como memoria base y activar `context7/spec-coding` solo por fase.
+4. Descargar skills de fase al completar cada comando SDD.
+5. Bloquear `/sdd:apply` sin `tasks.md` y `/sdd:archive` sin `verify-report.md`.
 
 ---
 
@@ -349,7 +386,7 @@ engram search "tailscale"
 
 > 📚 **Basado en**: Gentleman Programming Book - Best Practices
 
-1. **Nuncaarchivar sin verificar** - Siempre ejecutar `sdd-verify` antes de archivar
+1. **Nunca archivar sin verificar** - Siempre ejecutar `sdd-verify` antes de archivar
 2. **Mantener specs sincronizadas** - Los cambios deben reflejarse en specs principales
 3. **Documentar el estado real** - Las tasks deben reflejar el estado actual de implementación
 4. **Usar memoria proactivamente** - Buscar decisiones previas antes de asumir
@@ -359,12 +396,16 @@ engram search "tailscale"
 
 ### **Referencias**
 
-- **Gentleman Programming Book**: "Cómo ser TONY STARK con IA: Agentes, Subagentes, Memoria y Skills"
-- **Video Original**: https://youtu.be/SOxuW5K2FFY
+- **Gentleman Programming Book**: https://the-amazing-gentleman-programming-book.vercel.app/en
+- **OpenSpec**: https://openspec.dev/
+- **gentle-ai**: https://github.com/Gentleman-Programming/gentle-ai
+- **Video**: https://www.youtube.com/watch?v=c5Gwx0RcxNE
 - **Engram**: https://github.com/Gentleman-Programming/engram
 - **MCP Spec**: https://modelcontextprotocol.io
-- **Skills SDD**: `~/.claude/skills/sdd-*/`
-- **Configuración Local**: `~/.config/opencode/GENTLEMAN_FLOW_SETUP.md`
+- **Skills SDD (canonical)**: `~/.agents/skills/sdd-*/`
+- **Espejos de skills**: `~/.kilocode/skills/sdd-*/`, `~/.claude/skills/sdd-*/`
+- **Configuración Local Kilo**: `~/.kilocode/kilocode.json`, `~/.kilocode/custom_modes.yaml`
+- **Router SDD del proyecto**: `openspec/skill-router.yaml`
 
 ---
 
