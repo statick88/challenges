@@ -22,5 +22,5 @@ Hemos completado con éxito los 15 retos del track ProtAAPP, abarcando desde est
 
 ---
 **Alumno**: Diego Medardo Saavedra García  
-**Institución**: Universidad Complutense de Madrid  
+**Institución**: Máster de Ciberseguridad  
 **Año**: 2026
