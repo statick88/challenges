@@ -1,23 +1,130 @@
-<!DOCTYPE html><html><head><meta charset='UTF-8'><title>Linux Challenges</title></head><body><h1>🐧 Linux Challenges</h1><ul>
-<li><a href='retos/01-creacion-usuarios/README.md'>01-creacion-usuarios</a></li>
-<li><a href='retos/02-gestion-grupos-xfusioncorp/README.md'>02-gestion-grupos-xfusioncorp</a></li>
-<li><a href='retos/03-usuario-no-interactivo-xfusioncorp/README.md'>03-usuario-no-interactivo-xfusioncorp</a></li>
-<li><a href='retos/04-usuario-sin-home/README.md'>04-usuario-sin-home</a></li>
-<li><a href='retos/05-usuario-temporal/README.md'>05-usuario-temporal</a></li>
-<li><a href='retos/06-creacion-anita-temporal/README.md'>06-creacion-anita-temporal</a></li>
-<li><a href='retos/07-transferencia-datos/README.md'>07-transferencia-datos</a></li>
-<li><a href='retos/08-ssh-root-seguro/README.md'>08-ssh-root-seguro</a></li>
-<li><a href='retos/09-backup-desarrollador/README.md'>09-backup-desarrollador</a></li>
-<li><a href='retos/10-permisos-scripts/README.md'>10-permisos-scripts</a></li>
-<li><a href='retos/11-correccion-permisos/README.md'>11-correccion-permisos</a></li>
-<li><a href='retos/12-reemplazo-cadenas/README.md'>12-reemplazo-cadenas</a></li>
-<li><a href='retos/13-transferencia-segura/README.md'>13-transferencia-segura</a></li>
-<li><a href='retos/14-restriccion-cron/README.md'>14-restriccion-cron</a></li>
-<li><a href='retos/15-config-gui-default/README.md'>15-config-gui-default</a></li>
-<li><a href='retos/16-configuracion-timezone/README.md'>16-configuracion-timezone</a></li>
-<li><a href='retos/17-configuracion-firewall/README.md'>17-configuracion-firewall</a></li>
-<li><a href='retos/18-ajuste-limites-procesos/README.md'>18-ajuste-limites-procesos</a></li>
-<li><a href='retos/19-instalacion-selinux/README.md'>19-instalacion-selinux</a></li>
-<li><a href='retos/20-filtrado-archivos-usuario/README.md'>20-filtrado-archivos-usuario</a></li>
-<li><a href='retos/21-disable-root-ssh-login/README.md'>21-disable-root-ssh-login</a></li>
-</ul><p><a href='../'>Volver</a></p></body></html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🐧 Linux Challenges - Diego Saavedra</title>
+    <style>
+        :root { --primary: #002b7f; --secondary: #005b96; --bg: #f8fafc; --text: #1e293b; }
+        body { font-family: 'Inter', -apple-system, sans-serif; line-height: 1.6; color: var(--text); background: var(--bg); max-width: 900px; margin: 0 auto; padding: 2rem; }
+        h1 { color: var(--primary); border-bottom: 3px solid var(--secondary); padding-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+        .card { background: white; border: 1px solid #e2e8f0; padding: 1.5rem; border-radius: 12px; text-decoration: none; color: inherit; transition: all 0.2s; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .card:hover { transform: translateY(-4px); border-color: var(--secondary); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
+        .card h3 { margin: 0; font-size: 1.1rem; color: var(--primary); }
+        .card p { margin: 0.5rem 0 0; font-size: 0.9rem; color: #64748b; }
+        .badge { font-size: 0.75rem; background: #e0e7ff; color: var(--primary); padding: 0.2rem 0.6rem; border-radius: 9999px; margin-top: 1rem; display: inline-block; font-weight: 600; }
+        .back { display: inline-flex; align-items: center; margin-top: 3rem; color: #64748b; text-decoration: none; font-weight: 500; }
+        .back:hover { color: var(--primary); }
+    </style>
+</head>
+<body>
+    <h1>🐧 Linux Challenges</h1>
+    <div class="grid">
+        <a href="retos/01-creacion-usuarios/README.md" class="card">
+            <h3>01 Creacion Usuarios</h3>
+            <span class="badge">LINUX</span>
+        </a>
+
+        <a href="retos/02-gestion-grupos-xfusioncorp/README.md" class="card">
+            <h3>02 Gestion Grupos Xfusioncorp</h3>
+            <span class="badge">LINUX</span>
+        </a>
+
+        <a href="retos/03-usuario-no-interactivo-xfusioncorp/README.md" class="card">
+            <h3>03 Usuario No Interactivo Xfusioncorp</h3>
+            <span class="badge">LINUX</span>
+        </a>
+
+        <a href="retos/04-usuario-sin-home/README.md" class="card">
+            <h3>04 Usuario Sin Home</h3>
+            <span class="badge">LINUX</span>
+        </a>
+
+        <a href="retos/05-usuario-temporal/README.md" class="card">
+            <h3>05 Usuario Temporal</h3>
+            <span class="badge">LINUX</span>
+        </a>
+
+        <a href="retos/06-creacion-anita-temporal/README.md" class="card">
+            <h3>06 Creacion Anita Temporal</h3>
+            <span class="badge">LINUX</span>
+        </a>
+
+        <a href="retos/07-transferencia-datos/README.md" class="card">
+            <h3>07 Transferencia Datos</h3>
+            <span class="badge">LINUX</span>
+        </a>
+
+        <a href="retos/08-ssh-root-seguro/README.md" class="card">
+            <h3>08 Ssh Root Seguro</h3>
+            <span class="badge">LINUX</span>
+        </a>
+
+        <a href="retos/09-backup-desarrollador/README.md" class="card">
+            <h3>09 Backup Desarrollador</h3>
+            <span class="badge">LINUX</span>
+        </a>
+
+        <a href="retos/10-permisos-scripts/README.md" class="card">
+            <h3>10 Permisos Scripts</h3>
+            <span class="badge">LINUX</span>
+        </a>
+
+        <a href="retos/11-correccion-permisos/README.md" class="card">
+            <h3>11 Correccion Permisos</h3>
+            <span class="badge">LINUX</span>
+        </a>
+
+        <a href="retos/12-reemplazo-cadenas/README.md" class="card">
+            <h3>12 Reemplazo Cadenas</h3>
+            <span class="badge">LINUX</span>
+        </a>
+
+        <a href="retos/13-transferencia-segura/README.md" class="card">
+            <h3>13 Transferencia Segura</h3>
+            <span class="badge">LINUX</span>
+        </a>
+
+        <a href="retos/14-restriccion-cron/README.md" class="card">
+            <h3>14 Restriccion Cron</h3>
+            <span class="badge">LINUX</span>
+        </a>
+
+        <a href="retos/15-config-gui-default/README.md" class="card">
+            <h3>15 Config Gui Default</h3>
+            <span class="badge">LINUX</span>
+        </a>
+
+        <a href="retos/16-configuracion-timezone/README.md" class="card">
+            <h3>16 Configuracion Timezone</h3>
+            <span class="badge">LINUX</span>
+        </a>
+
+        <a href="retos/17-configuracion-firewall/README.md" class="card">
+            <h3>17 Configuracion Firewall</h3>
+            <span class="badge">LINUX</span>
+        </a>
+
+        <a href="retos/18-ajuste-limites-procesos/README.md" class="card">
+            <h3>18 Ajuste Limites Procesos</h3>
+            <span class="badge">LINUX</span>
+        </a>
+
+        <a href="retos/19-instalacion-selinux/README.md" class="card">
+            <h3>19 Instalacion Selinux</h3>
+            <span class="badge">LINUX</span>
+        </a>
+
+        <a href="retos/20-filtrado-archivos-usuario/README.md" class="card">
+            <h3>20 Filtrado Archivos Usuario</h3>
+            <span class="badge">LINUX</span>
+        </a>
+
+        <a href="retos/21-disable-root-ssh-login/README.md" class="card">
+            <h3>21 Disable Root Ssh Login</h3>
+            <span class="badge">LINUX</span>
+        </a></div>
+    <a href="../" class="back">← Volver al inicio</a>
+</body>
+</html>

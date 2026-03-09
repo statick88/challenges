@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Challenger - Diego Saavedra</title>
+    <style>
+        :root {{ --primary: #002b7f; --secondary: #005b96; --bg: #f8fafc; --text: #1e293b; }}
+        body {{ font-family: 'Inter', -apple-system, sans-serif; line-height: 1.6; color: var(--text); background: var(--bg); max-width: 1000px; margin: 0 auto; padding: 3rem 2rem; }}
+        header {{ text-align: center; margin-bottom: 4rem; }}
+        h1 {{ color: var(--primary); font-size: 2.5rem; margin-bottom: 0.5rem; }}
+        p.subtitle {{ color: #64748b; font-size: 1.1rem; }}
+        .grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }}
+        .card {{ background: white; border: 1px solid #e2e8f0; padding: 2rem; border-radius: 16px; text-decoration: none; color: inherit; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); display: flex; flex-direction: column; }}
+        .card:hover {{ transform: translateY(-8px); border-color: var(--secondary); box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); }}
+        .icon {{ font-size: 2.5rem; margin-bottom: 1rem; }}
+        .card h2 {{ margin: 0; font-size: 1.5rem; color: var(--primary); }}
+        .card p {{ margin: 1rem 0; color: #64748b; flex-grow: 1; }}
+        .stats {{ font-size: 0.85rem; font-weight: 600; color: var(--secondary); border-top: 1px solid #f1f5f9; padding-top: 1rem; }}
+        footer {{ margin-top: 5rem; text-align: center; color: #94a3b8; font-size: 0.9rem; border-top: 1px solid #e2e8f0; padding-top: 2rem; }}
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🚩 Challenger</h1>
+        <p class="subtitle">Repositorio de desafíos técnicos y aprendizaje continuo en Ciberseguridad.</p>
+    </header>
+
+    <div class="grid">
+        <a href="ctf/rootedcon2026/index.html" class="card">
+            <div class="icon">🏁</div>
+            <h2>RootedCON 2026</h2>
+            <p>Resolución integral del track ProtAAPP. Análisis de capas Docker, ingeniería inversa y esteganografía.</p>
+            <div class="stats">15 / 15 Retos Superados</div>
+        </a>
+        <a href="linux/index.html" class="card">
+            <div class="icon">🐧</div>
+            <h2>Linux Admin</h2>
+            <p>Desafíos de administración de servidores, gestión de usuarios y endurecimiento de sistemas (Hardening).</p>
+            <div class="stats">7 / 18 Retos Completados</div>
+        </a>
+        <a href="docker/index.html" class="card">
+            <div class="icon">🐳</div>
+            <h2>Docker & K8s</h2>
+            <p>Contenerización de aplicaciones, orquestación y despliegue de infraestructura moderna.</p>
+            <div class="stats">5 / 5 Retos Completados</div>
+        </a>
+        <a href="htb/index.html" class="card">
+            <div class="icon">🎯</div>
+            <h2>Hack The Box</h2>
+            <p>Writeups y bitácora de resolución de máquinas en entornos de red reales.</p>
+            <div class="stats">En progresión</div>
+        </a>
+        <a href="devops/index.html" class="card">
+            <div class="icon">♾️</div>
+            <h2>DevOps Journey</h2>
+            <p>Automatización, CI/CD y cultura de operaciones de IT.</p>
+            <div class="stats">10 Days Streak</div>
+        </a>
+        <a href="picoctf/index.html" class="card">
+            <div class="icon">🚩</div>
+            <h2>PicoCTF</h2>
+            <p>Fundamentos de seguridad ofensiva y retos de entrenamiento.</p>
+            <div class="stats">Learning Path</div>
+        </a>
+    </div>
+
+    <footer>
+        Diego Medardo Saavedra García | Máster en Ciberseguridad
+    </footer>
+</body>
+</html>
